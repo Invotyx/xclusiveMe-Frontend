@@ -4,17 +4,28 @@ import Image from 'next/image';
 import NextLink from 'next/link';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
+import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Box from '@material-ui/core/Box';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Badge from '@material-ui/core/Badge';
-import SettingsIcon from '@material-ui/icons/Settings';
-import SmsIcon from '@material-ui/icons/Sms';
+import SettingsIcon from '@material-ui/icons/SettingsOutlined';
+import SmsIcon from '@material-ui/icons/SmsOutlined';
 import SearchIcon from '@material-ui/icons/Search';
 import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
+import MonetizationOnOutlinedIcon from '@material-ui/icons/MonetizationOnOutlined';
+import BookmarkBorderOutlinedIcon from '@material-ui/icons/BookmarkBorderOutlined';
+import FeaturedPlayListOutlinedIcon from '@material-ui/icons/FeaturedPlayListOutlined';
+import CreditCardOutlinedIcon from '@material-ui/icons/CreditCardOutlined';
+import AccountBalanceOutlinedIcon from '@material-ui/icons/AccountBalanceOutlined';
+import HelpOutlineOutlinedIcon from '@material-ui/icons/HelpOutlineOutlined';
+import HighlightOutlinedIcon from '@material-ui/icons/HighlightOutlined';
+import LanguageOutlinedIcon from '@material-ui/icons/LanguageOutlined';
+import ExitToAppOutlinedIcon from '@material-ui/icons/ExitToAppOutlined';
 
 export default function Comp() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -106,9 +117,72 @@ export default function Comp() {
                 horizontal: 'right',
               }}
             >
-              <MenuItem onClick={settingsMenuClose}>Profile</MenuItem>
-              <MenuItem onClick={settingsMenuClose}>My account</MenuItem>
-              <MenuItem onClick={settingsMenuClose}>Logout</MenuItem>
+              <MenuItem onClick={settingsMenuClose}>
+                <ListItemIcon>
+                  <SettingsIcon />
+                </ListItemIcon>
+                Settings
+              </MenuItem>
+              <Divider />
+              <MenuItem onClick={settingsMenuClose}>
+                <ListItemIcon>
+                  <MonetizationOnOutlinedIcon />
+                </ListItemIcon>
+                Earnings
+              </MenuItem>
+              <MenuItem onClick={settingsMenuClose}>
+                <ListItemIcon>
+                  <BookmarkBorderOutlinedIcon />
+                </ListItemIcon>
+                Bookmarks
+              </MenuItem>
+              <MenuItem onClick={settingsMenuClose}>
+                <ListItemIcon>
+                  <FeaturedPlayListOutlinedIcon />
+                </ListItemIcon>
+                Follow list
+              </MenuItem>
+              <Divider />
+              <MenuItem onClick={settingsMenuClose}>
+                <ListItemIcon>
+                  <CreditCardOutlinedIcon />
+                </ListItemIcon>
+                Card
+              </MenuItem>
+              <MenuItem onClick={settingsMenuClose}>
+                <ListItemIcon>
+                  <AccountBalanceOutlinedIcon />
+                </ListItemIcon>
+                Bank
+              </MenuItem>
+              <Divider />
+              <MenuItem onClick={settingsMenuClose}>
+                <ListItemIcon>
+                  <HelpOutlineOutlinedIcon />
+                </ListItemIcon>
+                Help & Support
+              </MenuItem>
+              <MenuItem onClick={settingsMenuClose}>
+                <ListItemIcon>
+                  <HighlightOutlinedIcon />
+                </ListItemIcon>
+                Light mode
+              </MenuItem>
+              <MenuItem onClick={settingsMenuClose}>
+                <ListItemIcon>
+                  <LanguageOutlinedIcon />
+                </ListItemIcon>
+                English
+              </MenuItem>
+              <Divider />
+              <NextLink href='/login'>
+                <MenuItem onClick={settingsMenuClose}>
+                  <ListItemIcon>
+                    <ExitToAppOutlinedIcon />
+                  </ListItemIcon>
+                  Logout
+                </MenuItem>
+              </NextLink>
             </Menu>
           </Box>
         </Box>
