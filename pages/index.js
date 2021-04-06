@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import HomeLegend from './components/home-legend';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
@@ -41,6 +42,9 @@ export default function Home() {
             </Box>
           </Box>
         </Box>
+      </Grid>
+      <Grid item xs={12} sm={4} md={7}>
+        <HomeLegend />
       </Grid>
     </>
   );
