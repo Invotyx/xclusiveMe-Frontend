@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
 
 const sidebarNavItems = [
   { url: '#', text: 'Edit Profile' },
-  { url: '#', text: 'Account' },
+  { url: '/settings/account', text: 'Account' },
   { url: '#', text: 'Privacy' },
   { url: '#', text: 'Subscriptions' },
   { url: '#', text: 'Notifications' },
