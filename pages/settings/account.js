@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import React from 'react';
 import Head from 'next/head';
 import NextLink from 'next/link';
@@ -23,7 +24,9 @@ const sidebarNavItems = [
   { url: '#', text: 'Notifications' },
 ];
 
-export default function Home() {
+export default function Home(props) {
+  const { asPath } = useRouter();
+
   const classes = useStyles();
   return (
     <Container maxWidth='md'>
@@ -45,7 +48,7 @@ export default function Home() {
           <List>
             {sidebarNavItems.map((i, j) => (
               <NextLink href={i.url} key={j}>
-                <ListItem>
+                <ListItem selected={i.url === asPath}>
                   <ListItemText primary={i.text} />
                 </ListItem>
               </NextLink>
