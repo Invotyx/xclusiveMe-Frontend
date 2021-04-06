@@ -34,24 +34,21 @@ export default function Comp() {
           <Box ml={3}>
             <NextLink href='#'>
               <Link variant='body2'>
-                {' '}
-                <a>How it works</a>{' '}
+                <a>How it works</a>
               </Link>
             </NextLink>
           </Box>
           <Box ml={3}>
             <NextLink href='#'>
               <Link variant='body2'>
-                {' '}
-                <a>Support</a>{' '}
+                <a>Support</a>
               </Link>
             </NextLink>
           </Box>
           <Box ml={3}>
             <NextLink href='/login'>
               <Link variant='body2'>
-                {' '}
-                <a>Logout</a>{' '}
+                <a>Logout</a>
               </Link>
             </NextLink>
           </Box>
