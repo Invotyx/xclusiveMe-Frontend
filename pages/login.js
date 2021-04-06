@@ -11,9 +11,6 @@ import TileButton from './components/TileButton';
 import TileTextField from './components/TileTextField';
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    height: '100vh',
-  },
   grey: {
     color: '#666',
   },
