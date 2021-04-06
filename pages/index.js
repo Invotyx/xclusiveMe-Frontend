@@ -21,7 +21,7 @@ export default function Home() {
           href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap'
         />
       </Head>
-      <Grid container component='main' className={classes.root}>
+      <Grid container component='main'>
         <Grid item xs={12}>
           <LogoGuest />
         </Grid>
