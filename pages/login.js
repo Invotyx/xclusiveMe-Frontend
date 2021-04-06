@@ -10,6 +10,7 @@ import HomeLegend from './components/home-legend';
 import TileButton from './components/TileButton';
 import TileTextField from './components/TileTextField';
 import LogoGuest from './components/logo-guest';
+import Container from '@material-ui/core/Container';
 
 const useStyles = makeStyles((theme) => ({
   grey: {
@@ -27,7 +28,7 @@ export default function SignInSide() {
   const classes = useStyles();
 
   return (
-    <>
+    <Container>
       <Head>
         <title>Login</title>
         <meta
@@ -125,6 +126,6 @@ export default function SignInSide() {
           <HomeLegend />
         </Grid>
       </Grid>
-    </>
+    </Container>
   );
 }
