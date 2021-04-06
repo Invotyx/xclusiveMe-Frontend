@@ -116,6 +116,7 @@ export default function SignInSide() {
                 fullWidth
                 variant='contained'
                 color='primary'
+                href='/dashboard'
               >
                 Login
               </TileButton>
