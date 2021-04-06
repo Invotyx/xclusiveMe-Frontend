@@ -67,7 +67,9 @@ export default function Comp() {
       </Toolbar>
       <Toolbar>
         <Box flexGrow={1}>
-          <Image width={50} height={50} src='/logo.png' alt='Logo' />
+          <NextLink href='/dashboard'>
+            <Image width={50} height={50} src='/logo.png' alt='Logo' />
+          </NextLink>
         </Box>
         <Box flexGrow={1}>
           <Box display='flex'>
