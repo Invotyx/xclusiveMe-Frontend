@@ -117,12 +117,14 @@ export default function Comp() {
                 horizontal: 'right',
               }}
             >
-              <MenuItem onClick={settingsMenuClose}>
-                <ListItemIcon>
-                  <SettingsIcon />
-                </ListItemIcon>
-                Settings
-              </MenuItem>
+              <NextLink href='/settings/account'>
+                <MenuItem onClick={settingsMenuClose}>
+                  <ListItemIcon>
+                    <SettingsIcon />
+                  </ListItemIcon>
+                  Settings
+                </MenuItem>
+              </NextLink>
               <Divider />
               <MenuItem onClick={settingsMenuClose}>
                 <ListItemIcon>
