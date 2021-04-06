@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import NextLink from 'next/link';
 import Link from '@material-ui/core/Link';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
@@ -103,9 +104,11 @@ export default function SignInSide() {
                   </Grid>
                   <Grid item>
                     <Box mb={2} mt={1}>
-                      <Link href='#' variant='body2' className={classes.grey}>
-                        <a>Forgot your password?</a>
-                      </Link>
+                      <NextLink href='/dashboard'>
+                        <Link variant='body2' className={classes.grey}>
+                          <a>Forgot your password?</a>
+                        </Link>
+                      </NextLink>
                     </Box>
                   </Grid>
                 </Grid>
