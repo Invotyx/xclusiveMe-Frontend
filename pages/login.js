@@ -114,15 +114,16 @@ export default function SignInSide() {
                 </Grid>
               </Box>
 
-              <TileButton
-                type='submit'
-                fullWidth
-                variant='contained'
-                color='primary'
-                href='/dashboard'
-              >
-                Login
-              </TileButton>
+              <NextLink href='/dashboard'>
+                <TileButton
+                  type='submit'
+                  fullWidth
+                  variant='contained'
+                  color='primary'
+                >
+                  Login
+                </TileButton>
+              </NextLink>
             </form>
           </Box>
         </Grid>

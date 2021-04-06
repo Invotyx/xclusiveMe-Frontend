@@ -1,3 +1,4 @@
+import NextLink from 'next/link';
 import Head from 'next/head';
 import HomeLegend from './components/home-legend';
 import Grid from '@material-ui/core/Grid';
@@ -37,14 +38,14 @@ export default function Home() {
             </Box>
             <Box mr={2} mt={2} display='flex'>
               <Box mr={2}>
-                <Button variant='outlined' href='/login'>
-                  Login
-                </Button>
+                <NextLink href='/login'>
+                  <Button variant='outlined'>Login</Button>
+                </NextLink>
               </Box>
               <Box mr={2}>
-                <Button variant='outlined' href='/login'>
-                  Create Account
-                </Button>
+                <NextLink href='/login'>
+                  <Button variant='outlined'>Create Account</Button>
+                </NextLink>
               </Box>
             </Box>
           </Box>
