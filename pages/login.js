@@ -9,6 +9,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import HomeLegend from './components/home-legend';
 import TileButton from './components/TileButton';
 import TileTextField from './components/TileTextField';
+import LogoGuest from './components/logo-guest';
 
 const useStyles = makeStyles((theme) => ({
   grey: {
@@ -39,85 +40,90 @@ export default function SignInSide() {
           href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap'
         />
       </Head>
-      <Grid item xs={12} sm={8} md={5}>
-        <Box p={8} mx={4}>
-          <Box mt={8} mb={4} ml={2}>
-            <Typography component='h1' variant='h5'>
-              <small
-                className={`${classes.grey} ${classes.marginRight} ${classes.uppercase}`}
-              >
-                Sign in
-              </small>{' '}
-              <small className={`${classes.grey} ${classes.marginRight}`}>
-                |
-              </small>{' '}
-              LOGIN
-            </Typography>
-          </Box>
-          <form noValidate>
-            <TileTextField
-              variant='outlined'
-              margin='normal'
-              required
-              fullWidth
-              id='email'
-              label='Email Address'
-              name='email'
-              autoComplete='email'
-              autoFocus
-            />
-            <TileTextField
-              variant='outlined'
-              margin='normal'
-              required
-              fullWidth
-              name='password'
-              label='Password'
-              type='password'
-              id='password'
-              autoComplete='current-password'
-            />
-            <Box my={2}>
-              <Grid container>
-                <Grid item xs>
-                  <Box mb={2}>
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          value='remember'
-                          color='primary'
-                          size='small'
-                        />
-                      }
-                      label='Remember me'
-                      size='small'
-                      className={classes.grey}
-                    />
-                  </Box>
-                </Grid>
-                <Grid item>
-                  <Box mb={2} mt={1}>
-                    <Link href='#' variant='body2' className={classes.grey}>
-                      Forgot your password?
-                    </Link>
-                  </Box>
-                </Grid>
-              </Grid>
+      <Grid container component='main' className={classes.root}>
+        <Grid item xs={12}>
+          <LogoGuest />
+        </Grid>
+        <Grid item xs={12} sm={8} md={5}>
+          <Box p={8} mx={4}>
+            <Box mt={8} mb={4} ml={2}>
+              <Typography component='h1' variant='h5'>
+                <small
+                  className={`${classes.grey} ${classes.marginRight} ${classes.uppercase}`}
+                >
+                  Sign in
+                </small>{' '}
+                <small className={`${classes.grey} ${classes.marginRight}`}>
+                  |
+                </small>{' '}
+                LOGIN
+              </Typography>
             </Box>
+            <form noValidate>
+              <TileTextField
+                variant='outlined'
+                margin='normal'
+                required
+                fullWidth
+                id='email'
+                label='Email Address'
+                name='email'
+                autoComplete='email'
+                autoFocus
+              />
+              <TileTextField
+                variant='outlined'
+                margin='normal'
+                required
+                fullWidth
+                name='password'
+                label='Password'
+                type='password'
+                id='password'
+                autoComplete='current-password'
+              />
+              <Box my={2}>
+                <Grid container>
+                  <Grid item xs>
+                    <Box mb={2}>
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            value='remember'
+                            color='primary'
+                            size='small'
+                          />
+                        }
+                        label='Remember me'
+                        size='small'
+                        className={classes.grey}
+                      />
+                    </Box>
+                  </Grid>
+                  <Grid item>
+                    <Box mb={2} mt={1}>
+                      <Link href='#' variant='body2' className={classes.grey}>
+                        Forgot your password?
+                      </Link>
+                    </Box>
+                  </Grid>
+                </Grid>
+              </Box>
 
-            <TileButton
-              type='submit'
-              fullWidth
-              variant='contained'
-              color='primary'
-            >
-              Login
-            </TileButton>
-          </form>
-        </Box>
-      </Grid>
-      <Grid item xs={12} sm={4} md={7}>
-        <HomeLegend />
+              <TileButton
+                type='submit'
+                fullWidth
+                variant='contained'
+                color='primary'
+              >
+                Login
+              </TileButton>
+            </form>
+          </Box>
+        </Grid>
+        <Grid item xs={12} sm={4} md={7}>
+          <HomeLegend />
+        </Grid>
       </Grid>
     </>
   );
