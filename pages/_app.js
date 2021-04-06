@@ -1,3 +1,4 @@
+import React from 'react';
 import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { darkTheme } from '../theme';
@@ -11,6 +12,13 @@ const useStyles = makeStyles((theme) => ({
 
 function MyApp({ Component, pageProps }) {
   const classes = useStyles();
+
+  React.useEffect(() => {
+    const jssStyles = document.querySelector('#jss-server-side');
+    if (jssStyles) {
+      jssStyles.parentElement.removeChild(jssStyles);
+    }
+  }, []);
 
   return (
     <>
