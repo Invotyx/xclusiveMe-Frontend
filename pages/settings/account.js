@@ -97,7 +97,7 @@ export default function Home(props) {
         />
       </Head>
       <LogoAuth />
-      <Grid container spacing={2} className={classes.root}>
+      <Grid container spacing={6} className={classes.root}>
         <Grid item xs={12} md={4}>
           <List>
             {sidebarNavItems.map((i, j) => (
