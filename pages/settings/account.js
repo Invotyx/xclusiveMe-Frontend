@@ -157,8 +157,8 @@ export default function Home(props) {
               <UppercaseInputLabel>Two Step Authentication</UppercaseInputLabel>
               <List>
                 {loginSessions.map((i, j) => (
-                  <>
-                    <ListItem selected={true} key={`loginSessions${j}`}>
+                  <React.Fragment key={`loginSessions${j}`}>
+                    <ListItem selected={true}>
                       <ListItemText
                         primary={i.userAgent}
                         secondary={`${i.ip} • ${i.country}`}
@@ -167,8 +167,8 @@ export default function Home(props) {
                         {i.time}
                       </ListItemSecondaryAction>
                     </ListItem>
-                    <Divider key={`loginSessionsDivider${j}`} />
-                  </>
+                    <Divider />
+                  </React.Fragment>
                 ))}
               </List>
               <Button variant='outlined'>Log out all sessions</Button>
