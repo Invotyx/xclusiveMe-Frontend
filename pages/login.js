@@ -37,7 +37,6 @@ export default function SignInSide() {
   const handleSubmit = (event) => {
     event.preventDefault();
     axios.post('auth/login', { username: email, password }).then((data) => {
-      console.log(data);
       localStorage.setItem('jwtToken', data.accessToken);
       router.push('/explore');
     });
