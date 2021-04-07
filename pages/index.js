@@ -43,7 +43,7 @@ export default function Home() {
                 </NextLink>
               </Box>
               <Box mr={2}>
-                <NextLink href='/login'>
+                <NextLink href='/register'>
                   <Button variant='outlined'>Create Account</Button>
                 </NextLink>
               </Box>
