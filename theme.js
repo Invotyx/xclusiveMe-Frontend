@@ -19,6 +19,13 @@ const darkTheme = createMuiTheme({
       contrastText: '#fff',
     },
   },
+  overrides: {
+    MuiPaper: {
+      root: {
+        backgroundColor: '#111',
+      },
+    },
+  },
 });
 
 export { darkTheme };
