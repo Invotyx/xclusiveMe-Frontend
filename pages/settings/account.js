@@ -101,7 +101,7 @@ export default function Home(props) {
         <Grid item xs={12} md={4}>
           <List>
             {sidebarNavItems.map((i, j) => (
-              <NextLink href={i.url} key={j}>
+              <NextLink href={i.url} key={`sidebarNavItems${j}`}>
                 <ListItemSettings selected={i.url === asPath}>
                   <ListItemText primary={i.text} />
                 </ListItemSettings>
@@ -148,7 +148,7 @@ export default function Home(props) {
               <InputLabel>Linked Accounts</InputLabel>
               <List>
                 {linkedAccounts.map((i, j) => (
-                  <Box mb={1} key={j}>
+                  <Box mb={1} key={`linkedAccounts${j}`}>
                     <ListItem selected={true}>
                       {i.icon && <ListItemIcon>{i.icon}</ListItemIcon>}
                       <ListItemText primary={i.text} secondary={i.active} />
@@ -177,7 +177,7 @@ export default function Home(props) {
               <List>
                 {loginSessions.map((i, j) => (
                   <>
-                    <ListItem selected={true} key={j}>
+                    <ListItem selected={true} key={`loginSessions${j}`}>
                       <ListItemText
                         primary={i.userAgent}
                         secondary={`${i.ip} • ${i.country}`}
@@ -186,7 +186,7 @@ export default function Home(props) {
                         {i.time}
                       </ListItemSecondaryAction>
                     </ListItem>
-                    <Divider key={j} />
+                    <Divider key={`loginSessionsDivider${j}`} />
                   </>
                 ))}
               </List>
