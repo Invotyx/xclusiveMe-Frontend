@@ -76,6 +76,14 @@ export default function Comp() {
             <Box mr={1} display='flex'>
               <RoundedButton
                 color='inherit'
+                startIcon={
+                  <Image
+                    width={20}
+                    height={20}
+                    src='/new-post-icon.svg'
+                    alt='new post'
+                  />
+                }
               >
                 New Post
               </RoundedButton>
