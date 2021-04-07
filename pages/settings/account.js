@@ -9,9 +9,14 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import InputLabel from '@material-ui/core/InputLabel';
+import Button from '@material-ui/core/Button';
 import LogoAuth from '../components/logo-auth';
 import { makeStyles } from '@material-ui/core/styles';
 import TileTextField from '../components/TileTextField';
+import ClearIcon from '@material-ui/icons/Clear';
+import AddIcon from '@material-ui/icons/Add';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -25,6 +30,12 @@ const sidebarNavItems = [
   { url: '#', text: 'Privacy' },
   { url: '#', text: 'Subscriptions' },
   { url: '#', text: 'Notifications' },
+];
+
+const linkedAccounts = [
+  { url: '#', text: 'Twitter', active: 'vdotl@gmail.com' },
+  { url: '#', text: 'Google', active: '' },
+  { url: '#', text: 'Xclusive', active: '' },
 ];
 
 export default function Home(props) {
@@ -94,6 +105,30 @@ export default function Home(props) {
               label='Phone'
               type='phone'
             />
+            <InputLabel>Linked Accounts</InputLabel>
+            <List>
+              {linkedAccounts.map((i, j) => (
+                <Box mb={1}>
+                  <ListItem selected={true}>
+                    <ListItemText primary={i.text} secondary={i.active} />
+                    <ListItemSecondaryAction>
+                      {i.active ? <ClearIcon /> : <AddIcon />}
+                    </ListItemSecondaryAction>
+                  </ListItem>
+                </Box>
+              ))}
+            </List>
+
+            <TileTextField
+              value={`password`}
+              variant='outlined'
+              margin='normal'
+              fullWidth
+              name='password'
+              label='Password'
+              type='password'
+            />
+            <Button variant='outlined'>Update Password</Button>
           </form>
         </Grid>
       </Grid>
