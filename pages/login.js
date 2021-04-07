@@ -67,7 +67,7 @@ export default function SignInSide() {
                 <small
                   className={`${classes.grey} ${classes.marginRight} ${classes.uppercase}`}
                 >
-                  Sign in
+                  Sign up
                 </small>
                 <small className={`${classes.grey} ${classes.marginRight}`}>
                   |
