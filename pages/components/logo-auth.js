@@ -84,10 +84,12 @@ export default function Comp() {
                 New Post
               </RoundedButton>
             </Box>
-            <Avatar
-              alt='Remy Sharp'
-              src='https://material-ui.com/static/images/avatar/1.jpg'
-            />
+            <NextLink href='/profile'>
+              <Avatar
+                alt='Remy Sharp'
+                src='https://material-ui.com/static/images/avatar/1.jpg'
+              />
+            </NextLink>
           </Box>
         </Box>
         <Box display='flex'>
