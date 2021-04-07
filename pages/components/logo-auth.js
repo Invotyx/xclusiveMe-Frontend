@@ -13,6 +13,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Badge from '@material-ui/core/Badge';
 import SettingsIcon from '@material-ui/icons/SettingsOutlined';
 import SmsIcon from '@material-ui/icons/SmsOutlined';
@@ -167,12 +168,16 @@ export default function Comp() {
                   <CreditCardOutlinedIcon />
                 </ListItemIcon>
                 <ListItemText primary='Card' />
+                <ListItemSecondaryAction>
+                  For subscriptions
+                </ListItemSecondaryAction>
               </MenuItem>
               <MenuItem onClick={settingsMenuClose}>
                 <ListItemIcon>
                   <AccountBalanceOutlinedIcon />
                 </ListItemIcon>
                 <ListItemText primary='Bank' />
+                <ListItemSecondaryAction>For earnings</ListItemSecondaryAction>
               </MenuItem>
               <Divider />
               <MenuItem onClick={settingsMenuClose}>
