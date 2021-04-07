@@ -25,6 +25,13 @@ const darkTheme = createMuiTheme({
         backgroundColor: '#111',
       },
     },
+    MuiListItem: {
+      root: {
+        '&$selected': {
+          backgroundColor: '#111',
+        },
+      },
+    },
   },
 });
 
