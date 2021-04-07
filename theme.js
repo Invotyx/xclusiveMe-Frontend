@@ -1,5 +1,6 @@
 import { createMuiTheme } from '@material-ui/core/styles';
 
+const darkBg = '#111';
 const darkTheme = createMuiTheme({
   palette: {
     type: 'dark',
@@ -22,21 +23,21 @@ const darkTheme = createMuiTheme({
   overrides: {
     MuiPaper: {
       root: {
-        backgroundColor: '#111',
+        backgroundColor: darkBg,
       },
     },
     MuiListItem: {
       root: {
         '&$selected': {
-          backgroundColor: '#111',
+          backgroundColor: darkBg,
         },
       },
     },
     MuiInputBase: {
       root: {
-        backgroundColor: '#111',
+        backgroundColor: darkBg,
         '& > input': {
-          backgroundColor: '#111',
+          backgroundColor: darkBg,
         },
       },
     },
