@@ -5,7 +5,7 @@ import NextLink from 'next/link';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Divider from '@material-ui/core/Divider';
-import Button from '@material-ui/core/Button';
+import RoundedButton from './RoundedButton';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Box from '@material-ui/core/Box';
@@ -73,7 +73,13 @@ export default function Comp() {
         </Box>
         <Box flexGrow={1}>
           <Box display='flex'>
-            <Button color='inherit'>New Post</Button>
+            <Box mr={1} display='flex'>
+              <RoundedButton
+                color='inherit'
+              >
+                New Post
+              </RoundedButton>
+            </Box>
             <Avatar
               alt='Remy Sharp'
               src='https://material-ui.com/static/images/avatar/1.jpg'
