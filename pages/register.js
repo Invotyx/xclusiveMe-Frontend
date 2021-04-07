@@ -30,8 +30,14 @@ export default function SignInSide() {
   const handleSubmit = (event) => {
     event.preventDefault();
     axios
-      .post('users', { fullName, username, email, password, phoneNumber })
-      .then((data) => {
+      .post('auth/register', {
+        fullName,
+        username,
+        email,
+        password,
+        phoneNumber,
+      })
+      .then(({ data }) => {
         localStorage.setItem('jwtToken', data.accessToken);
         router.push('/explore');
       });
