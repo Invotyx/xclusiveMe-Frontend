@@ -10,6 +10,7 @@ import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import List from '@material-ui/core/List';
+import ListItemSettings from '../components/ListItemSettings';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
@@ -101,9 +102,9 @@ export default function Home(props) {
           <List>
             {sidebarNavItems.map((i, j) => (
               <NextLink href={i.url} key={j}>
-                <ListItem selected={i.url === asPath}>
+                <ListItemSettings selected={i.url === asPath}>
                   <ListItemText primary={i.text} />
-                </ListItem>
+                </ListItemSettings>
               </NextLink>
             ))}
           </List>
