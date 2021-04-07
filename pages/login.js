@@ -8,7 +8,7 @@ import NextLink from 'next/link';
 import Link from '@material-ui/core/Link';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
+import AuthNav from './components/auth-nav';
 import { makeStyles } from '@material-ui/core/styles';
 import HomeLegend from './components/home-legend';
 import TileButton from './components/TileButton';
@@ -22,9 +22,6 @@ const useStyles = makeStyles((theme) => ({
   },
   marginRight: {
     marginRight: '24px',
-  },
-  uppercase: {
-    textTransform: 'uppercase',
   },
 }));
 
@@ -62,19 +59,7 @@ export default function SignInSide() {
         </Grid>
         <Grid item xs={12} sm={8} md={5}>
           <Box p={8} mx={4}>
-            <Box mt={8} mb={4} ml={2}>
-              <Typography component='h1' variant='h5'>
-                <small
-                  className={`${classes.grey} ${classes.marginRight} ${classes.uppercase}`}
-                >
-                  Sign up
-                </small>
-                <small className={`${classes.grey} ${classes.marginRight}`}>
-                  |
-                </small>
-                LOGIN
-              </Typography>
-            </Box>
+            <AuthNav classes={classes} />
             <form onSubmit={handleSubmit}>
               <TileTextField
                 value={email}
