@@ -3,6 +3,7 @@ import { createMuiTheme } from '@material-ui/core/styles';
 const darkText = '#666';
 const darkBg = '#111';
 const darkBorder = '#222';
+const white = '#fff';
 const darkTheme = createMuiTheme({
   palette: {
     type: 'dark',
@@ -11,15 +12,15 @@ const darkTheme = createMuiTheme({
     },
     primary: {
       light: '#f00',
-      main: '#fff',
+      main: white,
       dark: '#ddd',
       contrastText: '#000',
     },
     secondary: {
       light: '#f0f',
-      main: '#fff',
+      main: white,
       dark: '#0ff',
-      contrastText: '#fff',
+      contrastText: white,
     },
   },
   overrides: {
@@ -48,6 +49,11 @@ const darkTheme = createMuiTheme({
     MuiOutlinedInput: {
       notchedOutline: {
         borderColor: darkBorder,
+      },
+    },
+    MuiButton: {
+      outlined: {
+        borderColor: white,
       },
     },
     MuiInputBase: {
