@@ -11,7 +11,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import InputLabel from '@material-ui/core/InputLabel';
+import UppercaseInputLabel from '../components/UppercaseInputLabel';
 import Button from '@material-ui/core/Button';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import LogoAuth from '../components/logo-auth';
@@ -126,7 +126,7 @@ export default function Home(props) {
               />
             </Box>
             <Box mb={4}>
-              <InputLabel>Linked Accounts</InputLabel>
+              <UppercaseInputLabel>Linked Accounts</UppercaseInputLabel>
               <List>
                 {linkedAccounts.map((i, j) => (
                   <Box mb={1} key={`linkedAccounts${j}`}>
@@ -154,7 +154,7 @@ export default function Home(props) {
               <Button variant='outlined'>Update Password</Button>
             </Box>
             <Box mb={4}>
-              <InputLabel>Two Step Authentication</InputLabel>
+              <UppercaseInputLabel>Two Step Authentication</UppercaseInputLabel>
               <List>
                 {loginSessions.map((i, j) => (
                   <>
@@ -174,7 +174,7 @@ export default function Home(props) {
               <Button variant='outlined'>Log out all sessions</Button>
             </Box>
             <Box mb={4}>
-              <InputLabel>Login Sessions</InputLabel>
+              <UppercaseInputLabel>Login Sessions</UppercaseInputLabel>
               <List>
                 <ListItem disableGutters>
                   <ListItemText
