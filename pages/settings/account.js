@@ -93,62 +93,67 @@ export default function Home(props) {
         </Grid>
         <Grid item xs={12} md={5}>
           <form noValidate>
-            <TileTextField
-              value={username}
-              variant='outlined'
-              margin='normal'
-              fullWidth
-              label='Account Info'
-              name='username'
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position='start'>@</InputAdornment>
-                ),
-              }}
-            />
-            <TileTextField
-              value={email}
-              variant='outlined'
-              margin='normal'
-              fullWidth
-              name='email'
-              label='Email'
-              type='email'
-            />
-            <TileTextField
-              value={phone}
-              variant='outlined'
-              margin='normal'
-              fullWidth
-              name='phone'
-              label='Phone'
-              type='phone'
-            />
-            <InputLabel>Linked Accounts</InputLabel>
-            <List>
-              {linkedAccounts.map((i, j) => (
-                <Box mb={1}>
-                  <ListItem selected={true}>
-                    <ListItemText primary={i.text} secondary={i.active} />
-                    <ListItemSecondaryAction>
-                      {i.active ? <ClearIcon /> : <AddIcon />}
-                    </ListItemSecondaryAction>
-                  </ListItem>
-                </Box>
-              ))}
-            </List>
-
-            <TileTextField
-              value={`password`}
-              variant='outlined'
-              margin='normal'
-              fullWidth
-              name='password'
-              label='Password'
-              type='password'
-            />
-            <Button variant='outlined'>Update Password</Button>
-            <Box my={4}>
+            <Box mb={4}>
+              <TileTextField
+                value={username}
+                variant='outlined'
+                margin='normal'
+                fullWidth
+                label='Account Info'
+                name='username'
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position='start'>@</InputAdornment>
+                  ),
+                }}
+              />
+              <TileTextField
+                value={email}
+                variant='outlined'
+                margin='normal'
+                fullWidth
+                name='email'
+                label='Email'
+                type='email'
+              />
+              <TileTextField
+                value={phone}
+                variant='outlined'
+                margin='normal'
+                fullWidth
+                name='phone'
+                label='Phone'
+                type='phone'
+              />
+            </Box>
+            <Box mb={4}>
+              <InputLabel>Linked Accounts</InputLabel>
+              <List>
+                {linkedAccounts.map((i, j) => (
+                  <Box mb={1}>
+                    <ListItem selected={true}>
+                      <ListItemText primary={i.text} secondary={i.active} />
+                      <ListItemSecondaryAction>
+                        {i.active ? <ClearIcon /> : <AddIcon />}
+                      </ListItemSecondaryAction>
+                    </ListItem>
+                  </Box>
+                ))}
+              </List>
+            </Box>
+            <Box mb={4}>
+              <TileTextField
+                value={`password`}
+                variant='outlined'
+                margin='normal'
+                fullWidth
+                name='password'
+                label='Password'
+                type='password'
+              />
+              <Button variant='outlined'>Update Password</Button>
+            </Box>
+            <Box mb={4}>
               <InputLabel>Two Step Authentication</InputLabel>
               <List>
                 {loginSessions.map((i, j) => (
@@ -168,7 +173,7 @@ export default function Home(props) {
               </List>
               <Button variant='outlined'>Log out all sessions</Button>
             </Box>
-            <Box my={4}>
+            <Box mb={4}>
               <InputLabel>Login Sessions</InputLabel>
               <List>
                 <ListItem disableGutters>
