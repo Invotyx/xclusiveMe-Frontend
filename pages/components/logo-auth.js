@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import React from 'react';
 import Link from '@material-ui/core/Link';
 import Image from 'next/image';
@@ -30,6 +31,7 @@ import LanguageOutlinedIcon from '@material-ui/icons/LanguageOutlined';
 import ExitToAppOutlinedIcon from '@material-ui/icons/ExitToAppOutlined';
 
 export default function Comp() {
+  const router = useRouter();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const settingsMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -37,6 +39,11 @@ export default function Comp() {
 
   const settingsMenuClose = () => {
     setAnchorEl(null);
+  };
+
+  const logout = () => {
+    localStorage.removeItem('jwtToken');
+    router.push('/login');
   };
 
   return (
@@ -55,9 +62,9 @@ export default function Comp() {
             </NextLink>
           </Box>
           <Box ml={3}>
-            <NextLink href='/login'>
-              <Link variant='body2'>Logout</Link>
-            </NextLink>
+            <Link variant='body2' onClick={logout}>
+              Logout
+            </Link>
           </Box>
         </Box>
       </Toolbar>
