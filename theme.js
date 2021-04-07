@@ -39,6 +39,11 @@ const darkTheme = createMuiTheme({
         color: darkText,
       },
     },
+    MuiMenuItem: {
+      root: {
+        minWidth: '260px',
+      },
+    },
     MuiListItem: {
       root: {
         '&$selected': {
