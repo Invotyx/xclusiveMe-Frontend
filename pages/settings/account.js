@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import React from 'react';
 import Head from 'next/head';
+import Image from 'next/image';
 import NextLink from 'next/link';
 import Box from '@material-ui/core/Box';
 import Divider from '@material-ui/core/Divider';
@@ -14,6 +15,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import InputLabel from '@material-ui/core/InputLabel';
 import Button from '@material-ui/core/Button';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
 import LogoAuth from '../components/logo-auth';
 import { makeStyles } from '@material-ui/core/styles';
 import TileTextField from '../components/TileTextField';
@@ -35,9 +37,24 @@ const sidebarNavItems = [
 ];
 
 const linkedAccounts = [
-  { url: '#', text: 'Twitter', active: 'vdotl@gmail.com' },
-  { url: '#', text: 'Google', active: '' },
-  { url: '#', text: 'Xclusive', active: '' },
+  {
+    url: '#',
+    text: 'Twitter',
+    active: 'vdotl@gmail.com',
+    icon: <Image width={20} height={20} src='/twitter.svg' />,
+  },
+  {
+    url: '#',
+    text: 'Google',
+    active: '',
+    icon: <Image width={20} height={20} src='/google.svg' />,
+  },
+  {
+    url: '#',
+    text: 'Xclusive',
+    active: '',
+    icon: <Image width={20} height={20} src='/logo.svg' />,
+  },
 ];
 
 const loginSessions = [
@@ -132,6 +149,7 @@ export default function Home(props) {
                 {linkedAccounts.map((i, j) => (
                   <Box mb={1}>
                     <ListItem selected={true}>
+                      {i.icon && <ListItemIcon>{i.icon}</ListItemIcon>}
                       <ListItemText primary={i.text} secondary={i.active} />
                       <ListItemSecondaryAction>
                         {i.active ? <ClearIcon /> : <AddIcon />}
