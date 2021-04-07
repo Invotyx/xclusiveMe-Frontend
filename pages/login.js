@@ -104,7 +104,7 @@ export default function SignInSide() {
                   </Grid>
                   <Grid item>
                     <Box mb={2} mt={1}>
-                      <NextLink href='/dashboard'>
+                      <NextLink href='/explore'>
                         <Link variant='body2' className={classes.grey}>
                           <a>Forgot your password?</a>
                         </Link>
@@ -114,7 +114,7 @@ export default function SignInSide() {
                 </Grid>
               </Box>
 
-              <NextLink href='/dashboard'>
+              <NextLink href='/explore'>
                 <TileButton
                   type='submit'
                   fullWidth
