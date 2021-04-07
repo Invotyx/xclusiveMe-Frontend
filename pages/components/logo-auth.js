@@ -46,23 +46,17 @@ export default function Comp() {
         <Box display='flex'>
           <Box ml={3}>
             <NextLink href='#'>
-              <Link variant='body2'>
-                <a>How it works</a>
-              </Link>
+              <Link variant='body2'>How it works</Link>
             </NextLink>
           </Box>
           <Box ml={3}>
             <NextLink href='#'>
-              <Link variant='body2'>
-                <a>Support</a>
-              </Link>
+              <Link variant='body2'>Support</Link>
             </NextLink>
           </Box>
           <Box ml={3}>
             <NextLink href='/login'>
-              <Link variant='body2'>
-                <a>Logout</a>
-              </Link>
+              <Link variant='body2'>Logout</Link>
             </NextLink>
           </Box>
         </Box>
