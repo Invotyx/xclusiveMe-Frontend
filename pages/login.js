@@ -1,3 +1,6 @@
+import { useRouter } from 'next/router';
+import axios from '../axios';
+import { useState } from 'react';
 import Head from 'next/head';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -27,6 +30,18 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignInSide() {
   const classes = useStyles();
+  const router = useRouter();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    axios.post('auth/login', { username: email, password }).then((data) => {
+      console.log(data);
+      localStorage.setItem('jwtToken', data.accessToken);
+      router.push('/explore');
+    });
+  };
 
   return (
     <Container>
@@ -61,8 +76,10 @@ export default function SignInSide() {
                 LOGIN
               </Typography>
             </Box>
-            <form noValidate>
+            <form onSubmit={handleSubmit}>
               <TileTextField
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 variant='outlined'
                 margin='normal'
                 required
@@ -74,6 +91,8 @@ export default function SignInSide() {
                 autoFocus
               />
               <TileTextField
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 variant='outlined'
                 margin='normal'
                 required
@@ -114,16 +133,14 @@ export default function SignInSide() {
                 </Grid>
               </Box>
 
-              <NextLink href='/explore'>
-                <TileButton
-                  type='submit'
-                  fullWidth
-                  variant='contained'
-                  color='primary'
-                >
-                  Login
-                </TileButton>
-              </NextLink>
+              <TileButton
+                type='submit'
+                fullWidth
+                variant='contained'
+                color='primary'
+              >
+                Login
+              </TileButton>
             </form>
           </Box>
         </Grid>
