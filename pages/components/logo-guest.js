@@ -6,7 +6,7 @@ export default function Comp() {
   return (
     <Box p={8}>
       <NextLink href='/'>
-        <Image width={50} height={50} src='/logo.png' alt='Logo' />
+        <Image width={50} height={50} src='/logo.svg' alt='Logo' />
       </NextLink>
     </Box>
   );

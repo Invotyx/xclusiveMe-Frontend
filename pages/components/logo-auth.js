@@ -64,7 +64,7 @@ export default function Comp() {
       <Toolbar>
         <Box flexGrow={1}>
           <NextLink href='/explore'>
-            <Image width={50} height={50} src='/logo.png' alt='Logo' />
+            <Image width={50} height={50} src='/logo.svg' alt='Logo' />
           </NextLink>
         </Box>
         <Box flexGrow={1}>
