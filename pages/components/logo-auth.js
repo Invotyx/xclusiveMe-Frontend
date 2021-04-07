@@ -12,6 +12,7 @@ import Box from '@material-ui/core/Box';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
 import Badge from '@material-ui/core/Badge';
 import SettingsIcon from '@material-ui/icons/SettingsOutlined';
 import SmsIcon from '@material-ui/icons/SmsOutlined';
@@ -138,7 +139,7 @@ export default function Comp() {
                   <ListItemIcon>
                     <SettingsIcon />
                   </ListItemIcon>
-                  Settings
+                  <ListItemText primary='Settings' />
                 </MenuItem>
               </NextLink>
               <Divider />
@@ -146,51 +147,51 @@ export default function Comp() {
                 <ListItemIcon>
                   <MonetizationOnOutlinedIcon />
                 </ListItemIcon>
-                Earnings
+                <ListItemText primary='Earnings' />
               </MenuItem>
               <MenuItem onClick={settingsMenuClose}>
                 <ListItemIcon>
                   <BookmarkBorderOutlinedIcon />
                 </ListItemIcon>
-                Bookmarks
+                <ListItemText primary='Bookmarks' />
               </MenuItem>
               <MenuItem onClick={settingsMenuClose}>
                 <ListItemIcon>
                   <FeaturedPlayListOutlinedIcon />
                 </ListItemIcon>
-                Follow list
+                <ListItemText primary='Follow list' />
               </MenuItem>
               <Divider />
               <MenuItem onClick={settingsMenuClose}>
                 <ListItemIcon>
                   <CreditCardOutlinedIcon />
                 </ListItemIcon>
-                Card
+                <ListItemText primary='Card' />
               </MenuItem>
               <MenuItem onClick={settingsMenuClose}>
                 <ListItemIcon>
                   <AccountBalanceOutlinedIcon />
                 </ListItemIcon>
-                Bank
+                <ListItemText primary='Bank' />
               </MenuItem>
               <Divider />
               <MenuItem onClick={settingsMenuClose}>
                 <ListItemIcon>
                   <HelpOutlineOutlinedIcon />
                 </ListItemIcon>
-                Help & Support
+                <ListItemText primary='Help & Support' />
               </MenuItem>
               <MenuItem onClick={settingsMenuClose}>
                 <ListItemIcon>
                   <HighlightOutlinedIcon />
                 </ListItemIcon>
-                Light mode
+                <ListItemText primary='Light mode' />
               </MenuItem>
               <MenuItem onClick={settingsMenuClose}>
                 <ListItemIcon>
                   <LanguageOutlinedIcon />
                 </ListItemIcon>
-                English
+                <ListItemText primary='English' />
               </MenuItem>
               <Divider />
               <NextLink href='/login'>
@@ -198,7 +199,7 @@ export default function Comp() {
                   <ListItemIcon>
                     <ExitToAppOutlinedIcon />
                   </ListItemIcon>
-                  Logout
+                  <ListItemText primary='Logout' />
                 </MenuItem>
               </NextLink>
             </Menu>
