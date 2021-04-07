@@ -68,10 +68,10 @@ export default function SignInSide() {
                   className={`${classes.grey} ${classes.marginRight} ${classes.uppercase}`}
                 >
                   Sign in
-                </small>{' '}
+                </small>
                 <small className={`${classes.grey} ${classes.marginRight}`}>
                   |
-                </small>{' '}
+                </small>
                 LOGIN
               </Typography>
             </Box>
