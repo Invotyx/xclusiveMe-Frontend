@@ -148,7 +148,7 @@ export default function Home(props) {
               <InputLabel>Linked Accounts</InputLabel>
               <List>
                 {linkedAccounts.map((i, j) => (
-                  <Box mb={1}>
+                  <Box mb={1} key={j}>
                     <ListItem selected={true}>
                       {i.icon && <ListItemIcon>{i.icon}</ListItemIcon>}
                       <ListItemText primary={i.text} secondary={i.active} />
@@ -177,7 +177,7 @@ export default function Home(props) {
               <List>
                 {loginSessions.map((i, j) => (
                   <>
-                    <ListItem selected={true}>
+                    <ListItem selected={true} key={j}>
                       <ListItemText
                         primary={i.userAgent}
                         secondary={`${i.ip} • ${i.country}`}
@@ -186,7 +186,7 @@ export default function Home(props) {
                         {i.time}
                       </ListItemSecondaryAction>
                     </ListItem>
-                    <Divider />
+                    <Divider key={j} />
                   </>
                 ))}
               </List>
