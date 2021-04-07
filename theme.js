@@ -2,6 +2,7 @@ import { createMuiTheme } from '@material-ui/core/styles';
 
 const darkText = '#666';
 const darkBg = '#111';
+const darkBorder = '#222';
 const darkTheme = createMuiTheme({
   palette: {
     type: 'dark',
@@ -42,6 +43,11 @@ const darkTheme = createMuiTheme({
         '&$selected': {
           backgroundColor: darkBg,
         },
+      },
+    },
+    MuiOutlinedInput: {
+      notchedOutline: {
+        borderColor: darkBorder,
       },
     },
     MuiInputBase: {
