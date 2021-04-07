@@ -1,5 +1,6 @@
 import { createMuiTheme } from '@material-ui/core/styles';
 
+const darkText = '#666';
 const darkBg = '#111';
 const darkTheme = createMuiTheme({
   palette: {
@@ -24,6 +25,16 @@ const darkTheme = createMuiTheme({
     MuiPaper: {
       root: {
         backgroundColor: darkBg,
+      },
+    },
+    MuiListItemText: {
+      secondary: {
+        color: darkText,
+      },
+    },
+    MuiListItemSecondaryAction: {
+      root: {
+        color: darkText,
       },
     },
     MuiListItem: {
