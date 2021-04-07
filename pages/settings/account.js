@@ -1,8 +1,6 @@
-import { useRouter } from 'next/router';
 import React from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
-import NextLink from 'next/link';
 import Box from '@material-ui/core/Box';
 import Divider from '@material-ui/core/Divider';
 import Switch from '@material-ui/core/Switch';
@@ -10,7 +8,6 @@ import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import List from '@material-ui/core/List';
-import ListItemSettings from '../components/ListItemSettings';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
@@ -20,6 +17,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import LogoAuth from '../components/logo-auth';
 import { makeStyles } from '@material-ui/core/styles';
 import TileTextField from '../components/TileTextField';
+import SidebarSettings from '../components/SidebarSettings';
 import ClearIcon from '@material-ui/icons/Clear';
 import AddIcon from '@material-ui/icons/Add';
 
@@ -28,14 +26,6 @@ const useStyles = makeStyles((theme) => ({
     marginTop: '150px',
   },
 }));
-
-const sidebarNavItems = [
-  { url: '#', text: 'Edit Profile' },
-  { url: '/settings/account', text: 'Account' },
-  { url: '#', text: 'Privacy' },
-  { url: '#', text: 'Subscriptions' },
-  { url: '#', text: 'Notifications' },
-];
 
 const linkedAccounts = [
   {
@@ -79,7 +69,6 @@ export default function Home(props) {
   const phone = '+1 222 884 5655';
   const verificationViaSms = false;
   const authenticatorApp = true;
-  const { asPath } = useRouter();
 
   const classes = useStyles();
   return (
@@ -99,15 +88,7 @@ export default function Home(props) {
       <LogoAuth />
       <Grid container spacing={6} className={classes.root}>
         <Grid item xs={12} md={4}>
-          <List>
-            {sidebarNavItems.map((i, j) => (
-              <NextLink href={i.url} key={`sidebarNavItems${j}`}>
-                <ListItemSettings selected={i.url === asPath}>
-                  <ListItemText primary={i.text} />
-                </ListItemSettings>
-              </NextLink>
-            ))}
-          </List>
+          <SidebarSettings />
         </Grid>
         <Grid item xs={12} md={5}>
           <form noValidate>
