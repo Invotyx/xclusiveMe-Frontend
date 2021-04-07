@@ -3,6 +3,8 @@ import React from 'react';
 import Head from 'next/head';
 import NextLink from 'next/link';
 import Box from '@material-ui/core/Box';
+import Divider from '@material-ui/core/Divider';
+import Switch from '@material-ui/core/Switch';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -38,10 +40,27 @@ const linkedAccounts = [
   { url: '#', text: 'Xclusive', active: '' },
 ];
 
+const loginSessions = [
+  {
+    userAgent: 'Chrome 88.0, Windows 10',
+    ip: '222.187.25.187',
+    country: 'United States',
+    time: 'Active Now',
+  },
+  {
+    userAgent: 'Chrome 88.0, Windows 10',
+    ip: '222.187.25.187',
+    country: 'United States',
+    time: '15m ago',
+  },
+];
+
 export default function Home(props) {
   const username = 'vdotdl';
   const email = 'vdotdl@gmail.com';
   const phone = '+1 222 884 5655';
+  const verificationViaSms = false;
+  const authenticatorApp = true;
   const { asPath } = useRouter();
 
   const classes = useStyles();
@@ -129,6 +148,54 @@ export default function Home(props) {
               type='password'
             />
             <Button variant='outlined'>Update Password</Button>
+            <Box my={4}>
+              <InputLabel>Two Step Authentication</InputLabel>
+              <List>
+                {loginSessions.map((i, j) => (
+                  <>
+                    <ListItem selected={true}>
+                      <ListItemText
+                        primary={i.userAgent}
+                        secondary={`${i.ip} • ${i.country}`}
+                      />
+                      <ListItemSecondaryAction>
+                        {i.time}
+                      </ListItemSecondaryAction>
+                    </ListItem>
+                    <Divider />
+                  </>
+                ))}
+              </List>
+              <Button variant='outlined'>Log out all sessions</Button>
+            </Box>
+            <Box my={4}>
+              <InputLabel>Login Sessions</InputLabel>
+              <List>
+                <ListItem disableGutters>
+                  <ListItemText
+                    primary={`Authenticator App`}
+                    secondary={`You can use Microsoft or Google Authenticator application for iOS or Android`}
+                  />
+                  <ListItemSecondaryAction>
+                    <Switch
+                      edge='end'
+                      onChange={(e) => console.log(e)}
+                      checked={authenticatorApp}
+                    />
+                  </ListItemSecondaryAction>
+                </ListItem>
+                <ListItem disableGutters>
+                  <ListItemText primary={`Verification via SMS`} />
+                  <ListItemSecondaryAction>
+                    <Switch
+                      edge='end'
+                      onChange={(e) => console.log(e)}
+                      checked={verificationViaSms}
+                    />
+                  </ListItemSecondaryAction>
+                </ListItem>
+              </List>
+            </Box>
           </form>
         </Grid>
       </Grid>
