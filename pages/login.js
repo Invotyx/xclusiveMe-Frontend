@@ -20,9 +20,6 @@ const useStyles = makeStyles((theme) => ({
   grey: {
     color: '#666',
   },
-  marginRight: {
-    marginRight: '24px',
-  },
 }));
 
 export default function SignInSide() {
