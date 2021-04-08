@@ -9,6 +9,7 @@ export const AUTH = createActionTypes('AUTH', [
   'LOGOUT',
   'SUCCESS',
   'FAILURE',
+  'ME',
 ]);
 
 export default AUTH;
