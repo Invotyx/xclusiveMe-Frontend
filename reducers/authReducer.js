@@ -1,5 +1,5 @@
 import { fromJS } from 'immutable';
-import { USER } from '../actions/user/types';
+import { AUTH } from '../actions/auth/types';
 
 const initialState = fromJS({
   fetching: false,
@@ -9,12 +9,12 @@ const initialState = fromJS({
   currentUser: null,
 });
 
-export default function userReducer(state = initialState, action) {
+export default function authReducer(state = initialState, action) {
   switch (action.type) {
-    case USER.LOGIN:
-    case USER.REGISTER:
-    case USER.FORGOT_PASSWORD:
-    case USER.LOGOUT:
+    case AUTH.LOGIN:
+    case AUTH.REGISTER:
+    case AUTH.FORGOT_PASSWORD:
+    case AUTH.LOGOUT:
       return state.merge(action.payload);
     default:
       return state;

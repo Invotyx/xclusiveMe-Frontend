@@ -1,6 +1,6 @@
 import { createActionTypes } from '../../utils';
 
-export const USER = createActionTypes('USER', [
+export const AUTH = createActionTypes('AUTH', [
   'LOGIN',
   'REGISTER',
   'FORGOT_PASSWORD',
@@ -11,4 +11,4 @@ export const USER = createActionTypes('USER', [
   'FAILURE',
 ]);
 
-export default USER;
+export default AUTH;

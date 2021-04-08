@@ -1,9 +1,9 @@
 import { put, call, takeLatest, all } from 'redux-saga/effects';
 import { useRouter } from 'next/router';
 
-import { USER } from '../actions/user/types';
+import { AUTH } from '../actions/auth/types';
 
-import { user } from '../actions/user';
+import { auth } from '../actions/auth';
 import { snackbar } from '../actions/snackbar';
 import {
   login,
@@ -21,10 +21,10 @@ function* handleLogin(action) {
 
     const { data } = yield call(login, email, password);
     localStorage.setItem('jwtToken', data.accessToken);
-    const currentUser = yield call(me);
+    const currentAuth = yield call(me);
     yield put(
-      user.success({
-        currentUser: currentUser.data,
+      auth.success({
+        currentAuth: currentAuth.data,
         accessToken: data.accessToken,
         loggedIn: true,
       })
@@ -32,18 +32,18 @@ function* handleLogin(action) {
     yield put(
       snackbar.update({
         open: true,
-        message: 'User Logged In!',
+        message: 'Auth Logged In!',
         severity: 'success',
       })
     );
     const { callback } = action.payload;
     callback && callback();
   } catch (e) {
-    yield put(user.failure({ error: { ...e } }));
+    yield put(auth.failure({ error: { ...e } }));
     yield put(
       snackbar.update({
         open: true,
-        message: 'LOGIN FAILED: Invalid Username/Password!',
+        message: 'LOGIN FAILED: Invalid Authname/Password!',
         severity: 'error',
       })
     );
@@ -52,21 +52,21 @@ function* handleLogin(action) {
 
 function* handleRegister(action) {
   try {
-    const { fullName, username, email, password, phoneNumber } = action.payload;
+    const { fullName, authname, email, password, phoneNumber } = action.payload;
 
     const { data } = yield call(
       register,
       fullName,
-      username,
+      authname,
       email,
       password,
       phoneNumber
     );
     localStorage.setItem('jwtToken', data.accessToken);
-    const currentUser = yield call(me);
+    const currentAuth = yield call(me);
     yield put(
-      user.success({
-        currentUser: currentUser.data,
+      auth.success({
+        currentAuth: currentAuth.data,
         accessToken: data.accessToken,
         loggedIn: true,
       })
@@ -74,18 +74,18 @@ function* handleRegister(action) {
     yield put(
       snackbar.update({
         open: true,
-        message: 'User Registered Successfully!',
+        message: 'Auth Registered Successfully!',
         severity: 'success',
       })
     );
     const { callback } = action.payload;
     callback && callback();
   } catch (e) {
-    yield put(user.failure({ error: { ...e } }));
+    yield put(auth.failure({ error: { ...e } }));
     yield put(
       snackbar.update({
         open: true,
-        message: 'User Registered Failed!',
+        message: 'Auth Registered Failed!',
         severity: 'error',
       })
     );
@@ -96,7 +96,7 @@ function* handleForgotPassword(action) {
   try {
     const { email } = action.payload;
     const { data } = yield call(forgotPassword, email);
-    yield put(user.success({ data }));
+    yield put(auth.success({ data }));
     yield put(useRouter().push('/login'));
     yield put(
       snackbar.update({
@@ -106,11 +106,11 @@ function* handleForgotPassword(action) {
       })
     );
   } catch (e) {
-    yield put(user.failure({ error: { ...e } }));
+    yield put(auth.failure({ error: { ...e } }));
     yield put(
       snackbar.update({
         open: true,
-        message: 'User Registered Failed!',
+        message: 'Auth Registered Failed!',
         severity: 'error',
       })
     );
@@ -160,9 +160,9 @@ function* handleResetPasswordTokenVerify(action) {
 function* handleMe() {
   try {
     const { data } = yield call(me);
-    yield put(user.success({ currentUser: data }));
+    yield put(auth.success({ currentAuth: data }));
   } catch (e) {
-    yield put(user.failure({ error: { ...e } }));
+    yield put(auth.failure({ error: { ...e } }));
   }
 }
 
@@ -171,19 +171,19 @@ function* handleLogout() {
   yield put(useRouter().push('/login'));
 }
 
-function* watchUserSagas() {
+function* watchAuthSagas() {
   yield all([
-    takeLatest(USER.LOGIN, handleLogin),
-    takeLatest(USER.REGISTER, handleRegister),
-    takeLatest(USER.FORGOT_PASSWORD, handleForgotPassword),
-    takeLatest(USER.RESET_PASSWORD, handleResetPassword),
+    takeLatest(AUTH.LOGIN, handleLogin),
+    takeLatest(AUTH.REGISTER, handleRegister),
+    takeLatest(AUTH.FORGOT_PASSWORD, handleForgotPassword),
+    takeLatest(AUTH.RESET_PASSWORD, handleResetPassword),
     takeLatest(
-      USER.RESET_PASSWORD_TOKEN_VERIFY,
+      AUTH.RESET_PASSWORD_TOKEN_VERIFY,
       handleResetPasswordTokenVerify
     ),
-    takeLatest(USER.ME, handleMe),
-    takeLatest(USER.LOGOUT, handleLogout),
+    takeLatest(AUTH.ME, handleMe),
+    takeLatest(AUTH.LOGOUT, handleLogout),
   ]);
 }
 
-export default watchUserSagas;
+export default watchAuthSagas;

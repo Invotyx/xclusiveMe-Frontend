@@ -11,7 +11,7 @@ import TileButton from './components/TileButton';
 import TileTextField from './components/TileTextField';
 import LogoGuest from './components/logo-guest';
 import Container from '@material-ui/core/Container';
-import { user } from '../actions/user';
+import { auth } from '../actions/auth';
 
 const useStyles = makeStyles((theme) => ({
   grey: {
@@ -32,7 +32,7 @@ export default function SignInSide() {
   const handleSubmit = (event) => {
     event.preventDefault();
     dispatch(
-      user.register({
+      auth.register({
         fullName,
         username,
         email,
