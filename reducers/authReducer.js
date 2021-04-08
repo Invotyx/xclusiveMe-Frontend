@@ -16,6 +16,8 @@ export default function authReducer(state = initialState, action) {
     case AUTH.FORGOT_PASSWORD:
     case AUTH.REFRESH_TOKEN:
     case AUTH.LOGOUT:
+    case AUTH.SUCCESS:
+    case AUTH.FAILURE:
       return state.merge(action.payload);
     default:
       return state;
