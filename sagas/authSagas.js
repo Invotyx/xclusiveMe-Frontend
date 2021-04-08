@@ -43,7 +43,7 @@ function* handleLogin(action) {
     yield put(
       snackbar.update({
         open: true,
-        message: 'LOGIN FAILED: Invalid Authname/Password!',
+        message: 'LOGIN FAILED: Invalid Username/Password!',
         severity: 'error',
       })
     );
@@ -52,12 +52,12 @@ function* handleLogin(action) {
 
 function* handleRegister(action) {
   try {
-    const { fullName, authname, email, password, phoneNumber } = action.payload;
+    const { fullName, username, email, password, phoneNumber } = action.payload;
 
     const { data } = yield call(
       register,
       fullName,
-      authname,
+      username,
       email,
       password,
       phoneNumber
