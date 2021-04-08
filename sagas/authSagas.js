@@ -38,7 +38,7 @@ function* handleLogin(action) {
     yield put(
       snackbar.update({
         open: true,
-        message: 'Auth Logged In!',
+        message: 'User Logged In!',
         severity: 'success',
       })
     );
@@ -73,10 +73,10 @@ function* handleRegister(action) {
       phoneNumber
     );
     localStorage.setItem('jwtToken', data.accessToken);
-    const currentAuth = yield call(me);
+    const currentUser = yield call(me);
     yield put(
       auth.success({
-        currentAuth: currentAuth.data,
+        currentUser: currentUser.data,
         accessToken: data.accessToken,
         loggedIn: true,
       })
@@ -84,7 +84,7 @@ function* handleRegister(action) {
     yield put(
       snackbar.update({
         open: true,
-        message: 'Auth Registered Successfully!',
+        message: 'User Registered Successfully!',
         severity: 'success',
       })
     );
@@ -95,7 +95,7 @@ function* handleRegister(action) {
     yield put(
       snackbar.update({
         open: true,
-        message: 'Auth Registered Failed!',
+        message: 'User Registered Failed!',
         severity: 'error',
       })
     );
@@ -120,7 +120,7 @@ function* handleForgotPassword(action) {
     yield put(
       snackbar.update({
         open: true,
-        message: 'Auth Registered Failed!',
+        message: 'User Registered Failed!',
         severity: 'error',
       })
     );
@@ -170,7 +170,7 @@ function* handleResetPasswordTokenVerify(action) {
 function* handleMe() {
   try {
     const { data } = yield call(me);
-    yield put(auth.success({ currentAuth: data }));
+    yield put(auth.success({ currentUser: data }));
   } catch (e) {
     yield put(auth.failure({ error: { ...e } }));
   }
