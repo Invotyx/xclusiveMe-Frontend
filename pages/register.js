@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import apiClient from '../services/axiosInterceptor';
+import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 import Head from 'next/head';
 import Box from '@material-ui/core/Box';
@@ -11,9 +11,6 @@ import TileButton from './components/TileButton';
 import TileTextField from './components/TileTextField';
 import LogoGuest from './components/logo-guest';
 import Container from '@material-ui/core/Container';
-import getConfig from 'next/config';
-const { publicRuntimeConfig } = getConfig();
-const SERVER_ADDRESS = publicRuntimeConfig.backendUrl;
 
 const useStyles = makeStyles((theme) => ({
   grey: {
@@ -22,6 +19,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SignInSide() {
+  const dispatch = useDispatch();
   const classes = useStyles();
   const router = useRouter();
   const [fullName, setFullName] = useState('');
@@ -32,18 +30,18 @@ export default function SignInSide() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    apiClient
-      .post(SERVER_ADDRESS + '/auth/register', {
+    dispatch(
+      user.register({
         fullName,
         username,
         email,
         password,
         phoneNumber,
+        callback: () => {
+          router.push('/explore');
+        },
       })
-      .then(({ data }) => {
-        localStorage.setItem('jwtToken', data.accessToken);
-        router.push('/explore');
-      });
+    );
   };
 
   return (
