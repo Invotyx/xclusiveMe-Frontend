@@ -4,8 +4,6 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import { darkTheme } from '../theme';
 import { makeStyles } from '@material-ui/core/styles';
 import Head from 'next/head';
-import { Provider } from 'react-redux';
-import { useStore } from '../store';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,7 +20,6 @@ function MyApp({ Component, pageProps }) {
       jssStyles.parentElement.removeChild(jssStyles);
     }
   }, []);
-  const store = useStore(pageProps.initialReduxState);
 
   return (
     <>
@@ -33,12 +30,10 @@ function MyApp({ Component, pageProps }) {
           content='minimum-scale=1, initial-scale=1, width=device-width'
         />
       </Head>
-      <Provider store={store}>
-        <ThemeProvider theme={darkTheme}>
-          <CssBaseline />
-          <Component {...pageProps} />
-        </ThemeProvider>
-      </Provider>
+      <ThemeProvider theme={darkTheme}>
+        <CssBaseline />
+        <Component {...pageProps} />
+      </ThemeProvider>
     </>
   );
 }
