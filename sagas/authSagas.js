@@ -23,12 +23,16 @@ function* handleLogin(action) {
     const { data } = yield call(login, email, password);
     localStorage.setItem('jwtToken', data.accessToken);
     localStorage.setItem('refreshToken', data.refreshToken);
-    const currentAuth = yield call(me);
     yield put(
       auth.success({
-        currentAuth: currentAuth.data,
         accessToken: data.accessToken,
         loggedIn: true,
+      })
+    );
+    const currentUser = yield call(me);
+    yield put(
+      auth.success({
+        currentUser: currentUser.data,
       })
     );
     yield put(
