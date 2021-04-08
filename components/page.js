@@ -1,26 +1,32 @@
-import { useDispatch } from 'react-redux'
-import useInterval from '../lib/useInterval'
-import Clock from './clock'
-import Counter from './counter'
-import Nav from './nav'
+import Link from 'next/link';
+import { useSelector } from 'react-redux';
 
-export default function Page() {
-  const dispatch = useDispatch()
+import Counter from './counter';
+import Clock from './clock';
 
-  // Tick the time every second
-  useInterval(() => {
-    dispatch({
-      type: 'TICK',
-      light: true,
-      lastUpdate: Date.now(),
-    })
-  }, 1000)
-
+function Page({ linkTo, NavigateTo, title }) {
+  const placeholderData = useSelector((state) => state.placeholderData);
+  const error = useSelector((state) => state.error);
+  const light = useSelector((state) => state.light);
+  const lastUpdate = useSelector((state) => state.lastUpdate);
   return (
-    <>
-      <Nav />
-      <Clock />
+    <div>
+      <h1>{title}</h1>
+      <Clock lastUpdate={lastUpdate} light={light} />
       <Counter />
-    </>
-  )
+      <nav>
+        <Link href={linkTo}>
+          <a>Navigate: {NavigateTo}</a>
+        </Link>
+      </nav>
+      {placeholderData && (
+        <pre>
+          <code>{JSON.stringify(placeholderData, null, 2)}</code>
+        </pre>
+      )}
+      {error && <p style={{ color: 'red' }}>Error: {error.message}</p>}
+    </div>
+  );
 }
+
+export default Page;
