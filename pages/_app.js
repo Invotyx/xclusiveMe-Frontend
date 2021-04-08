@@ -5,6 +5,7 @@ import { darkTheme } from '../theme';
 import { makeStyles } from '@material-ui/core/styles';
 import Head from 'next/head';
 import { wrapper } from '../store';
+import { AppSnackbar } from '../components/AppSnackbar';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,6 +35,7 @@ function MyApp({ Component, pageProps }) {
       <ThemeProvider theme={darkTheme}>
         <CssBaseline />
         <Component {...pageProps} />
+        <AppSnackbar />
       </ThemeProvider>
     </>
   );
