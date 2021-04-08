@@ -29,8 +29,11 @@ import HelpOutlineOutlinedIcon from '@material-ui/icons/HelpOutlineOutlined';
 import HighlightOutlinedIcon from '@material-ui/icons/HighlightOutlined';
 import LanguageOutlinedIcon from '@material-ui/icons/LanguageOutlined';
 import ExitToAppOutlinedIcon from '@material-ui/icons/ExitToAppOutlined';
+import { currentUserSelector } from '../../selectors/authSelector';
+import { useSelector } from 'react-redux';
 
 export default function Comp() {
+  const userSelector = useSelector(currentUserSelector);
   const router = useRouter();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const settingsMenuOpen = (event) => {
