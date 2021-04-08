@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import axios from '../axios';
+import apiClient from '../services/axiosInterceptor';
 import { useState } from 'react';
 import Head from 'next/head';
 import Box from '@material-ui/core/Box';
@@ -11,6 +11,9 @@ import TileButton from './components/TileButton';
 import TileTextField from './components/TileTextField';
 import LogoGuest from './components/logo-guest';
 import Container from '@material-ui/core/Container';
+import getConfig from 'next/config';
+const { publicRuntimeConfig } = getConfig();
+const SERVER_ADDRESS = publicRuntimeConfig.backendUrl;
 
 const useStyles = makeStyles((theme) => ({
   grey: {
@@ -29,8 +32,8 @@ export default function SignInSide() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    axios
-      .post('auth/register', {
+    apiClient
+      .post(SERVER_ADDRESS + '/auth/register', {
         fullName,
         username,
         email,

@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import axios from '../axios';
+import apiClient from '../services/axiosInterceptor';
 import { useState } from 'react';
 import Head from 'next/head';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -15,6 +15,9 @@ import TileButton from './components/TileButton';
 import TileTextField from './components/TileTextField';
 import LogoGuest from './components/logo-guest';
 import Container from '@material-ui/core/Container';
+import getConfig from 'next/config';
+const { publicRuntimeConfig } = getConfig();
+const SERVER_ADDRESS = publicRuntimeConfig.backendUrl;
 
 const useStyles = makeStyles((theme) => ({
   grey: {
@@ -30,10 +33,12 @@ export default function SignInSide() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    axios.post('auth/login', { username: email, password }).then(({ data }) => {
-      localStorage.setItem('jwtToken', data.accessToken);
-      router.push('/explore');
-    });
+    apiClient
+      .post(SERVER_ADDRESS + '/auth/login', { username: email, password })
+      .then(({ data }) => {
+        localStorage.setItem('jwtToken', data.accessToken);
+        router.push('/explore');
+      });
   };
 
   return (

@@ -1,3 +1,4 @@
+import apiClient from '../services/axiosInterceptor';
 import Head from 'next/head';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
@@ -18,6 +19,9 @@ import CardContent from '@material-ui/core/CardContent';
 import Card from '@material-ui/core/Card';
 import LogoAuth from './components/logo-auth';
 import { makeStyles } from '@material-ui/core/styles';
+import getConfig from 'next/config';
+const { publicRuntimeConfig } = getConfig();
+const SERVER_ADDRESS = publicRuntimeConfig.backendUrl;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,6 +35,10 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Home() {
   const classes = useStyles();
+
+  apiClient.get(SERVER_ADDRESS + '/users/me').then((response) => {
+    console.log(response.data);
+  });
 
   return (
     <Container maxWidth='md'>
