@@ -34,7 +34,7 @@ export default function SignInSide() {
     event.preventDefault();
     dispatch(
       auth.login({
-        username: email,
+        email,
         password,
         callback: () => {
           router.push('/explore');
