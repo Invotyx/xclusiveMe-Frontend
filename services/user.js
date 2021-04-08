@@ -42,6 +42,14 @@ export async function me() {
   return apiClient.get(`${SERVER_ADDRESS}/users/me`);
 }
 
+export async function refreshToken() {
+  const refreshToken = localStorage.getItem('refreshToken');
+  if (!refreshToken) {
+    return null;
+  }
+  return apiClient.get(`${SERVER_ADDRESS}/auth/refresh`);
+}
+
 export async function updateProfile(id, request) {
   const data = JSON.stringify(request);
   return apiClient.post(`${SERVER_ADDRESS}/auth/updateProfile`, data);

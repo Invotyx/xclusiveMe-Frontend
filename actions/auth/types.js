@@ -8,6 +8,7 @@ export const AUTH = createActionTypes('AUTH', [
   'RESET_PASSWORD_TOKEN_VERIFY',
   'LOGOUT',
   'SUCCESS',
+  'REFRESH_TOKEN',
   'FAILURE',
   'ME',
 ]);

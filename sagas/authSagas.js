@@ -12,6 +12,7 @@ import {
   me,
   logout,
   resetPassword,
+  refreshToken,
   verifyForgotPasswordToken,
 } from '../services/user';
 
@@ -21,6 +22,7 @@ function* handleLogin(action) {
 
     const { data } = yield call(login, email, password);
     localStorage.setItem('jwtToken', data.accessToken);
+    localStorage.setItem('refreshToken', data.refreshToken);
     const currentAuth = yield call(me);
     yield put(
       auth.success({
@@ -48,6 +50,10 @@ function* handleLogin(action) {
       })
     );
   }
+}
+
+function* handleRefreshToken(action) {
+  const { data } = yield call(refreshToken);
 }
 
 function* handleRegister(action) {
@@ -174,6 +180,7 @@ function* handleLogout() {
 function* watchAuthSagas() {
   yield all([
     takeLatest(AUTH.LOGIN, handleLogin),
+    takeLatest(AUTH.REFRESH_TOKEN, handleRefreshToken),
     takeLatest(AUTH.REGISTER, handleRegister),
     takeLatest(AUTH.FORGOT_PASSWORD, handleForgotPassword),
     takeLatest(AUTH.RESET_PASSWORD, handleResetPassword),
