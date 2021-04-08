@@ -30,6 +30,9 @@ const useStyles = makeStyles((theme) => ({
   header: {
     zIndex: 2,
   },
+  header2: {
+    zIndex: 2,
+  },
   media: {
     zIndex: 1,
     height: 0,
@@ -94,6 +97,7 @@ export default function Home() {
               title='Paella dish'
             />
             <CardHeader
+              className={classes.header2}
               avatar={
                 <Avatar
                   className={classes.userAvatar}
