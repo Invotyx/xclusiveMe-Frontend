@@ -11,6 +11,7 @@ import TileButton from './components/TileButton';
 import TileTextField from './components/TileTextField';
 import LogoGuest from './components/logo-guest';
 import Container from '@material-ui/core/Container';
+import { user } from '../actions/user';
 
 const useStyles = makeStyles((theme) => ({
   grey: {
