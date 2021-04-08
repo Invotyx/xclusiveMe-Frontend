@@ -102,7 +102,6 @@ export default function SignInSide() {
                 label='Email Address'
                 name='email'
                 autoComplete='email'
-                autoFocus
               />
               <TileTextField
                 value={password}
@@ -128,7 +127,6 @@ export default function SignInSide() {
                 label='Phone Number'
                 name='phoneNumber'
                 autoComplete='phoneNumber'
-                autoFocus
               />
               <Box my={2}>
                 <TileButton
