@@ -15,6 +15,7 @@ export default function authReducer(state = initialState, action) {
     case AUTH.REGISTER:
     case AUTH.FORGOT_PASSWORD:
     case AUTH.REFRESH_TOKEN:
+    case AUTH.ME:
     case AUTH.LOGOUT:
     case AUTH.SUCCESS:
     case AUTH.FAILURE:

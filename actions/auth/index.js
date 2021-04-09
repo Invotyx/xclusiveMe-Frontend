@@ -45,6 +45,12 @@ export const auth = {
       error: null,
     }),
   logout: () => createAction(AUTH.LOGOUT, { loggedIn: false }),
+  me: () =>
+    createAction(AUTH.ME, {
+      fetching: true,
+      success: false,
+      error: null,
+    }),
   success: (data) =>
     createAction(AUTH.SUCCESS, {
       ...data,
