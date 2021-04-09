@@ -1,4 +1,5 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import Head from 'next/head';
 import Image from 'next/image';
 import Box from '@material-ui/core/Box';
@@ -64,6 +65,7 @@ const loginSessions = [
 ];
 
 export default function Home(props) {
+  const dispatch = useDispatch();
   const [username, set_username] = React.useState('vdotdl');
   const [email, set_email] = React.useState('vdotdl@gmail.com');
   const [phone, set_phone] = React.useState('+1 222 884 5655');
@@ -72,6 +74,12 @@ export default function Home(props) {
   const [authenticatorApp, set_authenticatorApp] = React.useState(true);
 
   const classes = useStyles();
+  const handleUpdate = () => {
+    dispatch(auth.update({ username, email, phone }));
+  };
+  const handleUpdatePassword = () => {
+    dispatch(auth.update({ password }));
+  };
   return (
     <Container maxWidth='md'>
       <Head>
@@ -128,7 +136,9 @@ export default function Home(props) {
                 label='Phone'
                 type='phone'
               />
-              <Button variant='outlined'>Update</Button>
+              <Button variant='outlined' onClick={handleUpdate}>
+                Update
+              </Button>
             </Box>
             <Box mb={4}>
               <UppercaseInputLabel>Linked Accounts</UppercaseInputLabel>
@@ -158,7 +168,9 @@ export default function Home(props) {
                 label='Password'
                 type='password'
               />
-              <Button variant='outlined'>Update Password</Button>
+              <Button variant='outlined' onClick={handleUpdatePassword}>
+                Update Password
+              </Button>
             </Box>
             <Box mb={4}>
               <UppercaseInputLabel>Two Step Authentication</UppercaseInputLabel>
