@@ -68,6 +68,7 @@ export async function verifyForgotPasswordToken(token, email) {
 
 export async function logout() {
   localStorage.removeItem('jwtToken');
+  localStorage.removeItem('refreshToken');
   return true;
 }
 
