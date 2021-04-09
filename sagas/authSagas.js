@@ -105,7 +105,9 @@ function* handleRegister(action) {
       })
     );
     const { callback } = action.payload;
-    callback && callback();
+    if (callback) {
+      yield call(callback);
+    }
   } catch (e) {
     yield put(auth.failure({ error: { ...e } }));
     yield put(
