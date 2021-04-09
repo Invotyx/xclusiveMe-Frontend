@@ -57,7 +57,23 @@ function* handleLogin(action) {
 }
 
 function* handleRefreshToken(action) {
-  const { data } = yield call(refreshToken);
+  try {
+    if (localStorage.getItem('refreshToken')) {
+      const { data } = yield call(refreshToken);
+      localStorage.setItem('jwtToken', data.accessToken);
+      localStorage.setItem('refreshToken', data.refreshToken);
+      const { callback } = action.payload;
+      if (callback) {
+        yield call(callback);
+      }
+    } else {
+      yield call(logout);
+      yield put(useRouter().push('/login'));
+    }
+  } catch (e) {
+    yield call(logout);
+    yield put(auth.failure({ error: { ...e } }));
+  }
 }
 
 function* handleRegister(action) {
