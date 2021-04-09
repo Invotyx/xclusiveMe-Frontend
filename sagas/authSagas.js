@@ -125,14 +125,13 @@ function* handleUpdateProfile(action) {
   try {
     const { fullName, username, email, password, phoneNumber } = action.payload;
 
-    const { data } = yield call(
-      updateProfile,
+    const { data } = yield call(updateProfile, {
       fullName,
       username,
       email,
       password,
-      phoneNumber
-    );
+      phoneNumber,
+    });
     yield put(
       snackbar.update({
         open: true,
