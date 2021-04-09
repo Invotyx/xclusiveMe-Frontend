@@ -50,7 +50,7 @@ export async function refreshToken() {
   return apiClient.get(`${SERVER_ADDRESS}/auth/refresh`);
 }
 
-export async function updateProfile(id, request) {
+export async function updateProfile(request) {
   const data = JSON.stringify(request);
   return apiClient.post(`${SERVER_ADDRESS}/auth/updateProfile`, data);
 }

@@ -13,6 +13,7 @@ export default function authReducer(state = initialState, action) {
   switch (action.type) {
     case AUTH.LOGIN:
     case AUTH.REGISTER:
+    case AUTH.UPDATE_PROFILE:
     case AUTH.FORGOT_PASSWORD:
     case AUTH.REFRESH_TOKEN:
     case AUTH.ME:

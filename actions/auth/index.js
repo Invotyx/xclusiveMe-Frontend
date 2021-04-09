@@ -23,6 +23,13 @@ export const auth = {
       success: false,
       error: null,
     }),
+  updateProfile: (data) =>
+    createAction(AUTH.UPDATE_PROFILE, {
+      ...data,
+      fetching: true,
+      success: false,
+      error: null,
+    }),
   forgotPassword: (data) =>
     createAction(AUTH.FORGOT_PASSWORD, {
       ...data,

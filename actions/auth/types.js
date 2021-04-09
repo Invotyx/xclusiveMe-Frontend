@@ -3,6 +3,7 @@ import { createActionTypes } from '../../utils';
 export const AUTH = createActionTypes('AUTH', [
   'LOGIN',
   'REGISTER',
+  'UPDATE_PROFILE',
   'FORGOT_PASSWORD',
   'RESET_PASSWORD',
   'RESET_PASSWORD_TOKEN_VERIFY',

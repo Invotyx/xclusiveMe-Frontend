@@ -8,6 +8,7 @@ import { snackbar } from '../actions/snackbar';
 import {
   login,
   register,
+  updateProfile,
   forgotPassword,
   me,
   logout,
@@ -120,6 +121,41 @@ function* handleRegister(action) {
   }
 }
 
+function* handleUpdateProfile(action) {
+  try {
+    const { fullName, username, email, password, phoneNumber } = action.payload;
+
+    const { data } = yield call(
+      updateProfile,
+      fullName,
+      username,
+      email,
+      password,
+      phoneNumber
+    );
+    yield put(
+      snackbar.update({
+        open: true,
+        message: 'Profile Update Successfully!',
+        severity: 'success',
+      })
+    );
+    const { callback } = action.payload;
+    if (callback) {
+      yield call(callback);
+    }
+  } catch (e) {
+    yield put(auth.failure({ error: { ...e } }));
+    yield put(
+      snackbar.update({
+        open: true,
+        message: 'User Registered Failed!',
+        severity: 'error',
+      })
+    );
+  }
+}
+
 function* handleForgotPassword(action) {
   try {
     const { email } = action.payload;
@@ -204,6 +240,7 @@ function* watchAuthSagas() {
     takeLatest(AUTH.LOGIN, handleLogin),
     takeLatest(AUTH.REFRESH_TOKEN, handleRefreshToken),
     takeLatest(AUTH.REGISTER, handleRegister),
+    takeLatest(AUTH.UPDATE_PROFILE, handleUpdateProfile),
     takeLatest(AUTH.FORGOT_PASSWORD, handleForgotPassword),
     takeLatest(AUTH.RESET_PASSWORD, handleResetPassword),
     takeLatest(
