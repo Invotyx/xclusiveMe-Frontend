@@ -21,9 +21,7 @@ apiClient.interceptors.request.use(
     }
     return request;
   },
-  (error) => {
-    Promise.reject(error);
-  }
+  (error) => Promise.reject(error)
 );
 
 export default apiClient;
