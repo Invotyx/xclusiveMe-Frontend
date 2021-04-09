@@ -5,7 +5,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSettings from './ListItemSettings';
 
 const sidebarNavItems = [
-  { url: '#', text: 'Edit Profile' },
   { url: '/settings/account', text: 'Account' },
   { url: '#', text: 'Privacy' },
   { url: '#', text: 'Subscriptions' },
