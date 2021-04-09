@@ -9,8 +9,9 @@ export const auth = {
       success: false,
       error: null,
     }),
-  refreshToken: () =>
+  refreshToken: (data) =>
     createAction(AUTH.REFRESH_TOKEN, {
+      ...data,
       fetching: true,
       success: false,
       error: null,
