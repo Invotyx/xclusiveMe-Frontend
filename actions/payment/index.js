@@ -4,10 +4,9 @@ import { PAYMENT } from './types';
 export const payment = {
   request: () =>
     createAction(PAYMENT.GET, { fetching: true, success: false, error: null }),
-  addPayment: (name, token) =>
+  addPayment: (data) =>
     createAction(PAYMENT.ADD_PAYMENT, {
-      name,
-      token,
+      ...data,
       fetching: true,
       success: false,
       error: null,
