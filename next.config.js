@@ -4,5 +4,6 @@ module.exports = {
   },
   publicRuntimeConfig: {
     backendUrl: process.env.BACKEND_URL,
+    stripeKey: process.env.STRIPE_KEY,
   },
 };
