@@ -52,7 +52,7 @@ export async function refreshToken() {
 
 export async function updateProfile(request) {
   const data = JSON.stringify(request);
-  return apiClient.post(`${SERVER_ADDRESS}/auth/updateProfile`, data);
+  return apiClient.put(`${SERVER_ADDRESS}/auth/updateProfile`, data);
 }
 
 export async function resetPassword(email, password, token) {
