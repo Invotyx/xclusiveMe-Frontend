@@ -177,7 +177,12 @@ export default function Home(props) {
                                 <Box>
                                   <Button
                                     variant='outlined'
-                                    onClick={() => set_editLinkedAccount(null)}
+                                    onClick={() => {
+                                      linkedAccounts[
+                                        linkedAccounts.indexOf(i)
+                                      ].active = editLinkedAccountText;
+                                      set_editLinkedAccount(null);
+                                    }}
                                   >
                                     save
                                   </Button>
