@@ -9,7 +9,11 @@ const interceptor = (dispatch) => {
       try {
         const { status } = error.response;
         if (status === UNAUTHORIZED) {
-          dispatch(auth.refreshToken({}));
+          dispatch(
+            auth.refreshToken({
+              callback: () => apiClient.request(error.config),
+            })
+          );
         }
       } catch (e) {
         console.log(e);
