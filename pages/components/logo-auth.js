@@ -31,8 +31,14 @@ import LanguageOutlinedIcon from '@material-ui/icons/LanguageOutlined';
 import ExitToAppOutlinedIcon from '@material-ui/icons/ExitToAppOutlined';
 import { currentUserSelector } from '../../selectors/authSelector';
 import { useSelector } from 'react-redux';
+import axiosInterceptorResponse from '../../services/axiosInterceptorResponse';
+import { useDispatch } from 'react-redux';
 
 export default function Comp() {
+  const dispatch = useDispatch();
+  React.useEffect(() => {
+    axiosInterceptorResponse(dispatch);
+  }, []);
   const userSelector = useSelector(currentUserSelector);
   const router = useRouter();
   const [anchorEl, setAnchorEl] = React.useState(null);
