@@ -32,12 +32,16 @@ import ExitToAppOutlinedIcon from '@material-ui/icons/ExitToAppOutlined';
 import { currentUserSelector } from '../../selectors/authSelector';
 import { useSelector } from 'react-redux';
 import axiosInterceptorResponse from '../../services/axiosInterceptorResponse';
+import { auth } from '../../actions/auth';
 import { useDispatch } from 'react-redux';
 
 export default function Comp() {
   const dispatch = useDispatch();
   React.useEffect(() => {
     axiosInterceptorResponse(dispatch);
+    const authorizationToken = localStorage.getItem('jwtToken');
+    authorizationToken && dispatch(auth.success({ loggedIn: true }));
+    dispatch(auth.me());
   }, []);
   const userSelector = useSelector(currentUserSelector);
   const router = useRouter();
