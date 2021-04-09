@@ -10,6 +10,7 @@ const sidebarNavItems = [
   { url: '#', text: 'Privacy' },
   { url: '#', text: 'Subscriptions' },
   { url: '#', text: 'Notifications' },
+  { url: '/settings/billing', text: 'Billing' },
 ];
 
 export default function Comp() {
