@@ -21,6 +21,7 @@ import TileTextField from '../components/TileTextField';
 import SidebarSettings from '../components/SidebarSettings';
 import ClearIcon from '@material-ui/icons/Clear';
 import AddIcon from '@material-ui/icons/Add';
+import { auth } from '../../actions/auth';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -75,10 +76,10 @@ export default function Home(props) {
 
   const classes = useStyles();
   const handleUpdate = () => {
-    dispatch(auth.update({ username, email, phoneNumber: phone }));
+    dispatch(auth.updateProfile({ username, email, phoneNumber: phone }));
   };
   const handleUpdatePassword = () => {
-    dispatch(auth.update({ password }));
+    dispatch(auth.updateProfile({ password }));
   };
   const handleLogOutAllSessions = () => {
     // dispatch(auth.logoutAll({}));
