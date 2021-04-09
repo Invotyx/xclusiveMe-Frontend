@@ -64,11 +64,11 @@ const loginSessions = [
 ];
 
 export default function Home(props) {
-  const username = 'vdotdl';
-  const email = 'vdotdl@gmail.com';
-  const phone = '+1 222 884 5655';
-  const verificationViaSms = false;
-  const authenticatorApp = true;
+  const [username, set_username] = React.useState('vdotdl');
+  const [email, set_email] = React.useState('vdotdl@gmail.com');
+  const [phone, set_phone] = React.useState('+1 222 884 5655');
+  const [verificationViaSms, set_verificationViaSms] = React.useState(false);
+  const [authenticatorApp, set_authenticatorApp] = React.useState(true);
 
   const classes = useStyles();
   return (
@@ -95,6 +95,7 @@ export default function Home(props) {
             <Box mb={4}>
               <TileTextField
                 value={username}
+                onChange={(e) => set_username(e.target.value)}
                 variant='outlined'
                 margin='normal'
                 fullWidth
@@ -108,6 +109,7 @@ export default function Home(props) {
               />
               <TileTextField
                 value={email}
+                onChange={(e) => set_email(e.target.value)}
                 variant='outlined'
                 margin='normal'
                 fullWidth
@@ -117,6 +119,7 @@ export default function Home(props) {
               />
               <TileTextField
                 value={phone}
+                onChange={(e) => set_phone(e.target.value)}
                 variant='outlined'
                 margin='normal'
                 fullWidth
@@ -124,6 +127,7 @@ export default function Home(props) {
                 label='Phone'
                 type='phone'
               />
+              <Button variant='outlined'>Update</Button>
             </Box>
             <Box mb={4}>
               <UppercaseInputLabel>Linked Accounts</UppercaseInputLabel>
@@ -184,7 +188,9 @@ export default function Home(props) {
                   <ListItemSecondaryAction>
                     <Switch
                       edge='end'
-                      onChange={(e) => console.log(e)}
+                      onChange={(e) => {
+                        set_authenticatorApp(e.target.checked);
+                      }}
                       checked={authenticatorApp}
                     />
                   </ListItemSecondaryAction>
@@ -194,7 +200,9 @@ export default function Home(props) {
                   <ListItemSecondaryAction>
                     <Switch
                       edge='end'
-                      onChange={(e) => console.log(e)}
+                      onChange={(e) => {
+                        set_verificationViaSms(e.target.checked);
+                      }}
                       checked={verificationViaSms}
                     />
                   </ListItemSecondaryAction>
