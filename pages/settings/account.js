@@ -75,7 +75,7 @@ export default function Home(props) {
 
   const classes = useStyles();
   const handleUpdate = () => {
-    dispatch(auth.update({ username, email, phone }));
+    dispatch(auth.update({ username, email, phoneNumber: phone }));
   };
   const handleUpdatePassword = () => {
     dispatch(auth.update({ password }));
