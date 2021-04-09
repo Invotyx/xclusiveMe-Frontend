@@ -69,6 +69,9 @@ const loginSessions = [
 export default function Home(props) {
   const dispatch = useDispatch();
   const [editLinkedAccount, set_editLinkedAccount] = React.useState(null);
+  const [editLinkedAccountText, set_editLinkedAccountText] = React.useState(
+    null
+  );
   const [username, set_username] = React.useState('vdotdl');
   const [email, set_email] = React.useState('vdotdl@gmail.com');
   const [phone, set_phone] = React.useState('+1 222 884 5655');
@@ -161,6 +164,10 @@ export default function Home(props) {
                               <Box display='flex' mt={1}>
                                 <Box mr={1}>
                                   <TileTextField
+                                    value={editLinkedAccountText}
+                                    onChange={(e) =>
+                                      set_editLinkedAccountText(e.target.value)
+                                    }
                                     variant='outlined'
                                     size='small'
                                     name='phone'
@@ -185,7 +192,10 @@ export default function Home(props) {
                       <ListItemSecondaryAction>
                         {editLinkedAccount !== i.text && (
                           <IconButton
-                            onClick={() => set_editLinkedAccount(i.text)}
+                            onClick={() => {
+                              set_editLinkedAccount(i.text);
+                              set_editLinkedAccountText(i.active);
+                            }}
                           >
                             {i.active ? <ClearIcon /> : <AddIcon />}
                           </IconButton>
