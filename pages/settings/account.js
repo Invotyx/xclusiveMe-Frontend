@@ -67,6 +67,7 @@ export default function Home(props) {
   const [username, set_username] = React.useState('vdotdl');
   const [email, set_email] = React.useState('vdotdl@gmail.com');
   const [phone, set_phone] = React.useState('+1 222 884 5655');
+  const [password, set_password] = React.useState('');
   const [verificationViaSms, set_verificationViaSms] = React.useState(false);
   const [authenticatorApp, set_authenticatorApp] = React.useState(true);
 
@@ -147,7 +148,9 @@ export default function Home(props) {
             </Box>
             <Box mb={4}>
               <TileTextField
-                value={`password`}
+                placeholder='•••••••'
+                value={password}
+                onChange={(e) => set_password(e.target.value)}
                 variant='outlined'
                 margin='normal'
                 fullWidth
