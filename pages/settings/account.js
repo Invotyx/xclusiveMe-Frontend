@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import Head from 'next/head';
 import Image from 'next/image';
 import Box from '@material-ui/core/Box';
+import IconButton from '@material-ui/core/IconButton';
 import Divider from '@material-ui/core/Divider';
 import Switch from '@material-ui/core/Switch';
 import Grid from '@material-ui/core/Grid';
@@ -67,6 +68,7 @@ const loginSessions = [
 
 export default function Home(props) {
   const dispatch = useDispatch();
+  const [editLinkedAccount, set_editLinkedAccount] = React.useState(null);
   const [username, set_username] = React.useState('vdotdl');
   const [email, set_email] = React.useState('vdotdl@gmail.com');
   const [phone, set_phone] = React.useState('+1 222 884 5655');
@@ -151,9 +153,43 @@ export default function Home(props) {
                   <Box mb={1} key={`linkedAccounts${j}`}>
                     <ListItem selected={true}>
                       {i.icon && <ListItemIcon>{i.icon}</ListItemIcon>}
-                      <ListItemText primary={i.text} secondary={i.active} />
+                      <ListItemText
+                        primary={i.text}
+                        secondary={
+                          <>
+                            {editLinkedAccount === i.text ? (
+                              <Box display='flex' mt={1}>
+                                <Box mr={1}>
+                                  <TileTextField
+                                    variant='outlined'
+                                    size='small'
+                                    name='phone'
+                                    type='phone'
+                                  />
+                                </Box>
+                                <Box>
+                                  <Button
+                                    variant='outlined'
+                                    onClick={() => set_editLinkedAccount(null)}
+                                  >
+                                    save
+                                  </Button>
+                                </Box>
+                              </Box>
+                            ) : (
+                              i.active
+                            )}
+                          </>
+                        }
+                      />
                       <ListItemSecondaryAction>
-                        {i.active ? <ClearIcon /> : <AddIcon />}
+                        {editLinkedAccount !== i.text && (
+                          <IconButton
+                            onClick={() => set_editLinkedAccount(i.text)}
+                          >
+                            {i.active ? <ClearIcon /> : <AddIcon />}
+                          </IconButton>
+                        )}
                       </ListItemSecondaryAction>
                     </ListItem>
                   </Box>
