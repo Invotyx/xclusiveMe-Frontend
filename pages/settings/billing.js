@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import Head from 'next/head';
 import BillingAddDialog from './billing-add-dialog';
 import Box from '@material-ui/core/Box';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -35,6 +37,25 @@ export default function Home(props) {
   const paymentData = useSelector(paymentDataSelector);
   const fetching = useSelector(fetchingSelector);
   const dispatch = useDispatch();
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [planId, setPlanId] = React.useState(null);
+  const handleClickListItem = (event, pid) => {
+    setAnchorEl(event.currentTarget);
+    setPlanId(pid);
+  };
+
+  const handleEdit = () => {
+    dispatch(payment.setDefault(planId));
+  };
+
+  const handleDelete = () => {
+    window.confirm('Do you want proceed?') && dispatch(payment.delete(planId));
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   useEffect(() => {
     dispatch(payment.request());
@@ -101,6 +122,10 @@ export default function Home(props) {
           </List>
         </Grid>
       </Grid>
+      <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
+        <MenuItem onClick={handleEdit}>Set Default</MenuItem>
+        <MenuItem onClick={handleDelete}>Delete</MenuItem>
+      </Menu>
     </Container>
   );
 }
