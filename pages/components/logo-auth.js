@@ -45,14 +45,6 @@ export default function Comp() {
   }, []);
   const userSelector = useSelector(currentUserSelector);
   const router = useRouter();
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const settingsMenuOpen = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const settingsMenuClose = () => {
-    setAnchorEl(null);
-  };
 
   const logout = () => {
     localStorage.removeItem('jwtToken');
@@ -132,98 +124,11 @@ export default function Comp() {
             </IconButton>
           </Box>
           <Box ml={3}>
-            <IconButton
-              color='inherit'
-              aria-controls='simple-menu'
-              onClick={settingsMenuOpen}
-            >
-              <SettingsIcon />
-            </IconButton>
-            <Menu
-              id='simple-menu'
-              anchorEl={anchorEl}
-              open={Boolean(anchorEl)}
-              keepMounted
-              onClose={settingsMenuClose}
-              getContentAnchorEl={null}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'right',
-              }}
-            >
-              <NextLink href='/settings/account'>
-                <MenuItem onClick={settingsMenuClose}>
-                  <ListItemIcon>
-                    <SettingsIcon />
-                  </ListItemIcon>
-                  <ListItemText primary='Settings' />
-                </MenuItem>
-              </NextLink>
-              <Divider />
-              <MenuItem onClick={settingsMenuClose}>
-                <ListItemIcon>
-                  <MonetizationOnOutlinedIcon />
-                </ListItemIcon>
-                <ListItemText primary='Earnings' />
-              </MenuItem>
-              <MenuItem onClick={settingsMenuClose}>
-                <ListItemIcon>
-                  <BookmarkBorderOutlinedIcon />
-                </ListItemIcon>
-                <ListItemText primary='Bookmarks' />
-              </MenuItem>
-              <MenuItem onClick={settingsMenuClose}>
-                <ListItemIcon>
-                  <FeaturedPlayListOutlinedIcon />
-                </ListItemIcon>
-                <ListItemText primary='Follow list' />
-              </MenuItem>
-              <Divider />
-              <MenuItem onClick={settingsMenuClose}>
-                <ListItemIcon>
-                  <CreditCardOutlinedIcon />
-                </ListItemIcon>
-                <ListItemText primary='Card' />
-                <ListItemSecondaryAction>
-                  For subscriptions
-                </ListItemSecondaryAction>
-              </MenuItem>
-              <MenuItem onClick={settingsMenuClose}>
-                <ListItemIcon>
-                  <AccountBalanceOutlinedIcon />
-                </ListItemIcon>
-                <ListItemText primary='Bank' />
-                <ListItemSecondaryAction>For earnings</ListItemSecondaryAction>
-              </MenuItem>
-              <Divider />
-              <MenuItem onClick={settingsMenuClose}>
-                <ListItemIcon>
-                  <HelpOutlineOutlinedIcon />
-                </ListItemIcon>
-                <ListItemText primary='Help & Support' />
-              </MenuItem>
-              <MenuItem onClick={settingsMenuClose}>
-                <ListItemIcon>
-                  <HighlightOutlinedIcon />
-                </ListItemIcon>
-                <ListItemText primary='Light mode' />
-              </MenuItem>
-              <MenuItem onClick={settingsMenuClose}>
-                <ListItemIcon>
-                  <LanguageOutlinedIcon />
-                </ListItemIcon>
-                <ListItemText primary='English' />
-              </MenuItem>
-              <Divider />
-              <NextLink href='/login'>
-                <MenuItem onClick={settingsMenuClose}>
-                  <ListItemIcon>
-                    <ExitToAppOutlinedIcon />
-                  </ListItemIcon>
-                  <ListItemText primary='Logout' />
-                </MenuItem>
-              </NextLink>
-            </Menu>
+            <NextLink href='/settings/account'>
+              <IconButton color='inherit'>
+                <SettingsIcon />
+              </IconButton>
+            </NextLink>
           </Box>
         </Box>
       </Toolbar>
