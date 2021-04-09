@@ -80,6 +80,9 @@ export default function Home(props) {
   const handleUpdatePassword = () => {
     dispatch(auth.update({ password }));
   };
+  const handleLogOutAllSessions = () => {
+    // dispatch(auth.logoutAll({}));
+  };
   return (
     <Container maxWidth='md'>
       <Head>
@@ -190,7 +193,9 @@ export default function Home(props) {
                   </React.Fragment>
                 ))}
               </List>
-              <Button variant='outlined'>Log out all sessions</Button>
+              <Button variant='outlined' onClick={handleLogOutAllSessions}>
+                Log out all sessions
+              </Button>
             </Box>
             <Box mb={4}>
               <UppercaseInputLabel>Login Sessions</UppercaseInputLabel>
