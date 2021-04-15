@@ -228,7 +228,7 @@ export default function Home(props) {
               </Button>
             </Box>
             <Box mb={4}>
-              <UppercaseInputLabel>Two Step Authentication</UppercaseInputLabel>
+              <UppercaseInputLabel>Login Sessions</UppercaseInputLabel>
               <List>
                 {loginSessions.map((i, j) => (
                   <React.Fragment key={`loginSessions${j}`}>
@@ -250,7 +250,7 @@ export default function Home(props) {
               </Button>
             </Box>
             <Box mb={4}>
-              <UppercaseInputLabel>Login Sessions</UppercaseInputLabel>
+              <UppercaseInputLabel>Two Step Authentication</UppercaseInputLabel>
               <List>
                 <ListItem disableGutters>
                   <ListItemText
