@@ -4,6 +4,8 @@ import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import CardHeader from '@material-ui/core/CardHeader';
+import SortIcon from '@material-ui/icons/Sort';
+import SearchIcon from '@material-ui/icons/Search';
 import CardMedia from '@material-ui/core/CardMedia';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
@@ -155,6 +157,19 @@ export default function Home() {
           </Grid>
           <Grid item xs={12}>
             <Box ml={8} mr={8}>
+              <CardHeader
+                action={
+                  <>
+                    <IconButton aria-label='sort'>
+                      <SearchIcon />
+                    </IconButton>
+                    <IconButton aria-label='sort'>
+                      <SortIcon />
+                    </IconButton>
+                  </>
+                }
+                title='1.2k posts'
+              />
               <Grid container spacing={2}>
                 <Grid item xs={12}>
                   <Post />
