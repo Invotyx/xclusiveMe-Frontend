@@ -252,21 +252,23 @@ export default function Home(props) {
             <Box mb={4}>
               <UppercaseInputLabel>Two Step Authentication</UppercaseInputLabel>
               <List>
-                <ListItem disableGutters>
-                  <ListItemText
-                    primary={`Authenticator App`}
-                    secondary={`You can use Microsoft or Google Authenticator application for iOS or Android`}
-                  />
-                  <ListItemSecondaryAction>
-                    <Switch
-                      edge='end'
-                      onChange={(e) => {
-                        set_authenticatorApp(e.target.checked);
-                      }}
-                      checked={authenticatorApp}
+                {false && (
+                  <ListItem disableGutters>
+                    <ListItemText
+                      primary={`Authenticator App`}
+                      secondary={`You can use Microsoft or Google Authenticator application for iOS or Android`}
                     />
-                  </ListItemSecondaryAction>
-                </ListItem>
+                    <ListItemSecondaryAction>
+                      <Switch
+                        edge='end'
+                        onChange={(e) => {
+                          set_authenticatorApp(e.target.checked);
+                        }}
+                        checked={authenticatorApp}
+                      />
+                    </ListItemSecondaryAction>
+                  </ListItem>
+                )}
                 <ListItem disableGutters>
                   <ListItemText primary={`Verification via SMS`} />
                   <ListItemSecondaryAction>
