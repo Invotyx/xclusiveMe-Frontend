@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Head from 'next/head';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
@@ -21,6 +21,8 @@ import CardContent from '@material-ui/core/CardContent';
 import Card from '@material-ui/core/Card';
 import LogoAuth from '../components/logo-auth';
 import CreateIcon from '@material-ui/icons/Create';
+import { currentUserSelector } from '../selectors/authSelector';
+import { useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -60,6 +62,8 @@ export default function Home() {
   const [tab, setTab] = React.useState(0);
   const classes = useStyles();
 
+  const currentUser = useSelector(currentUserSelector);
+
   return (
     <Container maxWidth='md'>
       <Head>
@@ -75,6 +79,7 @@ export default function Home() {
         />
       </Head>
       <LogoAuth />
+      {currentUser && (
       <Grid container spacing={2} className={classes.root}>
         <Grid item xs={12}>
           <Card className={classes.root}>
@@ -118,20 +123,15 @@ export default function Home() {
                   </Box>
                 </Box>
               }
-              title={<Typography variant='h6'>Ariana Green</Typography>}
+              title={
+                <Typography variant='h6'>
+                  {currentUser.profile.fullName}
+                </Typography>
+              }
             />
             <CardContent>
               <Typography variant='body2' color='textSecondary' component='p'>
-                Ariana Green 💄 Make up Artist
-                <br />
-                WEAR YOUR WONDERFUL
-                <br />
-                📸 Get featured using #GREENgals or tag @AGreen
-                <br />
-                🆕 @AGreen_OFFICIAL
-                <br />
-                ❤️ @arianagreen
-                <br />
+                {currentUser.profile.headline}
               </Typography>
             </CardContent>
             <CardActions disableSpacing>
@@ -153,6 +153,7 @@ export default function Home() {
           </Card>
         </Grid>
       </Grid>
+      )}
     </Container>
   );
 }
