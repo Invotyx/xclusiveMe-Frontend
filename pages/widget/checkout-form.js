@@ -7,12 +7,8 @@ import { useDispatch } from 'react-redux';
 import { payment } from '../../actions/payment';
 import { snackbar } from '../../actions/snackbar';
 import CardSection from './card-section';
-import { makeStyles } from '@material-ui/core/styles';
-
-const useStyles = makeStyles((theme) => ({}));
 
 export default function CheckoutForm(props) {
-  const classes = useStyles();
   const stripe = useStripe();
   const elements = useElements();
   const [name, setName] = useState('');
