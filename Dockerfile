@@ -24,14 +24,14 @@ COPY ./ ./
 RUN npm run build
 
 # make /.next/cache directory
-RUN mkdir /usr/app/.next/cache
+# RUN mkdir /usr/app/.next/cache
 
 # Expose the listening port
 EXPOSE 3000
 
 # Run container as non-root (unprivileged) user
 # The node user is provided in the Node.js Alpine base image
-USER node
+# USER node
 
 # Run npm start script when container starts
 CMD [ "npm", "start" ]
