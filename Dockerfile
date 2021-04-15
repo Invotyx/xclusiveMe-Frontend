@@ -23,6 +23,9 @@ COPY ./ ./
 # Build app
 RUN npm run build
 
+# make /.next/cache directory
+RUN mkdir /usr/app/.next/cache
+
 # Expose the listening port
 EXPOSE 3000
 
