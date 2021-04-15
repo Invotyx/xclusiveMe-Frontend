@@ -20,6 +20,7 @@ import Typography from '@material-ui/core/Typography';
 import CardContent from '@material-ui/core/CardContent';
 import Card from '@material-ui/core/Card';
 import LogoAuth from '../components/logo-auth';
+import Post from '../components/post';
 import CreateIcon from '@material-ui/icons/Create';
 import { currentUserSelector } from '../selectors/authSelector';
 import { useSelector } from 'react-redux';
@@ -151,6 +152,9 @@ export default function Home() {
                 </Box>
               </CardActions>
             </Card>
+          </Grid>
+          <Grid item xs={12}>
+            <Post />
           </Grid>
         </Grid>
       )}
