@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import Head from 'next/head';
 import Image from 'next/image';
@@ -23,6 +23,8 @@ import SidebarSettings from '../../components/SidebarSettings';
 import ClearIcon from '@material-ui/icons/Clear';
 import AddIcon from '@material-ui/icons/Add';
 import { auth } from '../../actions/auth';
+import { currentUserSelector } from '../../selectors/authSelector';
+import { useSelector } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -78,6 +80,15 @@ export default function Home(props) {
   const [password, set_password] = React.useState('');
   const [verificationViaSms, set_verificationViaSms] = React.useState(false);
   const [authenticatorApp, set_authenticatorApp] = React.useState(true);
+
+  const currentUser = useSelector(currentUserSelector);
+  useEffect(() => {
+    if (currentUser) {
+      set_username(currentUser.username);
+      set_email(currentUser.email);
+      set_phone(currentUser.phone);
+    }
+  }, [currentUser]);
 
   const classes = useStyles();
   const handleUpdate = () => {
