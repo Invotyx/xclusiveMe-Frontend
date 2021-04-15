@@ -2,10 +2,17 @@ import { useRouter } from 'next/router';
 import NextLink from 'next/link';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+  grey: {
+    color: '#666',
+  },
+}));
 
 export default function Comp(props) {
   const { asPath } = useRouter();
-  const classes = props.classes;
+  const classes = useStyles();
   return (
     <Box mt={8} mb={4} ml={2} display='flex'>
       <Box>

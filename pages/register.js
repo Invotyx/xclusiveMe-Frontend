@@ -65,7 +65,7 @@ export default function SignInSide() {
         </Grid>
         <Grid item xs={12} sm={8} md={5}>
           <Box p={8} mx={4}>
-            <AuthNav classes={classes} />
+            <AuthNav />
             <form onSubmit={handleSubmit}>
               <TileTextField
                 value={fullName}
