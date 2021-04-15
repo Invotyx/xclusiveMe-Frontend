@@ -154,7 +154,7 @@ export default function Home() {
             </Card>
           </Grid>
           <Grid item xs={12}>
-            <Box p={8}>
+            <Box ml={8} mr={8}>
               <Grid container spacing={2}>
                 <Grid item xs={12}>
                   <Post />
