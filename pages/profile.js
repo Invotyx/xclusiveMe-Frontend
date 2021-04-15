@@ -38,9 +38,9 @@ const useStyles = makeStyles((theme) => ({
     height: 0,
     paddingTop: '33%',
     marginTop: '-72px',
-    position: 'relative',
+    // position: 'relative',
     '&::after': {
-      content: '" "',
+      // content: '" "',
       position: 'absolute',
       top: '0',
       left: '0',
