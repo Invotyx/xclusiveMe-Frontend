@@ -4,7 +4,6 @@
 
 import { CardElement } from '@stripe/react-stripe-js';
 import React from 'react';
-import Box from '@material-ui/core/Box';
 const CARD_ELEMENT_OPTIONS = {
   style: {
     base: {
@@ -24,9 +23,9 @@ const CARD_ELEMENT_OPTIONS = {
 };
 function CardSection() {
   return (
-    <Box>
+    <>
       <CardElement options={CARD_ELEMENT_OPTIONS} className='StripeElement' />
-    </Box>
+    </>
   );
 }
 export default CardSection;
