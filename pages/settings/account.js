@@ -86,7 +86,7 @@ export default function Home(props) {
     if (currentUser) {
       set_username(currentUser.username);
       set_email(currentUser.email);
-      set_phone(currentUser.phone);
+      set_phone(currentUser.phoneNumber);
     }
   }, [currentUser]);
 
