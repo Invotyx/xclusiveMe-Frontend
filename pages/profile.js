@@ -80,79 +80,79 @@ export default function Home() {
       </Head>
       <LogoAuth />
       {currentUser && (
-      <Grid container spacing={2} className={classes.root}>
-        <Grid item xs={12}>
-          <Card className={classes.root}>
-            <CardHeader
-              className={classes.header}
-              action={
-                <>
-                  <IconButton aria-label='create'>
-                    <CreateIcon />
-                  </IconButton>
-                  <IconButton aria-label='settings'>
-                    <MoreVertIcon />
-                  </IconButton>
-                </>
-              }
-            />
-            <CardMedia
-              className={classes.media}
-              image='/cover.jpg'
-              title='Paella dish'
-            />
-            <CardHeader
-              className={classes.header2}
-              avatar={
-                <Avatar
-                  className={classes.userAvatar}
-                  alt='Remy Sharp'
-                  src='https://material-ui.com/static/images/avatar/1.jpg'
-                />
-              }
-              action={
-                <Box display='flex' textAlign='center'>
-                  <Box mx={4}>
-                    <ListItemText primary='1.2k' secondary='Posts' />
+        <Grid container spacing={2} className={classes.root}>
+          <Grid item xs={12}>
+            <Card className={classes.root}>
+              <CardHeader
+                className={classes.header}
+                action={
+                  <>
+                    <IconButton aria-label='create'>
+                      <CreateIcon />
+                    </IconButton>
+                    <IconButton aria-label='settings'>
+                      <MoreVertIcon />
+                    </IconButton>
+                  </>
+                }
+              />
+              <CardMedia
+                className={classes.media}
+                image='/cover.jpg'
+                title='Paella dish'
+              />
+              <CardHeader
+                className={classes.header2}
+                avatar={
+                  <Avatar
+                    className={classes.userAvatar}
+                    alt='Remy Sharp'
+                    src='https://material-ui.com/static/images/avatar/1.jpg'
+                  />
+                }
+                action={
+                  <Box display='flex' textAlign='center'>
+                    <Box mx={4}>
+                      <ListItemText primary='1.2k' secondary='Posts' />
+                    </Box>
+                    <Box mx={4}>
+                      <ListItemText primary='1.2M' secondary='Followers' />
+                    </Box>
+                    <Box mx={4}>
+                      <ListItemText primary='499' secondary='Following' />
+                    </Box>
                   </Box>
-                  <Box mx={4}>
-                    <ListItemText primary='1.2M' secondary='Followers' />
-                  </Box>
-                  <Box mx={4}>
-                    <ListItemText primary='499' secondary='Following' />
-                  </Box>
-                </Box>
-              }
-              title={
-                <Typography variant='h6'>
-                  {currentUser.profile.fullName}
+                }
+                title={
+                  <Typography variant='h6'>
+                    {currentUser.profile.fullName}
+                  </Typography>
+                }
+              />
+              <CardContent>
+                <Typography variant='body2' color='textSecondary' component='p'>
+                  {currentUser.profile.headline}
                 </Typography>
-              }
-            />
-            <CardContent>
-              <Typography variant='body2' color='textSecondary' component='p'>
-                {currentUser.profile.headline}
-              </Typography>
-            </CardContent>
-            <CardActions disableSpacing>
-              <Box flexGrow={1}>
-                <Tabs
-                  value={tab}
-                  onChange={(v) => setTab(v)}
-                  variant='fullWidth'
-                  indicatorColor='primary'
-                  textColor='primary'
-                >
-                  <Tab icon={<FeaturedPlayListOutlinedIcon />} />
-                  <Tab icon={<ImageOutlinedIcon />} />
-                  <Tab icon={<VideocamOutlinedIcon />} />
-                  <Tab icon={<MonetizationOnOutlinedIcon />} />
-                </Tabs>
-              </Box>
-            </CardActions>
-          </Card>
+              </CardContent>
+              <CardActions disableSpacing>
+                <Box flexGrow={1}>
+                  <Tabs
+                    value={tab}
+                    onChange={(v) => setTab(v)}
+                    variant='fullWidth'
+                    indicatorColor='primary'
+                    textColor='primary'
+                  >
+                    <Tab icon={<FeaturedPlayListOutlinedIcon />} />
+                    <Tab icon={<ImageOutlinedIcon />} />
+                    <Tab icon={<VideocamOutlinedIcon />} />
+                    <Tab icon={<MonetizationOnOutlinedIcon />} />
+                  </Tabs>
+                </Box>
+              </CardActions>
+            </Card>
+          </Grid>
         </Grid>
-      </Grid>
       )}
     </Container>
   );
