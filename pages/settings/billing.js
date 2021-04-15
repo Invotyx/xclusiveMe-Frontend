@@ -15,11 +15,11 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Avatar from '@material-ui/core/Avatar';
-import LogoAuth from '../components/logo-auth';
+import LogoAuth from '../../components/logo-auth';
 import { makeStyles } from '@material-ui/core/styles';
 import PaymentIcon from '@material-ui/icons/Payment';
 import CheckIcon from '@material-ui/icons/Check';
-import SidebarSettings from '../components/SidebarSettings';
+import SidebarSettings from '../../components/SidebarSettings';
 import {
   paymentDataSelector,
   fetchingSelector,

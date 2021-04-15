@@ -29,10 +29,10 @@ import HelpOutlineOutlinedIcon from '@material-ui/icons/HelpOutlineOutlined';
 import HighlightOutlinedIcon from '@material-ui/icons/HighlightOutlined';
 import LanguageOutlinedIcon from '@material-ui/icons/LanguageOutlined';
 import ExitToAppOutlinedIcon from '@material-ui/icons/ExitToAppOutlined';
-import { currentUserSelector } from '../../selectors/authSelector';
+import { currentUserSelector } from '../selectors/authSelector';
 import { useSelector } from 'react-redux';
-import axiosInterceptorResponse from '../../services/axiosInterceptorResponse';
-import { auth } from '../../actions/auth';
+import axiosInterceptorResponse from '../services/axiosInterceptorResponse';
+import { auth } from '../actions/auth';
 import { useDispatch } from 'react-redux';
 
 export default function Comp() {

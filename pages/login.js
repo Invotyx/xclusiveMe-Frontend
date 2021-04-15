@@ -8,12 +8,12 @@ import NextLink from 'next/link';
 import Link from '@material-ui/core/Link';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
-import AuthNav from './components/auth-nav';
+import AuthNav from '../components/auth-nav';
 import { makeStyles } from '@material-ui/core/styles';
-import HomeLegend from './components/home-legend';
-import TileButton from './components/TileButton';
-import TileTextField from './components/TileTextField';
-import LogoGuest from './components/logo-guest';
+import HomeLegend from '../components/home-legend';
+import TileButton from '../components/TileButton';
+import TileTextField from '../components/TileTextField';
+import LogoGuest from '../components/logo-guest';
 import Container from '@material-ui/core/Container';
 import { auth } from '../actions/auth';
 
