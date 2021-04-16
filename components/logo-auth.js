@@ -61,65 +61,67 @@ export default function Comp() {
             </Box>
           </Toolbar>
         </Box>
-        <Toolbar>
-          <Box flexGrow={1}>
-            <NextLink href='/explore'>
-              <Image width={50} height={50} src='/logo.svg' alt='Logo' />
-            </NextLink>
-          </Box>
-          <Box flexGrow={1} display={{ xs: 'none', sm: 'none', md: 'flex' }}>
-            <Box display='flex'>
-              <Box mr={1} display='flex'>
-                <RoundedButton
-                  color='inherit'
-                  startIcon={
-                    <Image
-                      width={20}
-                      height={20}
-                      src='/new-post-icon.svg'
-                      alt='new post'
-                    />
-                  }
-                >
-                  New Post
-                </RoundedButton>
+        <Box clone mt={{ xs: 4, sm: 4, md: 0 }}>
+          <Toolbar>
+            <Box flexGrow={1}>
+              <NextLink href='/explore'>
+                <Image width={50} height={50} src='/logo.svg' alt='Logo' />
+              </NextLink>
+            </Box>
+            <Box flexGrow={1} display={{ xs: 'none', sm: 'none', md: 'flex' }}>
+              <Box display='flex'>
+                <Box mr={1} display='flex'>
+                  <RoundedButton
+                    color='inherit'
+                    startIcon={
+                      <Image
+                        width={20}
+                        height={20}
+                        src='/new-post-icon.svg'
+                        alt='new post'
+                      />
+                    }
+                  >
+                    New Post
+                  </RoundedButton>
+                </Box>
+                <NextLink href='/profile'>
+                  <Avatar
+                    alt='Remy Sharp'
+                    src='https://material-ui.com/static/images/avatar/1.jpg'
+                  />
+                </NextLink>
               </Box>
-              <NextLink href='/profile'>
-                <Avatar
-                  alt='Remy Sharp'
-                  src='https://material-ui.com/static/images/avatar/1.jpg'
-                />
-              </NextLink>
             </Box>
-          </Box>
-          <Box display='flex'>
-            <Box ml={3} display={{ xs: 'none', sm: 'none', md: 'flex' }}>
-              <IconButton color='inherit'>
-                <SearchIcon />
-              </IconButton>
-            </Box>
-            <Box ml={3} display={{ xs: 'none', sm: 'none', md: 'flex' }}>
-              <IconButton color='inherit'>
-                <Badge color='secondary' variant='dot'>
-                  <CheckBoxOutlineBlankIcon />
-                </Badge>
-              </IconButton>
-            </Box>
-
-            <Box ml={3} display={{ xs: 'none', sm: 'none', md: 'flex' }}>
-              <IconButton color='inherit'>
-                <SmsIcon />
-              </IconButton>
-            </Box>
-            <Box ml={3}>
-              <NextLink href='/settings/account'>
+            <Box display='flex'>
+              <Box ml={3} display={{ xs: 'none', sm: 'none', md: 'flex' }}>
                 <IconButton color='inherit'>
-                  <SettingsIcon />
+                  <SearchIcon />
                 </IconButton>
-              </NextLink>
+              </Box>
+              <Box ml={3} display={{ xs: 'none', sm: 'none', md: 'flex' }}>
+                <IconButton color='inherit'>
+                  <Badge color='secondary' variant='dot'>
+                    <CheckBoxOutlineBlankIcon />
+                  </Badge>
+                </IconButton>
+              </Box>
+
+              <Box ml={3} display={{ xs: 'none', sm: 'none', md: 'flex' }}>
+                <IconButton color='inherit'>
+                  <SmsIcon />
+                </IconButton>
+              </Box>
+              <Box ml={3}>
+                <NextLink href='/settings/account'>
+                  <IconButton color='inherit'>
+                    <SettingsIcon />
+                  </IconButton>
+                </NextLink>
+              </Box>
             </Box>
-          </Box>
-        </Toolbar>
+          </Toolbar>
+        </Box>
       </AppBar>
     </Box>
   );
