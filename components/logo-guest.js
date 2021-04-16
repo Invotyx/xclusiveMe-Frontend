@@ -4,7 +4,7 @@ import Box from '@material-ui/core/Box';
 
 export default function Comp() {
   return (
-    <Box p={8}>
+    <Box pt={8} pl={8} pr={8}>
       <NextLink href='/'>
         <Image width={50} height={50} src='/logo.svg' alt='Logo' />
       </NextLink>
