@@ -30,6 +30,7 @@ import { currentUserSelector } from '../selectors/authSelector';
 import { useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import Layout from '../components/layout-auth';
+import Images from '../components/profile/images';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -216,6 +217,9 @@ export default function Home() {
                           </Grid>
                         </Grid>
                       </Box>
+                    </TabPanel>
+                    <TabPanel value={tab} index={1}>
+                      <Images />
                     </TabPanel>
                   </ListItemText>
                 </ListItem>
