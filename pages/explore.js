@@ -7,7 +7,7 @@ import Layout from '../components/layout-auth';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    marginTop: '150px',
+    // marginTop: '150px',
   },
 }));
 

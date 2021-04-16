@@ -28,7 +28,7 @@ import { payment } from '../../actions/payment';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    marginTop: '150px',
+    // marginTop: '150px',
   },
 }));
 

@@ -28,7 +28,7 @@ import { useSelector } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    marginTop: '150px',
+    // marginTop: '150px',
   },
 }));
 
