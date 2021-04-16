@@ -44,7 +44,6 @@ export default function Comp() {
           justifyContent='flex-end'
         >
           <Toolbar>
-            <Box flexGrow={1} />
             <Box display='flex'>
               <Box ml={3}>
                 <NextLink href='#'>
