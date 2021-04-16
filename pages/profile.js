@@ -146,7 +146,9 @@ export default function Home() {
                   title={
                     <Box display={{ xs: 'none', sm: 'none', md: 'flex' }}>
                       <Typography variant='h6'>
-                        {currentUser.profile.fullName || '(no name)'}
+                        {currentUser.profile
+                          ? currentUser.profile.fullName
+                          : '(no name)'}
                       </Typography>
                     </Box>
                   }
@@ -157,7 +159,9 @@ export default function Home() {
                     color='textSecondary'
                     component='p'
                   >
-                    {currentUser.profile.headline || '(no bio)'}
+                    {currentUser.profile
+                      ? currentUser.profile.headline
+                      : '(no bio)'}
                   </Typography>
                 </CardContent>
               </Card>
