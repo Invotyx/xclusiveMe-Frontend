@@ -39,7 +39,10 @@ export default function Comp() {
   return (
     <Box clone mb={6}>
       <AppBar position='relative' color='transparent' elevation={0}>
-        <Box clone display={{ xs: 'none', sm: 'none', md: 'flex' }}>
+        <Box
+          display={{ xs: 'none', sm: 'none', md: 'flex' }}
+          justifyContent='flex-end'
+        >
           <Toolbar>
             <Box flexGrow={1} />
             <Box display='flex'>
@@ -61,7 +64,7 @@ export default function Comp() {
             </Box>
           </Toolbar>
         </Box>
-        <Box clone mt={{ xs: 4, sm: 4, md: 0 }}>
+        <Box mt={{ xs: 4, sm: 4, md: 0 }}>
           <Toolbar>
             <Box flexGrow={1}>
               <NextLink href='/explore'>
