@@ -63,7 +63,7 @@ export default function Comp({ profile }) {
             </Box>
           </Toolbar>
         </Box>
-        <Box mt={{ xs: 4, sm: 4, md: 0 }}>
+        <Box clone mt={{ xs: 4, sm: 4, md: 0 }}>
           <Toolbar>
             <Box flexGrow={1}>
               <NextLink href='/explore'>
