@@ -28,7 +28,7 @@ export default function Home() {
           href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap'
         />
       </Head>
-      <Container maxWidth='md'>
+      <Container maxWidth='md' disableGutters>
         <Grid container className={classes.root}>
           <Grid item xs={12}>
             <Post />
