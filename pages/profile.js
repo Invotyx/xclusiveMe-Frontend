@@ -160,7 +160,7 @@ export default function Home() {
               </Card>
             </Grid>
             <Grid item xs={12}>
-              <Box ml={8} mr={8}>
+              <Box ml={{ xs: 2, sm: 2, md: 8 }} mr={{ xs: 2, sm: 2, md: 8 }}>
                 <CardHeader
                   action={
                     <>
