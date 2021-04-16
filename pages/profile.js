@@ -83,7 +83,7 @@ export default function Home() {
       </Head>
       <Container maxWidth='md' disableGutters>
         {currentUser && (
-          <Grid container spacing={2} className={classes.root}>
+          <Grid container className={classes.root}>
             <Grid item xs={12}>
               <Card className={classes.root}>
                 <CardHeader
