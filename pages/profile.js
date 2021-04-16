@@ -145,7 +145,7 @@ export default function Home() {
                   <Box flexGrow={1}>
                     <Tabs
                       value={tab}
-                      onChange={(v) => setTab(v)}
+                      onChange={(e, v) => setTab(v)}
                       variant='fullWidth'
                       indicatorColor='primary'
                       textColor='primary'
