@@ -1,4 +1,5 @@
 import LogoAuth from '../components/logo-auth';
+import BottomNav from '../components/bottom-nav';
 
 export default function Layout(props) {
   const { children, ...other } = props;
@@ -6,6 +7,7 @@ export default function Layout(props) {
     <>
       <LogoAuth {...other} />
       {children}
+      <BottomNav />
     </>
   );
 }
