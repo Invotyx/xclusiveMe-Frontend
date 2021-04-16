@@ -1,9 +1,9 @@
 import Head from 'next/head';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
-import LogoAuth from '../components/logo-auth';
 import Post from '../components/post';
 import { makeStyles } from '@material-ui/core/styles';
+import Layout from '../components/layout-auth';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -15,7 +15,7 @@ export default function Home() {
   const classes = useStyles();
 
   return (
-    <Container maxWidth='md'>
+    <Layout>
       <Head>
         <title>xclusiveme</title>
         <meta
@@ -28,12 +28,13 @@ export default function Home() {
           href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap'
         />
       </Head>
-      <LogoAuth />
-      <Grid container spacing={2} className={classes.root}>
-        <Grid item xs={12}>
-          <Post />
+      <Container maxWidth='md'>
+        <Grid container spacing={2} className={classes.root}>
+          <Grid item xs={12}>
+            <Post />
+          </Grid>
         </Grid>
-      </Grid>
-    </Container>
+      </Container>
+    </Layout>
   );
 }
