@@ -11,7 +11,7 @@ const interceptor = (dispatch) => {
         if (status === UNAUTHORIZED) {
           dispatch(
             auth.refreshToken({
-              callback: () => apiClient.request(error.config),
+              // callback: () => apiClient.request(error.config),
             })
           );
         }
