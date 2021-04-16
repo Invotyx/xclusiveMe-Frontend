@@ -61,6 +61,20 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div role='tabpanel' hidden={value !== index} {...other}>
+      {value === index && (
+        <Box p={3}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
+
 export default function Home() {
   const [tab, setTab] = React.useState(0);
   const classes = useStyles();
@@ -162,26 +176,28 @@ export default function Home() {
               </Card>
             </Grid>
             <Grid item xs={12}>
-              <Box ml={{ xs: 2, sm: 2, md: 8 }} mr={{ xs: 2, sm: 2, md: 8 }}>
-                <CardHeader
-                  action={
-                    <>
-                      <IconButton aria-label='sort'>
-                        <SearchIcon />
-                      </IconButton>
-                      <IconButton aria-label='sort'>
-                        <SortIcon />
-                      </IconButton>
-                    </>
-                  }
-                  title='1.2k posts'
-                />
-                <Grid container spacing={2}>
-                  <Grid item xs={12}>
-                    <Post />
+              <TabPanel value={tab} index={0}>
+                <Box ml={{ xs: 2, sm: 2, md: 8 }} mr={{ xs: 2, sm: 2, md: 8 }}>
+                  <CardHeader
+                    action={
+                      <>
+                        <IconButton aria-label='sort'>
+                          <SearchIcon />
+                        </IconButton>
+                        <IconButton aria-label='sort'>
+                          <SortIcon />
+                        </IconButton>
+                      </>
+                    }
+                    title='1.2k posts'
+                  />
+                  <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                      <Post />
+                    </Grid>
                   </Grid>
-                </Grid>
-              </Box>
+                </Box>
+              </TabPanel>
             </Grid>
           </Grid>
         )}
