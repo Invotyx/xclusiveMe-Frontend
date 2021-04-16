@@ -37,34 +37,36 @@ export default function Comp() {
   };
 
   return (
-    <AppBar position='absolute' color='transparent' elevation={0}>
-      <Toolbar>
-        <Box flexGrow={1} />
-        <Box display='flex'>
-          <Box ml={3}>
-            <NextLink href='#'>
-              <Link variant='body2'>How it works</Link>
-            </NextLink>
+    <AppBar position='relative' color='transparent' elevation={0}>
+      <Box clone display={{ xs: 'none', sm: 'none', md: 'flex' }}>
+        <Toolbar>
+          <Box flexGrow={1} />
+          <Box display='flex'>
+            <Box ml={3}>
+              <NextLink href='#'>
+                <Link variant='body2'>How it works</Link>
+              </NextLink>
+            </Box>
+            <Box ml={3}>
+              <NextLink href='#'>
+                <Link variant='body2'>Support</Link>
+              </NextLink>
+            </Box>
+            <Box ml={3}>
+              <Link variant='body2' onClick={logout}>
+                Logout
+              </Link>
+            </Box>
           </Box>
-          <Box ml={3}>
-            <NextLink href='#'>
-              <Link variant='body2'>Support</Link>
-            </NextLink>
-          </Box>
-          <Box ml={3}>
-            <Link variant='body2' onClick={logout}>
-              Logout
-            </Link>
-          </Box>
-        </Box>
-      </Toolbar>
+        </Toolbar>
+      </Box>
       <Toolbar>
         <Box flexGrow={1}>
           <NextLink href='/explore'>
             <Image width={50} height={50} src='/logo.svg' alt='Logo' />
           </NextLink>
         </Box>
-        <Box flexGrow={1}>
+        <Box flexGrow={1} display={{ xs: 'none', sm: 'none', md: 'flex' }}>
           <Box display='flex'>
             <Box mr={1} display='flex'>
               <RoundedButton
@@ -90,12 +92,12 @@ export default function Comp() {
           </Box>
         </Box>
         <Box display='flex'>
-          <Box ml={3}>
+          <Box ml={3} display={{ xs: 'none', sm: 'none', md: 'flex' }}>
             <IconButton color='inherit'>
               <SearchIcon />
             </IconButton>
           </Box>
-          <Box ml={3}>
+          <Box ml={3} display={{ xs: 'none', sm: 'none', md: 'flex' }}>
             <IconButton color='inherit'>
               <Badge color='secondary' variant='dot'>
                 <CheckBoxOutlineBlankIcon />
@@ -103,7 +105,7 @@ export default function Comp() {
             </IconButton>
           </Box>
 
-          <Box ml={3}>
+          <Box ml={3} display={{ xs: 'none', sm: 'none', md: 'flex' }}>
             <IconButton color='inherit'>
               <SmsIcon />
             </IconButton>
