@@ -37,88 +37,90 @@ export default function Comp() {
   };
 
   return (
-    <AppBar position='relative' color='transparent' elevation={0}>
-      <Box clone display={{ xs: 'none', sm: 'none', md: 'flex' }}>
+    <Box clone mb={6}>
+      <AppBar position='relative' color='transparent' elevation={0}>
+        <Box clone display={{ xs: 'none', sm: 'none', md: 'flex' }}>
+          <Toolbar>
+            <Box flexGrow={1} />
+            <Box display='flex'>
+              <Box ml={3}>
+                <NextLink href='#'>
+                  <Link variant='body2'>How it works</Link>
+                </NextLink>
+              </Box>
+              <Box ml={3}>
+                <NextLink href='#'>
+                  <Link variant='body2'>Support</Link>
+                </NextLink>
+              </Box>
+              <Box ml={3}>
+                <Link variant='body2' onClick={logout}>
+                  Logout
+                </Link>
+              </Box>
+            </Box>
+          </Toolbar>
+        </Box>
         <Toolbar>
-          <Box flexGrow={1} />
+          <Box flexGrow={1}>
+            <NextLink href='/explore'>
+              <Image width={50} height={50} src='/logo.svg' alt='Logo' />
+            </NextLink>
+          </Box>
+          <Box flexGrow={1} display={{ xs: 'none', sm: 'none', md: 'flex' }}>
+            <Box display='flex'>
+              <Box mr={1} display='flex'>
+                <RoundedButton
+                  color='inherit'
+                  startIcon={
+                    <Image
+                      width={20}
+                      height={20}
+                      src='/new-post-icon.svg'
+                      alt='new post'
+                    />
+                  }
+                >
+                  New Post
+                </RoundedButton>
+              </Box>
+              <NextLink href='/profile'>
+                <Avatar
+                  alt='Remy Sharp'
+                  src='https://material-ui.com/static/images/avatar/1.jpg'
+                />
+              </NextLink>
+            </Box>
+          </Box>
           <Box display='flex'>
-            <Box ml={3}>
-              <NextLink href='#'>
-                <Link variant='body2'>How it works</Link>
-              </NextLink>
+            <Box ml={3} display={{ xs: 'none', sm: 'none', md: 'flex' }}>
+              <IconButton color='inherit'>
+                <SearchIcon />
+              </IconButton>
+            </Box>
+            <Box ml={3} display={{ xs: 'none', sm: 'none', md: 'flex' }}>
+              <IconButton color='inherit'>
+                <Badge color='secondary' variant='dot'>
+                  <CheckBoxOutlineBlankIcon />
+                </Badge>
+              </IconButton>
+            </Box>
+
+            <Box ml={3} display={{ xs: 'none', sm: 'none', md: 'flex' }}>
+              <IconButton color='inherit'>
+                <SmsIcon />
+              </IconButton>
             </Box>
             <Box ml={3}>
-              <NextLink href='#'>
-                <Link variant='body2'>Support</Link>
+              <NextLink href='/settings/account'>
+                <IconButton color='inherit'>
+                  <SettingsIcon />
+                </IconButton>
               </NextLink>
-            </Box>
-            <Box ml={3}>
-              <Link variant='body2' onClick={logout}>
-                Logout
-              </Link>
             </Box>
           </Box>
         </Toolbar>
-      </Box>
-      <Toolbar>
-        <Box flexGrow={1}>
-          <NextLink href='/explore'>
-            <Image width={50} height={50} src='/logo.svg' alt='Logo' />
-          </NextLink>
-        </Box>
-        <Box flexGrow={1} display={{ xs: 'none', sm: 'none', md: 'flex' }}>
-          <Box display='flex'>
-            <Box mr={1} display='flex'>
-              <RoundedButton
-                color='inherit'
-                startIcon={
-                  <Image
-                    width={20}
-                    height={20}
-                    src='/new-post-icon.svg'
-                    alt='new post'
-                  />
-                }
-              >
-                New Post
-              </RoundedButton>
-            </Box>
-            <NextLink href='/profile'>
-              <Avatar
-                alt='Remy Sharp'
-                src='https://material-ui.com/static/images/avatar/1.jpg'
-              />
-            </NextLink>
-          </Box>
-        </Box>
-        <Box display='flex'>
-          <Box ml={3} display={{ xs: 'none', sm: 'none', md: 'flex' }}>
-            <IconButton color='inherit'>
-              <SearchIcon />
-            </IconButton>
-          </Box>
-          <Box ml={3} display={{ xs: 'none', sm: 'none', md: 'flex' }}>
-            <IconButton color='inherit'>
-              <Badge color='secondary' variant='dot'>
-                <CheckBoxOutlineBlankIcon />
-              </Badge>
-            </IconButton>
-          </Box>
-
-          <Box ml={3} display={{ xs: 'none', sm: 'none', md: 'flex' }}>
-            <IconButton color='inherit'>
-              <SmsIcon />
-            </IconButton>
-          </Box>
-          <Box ml={3}>
-            <NextLink href='/settings/account'>
-              <IconButton color='inherit'>
-                <SettingsIcon />
-              </IconButton>
-            </NextLink>
-          </Box>
-        </Box>
-      </Toolbar>
-    </AppBar>
+      </AppBar>
+    </Box>
   );
 }
