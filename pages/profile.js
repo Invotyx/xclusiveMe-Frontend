@@ -127,9 +127,11 @@ export default function Home() {
                     </Box>
                   }
                   title={
-                    <Typography variant='h6'>
-                      {currentUser.profile.fullName || '(no name)'}
-                    </Typography>
+                    <Box display={{ xs: 'none', sm: 'none', md: 'flex' }}>
+                      <Typography variant='h6'>
+                        {currentUser.profile.fullName || '(no name)'}
+                      </Typography>
+                    </Box>
                   }
                 />
                 <CardContent>
