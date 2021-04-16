@@ -147,7 +147,7 @@ export default function Home() {
                   title={
                     <Box display={{ xs: 'none', sm: 'none', md: 'flex' }}>
                       <Typography variant='h6'>
-                        {currentUser.profile
+                        {currentUser.profile && currentUser.profile.fullName
                           ? currentUser.profile.fullName
                           : '(no name)'}
                       </Typography>
@@ -160,7 +160,7 @@ export default function Home() {
                     color='textSecondary'
                     component='p'
                   >
-                    {currentUser.profile
+                    {currentUser.profile && currentUser.profile.headline
                       ? currentUser.profile.headline
                       : '(no bio)'}
                   </Typography>
