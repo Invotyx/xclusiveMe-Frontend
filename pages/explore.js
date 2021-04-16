@@ -29,7 +29,7 @@ export default function Home() {
         />
       </Head>
       <Container maxWidth='md'>
-        <Grid container spacing={2} className={classes.root}>
+        <Grid container className={classes.root}>
           <Grid item xs={12}>
             <Post />
           </Grid>
