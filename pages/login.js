@@ -62,7 +62,7 @@ export default function SignInSide() {
           <LogoGuest />
         </Grid>
         <Grid item xs={12} sm={8} md={5}>
-          <Box p={8} mx={4}>
+          <Box pl={8} pr={8} mx={4}>
             <AuthNav />
             <form onSubmit={handleSubmit}>
               <TileTextField

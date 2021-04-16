@@ -29,7 +29,7 @@ export default function Home() {
         </Grid>
 
         <Grid item xs={12} sm={8} md={5}>
-          <Box p={6} mx={4}>
+          <Box pl={6} pr={6} pt={2} mx={4}>
             <Box py={4} display='block'>
               <Typography component='h1' variant='h4'>
                 Exclusive club for influencers and members to share exclusive
