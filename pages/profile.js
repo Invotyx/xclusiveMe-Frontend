@@ -2,6 +2,7 @@ import React from 'react';
 import Head from 'next/head';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
 import Container from '@material-ui/core/Container';
 import CardHeader from '@material-ui/core/CardHeader';
 import SortIcon from '@material-ui/icons/Sort';
@@ -18,6 +19,9 @@ import IconButton from '@material-ui/core/IconButton';
 import Avatar from '@material-ui/core/Avatar';
 import ListItemText from '@material-ui/core/ListItemText';
 import CardActions from '@material-ui/core/CardActions';
+import List from '@material-ui/core/List';
+import ListSubheader from '@material-ui/core/ListSubheader';
+import ListItem from '@material-ui/core/ListItem';
 import Typography from '@material-ui/core/Typography';
 import CardContent from '@material-ui/core/CardContent';
 import Card from '@material-ui/core/Card';
@@ -157,8 +161,12 @@ export default function Home() {
                     {currentUser.profile.headline || '(no bio)'}
                   </Typography>
                 </CardContent>
-                <CardActions disableSpacing>
-                  <Box flexGrow={1}>
+              </Card>
+            </Grid>
+            <Grid item xs={12}>
+              <List disablePadding>
+                <ListSubheader disableGutters>
+                  <Paper>
                     <Tabs
                       value={tab}
                       onChange={(e, v) => setTab(v)}
@@ -171,33 +179,44 @@ export default function Home() {
                       <Tab icon={<VideocamOutlinedIcon />} />
                       <Tab icon={<MonetizationOnOutlinedIcon />} />
                     </Tabs>
-                  </Box>
-                </CardActions>
-              </Card>
-            </Grid>
-            <Grid item xs={12}>
-              <TabPanel value={tab} index={0}>
-                <Box ml={{ xs: 2, sm: 2, md: 8 }} mr={{ xs: 2, sm: 2, md: 8 }}>
-                  <CardHeader
-                    action={
-                      <>
-                        <IconButton aria-label='sort'>
-                          <SearchIcon />
-                        </IconButton>
-                        <IconButton aria-label='sort'>
-                          <SortIcon />
-                        </IconButton>
-                      </>
-                    }
-                    title='1.2k posts'
-                  />
-                  <Grid container spacing={2}>
-                    <Grid item xs={12}>
-                      <Post />
-                    </Grid>
-                  </Grid>
-                </Box>
-              </TabPanel>
+                  </Paper>
+                </ListSubheader>
+                <ListItem>
+                  <ListItemText>
+                    <TabPanel value={tab} index={0}>
+                      <Box
+                        ml={{ xs: 2, sm: 2, md: 8 }}
+                        mr={{ xs: 2, sm: 2, md: 8 }}
+                      >
+                        <CardHeader
+                          action={
+                            <>
+                              <IconButton aria-label='sort'>
+                                <SearchIcon />
+                              </IconButton>
+                              <IconButton aria-label='sort'>
+                                <SortIcon />
+                              </IconButton>
+                            </>
+                          }
+                          title='1.2k posts'
+                        />
+                        <Grid container spacing={2}>
+                          <Grid item xs={12}>
+                            <Post />
+                          </Grid>
+                          <Grid item xs={12}>
+                            <Post />
+                          </Grid>
+                          <Grid item xs={12}>
+                            <Post />
+                          </Grid>
+                        </Grid>
+                      </Box>
+                    </TabPanel>
+                  </ListItemText>
+                </ListItem>
+              </List>
             </Grid>
           </Grid>
         )}
