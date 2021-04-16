@@ -20,7 +20,7 @@ import axiosInterceptorResponse from '../services/axiosInterceptorResponse';
 import { auth } from '../actions/auth';
 import { useDispatch } from 'react-redux';
 
-export default function Comp() {
+export default function Comp({ profile }) {
   const dispatch = useDispatch();
   React.useEffect(() => {
     axiosInterceptorResponse(dispatch);

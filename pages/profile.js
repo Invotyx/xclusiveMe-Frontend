@@ -68,7 +68,7 @@ export default function Home() {
   const currentUser = useSelector(currentUserSelector);
 
   return (
-    <Layout>
+    <Layout profile={true}>
       <Head>
         <title>xclusiveme</title>
         <meta
