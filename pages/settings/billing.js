@@ -15,7 +15,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Avatar from '@material-ui/core/Avatar';
-import LogoAuth from '../../components/logo-auth';
 import { makeStyles } from '@material-ui/core/styles';
 import PaymentIcon from '@material-ui/icons/Payment';
 import CheckIcon from '@material-ui/icons/Check';
@@ -25,6 +24,7 @@ import {
   fetchingSelector,
 } from '../../selectors/paymentSelector';
 import { payment } from '../../actions/payment';
+import Layout from '../../components/layout-auth';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -62,70 +62,75 @@ export default function Home(props) {
   }, [dispatch]);
 
   return (
-    <Container maxWidth='md'>
+    <Layout>
       <Head>
         <title>Billing — Settings</title>
       </Head>
-      <LogoAuth />
-      <Grid container spacing={6} className={classes.root}>
-        <Grid item xs={12} md={4}>
-          <SidebarSettings />
-        </Grid>
-        <Grid item xs={12} md={8}>
-          <Box display='flex' mb={2}>
-            <Box flexGrow={1}>
-              <Typography variant='h6'>Billing methods</Typography>
-            </Box>
-            <BillingAddDialog />
-          </Box>
-          <Box mb={2}>
-            <Divider />
-          </Box>
-          <List>
-            {fetching ? (
-              'loading'
-            ) : paymentData.length ? (
-              paymentData.map((p) => (
-                <ListItem
-                  key={p.id}
-                  button
-                  onClick={(e) => handleClickListItem(e, p.id)}
-                >
-                  <ListItemIcon>
-                    <PaymentIcon />
-                  </ListItemIcon>
-                  <ListItemText
-                    primary={`${p.title} (${p.type})`}
-                    secondary={`Ending in ••${p.last4_card}`}
-                  />
-                  <ListItemSecondaryAction>
-                    {p.default && (
-                      <Avatar className={classes.green}>
-                        <CheckIcon />
-                      </Avatar>
-                    )}
-                  </ListItemSecondaryAction>
-                </ListItem>
-              ))
-            ) : (
-              <Box mb={2}>
-                <Typography variant='subtitle2'>
-                  You have not set up any billing methods yet.
-                </Typography>
-                <Typography variant='body2'>
-                  Your billing method will be charged only when blah blah blah
-                  sint occaecat cupidatat proident suntculpa officia deserunt
-                  mollit anim laborum
-                </Typography>
+      <Container maxWidth='md'>
+        <Grid container spacing={6} className={classes.root}>
+          <Grid item xs={12} md={4}>
+            <SidebarSettings />
+          </Grid>
+          <Grid item xs={12} md={8}>
+            <Box display='flex' mb={2}>
+              <Box flexGrow={1}>
+                <Typography variant='h6'>Billing methods</Typography>
               </Box>
-            )}
-          </List>
+              <BillingAddDialog />
+            </Box>
+            <Box mb={2}>
+              <Divider />
+            </Box>
+            <List>
+              {fetching ? (
+                'loading'
+              ) : paymentData.length ? (
+                paymentData.map((p) => (
+                  <ListItem
+                    key={p.id}
+                    button
+                    onClick={(e) => handleClickListItem(e, p.id)}
+                  >
+                    <ListItemIcon>
+                      <PaymentIcon />
+                    </ListItemIcon>
+                    <ListItemText
+                      primary={`${p.title} (${p.type})`}
+                      secondary={`Ending in ••${p.last4_card}`}
+                    />
+                    <ListItemSecondaryAction>
+                      {p.default && (
+                        <Avatar className={classes.green}>
+                          <CheckIcon />
+                        </Avatar>
+                      )}
+                    </ListItemSecondaryAction>
+                  </ListItem>
+                ))
+              ) : (
+                <Box mb={2}>
+                  <Typography variant='subtitle2'>
+                    You have not set up any billing methods yet.
+                  </Typography>
+                  <Typography variant='body2'>
+                    Your billing method will be charged only when blah blah blah
+                    sint occaecat cupidatat proident suntculpa officia deserunt
+                    mollit anim laborum
+                  </Typography>
+                </Box>
+              )}
+            </List>
+          </Grid>
         </Grid>
-      </Grid>
-      <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
-        <MenuItem onClick={handleEdit}>Set Default</MenuItem>
-        <MenuItem onClick={handleDelete}>Delete</MenuItem>
-      </Menu>
-    </Container>
+        <Menu
+          anchorEl={anchorEl}
+          open={Boolean(anchorEl)}
+          onClose={handleClose}
+        >
+          <MenuItem onClick={handleEdit}>Set Default</MenuItem>
+          <MenuItem onClick={handleDelete}>Delete</MenuItem>
+        </Menu>
+      </Container>
+    </Layout>
   );
 }

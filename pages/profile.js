@@ -21,12 +21,12 @@ import CardActions from '@material-ui/core/CardActions';
 import Typography from '@material-ui/core/Typography';
 import CardContent from '@material-ui/core/CardContent';
 import Card from '@material-ui/core/Card';
-import LogoAuth from '../components/logo-auth';
 import Post from '../components/post';
 import CreateIcon from '@material-ui/icons/Create';
 import { currentUserSelector } from '../selectors/authSelector';
 import { useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
+import Layout from '../components/layout-auth';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -68,7 +68,7 @@ export default function Home() {
   const currentUser = useSelector(currentUserSelector);
 
   return (
-    <Container maxWidth='md'>
+    <Layout>
       <Head>
         <title>xclusiveme</title>
         <meta
@@ -81,104 +81,109 @@ export default function Home() {
           href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap'
         />
       </Head>
-      <LogoAuth />
-      {currentUser && (
-        <Grid container spacing={2} className={classes.root}>
-          <Grid item xs={12}>
-            <Card className={classes.root}>
-              <CardHeader
-                className={classes.header}
-                action={
-                  <>
-                    <IconButton aria-label='create'>
-                      <CreateIcon />
-                    </IconButton>
-                    <IconButton aria-label='settings'>
-                      <MoreVertIcon />
-                    </IconButton>
-                  </>
-                }
-              />
-              <CardMedia
-                className={classes.media}
-                image='/cover.jpg'
-                title='Paella dish'
-              />
-              <CardHeader
-                className={classes.header2}
-                avatar={
-                  <Avatar
-                    className={classes.userAvatar}
-                    alt='Remy Sharp'
-                    src='https://material-ui.com/static/images/avatar/1.jpg'
-                  />
-                }
-                action={
-                  <Box display='flex' textAlign='center'>
-                    <Box mx={4}>
-                      <ListItemText primary='1.2k' secondary='Posts' />
+      <Container maxWidth='md'>
+        {currentUser && (
+          <Grid container spacing={2} className={classes.root}>
+            <Grid item xs={12}>
+              <Card className={classes.root}>
+                <CardHeader
+                  className={classes.header}
+                  action={
+                    <>
+                      <IconButton aria-label='create'>
+                        <CreateIcon />
+                      </IconButton>
+                      <IconButton aria-label='settings'>
+                        <MoreVertIcon />
+                      </IconButton>
+                    </>
+                  }
+                />
+                <CardMedia
+                  className={classes.media}
+                  image='/cover.jpg'
+                  title='Paella dish'
+                />
+                <CardHeader
+                  className={classes.header2}
+                  avatar={
+                    <Avatar
+                      className={classes.userAvatar}
+                      alt='Remy Sharp'
+                      src='https://material-ui.com/static/images/avatar/1.jpg'
+                    />
+                  }
+                  action={
+                    <Box display='flex' textAlign='center'>
+                      <Box mx={4}>
+                        <ListItemText primary='1.2k' secondary='Posts' />
+                      </Box>
+                      <Box mx={4}>
+                        <ListItemText primary='1.2M' secondary='Followers' />
+                      </Box>
+                      <Box mx={4}>
+                        <ListItemText primary='499' secondary='Following' />
+                      </Box>
                     </Box>
-                    <Box mx={4}>
-                      <ListItemText primary='1.2M' secondary='Followers' />
-                    </Box>
-                    <Box mx={4}>
-                      <ListItemText primary='499' secondary='Following' />
-                    </Box>
-                  </Box>
-                }
-                title={
-                  <Typography variant='h6'>
-                    {currentUser.profile.fullName || '(no name)'}
-                  </Typography>
-                }
-              />
-              <CardContent>
-                <Typography variant='body2' color='textSecondary' component='p'>
-                  {currentUser.profile.headline || '(no bio)'}
-                </Typography>
-              </CardContent>
-              <CardActions disableSpacing>
-                <Box flexGrow={1}>
-                  <Tabs
-                    value={tab}
-                    onChange={(v) => setTab(v)}
-                    variant='fullWidth'
-                    indicatorColor='primary'
-                    textColor='primary'
+                  }
+                  title={
+                    <Typography variant='h6'>
+                      {currentUser.profile.fullName || '(no name)'}
+                    </Typography>
+                  }
+                />
+                <CardContent>
+                  <Typography
+                    variant='body2'
+                    color='textSecondary'
+                    component='p'
                   >
-                    <Tab icon={<FeaturedPlayListOutlinedIcon />} />
-                    <Tab icon={<ImageOutlinedIcon />} />
-                    <Tab icon={<VideocamOutlinedIcon />} />
-                    <Tab icon={<MonetizationOnOutlinedIcon />} />
-                  </Tabs>
-                </Box>
-              </CardActions>
-            </Card>
-          </Grid>
-          <Grid item xs={12}>
-            <Box ml={8} mr={8}>
-              <CardHeader
-                action={
-                  <>
-                    <IconButton aria-label='sort'>
-                      <SearchIcon />
-                    </IconButton>
-                    <IconButton aria-label='sort'>
-                      <SortIcon />
-                    </IconButton>
-                  </>
-                }
-                title='1.2k posts'
-              />
-              <Grid container spacing={2}>
-                <Grid item xs={12}>
-                  <Post />
+                    {currentUser.profile.headline || '(no bio)'}
+                  </Typography>
+                </CardContent>
+                <CardActions disableSpacing>
+                  <Box flexGrow={1}>
+                    <Tabs
+                      value={tab}
+                      onChange={(v) => setTab(v)}
+                      variant='fullWidth'
+                      indicatorColor='primary'
+                      textColor='primary'
+                    >
+                      <Tab icon={<FeaturedPlayListOutlinedIcon />} />
+                      <Tab icon={<ImageOutlinedIcon />} />
+                      <Tab icon={<VideocamOutlinedIcon />} />
+                      <Tab icon={<MonetizationOnOutlinedIcon />} />
+                    </Tabs>
+                  </Box>
+                </CardActions>
+              </Card>
+            </Grid>
+            <Grid item xs={12}>
+              <Box ml={8} mr={8}>
+                <CardHeader
+                  action={
+                    <>
+                      <IconButton aria-label='sort'>
+                        <SearchIcon />
+                      </IconButton>
+                      <IconButton aria-label='sort'>
+                        <SortIcon />
+                      </IconButton>
+                    </>
+                  }
+                  title='1.2k posts'
+                />
+                <Grid container spacing={2}>
+                  <Grid item xs={12}>
+                    <Post />
+                  </Grid>
                 </Grid>
-              </Grid>
-            </Box>
+              </Box>
+            </Grid>
           </Grid>
-        </Grid>
-      )}
-    </Container>
+        )}
+      </Container>
+    </Layout>
   );
 }
