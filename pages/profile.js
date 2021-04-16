@@ -128,13 +128,13 @@ export default function Home() {
                 }
                 title={
                   <Typography variant='h6'>
-                    {currentUser.profile.fullName}
+                    {currentUser.profile.fullName || '(no name)'}
                   </Typography>
                 }
               />
               <CardContent>
                 <Typography variant='body2' color='textSecondary' component='p'>
-                  {currentUser.profile.headline}
+                  {currentUser.profile.headline || '(no bio)'}
                 </Typography>
               </CardContent>
               <CardActions disableSpacing>
