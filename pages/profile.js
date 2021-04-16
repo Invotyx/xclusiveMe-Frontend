@@ -85,7 +85,7 @@ export default function Home() {
         {currentUser && (
           <Grid container className={classes.root}>
             <Grid item xs={12}>
-              <Card className={classes.root}>
+              <Card>
                 <CardHeader
                   className={classes.header}
                   action={
