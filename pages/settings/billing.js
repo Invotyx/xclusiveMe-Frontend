@@ -8,7 +8,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import Container from '@material-ui/core/Container';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -18,13 +17,12 @@ import Avatar from '@material-ui/core/Avatar';
 import { makeStyles } from '@material-ui/core/styles';
 import PaymentIcon from '@material-ui/icons/Payment';
 import CheckIcon from '@material-ui/icons/Check';
-import SidebarSettings from '../../components/SidebarSettings';
 import {
   paymentDataSelector,
   fetchingSelector,
 } from '../../selectors/paymentSelector';
 import { payment } from '../../actions/payment';
-import Layout from '../../components/layout-auth';
+import Layout from '../../components/layout-settings';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -66,12 +64,6 @@ export default function Home(props) {
       <Head>
         <title>Billing — Settings</title>
       </Head>
-      <Container maxWidth='md'>
-        <Grid container spacing={6} className={classes.root}>
-          <Grid item xs={12} md={4}>
-            <SidebarSettings />
-          </Grid>
-          <Grid item xs={12} md={8}>
             <Box display='flex' mb={2}>
               <Box flexGrow={1}>
                 <Typography variant='h6'>Billing methods</Typography>
@@ -120,8 +112,6 @@ export default function Home(props) {
                 </Box>
               )}
             </List>
-          </Grid>
-        </Grid>
         <Menu
           anchorEl={anchorEl}
           open={Boolean(anchorEl)}
@@ -130,7 +120,6 @@ export default function Home(props) {
           <MenuItem onClick={handleEdit}>Set Default</MenuItem>
           <MenuItem onClick={handleDelete}>Delete</MenuItem>
         </Menu>
-      </Container>
     </Layout>
   );
 }

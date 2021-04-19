@@ -7,7 +7,6 @@ import IconButton from '@material-ui/core/IconButton';
 import Divider from '@material-ui/core/Divider';
 import Switch from '@material-ui/core/Switch';
 import Grid from '@material-ui/core/Grid';
-import Container from '@material-ui/core/Container';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -18,7 +17,6 @@ import Button from '@material-ui/core/Button';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import { makeStyles } from '@material-ui/core/styles';
 import TileTextField from '../../components/TileTextField';
-import SidebarSettings from '../../components/SidebarSettings';
 import ClearIcon from '@material-ui/icons/Clear';
 import AddIcon from '@material-ui/icons/Add';
 import FacebookIcon from '@material-ui/icons/Facebook';
@@ -26,7 +24,7 @@ import LinkIcon from '@material-ui/icons/Link';
 import { auth } from '../../actions/auth';
 import { currentUserSelector } from '../../selectors/authSelector';
 import { useSelector } from 'react-redux';
-import Layout from '../../components/layout-auth';
+import Layout from '../../components/layout-settings';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -114,12 +112,8 @@ export default function Home(props) {
       <Head>
         <title>Account — Settings</title>
       </Head>
-      <Container maxWidth='md'>
         <Grid container spacing={6} className={classes.root}>
-          <Grid item xs={12} md={4}>
-            {sidebarMenu && <SidebarSettings />}
-          </Grid>
-          <Grid item xs={12} md={5}>
+          <Grid item xs={12} md={8}>
             <form noValidate>
               <Box mb={4}>
                 <TileTextField
@@ -301,7 +295,6 @@ export default function Home(props) {
             </form>
           </Grid>
         </Grid>
-      </Container>
     </Layout>
   );
 }
