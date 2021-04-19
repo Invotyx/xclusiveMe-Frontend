@@ -4,14 +4,14 @@ import Container from '@material-ui/core/Container';
 import SidebarSettings from './SidebarSettings';
 import Layout from './layout-auth';
 
-export default function LayoutSettings(props) {
-  const { children, ...other } = props;
+export default function LayoutSettings({ children }) {
+  const [sidebarMenu, set_sidebarMenu] = React.useState(true);
   return (
-    <Layout {...other}>
+    <Layout sidebarMenu={sidebarMenu} set_sidebarMenu={set_sidebarMenu}>
       <Container maxWidth='md'>
         <Grid container spacing={6}>
           <Grid item xs={12} md={4}>
-            <SidebarSettings />
+            {sidebarMenu && <SidebarSettings />}
           </Grid>
           <Grid item xs={12} md={8}>
             {children}
