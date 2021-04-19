@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import NextLink from 'next/link';
 import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -14,16 +15,16 @@ export default function Comp(props) {
   const { asPath } = useRouter();
   const classes = useStyles();
   return (
-    <Box mt={8} mb={4} ml={2} display='flex'>
+    <Box mt={8} mb={4} ml={2} display='flex' alignItems='center'>
       <Box>
         <NextLink href='/register'>
-          <Typography
-            component='a'
-            variant={'/login' === asPath ? 'h6' : 'h5'}
+          <Button
+            variant='text'
+            size={'/login' === asPath ? 'small' : 'large'}
             className={'/login' === asPath ? `${classes.grey}` : ``}
           >
             SIGN UP
-          </Typography>
+          </Button>
         </NextLink>
       </Box>
       <Box mx={3}>
@@ -35,13 +36,13 @@ export default function Comp(props) {
       </Box>
       <Box>
         <NextLink href='/login'>
-          <Typography
-            component='a'
-            variant={'/register' === asPath ? 'h6' : 'h5'}
+          <Button
+            variant='text'
+            size={'/register' === asPath ? 'small' : 'large'}
             className={'/register' === asPath ? `${classes.grey}` : ``}
           >
             LOGIN
-          </Typography>
+          </Button>
         </NextLink>
       </Box>
     </Box>
