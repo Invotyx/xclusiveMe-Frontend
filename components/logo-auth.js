@@ -34,8 +34,13 @@ export default function Comp({ profile, sidebarMenu, set_sidebarMenu }) {
   const router = useRouter();
 
   const logout = () => {
-    localStorage.removeItem('jwtToken');
-    router.push('/login');
+    dispatch(
+      auth.logout({
+        callback: () => {
+          router.push('/login');
+        },
+      })
+    );
   };
 
   return (

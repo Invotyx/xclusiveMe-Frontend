@@ -234,7 +234,10 @@ function* handleMe() {
 function* handleLogout() {
   try {
     yield call(logout);
-    yield put(useRouter().push('/login'));
+    const { callback } = action.payload;
+    if (callback) {
+      yield call(callback);
+    }
   } catch (e) {
     yield put(auth.failure({ error: { ...e } }));
   }
