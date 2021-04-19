@@ -68,7 +68,9 @@ export default function Comp({ profile, sidebarMenu, set_sidebarMenu }) {
           <Toolbar>
             <Box flexGrow={1}>
               <NextLink href='/explore'>
-                <Image width={50} height={50} src='/logo.svg' alt='Logo' />
+                <a>
+                  <Image width={50} height={50} src='/logo.svg' alt='Logo' />
+                </a>
               </NextLink>
             </Box>
             <Box flexGrow={1} display={{ xs: 'none', sm: 'none', md: 'flex' }}>
