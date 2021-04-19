@@ -91,10 +91,12 @@ export default function Comp({ profile, sidebarMenu, set_sidebarMenu }) {
                   </RoundedButton>
                 </Box>
                 <NextLink href='/profile'>
-                  <Avatar
-                    alt='Remy Sharp'
-                    src='https://material-ui.com/static/images/avatar/1.jpg'
-                  />
+                  <IconButton component='a' color='inherit'>
+                    <Avatar
+                      alt='Remy Sharp'
+                      src='https://material-ui.com/static/images/avatar/1.jpg'
+                    />
+                  </IconButton>
                 </NextLink>
               </Box>
             </Box>
