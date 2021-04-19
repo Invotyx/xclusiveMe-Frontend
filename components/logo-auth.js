@@ -48,12 +48,12 @@ export default function Comp({ profile, sidebarMenu, set_sidebarMenu }) {
           <Toolbar>
             <Box display='flex'>
               <Box ml={3}>
-                <NextLink href='#'>
+                <NextLink href='#' passHref>
                   <Link variant='body2'>How it works</Link>
                 </NextLink>
               </Box>
               <Box ml={3}>
-                <NextLink href='#'>
+                <NextLink href='#' passHref>
                   <Link variant='body2'>Support</Link>
                 </NextLink>
               </Box>
