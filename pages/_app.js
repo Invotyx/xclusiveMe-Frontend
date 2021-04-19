@@ -9,7 +9,7 @@ import { AppSnackbar } from '../components/AppSnackbar';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    backgroundColor: '#000',
+    marginBottom: '100px',
   },
 }));
 
@@ -24,7 +24,7 @@ function MyApp({ Component, pageProps }) {
   }, []);
 
   return (
-    <>
+    <div className={classes.root}>
       <Head>
         <title>xclusiveme</title>
         <meta
@@ -37,7 +37,7 @@ function MyApp({ Component, pageProps }) {
         <Component {...pageProps} />
         <AppSnackbar />
       </ThemeProvider>
-    </>
+    </div>
   );
 }
 
