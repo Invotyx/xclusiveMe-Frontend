@@ -113,7 +113,7 @@ export default function SignInSide() {
                     <Box mb={2} mt={1}>
                       <NextLink href='#'>
                         <Link variant='body2' className={classes.grey}>
-                          <a>Forgot your password?</a>
+                          Forgot your password?
                         </Link>
                       </NextLink>
                     </Box>
