@@ -7,12 +7,9 @@ import React from 'react';
 const CARD_ELEMENT_OPTIONS = {
   style: {
     base: {
-      color: '#32325d',
-      fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
-      fontSmoothing: 'antialiased',
-      fontSize: '16px',
+      color: '#fff',
       '::placeholder': {
-        color: '#aab7c4',
+        color: 'rgba(255, 255, 255, 0.7)',
       },
     },
     invalid: {
