@@ -71,7 +71,7 @@ function* handleRefreshToken(action) {
       }
     } else {
       yield call(logout);
-      yield put(useRouter().push('/login'));
+      yield put(useRouter().push('/login')); // TODO: needs to be updated
     }
   } catch (e) {
     yield call(logout);
@@ -162,7 +162,7 @@ function* handleForgotPassword(action) {
     const { email } = action.payload;
     const { data } = yield call(forgotPassword, email);
     yield put(auth.success({ data }));
-    yield put(useRouter().push('/login'));
+    yield put(useRouter().push('/login')); // TODO: needs to be updated
     yield put(
       snackbar.update({
         open: true,
@@ -186,7 +186,7 @@ function* handleResetPassword(action) {
   try {
     const { token, email, password } = action.payload;
     const { data } = yield call(resetPassword, email, password, token);
-    yield put(useRouter().push(`/login`));
+    yield put(useRouter().push(`/login`)); // TODO: needs to be updated
     yield put(
       snackbar.update({
         open: true,
@@ -209,9 +209,9 @@ function* handleResetPasswordTokenVerify(action) {
   try {
     const { token, email } = action.payload;
     const { data } = yield call(verifyForgotPasswordToken, token, email);
-    yield put(useRouter().push(`/reset-password/${token}/${email}/proceed`));
+    yield put(useRouter().push(`/reset-password/${token}/${email}/proceed`)); // TODO: needs to be updated
   } catch (e) {
-    yield put(useRouter().push('/login'));
+    yield put(useRouter().push('/login')); // TODO: needs to be updated
     yield put(
       snackbar.update({
         open: true,
