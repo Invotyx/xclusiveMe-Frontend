@@ -67,7 +67,7 @@ export default function Comp() {
           aria-label='bookmark'
           startIcon={<BookmarkBorderOutlinedIcon />}
         >
-          Save
+          <Box display={{ xs: 'none', sm: 'none', md: 'flex' }}>Save</Box>
         </Button>
       </CardActions>
     </Card>
