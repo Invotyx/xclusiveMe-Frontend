@@ -75,7 +75,6 @@ const loginSessions = [
 ];
 
 export default function Home(props) {
-  const [sidebarMenu, set_sidebarMenu] = React.useState(true);
   const dispatch = useDispatch();
   const [editLinkedAccount, set_editLinkedAccount] = React.useState(null);
   const [editLinkedAccountText, set_editLinkedAccountText] = React.useState(
@@ -108,7 +107,7 @@ export default function Home(props) {
     // dispatch(auth.logoutAll({}));
   };
   return (
-    <Layout sidebarMenu={sidebarMenu} set_sidebarMenu={set_sidebarMenu}>
+    <Layout>
       <Head>
         <title>Account — Settings</title>
       </Head>
