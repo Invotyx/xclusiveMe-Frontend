@@ -19,8 +19,9 @@ import { useSelector } from 'react-redux';
 import axiosInterceptorResponse from '../services/axiosInterceptorResponse';
 import { auth } from '../actions/auth';
 import { useDispatch } from 'react-redux';
+import SortIcon from '@material-ui/icons/Sort';
 
-export default function Comp({ profile }) {
+export default function Comp({ profile, sidebarMenu, set_sidebarMenu }) {
   const dispatch = useDispatch();
   React.useEffect(() => {
     axiosInterceptorResponse(dispatch);
@@ -120,6 +121,16 @@ export default function Comp({ profile }) {
                     <SettingsIcon />
                   </IconButton>
                 </NextLink>
+              </Box>
+              <Box ml={3} display={{ xs: 'flex', sm: 'flex', md: 'none' }}>
+                <IconButton
+                  color='inherit'
+                  onClick={() =>
+                    sidebarMenu ? set_sidebarMenu(false) : set_sidebarMenu(true)
+                  }
+                >
+                  <SortIcon />
+                </IconButton>
               </Box>
             </Box>
           </Toolbar>

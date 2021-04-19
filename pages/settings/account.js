@@ -69,6 +69,7 @@ const loginSessions = [
 ];
 
 export default function Home(props) {
+  const [sidebarMenu, set_sidebarMenu] = React.useState(true);
   const dispatch = useDispatch();
   const [editLinkedAccount, set_editLinkedAccount] = React.useState(null);
   const [editLinkedAccountText, set_editLinkedAccountText] = React.useState(
@@ -101,7 +102,7 @@ export default function Home(props) {
     // dispatch(auth.logoutAll({}));
   };
   return (
-    <Layout>
+    <Layout sidebarMenu={sidebarMenu} set_sidebarMenu={set_sidebarMenu}>
       <Head>
         <title>xclusiveme</title>
         <meta
@@ -117,7 +118,7 @@ export default function Home(props) {
       <Container maxWidth='md'>
         <Grid container spacing={6} className={classes.root}>
           <Grid item xs={12} md={4}>
-            <SidebarSettings />
+            {sidebarMenu && <SidebarSettings />}
           </Grid>
           <Grid item xs={12} md={5}>
             <form noValidate>
