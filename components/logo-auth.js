@@ -20,6 +20,7 @@ import axiosInterceptorResponse from '../services/axiosInterceptorResponse';
 import { auth } from '../actions/auth';
 import { useDispatch } from 'react-redux';
 import SortIcon from '@material-ui/icons/Sort';
+import Logo from './logo';
 
 export default function Comp({ profile, sidebarMenu, set_sidebarMenu }) {
   const dispatch = useDispatch();
@@ -67,11 +68,7 @@ export default function Comp({ profile, sidebarMenu, set_sidebarMenu }) {
         <Box clone mt={{ xs: 4, sm: 4, md: 0 }}>
           <Toolbar>
             <Box flexGrow={1}>
-              <NextLink href='/explore'>
-                <a>
-                  <Image width={50} height={50} src='/logo.svg' alt='Logo' />
-                </a>
-              </NextLink>
+              <Logo link='/explore' />
             </Box>
             <Box flexGrow={1} display={{ xs: 'none', sm: 'none', md: 'flex' }}>
               <Box display='flex'>
