@@ -9,6 +9,7 @@ import Avatar from '@material-ui/core/Avatar';
 import Box from '@material-ui/core/Box';
 import SearchIcon from '@material-ui/icons/Search';
 import Image from 'next/image';
+import NextLink from 'next/link';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -33,31 +34,37 @@ export default function Comp() {
       >
         <Box clone display='flex' justifyContent='space-around'>
           <Toolbar>
-            <IconButton color='inherit'>
-              <HomeIcon />
-            </IconButton>
+            <NextLink href='/explore'>
+              <IconButton color='inherit'>
+                <HomeIcon />
+              </IconButton>
+            </NextLink>
             <IconButton color='inherit'>
               <SearchIcon />
             </IconButton>
-            <IconButton color='inherit'>
-              <Image
-                width={40}
-                height={40}
-                src='/new-post-icon.svg'
-                alt='new post'
-              />
-            </IconButton>
+            <NextLink href='/profile'>
+              <IconButton color='inherit'>
+                <Image
+                  width={40}
+                  height={40}
+                  src='/new-post-icon.svg'
+                  alt='new post'
+                />
+              </IconButton>
+            </NextLink>
             <IconButton color='inherit'>
               <Badge color='secondary' variant='dot'>
                 <CheckBoxOutlineBlankIcon />
               </Badge>
             </IconButton>
-            <IconButton color='inherit'>
-              <Avatar
-                alt='Remy Sharp'
-                src='https://material-ui.com/static/images/avatar/1.jpg'
-              />
-            </IconButton>
+            <NextLink href='/profile'>
+              <IconButton color='inherit'>
+                <Avatar
+                  alt='Remy Sharp'
+                  src='https://material-ui.com/static/images/avatar/1.jpg'
+                />
+              </IconButton>
+            </NextLink>
           </Toolbar>
         </Box>
       </AppBar>
