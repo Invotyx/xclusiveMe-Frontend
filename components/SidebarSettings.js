@@ -20,7 +20,7 @@ export default function Comp() {
     <List>
       {sidebarNavItems.map((i, j) => (
         <NextLink href={i.url} key={`sidebarNavItems${j}`}>
-          <ListItemSettings selected={i.url === asPath}>
+          <ListItemSettings component='a' selected={i.url === asPath}>
             <ListItemText primary={i.text} />
           </ListItemSettings>
         </NextLink>
