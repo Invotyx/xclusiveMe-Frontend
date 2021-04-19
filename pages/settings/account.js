@@ -21,6 +21,8 @@ import TileTextField from '../../components/TileTextField';
 import SidebarSettings from '../../components/SidebarSettings';
 import ClearIcon from '@material-ui/icons/Clear';
 import AddIcon from '@material-ui/icons/Add';
+import FacebookIcon from '@material-ui/icons/Facebook';
+import LinkIcon from '@material-ui/icons/Link';
 import { auth } from '../../actions/auth';
 import { currentUserSelector } from '../../selectors/authSelector';
 import { useSelector } from 'react-redux';
@@ -47,9 +49,15 @@ const linkedAccounts = [
   },
   {
     url: '#',
-    text: 'Xclusive',
+    text: 'Facebook',
     active: '',
-    icon: <Image width={20} height={20} src='/logo.svg' />,
+    icon: <FacebookIcon />,
+  },
+  {
+    url: '#',
+    text: 'Website',
+    active: '',
+    icon: <LinkIcon />,
   },
 ];
 
