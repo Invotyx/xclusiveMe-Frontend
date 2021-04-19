@@ -18,8 +18,8 @@ export default function Comp(props) {
       <Box>
         <NextLink href='/register'>
           <Typography
-            component='h3'
-            variant={'/login' === asPath ? 'h5' : 'h4'}
+            component='a'
+            variant={'/login' === asPath ? 'h6' : 'h5'}
             className={'/login' === asPath ? `${classes.grey}` : ``}
           >
             SIGN UP
@@ -28,7 +28,7 @@ export default function Comp(props) {
       </Box>
       <Box mx={3}>
         <NextLink href='/login'>
-          <Typography component='h3' variant='h5' className={`${classes.grey}`}>
+          <Typography component='p' variant='h5' className={`${classes.grey}`}>
             |
           </Typography>
         </NextLink>
@@ -36,8 +36,8 @@ export default function Comp(props) {
       <Box>
         <NextLink href='/login'>
           <Typography
-            component='h3'
-            variant={'/register' === asPath ? 'h5' : 'h4'}
+            component='a'
+            variant={'/register' === asPath ? 'h6' : 'h5'}
             className={'/register' === asPath ? `${classes.grey}` : ``}
           >
             LOGIN
