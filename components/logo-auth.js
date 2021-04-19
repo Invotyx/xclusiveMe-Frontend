@@ -123,16 +123,20 @@ export default function Comp({ profile, sidebarMenu, set_sidebarMenu }) {
                   </IconButton>
                 </NextLink>
               </Box>
-              <Box ml={3} display={{ xs: 'flex', sm: 'flex', md: 'none' }}>
-                <IconButton
-                  color='inherit'
-                  onClick={() =>
-                    sidebarMenu ? set_sidebarMenu(false) : set_sidebarMenu(true)
-                  }
-                >
-                  <SortIcon />
-                </IconButton>
-              </Box>
+              {sidebarMenu !== undefined && (
+                <Box ml={3} display={{ xs: 'flex', sm: 'flex', md: 'none' }}>
+                  <IconButton
+                    color='inherit'
+                    onClick={() =>
+                      sidebarMenu
+                        ? set_sidebarMenu(false)
+                        : set_sidebarMenu(true)
+                    }
+                  >
+                    <SortIcon />
+                  </IconButton>
+                </Box>
+              )}
             </Box>
           </Toolbar>
         </Box>
