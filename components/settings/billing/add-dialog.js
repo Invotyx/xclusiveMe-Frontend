@@ -80,10 +80,6 @@ export default function CustomizedDialogs() {
           Add a billing method
         </DialogTitle>
         <DialogContent dividers>
-          <Typography gutterBottom>
-            Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-            dapibus ac facilisis ac consectetur ac, vestibulum at eros.
-          </Typography>
           <StripeElements />
         </DialogContent>
         {false && (
