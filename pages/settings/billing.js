@@ -64,62 +64,58 @@ export default function Home(props) {
       <Head>
         <title>Billing — Settings</title>
       </Head>
-            <Box display='flex' mb={2}>
-              <Box flexGrow={1}>
-                <Typography variant='h6'>Billing methods</Typography>
-              </Box>
-              <BillingAddDialog />
-            </Box>
-            <Box mb={2}>
-              <Divider />
-            </Box>
-            <List>
-              {fetching ? (
-                'loading'
-              ) : paymentData.length ? (
-                paymentData.map((p) => (
-                  <ListItem
-                    key={p.id}
-                    button
-                    onClick={(e) => handleClickListItem(e, p.id)}
-                  >
-                    <ListItemIcon>
-                      <PaymentIcon />
-                    </ListItemIcon>
-                    <ListItemText
-                      primary={`${p.title} (${p.type})`}
-                      secondary={`Ending in ••${p.last4_card}`}
-                    />
-                    <ListItemSecondaryAction>
-                      {p.default && (
-                        <Avatar className={classes.green}>
-                          <CheckIcon />
-                        </Avatar>
-                      )}
-                    </ListItemSecondaryAction>
-                  </ListItem>
-                ))
-              ) : (
-                <Box mb={2}>
-                  <Typography variant='subtitle2'>
-                    You have not set up any billing methods yet.
-                  </Typography>
-                  <Typography variant='body2'>
-                    Your billing method will be charged only when blah blah blah
-                    sint occaecat cupidatat proident suntculpa officia deserunt
-                    mollit anim laborum
-                  </Typography>
-                </Box>
-              )}
-            </List>
-        <Menu
-          anchorEl={anchorEl}
-          open={Boolean(anchorEl)}
-          onClose={handleClose}
-        >
-          <MenuItem onClick={handleEdit}>Set Default</MenuItem>
-          <MenuItem onClick={handleDelete}>Delete</MenuItem>
-        </Menu>
+      <Box display='flex' mb={2}>
+        <Box flexGrow={1}>
+          <Typography variant='h6'>Billing methods</Typography>
+        </Box>
+        <BillingAddDialog />
+      </Box>
+      <Box mb={2}>
+        <Divider />
+      </Box>
+      <List>
+        {fetching ? (
+          'loading'
+        ) : paymentData.length ? (
+          paymentData.map((p) => (
+            <ListItem
+              key={p.id}
+              button
+              onClick={(e) => handleClickListItem(e, p.id)}
+            >
+              <ListItemIcon>
+                <PaymentIcon />
+              </ListItemIcon>
+              <ListItemText
+                primary={`${p.title} (${p.type})`}
+                secondary={`Ending in ••${p.last4_card}`}
+              />
+              <ListItemSecondaryAction>
+                {p.default && (
+                  <Avatar className={classes.green}>
+                    <CheckIcon />
+                  </Avatar>
+                )}
+              </ListItemSecondaryAction>
+            </ListItem>
+          ))
+        ) : (
+          <Box mb={2}>
+            <Typography variant='subtitle2'>
+              You have not set up any billing methods yet.
+            </Typography>
+            <Typography variant='body2'>
+              Your billing method will be charged only when blah blah blah sint
+              occaecat cupidatat proident suntculpa officia deserunt mollit anim
+              laborum
+            </Typography>
+          </Box>
+        )}
+      </List>
+      <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
+        <MenuItem onClick={handleEdit}>Set Default</MenuItem>
+        <MenuItem onClick={handleDelete}>Delete</MenuItem>
+      </Menu>
     </Layout>
   );
 }

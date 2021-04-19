@@ -112,189 +112,185 @@ export default function Home(props) {
       <Head>
         <title>Account — Settings</title>
       </Head>
-        <Grid container spacing={6} className={classes.root}>
-          <Grid item xs={12} md={8}>
-            <form noValidate>
-              <Box mb={4}>
-                <TileTextField
-                  value={username}
-                  onChange={(e) => set_username(e.target.value)}
-                  variant='outlined'
-                  margin='normal'
-                  fullWidth
-                  label='Account Info'
-                  name='username'
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position='start'>@</InputAdornment>
-                    ),
-                  }}
-                />
-                <TileTextField
-                  value={email}
-                  onChange={(e) => set_email(e.target.value)}
-                  variant='outlined'
-                  margin='normal'
-                  fullWidth
-                  name='email'
-                  label='Email'
-                  type='email'
-                />
-                <TileTextField
-                  value={phone}
-                  onChange={(e) => set_phone(e.target.value)}
-                  variant='outlined'
-                  margin='normal'
-                  fullWidth
-                  name='phone'
-                  label='Phone'
-                  type='phone'
-                />
-                <Button variant='outlined' onClick={handleUpdate}>
-                  Update
-                </Button>
-              </Box>
-              <Box mb={4}>
-                <UppercaseInputLabel>Linked Accounts</UppercaseInputLabel>
-                <List>
-                  {linkedAccounts.map((i, j) => (
-                    <Box mb={1} key={`linkedAccounts${j}`}>
-                      <ListItem selected={true}>
-                        {i.icon && <ListItemIcon>{i.icon}</ListItemIcon>}
-                        <ListItemText
-                          primary={i.text}
-                          secondary={
-                            <>
-                              {editLinkedAccount === i.text ? (
-                                <Box display='flex' mt={1}>
-                                  <Box mr={1}>
-                                    <TileTextField
-                                      value={editLinkedAccountText}
-                                      onChange={(e) =>
-                                        set_editLinkedAccountText(
-                                          e.target.value
-                                        )
-                                      }
-                                      variant='outlined'
-                                      size='small'
-                                      name='phone'
-                                      type='phone'
-                                    />
-                                  </Box>
-                                  <Box>
-                                    <Button
-                                      variant='outlined'
-                                      onClick={() => {
-                                        linkedAccounts[
-                                          linkedAccounts.indexOf(i)
-                                        ].active = editLinkedAccountText;
-                                        set_editLinkedAccount(null);
-                                      }}
-                                    >
-                                      save
-                                    </Button>
-                                  </Box>
-                                </Box>
-                              ) : (
-                                i.active
-                              )}
-                            </>
-                          }
-                        />
-                        <ListItemSecondaryAction>
-                          {editLinkedAccount !== i.text && (
-                            <IconButton
-                              onClick={() => {
-                                set_editLinkedAccount(i.text);
-                                set_editLinkedAccountText(i.active);
-                              }}
-                            >
-                              {i.active ? <ClearIcon /> : <AddIcon />}
-                            </IconButton>
-                          )}
-                        </ListItemSecondaryAction>
-                      </ListItem>
-                    </Box>
-                  ))}
-                </List>
-              </Box>
-              <Box mb={4}>
-                <TileTextField
-                  placeholder='•••••••'
-                  value={password}
-                  onChange={(e) => set_password(e.target.value)}
-                  variant='outlined'
-                  margin='normal'
-                  fullWidth
-                  name='password'
-                  label='Password'
-                  type='password'
-                />
-                <Button variant='outlined' onClick={handleUpdatePassword}>
-                  Update Password
-                </Button>
-              </Box>
-              <Box mb={4}>
-                <UppercaseInputLabel>Login Sessions</UppercaseInputLabel>
-                <List>
-                  {loginSessions.map((i, j) => (
-                    <React.Fragment key={`loginSessions${j}`}>
-                      <ListItem selected={true}>
-                        <ListItemText
-                          primary={i.userAgent}
-                          secondary={`${i.ip} • ${i.country}`}
-                        />
-                        <ListItemSecondaryAction>
-                          {i.time}
-                        </ListItemSecondaryAction>
-                      </ListItem>
-                      <Divider />
-                    </React.Fragment>
-                  ))}
-                </List>
-                <Button variant='outlined' onClick={handleLogOutAllSessions}>
-                  Log out all sessions
-                </Button>
-              </Box>
-              <Box mb={4}>
-                <UppercaseInputLabel>
-                  Two Step Authentication
-                </UppercaseInputLabel>
-                <List>
-                  {false && (
-                    <ListItem disableGutters>
+      <Grid container spacing={6} className={classes.root}>
+        <Grid item xs={12} md={8}>
+          <form noValidate>
+            <Box mb={4}>
+              <TileTextField
+                value={username}
+                onChange={(e) => set_username(e.target.value)}
+                variant='outlined'
+                margin='normal'
+                fullWidth
+                label='Account Info'
+                name='username'
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position='start'>@</InputAdornment>
+                  ),
+                }}
+              />
+              <TileTextField
+                value={email}
+                onChange={(e) => set_email(e.target.value)}
+                variant='outlined'
+                margin='normal'
+                fullWidth
+                name='email'
+                label='Email'
+                type='email'
+              />
+              <TileTextField
+                value={phone}
+                onChange={(e) => set_phone(e.target.value)}
+                variant='outlined'
+                margin='normal'
+                fullWidth
+                name='phone'
+                label='Phone'
+                type='phone'
+              />
+              <Button variant='outlined' onClick={handleUpdate}>
+                Update
+              </Button>
+            </Box>
+            <Box mb={4}>
+              <UppercaseInputLabel>Linked Accounts</UppercaseInputLabel>
+              <List>
+                {linkedAccounts.map((i, j) => (
+                  <Box mb={1} key={`linkedAccounts${j}`}>
+                    <ListItem selected={true}>
+                      {i.icon && <ListItemIcon>{i.icon}</ListItemIcon>}
                       <ListItemText
-                        primary={`Authenticator App`}
-                        secondary={`You can use Microsoft or Google Authenticator application for iOS or Android`}
+                        primary={i.text}
+                        secondary={
+                          <>
+                            {editLinkedAccount === i.text ? (
+                              <Box display='flex' mt={1}>
+                                <Box mr={1}>
+                                  <TileTextField
+                                    value={editLinkedAccountText}
+                                    onChange={(e) =>
+                                      set_editLinkedAccountText(e.target.value)
+                                    }
+                                    variant='outlined'
+                                    size='small'
+                                    name='phone'
+                                    type='phone'
+                                  />
+                                </Box>
+                                <Box>
+                                  <Button
+                                    variant='outlined'
+                                    onClick={() => {
+                                      linkedAccounts[
+                                        linkedAccounts.indexOf(i)
+                                      ].active = editLinkedAccountText;
+                                      set_editLinkedAccount(null);
+                                    }}
+                                  >
+                                    save
+                                  </Button>
+                                </Box>
+                              </Box>
+                            ) : (
+                              i.active
+                            )}
+                          </>
+                        }
                       />
                       <ListItemSecondaryAction>
-                        <Switch
-                          edge='end'
-                          onChange={(e) => {
-                            set_authenticatorApp(e.target.checked);
-                          }}
-                          checked={authenticatorApp}
-                        />
+                        {editLinkedAccount !== i.text && (
+                          <IconButton
+                            onClick={() => {
+                              set_editLinkedAccount(i.text);
+                              set_editLinkedAccountText(i.active);
+                            }}
+                          >
+                            {i.active ? <ClearIcon /> : <AddIcon />}
+                          </IconButton>
+                        )}
                       </ListItemSecondaryAction>
                     </ListItem>
-                  )}
+                  </Box>
+                ))}
+              </List>
+            </Box>
+            <Box mb={4}>
+              <TileTextField
+                placeholder='•••••••'
+                value={password}
+                onChange={(e) => set_password(e.target.value)}
+                variant='outlined'
+                margin='normal'
+                fullWidth
+                name='password'
+                label='Password'
+                type='password'
+              />
+              <Button variant='outlined' onClick={handleUpdatePassword}>
+                Update Password
+              </Button>
+            </Box>
+            <Box mb={4}>
+              <UppercaseInputLabel>Login Sessions</UppercaseInputLabel>
+              <List>
+                {loginSessions.map((i, j) => (
+                  <React.Fragment key={`loginSessions${j}`}>
+                    <ListItem selected={true}>
+                      <ListItemText
+                        primary={i.userAgent}
+                        secondary={`${i.ip} • ${i.country}`}
+                      />
+                      <ListItemSecondaryAction>
+                        {i.time}
+                      </ListItemSecondaryAction>
+                    </ListItem>
+                    <Divider />
+                  </React.Fragment>
+                ))}
+              </List>
+              <Button variant='outlined' onClick={handleLogOutAllSessions}>
+                Log out all sessions
+              </Button>
+            </Box>
+            <Box mb={4}>
+              <UppercaseInputLabel>Two Step Authentication</UppercaseInputLabel>
+              <List>
+                {false && (
                   <ListItem disableGutters>
-                    <ListItemText primary={`Verification via SMS`} />
+                    <ListItemText
+                      primary={`Authenticator App`}
+                      secondary={`You can use Microsoft or Google Authenticator application for iOS or Android`}
+                    />
                     <ListItemSecondaryAction>
                       <Switch
                         edge='end'
                         onChange={(e) => {
-                          set_verificationViaSms(e.target.checked);
+                          set_authenticatorApp(e.target.checked);
                         }}
-                        checked={verificationViaSms}
+                        checked={authenticatorApp}
                       />
                     </ListItemSecondaryAction>
                   </ListItem>
-                </List>
-              </Box>
-            </form>
-          </Grid>
+                )}
+                <ListItem disableGutters>
+                  <ListItemText primary={`Verification via SMS`} />
+                  <ListItemSecondaryAction>
+                    <Switch
+                      edge='end'
+                      onChange={(e) => {
+                        set_verificationViaSms(e.target.checked);
+                      }}
+                      checked={verificationViaSms}
+                    />
+                  </ListItemSecondaryAction>
+                </ListItem>
+              </List>
+            </Box>
+          </form>
         </Grid>
+      </Grid>
     </Layout>
   );
 }
