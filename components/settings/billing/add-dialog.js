@@ -80,7 +80,11 @@ export default function CustomizedDialogs() {
           Add a billing method
         </DialogTitle>
         <DialogContent dividers>
-          <StripeElements />
+          <StripeElements
+            afterSave={() => {
+              handleClose();
+            }}
+          />
         </DialogContent>
         {false && (
           <DialogActions>

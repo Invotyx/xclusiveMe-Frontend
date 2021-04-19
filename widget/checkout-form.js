@@ -47,6 +47,9 @@ export default function CheckoutForm(props) {
             if (props.callback) {
               props.callback();
             }
+            if (props.afterSave) {
+              props.afterSave();
+            }
           },
         })
       );
