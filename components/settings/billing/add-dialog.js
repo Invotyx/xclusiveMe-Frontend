@@ -73,6 +73,8 @@ export default function CustomizedDialogs() {
         onClose={handleClose}
         aria-labelledby='customized-dialog-title'
         open={open}
+        maxWidth='sm'
+        fullWidth={true}
       >
         <DialogTitle id='customized-dialog-title' onClose={handleClose}>
           Add a billing method
