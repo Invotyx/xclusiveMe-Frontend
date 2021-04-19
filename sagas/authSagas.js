@@ -230,8 +230,12 @@ function* handleMe() {
 }
 
 function* handleLogout() {
-  yield call(logout);
-  yield put(useRouter().push('/login'));
+  try {
+    yield call(logout);
+    yield put(useRouter().push('/login'));
+  } catch (e) {
+    yield put(auth.failure({ error: { ...e } }));
+  }
 }
 
 function* watchAuthSagas() {
