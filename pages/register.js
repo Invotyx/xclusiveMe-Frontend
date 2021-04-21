@@ -28,6 +28,7 @@ export default function SignInSide() {
   const classes = useStyles();
   const router = useRouter();
   const [registrationState, set_registrationState] = useState(1);
+  const [sessionId, set_sessionId] = useState('');
   const [fullName, setFullName] = useState('');
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -45,8 +46,9 @@ export default function SignInSide() {
           email,
           password,
           phoneNumber,
-          callback: () => {
+          callback: (sid) => {
             set_registrationState(2);
+            set_sessionId(sid);
           },
         })
       );
