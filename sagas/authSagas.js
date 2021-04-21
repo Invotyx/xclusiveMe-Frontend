@@ -155,13 +155,6 @@ function* handleVerifyOtp(action) {
         loggedIn: true,
       })
     );
-    yield put(
-      snackbar.update({
-        open: true,
-        message: 'User Registered Successfully!',
-        severity: 'success',
-      })
-    );
     const { callback } = action.payload;
     if (callback) {
       yield call(callback, data.sessionId);
