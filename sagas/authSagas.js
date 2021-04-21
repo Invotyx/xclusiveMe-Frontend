@@ -25,11 +25,11 @@ function* handleLogin(action) {
 
     const response = yield call(login, email, password);
     if (response.status !== 202) {
-      localStorage.setItem('jwtToken', data.accessToken);
-      localStorage.setItem('refreshToken', data.refreshToken);
+      localStorage.setItem('jwtToken', response.data.accessToken);
+      localStorage.setItem('refreshToken', response.data.refreshToken);
       yield put(
         auth.success({
-          accessToken: data.accessToken,
+          accessToken: response.data.accessToken,
           loggedIn: true,
         })
       );
