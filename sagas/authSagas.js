@@ -40,13 +40,6 @@ function* handleLogin(action) {
           currentUser: currentUser.data,
         })
       );
-      yield put(
-        snackbar.update({
-          open: true,
-          message: 'User Logged In!',
-          severity: 'success',
-        })
-      );
     } else {
       yield put(
         snackbar.update({
