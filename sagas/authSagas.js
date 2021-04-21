@@ -57,7 +57,7 @@ function* handleLogin(action) {
     }
     const { callback } = action.payload;
     if (callback) {
-      yield call(callback);
+      yield call(callback, response.data.sessionId);
     }
   } catch (e) {
     yield put(auth.failure({ error: { ...e } }));
@@ -128,9 +128,9 @@ function* handleRegister(action) {
 
 function* handleVerifyOtp(action) {
   try {
-    const { code, phoneNumber } = action.payload;
+    const { code, sessionId } = action.payload;
 
-    const { data } = yield call(verifyOtp, code, phoneNumber);
+    const { data } = yield call(verifyOtp, code, sessionId);
     localStorage.setItem('jwtToken', data.accessToken);
     const currentUser = yield call(me);
     yield put(

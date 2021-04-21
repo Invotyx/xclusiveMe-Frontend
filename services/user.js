@@ -30,10 +30,10 @@ export async function register(
   return apiClient.post(`${SERVER_ADDRESS}/auth/register`, data);
 }
 
-export async function verifyOtp(code, phoneNumber) {
+export async function verifyOtp(code, sessionId) {
   const data = JSON.stringify({
     code,
-    phoneNumber,
+    sessionId,
   });
 
   return apiClient.post(`${SERVER_ADDRESS}/auth/verify`, data);

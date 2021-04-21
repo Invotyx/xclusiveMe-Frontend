@@ -28,6 +28,7 @@ export default function SignInSide() {
   const classes = useStyles();
   const router = useRouter();
   const [registrationState, set_registrationState] = useState(1);
+  const [sessionId, set_sessionId] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [code, setCode] = useState('');
@@ -39,8 +40,10 @@ export default function SignInSide() {
         auth.login({
           email,
           password,
-          callback: () => {
+          callback: (sid) => {
+            console.log(sid);
             set_registrationState(2);
+            set_sessionId(sid);
           },
         })
       );
@@ -48,7 +51,7 @@ export default function SignInSide() {
     if (registrationState === 2) {
       dispatch(
         auth.verifyOtp({
-          phoneNumber,
+          sessionId,
           code,
           callback: () => {
             router.push('/explore');
