@@ -34,12 +34,7 @@ function* handleLogin(action) {
           loggedIn: true,
         })
       );
-      const currentUser = yield call(me);
-      yield put(
-        auth.success({
-          currentUser: currentUser.data,
-        })
-      );
+      yield put(auth.me);
     } else {
       yield put(
         snackbar.update({
@@ -147,14 +142,13 @@ function* handleVerifyOtp(action) {
 
     const { data } = yield call(verifyOtp, code, sessionId);
     localStorage.setItem('jwtToken', data.accessToken);
-    const currentUser = yield call(me);
     yield put(
       auth.success({
-        currentUser: currentUser.data,
         accessToken: data.accessToken,
         loggedIn: true,
       })
     );
+    yield put(auth.me);
     const { callback } = action.payload;
     if (callback) {
       yield call(callback, data.sessionId);
