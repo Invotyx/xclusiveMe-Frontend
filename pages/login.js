@@ -27,20 +27,23 @@ export default function SignInSide() {
   const dispatch = useDispatch();
   const classes = useStyles();
   const router = useRouter();
+  const [registrationState, set_registrationState] = useState(1);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    dispatch(
-      auth.login({
-        email,
-        password,
-        callback: () => {
-          router.push('/explore');
-        },
-      })
-    );
+    if (registrationState === 1) {
+      dispatch(
+        auth.login({
+          email,
+          password,
+          callback: () => {
+            set_registrationState(2);
+          },
+        })
+      );
+    }
   };
 
   return (
@@ -64,72 +67,74 @@ export default function SignInSide() {
         <Grid item xs={12} sm={8} md={5}>
           <Box pl={8} pr={8} mx={4}>
             <AuthNav />
-            <form onSubmit={handleSubmit}>
-              <TileTextField
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                variant='outlined'
-                margin='normal'
-                required
-                fullWidth
-                id='email'
-                label='Email Address'
-                name='email'
-                autoComplete='email'
-                autoFocus
-              />
-              <TileTextField
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                variant='outlined'
-                margin='normal'
-                required
-                fullWidth
-                name='password'
-                label='Password'
-                type='password'
-                id='password'
-                autoComplete='current-password'
-              />
-              <Box my={2}>
-                <Grid container>
-                  <Grid item xs>
-                    <Box mb={2}>
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            value='remember'
-                            color='primary'
-                            size='small'
-                          />
-                        }
-                        label='Remember me'
-                        size='small'
-                        className={classes.grey}
-                      />
-                    </Box>
+            {registrationState === 1 && (
+              <form onSubmit={handleSubmit}>
+                <TileTextField
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  variant='outlined'
+                  margin='normal'
+                  required
+                  fullWidth
+                  id='email'
+                  label='Email Address'
+                  name='email'
+                  autoComplete='email'
+                  autoFocus
+                />
+                <TileTextField
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  variant='outlined'
+                  margin='normal'
+                  required
+                  fullWidth
+                  name='password'
+                  label='Password'
+                  type='password'
+                  id='password'
+                  autoComplete='current-password'
+                />
+                <Box my={2}>
+                  <Grid container>
+                    <Grid item xs>
+                      <Box mb={2}>
+                        <FormControlLabel
+                          control={
+                            <Checkbox
+                              value='remember'
+                              color='primary'
+                              size='small'
+                            />
+                          }
+                          label='Remember me'
+                          size='small'
+                          className={classes.grey}
+                        />
+                      </Box>
+                    </Grid>
+                    <Grid item>
+                      <Box mb={2} mt={1}>
+                        <NextLink href='#' passHref>
+                          <Link variant='body2' className={classes.grey}>
+                            Forgot your password?
+                          </Link>
+                        </NextLink>
+                      </Box>
+                    </Grid>
                   </Grid>
-                  <Grid item>
-                    <Box mb={2} mt={1}>
-                      <NextLink href='#' passHref>
-                        <Link variant='body2' className={classes.grey}>
-                          Forgot your password?
-                        </Link>
-                      </NextLink>
-                    </Box>
-                  </Grid>
-                </Grid>
-              </Box>
+                </Box>
 
-              <TileButton
-                type='submit'
-                fullWidth
-                variant='contained'
-                color='primary'
-              >
-                Login
-              </TileButton>
-            </form>
+                <TileButton
+                  type='submit'
+                  fullWidth
+                  variant='contained'
+                  color='primary'
+                >
+                  Login
+                </TileButton>
+              </form>
+            )}
           </Box>
         </Grid>
         <Grid item xs={12} sm={4} md={7}>
