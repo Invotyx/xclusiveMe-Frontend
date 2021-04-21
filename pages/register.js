@@ -32,18 +32,20 @@ export default function SignInSide() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    dispatch(
-      auth.register({
-        fullName,
-        username,
-        email,
-        password,
-        phoneNumber,
-        callback: () => {
-          set_registrationState(2);
-        },
-      })
-    );
+    if (registrationState === 1) {
+      dispatch(
+        auth.register({
+          fullName,
+          username,
+          email,
+          password,
+          phoneNumber,
+          callback: () => {
+            set_registrationState(2);
+          },
+        })
+      );
+    }
   };
 
   return (
