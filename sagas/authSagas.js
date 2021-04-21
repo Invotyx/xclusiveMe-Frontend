@@ -204,7 +204,10 @@ function* handleForgotPassword(action) {
     const { email } = action.payload;
     const { data } = yield call(forgotPassword, email);
     yield put(auth.success({ data }));
-    yield put(useRouter().push('/login')); // TODO: needs to be updated
+    const { callback } = action.payload;
+    if (callback) {
+      yield call(callback);
+    }
     yield put(
       snackbar.update({
         open: true,
