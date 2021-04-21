@@ -23,6 +23,13 @@ export const auth = {
       success: false,
       error: null,
     }),
+  verifyOtp: (data) =>
+    createAction(AUTH.VERIFY_OTP, {
+      ...data,
+      fetching: true,
+      success: false,
+      error: null,
+    }),
   updateProfile: (data) =>
     createAction(AUTH.UPDATE_PROFILE, {
       ...data,

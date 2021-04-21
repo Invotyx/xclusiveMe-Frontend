@@ -31,6 +31,7 @@ export default function SignInSide() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
+  const [code, setCode] = useState('');
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -44,6 +45,17 @@ export default function SignInSide() {
           phoneNumber,
           callback: () => {
             set_registrationState(2);
+          },
+        })
+      );
+    }
+    if (registrationState === 2) {
+      dispatch(
+        auth.verifyOtp({
+          phoneNumber,
+          code,
+          callback: () => {
+            router.push('/explore');
           },
         })
       );
@@ -143,6 +155,32 @@ export default function SignInSide() {
                     disabled={fetching}
                   >
                     Register
+                  </TileButton>
+                </Box>
+              </form>
+            )}
+            {registrationState === 2 && (
+              <form onSubmit={handleSubmit}>
+                <TileTextField
+                  value={code}
+                  onChange={(e) => setCode(e.target.value)}
+                  variant='outlined'
+                  margin='normal'
+                  required
+                  fullWidth
+                  id='code'
+                  label='Enter Code'
+                  name='code'
+                  autoComplete='code'
+                />
+                <Box my={2}>
+                  <TileButton
+                    type='submit'
+                    fullWidth
+                    variant='contained'
+                    color='primary'
+                  >
+                    Verify
                   </TileButton>
                 </Box>
               </form>

@@ -30,6 +30,15 @@ export async function register(
   return apiClient.post(`${SERVER_ADDRESS}/auth/register`, data);
 }
 
+export async function verifyOtp(code, phoneNumber) {
+  const data = JSON.stringify({
+    code,
+    phoneNumber,
+  });
+
+  return apiClient.post(`${SERVER_ADDRESS}/auth/verify`, data);
+}
+
 export async function forgotPassword(email) {
   return apiClient.get(`${SERVER_ADDRESS}/users/forgot-password/${email}`);
 }

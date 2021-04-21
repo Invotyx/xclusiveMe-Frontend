@@ -8,6 +8,7 @@ import { snackbar } from '../actions/snackbar';
 import {
   login,
   register,
+  verifyOtp,
   updateProfile,
   forgotPassword,
   me,
@@ -108,6 +109,43 @@ function* handleRegister(action) {
       snackbar.update({
         open: true,
         message: 'Invalid Code!',
+        severity: 'error',
+      })
+    );
+  }
+}
+
+function* handleVerifyOtp(action) {
+  try {
+    const { code, phoneNumber } = action.payload;
+
+    const { data } = yield call(verifyOtp, code, phoneNumber);
+    localStorage.setItem('jwtToken', data.accessToken);
+    const currentUser = yield call(me);
+    yield put(
+      auth.success({
+        currentUser: currentUser.data,
+        accessToken: data.accessToken,
+        loggedIn: true,
+      })
+    );
+    yield put(
+      snackbar.update({
+        open: true,
+        message: 'User Registered Successfully!',
+        severity: 'success',
+      })
+    );
+    const { callback } = action.payload;
+    if (callback) {
+      yield call(callback);
+    }
+  } catch (e) {
+    yield put(auth.failure({ error: { ...e } }));
+    yield put(
+      snackbar.update({
+        open: true,
+        message: 'User Registration Failed!',
         severity: 'error',
       })
     );
@@ -239,6 +277,7 @@ function* watchAuthSagas() {
     takeLatest(AUTH.LOGIN, handleLogin),
     takeLatest(AUTH.REFRESH_TOKEN, handleRefreshToken),
     takeLatest(AUTH.REGISTER, handleRegister),
+    takeLatest(AUTH.VERIFY_OTP, handleVerifyOtp),
     takeLatest(AUTH.UPDATE_PROFILE, handleUpdateProfile),
     takeLatest(AUTH.FORGOT_PASSWORD, handleForgotPassword),
     takeLatest(AUTH.RESET_PASSWORD, handleResetPassword),
