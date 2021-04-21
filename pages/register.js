@@ -171,6 +171,7 @@ export default function SignInSide() {
                   id='code'
                   label='Enter Code'
                   name='code'
+                  type='number'
                   autoComplete='code'
                 />
                 <Box my={2}>
