@@ -154,6 +154,7 @@ export default function Home(props) {
               </Button>
             </Box>
           </form>
+          <form noValidate>
             <Box mb={4}>
               <UppercaseInputLabel>Linked Accounts</UppercaseInputLabel>
               <List>
@@ -216,6 +217,7 @@ export default function Home(props) {
                 ))}
               </List>
             </Box>
+          </form>
           <form onSubmit={handleUpdatePassword}>
             <Box mb={4}>
               <TileTextField
@@ -234,6 +236,7 @@ export default function Home(props) {
               </Button>
             </Box>
           </form>
+          <form noValidate>
             <Box mb={4}>
               <UppercaseInputLabel>Login Sessions</UppercaseInputLabel>
               <List>
@@ -256,6 +259,8 @@ export default function Home(props) {
                 Log out all sessions
               </Button>
             </Box>
+          </form>
+          <form noValidate>
             <Box mb={4}>
               <UppercaseInputLabel>Two Step Authentication</UppercaseInputLabel>
               <List>
@@ -290,6 +295,7 @@ export default function Home(props) {
                 </ListItem>
               </List>
             </Box>
+          </form>
         </Grid>
       </Grid>
     </Layout>
