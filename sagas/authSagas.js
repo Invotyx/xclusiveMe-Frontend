@@ -142,6 +142,7 @@ function* handleVerifyOtp(action) {
 
     const { data } = yield call(verifyOtp, code, sessionId);
     localStorage.setItem('jwtToken', data.accessToken);
+    localStorage.setItem('refreshToken', data.refreshToken);
     yield put(
       auth.success({
         accessToken: data.accessToken,
