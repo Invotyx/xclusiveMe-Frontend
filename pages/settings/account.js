@@ -97,7 +97,8 @@ export default function Home(props) {
   }, [currentUser]);
 
   const classes = useStyles();
-  const handleUpdate = () => {
+  const handleUpdate = (event) => {
+    event.preventDefault();
     dispatch(auth.updateProfile({ username, email, phoneNumber: phone }));
   };
   const handleUpdatePassword = () => {
