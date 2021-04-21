@@ -34,7 +34,7 @@ function* handleLogin(action) {
           loggedIn: true,
         })
       );
-      yield put(auth.me);
+      yield call(auth.me);
     } else {
       yield put(
         snackbar.update({
@@ -148,7 +148,7 @@ function* handleVerifyOtp(action) {
         loggedIn: true,
       })
     );
-    yield put(auth.me);
+    yield call(auth.me);
     const { callback } = action.payload;
     if (callback) {
       yield call(callback, data.sessionId);
