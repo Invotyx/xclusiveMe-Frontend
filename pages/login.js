@@ -115,7 +115,7 @@ export default function SignInSide() {
                     </Grid>
                     <Grid item>
                       <Box mb={2} mt={1}>
-                        <NextLink href='#' passHref>
+                        <NextLink href='/forgot-password' passHref>
                           <Link variant='body2' className={classes.grey}>
                             Forgot your password?
                           </Link>
