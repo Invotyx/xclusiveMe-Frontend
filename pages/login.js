@@ -44,6 +44,17 @@ export default function SignInSide() {
         })
       );
     }
+    if (registrationState === 2) {
+      dispatch(
+        auth.verifyOtp({
+          phoneNumber,
+          code,
+          callback: () => {
+            router.push('/explore');
+          },
+        })
+      );
+    }
   };
 
   return (
@@ -133,6 +144,46 @@ export default function SignInSide() {
                 >
                   Login
                 </TileButton>
+              </form>
+            )}
+            {registrationState === 2 && (
+              <form onSubmit={handleSubmit}>
+                <TileTextField
+                  value={code}
+                  onChange={(e) => setCode(e.target.value)}
+                  variant='outlined'
+                  margin='normal'
+                  required
+                  fullWidth
+                  id='code'
+                  label='Enter Code'
+                  name='code'
+                  type='number'
+                  autoComplete='code'
+                />
+                <Box my={2}>
+                  <TileButton
+                    type='submit'
+                    fullWidth
+                    variant='contained'
+                    color='primary'
+                  >
+                    Verify
+                  </TileButton>
+                  <Box textAlign='center' mt={1}>
+                    <NextLink href='#' passHref>
+                      <Link
+                        variant='body2'
+                        onClick={(e) => {
+                          e.preventDefault();
+                          set_registrationState(1);
+                        }}
+                      >
+                        Cancel
+                      </Link>
+                    </NextLink>
+                  </Box>
+                </Box>
               </form>
             )}
           </Box>
