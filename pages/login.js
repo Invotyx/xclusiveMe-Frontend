@@ -41,7 +41,6 @@ export default function SignInSide() {
           email,
           password,
           callback: (sid) => {
-            console.log(sid);
             set_registrationState(2);
             set_sessionId(sid);
           },
