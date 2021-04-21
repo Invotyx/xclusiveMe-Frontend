@@ -132,6 +132,10 @@ function* handleResendOtp(action) {
     const { sessionId } = action.payload;
     const { data } = yield call(resendOtp, sessionId);
     yield put(auth.success({ data }));
+    const { callback } = action.payload;
+    if (callback) {
+      yield call(callback, data.sessionId);
+    }
   } catch (e) {
     yield put(auth.failure({ error: { ...e } }));
     yield put(

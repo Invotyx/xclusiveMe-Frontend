@@ -170,7 +170,14 @@ export default function SignInSide() {
                       variant='body2'
                       onClick={(e) => {
                         e.preventDefault();
-                        dispatch(auth.resendOtp({ sessionId }));
+                        dispatch(
+                          auth.resendOtp({
+                            sessionId,
+                            callback: (sid) => {
+                              set_sessionId(sid);
+                            },
+                          })
+                        );
                       }}
                     >
                       Resend OTP
