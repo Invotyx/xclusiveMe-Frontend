@@ -20,8 +20,8 @@ export default function Comp(props) {
         <NextLink href='/register'>
           <Button
             variant='text'
-            size={'/login' === asPath ? 'small' : 'large'}
-            className={'/login' === asPath ? `${classes.grey}` : ``}
+            size={'/register' !== asPath ? 'small' : 'large'}
+            className={'/register' !== asPath ? `${classes.grey}` : ``}
           >
             SIGN UP
           </Button>
@@ -38,8 +38,8 @@ export default function Comp(props) {
         <NextLink href='/login'>
           <Button
             variant='text'
-            size={'/register' === asPath ? 'small' : 'large'}
-            className={'/register' === asPath ? `${classes.grey}` : ``}
+            size={'/login' !== asPath ? 'small' : 'large'}
+            className={'/login' !== asPath ? `${classes.grey}` : ``}
           >
             LOGIN
           </Button>
