@@ -56,7 +56,7 @@ export default function SignInSide() {
     if (registrationState === 2) {
       dispatch(
         auth.verifyOtp({
-          phoneNumber,
+          sessionId,
           code,
           callback: () => {
             router.push('/explore');
