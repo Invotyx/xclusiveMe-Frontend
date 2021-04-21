@@ -28,8 +28,11 @@ export default function Comp({ profile, sidebarMenu, set_sidebarMenu }) {
   React.useEffect(() => {
     axiosInterceptorResponse(dispatch);
     const authorizationToken = localStorage.getItem('jwtToken');
-    authorizationToken && dispatch(auth.success({ loggedIn: true }));
-    dispatch(auth.me());
+    if (authorizationToken) {
+      dispatch(auth.me());
+    } else {
+      router.push('/login');
+    }
   }, []);
   const userSelector = useSelector(currentUserSelector);
 
