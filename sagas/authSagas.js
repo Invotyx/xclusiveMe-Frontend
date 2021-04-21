@@ -91,15 +91,6 @@ function* handleRegister(action) {
       password,
       phoneNumber
     );
-    localStorage.setItem('jwtToken', data.accessToken);
-    const currentUser = yield call(me);
-    yield put(
-      auth.success({
-        currentUser: currentUser.data,
-        accessToken: data.accessToken,
-        loggedIn: true,
-      })
-    );
     yield put(
       snackbar.update({
         open: true,
