@@ -94,7 +94,7 @@ function* handleRegister(action) {
     yield put(
       snackbar.update({
         open: true,
-        message: 'User Registered Successfully!',
+        message: 'Check your phone!',
         severity: 'success',
       })
     );
@@ -107,7 +107,7 @@ function* handleRegister(action) {
     yield put(
       snackbar.update({
         open: true,
-        message: 'User Registration Failed!',
+        message: 'Invalid Code!',
         severity: 'error',
       })
     );
