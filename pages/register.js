@@ -23,6 +23,7 @@ export default function SignInSide() {
   const dispatch = useDispatch();
   const classes = useStyles();
   const router = useRouter();
+  const [registrationState, set_registrationState] = useState(1);
   const [fullName, setFullName] = useState('');
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -39,7 +40,7 @@ export default function SignInSide() {
         password,
         phoneNumber,
         callback: () => {
-          router.push('/explore');
+          set_registrationState(2);
         },
       })
     );
@@ -66,79 +67,81 @@ export default function SignInSide() {
         <Grid item xs={12} sm={8} md={5}>
           <Box pl={8} pr={8} mx={4}>
             <AuthNav />
-            <form onSubmit={handleSubmit}>
-              <TileTextField
-                value={fullName}
-                onChange={(e) => setFullName(e.target.value)}
-                variant='outlined'
-                margin='normal'
-                required
-                fullWidth
-                id='fullName'
-                label='Full Name'
-                name='fullName'
-                autoComplete='fullName'
-              />
-              <TileTextField
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                variant='outlined'
-                margin='normal'
-                required
-                fullWidth
-                id='username'
-                label='Username'
-                name='username'
-                autoComplete='username'
-              />
-              <TileTextField
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                variant='outlined'
-                margin='normal'
-                required
-                fullWidth
-                id='email'
-                label='Email Address'
-                name='email'
-                autoComplete='email'
-              />
-              <TileTextField
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                variant='outlined'
-                margin='normal'
-                required
-                fullWidth
-                name='password'
-                label='Password'
-                type='password'
-                id='password'
-                autoComplete='current-password'
-              />
-              <TileTextField
-                value={phoneNumber}
-                onChange={(e) => setPhoneNumber(e.target.value)}
-                variant='outlined'
-                margin='normal'
-                required
-                fullWidth
-                id='phoneNumber'
-                label='Phone Number'
-                name='phoneNumber'
-                autoComplete='phoneNumber'
-              />
-              <Box my={2}>
-                <TileButton
-                  type='submit'
+            {registrationState === 1 && (
+              <form onSubmit={handleSubmit}>
+                <TileTextField
+                  value={fullName}
+                  onChange={(e) => setFullName(e.target.value)}
+                  variant='outlined'
+                  margin='normal'
+                  required
                   fullWidth
-                  variant='contained'
-                  color='primary'
-                >
-                  Register
-                </TileButton>
-              </Box>
-            </form>
+                  id='fullName'
+                  label='Full Name'
+                  name='fullName'
+                  autoComplete='fullName'
+                />
+                <TileTextField
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  variant='outlined'
+                  margin='normal'
+                  required
+                  fullWidth
+                  id='username'
+                  label='Username'
+                  name='username'
+                  autoComplete='username'
+                />
+                <TileTextField
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  variant='outlined'
+                  margin='normal'
+                  required
+                  fullWidth
+                  id='email'
+                  label='Email Address'
+                  name='email'
+                  autoComplete='email'
+                />
+                <TileTextField
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  variant='outlined'
+                  margin='normal'
+                  required
+                  fullWidth
+                  name='password'
+                  label='Password'
+                  type='password'
+                  id='password'
+                  autoComplete='current-password'
+                />
+                <TileTextField
+                  value={phoneNumber}
+                  onChange={(e) => setPhoneNumber(e.target.value)}
+                  variant='outlined'
+                  margin='normal'
+                  required
+                  fullWidth
+                  id='phoneNumber'
+                  label='Phone Number'
+                  name='phoneNumber'
+                  autoComplete='phoneNumber'
+                />
+                <Box my={2}>
+                  <TileButton
+                    type='submit'
+                    fullWidth
+                    variant='contained'
+                    color='primary'
+                  >
+                    Register
+                  </TileButton>
+                </Box>
+              </form>
+            )}
           </Box>
         </Grid>
         <Grid item xs={12} sm={4} md={7}>
