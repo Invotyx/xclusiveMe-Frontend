@@ -178,6 +178,19 @@ export default function SignInSide() {
                   type='number'
                   autoComplete='code'
                 />
+                <Box textAlign='center' mt={1}>
+                  <NextLink href='#' passHref>
+                    <Link
+                      variant='body2'
+                      onClick={(e) => {
+                        e.preventDefault();
+                        dispatch(auth.resendOtp({ sessionId }));
+                      }}
+                    >
+                      Resend OTP
+                    </Link>
+                  </NextLink>
+                </Box>
                 <Box my={2}>
                   <TileButton
                     type='submit'
