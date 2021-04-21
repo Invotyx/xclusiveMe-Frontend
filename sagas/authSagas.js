@@ -22,28 +22,39 @@ function* handleLogin(action) {
   try {
     const { email, password } = action.payload;
 
-    const { data } = yield call(login, email, password);
-    localStorage.setItem('jwtToken', data.accessToken);
-    localStorage.setItem('refreshToken', data.refreshToken);
-    yield put(
-      auth.success({
-        accessToken: data.accessToken,
-        loggedIn: true,
-      })
-    );
-    const currentUser = yield call(me);
-    yield put(
-      auth.success({
-        currentUser: currentUser.data,
-      })
-    );
-    yield put(
-      snackbar.update({
-        open: true,
-        message: 'User Logged In!',
-        severity: 'success',
-      })
-    );
+    const response = yield call(login, email, password);
+    console.log(response);
+    if (response.status !== 202) {
+      localStorage.setItem('jwtToken', data.accessToken);
+      localStorage.setItem('refreshToken', data.refreshToken);
+      yield put(
+        auth.success({
+          accessToken: data.accessToken,
+          loggedIn: true,
+        })
+      );
+      const currentUser = yield call(me);
+      yield put(
+        auth.success({
+          currentUser: currentUser.data,
+        })
+      );
+      yield put(
+        snackbar.update({
+          open: true,
+          message: 'User Logged In!',
+          severity: 'success',
+        })
+      );
+    } else {
+      yield put(
+        snackbar.update({
+          open: true,
+          message: response.data.message,
+          severity: 'success',
+        })
+      );
+    }
     const { callback } = action.payload;
     if (callback) {
       yield call(callback);
