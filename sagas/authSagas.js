@@ -9,6 +9,7 @@ import {
   login,
   register,
   verifyOtp,
+  resendOtp,
   updateProfile,
   forgotPassword,
   me,
@@ -114,6 +115,23 @@ function* handleRegister(action) {
     if (callback) {
       yield call(callback);
     }
+  } catch (e) {
+    yield put(auth.failure({ error: { ...e } }));
+    yield put(
+      snackbar.update({
+        open: true,
+        message: 'Something went wrong!',
+        severity: 'error',
+      })
+    );
+  }
+}
+
+function* handleResendOtp(action) {
+  try {
+    const { sessionId } = action.payload;
+    const { data } = yield call(resendOtp, sessionId);
+    yield put(auth.success({ data }));
   } catch (e) {
     yield put(auth.failure({ error: { ...e } }));
     yield put(
@@ -303,6 +321,7 @@ function* watchAuthSagas() {
     takeLatest(AUTH.REFRESH_TOKEN, handleRefreshToken),
     takeLatest(AUTH.REGISTER, handleRegister),
     takeLatest(AUTH.VERIFY_OTP, handleVerifyOtp),
+    takeLatest(AUTH.RESEND_OTP, handleResendOtp),
     takeLatest(AUTH.UPDATE_PROFILE, handleUpdateProfile),
     takeLatest(AUTH.FORGOT_PASSWORD, handleForgotPassword),
     takeLatest(AUTH.RESET_PASSWORD, handleResetPassword),

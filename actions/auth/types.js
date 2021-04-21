@@ -4,6 +4,7 @@ export const AUTH = createActionTypes('AUTH', [
   'LOGIN',
   'REGISTER',
   'VERIFY_OTP',
+  'RESEND_OTP',
   'UPDATE_PROFILE',
   'FORGOT_PASSWORD',
   'RESET_PASSWORD',

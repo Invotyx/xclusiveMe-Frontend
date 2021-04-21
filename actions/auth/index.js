@@ -30,6 +30,13 @@ export const auth = {
       success: false,
       error: null,
     }),
+  resendOtp: (data) =>
+    createAction(AUTH.RESEND_OTP, {
+      ...data,
+      fetching: true,
+      success: false,
+      error: null,
+    }),
   updateProfile: (data) =>
     createAction(AUTH.UPDATE_PROFILE, {
       ...data,

@@ -39,6 +39,14 @@ export async function verifyOtp(code, sessionId) {
   return apiClient.post(`${SERVER_ADDRESS}/auth/verify`, data);
 }
 
+export async function resendOtp(sessionId) {
+  const data = JSON.stringify({
+    sessionId,
+  });
+
+  return apiClient.post(`${SERVER_ADDRESS}/auth/resend`, data);
+}
+
 export async function forgotPassword(email) {
   return apiClient.get(`${SERVER_ADDRESS}/users/forgot-password/${email}`);
 }
