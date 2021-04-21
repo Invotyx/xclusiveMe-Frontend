@@ -24,6 +24,7 @@ import Logo from './logo';
 
 export default function Comp({ profile, sidebarMenu, set_sidebarMenu }) {
   const dispatch = useDispatch();
+  const router = useRouter();
   React.useEffect(() => {
     axiosInterceptorResponse(dispatch);
     const authorizationToken = localStorage.getItem('jwtToken');
@@ -31,7 +32,6 @@ export default function Comp({ profile, sidebarMenu, set_sidebarMenu }) {
     dispatch(auth.me());
   }, []);
   const userSelector = useSelector(currentUserSelector);
-  const router = useRouter();
 
   const logout = (event) => {
     event.preventDefault();
