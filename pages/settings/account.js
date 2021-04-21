@@ -216,8 +216,8 @@ export default function Home(props) {
                 ))}
               </List>
             </Box>
+          <form onSubmit={handleUpdatePassword}>
             <Box mb={4}>
-            <form onSubmit={handleUpdatePassword}>
               <TileTextField
                 placeholder='•••••••'
                 value={password}
@@ -232,8 +232,8 @@ export default function Home(props) {
               <Button variant='outlined' type='submit'>
                 Update Password
               </Button>
-            </form>
             </Box>
+          </form>
             <Box mb={4}>
               <UppercaseInputLabel>Login Sessions</UppercaseInputLabel>
               <List>
