@@ -2,6 +2,7 @@ import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import Head from 'next/head';
+import NextLink from 'next/link';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import AuthNav from '../components/auth-nav';
@@ -11,6 +12,7 @@ import TileButton from '../components/TileButton';
 import TileTextField from '../components/TileTextField';
 import LogoGuest from '../components/logo-guest';
 import Container from '@material-ui/core/Container';
+import Link from '@material-ui/core/Link';
 import { auth } from '../actions/auth';
 import { fetchingSelector } from '../selectors/authSelector';
 
@@ -183,6 +185,19 @@ export default function SignInSide() {
                   >
                     Verify
                   </TileButton>
+                  <Box textAlign='center' mt={1}>
+                    <NextLink href='#' passHref>
+                      <Link
+                        variant='body2'
+                        onClick={(e) => {
+                          e.preventDefault();
+                          set_registrationState(1);
+                        }}
+                      >
+                        Cancel
+                      </Link>
+                    </NextLink>
+                  </Box>
                 </Box>
               </form>
             )}
