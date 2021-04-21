@@ -113,7 +113,7 @@ export default function Home(props) {
       </Head>
       <Grid container spacing={6} className={classes.root}>
         <Grid item xs={12} md={8}>
-          <form noValidate>
+          <form onSubmit={handleUpdate}>
             <Box mb={4}>
               <TileTextField
                 value={username}
@@ -149,10 +149,11 @@ export default function Home(props) {
                 label='Phone'
                 type='phone'
               />
-              <Button variant='outlined' onClick={handleUpdate}>
+              <Button variant='outlined' type='submit'>
                 Update
               </Button>
             </Box>
+          </form>
             <Box mb={4}>
               <UppercaseInputLabel>Linked Accounts</UppercaseInputLabel>
               <List>
@@ -216,6 +217,7 @@ export default function Home(props) {
               </List>
             </Box>
             <Box mb={4}>
+            <form onSubmit={handleUpdatePassword}>
               <TileTextField
                 placeholder='•••••••'
                 value={password}
@@ -227,9 +229,10 @@ export default function Home(props) {
                 label='Password'
                 type='password'
               />
-              <Button variant='outlined' onClick={handleUpdatePassword}>
+              <Button variant='outlined' type='submit'>
                 Update Password
               </Button>
+            </form>
             </Box>
             <Box mb={4}>
               <UppercaseInputLabel>Login Sessions</UppercaseInputLabel>
@@ -287,7 +290,6 @@ export default function Home(props) {
                 </ListItem>
               </List>
             </Box>
-          </form>
         </Grid>
       </Grid>
     </Layout>
