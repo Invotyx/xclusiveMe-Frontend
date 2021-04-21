@@ -16,6 +16,7 @@ import {
   resetPassword,
   refreshToken,
   verifyForgotPasswordToken,
+  twoFactorAuthentication,
 } from '../services/user';
 
 function* handleLogin(action) {
@@ -283,6 +284,20 @@ function* handleLogout(action) {
   }
 }
 
+function* handleUpdateTwoFactorAuthentication(action) {
+  try {
+    const { fa2 } = action.payload;
+    yield call(twoFactorAuthentication, fa2);
+    yield put(auth.success({}));
+    const { callback } = action.payload;
+    if (callback) {
+      yield call(callback);
+    }
+  } catch (e) {
+    yield put(auth.failure({ error: { ...e } }));
+  }
+}
+
 function* watchAuthSagas() {
   yield all([
     takeLatest(AUTH.LOGIN, handleLogin),
@@ -298,6 +313,10 @@ function* watchAuthSagas() {
     ),
     takeLatest(AUTH.ME, handleMe),
     takeLatest(AUTH.LOGOUT, handleLogout),
+    takeLatest(
+      AUTH.UPDATE_TWO_FACTOR_AUTHENTICATION,
+      handleUpdateTwoFactorAuthentication
+    ),
   ]);
 }
 

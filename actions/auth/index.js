@@ -65,6 +65,13 @@ export const auth = {
       success: false,
       error: null,
     }),
+  updateTwoFactorAuthentication: (data) =>
+    createAction(AUTH.UPDATE_TWO_FACTOR_AUTHENTICATION, {
+      ...data,
+      fetching: true,
+      success: false,
+      error: null,
+    }),
   success: (data) =>
     createAction(AUTH.SUCCESS, {
       ...data,

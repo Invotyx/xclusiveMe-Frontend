@@ -290,6 +290,11 @@ export default function Home(props) {
                       edge='end'
                       onChange={(e) => {
                         set_verificationViaSms(e.target.checked);
+                        dispatch(
+                          auth.updateTwoFactorAuthentication({
+                            fa2: e.target.checked,
+                          })
+                        );
                       }}
                       checked={verificationViaSms}
                     />

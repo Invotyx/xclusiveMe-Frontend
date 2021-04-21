@@ -91,3 +91,8 @@ export async function updateUser(fullName, email, phoneNumber) {
   const data = JSON.stringify({ fullName, email, phoneNumber });
   return apiClient.post(`${SERVER_ADDRESS}/users/update-user`, data);
 }
+
+export async function twoFactorAuthentication(fa2) {
+  const data = JSON.stringify({ fa2 });
+  return apiClient.patch(`${SERVER_ADDRESS}/users/`, data);
+}

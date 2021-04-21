@@ -13,6 +13,7 @@ export const AUTH = createActionTypes('AUTH', [
   'REFRESH_TOKEN',
   'FAILURE',
   'ME',
+  'UPDATE_TWO_FACTOR_AUTHENTICATION',
 ]);
 
 export default AUTH;
