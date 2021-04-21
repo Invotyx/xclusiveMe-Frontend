@@ -101,7 +101,8 @@ export default function Home(props) {
     event.preventDefault();
     dispatch(auth.updateProfile({ username, email, phoneNumber: phone }));
   };
-  const handleUpdatePassword = () => {
+  const handleUpdatePassword = (event) => {
+    event.preventDefault();
     dispatch(auth.updateProfile({ password }));
   };
   const handleLogOutAllSessions = () => {
