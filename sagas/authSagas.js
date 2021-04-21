@@ -290,12 +290,26 @@ function* handleUpdateTwoFactorAuthentication(action) {
     const { fa2 } = action.payload;
     yield call(twoFactorAuthentication, fa2);
     yield put(auth.success({}));
+    yield put(
+      snackbar.update({
+        open: true,
+        message: 'Success!',
+        severity: 'success',
+      })
+    );
     const { callback } = action.payload;
     if (callback) {
       yield call(callback);
     }
   } catch (e) {
     yield put(auth.failure({ error: { ...e } }));
+    yield put(
+      snackbar.update({
+        open: true,
+        message: 'Something went wrong!',
+        severity: 'error',
+      })
+    );
   }
 }
 
