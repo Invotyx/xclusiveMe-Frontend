@@ -33,7 +33,8 @@ export default function Comp({ profile, sidebarMenu, set_sidebarMenu }) {
   const userSelector = useSelector(currentUserSelector);
   const router = useRouter();
 
-  const logout = () => {
+  const logout = (event) => {
+    event.preventDefault();
     dispatch(
       auth.logout({
         callback: () => {
@@ -63,9 +64,11 @@ export default function Comp({ profile, sidebarMenu, set_sidebarMenu }) {
                 </NextLink>
               </Box>
               <Box ml={3}>
-                <Link variant='body2' onClick={logout}>
-                  Logout
-                </Link>
+                <NextLink href='#' passHref>
+                  <Link variant='body2' onClick={logout}>
+                    Logout
+                  </Link>
+                </NextLink>
               </Box>
             </Box>
           </Toolbar>
