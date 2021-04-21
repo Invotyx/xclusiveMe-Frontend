@@ -260,7 +260,7 @@ function* handleMe() {
   }
 }
 
-function* handleLogout() {
+function* handleLogout(action) {
   try {
     yield call(logout);
     const { callback } = action.payload;
