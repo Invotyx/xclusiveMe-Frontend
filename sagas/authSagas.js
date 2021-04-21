@@ -113,7 +113,7 @@ function* handleRegister(action) {
     );
     const { callback } = action.payload;
     if (callback) {
-      yield call(callback);
+      yield call(callback, data.sessionId);
     }
   } catch (e) {
     yield put(auth.failure({ error: { ...e } }));
