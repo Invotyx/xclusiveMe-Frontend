@@ -151,7 +151,7 @@ function* handleVerifyOtp(action) {
     yield call(auth.me);
     const { callback } = action.payload;
     if (callback) {
-      yield call(callback, data.sessionId);
+      yield call(callback);
     }
   } catch (e) {
     yield put(auth.failure({ error: { ...e } }));
