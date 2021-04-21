@@ -116,7 +116,7 @@ function* handleRegister(action) {
     yield put(
       snackbar.update({
         open: true,
-        message: 'User Registered Failed!',
+        message: 'User Registration Failed!',
         severity: 'error',
       })
     );
@@ -150,7 +150,7 @@ function* handleUpdateProfile(action) {
     yield put(
       snackbar.update({
         open: true,
-        message: 'User Registered Failed!',
+        message: 'User Registration Failed!',
         severity: 'error',
       })
     );
@@ -175,7 +175,7 @@ function* handleForgotPassword(action) {
     yield put(
       snackbar.update({
         open: true,
-        message: 'User Registered Failed!',
+        message: 'User Registration Failed!',
         severity: 'error',
       })
     );
