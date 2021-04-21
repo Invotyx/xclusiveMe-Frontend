@@ -25,6 +25,7 @@ import { auth } from '../../actions/auth';
 import { currentUserSelector } from '../../selectors/authSelector';
 import { useSelector } from 'react-redux';
 import Layout from '../../components/layout-settings';
+import { fetchingSelector } from '../../selectors/authSelector';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -75,6 +76,7 @@ const loginSessions = [
 ];
 
 export default function Home(props) {
+  const fetching = useSelector(fetchingSelector);
   const dispatch = useDispatch();
   const [editLinkedAccount, set_editLinkedAccount] = React.useState(null);
   const [editLinkedAccountText, set_editLinkedAccountText] = React.useState(
@@ -151,7 +153,7 @@ export default function Home(props) {
                 label='Phone'
                 type='phone'
               />
-              <Button variant='outlined' type='submit'>
+              <Button variant='outlined' type='submit' disabled={fetching}>
                 Update
               </Button>
             </Box>
@@ -233,7 +235,7 @@ export default function Home(props) {
                 label='Password'
                 type='password'
               />
-              <Button variant='outlined' type='submit'>
+              <Button variant='outlined' type='submit' disabled={fetching}>
                 Update Password
               </Button>
             </Box>
