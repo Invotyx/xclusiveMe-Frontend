@@ -58,8 +58,7 @@ export const auth = {
       success: false,
       error: null,
     }),
-  logout: (callback) =>
-    createAction(AUTH.LOGOUT, { callback, loggedIn: false }),
+  logout: (data) => createAction(AUTH.LOGOUT, { ...data, loggedIn: false }),
   me: () =>
     createAction(AUTH.ME, {
       fetching: true,
