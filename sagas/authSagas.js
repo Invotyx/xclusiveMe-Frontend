@@ -108,7 +108,7 @@ function* handleRegister(action) {
     yield put(
       snackbar.update({
         open: true,
-        message: 'Invalid Code!',
+        message: 'Something went wrong!',
         severity: 'error',
       })
     );
@@ -145,7 +145,7 @@ function* handleVerifyOtp(action) {
     yield put(
       snackbar.update({
         open: true,
-        message: 'User Registration Failed!',
+        message: 'Invalid code!',
         severity: 'error',
       })
     );
