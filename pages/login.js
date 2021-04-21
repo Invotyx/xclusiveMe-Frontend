@@ -30,6 +30,7 @@ export default function SignInSide() {
   const [registrationState, set_registrationState] = useState(1);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [code, setCode] = useState('');
 
   const handleSubmit = (event) => {
     event.preventDefault();
