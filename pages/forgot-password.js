@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import Head from 'next/head';
 import Box from '@material-ui/core/Box';
@@ -12,6 +12,7 @@ import TileTextField from '../components/TileTextField';
 import LogoGuest from '../components/logo-guest';
 import Container from '@material-ui/core/Container';
 import { auth } from '../actions/auth';
+import { fetchingSelector } from '../selectors/authSelector';
 
 const useStyles = makeStyles((theme) => ({
   grey: {
@@ -20,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SignInSide() {
+  const fetching = useSelector(fetchingSelector);
   const dispatch = useDispatch();
   const classes = useStyles();
   const router = useRouter();
@@ -77,6 +79,7 @@ export default function SignInSide() {
                 fullWidth
                 variant='contained'
                 color='primary'
+                disabled={fetching}
               >
                 Proceed
               </TileButton>
