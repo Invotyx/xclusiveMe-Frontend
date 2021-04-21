@@ -24,7 +24,6 @@ function* handleLogin(action) {
     const { email, password } = action.payload;
 
     const response = yield call(login, email, password);
-    console.log(response);
     if (response.status !== 202) {
       localStorage.setItem('jwtToken', data.accessToken);
       localStorage.setItem('refreshToken', data.refreshToken);
