@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Head from 'next/head';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import Typography from '@material-ui/core/Typography';
 import NextLink from 'next/link';
 import Link from '@material-ui/core/Link';
 import Box from '@material-ui/core/Box';
@@ -121,7 +122,9 @@ export default function SignInSide() {
                               size='small'
                             />
                           }
-                          label='Remember me'
+                          label={
+                            <Typography variant='body2'>Remember me</Typography>
+                          }
                           size='small'
                           className={classes.grey}
                         />
