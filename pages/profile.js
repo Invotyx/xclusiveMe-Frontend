@@ -25,11 +25,11 @@ import Typography from '@material-ui/core/Typography';
 import CardContent from '@material-ui/core/CardContent';
 import Card from '@material-ui/core/Card';
 import Post from '../components/post';
-import CreateIcon from '@material-ui/icons/Create';
 import { currentUserSelector } from '../selectors/authSelector';
 import { useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import Layout from '../components/layout-auth';
+import UpdateProfile from '../components/update-profile';
 import Images from '../components/profile/images';
 
 const useStyles = makeStyles((theme) => ({
@@ -108,9 +108,7 @@ export default function Home() {
                   className={classes.header}
                   action={
                     <>
-                      <IconButton aria-label='create'>
-                        <CreateIcon />
-                      </IconButton>
+                      <UpdateProfile />
                       <IconButton aria-label='settings'>
                         <MoreVertIcon />
                       </IconButton>
