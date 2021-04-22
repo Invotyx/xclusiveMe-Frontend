@@ -204,6 +204,7 @@ function* handleUpdateProfile(action) {
         severity: 'success',
       })
     );
+    yield put(auth.success({}));
     const { callback } = action.payload;
     if (callback) {
       yield call(callback);
