@@ -86,6 +86,7 @@ export default function Home(props) {
   const [email, set_email] = React.useState('');
   const [phone, set_phone] = React.useState('');
   const [password, set_password] = React.useState('');
+  const [password_old, set_password_old] = React.useState('');
   const [verificationViaSms, set_verificationViaSms] = React.useState(false);
   const [authenticatorApp, set_authenticatorApp] = React.useState(true);
 
@@ -105,7 +106,7 @@ export default function Home(props) {
   };
   const handleUpdatePassword = (event) => {
     event.preventDefault();
-    dispatch(auth.updateProfile({ password }));
+    dispatch(auth.updateProfile({ password, oldPassword: password_old }));
   };
   const handleLogOutAllSessions = () => {
     // dispatch(auth.logoutAll({}));
@@ -235,6 +236,18 @@ export default function Home(props) {
                 label='Password'
                 type='password'
               />
+              {password && (
+                <TileTextField
+                  value={password_old}
+                  onChange={(e) => set_password_old(e.target.value)}
+                  variant='outlined'
+                  margin='normal'
+                  fullWidth
+                  name='password_old'
+                  label='Old Password'
+                  type='password'
+                />
+              )}
               <Button variant='outlined' type='submit' disabled={fetching}>
                 Update Password
               </Button>
