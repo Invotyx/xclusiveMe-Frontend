@@ -51,6 +51,10 @@ export default function FormDialog() {
         dob,
         description,
         headline,
+        callback: () => {
+          handleClose();
+          dispatch(auth.me());
+        },
       })
     );
   };
