@@ -3,12 +3,14 @@ import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { payment } from '../actions/payment';
 import { snackbar } from '../actions/snackbar';
 import CardSection from './card-section';
+import { fetchingSelector } from '../selectors/paymentSelector';
 
 export default function CheckoutForm(props) {
+  const fetching = useSelector(fetchingSelector);
   const stripe = useStripe();
   const elements = useElements();
   const [name, setName] = useState('');
@@ -80,7 +82,7 @@ export default function CheckoutForm(props) {
         <Button
           color='primary'
           variant='contained'
-          disabled={!stripe}
+          disabled={!stripe || fetching}
           type='submit'
         >
           Add Method
