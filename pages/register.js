@@ -25,8 +25,10 @@ const useStyles = makeStyles((theme) => ({
 export default function SignInSide() {
   const fetching = useSelector(fetchingSelector);
   const error = useSelector(errorSelector);
+  const [validationErrors, setValidationErrors] = useState({});
   useEffect(() => {
     if (error?.response?.data?.errors) {
+      setValidationErrors(Object.assign(...error.response.data.errors));
     }
   }, [error]);
   const dispatch = useDispatch();
@@ -95,6 +97,12 @@ export default function SignInSide() {
             {registrationState === 1 && (
               <form onSubmit={handleSubmit}>
                 <TileTextField
+                  error={validationErrors && validationErrors.fullName}
+                  helperText={
+                    validationErrors.fullName
+                      ? Object.values(validationErrors.fullName).join(', ')
+                      : ''
+                  }
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
                   variant='outlined'
@@ -107,6 +115,12 @@ export default function SignInSide() {
                   autoComplete='fullName'
                 />
                 <TileTextField
+                  error={validationErrors && validationErrors.username}
+                  helperText={
+                    validationErrors.username
+                      ? Object.values(validationErrors.username).join(', ')
+                      : ''
+                  }
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   variant='outlined'
@@ -119,6 +133,12 @@ export default function SignInSide() {
                   autoComplete='username'
                 />
                 <TileTextField
+                  error={validationErrors && validationErrors.email}
+                  helperText={
+                    validationErrors.email
+                      ? Object.values(validationErrors.email).join(', ')
+                      : ''
+                  }
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   variant='outlined'
@@ -131,6 +151,12 @@ export default function SignInSide() {
                   autoComplete='email'
                 />
                 <TileTextField
+                  error={validationErrors && validationErrors.password}
+                  helperText={
+                    validationErrors.password
+                      ? Object.values(validationErrors.password).join(', ')
+                      : ''
+                  }
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   variant='outlined'
@@ -144,6 +170,12 @@ export default function SignInSide() {
                   autoComplete='current-password'
                 />
                 <TileTextField
+                  error={validationErrors && validationErrors.phoneNumber}
+                  helperText={
+                    validationErrors.phoneNumber
+                      ? Object.values(validationErrors.phoneNumber).join(', ')
+                      : ''
+                  }
                   value={phoneNumber}
                   onChange={(e) => setPhoneNumber(e.target.value)}
                   variant='outlined'
@@ -171,6 +203,12 @@ export default function SignInSide() {
             {registrationState === 2 && (
               <form onSubmit={handleSubmit}>
                 <TileTextField
+                  error={validationErrors && validationErrors.code}
+                  helperText={
+                    validationErrors.code
+                      ? Object.values(validationErrors.code).join(', ')
+                      : ''
+                  }
                   value={code}
                   onChange={(e) => setCode(e.target.value)}
                   variant='outlined'
