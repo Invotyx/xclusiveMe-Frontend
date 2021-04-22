@@ -33,6 +33,10 @@ function* handlePostPayment(action) {
         severity: 'success',
       })
     );
+    const { callback } = action.payload;
+    if (callback) {
+      yield call(callback);
+    }
   } catch (error) {
     yield put(payment.success({ error: true }));
   }
