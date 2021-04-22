@@ -179,6 +179,10 @@ function* handleUpdateProfile(action) {
       password,
       oldPassword,
       phoneNumber,
+      gender,
+      dob,
+      description,
+      headline,
     } = action.payload;
 
     const { data } = yield call(updateProfile, {
@@ -188,6 +192,10 @@ function* handleUpdateProfile(action) {
       password,
       oldPassword,
       phoneNumber,
+      gender,
+      dob,
+      description,
+      headline,
     });
     yield put(
       snackbar.update({
