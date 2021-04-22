@@ -205,7 +205,7 @@ function* handleUpdateProfile(action) {
     yield put(
       snackbar.update({
         open: true,
-        message: 'Something went wrong!',
+        message: e.response.data.message,
         severity: 'error',
       })
     );
