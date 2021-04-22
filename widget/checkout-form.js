@@ -76,7 +76,14 @@ export default function CheckoutForm(props) {
             onChange={(e) => setName(e.target.value)}
           />
         </Box>
-        <Box mb={2} pt={3} pb={3} pl={1} border='1px solid #222'>
+        <Box
+          mb={2}
+          pt={3}
+          pb={3}
+          pl={1}
+          border='1px solid #222'
+          borderRadius={4}
+        >
           <CardSection />
         </Box>
         <Button
