@@ -39,6 +39,13 @@ function* handlePostPayment(action) {
     }
   } catch (error) {
     yield put(payment.success({ error: true }));
+    yield put(
+      snackbar.update({
+        open: true,
+        message: 'Something went wrong!',
+        severity: 'error',
+      })
+    );
   }
 }
 
