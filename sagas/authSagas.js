@@ -35,6 +35,10 @@ function* handleLogin(action) {
         })
       );
       yield call(auth.me);
+      const { callback } = action.payload;
+      if (callback) {
+        yield call(callback);
+      }
     } else {
       yield put(
         snackbar.update({
@@ -43,10 +47,10 @@ function* handleLogin(action) {
           severity: 'success',
         })
       );
-    }
-    const { callback } = action.payload;
-    if (callback) {
-      yield call(callback, response.data.sessionId);
+      const { callback202 } = action.payload;
+      if (callback202) {
+        yield call(callback202, response.data.sessionId);
+      }
     }
   } catch (e) {
     yield put(auth.failure({ error: { ...e } }));

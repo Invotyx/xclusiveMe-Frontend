@@ -43,7 +43,10 @@ export default function SignInSide() {
         auth.login({
           email,
           password,
-          callback: (sid) => {
+          callback: () => {
+            router.push('/explore');
+          },
+          callback202: (sid) => {
             set_registrationState(2);
             set_sessionId(sid);
           },
