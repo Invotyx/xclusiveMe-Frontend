@@ -27,7 +27,7 @@ export default function FormDialog() {
 
   const currentUser = useSelector(currentUserSelector);
   useEffect(() => {
-    if (currentUser) {
+    if (currentUser && currentUser.profile) {
       set_fullName(currentUser.profile.fullName);
       set_gender(currentUser.profile.gender);
       set_dob(currentUser.profile.dob);
