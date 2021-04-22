@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import NextLink from 'next/link';
 import Box from '@material-ui/core/Box';
@@ -14,7 +14,7 @@ import LogoGuest from '../components/logo-guest';
 import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
 import { auth } from '../actions/auth';
-import { fetchingSelector } from '../selectors/authSelector';
+import { fetchingSelector, errorSelector } from '../selectors/authSelector';
 
 const useStyles = makeStyles((theme) => ({
   grey: {
@@ -24,6 +24,11 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignInSide() {
   const fetching = useSelector(fetchingSelector);
+  const error = useSelector(errorSelector);
+  useEffect(() => {
+    if (error?.response?.data?.errors) {
+    }
+  }, [error]);
   const dispatch = useDispatch();
   const classes = useStyles();
   const router = useRouter();
