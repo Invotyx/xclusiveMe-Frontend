@@ -4,7 +4,6 @@ import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Container from '@material-ui/core/Container';
-import Button from '@material-ui/core/Button';
 import CardHeader from '@material-ui/core/CardHeader';
 import SortIcon from '@material-ui/icons/Sort';
 import SearchIcon from '@material-ui/icons/Search';
@@ -83,7 +82,6 @@ function TabPanel(props) {
 export default function Home() {
   const [tab, setTab] = React.useState(0);
   const classes = useStyles();
-  const inputFile = React.useRef(null);
 
   const currentUser = useSelector(currentUserSelector);
 
@@ -125,21 +123,11 @@ export default function Home() {
                 <CardHeader
                   className={classes.header2}
                   avatar={
-                    <>
-                      <input
-                        accept='image/*'
-                        type='file'
-                        ref={inputFile}
-                        style={{ display: 'none' }}
-                      />
-                      <Button onClick={() => inputFile.current.click()}>
                     <Avatar
                       className={classes.userAvatar}
                       alt='Remy Sharp'
                       src='https://material-ui.com/static/images/avatar/1.jpg'
                     />
-                      </Button>
-                    </>
                   }
                   action={
                     <Box display='flex' textAlign='center'>
