@@ -11,6 +11,7 @@ import {
   verifyOtp,
   resendOtp,
   updateProfile,
+  uploadImage,
   forgotPassword,
   me,
   logout,
