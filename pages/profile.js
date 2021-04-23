@@ -25,6 +25,7 @@ import Typography from '@material-ui/core/Typography';
 import CardContent from '@material-ui/core/CardContent';
 import Card from '@material-ui/core/Card';
 import Post from '../components/post';
+import ProfieImageAvatar from '../components/profile-image-avatar';
 import ProfileImage from '../components/profile-image';
 import { currentUserSelector } from '../selectors/authSelector';
 import { useSelector } from 'react-redux';
@@ -125,11 +126,7 @@ export default function Home() {
                   className={classes.header2}
                   avatar={
                     <ProfileImage>
-                      <Avatar
-                        className={classes.userAvatar}
-                        alt='Remy Sharp'
-                        src='https://material-ui.com/static/images/avatar/1.jpg'
-                      />
+                      <ProfieImageAvatar className={classes.userAvatar} />
                     </ProfileImage>
                   }
                   action={

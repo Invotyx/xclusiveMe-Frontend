@@ -21,6 +21,10 @@ import { auth } from '../actions/auth';
 import { useDispatch } from 'react-redux';
 import SortIcon from '@material-ui/icons/Sort';
 import Logo from './logo';
+import ProfieImageAvatar from './profile-image-avatar';
+import getConfig from 'next/config';
+const { publicRuntimeConfig } = getConfig();
+const SERVER_ADDRESS = publicRuntimeConfig.backendUrl;
 
 export default function Comp({ profile, sidebarMenu, set_sidebarMenu }) {
   const dispatch = useDispatch();
@@ -100,10 +104,7 @@ export default function Comp({ profile, sidebarMenu, set_sidebarMenu }) {
                 </Box>
                 <NextLink href='/profile'>
                   <IconButton component='a' color='inherit'>
-                    <Avatar
-                      alt='Remy Sharp'
-                      src='https://material-ui.com/static/images/avatar/1.jpg'
-                    />
+                    <ProfieImageAvatar />
                   </IconButton>
                 </NextLink>
               </Box>
