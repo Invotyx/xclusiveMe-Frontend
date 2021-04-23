@@ -133,11 +133,11 @@ export default function Home() {
                         style={{ display: 'none' }}
                       />
                       <Button onClick={() => inputFile.current.click()}>
-                        <Avatar
-                          className={classes.userAvatar}
-                          alt='Remy Sharp'
-                          src='https://material-ui.com/static/images/avatar/1.jpg'
-                        />
+                    <Avatar
+                      className={classes.userAvatar}
+                      alt='Remy Sharp'
+                      src='https://material-ui.com/static/images/avatar/1.jpg'
+                    />
                       </Button>
                     </>
                   }
