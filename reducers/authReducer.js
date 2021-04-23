@@ -16,6 +16,7 @@ export default function authReducer(state = initialState, action) {
     case AUTH.VERIFY_OTP:
     case AUTH.RESEND_OTP:
     case AUTH.UPDATE_PROFILE:
+    case AUTH.UPLOAD_IMAGE:
     case AUTH.FORGOT_PASSWORD:
     case AUTH.REFRESH_TOKEN:
     case AUTH.ME:

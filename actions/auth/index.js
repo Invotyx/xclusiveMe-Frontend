@@ -44,6 +44,13 @@ export const auth = {
       success: false,
       error: null,
     }),
+  uploadImage: (data) =>
+    createAction(AUTH.UPLOAD_IMAGE, {
+      ...data,
+      fetching: true,
+      success: false,
+      error: null,
+    }),
   forgotPassword: (data) =>
     createAction(AUTH.FORGOT_PASSWORD, {
       ...data,

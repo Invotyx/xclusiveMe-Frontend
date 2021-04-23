@@ -104,3 +104,13 @@ export async function twoFactorAuthentication(fa2) {
   const data = JSON.stringify({ fa2 });
   return apiClient.patch(`${SERVER_ADDRESS}/users/`, data);
 }
+
+export async function uploadImage({ payload }) {
+  const { userId, fileObject } = payload;
+  const data = new FormData();
+  data.append('image', fileObject);
+  return apiClient.post(
+    `${SERVER_ADDRESS}/users/${userId}/upProfileImage`,
+    data
+  );
+}

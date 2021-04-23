@@ -338,6 +338,17 @@ function* handleUpdateTwoFactorAuthentication(action) {
   }
 }
 
+function* handleUploadImage({ payload }) {
+  const { userId } = payload;
+  try {
+    const data = yield call(uploadImage, payload);
+    yield put(user.me());
+  } catch (error) {
+    console.log('Error occurred in UPLOAD_IMAGE');
+    console.log(error);
+  }
+}
+
 function* watchAuthSagas() {
   yield all([
     takeLatest(AUTH.LOGIN, handleLogin),
@@ -346,6 +357,7 @@ function* watchAuthSagas() {
     takeLatest(AUTH.VERIFY_OTP, handleVerifyOtp),
     takeLatest(AUTH.RESEND_OTP, handleResendOtp),
     takeLatest(AUTH.UPDATE_PROFILE, handleUpdateProfile),
+    takeLatest(AUTH.UPLOAD_IMAGE, handleUploadImage),
     takeLatest(AUTH.FORGOT_PASSWORD, handleForgotPassword),
     takeLatest(AUTH.RESET_PASSWORD, handleResetPassword),
     takeLatest(
