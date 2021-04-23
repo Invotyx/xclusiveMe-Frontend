@@ -340,10 +340,10 @@ function* handleUpdateTwoFactorAuthentication(action) {
 }
 
 function* handleUploadImage({ payload }) {
-  const { userId } = payload;
   try {
-    const data = yield call(uploadImage, payload);
-    yield put(user.me());
+    const { fileObject } = payload;
+    yield call(uploadImage, fileObject);
+    yield call(auth.me);
   } catch (error) {
     console.log('Error occurred in UPLOAD_IMAGE');
     console.log(error);
