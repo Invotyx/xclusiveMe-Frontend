@@ -169,24 +169,26 @@ export default function SignInSide() {
                   id='password'
                   autoComplete='current-password'
                 />
-                <TileTextField
-                  error={validationErrors && validationErrors.phoneNumber}
-                  helperText={
-                    validationErrors.phoneNumber
-                      ? Object.values(validationErrors.phoneNumber).join(', ')
-                      : ''
-                  }
-                  value={phoneNumber}
-                  onChange={(e) => setPhoneNumber(e.target.value)}
-                  variant='outlined'
-                  margin='normal'
-                  required
-                  fullWidth
-                  id='phoneNumber'
-                  label='Phone Number'
-                  name='phoneNumber'
-                  autoComplete='phoneNumber'
-                />
+                <Box display='flex'>
+                  <TileTextField
+                    error={validationErrors && validationErrors.phoneNumber}
+                    helperText={
+                      validationErrors.phoneNumber
+                        ? Object.values(validationErrors.phoneNumber).join(', ')
+                        : ''
+                    }
+                    value={phoneNumber}
+                    onChange={(e) => setPhoneNumber(e.target.value)}
+                    variant='outlined'
+                    margin='normal'
+                    required
+                    fullWidth
+                    id='phoneNumber'
+                    label='Phone Number'
+                    name='phoneNumber'
+                    autoComplete='phoneNumber'
+                  />
+                </Box>
                 <Box my={2}>
                   <TileButton
                     type='submit'
