@@ -26,7 +26,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Card from '@material-ui/core/Card';
 import Post from '../components/post';
 import ProfieImageAvatar from '../components/profile-image-avatar';
-import ProfileImage from '../components/profile-image';
+import ProfileImage from '../components/change-profile-image';
 import { currentUserSelector } from '../selectors/authSelector';
 import { useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
