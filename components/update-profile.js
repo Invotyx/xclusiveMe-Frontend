@@ -36,7 +36,8 @@ export default function FormDialog() {
     }
   }, [currentUser]);
 
-  const handleClickOpen = () => {
+  const handleClickOpen = (event) => {
+    event.stopPropagation();
     setOpen(true);
   };
 
