@@ -315,12 +315,16 @@ export async function getStaticProps() {
     headers,
   };
 
-  res = await fetch(`${server}/api/countries`, config);
-  const countriesList = await res.json();
+  try {
+    res = await fetch(`${server}/api/countries`, config);
+    const countriesList = await res.json();
 
-  return {
-    props: {
-      countriesList,
-    },
-  };
+    return {
+      props: {
+        countriesList,
+      },
+    };
+  } catch (error) {
+    console.log(error);
+  }
 }
