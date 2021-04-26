@@ -13,8 +13,10 @@ import TileTextField from '../components/TileTextField';
 import LogoGuest from '../components/logo-guest';
 import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
+import MenuItem from '@material-ui/core/MenuItem';
 import { auth } from '../actions/auth';
 import { fetchingSelector, errorSelector } from '../selectors/authSelector';
+import { server } from '../services/serverAddress';
 
 const useStyles = makeStyles((theme) => ({
   grey: {
@@ -22,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignInSide() {
+export default function Register({ countriesList }) {
   const fetching = useSelector(fetchingSelector);
   const error = useSelector(errorSelector);
   const [validationErrors, setValidationErrors] = useState({});
@@ -188,6 +190,11 @@ export default function SignInSide() {
                     name='country'
                     autoComplete='country'
                   >
+                    {countriesList.map((c) => (
+                      <MenuItem value={c.name} key={`countriesList${c.code}`}>
+                        {c.name}
+                      </MenuItem>
+                    ))}
                   </TileTextField>
                   <TileTextField
                     error={validationErrors && validationErrors.phoneNumber}
@@ -295,4 +302,25 @@ export default function SignInSide() {
       </Grid>
     </Container>
   );
+}
+
+export async function getStaticProps() {
+  let res = null;
+  const headers = {
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+  };
+
+  const config = {
+    headers,
+  };
+
+  res = await fetch(`${server}/api/countries`, config);
+  const countriesList = await res.json();
+
+  return {
+    props: {
+      countriesList,
+    },
+  };
 }
