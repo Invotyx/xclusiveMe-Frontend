@@ -7,7 +7,6 @@ import Container from '@material-ui/core/Container';
 import CardHeader from '@material-ui/core/CardHeader';
 import SortIcon from '@material-ui/icons/Sort';
 import SearchIcon from '@material-ui/icons/Search';
-import CardMedia from '@material-ui/core/CardMedia';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
@@ -27,6 +26,7 @@ import Card from '@material-ui/core/Card';
 import Post from '../components/post';
 import ProfieImageAvatar from '../components/profile-image-avatar';
 import ProfileImage from '../components/change-profile-image';
+import CoverImage from '../components/change-cover-image';
 import { currentUserSelector } from '../selectors/authSelector';
 import { useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
@@ -43,22 +43,6 @@ const useStyles = makeStyles((theme) => ({
   },
   header2: {
     zIndex: 2,
-  },
-  media: {
-    zIndex: 1,
-    height: 0,
-    paddingTop: '33%',
-    marginTop: '-72px',
-    // position: 'relative',
-    '&::after': {
-      // content: '" "',
-      position: 'absolute',
-      top: '0',
-      left: '0',
-      right: '0',
-      bottom: '0',
-      backgroundColor: 'rgba(0,0,0,0.7)',
-    },
   },
   userAvatar: {
     width: theme.spacing(12),
@@ -106,22 +90,19 @@ export default function Home() {
           <Grid container className={classes.root}>
             <Grid item xs={12}>
               <Card>
-                <CardHeader
-                  className={classes.header}
-                  action={
-                    <>
-                      <UpdateProfile />
-                      <IconButton aria-label='settings'>
-                        <MoreVertIcon />
-                      </IconButton>
-                    </>
-                  }
-                />
-                <CardMedia
-                  className={classes.media}
-                  image='/cover.jpg'
-                  title='Paella dish'
-                />
+                <CoverImage>
+                  <CardHeader
+                    className={classes.header}
+                    action={
+                      <>
+                        <UpdateProfile />
+                        <IconButton aria-label='settings'>
+                          <MoreVertIcon />
+                        </IconButton>
+                      </>
+                    }
+                  />
+                </CoverImage>
                 <CardHeader
                   className={classes.header2}
                   avatar={

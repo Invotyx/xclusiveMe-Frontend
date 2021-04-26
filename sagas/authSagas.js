@@ -12,6 +12,7 @@ import {
   resendOtp,
   updateProfile,
   uploadImage,
+  uploadCover,
   forgotPassword,
   me,
   logout,
@@ -350,6 +351,17 @@ function* handleUploadImage({ payload }) {
   }
 }
 
+function* handleUploadCover({ payload }) {
+  try {
+    const { fileObject } = payload;
+    yield call(uploadCover, fileObject);
+    yield call(auth.me);
+  } catch (error) {
+    console.log('Error occurred in UPLOAD_IMAGE');
+    console.log(error);
+  }
+}
+
 function* watchAuthSagas() {
   yield all([
     takeLatest(AUTH.LOGIN, handleLogin),
@@ -359,6 +371,7 @@ function* watchAuthSagas() {
     takeLatest(AUTH.RESEND_OTP, handleResendOtp),
     takeLatest(AUTH.UPDATE_PROFILE, handleUpdateProfile),
     takeLatest(AUTH.UPLOAD_IMAGE, handleUploadImage),
+    takeLatest(AUTH.UPLOAD_COVER, handleUploadCover),
     takeLatest(AUTH.FORGOT_PASSWORD, handleForgotPassword),
     takeLatest(AUTH.RESET_PASSWORD, handleResetPassword),
     takeLatest(

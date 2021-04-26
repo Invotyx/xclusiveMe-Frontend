@@ -51,6 +51,13 @@ export const auth = {
       success: false,
       error: null,
     }),
+  uploadCover: (data) =>
+    createAction(AUTH.UPLOAD_COVER, {
+      ...data,
+      fetching: true,
+      success: false,
+      error: null,
+    }),
   forgotPassword: (data) =>
     createAction(AUTH.FORGOT_PASSWORD, {
       ...data,

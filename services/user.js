@@ -110,3 +110,9 @@ export async function uploadImage(fileObject) {
   data.append('image', fileObject);
   return apiClient.post(`${SERVER_ADDRESS}/users/upProfileImage`, data);
 }
+
+export async function uploadCover(fileObject) {
+  const data = new FormData();
+  data.append('image', fileObject);
+  return apiClient.post(`${SERVER_ADDRESS}/users/upload-cover`, data);
+}
