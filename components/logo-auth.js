@@ -10,6 +10,7 @@ import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Box from '@material-ui/core/Box';
 import Badge from '@material-ui/core/Badge';
+import Menu from '@material-ui/core/Menu';
 import SettingsIcon from '@material-ui/icons/SettingsOutlined';
 import SmsIcon from '@material-ui/icons/SmsOutlined';
 import SearchIcon from '@material-ui/icons/Search';
@@ -21,10 +22,21 @@ import { auth } from '../actions/auth';
 import { useDispatch } from 'react-redux';
 import SortIcon from '@material-ui/icons/Sort';
 import Logo from './logo';
+import Notification from './notification';
 
 export default function Comp({ profile, sidebarMenu, set_sidebarMenu }) {
   const dispatch = useDispatch();
   const router = useRouter();
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const settingsMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const settingsMenuClose = () => {
+    setAnchorEl(null);
+  };
+
   React.useEffect(() => {
     axiosInterceptorResponse(dispatch);
     const authorizationToken = localStorage.getItem('jwtToken');
@@ -115,11 +127,25 @@ export default function Comp({ profile, sidebarMenu, set_sidebarMenu }) {
                 </IconButton>
               </Box>
               <Box ml={3} display={{ xs: 'none', sm: 'none', md: 'flex' }}>
-                <IconButton color='inherit'>
+                <IconButton color='inherit' onClick={settingsMenuOpen}>
                   <Badge color='secondary' variant='dot'>
                     <CheckBoxOutlineBlankIcon />
                   </Badge>
                 </IconButton>
+                <Menu
+                  id='simple-menu'
+                  anchorEl={anchorEl}
+                  open={Boolean(anchorEl)}
+                  keepMounted
+                  onClose={settingsMenuClose}
+                  getContentAnchorEl={null}
+                  anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'right',
+                  }}
+                >
+                  <Notification />
+                </Menu>
               </Box>
 
               <Box ml={3} display={{ xs: 'none', sm: 'none', md: 'flex' }}>
