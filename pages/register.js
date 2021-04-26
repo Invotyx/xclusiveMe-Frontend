@@ -42,6 +42,7 @@ export default function SignInSide() {
   const [password, setPassword] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [code, setCode] = useState('');
+  const [country, setCountry] = useState('');
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -170,6 +171,24 @@ export default function SignInSide() {
                   autoComplete='current-password'
                 />
                 <Box display='flex'>
+                  <TileTextField
+                    select
+                    error={validationErrors && validationErrors.country}
+                    helperText={
+                      validationErrors.country
+                        ? Object.values(validationErrors.country).join(', ')
+                        : ''
+                    }
+                    value={country}
+                    onChange={(e) => setCountry(e.target.value)}
+                    variant='outlined'
+                    margin='normal'
+                    id='country'
+                    label='Country'
+                    name='country'
+                    autoComplete='country'
+                  >
+                  </TileTextField>
                   <TileTextField
                     error={validationErrors && validationErrors.phoneNumber}
                     helperText={
