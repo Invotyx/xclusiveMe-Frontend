@@ -13,8 +13,10 @@ import TileTextField from '../components/TileTextField';
 import LogoGuest from '../components/logo-guest';
 import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
+import MenuItem from '@material-ui/core/MenuItem';
 import { auth } from '../actions/auth';
 import { fetchingSelector, errorSelector } from '../selectors/authSelector';
+import countriesList from '../services/countries';
 
 const useStyles = makeStyles((theme) => ({
   grey: {
@@ -188,6 +190,11 @@ export default function SignInSide() {
                     name='country'
                     autoComplete='country'
                   >
+                    {countriesList.map((c) => (
+                      <MenuItem value={c.name} key={`countriesList${c.code}`}>
+                        {c.name}
+                      </MenuItem>
+                    ))}
                   </TileTextField>
                   <TileTextField
                     error={validationErrors && validationErrors.phoneNumber}
