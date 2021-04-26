@@ -325,10 +325,6 @@ export async function getStaticProps() {
       },
     };
   } catch (error) {
-    return {
-      props: {
-        countriesList: [],
-      },
-    };
+    console.log(error);
   }
 }
