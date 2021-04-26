@@ -4,6 +4,11 @@ import CardMedia from '@material-ui/core/CardMedia';
 import { useDispatch } from 'react-redux';
 import { auth } from '../actions/auth';
 import { makeStyles } from '@material-ui/core/styles';
+import { useSelector } from 'react-redux';
+import { currentUserSelector } from '../selectors/authSelector';
+import getConfig from 'next/config';
+const { publicRuntimeConfig } = getConfig();
+const SERVER_ADDRESS = publicRuntimeConfig.backendUrl;
 
 const useStyles = makeStyles((theme) => ({
   media: {
@@ -25,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function FormDialog({ children }) {
+  const userSelector = useSelector(currentUserSelector);
   const classes = useStyles();
   const dispatch = useDispatch();
   const inputFile = React.useRef(null);
@@ -54,7 +60,13 @@ export default function FormDialog({ children }) {
         {children}
         <CardMedia
           className={classes.media}
-          image='/cover.jpg'
+          image={
+            userSelector && userSelector.coverImage
+              ? `${SERVER_ADDRESS.substring(0, SERVER_ADDRESS.length - 4)}/${
+                  userSelector.coverImage
+                }`
+              : '/cover.jpg'
+          }
           title='Paella dish'
         />
       </CardActionArea>
