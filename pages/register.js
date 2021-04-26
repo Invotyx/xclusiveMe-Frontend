@@ -13,11 +13,8 @@ import TileTextField from '../components/TileTextField';
 import LogoGuest from '../components/logo-guest';
 import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
-import MenuItem from '@material-ui/core/MenuItem';
 import { auth } from '../actions/auth';
 import { fetchingSelector, errorSelector } from '../selectors/authSelector';
-import { countriesCities } from '../actions/countries-cities';
-import { countriesSelector } from '../selectors/countriesCitiesSelector';
 
 const useStyles = makeStyles((theme) => ({
   grey: {
@@ -28,11 +25,7 @@ const useStyles = makeStyles((theme) => ({
 export default function SignInSide() {
   const fetching = useSelector(fetchingSelector);
   const error = useSelector(errorSelector);
-  const countriesList = useSelector(countriesSelector);
   const [validationErrors, setValidationErrors] = useState({});
-  useEffect(() => {
-    dispatch(countriesCities.getCountries());
-  }, []);
   useEffect(() => {
     if (error?.response?.data?.errors) {
       setValidationErrors(Object.assign(...error.response.data.errors));
@@ -49,7 +42,6 @@ export default function SignInSide() {
   const [password, setPassword] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [code, setCode] = useState('');
-  const [country, setCountry] = useState('');
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -177,31 +169,6 @@ export default function SignInSide() {
                   id='password'
                   autoComplete='current-password'
                 />
-                <Box display='flex'>
-                  <TileTextField
-                    select
-                    error={validationErrors && validationErrors.country}
-                    helperText={
-                      validationErrors.country
-                        ? Object.values(validationErrors.country).join(', ')
-                        : ''
-                    }
-                    value={country}
-                    onChange={(e) => setCountry(e.target.value)}
-                    variant='outlined'
-                    margin='normal'
-                    fullWidth
-                    id='country'
-                    label='Country'
-                    name='country'
-                    autoComplete='country'
-                  >
-                    {countriesList.map((c) => (
-                      <MenuItem value={c.id} key={`countriesList${c.id}`}>
-                        {c.name}
-                      </MenuItem>
-                    ))}
-                  </TileTextField>
                 <TileTextField
                   error={validationErrors && validationErrors.phoneNumber}
                   helperText={
@@ -220,7 +187,6 @@ export default function SignInSide() {
                   name='phoneNumber'
                   autoComplete='phoneNumber'
                 />
-                </Box>
                 <Box my={2}>
                   <TileButton
                     type='submit'
