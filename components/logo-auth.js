@@ -104,9 +104,11 @@ export default function Comp({ profile, sidebarMenu, set_sidebarMenu }) {
             </Box>
             <Box display='flex'>
               <Box ml={3} display={{ xs: 'none', sm: 'none', md: 'flex' }}>
-                <IconButton color='inherit'>
-                  <SearchIcon />
-                </IconButton>
+                <NextLink href='/search'>
+                  <IconButton color='inherit'>
+                    <SearchIcon />
+                  </IconButton>
+                </NextLink>
               </Box>
               <Box ml={3} display={{ xs: 'none', sm: 'none', md: 'flex' }}>
                 <IconButton color='inherit'>
