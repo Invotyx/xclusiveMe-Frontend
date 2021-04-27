@@ -20,7 +20,7 @@ import SortIcon from '@material-ui/icons/Sort';
 import Logo from './logo';
 import ProfieImageAvatar from './profile-image-avatar';
 
-export default function Comp({ profile, sidebarMenu, set_sidebarMenu }) {
+export default function Comp({ hideMainAppBar, sidebarMenu, set_sidebarMenu }) {
   const dispatch = useDispatch();
   const router = useRouter();
   React.useEffect(() => {
@@ -46,6 +46,7 @@ export default function Comp({ profile, sidebarMenu, set_sidebarMenu }) {
 
   return (
     <Box clone mb={6}>
+      {!hideMainAppBar && (
       <AppBar position='relative' color='transparent' elevation={0}>
         <Box
           display={{ xs: 'none', sm: 'none', md: 'flex' }}
@@ -148,6 +149,7 @@ export default function Comp({ profile, sidebarMenu, set_sidebarMenu }) {
           </Toolbar>
         </Box>
       </AppBar>
+      )}
     </Box>
   );
 }
