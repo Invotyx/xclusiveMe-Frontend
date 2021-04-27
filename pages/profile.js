@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import Head from 'next/head';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';

@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import Head from 'next/head';
 import NextLink from 'next/link';
 import Box from '@material-ui/core/Box';

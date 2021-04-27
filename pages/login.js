@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
+import { motion } from 'framer-motion';
 import Head from 'next/head';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
