@@ -32,6 +32,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import Layout from '../components/layout-auth';
 import UpdateProfile from '../components/update-profile';
 import Images from '../components/profile/images';
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import CreateIcon from '@material-ui/icons/Create';
+import { AppBar, Toolbar } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -71,7 +74,32 @@ export default function Home() {
   const currentUser = useSelector(currentUserSelector);
 
   return (
-    <Layout>
+    <Layout
+      hideMainAppBar={
+        <AppBar position='relative' color='transparent' elevation={0}>
+          <Box clone mt={2}>
+            <Toolbar>
+              <IconButton>
+                <ArrowBackIosIcon fontSize='small' />
+              </IconButton>
+              <Box flex={1}>
+                <Typography>
+                  {currentUser.profile && currentUser.profile.fullName
+                    ? currentUser.profile.fullName
+                    : '(no name)'}
+                </Typography>
+              </Box>
+              <IconButton>
+                <CreateIcon fontSize='small' />
+              </IconButton>
+              <IconButton>
+                <MoreVertIcon fontSize='small' />
+              </IconButton>
+            </Toolbar>
+          </Box>
+        </AppBar>
+      }
+    >
       <Head>
         <title>xclusiveme</title>
       </Head>
@@ -84,12 +112,12 @@ export default function Home() {
                   <CardHeader
                     className={classes.header}
                     action={
-                      <>
+                      <Box display={{ xs: 'none', sm: 'none', md: 'flex' }}>
                         <UpdateProfile />
                         <IconButton aria-label='settings'>
                           <MoreVertIcon />
                         </IconButton>
-                      </>
+                      </Box>
                     }
                   />
                 </CoverImage>
