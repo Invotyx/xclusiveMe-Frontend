@@ -305,7 +305,7 @@ function* handleMe() {
 function* handleGetSessions() {
   try {
     const { data } = yield call(getSessions);
-    yield put(auth.success({ currentUser: data }));
+    yield put(auth.success({ userSessions: data }));
   } catch (e) {
     yield put(auth.failure({ error: { ...e } }));
   }
