@@ -8,19 +8,35 @@ import OutlinedInput from '@material-ui/core/OutlinedInput';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { makeStyles } from '@material-ui/core/styles';
 import Layout from '../components/layout-auth';
+import ImageAvatar from '../components/image-avatar';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchingSelector } from '../selectors/userSelector';
+import { fetchingSelector, userDataSelector } from '../selectors/userSelector';
 import { user } from '../actions/user';
+import {
+  Button,
+  List,
+  ListItem,
+  ListItemAvatar,
+  ListItemSecondaryAction,
+  ListItemText,
+} from '@material-ui/core';
+import { Add } from '@material-ui/icons';
+import { getImage } from '../services/getImage';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     // marginTop: '150px',
+  },
+  large: {
+    width: theme.spacing(7),
+    height: theme.spacing(7),
   },
 }));
 
 export default function Home() {
   const dispatch = useDispatch();
   const fetching = useSelector(fetchingSelector);
+  const users = useSelector(userDataSelector);
   const classes = useStyles();
   const [_search, set_search] = useState('');
   const handleSearch = (event) => {
@@ -48,6 +64,44 @@ export default function Home() {
                 />
               </form>
             </Box>
+          </Grid>
+          <Grid item xs={12}>
+            <List>
+              {users &&
+                users.map((u) => (
+                  <Box
+                    clone
+                    pt={3}
+                    pb={3}
+                    key={u.id}
+                    mb={4}
+                    height={100}
+                    style={{
+                      backgroundSize: 'cover',
+                      backgroundImage: u.coverImage
+                        ? `url(getImage(${u.coverImage}))`
+                        : `url('/cover.jpg')`,
+                      boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',
+                    }}
+                  >
+                    <ListItem>
+                      <ListItemAvatar>
+                        <ImageAvatar className={classes.large} user={u} />
+                      </ListItemAvatar>
+                      <ListItemText primary={u.username} />
+                      <ListItemSecondaryAction>
+                        <Button
+                          startIcon={<Add />}
+                          size='small'
+                          variant='outlined'
+                        >
+                          Follow
+                        </Button>
+                      </ListItemSecondaryAction>
+                    </ListItem>
+                  </Box>
+                ))}
+            </List>
           </Grid>
         </Grid>
       </Container>
