@@ -71,7 +71,7 @@ export default function Home() {
   const currentUser = useSelector(currentUserSelector);
 
   return (
-    <Layout hideMainAppBar>
+    <Layout profile={true}>
       <Head>
         <title>xclusiveme</title>
       </Head>
