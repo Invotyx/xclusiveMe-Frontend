@@ -6,7 +6,6 @@ import NextLink from 'next/link';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import RoundedButton from './RoundedButton';
-import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Box from '@material-ui/core/Box';
 import Badge from '@material-ui/core/Badge';
@@ -14,17 +13,12 @@ import SettingsIcon from '@material-ui/icons/SettingsOutlined';
 import SmsIcon from '@material-ui/icons/SmsOutlined';
 import SearchIcon from '@material-ui/icons/Search';
 import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
-import { currentUserSelector } from '../selectors/authSelector';
-import { useSelector } from 'react-redux';
 import axiosInterceptorResponse from '../services/axiosInterceptorResponse';
 import { auth } from '../actions/auth';
 import { useDispatch } from 'react-redux';
 import SortIcon from '@material-ui/icons/Sort';
 import Logo from './logo';
 import ProfieImageAvatar from './profile-image-avatar';
-import getConfig from 'next/config';
-const { publicRuntimeConfig } = getConfig();
-const SERVER_ADDRESS = publicRuntimeConfig.backendUrl;
 
 export default function Comp({ profile, sidebarMenu, set_sidebarMenu }) {
   const dispatch = useDispatch();
@@ -38,7 +32,6 @@ export default function Comp({ profile, sidebarMenu, set_sidebarMenu }) {
       router.push('/login');
     }
   }, []);
-  const userSelector = useSelector(currentUserSelector);
 
   const logout = (event) => {
     event.preventDefault();
