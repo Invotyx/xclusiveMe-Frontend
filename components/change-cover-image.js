@@ -7,6 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useSelector } from 'react-redux';
 import { currentUserSelector } from '../selectors/authSelector';
 import getConfig from 'next/config';
+import { getImage } from '../services/getImage';
 const { publicRuntimeConfig } = getConfig();
 const SERVER_ADDRESS = publicRuntimeConfig.backendUrl;
 
@@ -62,9 +63,7 @@ export default function FormDialog({ children }) {
           className={classes.media}
           image={
             userSelector && userSelector.coverImage
-              ? `${SERVER_ADDRESS.substring(0, SERVER_ADDRESS.length - 4)}/${
-                  userSelector.coverImage
-                }`
+              ? getImage(userSelector.coverImage)
               : '/cover.jpg'
           }
           title='Paella dish'
