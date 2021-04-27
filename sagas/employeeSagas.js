@@ -12,7 +12,7 @@ const SERVER_ADDRESS = publicRuntimeConfig.backendUrl;
 
 function* handleGet() {
   try {
-    const { data } = yield call(apiClient.get, SERVER_ADDRESS + '/employees/');
+    const { data } = yield call(apiClient.get, `${SERVER_ADDRESS}/employees/`);
     yield put(employee.success({ data: data.employee }));
   } catch (e) {
     yield put(employee.failure({ error: { ...e } }));
@@ -37,7 +37,7 @@ function* handlePost(action) {
     const { saveData } = action.payload;
     const { data } = yield call(
       apiClient.post,
-      SERVER_ADDRESS + '/employees/',
+      `${SERVER_ADDRESS}/employees/`,
       saveData
     );
     // yield put(employee.success({ data }))
@@ -64,7 +64,7 @@ function* handlePut(action) {
   try {
     const { id, body } = action.payload;
     yield call(apiClient.put, `${SERVER_ADDRESS}/employees/${id}`, { body });
-    const { data } = yield call(apiClient.get, SERVER_ADDRESS + '/employees/');
+    const { data } = yield call(apiClient.get, `${SERVER_ADDRESS}/employees/`);
     yield put(employee.success({ data: data.employee }));
     yield put(
       snackbar.update({
