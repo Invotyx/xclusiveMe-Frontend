@@ -44,111 +44,115 @@ export default function Comp({ hideMainAppBar, sidebarMenu, set_sidebarMenu }) {
     );
   };
 
-  return;
-  !hideMainAppBar && (
+  return (
     <Box clone mb={6}>
-      <AppBar position='relative' color='transparent' elevation={0}>
-        <Box
-          display={{ xs: 'none', sm: 'none', md: 'flex' }}
-          justifyContent='flex-end'
-        >
-          <Toolbar>
-            <Box display='flex'>
-              <Box ml={3}>
-                <NextLink href='#' passHref>
-                  <Link variant='body2'>How it works</Link>
-                </NextLink>
-              </Box>
-              <Box ml={3}>
-                <NextLink href='#' passHref>
-                  <Link variant='body2'>Support</Link>
-                </NextLink>
-              </Box>
-              <Box ml={3}>
-                <NextLink href='#' passHref>
-                  <Link variant='body2' onClick={logout}>
-                    Logout
-                  </Link>
-                </NextLink>
-              </Box>
-            </Box>
-          </Toolbar>
-        </Box>
-        <Box clone mt={{ xs: 4, sm: 4, md: 0 }}>
-          <Toolbar>
-            <Box flexGrow={1}>
-              <Logo link='/explore' />
-            </Box>
-            <Box flexGrow={1} display={{ xs: 'none', sm: 'none', md: 'flex' }}>
+      {!hideMainAppBar && (
+        <AppBar position='relative' color='transparent' elevation={0}>
+          <Box
+            display={{ xs: 'none', sm: 'none', md: 'flex' }}
+            justifyContent='flex-end'
+          >
+            <Toolbar>
               <Box display='flex'>
-                <Box mr={1} display='flex'>
-                  <RoundedButton
-                    color='inherit'
-                    startIcon={
-                      <Image
-                        width={20}
-                        height={20}
-                        src='/new-post-icon.svg'
-                        alt='new post'
-                      />
-                    }
-                  >
-                    New Post
-                  </RoundedButton>
+                <Box ml={3}>
+                  <NextLink href='#' passHref>
+                    <Link variant='body2'>How it works</Link>
+                  </NextLink>
                 </Box>
-                <NextLink href='/profile'>
-                  <IconButton component='a' color='inherit'>
-                    <ProfieImageAvatar />
-                  </IconButton>
-                </NextLink>
+                <Box ml={3}>
+                  <NextLink href='#' passHref>
+                    <Link variant='body2'>Support</Link>
+                  </NextLink>
+                </Box>
+                <Box ml={3}>
+                  <NextLink href='#' passHref>
+                    <Link variant='body2' onClick={logout}>
+                      Logout
+                    </Link>
+                  </NextLink>
+                </Box>
               </Box>
-            </Box>
-            <Box display='flex'>
-              <Box ml={3} display={{ xs: 'none', sm: 'none', md: 'flex' }}>
-                <NextLink href='/search'>
+            </Toolbar>
+          </Box>
+          <Box clone mt={{ xs: 4, sm: 4, md: 0 }}>
+            <Toolbar>
+              <Box flexGrow={1}>
+                <Logo link='/explore' />
+              </Box>
+              <Box
+                flexGrow={1}
+                display={{ xs: 'none', sm: 'none', md: 'flex' }}
+              >
+                <Box display='flex'>
+                  <Box mr={1} display='flex'>
+                    <RoundedButton
+                      color='inherit'
+                      startIcon={
+                        <Image
+                          width={20}
+                          height={20}
+                          src='/new-post-icon.svg'
+                          alt='new post'
+                        />
+                      }
+                    >
+                      New Post
+                    </RoundedButton>
+                  </Box>
+                  <NextLink href='/profile'>
+                    <IconButton component='a' color='inherit'>
+                      <ProfieImageAvatar />
+                    </IconButton>
+                  </NextLink>
+                </Box>
+              </Box>
+              <Box display='flex'>
+                <Box ml={3} display={{ xs: 'none', sm: 'none', md: 'flex' }}>
+                  <NextLink href='/search'>
+                    <IconButton color='inherit'>
+                      <SearchIcon />
+                    </IconButton>
+                  </NextLink>
+                </Box>
+                <Box ml={3} display={{ xs: 'none', sm: 'none', md: 'flex' }}>
                   <IconButton color='inherit'>
-                    <SearchIcon />
+                    <Badge color='secondary' variant='dot'>
+                      <CheckBoxOutlineBlankIcon />
+                    </Badge>
                   </IconButton>
-                </NextLink>
-              </Box>
-              <Box ml={3} display={{ xs: 'none', sm: 'none', md: 'flex' }}>
-                <IconButton color='inherit'>
-                  <Badge color='secondary' variant='dot'>
-                    <CheckBoxOutlineBlankIcon />
-                  </Badge>
-                </IconButton>
-              </Box>
+                </Box>
 
-              <Box ml={3} display={{ xs: 'none', sm: 'none', md: 'flex' }}>
-                <IconButton color='inherit'>
-                  <SmsIcon />
-                </IconButton>
-              </Box>
-              <Box ml={3}>
-                <NextLink href='/settings/account'>
+                <Box ml={3} display={{ xs: 'none', sm: 'none', md: 'flex' }}>
                   <IconButton color='inherit'>
-                    <SettingsIcon />
-                  </IconButton>
-                </NextLink>
-              </Box>
-              {sidebarMenu !== undefined && (
-                <Box ml={3} display={{ xs: 'flex', sm: 'flex', md: 'none' }}>
-                  <IconButton
-                    color='inherit'
-                    onClick={() =>
-                      sidebarMenu
-                        ? set_sidebarMenu(false)
-                        : set_sidebarMenu(true)
-                    }
-                  >
-                    <SortIcon />
+                    <SmsIcon />
                   </IconButton>
                 </Box>
-              )}
-            </Box>
-          </Toolbar>
-        </Box>
-      </AppBar>
+                <Box ml={3}>
+                  <NextLink href='/settings/account'>
+                    <IconButton color='inherit'>
+                      <SettingsIcon />
+                    </IconButton>
+                  </NextLink>
+                </Box>
+                {sidebarMenu !== undefined && (
+                  <Box ml={3} display={{ xs: 'flex', sm: 'flex', md: 'none' }}>
+                    <IconButton
+                      color='inherit'
+                      onClick={() =>
+                        sidebarMenu
+                          ? set_sidebarMenu(false)
+                          : set_sidebarMenu(true)
+                      }
+                    >
+                      <SortIcon />
+                    </IconButton>
+                  </Box>
+                )}
+              </Box>
+            </Toolbar>
+          </Box>
+        </AppBar>
+      )}
     </Box>
   );
 }
