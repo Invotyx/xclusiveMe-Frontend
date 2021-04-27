@@ -36,7 +36,7 @@ export default function Home() {
       <Container maxWidth='sm' disableGutters>
         <Grid container className={classes.root}>
           <Grid item xs={12}>
-            <Box display='flex'>
+            <Box display='flex' mb={4}>
               <form onSubmit={handleSearch}>
                 <OutlinedInput
                   fullWidth
