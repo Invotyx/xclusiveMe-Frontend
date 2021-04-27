@@ -254,8 +254,8 @@ export default function Home(props) {
                   <React.Fragment key={`loginSessions${j}`}>
                     <ListItem selected={true}>
                       <ListItemText
-                        primary={i.userAgent}
-                        secondary={`${i.ip} • ${i.country}`}
+                        primary={i.browser}
+                        secondary={`${i.publicIp}`}
                       />
                       <ListItemSecondaryAction>
                         {i.time}
