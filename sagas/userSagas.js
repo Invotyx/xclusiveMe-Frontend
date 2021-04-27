@@ -1,3 +1,4 @@
+import { List } from 'immutable';
 import getConfig from 'next/config';
 import apiClient from '../services/axiosInterceptor';
 import { put, call, takeLatest, all } from 'redux-saga/effects';
@@ -13,7 +14,7 @@ const SERVER_ADDRESS = publicRuntimeConfig.backendUrl;
 function* handleGet() {
   try {
     const { data } = yield call(apiClient.get, `${SERVER_ADDRESS}/users/all`);
-    yield put(user.success({ data: data.user }));
+    yield put(user.success({ data: new List(data.results) }));
   } catch (e) {
     yield put(user.failure({ error: { ...e } }));
   }
