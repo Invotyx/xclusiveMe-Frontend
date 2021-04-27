@@ -17,17 +17,19 @@ export default function Home() {
   const classes = useStyles();
 
   return (
-    <Layout>
-      <Head>
-        <title>xclusiveme</title>
-      </Head>
-      <Container maxWidth='md' disableGutters>
-        <Grid container className={classes.root}>
-          <Grid item xs={12}>
-            <Post />
+    <motion.div initial='hidden' animate='visible' variants={variants}>
+      <Layout>
+        <Head>
+          <title>xclusiveme</title>
+        </Head>
+        <Container maxWidth='md' disableGutters>
+          <Grid container className={classes.root}>
+            <Grid item xs={12}>
+              <Post />
+            </Grid>
           </Grid>
-        </Grid>
-      </Container>
-    </Layout>
+        </Container>
+      </Layout>
+    </motion.div>
   );
 }

@@ -76,159 +76,161 @@ export default function Home() {
   const currentUser = useSelector(currentUserSelector);
 
   return (
-    <Layout
-      hideMainAppBar={
-        <AppBar position='relative' color='transparent' elevation={0}>
-          <Box clone mt={2}>
-            <Toolbar>
-              <IconButton>
-                <ArrowBackIosIcon fontSize='small' />
-              </IconButton>
-              <Box flex={1}>
-                <Typography>
-                  {currentUser &&
-                  currentUser.profile &&
-                  currentUser.profile.fullName
-                    ? currentUser.profile.fullName
-                    : '(no name)'}
-                </Typography>
-              </Box>
-              <IconButton>
-                <CreateIcon fontSize='small' />
-              </IconButton>
-              <IconButton>
-                <MoreVertIcon fontSize='small' />
-              </IconButton>
-            </Toolbar>
-          </Box>
-        </AppBar>
-      }
-    >
-      <Head>
-        <title>xclusiveme</title>
-      </Head>
-      <Container maxWidth='md' disableGutters>
-        {currentUser && (
-          <Grid container className={classes.root}>
-            <Grid item xs={12}>
-              <Card>
-                <CoverImage>
+    <motion.div initial='hidden' animate='visible' variants={variants}>
+      <Layout
+        hideMainAppBar={
+          <AppBar position='relative' color='transparent' elevation={0}>
+            <Box clone mt={2}>
+              <Toolbar>
+                <IconButton>
+                  <ArrowBackIosIcon fontSize='small' />
+                </IconButton>
+                <Box flex={1}>
+                  <Typography>
+                    {currentUser &&
+                    currentUser.profile &&
+                    currentUser.profile.fullName
+                      ? currentUser.profile.fullName
+                      : '(no name)'}
+                  </Typography>
+                </Box>
+                <IconButton>
+                  <CreateIcon fontSize='small' />
+                </IconButton>
+                <IconButton>
+                  <MoreVertIcon fontSize='small' />
+                </IconButton>
+              </Toolbar>
+            </Box>
+          </AppBar>
+        }
+      >
+        <Head>
+          <title>xclusiveme</title>
+        </Head>
+        <Container maxWidth='md' disableGutters>
+          {currentUser && (
+            <Grid container className={classes.root}>
+              <Grid item xs={12}>
+                <Card>
+                  <CoverImage>
+                    <CardHeader
+                      className={classes.header}
+                      action={
+                        <Box display={{ xs: 'none', sm: 'none', md: 'flex' }}>
+                          <UpdateProfile />
+                          <IconButton aria-label='settings'>
+                            <MoreVertIcon />
+                          </IconButton>
+                        </Box>
+                      }
+                    />
+                  </CoverImage>
                   <CardHeader
-                    className={classes.header}
+                    className={classes.header2}
+                    avatar={
+                      <ProfileImage>
+                        <ProfieImageAvatar className={classes.userAvatar} />
+                      </ProfileImage>
+                    }
                     action={
+                      <Box display='flex' textAlign='center'>
+                        <Box mx={4}>
+                          <ListItemText primary='1.2k' secondary='Posts' />
+                        </Box>
+                        <Box mx={4}>
+                          <ListItemText primary='1.2M' secondary='Followers' />
+                        </Box>
+                        <Box mx={4}>
+                          <ListItemText primary='499' secondary='Following' />
+                        </Box>
+                      </Box>
+                    }
+                    title={
                       <Box display={{ xs: 'none', sm: 'none', md: 'flex' }}>
-                        <UpdateProfile />
-                        <IconButton aria-label='settings'>
-                          <MoreVertIcon />
-                        </IconButton>
+                        <Typography variant='h6'>
+                          {currentUser.profile && currentUser.profile.fullName
+                            ? currentUser.profile.fullName
+                            : '(no name)'}
+                        </Typography>
                       </Box>
                     }
                   />
-                </CoverImage>
-                <CardHeader
-                  className={classes.header2}
-                  avatar={
-                    <ProfileImage>
-                      <ProfieImageAvatar className={classes.userAvatar} />
-                    </ProfileImage>
-                  }
-                  action={
-                    <Box display='flex' textAlign='center'>
-                      <Box mx={4}>
-                        <ListItemText primary='1.2k' secondary='Posts' />
-                      </Box>
-                      <Box mx={4}>
-                        <ListItemText primary='1.2M' secondary='Followers' />
-                      </Box>
-                      <Box mx={4}>
-                        <ListItemText primary='499' secondary='Following' />
-                      </Box>
-                    </Box>
-                  }
-                  title={
-                    <Box display={{ xs: 'none', sm: 'none', md: 'flex' }}>
-                      <Typography variant='h6'>
-                        {currentUser.profile && currentUser.profile.fullName
-                          ? currentUser.profile.fullName
-                          : '(no name)'}
-                      </Typography>
-                    </Box>
-                  }
-                />
-                <CardContent>
-                  <Typography
-                    variant='body2'
-                    color='textSecondary'
-                    component='p'
-                  >
-                    {currentUser.profile && currentUser.profile.headline
-                      ? currentUser.profile.headline
-                      : '(no bio)'}
-                  </Typography>
-                </CardContent>
-              </Card>
-            </Grid>
-            <Grid item xs={12}>
-              <List disablePadding>
-                <ListSubheader disableGutters>
-                  <Paper>
-                    <Tabs
-                      value={tab}
-                      onChange={(e, v) => setTab(v)}
-                      variant='fullWidth'
-                      indicatorColor='primary'
-                      textColor='primary'
+                  <CardContent>
+                    <Typography
+                      variant='body2'
+                      color='textSecondary'
+                      component='p'
                     >
-                      <Tab icon={<FeaturedPlayListOutlinedIcon />} />
-                      <Tab icon={<ImageOutlinedIcon />} />
-                      <Tab icon={<VideocamOutlinedIcon />} />
-                      <Tab icon={<MonetizationOnOutlinedIcon />} />
-                    </Tabs>
-                  </Paper>
-                </ListSubheader>
-                <ListItem>
-                  <ListItemText>
-                    <TabPanel value={tab} index={0}>
-                      <Box
-                        ml={{ xs: 2, sm: 2, md: 8 }}
-                        mr={{ xs: 2, sm: 2, md: 8 }}
+                      {currentUser.profile && currentUser.profile.headline
+                        ? currentUser.profile.headline
+                        : '(no bio)'}
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
+              <Grid item xs={12}>
+                <List disablePadding>
+                  <ListSubheader disableGutters>
+                    <Paper>
+                      <Tabs
+                        value={tab}
+                        onChange={(e, v) => setTab(v)}
+                        variant='fullWidth'
+                        indicatorColor='primary'
+                        textColor='primary'
                       >
-                        <CardHeader
-                          action={
-                            <>
-                              <IconButton aria-label='sort'>
-                                <SearchIcon />
-                              </IconButton>
-                              <IconButton aria-label='sort'>
-                                <SortIcon />
-                              </IconButton>
-                            </>
-                          }
-                          title='1.2k posts'
-                        />
-                        <Grid container spacing={2}>
-                          <Grid item xs={12}>
-                            <Post />
+                        <Tab icon={<FeaturedPlayListOutlinedIcon />} />
+                        <Tab icon={<ImageOutlinedIcon />} />
+                        <Tab icon={<VideocamOutlinedIcon />} />
+                        <Tab icon={<MonetizationOnOutlinedIcon />} />
+                      </Tabs>
+                    </Paper>
+                  </ListSubheader>
+                  <ListItem>
+                    <ListItemText>
+                      <TabPanel value={tab} index={0}>
+                        <Box
+                          ml={{ xs: 2, sm: 2, md: 8 }}
+                          mr={{ xs: 2, sm: 2, md: 8 }}
+                        >
+                          <CardHeader
+                            action={
+                              <>
+                                <IconButton aria-label='sort'>
+                                  <SearchIcon />
+                                </IconButton>
+                                <IconButton aria-label='sort'>
+                                  <SortIcon />
+                                </IconButton>
+                              </>
+                            }
+                            title='1.2k posts'
+                          />
+                          <Grid container spacing={2}>
+                            <Grid item xs={12}>
+                              <Post />
+                            </Grid>
+                            <Grid item xs={12}>
+                              <Post />
+                            </Grid>
+                            <Grid item xs={12}>
+                              <Post />
+                            </Grid>
                           </Grid>
-                          <Grid item xs={12}>
-                            <Post />
-                          </Grid>
-                          <Grid item xs={12}>
-                            <Post />
-                          </Grid>
-                        </Grid>
-                      </Box>
-                    </TabPanel>
-                    <TabPanel value={tab} index={1}>
-                      <Images />
-                    </TabPanel>
-                  </ListItemText>
-                </ListItem>
-              </List>
+                        </Box>
+                      </TabPanel>
+                      <TabPanel value={tab} index={1}>
+                        <Images />
+                      </TabPanel>
+                    </ListItemText>
+                  </ListItem>
+                </List>
+              </Grid>
             </Grid>
-          </Grid>
-        )}
-      </Container>
-    </Layout>
+          )}
+        </Container>
+      </Layout>
+    </motion.div>
   );
 }

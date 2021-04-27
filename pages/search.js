@@ -47,68 +47,70 @@ export default function Home() {
   };
 
   return (
-    <Layout>
-      <Head>
-        <title>Search</title>
-      </Head>
-      <Container maxWidth='sm'>
-        <Grid container className={classes.root}>
-          <Grid item xs={12}>
-            <form onSubmit={handleSearch}>
-              <Box display='flex' mb={4}>
-                <OutlinedInput
-                  fullWidth
-                  placeholder='Search…'
-                  startAdornment={<SearchIcon />}
-                  endAdornment={fetching ? <CircularProgress /> : ''}
-                  value={_search}
-                  onChange={(e) => set_search(e.target.value)}
-                />
-              </Box>
-            </form>
+    <motion.div initial='hidden' animate='visible' variants={variants}>
+      <Layout>
+        <Head>
+          <title>Search</title>
+        </Head>
+        <Container maxWidth='sm'>
+          <Grid container className={classes.root}>
+            <Grid item xs={12}>
+              <form onSubmit={handleSearch}>
+                <Box display='flex' mb={4}>
+                  <OutlinedInput
+                    fullWidth
+                    placeholder='Search…'
+                    startAdornment={<SearchIcon />}
+                    endAdornment={fetching ? <CircularProgress /> : ''}
+                    value={_search}
+                    onChange={(e) => set_search(e.target.value)}
+                  />
+                </Box>
+              </form>
+            </Grid>
+            <Grid item xs={12}>
+              <List>
+                {users &&
+                  users.map((u) => (
+                    <Box
+                      clone
+                      pt={3}
+                      pb={3}
+                      key={u.id}
+                      mb={4}
+                      height={100}
+                      style={{
+                        backgroundSize: 'cover',
+                        backgroundImage: u.coverImage
+                          ? `url(getImage(${u.coverImage}))`
+                          : `url('/cover.jpg')`,
+                        boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',
+                      }}
+                    >
+                      <ListItem>
+                        <Box clone mr={2}>
+                          <ListItemAvatar>
+                            <ImageAvatar className={classes.large} user={u} />
+                          </ListItemAvatar>
+                        </Box>
+                        <ListItemText primary={u.username} />
+                        <ListItemSecondaryAction>
+                          <Button
+                            startIcon={<Add />}
+                            size='small'
+                            variant='outlined'
+                          >
+                            Follow
+                          </Button>
+                        </ListItemSecondaryAction>
+                      </ListItem>
+                    </Box>
+                  ))}
+              </List>
+            </Grid>
           </Grid>
-          <Grid item xs={12}>
-            <List>
-              {users &&
-                users.map((u) => (
-                  <Box
-                    clone
-                    pt={3}
-                    pb={3}
-                    key={u.id}
-                    mb={4}
-                    height={100}
-                    style={{
-                      backgroundSize: 'cover',
-                      backgroundImage: u.coverImage
-                        ? `url(getImage(${u.coverImage}))`
-                        : `url('/cover.jpg')`,
-                      boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',
-                    }}
-                  >
-                    <ListItem>
-                      <Box clone mr={2}>
-                        <ListItemAvatar>
-                          <ImageAvatar className={classes.large} user={u} />
-                        </ListItemAvatar>
-                      </Box>
-                      <ListItemText primary={u.username} />
-                      <ListItemSecondaryAction>
-                        <Button
-                          startIcon={<Add />}
-                          size='small'
-                          variant='outlined'
-                        >
-                          Follow
-                        </Button>
-                      </ListItemSecondaryAction>
-                    </ListItem>
-                  </Box>
-                ))}
-            </List>
-          </Grid>
-        </Grid>
-      </Container>
-    </Layout>
+        </Container>
+      </Layout>
+    </motion.div>
   );
 }
