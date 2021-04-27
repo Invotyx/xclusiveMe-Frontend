@@ -72,8 +72,6 @@ export const auth = {
       success: false,
       error: null,
     }),
-  resetPasswordVerify: (data) =>
-    createAction(AUTH.RESET_PASSWORD_TOKEN_VERIFY, {
   getSessions: (data) =>
     createAction(AUTH.GET_SESSIONS, {
       ...data,
