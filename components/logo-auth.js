@@ -20,7 +20,7 @@ import SortIcon from '@material-ui/icons/Sort';
 import Logo from './logo';
 import ProfieImageAvatar from './profile-image-avatar';
 
-export default function Comp({ profile, sidebarMenu, set_sidebarMenu }) {
+export default function Comp({ sidebarMenu, set_sidebarMenu }) {
   const dispatch = useDispatch();
   const router = useRouter();
   React.useEffect(() => {
