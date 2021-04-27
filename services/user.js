@@ -59,6 +59,14 @@ export async function me() {
   return apiClient.get(`${SERVER_ADDRESS}/users/me`);
 }
 
+export async function getSessions() {
+  return apiClient.get(`${SERVER_ADDRESS}/auth/get-sessions`);
+}
+
+export async function expireAllSessions() {
+  return apiClient.post(`${SERVER_ADDRESS}/auth/expire-sessions`);
+}
+
 export async function refreshToken() {
   const refreshToken = localStorage.getItem('refreshToken');
   if (!refreshToken) {

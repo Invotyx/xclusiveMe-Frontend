@@ -17,6 +17,8 @@ import {
   me,
   logout,
   resetPassword,
+  getSessions,
+  expireAllSessions,
   refreshToken,
   verifyForgotPasswordToken,
   twoFactorAuthentication,
@@ -300,6 +302,24 @@ function* handleMe() {
   }
 }
 
+function* handleGetSessions() {
+  try {
+    const { data } = yield call(getSessions);
+    yield put(auth.success({ currentUser: data }));
+  } catch (e) {
+    yield put(auth.failure({ error: { ...e } }));
+  }
+}
+
+function* handleExpireAllSessions() {
+  try {
+    const { data } = yield call(expireAllSessions);
+    yield put(auth.success({ currentUser: data }));
+  } catch (e) {
+    yield put(auth.failure({ error: { ...e } }));
+  }
+}
+
 function* handleLogout(action) {
   try {
     yield call(logout);
@@ -378,6 +398,8 @@ function* watchAuthSagas() {
       AUTH.RESET_PASSWORD_TOKEN_VERIFY,
       handleResetPasswordTokenVerify
     ),
+    takeLatest(AUTH.GET_SESSIONS, handleGetSessions),
+    takeLatest(AUTH.EXPIRE_ALL_SESSIONS, handleExpireAllSessions),
     takeLatest(AUTH.ME, handleMe),
     takeLatest(AUTH.LOGOUT, handleLogout),
     takeLatest(
