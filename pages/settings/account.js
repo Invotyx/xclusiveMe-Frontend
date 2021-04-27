@@ -101,7 +101,7 @@ export default function Home(props) {
     dispatch(auth.updateProfile({ password, oldPassword: password_old }));
   };
   const handleLogOutAllSessions = () => {
-    // dispatch(auth.logoutAll({}));
+    dispatch(auth.expireAllSessions());
   };
   return (
     <Layout>
