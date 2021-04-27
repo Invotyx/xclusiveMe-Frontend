@@ -84,7 +84,9 @@ export default function Home() {
               </IconButton>
               <Box flex={1}>
                 <Typography>
-                  {currentUser.profile && currentUser.profile.fullName
+                  {currentUser &&
+                  currentUser.profile &&
+                  currentUser.profile.fullName
                     ? currentUser.profile.fullName
                     : '(no name)'}
                 </Typography>
