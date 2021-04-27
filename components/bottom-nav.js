@@ -40,9 +40,11 @@ export default function Comp() {
                 <HomeIcon />
               </IconButton>
             </NextLink>
-            <IconButton color='inherit'>
-              <SearchIcon />
-            </IconButton>
+            <NextLink href='/search'>
+              <IconButton color='inherit'>
+                <SearchIcon />
+              </IconButton>
+            </NextLink>
             <NextLink href='/profile'>
               <IconButton color='inherit'>
                 <Image
