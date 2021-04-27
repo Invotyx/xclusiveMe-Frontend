@@ -313,8 +313,8 @@ function* handleGetSessions() {
 
 function* handleExpireAllSessions() {
   try {
-    const { data } = yield call(expireAllSessions);
-    yield put(auth.success({ currentUser: data }));
+    yield call(expireAllSessions);
+    yield put(auth.success());
   } catch (e) {
     yield put(auth.failure({ error: { ...e } }));
   }
