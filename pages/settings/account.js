@@ -22,7 +22,10 @@ import AddIcon from '@material-ui/icons/Add';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import LinkIcon from '@material-ui/icons/Link';
 import { auth } from '../../actions/auth';
-import { currentUserSelector } from '../../selectors/authSelector';
+import {
+  currentUserSelector,
+  currentUserSessionsSelector,
+} from '../../selectors/authSelector';
 import { useSelector } from 'react-redux';
 import Layout from '../../components/layout-settings';
 import { fetchingSelector } from '../../selectors/authSelector';
@@ -60,21 +63,6 @@ const linkedAccounts = [
   },
 ];
 
-const loginSessions = [
-  {
-    userAgent: 'Chrome 88.0, Windows 10',
-    ip: '222.187.25.187',
-    country: 'United States',
-    time: 'Active Now',
-  },
-  {
-    userAgent: 'Chrome 88.0, Windows 10',
-    ip: '222.187.25.187',
-    country: 'United States',
-    time: '15m ago',
-  },
-];
-
 export default function Home(props) {
   const fetching = useSelector(fetchingSelector);
   const dispatch = useDispatch();
@@ -91,6 +79,7 @@ export default function Home(props) {
   const [authenticatorApp, set_authenticatorApp] = React.useState(true);
 
   const currentUser = useSelector(currentUserSelector);
+  const loginSessions = useSelector(currentUserSessionsSelector);
   useEffect(() => {
     if (currentUser) {
       set_username(currentUser.username);
@@ -98,6 +87,9 @@ export default function Home(props) {
       set_phone(currentUser.phoneNumber);
     }
   }, [currentUser]);
+  useEffect(() => {
+    dispatch(auth.getSessions());
+  }, []);
 
   const classes = useStyles();
   const handleUpdate = (event) => {
