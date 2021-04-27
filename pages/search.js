@@ -33,7 +33,7 @@ export default function Home() {
       <Head>
         <title>Search</title>
       </Head>
-      <Container maxWidth='md' disableGutters>
+      <Container maxWidth='sm' disableGutters>
         <Grid container className={classes.root}>
           <Grid item xs={12}>
             <Box display='flex'>
