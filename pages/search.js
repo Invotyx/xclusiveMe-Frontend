@@ -49,7 +49,7 @@ export default function Home() {
       <Head>
         <title>Search</title>
       </Head>
-      <Container maxWidth='sm' disableGutters>
+      <Container maxWidth='sm'>
         <Grid container className={classes.root}>
           <Grid item xs={12}>
             <form onSubmit={handleSearch}>
