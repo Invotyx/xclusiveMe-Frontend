@@ -7,6 +7,7 @@ const initialState = fromJS({
   error: null,
   loggedIn: false,
   currentUser: null,
+  userSessions: [],
 });
 
 export default function authReducer(state = initialState, action) {
