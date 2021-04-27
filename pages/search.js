@@ -52,8 +52,8 @@ export default function Home() {
       <Container maxWidth='sm' disableGutters>
         <Grid container className={classes.root}>
           <Grid item xs={12}>
-            <Box display='flex' mb={4}>
-              <form onSubmit={handleSearch}>
+            <form onSubmit={handleSearch}>
+              <Box display='flex' mb={4}>
                 <OutlinedInput
                   fullWidth
                   placeholder='Search…'
@@ -62,8 +62,8 @@ export default function Home() {
                   value={_search}
                   onChange={(e) => set_search(e.target.value)}
                 />
-              </form>
-            </Box>
+              </Box>
+            </form>
           </Grid>
           <Grid item xs={12}>
             <List>
