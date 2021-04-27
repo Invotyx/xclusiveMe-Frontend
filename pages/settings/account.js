@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { motion } from 'framer-motion';
+import { variants } from '../../services/framer-variants';
 import Head from 'next/head';
 import Image from 'next/image';
 import Box from '@material-ui/core/Box';

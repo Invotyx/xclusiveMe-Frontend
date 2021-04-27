@@ -1,5 +1,6 @@
 import NextLink from 'next/link';
 import { motion } from 'framer-motion';
+import { variants } from '../services/framer-variants';
 import Head from 'next/head';
 import HomeLegend from '../components/home-legend';
 import Grid from '@material-ui/core/Grid';
