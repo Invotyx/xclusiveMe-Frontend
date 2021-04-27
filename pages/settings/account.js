@@ -85,6 +85,7 @@ export default function Home(props) {
       set_username(currentUser.username);
       set_email(currentUser.email);
       set_phone(currentUser.phoneNumber);
+      set_verificationViaSms(currentUser.fa2);
     }
   }, [currentUser]);
   useEffect(() => {
