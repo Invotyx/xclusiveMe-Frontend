@@ -1,25 +1,7 @@
-import React from 'react';
-import Avatar from '@material-ui/core/Avatar';
-import { useSelector } from 'react-redux';
-import { currentUserSelector } from '../selectors/authSelector';
-import getConfig from 'next/config';
-const { publicRuntimeConfig } = getConfig();
-const SERVER_ADDRESS = publicRuntimeConfig.backendUrl;
+import ImageAvatar from './image-avatar';
 
 export default function FormDialog(props) {
-  const userSelector = useSelector(currentUserSelector);
+  const { user, ...other } = props;
 
-  return (
-    <Avatar
-      {...props}
-      alt='Remy Sharp'
-      src={
-        userSelector && userSelector.image
-          ? `${SERVER_ADDRESS.substring(0, SERVER_ADDRESS.length - 4)}/${
-              userSelector.image
-            }`
-          : 'https://material-ui.com/static/images/avatar/1.jpg'
-      }
-    />
-  );
+  return <ImageAvatar {...other} user={user} />;
 }
