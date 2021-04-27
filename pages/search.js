@@ -85,9 +85,11 @@ export default function Home() {
                     }}
                   >
                     <ListItem>
-                      <ListItemAvatar>
-                        <ImageAvatar className={classes.large} user={u} />
-                      </ListItemAvatar>
+                      <Box clone mr={2}>
+                        <ListItemAvatar>
+                          <ImageAvatar className={classes.large} user={u} />
+                        </ListItemAvatar>
+                      </Box>
                       <ListItemText primary={u.username} />
                       <ListItemSecondaryAction>
                         <Button
