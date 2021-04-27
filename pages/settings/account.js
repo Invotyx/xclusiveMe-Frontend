@@ -257,6 +257,7 @@ export default function Home(props) {
             <Box mb={4}>
               <UppercaseInputLabel>Login Sessions</UppercaseInputLabel>
               <List>
+                {loginSessions.length === 0 && <div>no sessions</div>}
                 {loginSessions.map((i, j) => (
                   <React.Fragment key={`loginSessions${j}`}>
                     <ListItem selected={true}>
