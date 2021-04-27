@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import Head from 'next/head';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
@@ -15,6 +16,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Home() {
   const classes = useStyles();
+  const [_search, set_search] = useState('');
 
   return (
     <Layout>
@@ -29,6 +31,8 @@ export default function Home() {
                 fullWidth
                 placeholder='Search…'
                 startAdornment={<SearchIcon />}
+                value={_search}
+                onChange={(e) => set_search(e.target.value)}
               />
             </Box>
           </Grid>
