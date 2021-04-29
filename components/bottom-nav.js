@@ -55,11 +55,13 @@ export default function Comp() {
                 />
               </IconButton>
             </NextLink>
-            <IconButton color='inherit'>
-              <Badge color='secondary' variant='dot'>
-                <CheckBoxOutlineBlankIcon />
-              </Badge>
-            </IconButton>
+            <NextLink href='/notification'>
+              <IconButton color='inherit'>
+                <Badge color='secondary' variant='dot'>
+                  <CheckBoxOutlineBlankIcon />
+                </Badge>
+              </IconButton>
+            </NextLink>
             <NextLink href='/profile'>
               <IconButton color='inherit'>
                 <ProfieImageAvatar />
