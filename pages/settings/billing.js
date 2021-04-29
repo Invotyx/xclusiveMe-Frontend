@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { motion } from 'framer-motion';
+import { variants } from '../../services/framer-variants';
 import Head from 'next/head';
 import BillingAddDialog from '../../components/settings/billing/add-dialog';
 import Box from '@material-ui/core/Box';

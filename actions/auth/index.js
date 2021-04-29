@@ -44,6 +44,20 @@ export const auth = {
       success: false,
       error: null,
     }),
+  uploadImage: (data) =>
+    createAction(AUTH.UPLOAD_IMAGE, {
+      ...data,
+      fetching: true,
+      success: false,
+      error: null,
+    }),
+  uploadCover: (data) =>
+    createAction(AUTH.UPLOAD_COVER, {
+      ...data,
+      fetching: true,
+      success: false,
+      error: null,
+    }),
   forgotPassword: (data) =>
     createAction(AUTH.FORGOT_PASSWORD, {
       ...data,
@@ -58,8 +72,15 @@ export const auth = {
       success: false,
       error: null,
     }),
-  resetPasswordVerify: (data) =>
-    createAction(AUTH.RESET_PASSWORD_TOKEN_VERIFY, {
+  getSessions: (data) =>
+    createAction(AUTH.GET_SESSIONS, {
+      ...data,
+      fetching: true,
+      success: false,
+      error: null,
+    }),
+  expireAllSessions: (data) =>
+    createAction(AUTH.EXPIRE_ALL_SESSIONS, {
       ...data,
       fetching: true,
       success: false,

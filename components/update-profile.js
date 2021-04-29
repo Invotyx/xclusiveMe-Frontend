@@ -27,7 +27,7 @@ export default function FormDialog() {
 
   const currentUser = useSelector(currentUserSelector);
   useEffect(() => {
-    if (currentUser) {
+    if (currentUser && currentUser.profile) {
       set_fullName(currentUser.profile.fullName);
       set_gender(currentUser.profile.gender);
       set_dob(currentUser.profile.dob);
@@ -36,7 +36,8 @@ export default function FormDialog() {
     }
   }, [currentUser]);
 
-  const handleClickOpen = () => {
+  const handleClickOpen = (event) => {
+    event.stopPropagation();
     setOpen(true);
   };
 
@@ -51,6 +52,10 @@ export default function FormDialog() {
         dob,
         description,
         headline,
+        callback: () => {
+          handleClose();
+          dispatch(auth.me());
+        },
       })
     );
   };

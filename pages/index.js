@@ -1,4 +1,6 @@
 import NextLink from 'next/link';
+import { motion } from 'framer-motion';
+import { variants } from '../services/framer-variants';
 import Head from 'next/head';
 import HomeLegend from '../components/home-legend';
 import Grid from '@material-ui/core/Grid';
@@ -13,15 +15,6 @@ export default function Home() {
     <Container>
       <Head>
         <title>xclusiveme</title>
-        <meta
-          name='viewport'
-          content='minimum-scale=1, initial-scale=1, width=device-width'
-        />
-        <link rel='icon' href='/favicon.ico' />
-        <link
-          rel='stylesheet'
-          href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap'
-        />
       </Head>
       <Grid container component='main'>
         <Grid item xs={12}>

@@ -6,7 +6,6 @@ import NextLink from 'next/link';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import RoundedButton from './RoundedButton';
-import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Box from '@material-ui/core/Box';
 import Badge from '@material-ui/core/Badge';
@@ -15,16 +14,15 @@ import SettingsIcon from '@material-ui/icons/SettingsOutlined';
 import SmsIcon from '@material-ui/icons/SmsOutlined';
 import SearchIcon from '@material-ui/icons/Search';
 import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
-import { currentUserSelector } from '../selectors/authSelector';
-import { useSelector } from 'react-redux';
 import axiosInterceptorResponse from '../services/axiosInterceptorResponse';
 import { auth } from '../actions/auth';
 import { useDispatch } from 'react-redux';
 import SortIcon from '@material-ui/icons/Sort';
 import Logo from './logo';
 import Notification from './notification';
+import ProfieImageAvatar from './profile-image-avatar';
 
-export default function Comp({ profile, sidebarMenu, set_sidebarMenu }) {
+export default function Comp({ sidebarMenu, set_sidebarMenu }) {
   const dispatch = useDispatch();
   const router = useRouter();
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -46,7 +44,6 @@ export default function Comp({ profile, sidebarMenu, set_sidebarMenu }) {
       router.push('/login');
     }
   }, []);
-  const userSelector = useSelector(currentUserSelector);
 
   const logout = (event) => {
     event.preventDefault();
@@ -112,19 +109,18 @@ export default function Comp({ profile, sidebarMenu, set_sidebarMenu }) {
                 </Box>
                 <NextLink href='/profile'>
                   <IconButton component='a' color='inherit'>
-                    <Avatar
-                      alt='Remy Sharp'
-                      src='https://material-ui.com/static/images/avatar/1.jpg'
-                    />
+                    <ProfieImageAvatar />
                   </IconButton>
                 </NextLink>
               </Box>
             </Box>
             <Box display='flex'>
               <Box ml={3} display={{ xs: 'none', sm: 'none', md: 'flex' }}>
-                <IconButton color='inherit'>
-                  <SearchIcon />
-                </IconButton>
+                <NextLink href='/search'>
+                  <IconButton color='inherit'>
+                    <SearchIcon />
+                  </IconButton>
+                </NextLink>
               </Box>
               <Box ml={3} display={{ xs: 'none', sm: 'none', md: 'flex' }}>
                 <IconButton color='inherit' onClick={settingsMenuOpen}>

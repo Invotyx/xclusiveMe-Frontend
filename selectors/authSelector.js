@@ -20,6 +20,10 @@ const currentUserSelector = createSelector(authState, (state) =>
   state.get('currentUser')
 );
 
+const currentUserSessionsSelector = createSelector(authState, (state) =>
+  state.get('userSessions')
+);
+
 const errorSelector = createSelector(authState, (state) => {
   const error = state.get('error');
 
@@ -31,5 +35,6 @@ export {
   loggedInSelector,
   fetchingSelector,
   currentUserSelector,
+  currentUserSessionsSelector,
   errorSelector,
 };

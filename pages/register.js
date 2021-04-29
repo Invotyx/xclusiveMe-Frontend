@@ -1,6 +1,8 @@
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
+import { variants } from '../services/framer-variants';
 import Head from 'next/head';
 import NextLink from 'next/link';
 import Box from '@material-ui/core/Box';
@@ -13,8 +15,10 @@ import TileTextField from '../components/TileTextField';
 import LogoGuest from '../components/logo-guest';
 import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
+import MenuItem from '@material-ui/core/MenuItem';
 import { auth } from '../actions/auth';
 import { fetchingSelector, errorSelector } from '../selectors/authSelector';
+import countriesList from '../services/countries';
 
 const useStyles = makeStyles((theme) => ({
   grey: {
@@ -42,6 +46,7 @@ export default function SignInSide() {
   const [password, setPassword] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [code, setCode] = useState('');
+  const [country, setCountry] = useState('');
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -77,15 +82,6 @@ export default function SignInSide() {
     <Container>
       <Head>
         <title>Register</title>
-        <meta
-          name='viewport'
-          content='minimum-scale=1, initial-scale=1, width=device-width'
-        />
-        <link rel='icon' href='/favicon.ico' />
-        <link
-          rel='stylesheet'
-          href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap'
-        />
       </Head>
       <Grid container component='main'>
         <Grid item xs={12}>
@@ -169,24 +165,49 @@ export default function SignInSide() {
                   id='password'
                   autoComplete='current-password'
                 />
-                <TileTextField
-                  error={validationErrors && validationErrors.phoneNumber}
-                  helperText={
-                    validationErrors.phoneNumber
-                      ? Object.values(validationErrors.phoneNumber).join(', ')
-                      : ''
-                  }
-                  value={phoneNumber}
-                  onChange={(e) => setPhoneNumber(e.target.value)}
-                  variant='outlined'
-                  margin='normal'
-                  required
-                  fullWidth
-                  id='phoneNumber'
-                  label='Phone Number'
-                  name='phoneNumber'
-                  autoComplete='phoneNumber'
-                />
+                <Box display='flex'>
+                  <TileTextField
+                    select
+                    error={validationErrors && validationErrors.country}
+                    helperText={
+                      validationErrors.country
+                        ? Object.values(validationErrors.country).join(', ')
+                        : ''
+                    }
+                    value={country}
+                    onChange={(e) => setCountry(e.target.value)}
+                    variant='outlined'
+                    margin='normal'
+                    id='country'
+                    label='Country'
+                    name='country'
+                    autoComplete='country'
+                  >
+                    {countriesList.map((c) => (
+                      <MenuItem value={c.name} key={`countriesList${c.code}`}>
+                        {c.name}
+                      </MenuItem>
+                    ))}
+                  </TileTextField>
+                  <TileTextField
+                    error={validationErrors && validationErrors.phoneNumber}
+                    helperText={
+                      validationErrors.phoneNumber
+                        ? Object.values(validationErrors.phoneNumber).join(', ')
+                        : ''
+                    }
+                    value={phoneNumber}
+                    onChange={(e) => setPhoneNumber(e.target.value)}
+                    variant='outlined'
+                    margin='normal'
+                    required
+                    fullWidth
+                    id='phoneNumber'
+                    label='Phone Number'
+                    name='phoneNumber'
+                    autoComplete='phoneNumber'
+                  />
+                </Box>
                 <Box my={2}>
                   <TileButton
                     type='submit'

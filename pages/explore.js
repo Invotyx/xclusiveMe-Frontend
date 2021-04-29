@@ -1,3 +1,5 @@
+import { motion } from 'framer-motion';
+import { variants } from '../services/framer-variants';
 import Head from 'next/head';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
@@ -15,26 +17,19 @@ export default function Home() {
   const classes = useStyles();
 
   return (
-    <Layout>
-      <Head>
-        <title>xclusiveme</title>
-        <meta
-          name='viewport'
-          content='minimum-scale=1, initial-scale=1, width=device-width'
-        />
-        <link rel='icon' href='/favicon.ico' />
-        <link
-          rel='stylesheet'
-          href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap'
-        />
-      </Head>
-      <Container maxWidth='md' disableGutters>
-        <Grid container className={classes.root}>
-          <Grid item xs={12}>
-            <Post />
+    <motion.div initial='hidden' animate='visible' variants={variants}>
+      <Layout>
+        <Head>
+          <title>xclusiveme</title>
+        </Head>
+        <Container maxWidth='md' disableGutters>
+          <Grid container className={classes.root}>
+            <Grid item xs={12}>
+              <Post />
+            </Grid>
           </Grid>
-        </Grid>
-      </Container>
-    </Layout>
+        </Container>
+      </Layout>
+    </motion.div>
   );
 }

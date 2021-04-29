@@ -59,6 +59,14 @@ export async function me() {
   return apiClient.get(`${SERVER_ADDRESS}/users/me`);
 }
 
+export async function getSessions() {
+  return apiClient.get(`${SERVER_ADDRESS}/auth/get-sessions`);
+}
+
+export async function expireAllSessions() {
+  return apiClient.post(`${SERVER_ADDRESS}/auth/expire-sessions`);
+}
+
 export async function refreshToken() {
   const refreshToken = localStorage.getItem('refreshToken');
   if (!refreshToken) {
@@ -86,7 +94,7 @@ export async function verifyForgotPasswordToken(token, email) {
 export async function logout() {
   localStorage.removeItem('jwtToken');
   localStorage.removeItem('refreshToken');
-  return true;
+  return apiClient.post(`${SERVER_ADDRESS}/auth/logout`);
 }
 
 export async function changePassword(currentPassword, newPassword) {
@@ -103,4 +111,16 @@ export async function updateUser(fullName, email, phoneNumber) {
 export async function twoFactorAuthentication(fa2) {
   const data = JSON.stringify({ fa2 });
   return apiClient.patch(`${SERVER_ADDRESS}/users/`, data);
+}
+
+export async function uploadImage(fileObject) {
+  const data = new FormData();
+  data.append('image', fileObject);
+  return apiClient.post(`${SERVER_ADDRESS}/users/upProfileImage`, data);
+}
+
+export async function uploadCover(fileObject) {
+  const data = new FormData();
+  data.append('image', fileObject);
+  return apiClient.post(`${SERVER_ADDRESS}/users/upload-cover`, data);
 }

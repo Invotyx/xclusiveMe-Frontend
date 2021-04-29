@@ -11,10 +11,14 @@ import {
   verifyOtp,
   resendOtp,
   updateProfile,
+  uploadImage,
+  uploadCover,
   forgotPassword,
   me,
   logout,
   resetPassword,
+  getSessions,
+  expireAllSessions,
   refreshToken,
   verifyForgotPasswordToken,
   twoFactorAuthentication,
@@ -204,6 +208,7 @@ function* handleUpdateProfile(action) {
         severity: 'success',
       })
     );
+    yield put(auth.success({}));
     const { callback } = action.payload;
     if (callback) {
       yield call(callback);
@@ -297,6 +302,24 @@ function* handleMe() {
   }
 }
 
+function* handleGetSessions() {
+  try {
+    const { data } = yield call(getSessions);
+    yield put(auth.success({ userSessions: data }));
+  } catch (e) {
+    yield put(auth.failure({ error: { ...e } }));
+  }
+}
+
+function* handleExpireAllSessions() {
+  try {
+    yield call(expireAllSessions);
+    yield put(auth.success());
+  } catch (e) {
+    yield put(auth.failure({ error: { ...e } }));
+  }
+}
+
 function* handleLogout(action) {
   try {
     yield call(logout);
@@ -337,6 +360,28 @@ function* handleUpdateTwoFactorAuthentication(action) {
   }
 }
 
+function* handleUploadImage({ payload }) {
+  try {
+    const { fileObject } = payload;
+    yield call(uploadImage, fileObject);
+    yield call(auth.me);
+  } catch (error) {
+    console.log('Error occurred in UPLOAD_IMAGE');
+    console.log(error);
+  }
+}
+
+function* handleUploadCover({ payload }) {
+  try {
+    const { fileObject } = payload;
+    yield call(uploadCover, fileObject);
+    yield call(auth.me);
+  } catch (error) {
+    console.log('Error occurred in UPLOAD_IMAGE');
+    console.log(error);
+  }
+}
+
 function* watchAuthSagas() {
   yield all([
     takeLatest(AUTH.LOGIN, handleLogin),
@@ -345,12 +390,12 @@ function* watchAuthSagas() {
     takeLatest(AUTH.VERIFY_OTP, handleVerifyOtp),
     takeLatest(AUTH.RESEND_OTP, handleResendOtp),
     takeLatest(AUTH.UPDATE_PROFILE, handleUpdateProfile),
+    takeLatest(AUTH.UPLOAD_IMAGE, handleUploadImage),
+    takeLatest(AUTH.UPLOAD_COVER, handleUploadCover),
     takeLatest(AUTH.FORGOT_PASSWORD, handleForgotPassword),
     takeLatest(AUTH.RESET_PASSWORD, handleResetPassword),
-    takeLatest(
-      AUTH.RESET_PASSWORD_TOKEN_VERIFY,
-      handleResetPasswordTokenVerify
-    ),
+    takeLatest(AUTH.GET_SESSIONS, handleGetSessions),
+    takeLatest(AUTH.EXPIRE_ALL_SESSIONS, handleExpireAllSessions),
     takeLatest(AUTH.ME, handleMe),
     takeLatest(AUTH.LOGOUT, handleLogout),
     takeLatest(

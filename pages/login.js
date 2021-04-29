@@ -1,6 +1,8 @@
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
+import { motion } from 'framer-motion';
+import { variants } from '../services/framer-variants';
 import Head from 'next/head';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -70,15 +72,6 @@ export default function SignInSide() {
     <Container>
       <Head>
         <title>Login</title>
-        <meta
-          name='viewport'
-          content='minimum-scale=1, initial-scale=1, width=device-width'
-        />
-        <link rel='icon' href='/favicon.ico' />
-        <link
-          rel='stylesheet'
-          href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap'
-        />
       </Head>
       <Grid container component='main'>
         <Grid item xs={12}>
