@@ -172,6 +172,12 @@ export default function Home(props) {
                       <InputAdornment position='start'>@</InputAdornment>
                     ),
                   }}
+                  error={validationErrors && validationErrors.username}
+                  helperText={
+                    validationErrors.username
+                      ? Object.values(validationErrors.username).join(', ')
+                      : ''
+                  }
                 />
                 <TileTextField
                   value={email}
@@ -182,6 +188,12 @@ export default function Home(props) {
                   name='email'
                   label='Email'
                   type='email'
+                  error={validationErrors && validationErrors.email}
+                  helperText={
+                    validationErrors.email
+                      ? Object.values(validationErrors.email).join(', ')
+                      : ''
+                  }
                 />
                 <TileTextField
                   value={phone}
@@ -192,6 +204,12 @@ export default function Home(props) {
                   name='phone'
                   label='Phone'
                   type='phone'
+                  error={validationErrors && validationErrors.phoneNumber}
+                  helperText={
+                    validationErrors.phoneNumber
+                      ? Object.values(validationErrors.phoneNumber).join(', ')
+                      : ''
+                  }
                 />
                 <Button variant='outlined' type='submit' disabled={fetching}>
                   Update
