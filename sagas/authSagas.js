@@ -201,13 +201,6 @@ function* handleUpdateProfile(action) {
       description,
       headline,
     });
-    yield put(
-      snackbar.update({
-        open: true,
-        message: 'Profile Update Successfully!',
-        severity: 'success',
-      })
-    );
     yield put(auth.success({}));
     const { callback } = action.payload;
     if (callback) {
@@ -215,13 +208,10 @@ function* handleUpdateProfile(action) {
     }
   } catch (e) {
     yield put(auth.failure({ error: { ...e } }));
-    yield put(
-      snackbar.update({
-        open: true,
-        message: e.response.data.message,
-        severity: 'error',
-      })
-    );
+    const { callback } = action.payload;
+    if (callback) {
+      yield call(callback);
+    }
   }
 }
 
