@@ -31,6 +31,10 @@ import {
 import { useSelector } from 'react-redux';
 import Layout from '../../components/layout-settings';
 import { fetchingSelector } from '../../selectors/authSelector';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -79,6 +83,7 @@ export default function Home(props) {
   const [password_old, set_password_old] = React.useState('');
   const [verificationViaSms, set_verificationViaSms] = React.useState(false);
   const [authenticatorApp, set_authenticatorApp] = React.useState(true);
+  const [alert, setAlert] = React.useState(false);
 
   const currentUser = useSelector(currentUserSelector);
   const loginSessions = useSelector(currentUserSessionsSelector);
@@ -97,7 +102,11 @@ export default function Home(props) {
   const classes = useStyles();
   const handleUpdate = (event) => {
     event.preventDefault();
-    dispatch(auth.updateProfile({ username, email, phoneNumber: phone }));
+    // dispatch(auth.updateProfile({ username, email, phoneNumber: phone }));
+    setAlert(true);
+    setTimeout(() => {
+      setAlert(false);
+    }, 6000);
   };
   const handleUpdatePassword = (event) => {
     event.preventDefault();
