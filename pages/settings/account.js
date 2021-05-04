@@ -32,6 +32,7 @@ import { useSelector } from 'react-redux';
 import Layout from '../../components/layout-settings';
 import { fetchingSelector } from '../../selectors/authSelector';
 import BottomAlert from '../../components/bottom-alert';
+import { errorSelector } from '../../selectors/authSelector';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -88,6 +89,7 @@ const linkedAccounts = [
 
 export default function Home(props) {
   const fetching = useSelector(fetchingSelector);
+  const error = useSelector(errorSelector);
   const dispatch = useDispatch();
   const [editLinkedAccount, set_editLinkedAccount] = React.useState(null);
   const [editLinkedAccountText, set_editLinkedAccountText] = React.useState(
@@ -100,10 +102,11 @@ export default function Home(props) {
   const [password_old, set_password_old] = React.useState('');
   const [verificationViaSms, set_verificationViaSms] = React.useState(false);
   const [authenticatorApp, set_authenticatorApp] = React.useState(true);
+  const [validationErrors, setValidationErrors] = React.useState({});
   const [alert, setAlert] = React.useState(false);
-
   const currentUser = useSelector(currentUserSelector);
   const loginSessions = useSelector(currentUserSessionsSelector);
+
   useEffect(() => {
     if (currentUser) {
       set_username(currentUser.username);
@@ -125,11 +128,19 @@ export default function Home(props) {
   const classes = useStyles();
   const handleUpdate = (event) => {
     event.preventDefault();
-    // dispatch(auth.updateProfile({ username, email, phoneNumber: phone }));
-    setAlert(true);
-    setTimeout(() => {
-      setAlert(false);
-    }, 6000);
+    dispatch(
+      auth.updateProfile({
+        username,
+        email,
+        phoneNumber: phone,
+        callback: () => {
+          setAlert(true);
+          setTimeout(() => {
+            setAlert(false);
+          }, 6000);
+        },
+      })
+    );
   };
   const handleUpdatePassword = (event) => {
     event.preventDefault();
