@@ -40,6 +40,26 @@ const useStyles = makeStyles((theme) => ({
   root: {
     // marginTop: '150px',
   },
+  appBar: {
+    top: 'auto',
+    bottom: 0,
+    height: 50,
+    backgroundColor: '#333',
+    justifyContent: 'center',
+  },
+  alert: {
+    justifyContent: 'center',
+    height: 20,
+    alignItems: 'center',
+    // marginTop: -10,
+  },
+  message: {
+    color: 'white',
+    fontSize: 14,
+  },
+  grow: {
+    color: '#05D912',
+  },
 }));
 
 const linkedAccounts = [
@@ -330,6 +350,22 @@ export default function Home(props) {
             </form>
           </Grid>
         </Grid>
+        {alert && (
+          <AppBar position='fixed' className={classes.appBar}>
+            <Toolbar className={classes.alert}>
+              <IconButton>
+                <CheckCircleOutlineIcon
+                  color='primary'
+                  fontSize='small'
+                  className={classes.grow}
+                />
+              </IconButton>
+              <Typography className={classes.message}>
+                Profile Updated Successfully
+              </Typography>
+            </Toolbar>
+          </AppBar>
+        )}
       </Layout>
     </motion.div>
   );
