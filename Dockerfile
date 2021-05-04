@@ -10,28 +10,23 @@ ARG REACT_APP_BASE_URL
 ENV BACKEND_URL=${REACT_APP_BASE_URL}
 ENV STRIPE_KEY=pk_test_51HtIzzBV9RJUxo9gopHOJW9XVDLKXU8D99DC6nkRn7hoOqlz6096MYeLUyoR77PJL8pnIrtHYRozUlazvej389dT00a9my74EQ
 
-# Copy package.json and package-lock.json before other files
-# Utilise Docker cache to save re-installing dependencies if unchanged
-COPY ./package*.json ./
-
-# Install dependencies
-RUN npm install
-
 # Copy all files
 COPY ./ ./
 
-# Build app
-RUN npm run build
+# Install dependencies
+RUN yarn install
 
-# make /.next/cache directory
-# RUN mkdir /usr/app/.next/cache
+# Build app
+RUN yarn run build
 
 # Expose the listening port
 EXPOSE 3000
 
+RUN chown -R node:node /usr/app/.next/
+
 # Run container as non-root (unprivileged) user
 # The node user is provided in the Node.js Alpine base image
-# USER node
+USER node
 
-# Run npm start script when container starts
-CMD [ "npm", "start" ]
+# Run yarn start script when container starts
+CMD [ "yarn", "start" ]
