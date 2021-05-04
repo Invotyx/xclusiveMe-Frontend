@@ -31,10 +31,7 @@ import {
 import { useSelector } from 'react-redux';
 import Layout from '../../components/layout-settings';
 import { fetchingSelector } from '../../selectors/authSelector';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
+import BottomAlert from '../../components/bottom-alert';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -118,6 +115,12 @@ export default function Home(props) {
   useEffect(() => {
     dispatch(auth.getSessions());
   }, []);
+
+  useEffect(() => {
+    if (error?.response?.data?.errors) {
+      setValidationErrors(Object.assign(...error.response.data.errors));
+    }
+  }, [error]);
 
   const classes = useStyles();
   const handleUpdate = (event) => {
@@ -350,22 +353,7 @@ export default function Home(props) {
             </form>
           </Grid>
         </Grid>
-        {alert && (
-          <AppBar position='fixed' className={classes.appBar}>
-            <Toolbar className={classes.alert}>
-              <IconButton>
-                <CheckCircleOutlineIcon
-                  color='primary'
-                  fontSize='small'
-                  className={classes.grow}
-                />
-              </IconButton>
-              <Typography className={classes.message}>
-                Profile Updated Successfully
-              </Typography>
-            </Toolbar>
-          </AppBar>
-        )}
+        {alert && <BottomAlert error={error} />}
       </Layout>
     </motion.div>
   );
