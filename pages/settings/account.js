@@ -38,26 +38,6 @@ const useStyles = makeStyles((theme) => ({
   root: {
     // marginTop: '150px',
   },
-  appBar: {
-    top: 'auto',
-    bottom: 0,
-    height: 50,
-    backgroundColor: '#333',
-    justifyContent: 'center',
-  },
-  alert: {
-    justifyContent: 'center',
-    height: 20,
-    alignItems: 'center',
-    // marginTop: -10,
-  },
-  message: {
-    color: 'white',
-    fontSize: 14,
-  },
-  grow: {
-    color: '#05D912',
-  },
 }));
 
 const linkedAccounts = [
