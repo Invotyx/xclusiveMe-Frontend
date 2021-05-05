@@ -57,13 +57,7 @@ export default function FormDialog({ children }) {
         onChange={onChangeFile}
       />
 
-      <CardActionArea
-        onClick={(event) => {
-          event.stopPropagation();
-          event.preventDefault();
-          return inputFile.current.click();
-        }}
-      >
+      <CardActionArea onClick={() => inputFile.current.click()}>
         {children}
         <CardMedia
           className={classes.media}
