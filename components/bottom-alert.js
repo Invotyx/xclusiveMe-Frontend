@@ -6,8 +6,13 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import CancelOutlinedIcon from '@material-ui/icons/CancelOutlined';
-import { errorSelector } from '../selectors/authSelector';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  severitySelector,
+  openSelector,
+  bottomAlertMessageSelector,
+} from '../selectors/bottomAlertSelector';
+import { bottomalert } from '../actions/bottom-alert';
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
