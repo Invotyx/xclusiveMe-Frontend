@@ -158,6 +158,7 @@ export default function Home(props) {
                       : ''
                   }
                 />
+
                 <TileTextField
                   value={email}
                   onChange={(e) => set_email(e.target.value)}
@@ -174,6 +175,7 @@ export default function Home(props) {
                       : ''
                   }
                 />
+
                 <TileTextField
                   value={phone}
                   onChange={(e) => set_phone(e.target.value)}
@@ -273,6 +275,12 @@ export default function Home(props) {
                   name='password'
                   label='Password'
                   type='password'
+                  error={validationErrors && validationErrors.password}
+                  helperText={
+                    validationErrors.password
+                      ? Object.values(validationErrors.password).join(', ')
+                      : ''
+                  }
                 />
                 {password && (
                   <TileTextField
@@ -284,6 +292,12 @@ export default function Home(props) {
                     name='password_old'
                     label='Old Password'
                     type='password'
+                    error={validationErrors && validationErrors.oldPassword}
+                    helperText={
+                      validationErrors.oldPassword
+                        ? Object.values(validationErrors.oldPassword).join(', ')
+                        : ''
+                    }
                   />
                 )}
                 <Button variant='outlined' type='submit' disabled={fetching}>
@@ -361,7 +375,6 @@ export default function Home(props) {
             </form>
           </Grid>
         </Grid>
-        {alert && <BottomAlert error={error} />}
       </Layout>
     </motion.div>
   );
