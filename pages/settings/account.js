@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { motion } from 'framer-motion';
 import { variants } from '../../services/framer-variants';
@@ -31,7 +31,6 @@ import {
 import { useSelector } from 'react-redux';
 import Layout from '../../components/layout-settings';
 import { fetchingSelector } from '../../selectors/authSelector';
-import BottomAlert from '../../components/bottom-alert';
 import { errorSelector } from '../../selectors/authSelector';
 
 const useStyles = makeStyles((theme) => ({
@@ -83,7 +82,6 @@ export default function Home(props) {
   const [verificationViaSms, set_verificationViaSms] = React.useState(false);
   const [authenticatorApp, set_authenticatorApp] = React.useState(true);
   const [validationErrors, setValidationErrors] = React.useState({});
-  const [alert, setAlert] = React.useState(false);
   const currentUser = useSelector(currentUserSelector);
   const loginSessions = useSelector(currentUserSessionsSelector);
 
@@ -102,6 +100,8 @@ export default function Home(props) {
   useEffect(() => {
     if (error?.response?.data?.errors) {
       setValidationErrors(Object.assign(...error.response.data.errors));
+    } else {
+      setValidationErrors({});
     }
   }, [error]);
 
@@ -113,12 +113,6 @@ export default function Home(props) {
         username,
         email,
         phoneNumber: phone,
-        callback: () => {
-          setAlert(true);
-          setTimeout(() => {
-            setAlert(false);
-          }, 6000);
-        },
       })
     );
   };
