@@ -118,7 +118,12 @@ export default function Home(props) {
   };
   const handleUpdatePassword = (event) => {
     event.preventDefault();
-    dispatch(auth.updateProfile({ password, oldPassword: password_old }));
+    dispatch(
+      auth.updateProfile({
+        password,
+        oldPassword: password_old,
+      })
+    );
   };
   const handleLogOutAllSessions = () => {
     dispatch(auth.expireAllSessions());
