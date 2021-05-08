@@ -23,6 +23,7 @@ import {
   verifyForgotPasswordToken,
   twoFactorAuthentication,
 } from '../services/user';
+import { bottomalert } from '../actions/bottom-alert';
 
 function* handleLogin(action) {
   try {
@@ -202,15 +203,40 @@ function* handleUpdateProfile(action) {
       headline,
     });
     yield put(auth.success({}));
+    if ((password || oldPassword) === undefined) {
+      yield put(
+        bottomalert.update({
+          open: true,
+          message: 'Profile Updated Successfully!',
+          severity: 'success',
+        })
+      );
+    } else {
+      yield put(
+        bottomalert.update({
+          open: true,
+          message: 'Password Changed Successfully!',
+          severity: 'success',
+        })
+      );
+    }
     const { callback } = action.payload;
     if (callback) {
       yield call(callback);
     }
   } catch (e) {
     yield put(auth.failure({ error: { ...e } }));
+    yield put(
+      bottomalert.update({
+        open: true,
+        message: 'SomeThing Went Wrong!',
+        severity: 'error',
+      })
+    );
+    const errorCaught = true;
     const { callback } = action.payload;
     if (callback) {
-      yield call(callback);
+      yield call(callback, errorCaught);
     }
   }
 }
@@ -355,9 +381,23 @@ function* handleUploadImage({ payload }) {
     const { fileObject } = payload;
     yield call(uploadImage, fileObject);
     yield call(auth.me);
+    yield put(
+      bottomalert.update({
+        open: true,
+        message: 'Image Updated Successfully!',
+        severity: 'success',
+      })
+    );
   } catch (error) {
     console.log('Error occurred in UPLOAD_IMAGE');
     console.log(error);
+    yield put(
+      bottomalert.update({
+        open: true,
+        message: 'SomeThing Went Wrong!',
+        severity: 'error',
+      })
+    );
   }
 }
 
@@ -366,9 +406,23 @@ function* handleUploadCover({ payload }) {
     const { fileObject } = payload;
     yield call(uploadCover, fileObject);
     yield call(auth.me);
+    yield put(
+      bottomalert.update({
+        open: true,
+        message: 'Image Updated Successfully!',
+        severity: 'success',
+      })
+    );
   } catch (error) {
     console.log('Error occurred in UPLOAD_IMAGE');
     console.log(error);
+    yield put(
+      bottomalert.update({
+        open: true,
+        message: 'Something Went Wrong!',
+        severity: 'error',
+      })
+    );
   }
 }
 
