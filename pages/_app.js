@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { darkTheme } from '../theme';
@@ -6,6 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Head from 'next/head';
 import { wrapper } from '../store';
 import { AppSnackbar } from '../components/AppSnackbar';
+import BottomAlert from '../components/bottom-alert';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -36,6 +37,7 @@ function MyApp({ Component, pageProps }) {
         <CssBaseline />
         <Component {...pageProps} />
         <AppSnackbar />
+        <BottomAlert />
       </ThemeProvider>
     </div>
   );
