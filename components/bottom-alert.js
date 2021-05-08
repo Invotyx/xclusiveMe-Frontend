@@ -59,10 +59,10 @@ export default function BottomAlert() {
 
   return (
     <>
-      <AppBar position='fixed' className={classes.appBar}>
-        <Toolbar className={classes.alert}>
-          {errorMessage ? (
-            <>
+      {open && (
+        <AppBar position='fixed' className={classes.appBar}>
+          {severity === 'error' ? (
+            <Toolbar className={classes.alert}>
               <IconButton>
                 <CancelOutlinedIcon
                   color='primary'
