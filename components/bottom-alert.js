@@ -70,12 +70,10 @@ export default function BottomAlert() {
                   className={classes.grow1}
                 />
               </IconButton>
-              <Typography className={classes.message}>
-                {errorMessage}
-              </Typography>
-            </>
+              <Typography className={classes.message}>{message}</Typography>
+            </Toolbar>
           ) : (
-            <>
+            <Toolbar className={classes.alert}>
               <IconButton>
                 <CheckCircleOutlineIcon
                   color='primary'
@@ -83,13 +81,11 @@ export default function BottomAlert() {
                   className={classes.grow}
                 />
               </IconButton>
-              <Typography className={classes.message}>
-                Profile Updated Successfully
-              </Typography>
-            </>
+              <Typography className={classes.message}>{message}</Typography>
+            </Toolbar>
           )}
-        </Toolbar>
-      </AppBar>
+        </AppBar>
+      )}
     </>
   );
 }
