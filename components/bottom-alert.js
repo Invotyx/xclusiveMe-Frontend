@@ -52,10 +52,11 @@ export default function BottomAlert() {
   }, [open]);
 
   useEffect(() => {
-    if (error?.response?.data?.errors) {
-      setErrorMessage('SomeThing Went Wrong');
-    }
-  }, [error]);
+    setTimeout(() => {
+      dispatch(bottomalert.update({ open: false }));
+    }, 6000);
+  }, [open]);
+
   return (
     <>
       <AppBar position='fixed' className={classes.appBar}>
