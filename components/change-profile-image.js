@@ -27,7 +27,13 @@ export default function FormDialog({ children }) {
         style={{ display: 'none' }}
         onChange={onChangeFile}
       />
-      <Button onClick={() => inputFile.current.click()}>{children}</Button>
+      <Button
+        onClick={() => {
+          inputFile.current.click();
+        }}
+      >
+        {children}
+      </Button>
     </>
   );
 }
