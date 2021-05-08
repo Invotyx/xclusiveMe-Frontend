@@ -42,8 +42,15 @@ const useStyles = makeStyles((theme) => ({
 
 export default function BottomAlert() {
   const classes = useStyles();
-  const error = useSelector(errorSelector);
-  const [errorMessage, setErrorMessage] = React.useState('');
+  const dispatch = useDispatch();
+  const severity = useSelector(severitySelector);
+  const open = useSelector(openSelector);
+  const message = useSelector(bottomAlertMessageSelector);
+
+  useEffect(() => {
+    dispatch(bottomalert.update({ open, message, severity }));
+  }, [open]);
+
   useEffect(() => {
     if (error?.response?.data?.errors) {
       setErrorMessage('SomeThing Went Wrong');
