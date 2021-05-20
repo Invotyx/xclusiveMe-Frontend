@@ -39,6 +39,11 @@ const darkTheme = createMuiTheme({
         color: darkText,
       },
     },
+    MuiBackdrop: {
+      root: {
+        backgroundColor: `rgba(50, 50, 50, 0.5)`,
+      },
+    },
     MuiMenuItem: {
       root: {
         minWidth: '260px',
@@ -54,6 +59,11 @@ const darkTheme = createMuiTheme({
     MuiOutlinedInput: {
       notchedOutline: {
         borderColor: darkBorder,
+      },
+    },
+    MuiDialog: {
+      paper: {
+        backgroundColor: '#000',
       },
     },
     MuiButton: {
