@@ -175,7 +175,9 @@ export default function NewPostDialog() {
               <CardContent>
                 <Box display='flex'>
                   <Box flexGrow={1}>
-                    <Typography variant='h6'>Add to your post</Typography>
+                    <Typography variant='subtitle1'>
+                      Add to your post
+                    </Typography>
                   </Box>
                   <Box mx={1}>
                     <Box clone color='#666'>
