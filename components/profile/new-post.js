@@ -221,6 +221,8 @@ export default function NewPostDialog() {
                     <Box clone color='#666'>
                       {_show_price_input ? (
                         <TextField
+                          name='price'
+                          type='number'
                           variant='outlined'
                           margin='dense'
                           InputProps={{
