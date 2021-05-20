@@ -17,7 +17,7 @@ import GridList from '@material-ui/core/GridList';
 import MuiGridListTile from '@material-ui/core/GridListTile';
 import MuiGridListTileBar from '@material-ui/core/GridListTileBar';
 import RoundedButton from '../RoundedButton';
-import TileTextField from '../TileTextField';
+import TextField from '@material-ui/core/TextField';
 import MuiOutlinedInput from '@material-ui/core/OutlinedInput';
 import CameraAltOutlinedIcon from '@material-ui/icons/CameraAltOutlined';
 import WallpaperOutlinedIcon from '@material-ui/icons/WallpaperOutlined';
@@ -220,7 +220,7 @@ export default function NewPostDialog() {
                   <Box mx={1}>
                     <Box clone color='#666'>
                       {_show_price_input ? (
-                        <TileTextField
+                        <TextField
                           variant='outlined'
                           margin='dense'
                           InputProps={{
