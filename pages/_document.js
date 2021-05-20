@@ -10,10 +10,6 @@ export default class MyDocument extends Document {
         <Head>
           {/* PWA primary color */}
           <meta name='theme-color' content={darkTheme.palette.primary.main} />
-          <meta
-            name='viewport'
-            content='minimum-scale=1, initial-scale=1, width=device-width'
-          />
           <link rel='icon' href='/favicon.ico' />
 
           <link rel='icon' href='/favicon.ico' />
