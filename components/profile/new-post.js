@@ -45,7 +45,6 @@ const tileData = [
   {
     img: 'https://material-ui.com/static/images/grid-list/burgers.jpg',
   },
-  },
 ];
 
 const DialogTitle = withStyles(styles)((props) => {
