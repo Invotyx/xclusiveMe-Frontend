@@ -1,11 +1,9 @@
 import { useRouter } from 'next/router';
 import React from 'react';
 import Link from '@material-ui/core/Link';
-import Image from 'next/image';
 import NextLink from 'next/link';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import RoundedButton from './RoundedButton';
 import IconButton from '@material-ui/core/IconButton';
 import Box from '@material-ui/core/Box';
 import Badge from '@material-ui/core/Badge';
@@ -21,6 +19,7 @@ import SortIcon from '@material-ui/icons/Sort';
 import Logo from './logo';
 import Notification from './notification';
 import ProfieImageAvatar from './profile-image-avatar';
+import NewPostDialog from './profile/new-post';
 
 export default function Comp({ sidebarMenu, set_sidebarMenu }) {
   const dispatch = useDispatch();
@@ -93,19 +92,7 @@ export default function Comp({ sidebarMenu, set_sidebarMenu }) {
             <Box flexGrow={1} display={{ xs: 'none', sm: 'none', md: 'flex' }}>
               <Box display='flex'>
                 <Box mr={1} display='flex'>
-                  <RoundedButton
-                    color='inherit'
-                    startIcon={
-                      <Image
-                        width={20}
-                        height={20}
-                        src='/new-post-icon.svg'
-                        alt='new post'
-                      />
-                    }
-                  >
-                    New Post
-                  </RoundedButton>
+                  <NewPostDialog />
                 </Box>
                 <NextLink href='/profile'>
                   <IconButton component='a' color='inherit'>
