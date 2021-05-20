@@ -23,6 +23,7 @@ import WallpaperOutlinedIcon from '@material-ui/icons/WallpaperOutlined';
 import VideocamOutlinedIcon from '@material-ui/icons/VideocamOutlined';
 import GraphicEqRoundedIcon from '@material-ui/icons/GraphicEqRounded';
 import LocalOfferOutlinedIcon from '@material-ui/icons/LocalOfferOutlined';
+import AddIcon from '@material-ui/icons/Add';
 
 const styles = (theme) => ({
   root: {
@@ -157,6 +158,15 @@ export default function NewPostDialog() {
                       />
                     </GridListTile>
                   ))}
+                  <MuiGridListTile>
+                    <GridListTileBar
+                      actionIcon={
+                        <IconButton size='small' variant='text'>
+                          <AddIcon />
+                        </IconButton>
+                      }
+                    />
+                  </MuiGridListTile>
                 </GridList>
               </CardContent>
             </Card>
