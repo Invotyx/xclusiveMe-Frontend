@@ -14,7 +14,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import SendIcon from '@material-ui/icons/Send';
 import Typography from '@material-ui/core/Typography';
 import GridList from '@material-ui/core/GridList';
-import GridListTile from '@material-ui/core/GridListTile';
+import MuiGridListTile from '@material-ui/core/GridListTile';
 import MuiGridListTileBar from '@material-ui/core/GridListTileBar';
 import RoundedButton from '../RoundedButton';
 import TileTextField from '../TileTextField';
@@ -72,6 +72,17 @@ const DialogContent = withStyles((theme) => ({
     padding: theme.spacing(2),
   },
 }))(MuiDialogContent);
+
+const GridListTile = withStyles(() => ({
+  tile: {
+    '& > div': {
+      display: 'none',
+    },
+    '&:hover > div': {
+      display: 'flex',
+    },
+  },
+}))(MuiGridListTile);
 
 const GridListTileBar = withStyles(() => ({
   root: {
