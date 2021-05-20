@@ -96,6 +96,7 @@ const GridListTileBar = withStyles(() => ({
 
 export default function NewPostDialog() {
   const [open, setOpen] = React.useState(false);
+  const [_show_price_input, set_show_price_input] = React.useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -209,9 +210,23 @@ export default function NewPostDialog() {
                   </Box>
                   <Box mx={1}>
                     <Box clone color='#666'>
-                      <IconButton size='small'>
-                        <LocalOfferOutlinedIcon />
-                      </IconButton>
+                      {_show_price_input ? (
+                        <TileTextField
+                          variant='outlined'
+                          margin='dense'
+                          InputProps={{
+                            startAdornment: <LocalOfferOutlinedIcon />,
+                          }}
+                          style={{ width: '100px' }}
+                        />
+                      ) : (
+                        <IconButton
+                          size='small'
+                          onClick={() => set_show_price_input(true)}
+                        >
+                          <LocalOfferOutlinedIcon />
+                        </IconButton>
+                      )}
                     </Box>
                   </Box>
                 </Box>
