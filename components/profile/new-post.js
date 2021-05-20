@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { withStyles } from '@material-ui/core/styles';
 import GreenButton from '../GreenButton';
 import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -12,6 +13,9 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import SendIcon from '@material-ui/icons/Send';
 import Typography from '@material-ui/core/Typography';
+import GridList from '@material-ui/core/GridList';
+import GridListTile from '@material-ui/core/GridListTile';
+import MuiGridListTileBar from '@material-ui/core/GridListTileBar';
 import RoundedButton from '../RoundedButton';
 import TileTextField from '../TileTextField';
 import CameraAltOutlinedIcon from '@material-ui/icons/CameraAltOutlined';
@@ -32,6 +36,16 @@ const styles = (theme) => ({
     color: theme.palette.grey[500],
   },
 });
+
+const tileData = [
+  {
+    img: 'https://material-ui.com/static/images/grid-list/breakfast.jpg',
+  },
+  {
+    img: 'https://material-ui.com/static/images/grid-list/burgers.jpg',
+  },
+  },
+];
 
 const DialogTitle = withStyles(styles)((props) => {
   const { children, classes, onClose, ...other } = props;
@@ -58,6 +72,16 @@ const DialogContent = withStyles((theme) => ({
     padding: theme.spacing(2),
   },
 }))(MuiDialogContent);
+
+const GridListTileBar = withStyles(() => ({
+  root: {
+    height: `100%`,
+    justifyContent: 'center',
+  },
+  titleWrap: {
+    display: 'none',
+  },
+}))(MuiGridListTileBar);
 
 export default function NewPostDialog() {
   const [open, setOpen] = React.useState(false);
@@ -105,6 +129,26 @@ export default function NewPostDialog() {
               rows={5}
               placeholder='Compose a new post'
             />
+            <Card>
+              <CardContent>
+                <GridList cellHeight={100} cols={4}>
+                  {tileData.map((tile) => (
+                    <GridListTile key={tile.img}>
+                      <img src={tile.img} alt={tile.title} />
+                      <GridListTileBar
+                        titlePosition='top'
+                        actionPosition='left'
+                        actionIcon={
+                          <Button size='small' variant='outlined'>
+                            Remove
+                          </Button>
+                        }
+                      />
+                    </GridListTile>
+                  ))}
+                </GridList>
+              </CardContent>
+            </Card>
           </Box>
           <Box mb={3}>
             <Card>
