@@ -89,6 +89,9 @@ const GridListTileBar = withStyles(() => ({
     height: `100%`,
     justifyContent: 'center',
   },
+  tile: {
+    borderRadius: 6,
+  },
   titleWrap: {
     display: 'none',
   },
