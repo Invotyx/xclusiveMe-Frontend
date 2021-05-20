@@ -217,7 +217,11 @@ export default function NewPostDialog() {
                           InputProps={{
                             startAdornment: <LocalOfferOutlinedIcon />,
                           }}
-                          style={{ width: '100px', margin: 0 }}
+                          style={{
+                            width: '100px',
+                            margin: 0,
+                            marginTop: '-5px',
+                          }}
                         />
                       ) : (
                         <IconButton
