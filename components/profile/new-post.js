@@ -31,7 +31,9 @@ const DialogTitle = withStyles(styles)((props) => {
   const { children, classes, onClose, ...other } = props;
   return (
     <MuiDialogTitle disableTypography className={classes.root} {...other}>
-      <Typography variant='h6'>{children}</Typography>
+      <Box textAlign='center'>
+        <Typography variant='h6'>{children}</Typography>
+      </Box>
       {onClose ? (
         <IconButton
           aria-label='close'
