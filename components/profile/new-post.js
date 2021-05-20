@@ -18,6 +18,7 @@ import MuiGridListTile from '@material-ui/core/GridListTile';
 import MuiGridListTileBar from '@material-ui/core/GridListTileBar';
 import RoundedButton from '../RoundedButton';
 import TileTextField from '../TileTextField';
+import MuiOutlinedInput from '@material-ui/core/OutlinedInput';
 import CameraAltOutlinedIcon from '@material-ui/icons/CameraAltOutlined';
 import WallpaperOutlinedIcon from '@material-ui/icons/WallpaperOutlined';
 import VideocamOutlinedIcon from '@material-ui/icons/VideocamOutlined';
@@ -66,6 +67,12 @@ const DialogTitle = withStyles(styles)((props) => {
     </MuiDialogTitle>
   );
 });
+
+const OutlinedInput = withStyles((theme) => ({
+  notchedOutline: {
+    borderWidth: '0 !important',
+  },
+}))(MuiOutlinedInput);
 
 const DialogContent = withStyles((theme) => ({
   root: {
@@ -136,11 +143,10 @@ export default function NewPostDialog() {
         </DialogTitle>
         <DialogContent>
           <Box mb={3}>
-            <TileTextField
+            <OutlinedInput
               name='postText'
               multiline
               fullWidth
-              variant='outlined'
               rows={5}
               placeholder='Compose a new post'
             />
