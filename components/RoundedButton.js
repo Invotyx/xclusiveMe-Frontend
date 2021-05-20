@@ -1,7 +1,7 @@
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 
-const StyledButton = withStyles({
+const RoundedButton = withStyles({
   root: {
     borderRadius: '30px',
     paddingLeft: '30px',
@@ -9,4 +9,4 @@ const StyledButton = withStyles({
     backgroundColor: '#111',
   },
 })(Button);
-export default StyledButton;
+export default RoundedButton;
