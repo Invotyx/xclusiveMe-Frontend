@@ -26,6 +26,8 @@ import GraphicEqRoundedIcon from '@material-ui/icons/GraphicEqRounded';
 import LocalOfferOutlinedIcon from '@material-ui/icons/LocalOfferOutlined';
 import AddIcon from '@material-ui/icons/Add';
 import NewPostPriceHelpPopover from './new-post-price-help-popover';
+import { useDispatch } from 'react-redux';
+import { post } from '../../actions/post';
 
 const styles = (theme) => ({
   root: {
@@ -106,9 +108,10 @@ const GridListTileBar = withStyles(() => ({
 }))(MuiGridListTileBar);
 
 export default function NewPostDialog() {
+  const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
   const [_show_price_input, set_show_price_input] = React.useState(false);
-  const [_price, set_price] = React.useState(false);
+  const [price, set_price] = React.useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -236,7 +239,7 @@ export default function NewPostDialog() {
                             margin: 0,
                             marginTop: '-5px',
                           }}
-                          value={_price}
+                          value={price}
                           onChange={(e) => set_price(e.target.value)}
                         />
                       ) : (
