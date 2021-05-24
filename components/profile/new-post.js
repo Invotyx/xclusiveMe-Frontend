@@ -110,6 +110,7 @@ const GridListTileBar = withStyles(() => ({
 export default function NewPostDialog() {
   const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
+  const [disabled, set_disabled] = React.useState(false);
   const [_show_price_input, set_show_price_input] = React.useState(false);
   const [price, set_price] = React.useState(false);
   const [postText, set_postText] = React.useState(false);
@@ -281,6 +282,7 @@ export default function NewPostDialog() {
               variant='contained'
               size='large'
               startIcon={<SendIcon />}
+              disabled={disabled}
             >
               Post now
             </GreenButton>
