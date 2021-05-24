@@ -121,6 +121,9 @@ export default function NewPostDialog() {
     setOpen(false);
   };
 
+  const handleCreatePost = () => {
+  };
+
   return (
     <>
       <RoundedButton
@@ -261,7 +264,7 @@ export default function NewPostDialog() {
           </Box>
           <Box mb={3}>
             <GreenButton
-              onClick={handleClose}
+              onClick={handleCreatePost}
               fullWidth
               color='primary'
               variant='contained'
