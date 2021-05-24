@@ -231,7 +231,7 @@ export default function NewPostDialog() {
                             endAdornment: <NewPostPriceHelpPopover />,
                           }}
                           style={{
-                            width: '100px',
+                            width: '140px',
                             margin: 0,
                             marginTop: '-5px',
                           }}
