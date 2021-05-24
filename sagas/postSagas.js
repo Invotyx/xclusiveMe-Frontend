@@ -15,8 +15,8 @@ function* handleGet() {
 
 function* handlePost(action) {
   try {
-    const { name, token } = action.payload;
-    yield call(add, name, token);
+    const { saveData } = action.payload;
+    yield call(add, saveData);
     yield put(post.success({}));
     yield call(post.request);
     yield put(
