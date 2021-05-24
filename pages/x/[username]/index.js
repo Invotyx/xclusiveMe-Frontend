@@ -9,7 +9,7 @@ export default function Profile() {
   const dispatch = useDispatch();
   const router = useRouter();
   const { username } = router.query;
-  useEffect(() => dispatch(user.requestOne(username), [dispatch]));
+  useEffect(() => dispatch(user.requestOne(username)), [username]);
   const u = useSelector(singleSelector);
 
   return <User user={u} />;
