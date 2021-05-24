@@ -5,6 +5,7 @@ import snackbarReducer from './snackbarReducer';
 import paymentReducer from './paymentReducer';
 import userReducer from './userReducer';
 import bottomAlertReducer from './bottomAlertReducer';
+import postReducer from './postReducer';
 
 const rootReducer = () =>
   combineReducers({
@@ -13,6 +14,7 @@ const rootReducer = () =>
     employeeData: employeeReducer,
     userData: userReducer,
     paymentData: paymentReducer,
+    postData: postReducer,
     bottomAlertData: bottomAlertReducer,
   });
 

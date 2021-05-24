@@ -122,6 +122,7 @@ export default function NewPostDialog() {
   };
 
   const handleCreatePost = () => {
+    dispatch(post.save({ price, postText }));
   };
 
   return (
