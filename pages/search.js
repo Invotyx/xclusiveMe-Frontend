@@ -50,7 +50,6 @@ export default function Home() {
   };
 
   const handleFollow = (event, user) => {
-    console.log('test');
     event.preventDefault();
     dispatch(subscription.add(user.id));
   };

@@ -18,7 +18,6 @@ function* handleGet() {
 
 function* handleAddSubscription(action) {
   try {
-    console.log('testxx');
     const { id } = action.payload;
     yield call(addSubscription, id);
     yield put(subscription.success({}));
