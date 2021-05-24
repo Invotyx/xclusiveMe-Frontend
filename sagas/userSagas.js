@@ -24,7 +24,7 @@ function* handleGetOne(action) {
   try {
     const { id } = action.payload;
     const { data } = yield call(apiClient.get, `${SERVER_ADDRESS}/users/${id}`);
-    yield put(user.success({ data }));
+    yield put(user.success({ single: data }));
   } catch (e) {
     yield put(user.failure({ error: { ...e } }));
   }

@@ -8,6 +8,10 @@ const userDataSelector = createSelector(userState, (state) => {
   return data;
 });
 
+const singleSelector = createSelector(userState, (state) =>
+  state.get('single')
+);
+
 const fetchingSelector = createSelector(userState, (state) =>
   state.get('fetching')
 );
@@ -17,4 +21,4 @@ const errorSelector = createSelector(userState, (state) => {
 
   return error;
 });
-export { userDataSelector, fetchingSelector, errorSelector };
+export { userDataSelector, singleSelector, fetchingSelector, errorSelector };

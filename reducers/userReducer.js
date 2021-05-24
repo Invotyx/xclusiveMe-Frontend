@@ -6,6 +6,7 @@ const initialState = fromJS({
   fetching: false,
   success: false,
   error: null,
+  single: null,
 });
 
 export default function userReducer(state = initialState, action) {
