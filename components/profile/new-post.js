@@ -42,14 +42,7 @@ const styles = (theme) => ({
   },
 });
 
-const tileData = [
-  {
-    img: 'https://material-ui.com/static/images/grid-list/breakfast.jpg',
-  },
-  {
-    img: 'https://material-ui.com/static/images/grid-list/burgers.jpg',
-  },
-];
+const tileData = [];
 
 const DialogTitle = withStyles(styles)((props) => {
   const { children, classes, onClose, ...other } = props;
