@@ -190,15 +190,17 @@ export default function NewPostDialog() {
                       />
                     </GridListTile>
                   ))}
-                  <MuiGridListTile>
-                    <GridListTileBar
-                      actionIcon={
-                        <IconButton size='small' variant='text'>
-                          <AddIcon />
-                        </IconButton>
-                      }
-                    />
-                  </MuiGridListTile>
+                  {tileData && tileData.length > 0 && (
+                    <MuiGridListTile>
+                      <GridListTileBar
+                        actionIcon={
+                          <IconButton size='small' variant='text'>
+                            <AddIcon />
+                          </IconButton>
+                        }
+                      />
+                    </MuiGridListTile>
+                  )}
                 </GridList>
               </CardContent>
             </Card>
