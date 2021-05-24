@@ -25,6 +25,7 @@ import VideocamOutlinedIcon from '@material-ui/icons/VideocamOutlined';
 import GraphicEqRoundedIcon from '@material-ui/icons/GraphicEqRounded';
 import LocalOfferOutlinedIcon from '@material-ui/icons/LocalOfferOutlined';
 import AddIcon from '@material-ui/icons/Add';
+import NewPostPriceHelpPopover from './new-post-price-help-popover';
 
 const styles = (theme) => ({
   root: {
@@ -227,6 +228,7 @@ export default function NewPostDialog() {
                           margin='dense'
                           InputProps={{
                             startAdornment: <LocalOfferOutlinedIcon />,
+                            endAdornment: <NewPostPriceHelpPopover />,
                           }}
                           style={{
                             width: '100px',
