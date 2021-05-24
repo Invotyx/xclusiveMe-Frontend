@@ -23,7 +23,7 @@ import {
   refreshToken,
   verifyForgotPasswordToken,
   twoFactorAuthentication,
-} from '../services/user';
+} from '../services/user.service';
 import { bottomalert } from '../actions/bottom-alert';
 
 function* handleLogin(action) {
