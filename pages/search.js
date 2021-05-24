@@ -49,10 +49,10 @@ export default function Home() {
     dispatch(user.search({ q: _search }));
   };
 
-  const handleFollow = (event, user) => {
-    event.preventDefault();
-    dispatch(subscription.add(user.subscriptionPlans[0]?.id));
-  };
+  // const handleFollow = (event, user) => {
+  //   event.preventDefault();
+  //   dispatch(subscription.add(user.subscriptionPlans[0]?.id));
+  // };
 
   return (
     <motion.div initial='hidden' animate='visible' variants={variants}>
@@ -110,14 +110,14 @@ export default function Home() {
                           }
                         />
                         <ListItemSecondaryAction>
-                          <Button
+                          {/* <Button
                             startIcon={<Add />}
                             size='small'
                             variant='outlined'
                             onClick={(e) => handleFollow(e, u)}
                           >
                             Follow
-                          </Button>
+                          </Button> */}
                         </ListItemSecondaryAction>
                       </ListItem>
                     </Box>
