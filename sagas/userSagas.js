@@ -23,7 +23,10 @@ function* handleGet() {
 function* handleGetOne(action) {
   try {
     const { id } = action.payload;
-    const { data } = yield call(apiClient.get, `${SERVER_ADDRESS}/users/${id}`);
+    const { data } = yield call(
+      apiClient.get,
+      `${SERVER_ADDRESS}/users/get/${id}`
+    );
     yield put(user.success({ single: data }));
   } catch (e) {
     yield put(user.failure({ error: { ...e } }));
