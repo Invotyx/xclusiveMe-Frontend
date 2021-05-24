@@ -122,7 +122,17 @@ export default function NewPostDialog() {
   };
 
   const handleCreatePost = () => {
-    dispatch(post.save({ saveData: { price, postText } }));
+    dispatch(
+      post.save({
+        saveData: {
+          price: parseFloat(price),
+          postText,
+          isPaid: price ? true : false,
+          media: [],
+          mediaCount: 1,
+        },
+      })
+    );
   };
 
   return (
