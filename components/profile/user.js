@@ -28,7 +28,7 @@ import Post from '../post';
 import ProfieImageAvatar from '../profile-image-avatar';
 import ProfileImage from '../change-profile-image';
 import CoverImage from '../change-cover-image';
-import { currentUserSelector } from '../selectors/authSelector';
+import { currentUserSelector } from '../../selectors/authSelector';
 import { useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import Layout from '../layout-auth';
