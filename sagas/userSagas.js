@@ -37,7 +37,7 @@ function* handleSearch(action) {
       apiClient.get,
       `${SERVER_ADDRESS}/users/look/${q}`
     );
-    yield put(user.success({ data }));
+    yield put(user.success({ data: data.results }));
   } catch (e) {
     yield put(user.failure({ error: { ...e } }));
   }
