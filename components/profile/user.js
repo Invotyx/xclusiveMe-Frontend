@@ -28,8 +28,6 @@ import Post from '../post';
 import ProfieImageAvatar from '../profile-image-avatar';
 import ProfileImage from '../change-profile-image';
 import CoverImage from '../change-cover-image';
-import { currentUserSelector } from '../../selectors/authSelector';
-import { useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import Layout from '../layout-auth';
 import UpdateProfile from '../update-profile';
@@ -69,11 +67,9 @@ function TabPanel(props) {
   );
 }
 
-export default function Profile() {
+export default function Profile({ currentUser }) {
   const [tab, setTab] = React.useState(0);
   const classes = useStyles();
-
-  const currentUser = useSelector(currentUserSelector);
 
   return (
     <motion.div initial='hidden' animate='visible' variants={variants}>
