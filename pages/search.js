@@ -71,6 +71,7 @@ export default function Home() {
             <Grid item xs={12}>
               <List>
                 {users &&
+                  users.length > 0 &&
                   users.map((u) => (
                     <Box
                       clone
