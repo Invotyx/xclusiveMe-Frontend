@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { variants } from '../../services/framer-variants';
 import Head from 'next/head';
@@ -67,9 +67,14 @@ function TabPanel(props) {
   );
 }
 
-export default function Profile({ currentUser }) {
+export default function Profile({ user }) {
   const [tab, setTab] = React.useState(0);
+  const [currentUser, setCurrentUser] = React.useState(user);
   const classes = useStyles();
+
+  useEffect(() => {
+    setCurrentUser(user);
+  }, [user]);
 
   return (
     <motion.div initial='hidden' animate='visible' variants={variants}>
