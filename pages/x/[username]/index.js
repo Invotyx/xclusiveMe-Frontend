@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import User from '../../components/profile/user';
+import User from '../../../components/profile/user';
 
 export default function Profile() {
   const router = useRouter();
