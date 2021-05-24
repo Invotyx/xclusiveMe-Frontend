@@ -11,6 +11,7 @@ import {
   verifyOtp,
   resendOtp,
   updateProfile,
+  updateSubscriptionFee,
   uploadImage,
   uploadCover,
   forgotPassword,
@@ -241,6 +242,28 @@ function* handleUpdateProfile(action) {
   }
 }
 
+function* handleUpdateSubscriptionFee(action) {
+  try {
+    const { price } = action.payload;
+
+    yield call(updateSubscriptionFee, { price });
+    yield put(auth.success({}));
+    const { callback } = action.payload;
+    if (callback) {
+      yield call(callback);
+    }
+  } catch (e) {
+    yield put(auth.failure({ error: { ...e } }));
+    yield put(
+      bottomalert.update({
+        open: true,
+        message: 'SomeThing Went Wrong!',
+        severity: 'error',
+      })
+    );
+  }
+}
+
 function* handleForgotPassword(action) {
   try {
     const { email } = action.payload;
@@ -434,6 +457,7 @@ function* watchAuthSagas() {
     takeLatest(AUTH.VERIFY_OTP, handleVerifyOtp),
     takeLatest(AUTH.RESEND_OTP, handleResendOtp),
     takeLatest(AUTH.UPDATE_PROFILE, handleUpdateProfile),
+    takeLatest(AUTH.UPDATE_SUBSCRIPTION_FEE, handleUpdateSubscriptionFee),
     takeLatest(AUTH.UPLOAD_IMAGE, handleUploadImage),
     takeLatest(AUTH.UPLOAD_COVER, handleUploadCover),
     takeLatest(AUTH.FORGOT_PASSWORD, handleForgotPassword),
