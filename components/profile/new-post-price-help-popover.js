@@ -2,7 +2,7 @@ import React from 'react';
 import Popover from '@material-ui/core/Popover';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 
-export default function MouseOverPopover() {
+export default function NewPostPriceHelpPopover() {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handlePopoverOpen = (event) => {
