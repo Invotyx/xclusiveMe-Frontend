@@ -108,6 +108,7 @@ const GridListTileBar = withStyles(() => ({
 export default function NewPostDialog() {
   const [open, setOpen] = React.useState(false);
   const [_show_price_input, set_show_price_input] = React.useState(false);
+  const [_price, set_price] = React.useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -235,6 +236,8 @@ export default function NewPostDialog() {
                             margin: 0,
                             marginTop: '-5px',
                           }}
+                          value={_price}
+                          onChange={(e) => set_price(e.target.value)}
                         />
                       ) : (
                         <IconButton
