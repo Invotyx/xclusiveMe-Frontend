@@ -85,7 +85,7 @@ export default function Home() {
                       clone
                       pt={3}
                       pb={3}
-                      key={u.id}
+                      key={`userx${u.id}`}
                       mb={4}
                       height={100}
                       style={{
@@ -96,7 +96,7 @@ export default function Home() {
                         boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',
                       }}
                     >
-                      <ListItem>
+                      <ListItem key={`user${u.id}`}>
                         <Box clone mr={2}>
                           <ListItemAvatar>
                             <ImageAvatar className={classes.large} user={u} />
