@@ -51,7 +51,7 @@ export default function Home() {
 
   const handleFollow = (event, user) => {
     event.preventDefault();
-    dispatch(subscription.add(user.subscriptionPlan?.id));
+    dispatch(subscription.add(user.subscriptionPlans[0]?.id));
   };
 
   return (
