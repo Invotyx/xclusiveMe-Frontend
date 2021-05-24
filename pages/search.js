@@ -16,6 +16,7 @@ import ImageAvatar from '../components/image-avatar';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchingSelector, userDataSelector } from '../selectors/userSelector';
 import { user } from '../actions/user';
+import { subscription } from '../actions/subscription';
 import {
   Button,
   List,
@@ -46,6 +47,12 @@ export default function Home() {
   const handleSearch = (event) => {
     event.preventDefault();
     dispatch(user.search({ q: _search }));
+  };
+
+  const handleFollow = (event, user) => {
+    console.log('test');
+    event.preventDefault();
+    dispatch(subscription.add(user.id));
   };
 
   return (
@@ -108,6 +115,7 @@ export default function Home() {
                             startIcon={<Add />}
                             size='small'
                             variant='outlined'
+                            onClick={(e) => handleFollow(e, u)}
                           >
                             Follow
                           </Button>
