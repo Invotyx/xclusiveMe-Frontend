@@ -1,17 +1,11 @@
 import React from 'react';
-import CardActionArea from '@material-ui/core/CardActionArea';
 import CardMedia from '@material-ui/core/CardMedia';
-import { useDispatch } from 'react-redux';
-import { auth } from '../actions/auth';
 import { makeStyles } from '@material-ui/core/styles';
 import { useSelector } from 'react-redux';
 import { currentUserSelector } from '../selectors/authSelector';
-import getConfig from 'next/config';
 import { getImage } from '../services/getImage';
-const { publicRuntimeConfig } = getConfig();
-const SERVER_ADDRESS = publicRuntimeConfig.backendUrl;
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   media: {
     zIndex: 1,
     height: 0,
@@ -33,42 +27,19 @@ const useStyles = makeStyles((theme) => ({
 export default function FormDialog({ children }) {
   const userSelector = useSelector(currentUserSelector);
   const classes = useStyles();
-  const dispatch = useDispatch();
-  const inputFile = React.useRef(null);
-
-  const onChangeFile = (event) => {
-    event.stopPropagation();
-    event.preventDefault();
-    var image = event.target.files[0];
-    dispatch(
-      auth.uploadCover({
-        fileObject: image,
-      })
-    );
-  };
 
   return (
     <>
-      <input
-        accept='image/*'
-        type='file'
-        ref={inputFile}
-        style={{ display: 'none' }}
-        onChange={onChangeFile}
+      {children}
+      <CardMedia
+        className={classes.media}
+        image={
+          userSelector && userSelector.coverImage
+            ? getImage(userSelector.coverImage)
+            : '/cover.jpg'
+        }
+        title='Paella dish'
       />
-
-      <CardActionArea onClick={() => inputFile.current.click()}>
-        {children}
-        <CardMedia
-          className={classes.media}
-          image={
-            userSelector && userSelector.coverImage
-              ? getImage(userSelector.coverImage)
-              : '/cover.jpg'
-          }
-          title='Paella dish'
-        />
-      </CardActionArea>
     </>
   );
 }

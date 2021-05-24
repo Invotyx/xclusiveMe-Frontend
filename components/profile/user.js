@@ -28,6 +28,7 @@ import Post from '../post';
 import ProfieImageAvatar from '../profile-image-avatar';
 import ProfileImage from '../change-profile-image';
 import CoverImage from '../change-cover-image';
+import UpdateCoverImage2 from '../update-cover-image-2';
 import { makeStyles } from '@material-ui/core/styles';
 import Layout from '../layout-auth';
 import UpdateProfile from '../update-profile';
@@ -120,9 +121,7 @@ export default function Profile({ user }) {
                       action={
                         <Box display={{ xs: 'none', sm: 'none', md: 'flex' }}>
                           <UpdateProfile />
-                          <IconButton aria-label='settings'>
-                            <MoreVertIcon />
-                          </IconButton>
+                          <UpdateCoverImage2 />
                         </Box>
                       }
                     />
