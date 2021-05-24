@@ -24,16 +24,16 @@ import ListItem from '@material-ui/core/ListItem';
 import Typography from '@material-ui/core/Typography';
 import CardContent from '@material-ui/core/CardContent';
 import Card from '@material-ui/core/Card';
-import Post from '../components/post';
-import ProfieImageAvatar from '../components/profile-image-avatar';
-import ProfileImage from '../components/change-profile-image';
-import CoverImage from '../components/change-cover-image';
+import Post from '../post';
+import ProfieImageAvatar from '../profile-image-avatar';
+import ProfileImage from '../change-profile-image';
+import CoverImage from '../change-cover-image';
 import { currentUserSelector } from '../selectors/authSelector';
 import { useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
-import Layout from '../components/layout-auth';
-import UpdateProfile from '../components/update-profile';
-import Images from '../components/profile/images';
+import Layout from '../layout-auth';
+import UpdateProfile from '../update-profile';
+import Images from './images';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import CreateIcon from '@material-ui/icons/Create';
 import { AppBar, Toolbar } from '@material-ui/core';
@@ -69,7 +69,7 @@ function TabPanel(props) {
   );
 }
 
-export default function Home() {
+export default function Profile() {
   const [tab, setTab] = React.useState(0);
   const classes = useStyles();
 
