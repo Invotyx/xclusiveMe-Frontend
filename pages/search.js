@@ -43,7 +43,7 @@ export default function Home() {
   const [_search, set_search] = useState('');
   const handleSearch = (event) => {
     event.preventDefault();
-    dispatch(user.request({ query: _search }));
+    dispatch(user.search({ q: _search }));
   };
 
   return (

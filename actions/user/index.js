@@ -15,6 +15,13 @@ export const user = {
       success: false,
       error: null,
     }),
+  search: (data) =>
+    createAction(USER.SEARCH, {
+      ...data,
+      fetching: true,
+      success: false,
+      error: null,
+    }),
   save: (data) =>
     createAction(USER.SAVE, {
       ...data,
