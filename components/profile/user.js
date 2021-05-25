@@ -72,15 +72,20 @@ function TabPanel(props) {
   );
 }
 
-export default function Profile({ user }) {
+export default function Profile({ user, feed }) {
   const dispatch = useDispatch();
   const [tab, setTab] = React.useState(0);
   const [currentUser, setCurrentUser] = React.useState(user);
+  const [userFeed, setUserFeed] = React.useState(feed);
   const classes = useStyles();
 
   useEffect(() => {
     setCurrentUser(user);
   }, [user]);
+
+  useEffect(() => {
+    setUserFeed(feed);
+  }, [feed]);
 
   const handleFollow = (event) => {
     event.preventDefault();
@@ -237,18 +242,15 @@ export default function Profile({ user }) {
                                 </IconButton>
                               </>
                             }
-                            title='1.2k posts'
+                            title={`${122} posts`}
                           />
                           <Grid container spacing={2}>
-                            <Grid item xs={12}>
-                              <Post />
-                            </Grid>
-                            <Grid item xs={12}>
-                              <Post />
-                            </Grid>
-                            <Grid item xs={12}>
-                              <Post />
-                            </Grid>
+                            {userFeed &&
+                              userFeed.map((f, ix) => (
+                                <Grid item xs={12} key={ix}>
+                                  <Post />
+                                </Grid>
+                              ))}
                           </Grid>
                         </Box>
                       </TabPanel>
