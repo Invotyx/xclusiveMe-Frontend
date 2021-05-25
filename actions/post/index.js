@@ -14,8 +14,9 @@ export const post = {
       success: false,
       error: null,
     }),
-  requestX: () =>
+  requestX: (data) =>
     createAction(POST.GET_X, {
+      ...data,
       xfeed: [],
       fetching: true,
       success: false,
