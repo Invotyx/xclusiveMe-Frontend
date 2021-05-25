@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { variants } from '../services/framer-variants';
 import Head from 'next/head';
+import NextLink from 'next/link';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
@@ -71,6 +72,7 @@ export default function Home() {
                 {users &&
                   users.length > 0 &&
                   users.map((u) => (
+                    <NextLink href={`/x/${u.username}`} key={`user${u.id}`}>
                     <Box
                       clone
                       pt={3}
@@ -97,6 +99,7 @@ export default function Home() {
                         </ListItemSecondaryAction>
                       </ListItem>
                     </Box>
+                    </NextLink>
                   ))}
               </List>
             </Grid>
