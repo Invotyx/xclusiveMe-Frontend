@@ -20,14 +20,14 @@ import RoundedButton from '../RoundedButton';
 import TextField from '@material-ui/core/TextField';
 import MuiOutlinedInput from '@material-ui/core/OutlinedInput';
 import CameraAltOutlinedIcon from '@material-ui/icons/CameraAltOutlined';
-import WallpaperOutlinedIcon from '@material-ui/icons/WallpaperOutlined';
-import VideocamOutlinedIcon from '@material-ui/icons/VideocamOutlined';
 import GraphicEqRoundedIcon from '@material-ui/icons/GraphicEqRounded';
 import LocalOfferOutlinedIcon from '@material-ui/icons/LocalOfferOutlined';
 import AddIcon from '@material-ui/icons/Add';
 import NewPostPriceHelpPopover from './new-post-price-help-popover';
 import { useDispatch } from 'react-redux';
 import { post } from '../../actions/post';
+import UploadImage from '../uploadImage';
+import UploadVideo from '../uploadVideo';
 
 const styles = (theme) => ({
   root: {
@@ -41,8 +41,6 @@ const styles = (theme) => ({
     color: theme.palette.grey[500],
   },
 });
-
-const tileData = [];
 
 const DialogTitle = withStyles(styles)((props) => {
   const { children, classes, onClose, ...other } = props;
@@ -106,7 +104,9 @@ export default function NewPostDialog() {
   const [disabled, set_disabled] = React.useState(false);
   const [_show_price_input, set_show_price_input] = React.useState(false);
   const [price, set_price] = React.useState(false);
-  const [postText, set_postText] = React.useState(false);
+  const [postText, set_postText] = React.useState('');
+  const [tileData, set_TileData] = React.useState([]);
+  const [fileObj, set_FileObj] = React.useState([]);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -122,11 +122,27 @@ export default function NewPostDialog() {
           price: parseFloat(price),
           postText,
           isPaid: price ? true : false,
-          media: [],
+          media: fileObj,
           mediaCount: 1,
+        },
+        callback: (res) => {
+          if (res === true) {
+            setOpen(false);
+          }
         },
       })
     );
+  };
+
+  const imageHandler = (Image, fileObject, source_url) => {
+    set_TileData([...tileData, Image]);
+    let fileData = [];
+    let obj = {};
+    fileData.push(fileObject);
+    fileData.map((data) => {
+      obj = { url: source_url, type: data.type };
+    });
+    set_FileObj([...fileObj, obj]);
   };
 
   return (
@@ -170,8 +186,8 @@ export default function NewPostDialog() {
               <CardContent>
                 <GridList cellHeight={100} cols={4}>
                   {tileData.map((tile) => (
-                    <GridListTile key={tile.img}>
-                      <img src={tile.img} alt={tile.title} />
+                    <GridListTile>
+                      <img src={tile} alt={'no Image'} />
                       <GridListTileBar
                         titlePosition='top'
                         actionPosition='left'
@@ -216,16 +232,12 @@ export default function NewPostDialog() {
                   </Box>
                   <Box mx={1}>
                     <Box clone color='#666'>
-                      <IconButton size='small'>
-                        <WallpaperOutlinedIcon />
-                      </IconButton>
+                      <UploadImage imageHandler={imageHandler} />
                     </Box>
                   </Box>
                   <Box mx={1}>
                     <Box clone color='#666'>
-                      <IconButton size='small'>
-                        <VideocamOutlinedIcon />
-                      </IconButton>
+                      <UploadVideo />
                     </Box>
                   </Box>
                   <Box mx={1}>

@@ -27,3 +27,20 @@ export async function update(id, data) {
 export async function destory(id) {
   return apiClient.delete(`${SERVER_ADDRESS}/post/${id}/remove`);
 }
+
+export async function uploadImage(fileObject) {
+  const data = new FormData();
+  data.append('images', fileObject);
+  return apiClient.post(`${SERVER_ADDRESS}/post/images`, data);
+}
+
+export async function uploadVideoReq1(fileObject) {
+  const data = { totalVideos: fileObject };
+  return apiClient.post(`${SERVER_ADDRESS}/post/videos`, data);
+}
+
+export async function uploadVideoFinalReq(fileObject, url) {
+  const data = new FormData();
+  data.append('video', fileObject);
+  return apiClient.post(`${url}`, data);
+}

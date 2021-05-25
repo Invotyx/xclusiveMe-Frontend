@@ -9,6 +9,9 @@ export const POST = createActionTypes('POST', [
   'DELETE',
   'SUCCESS',
   'FAILURE',
+  'UPLOAD_IMAGE',
+  'UPLOAD_VIDEO_REQ',
+  'UPLOAD_VIDEO_FINAL_REQ',
 ]);
 
 export default POST;

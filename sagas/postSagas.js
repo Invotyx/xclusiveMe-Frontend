@@ -4,12 +4,16 @@ import { post } from '../actions/post';
 import { snackbar } from '../actions/snackbar';
 import {
   getAll,
-  add,
+  uploadImage,
   update,
   destory,
+  uploadVideoReq1,
+  uploadVideoFinalReq,
+  add,
   getAllSubscribed,
   getX,
 } from '../services/post.service';
+import { bottomalert } from '../actions/bottom-alert';
 
 function* handleGet() {
   try {
@@ -45,7 +49,7 @@ function* handlePost(action) {
   try {
     const { saveData } = action.payload;
     yield call(add, saveData);
-    yield put(post.success({}));
+    const success = yield put(post.success({}));
     yield call(post.request);
     yield put(
       snackbar.update({
@@ -56,7 +60,7 @@ function* handlePost(action) {
     );
     const { callback } = action.payload;
     if (callback) {
-      yield call(callback);
+      yield call(callback, success.payload.success);
     }
   } catch (e) {
     yield put(post.failure({ error: { ...e } }));
@@ -120,6 +124,77 @@ function* handleUpdate(action) {
   }
 }
 
+function* handleUploadImage({ payload }) {
+  try {
+    const { fileObject } = payload;
+    const response = yield call(uploadImage, fileObject);
+    yield call(post.save);
+    yield put(
+      bottomalert.update({
+        open: true,
+        message: 'Image Updated Successfully!',
+        severity: 'success',
+      })
+    );
+    const { callback } = payload;
+    if (callback) {
+      yield call(callback, response.data[0].url);
+    }
+  } catch (error) {
+    console.log('Error occurred in UPLOAD_IMAGE');
+    console.log(error);
+    yield put(
+      bottomalert.update({
+        open: true,
+        message: 'SomeThing Went Wrong!',
+        severity: 'error',
+      })
+    );
+  }
+}
+
+function* handleUploadVideoReq({ payload }) {
+  try {
+    const { fileObject } = payload;
+    const res = yield call(uploadVideoReq1, fileObject);
+    const url = res.data[0].url;
+    yield call(post.save);
+
+    const { callback } = payload;
+    if (callback) {
+      yield call(callback, url);
+    }
+  } catch (error) {
+    console.log('Error occurred in UPLOAD_VIDEO');
+    console.log(error);
+  }
+}
+
+function* handleUploadVideoFinalReq({ payload }) {
+  try {
+    const { fileObject, url } = payload;
+    yield call(uploadVideoFinalReq, fileObject, url);
+    yield call(post.save);
+    yield put(
+      bottomalert.update({
+        open: true,
+        message: 'Video Updated Successfully!',
+        severity: 'success',
+      })
+    );
+  } catch (error) {
+    console.log('Error occurred in UPLOAD_VIDEO');
+    console.log(error);
+    yield put(
+      bottomalert.update({
+        open: true,
+        message: 'SomeThing Went Wrong!',
+        severity: 'error',
+      })
+    );
+  }
+}
+
 function* watchPostSagas() {
   yield all([
     takeLatest(POST.GET, handleGet),
@@ -128,6 +203,9 @@ function* watchPostSagas() {
     takeLatest(POST.SAVE, handlePost),
     takeLatest(POST.UPDATE, handleUpdate),
     takeLatest(POST.DELETE, handleDelete),
+    takeLatest(POST.UPLOAD_IMAGE, handleUploadImage),
+    takeLatest(POST.UPLOAD_VIDEO_REQ, handleUploadVideoReq),
+    takeLatest(POST.UPLOAD_VIDEO_FINAL_REQ, handleUploadVideoFinalReq),
   ]);
 }
 
