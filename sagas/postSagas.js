@@ -10,7 +10,6 @@ import {
   getAllSubscribed,
   getX,
 } from '../services/post.service';
-import { user } from '../actions/user';
 
 function* handleGet() {
   try {
@@ -35,7 +34,6 @@ function* handleGetX(action) {
     const { username } = action.payload;
     const { data } = yield call(getX, username);
     if (data.posts && data.posts.length) {
-      yield put(user.success({ single: data.posts[0] }));
       yield put(post.success({ xfeed: data.posts[0].posts }));
     }
   } catch (e) {
