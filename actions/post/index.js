@@ -15,6 +15,27 @@ export const post = {
       success: false,
       error: null,
     }),
+  uploadImage: (data) =>
+    createAction(POST.UPLOAD_IMAGE, {
+      ...data,
+      fetching: true,
+      success: false,
+      error: null,
+    }),
+  uploadVideoReq: (data) =>
+    createAction(POST.UPLOAD_VIDEO_REQ, {
+      ...data,
+      fetching: true,
+      success: false,
+      error: null,
+    }),
+  uploadVideoFinalReq: (data) =>
+    createAction(POST.UPLOAD_VIDEO_FINAL_REQ, {
+      ...data,
+      fetching: true,
+      success: false,
+      error: null,
+    }),
   update: (id) =>
     createAction(POST.UPDATE, {
       id,
