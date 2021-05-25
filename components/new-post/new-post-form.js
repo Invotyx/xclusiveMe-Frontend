@@ -89,8 +89,13 @@ export default function NewPostForm({ afterSave }) {
 
   const imageHandler = (source_url) => {
     set_TileData([...tileData, source_url.url]);
-    let obj = {};
-    set_FileObj([...fileObj, obj]);
+    set_FileObj([
+      ...fileObj,
+      {
+        url: source_url.url,
+        type: `${source_url.resource_type}/${source_url.format}`,
+      },
+    ]);
   };
 
   const removeImageHandler = (tile) => {
