@@ -48,14 +48,12 @@ export default function Post({ post, altHeader }) {
           </IconButton>
         }
         title='Shrimp and Chorizo Paella'
-        subheader='September 14, 2016'
+        subheader={post.createdAt}
       />
       )}
       <CardContent>
         <Typography variant='body2' color='textSecondary' component='p'>
-          This impressive paella is a perfect party dish and a fun meal to cook
-          together with your guests. Add 1 cup of frozen peas along with the
-          mussels, if you like.
+          {post.postText}
         </Typography>
       </CardContent>
       <CardMedia
@@ -66,10 +64,10 @@ export default function Post({ post, altHeader }) {
       <CardActions disableSpacing>
         <Box flexGrow={1}>
           <Button aria-label='add to favorites' startIcon={<FavoriteIcon />}>
-            12k likes
+            {post.totalLikes} likes
           </Button>
           <Button aria-label='share' startIcon={<ChatBubbleOutlineIcon />}>
-            2,090 comments
+            {post.totalComments} comments
           </Button>
           <Button aria-label='tip' startIcon={<MonetizationOnOutlinedIcon />}>
             Tip
