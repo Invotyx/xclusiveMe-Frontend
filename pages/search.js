@@ -16,6 +16,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchingSelector, userDataSelector } from '../selectors/userSelector';
 import { user } from '../actions/user';
 import {
+  Button,
   List,
   ListItem,
   ListItemAvatar,
@@ -96,6 +97,9 @@ export default function Home() {
                         </Box>
                         <ListItemText primary={u.username} />
                         <ListItemSecondaryAction>
+                          <Button size='small' variant='outlined'>
+                            view profile
+                          </Button>
                         </ListItemSecondaryAction>
                       </ListItem>
                     </Box>
