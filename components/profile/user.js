@@ -146,7 +146,11 @@ export default function Profile({ user }) {
                       </ProfileImage>
                     }
                     action={
-                      <Box display='flex' textAlign='center'>
+                      <Box
+                        display='flex'
+                        textAlign='center'
+                        alignItems='center'
+                      >
                         <Box mx={4}>
                           <ListItemText primary='1.2k' secondary='Posts' />
                         </Box>
