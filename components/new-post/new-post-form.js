@@ -111,6 +111,9 @@ export default function NewPostForm({ afterSave }) {
     set_FileObj([...fileObj, obj]);
   };
 
+  const removeImageHandler = (tile) => {
+  };
+
   return (
     <>
       <Box mb={3}>
