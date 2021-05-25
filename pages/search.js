@@ -23,6 +23,7 @@ import {
   ListItemSecondaryAction,
   ListItemText,
 } from '@material-ui/core';
+import { getImage } from '../services/getImage';
 
 const useStyles = makeStyles((theme) => ({
   root: {
