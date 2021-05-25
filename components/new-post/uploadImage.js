@@ -30,7 +30,7 @@ export default function FormDialog({
       post.uploadImage({
         fileObject: image,
         callback: (source_url) => {
-          imageHandler(source_url, image, source_url);
+          imageHandler(source_url);
           set_Loading(false);
           set_disabled(false);
         },
