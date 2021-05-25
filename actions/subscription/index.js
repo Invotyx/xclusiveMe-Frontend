@@ -30,7 +30,7 @@ export const subscription = {
       error: null,
     }),
   failure: (error) =>
-    createAction(USER.FAILURE, {
+    createAction(SUBSCRIPTION.FAILURE, {
       ...error,
       fetching: false,
       success: false,
