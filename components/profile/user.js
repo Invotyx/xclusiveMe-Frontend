@@ -247,14 +247,17 @@ export default function Profile({ user, feed, follow }) {
                             }
                             title={`${122} posts`}
                           />
-                          <Grid container spacing={2}>
-                            {userFeed &&
-                              userFeed.map((f, ix) => (
+                          {userFeed && userFeed.length > 0 ? (
+                            <Grid container spacing={2}>
+                              {userFeed.map((f, ix) => (
                                 <Grid item xs={12} key={ix}>
                                   <Post />
                                 </Grid>
                               ))}
-                          </Grid>
+                            </Grid>
+                          ) : (
+                            ''
+                          )}
                         </Box>
                       </TabPanel>
                       <TabPanel value={tab} index={1}>
