@@ -128,6 +128,9 @@ export default function NewPostDialog() {
         callback: (res) => {
           if (res === true) {
             setOpen(false);
+            set_TileData([]);
+            set_FileObj([]);
+            set_postText('');
           }
         },
       })
