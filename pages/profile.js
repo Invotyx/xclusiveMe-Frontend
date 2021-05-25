@@ -1,16 +1,17 @@
 import User from '../components/profile/user';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { currentUserSelector } from '../selectors/authSelector';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { postDataSelector } from '../selectors/postSelector';
+import { post } from '../actions/post';
 
 export default function Profile() {
+  const dispatch = useDispatch();
   const u = useSelector(currentUserSelector);
 
-  const [_feed, set_feed] = useState([]);
+  const _feed = useSelector(postDataSelector);
   useEffect(() => {
-    setTimeout(() => {
-      set_feed([{}, {}, {}]);
-    }, 3000);
+    dispatch(post.request());
   }, []);
 
   return <User user={u} feed={_feed} />;

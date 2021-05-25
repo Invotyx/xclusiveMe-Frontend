@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import { useDispatch } from 'react-redux';
-import { auth } from '../actions/auth';
+import { auth } from '../../actions/auth';
 
 export default function FormDialog({ children }) {
   const dispatch = useDispatch();

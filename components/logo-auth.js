@@ -18,7 +18,7 @@ import { useDispatch } from 'react-redux';
 import SortIcon from '@material-ui/icons/Sort';
 import Logo from './logo';
 import Notification from './notification';
-import ProfieImageAvatar from './profile-image-avatar';
+import ProfieImageAvatar from './profile/profile-image-avatar';
 import NewPostDialog from './profile/new-post';
 
 export default function Comp({ sidebarMenu, set_sidebarMenu }) {
