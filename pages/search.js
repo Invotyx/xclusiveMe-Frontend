@@ -2,9 +2,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { variants } from '../services/framer-variants';
 import Head from 'next/head';
-import NextLink from 'next/link';
 import Grid from '@material-ui/core/Grid';
-import Link from '@material-ui/core/Link';
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import SearchIcon from '@material-ui/icons/Search';
@@ -94,13 +92,7 @@ export default function Home() {
                             <ImageAvatar className={classes.large} user={u} />
                           </ListItemAvatar>
                         </Box>
-                        <ListItemText
-                          primary={
-                            <NextLink href={`/x/${u.username}`}>
-                              <Link>{u.username}</Link>
-                            </NextLink>
-                          }
-                        />
+                        <ListItemText primary={u.username} />
                         <ListItemSecondaryAction>
                         </ListItemSecondaryAction>
                       </ListItem>
