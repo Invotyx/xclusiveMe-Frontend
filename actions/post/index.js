@@ -14,6 +14,13 @@ export const post = {
       success: false,
       error: null,
     }),
+  requestX: () =>
+    createAction(POST.GET_X, {
+      xfeed: [],
+      fetching: true,
+      success: false,
+      error: null,
+    }),
   save: (data) =>
     createAction(POST.SAVE, {
       ...data,

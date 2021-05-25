@@ -12,6 +12,8 @@ const subscribedSelector = createSelector(postState, (state) =>
   state.get('subscribed')
 );
 
+const xfeedSelector = createSelector(postState, (state) => state.get('xfeed'));
+
 const fetchingSelector = createSelector(postState, (state) =>
   state.get('fetching')
 );
@@ -24,6 +26,7 @@ const errorSelector = createSelector(postState, (state) => {
 export {
   postDataSelector,
   subscribedSelector,
+  xfeedSelector,
   fetchingSelector,
   errorSelector,
 };

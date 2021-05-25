@@ -8,6 +8,7 @@ import {
   update,
   destory,
   getAllSubscribed,
+  getX,
 } from '../services/post.service';
 
 function* handleGet() {
@@ -23,6 +24,16 @@ function* handleGetSubscribed() {
   try {
     const { data } = yield call(getAllSubscribed);
     yield put(post.success({ subscribed: data.posts }));
+  } catch (e) {
+    yield put(post.success({ error: true }));
+  }
+}
+
+function* handleGetX() {
+  try {
+    const { username } = action.payload;
+    const { data } = yield call(getX, username);
+    yield put(post.success({ xfeed: data.posts }));
   } catch (e) {
     yield put(post.success({ error: true }));
   }
@@ -111,6 +122,7 @@ function* watchPostSagas() {
   yield all([
     takeLatest(POST.GET, handleGet),
     takeLatest(POST.GET_SUBSCRIBED, handleGetSubscribed),
+    takeLatest(POST.GET_X, handleGetX),
     takeLatest(POST.SAVE, handlePost),
     takeLatest(POST.UPDATE, handleUpdate),
     takeLatest(POST.DELETE, handleDelete),
