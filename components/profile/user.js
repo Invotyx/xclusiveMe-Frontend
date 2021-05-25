@@ -72,7 +72,7 @@ function TabPanel(props) {
   );
 }
 
-export default function Profile({ user, feed }) {
+export default function Profile({ user, feed, follow }) {
   const dispatch = useDispatch();
   const [tab, setTab] = React.useState(0);
   const [currentUser, setCurrentUser] = React.useState(user);
@@ -215,22 +215,24 @@ export default function Profile({ user, feed }) {
                           ml={{ xs: 2, sm: 2, md: 8 }}
                           mr={{ xs: 2, sm: 2, md: 8 }}
                         >
-                          <Box bgcolor='#111' display='flex' p={2}>
-                            <Box flexGrow={1}>
-                              <Typography>
-                                Follow to get posts in your News Feed.
-                              </Typography>
-                            </Box>
+                          {follow && (
+                            <Box bgcolor='#111' display='flex' p={2}>
+                              <Box flexGrow={1}>
+                                <Typography>
+                                  Follow to get posts in your News Feed.
+                                </Typography>
+                              </Box>
 
-                            <Button
-                              startIcon={<Add />}
-                              size='small'
-                              variant='outlined'
-                              onClick={(e) => handleFollow(e)}
-                            >
-                              Follow
-                            </Button>
-                          </Box>
+                              <Button
+                                startIcon={<Add />}
+                                size='small'
+                                variant='outlined'
+                                onClick={(e) => handleFollow(e)}
+                              >
+                                Follow
+                              </Button>
+                            </Box>
+                          )}
                           <CardHeader
                             action={
                               <>

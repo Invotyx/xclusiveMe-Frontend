@@ -18,5 +18,5 @@ export default function Profile() {
     }, 3000);
   }, []);
 
-  return <User user={u} feed={_feed} />;
+  return <User user={u} feed={_feed} follow={1} />;
 }
