@@ -45,6 +45,7 @@ const OutlinedInput = withStyles(() => ({
 
 const GridListTile = withStyles(() => ({
   tile: {
+    borderRadius: 6,
     '& > div': {
       display: 'none',
     },
@@ -58,9 +59,6 @@ const GridListTileBar = withStyles(() => ({
   root: {
     height: `100%`,
     justifyContent: 'center',
-  },
-  tile: {
-    borderRadius: 6,
   },
   titleWrap: {
     display: 'none',
