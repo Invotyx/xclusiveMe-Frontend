@@ -19,7 +19,7 @@ import SortIcon from '@material-ui/icons/Sort';
 import Logo from './logo';
 import Notification from './notification';
 import ProfieImageAvatar from './profile/profile-image-avatar';
-import NewPostDialog from './profile/new-post';
+import NewPostDialog from './new-post';
 
 export default function Comp({ sidebarMenu, set_sidebarMenu }) {
   const dispatch = useDispatch();
