@@ -7,6 +7,7 @@ import {
   add,
   update,
   destory,
+  getAllSubscribed,
 } from '../services/post.service';
 
 function* handleGet() {
