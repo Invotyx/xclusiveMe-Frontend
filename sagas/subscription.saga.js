@@ -32,12 +32,12 @@ function* handleAddSubscription(action) {
         severity: 'success',
       })
     );
-  } catch (error) {
+  } catch (e) {
     yield put(subscription.failure({ error: { ...e } }));
     yield put(
       snackbar.update({
         open: true,
-        message: error.response.data.message,
+        message: e.response.data.message,
         severity: 'error',
       })
     );
