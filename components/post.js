@@ -40,16 +40,16 @@ export default function Post({ post, altHeader }) {
           subheader={post.createdAt}
         />
       ) : (
-      <CardHeader
-        avatar={<Avatar aria-label='recipe'>R</Avatar>}
-        action={
-          <IconButton aria-label='settings'>
-            <MoreVertIcon />
-          </IconButton>
-        }
-        title='Shrimp and Chorizo Paella'
-        subheader={post.createdAt}
-      />
+        <CardHeader
+          avatar={<Avatar aria-label='recipe'>R</Avatar>}
+          action={
+            <IconButton aria-label='settings'>
+              <MoreVertIcon />
+            </IconButton>
+          }
+          title='Shrimp and Chorizo Paella'
+          subheader={post.createdAt}
+        />
       )}
       <CardContent>
         <Typography variant='body2' color='textSecondary' component='p'>
