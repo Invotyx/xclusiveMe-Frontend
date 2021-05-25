@@ -256,7 +256,16 @@ export default function Profile({ user, feed, follow }) {
                               ))}
                             </Grid>
                           ) : (
-                            ''
+                            <Box
+                              textAlign='center'
+                              p={4}
+                              bgcolor='#222'
+                              border='1px solid #111'
+                            >
+                              <Typography color='textSecondary'>
+                                nothing to display
+                              </Typography>
+                            </Box>
                           )}
                         </Box>
                       </TabPanel>
