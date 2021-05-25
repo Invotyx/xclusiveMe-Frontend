@@ -20,8 +20,6 @@ import RoundedButton from '../RoundedButton';
 import TextField from '@material-ui/core/TextField';
 import MuiOutlinedInput from '@material-ui/core/OutlinedInput';
 import CameraAltOutlinedIcon from '@material-ui/icons/CameraAltOutlined';
-import WallpaperOutlinedIcon from '@material-ui/icons/WallpaperOutlined';
-import VideocamOutlinedIcon from '@material-ui/icons/VideocamOutlined';
 import GraphicEqRoundedIcon from '@material-ui/icons/GraphicEqRounded';
 import LocalOfferOutlinedIcon from '@material-ui/icons/LocalOfferOutlined';
 import AddIcon from '@material-ui/icons/Add';
@@ -126,6 +124,11 @@ export default function NewPostDialog() {
           isPaid: price ? true : false,
           media: fileObj,
           mediaCount: 1,
+        },
+        callback: (res) => {
+          if (res === true) {
+            setOpen(false);
+          }
         },
       })
     );
