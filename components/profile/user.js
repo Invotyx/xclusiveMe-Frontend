@@ -251,7 +251,7 @@ export default function Profile({ user, feed, follow }) {
                             <Grid container spacing={2}>
                               {userFeed.map((f, ix) => (
                                 <Grid item xs={12} key={ix}>
-                                  <Post />
+                                  <Post post={f} altHeader={!follow} />
                                 </Grid>
                               ))}
                             </Grid>

@@ -12,6 +12,7 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import IconButton from '@material-ui/core/IconButton';
 import MonetizationOnOutlinedIcon from '@material-ui/icons/MonetizationOnOutlined';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -25,10 +26,20 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: '56.25%', // 16:9
   },
 }));
-export default function Post({ post }) {
+export default function Post({ post, altHeader }) {
   const classes = useStyles();
   return (
     <Card className={classes.root}>
+      {altHeader ? (
+        <CardHeader
+          action={
+            <IconButton aria-label='settings'>
+              <MoreHorizIcon />
+            </IconButton>
+          }
+          subheader={post.createdAt}
+        />
+      ) : (
       <CardHeader
         avatar={<Avatar aria-label='recipe'>R</Avatar>}
         action={
@@ -39,6 +50,7 @@ export default function Post({ post }) {
         title='Shrimp and Chorizo Paella'
         subheader='September 14, 2016'
       />
+      )}
       <CardContent>
         <Typography variant='body2' color='textSecondary' component='p'>
           This impressive paella is a perfect party dish and a fun meal to cook
