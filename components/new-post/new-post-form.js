@@ -131,8 +131,8 @@ export default function NewPostForm({ afterSave }) {
               </div>
             ) : (
               <GridList cellHeight={100} cols={4}>
-                {tileData.map((tile) => (
-                  <GridListTile>
+                {tileData.map((tile, i) => (
+                  <GridListTile key={`tile${i}`}>
                     <img src={tile} alt={'no Image'} />
                     <GridListTileBar
                       titlePosition='top'
