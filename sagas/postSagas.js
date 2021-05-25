@@ -29,7 +29,7 @@ function* handleGetSubscribed() {
   }
 }
 
-function* handleGetX() {
+function* handleGetX(action) {
   try {
     const { username } = action.payload;
     const { data } = yield call(getX, username);
