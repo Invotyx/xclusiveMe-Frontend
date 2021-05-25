@@ -212,7 +212,12 @@ export default function Profile({ user, feed, follow }) {
                           mr={{ xs: 2, sm: 2, md: 8 }}
                         >
                           {follow && (
-                            <Box bgcolor='#111' display='flex' p={2}>
+                            <Box
+                              bgcolor='#111'
+                              display='flex'
+                              p={2}
+                              alignItems='center'
+                            >
                               <Box flexGrow={1}>
                                 <Typography>
                                   Follow to get posts in your News Feed.
