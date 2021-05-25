@@ -2,8 +2,8 @@ import React from 'react';
 import CardMedia from '@material-ui/core/CardMedia';
 import { makeStyles } from '@material-ui/core/styles';
 import { useSelector } from 'react-redux';
-import { currentUserSelector } from '../selectors/authSelector';
-import { getImage } from '../services/getImage';
+import { currentUserSelector } from '../../selectors/authSelector';
+import { getImage } from '../../services/getImage';
 
 const useStyles = makeStyles(() => ({
   media: {
