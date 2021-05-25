@@ -38,7 +38,7 @@ export default function Home() {
           <Grid container className={classes.root}>
             <Grid item xs={12}>
               {posts && posts.length > 0 ? (
-                posts.map((post) => <Post post={post} />)
+                posts.map((post, i) => <Post key={i} post={post} />)
               ) : (
                 <Box
                   textAlign='center'
