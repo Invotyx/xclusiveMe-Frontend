@@ -28,6 +28,17 @@ import { useDispatch } from 'react-redux';
 import { post } from '../../actions/post';
 import UploadImage from '../uploadImage';
 import UploadVideo from '../uploadVideo';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+    '& > * + *': {
+      marginLeft: theme.spacing(2),
+    },
+  },
+}));
 
 const styles = (theme) => ({
   root: {
@@ -107,6 +118,8 @@ export default function NewPostDialog() {
   const [postText, set_postText] = React.useState('');
   const [tileData, set_TileData] = React.useState([]);
   const [fileObj, set_FileObj] = React.useState([]);
+  const [loading, set_Loading] = React.useState(false);
+  const classes = useStyles();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -187,33 +200,44 @@ export default function NewPostDialog() {
             />
             <Card>
               <CardContent>
-                <GridList cellHeight={100} cols={4}>
-                  {tileData.map((tile) => (
-                    <GridListTile>
-                      <img src={tile} alt={'no Image'} />
-                      <GridListTileBar
-                        titlePosition='top'
-                        actionPosition='left'
-                        actionIcon={
-                          <Button size='small' variant='outlined'>
-                            Remove
-                          </Button>
-                        }
-                      />
-                    </GridListTile>
-                  ))}
-                  {tileData && tileData.length > 0 && (
-                    <MuiGridListTile>
-                      <GridListTileBar
-                        actionIcon={
-                          <IconButton size='small' variant='text'>
-                            <AddIcon />
-                          </IconButton>
-                        }
-                      />
-                    </MuiGridListTile>
-                  )}
-                </GridList>
+                {loading === true ? (
+                  <div className={classes.root}>
+                    <CircularProgress color='secondary' />
+                  </div>
+                ) : (
+                  <GridList cellHeight={100} cols={4}>
+                    {tileData.map((tile) => (
+                      <GridListTile>
+                        <img src={tile} alt={'no Image'} />
+                        <GridListTileBar
+                          titlePosition='top'
+                          actionPosition='left'
+                          actionIcon={
+                            <Button
+                              size='small'
+                              variant='outlined'
+                              onClick={() => removeImageHandler(tile)}
+                            >
+                              Remove
+                            </Button>
+                          }
+                        />
+                      </GridListTile>
+                    ))}
+
+                    {tileData && tileData.length > 0 && (
+                      <MuiGridListTile>
+                        <GridListTileBar
+                          actionIcon={
+                            <IconButton size='small' variant='text'>
+                              <AddIcon />
+                            </IconButton>
+                          }
+                        />
+                      </MuiGridListTile>
+                    )}
+                  </GridList>
+                )}
               </CardContent>
             </Card>
           </Box>
@@ -238,6 +262,7 @@ export default function NewPostDialog() {
                       <UploadImage
                         imageHandler={imageHandler}
                         set_disabled={set_disabled}
+                        set_Loading={set_Loading}
                       />
                     </Box>
                   </Box>

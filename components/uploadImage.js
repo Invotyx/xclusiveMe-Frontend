@@ -11,7 +11,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function FormDialog({ children, imageHandler, set_disabled }) {
+export default function FormDialog({
+  children,
+  imageHandler,
+  set_Loading,
+  set_disabled,
+}) {
   const dispatch = useDispatch();
   const inputFile = React.useRef(null);
   const [img, setImg] = React.useState(null);
@@ -22,6 +27,7 @@ export default function FormDialog({ children, imageHandler, set_disabled }) {
     event.preventDefault();
     set_disabled(true);
     var image = event.target.files[0];
+    set_Loading(true);
     dispatch(
       post.uploadImage({
         fileObject: image,
@@ -34,6 +40,7 @@ export default function FormDialog({ children, imageHandler, set_disabled }) {
             };
             reader.readAsDataURL(event.target.files[0]);
           }
+          set_Loading(false);
           set_disabled(false);
         },
       })
