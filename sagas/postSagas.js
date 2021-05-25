@@ -2,7 +2,12 @@ import { all, call, put, takeLatest } from 'redux-saga/effects';
 import POST from '../actions/post/types';
 import { post } from '../actions/post';
 import { snackbar } from '../actions/snackbar';
-import { getAll, add, update, destory } from '../services/post.service';
+import {
+  getAll,
+  add,
+  update,
+  destory,
+} from '../services/post.service';
 
 function* handleGet() {
   try {
