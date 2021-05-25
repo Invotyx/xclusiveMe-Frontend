@@ -235,7 +235,10 @@ export default function NewPostDialog() {
                   </Box>
                   <Box mx={1}>
                     <Box clone color='#666'>
-                      <UploadImage imageHandler={imageHandler} />
+                      <UploadImage
+                        imageHandler={imageHandler}
+                        set_disabled={set_disabled}
+                      />
                     </Box>
                   </Box>
                   <Box mx={1}>
