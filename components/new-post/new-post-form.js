@@ -26,16 +26,6 @@ import { post } from '../../actions/post';
 import UploadImage from './uploadImage';
 import UploadVideo from './uploadVideo';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { makeStyles } from '@material-ui/core/styles';
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-    '& > * + *': {
-      marginLeft: theme.spacing(2),
-    },
-  },
-}));
 
 const OutlinedInput = withStyles(() => ({
   notchedOutline: {
@@ -74,7 +64,6 @@ export default function NewPostForm({ afterSave }) {
   const [tileData, set_TileData] = React.useState([]);
   const [fileObj, set_FileObj] = React.useState([]);
   const [loading, set_Loading] = React.useState(false);
-  const classes = useStyles();
 
   const handleCreatePost = () => {
     dispatch(
@@ -128,9 +117,7 @@ export default function NewPostForm({ afterSave }) {
         <Card>
           <CardContent>
             {loading === true ? (
-              <div className={classes.root}>
-                <CircularProgress color='secondary' />
-              </div>
+              <CircularProgress color='secondary' />
             ) : (
               <GridList cellHeight={100} cols={4}>
                 {tileData.map((tile, i) => (
