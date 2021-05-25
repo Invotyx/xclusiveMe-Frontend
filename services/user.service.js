@@ -80,6 +80,11 @@ export async function updateProfile(request) {
   return apiClient.put(`${SERVER_ADDRESS}/auth/updateProfile`, data);
 }
 
+export async function updateSubscriptionFee(request) {
+  const data = JSON.stringify(request);
+  return apiClient.post(`${SERVER_ADDRESS}/subscriptions/plans`, data);
+}
+
 export async function resetPassword(email, password, token) {
   const data = JSON.stringify({ email, password, token });
   return apiClient.post(`${SERVER_ADDRESS}/users/update-password`, data);

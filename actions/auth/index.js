@@ -44,6 +44,13 @@ export const auth = {
       success: false,
       error: null,
     }),
+  updateSubscriptionFee: (price) =>
+    createAction(AUTH.UPDATE_SUBSCRIPTION_FEE, {
+      price,
+      fetching: true,
+      success: false,
+      error: null,
+    }),
   uploadImage: (data) =>
     createAction(AUTH.UPLOAD_IMAGE, {
       ...data,

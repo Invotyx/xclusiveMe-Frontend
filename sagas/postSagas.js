@@ -10,13 +10,38 @@ import {
   uploadVideoReq1,
   uploadVideoFinalReq,
   add,
+  getAllSubscribed,
+  getX,
 } from '../services/post.service';
 import { bottomalert } from '../actions/bottom-alert';
+import { user } from '../actions/user';
 
 function* handleGet() {
   try {
     const { data } = yield call(getAll);
     yield put(post.success({ data: data.posts }));
+  } catch (e) {
+    yield put(post.success({ error: true }));
+  }
+}
+
+function* handleGetSubscribed() {
+  try {
+    const { data } = yield call(getAllSubscribed);
+    yield put(post.success({ subscribed: data.posts }));
+  } catch (e) {
+    yield put(post.success({ error: true }));
+  }
+}
+
+function* handleGetX(action) {
+  try {
+    const { username } = action.payload;
+    const { data } = yield call(getX, username);
+    if (data.posts && data.posts.length) {
+      yield put(user.success({ single: data.posts[0] }));
+      yield put(post.success({ xfeed: data.posts[0].posts }));
+    }
   } catch (e) {
     yield put(post.success({ error: true }));
   }
@@ -175,6 +200,8 @@ function* handleUploadVideoFinalReq({ payload }) {
 function* watchPostSagas() {
   yield all([
     takeLatest(POST.GET, handleGet),
+    takeLatest(POST.GET_SUBSCRIBED, handleGetSubscribed),
+    takeLatest(POST.GET_X, handleGetX),
     takeLatest(POST.SAVE, handlePost),
     takeLatest(POST.UPDATE, handleUpdate),
     takeLatest(POST.DELETE, handleDelete),

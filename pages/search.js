@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { variants } from '../services/framer-variants';
 import Head from 'next/head';
+import NextLink from 'next/link';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
@@ -22,7 +23,6 @@ import {
   ListItemSecondaryAction,
   ListItemText,
 } from '@material-ui/core';
-import { Add } from '@material-ui/icons';
 import { getImage } from '../services/getImage';
 
 const useStyles = makeStyles((theme) => ({
@@ -43,7 +43,7 @@ export default function Home() {
   const [_search, set_search] = useState('');
   const handleSearch = (event) => {
     event.preventDefault();
-    dispatch(user.request({ query: _search }));
+    dispatch(user.search({ q: _search }));
   };
 
   return (
@@ -71,40 +71,38 @@ export default function Home() {
             <Grid item xs={12}>
               <List>
                 {users &&
+                  users.length > 0 &&
                   users.map((u) => (
-                    <Box
-                      clone
-                      pt={3}
-                      pb={3}
-                      key={u.id}
-                      mb={4}
-                      height={100}
-                      style={{
-                        backgroundSize: 'cover',
-                        backgroundImage: u.coverImage
-                          ? `url(getImage(${u.coverImage}))`
-                          : `url('/cover.jpg')`,
-                        boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',
-                      }}
-                    >
-                      <ListItem>
-                        <Box clone mr={2}>
-                          <ListItemAvatar>
-                            <ImageAvatar className={classes.large} user={u} />
-                          </ListItemAvatar>
-                        </Box>
-                        <ListItemText primary={u.username} />
-                        <ListItemSecondaryAction>
-                          <Button
-                            startIcon={<Add />}
-                            size='small'
-                            variant='outlined'
-                          >
-                            Follow
-                          </Button>
-                        </ListItemSecondaryAction>
-                      </ListItem>
-                    </Box>
+                    <NextLink href={`/x/${u.username}`} key={`user${u.id}`}>
+                      <Box
+                        clone
+                        pt={3}
+                        pb={3}
+                        mb={4}
+                        height={100}
+                        style={{
+                          backgroundSize: 'cover',
+                          backgroundImage: u.coverImage
+                            ? `url(${getImage(u.coverImage)})`
+                            : `url('/cover.jpg')`,
+                          boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',
+                        }}
+                      >
+                        <ListItem>
+                          <Box clone mr={2}>
+                            <ListItemAvatar>
+                              <ImageAvatar className={classes.large} user={u} />
+                            </ListItemAvatar>
+                          </Box>
+                          <ListItemText primary={u.username} />
+                          <ListItemSecondaryAction>
+                            <Button size='small' variant='outlined'>
+                              view profile
+                            </Button>
+                          </ListItemSecondaryAction>
+                        </ListItem>
+                      </Box>
+                    </NextLink>
                   ))}
               </List>
             </Grid>

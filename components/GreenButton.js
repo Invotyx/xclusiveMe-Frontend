@@ -7,7 +7,7 @@ const theme = createMuiTheme({
   },
 });
 
-export default function (props) {
+export default function GreenButton(props) {
   return (
     <MuiThemeProvider theme={theme}>
       <NormalCaseButton {...props} />

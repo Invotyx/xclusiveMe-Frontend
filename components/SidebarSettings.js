@@ -7,7 +7,7 @@ import ListItemSettings from './ListItemSettings';
 const sidebarNavItems = [
   { url: '/settings/account', text: 'Account' },
   { url: '#', text: 'Privacy' },
-  { url: '#', text: 'Subscriptions' },
+  { url: '/settings/subscription', text: 'Subscription' },
   { url: '#', text: 'Notifications' },
   { url: '#', text: 'Earnings' },
   { url: '/settings/billing', text: 'Card' },

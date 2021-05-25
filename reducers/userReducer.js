@@ -6,12 +6,14 @@ const initialState = fromJS({
   fetching: false,
   success: false,
   error: null,
+  single: null,
 });
 
 export default function userReducer(state = initialState, action) {
   switch (action.type) {
     case USER.GET:
     case USER.GET_ONE:
+    case USER.SEARCH:
     case USER.SAVE:
     case USER.UPDATE:
     case USER.DELETE:

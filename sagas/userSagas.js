@@ -23,8 +23,26 @@ function* handleGet() {
 function* handleGetOne(action) {
   try {
     const { id } = action.payload;
-    const { data } = yield call(apiClient.get, `${SERVER_ADDRESS}/users/${id}`);
-    yield put(user.success({ data }));
+    const { data } = yield call(
+      apiClient.get,
+      `${SERVER_ADDRESS}/users/get/${id}`
+    );
+    yield put(
+      user.success({ single: data.totalCount > 0 ? data.results[0] : null })
+    );
+  } catch (e) {
+    yield put(user.failure({ error: { ...e } }));
+  }
+}
+
+function* handleSearch(action) {
+  try {
+    const { q } = action.payload;
+    const { data } = yield call(
+      apiClient.get,
+      `${SERVER_ADDRESS}/users/look/${q}`
+    );
+    yield put(user.success({ data: data.results }));
   } catch (e) {
     yield put(user.failure({ error: { ...e } }));
   }
@@ -129,6 +147,7 @@ function* watchPresetSagas() {
   yield all([
     takeLatest(USER.GET, handleGet),
     takeLatest(USER.GET_ONE, handleGetOne),
+    takeLatest(USER.SEARCH, handleSearch),
     takeLatest(USER.SAVE, handlePost),
     takeLatest(USER.PUT, handlePut),
     takeLatest(USER.PATCH, handlePatch),

@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: '56.25%', // 16:9
   },
 }));
-export default function Comp() {
+export default function Post({ post }) {
   const classes = useStyles();
   return (
     <Card className={classes.root}>
