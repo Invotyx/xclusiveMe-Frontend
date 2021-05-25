@@ -16,17 +16,13 @@ import ImageAvatar from '../components/image-avatar';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchingSelector, userDataSelector } from '../selectors/userSelector';
 import { user } from '../actions/user';
-import { subscription } from '../actions/subscription';
 import {
-  Button,
   List,
   ListItem,
   ListItemAvatar,
   ListItemSecondaryAction,
   ListItemText,
 } from '@material-ui/core';
-import { Add } from '@material-ui/icons';
-import { getImage } from '../services/getImage';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -48,11 +44,6 @@ export default function Home() {
     event.preventDefault();
     dispatch(user.search({ q: _search }));
   };
-
-  // const handleFollow = (event, user) => {
-  //   event.preventDefault();
-  //   dispatch(subscription.add(user.subscriptionPlans[0]?.id));
-  // };
 
   return (
     <motion.div initial='hidden' animate='visible' variants={variants}>
@@ -110,14 +101,6 @@ export default function Home() {
                           }
                         />
                         <ListItemSecondaryAction>
-                          {/* <Button
-                            startIcon={<Add />}
-                            size='small'
-                            variant='outlined'
-                            onClick={(e) => handleFollow(e, u)}
-                          >
-                            Follow
-                          </Button> */}
                         </ListItemSecondaryAction>
                       </ListItem>
                     </Box>
