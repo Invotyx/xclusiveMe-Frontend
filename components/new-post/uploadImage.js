@@ -12,14 +12,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function FormDialog({
-  children,
   imageHandler,
   set_Loading,
   set_disabled,
 }) {
   const dispatch = useDispatch();
   const inputFile = React.useRef(null);
-  const [img, setImg] = React.useState(null);
   const classes = useStyles();
 
   const onChangeFile = (event) => {
