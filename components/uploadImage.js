@@ -25,21 +25,14 @@ export default function FormDialog({
   const onChangeFile = (event) => {
     event.stopPropagation();
     event.preventDefault();
-    set_disabled(true);
     var image = event.target.files[0];
     set_Loading(true);
+    set_disabled(true);
     dispatch(
       post.uploadImage({
         fileObject: image,
         callback: (source_url) => {
-          if (event.target.files && event.target.files[0]) {
-            let reader = new FileReader();
-            reader.onload = (e) => {
-              setImg(e.target.result);
-              imageHandler(e.target.result, image, source_url);
-            };
-            reader.readAsDataURL(event.target.files[0]);
-          }
+          imageHandler(source_url, image, source_url);
           set_Loading(false);
           set_disabled(false);
         },
