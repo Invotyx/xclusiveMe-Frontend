@@ -45,7 +45,7 @@ export default function Comp() {
                 <SearchIcon />
               </IconButton>
             </NextLink>
-            <NextLink href='/profile'>
+            <NextLink href='/new-post'>
               <IconButton color='inherit'>
                 <Image
                   width={40}
