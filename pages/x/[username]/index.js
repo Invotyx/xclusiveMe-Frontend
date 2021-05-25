@@ -11,10 +11,12 @@ export default function Profile() {
   const dispatch = useDispatch();
   const router = useRouter();
   const { username } = router.query;
-  useEffect(() => dispatch(user.requestOne(username)), [username]);
+  useEffect(() => {
+    dispatch(user.requestOne(username));
+    dispatch(post.requestX({ username }));
+  }, [username]);
   const u = useSelector(singleSelector);
   const _feed = useSelector(xfeedSelector);
-  useEffect(() => dispatch(post.requestX({ username })), []);
 
   return <User user={u} feed={_feed} follow={1} />;
 }
