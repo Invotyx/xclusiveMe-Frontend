@@ -74,34 +74,34 @@ export default function Home() {
                   users.length > 0 &&
                   users.map((u) => (
                     <NextLink href={`/x/${u.username}`} key={`user${u.id}`}>
-                    <Box
-                      clone
-                      pt={3}
-                      pb={3}
-                      mb={4}
-                      height={100}
-                      style={{
-                        backgroundSize: 'cover',
-                        backgroundImage: u.coverImage
-                          ? `url(${getImage(u.coverImage)})`
-                          : `url('/cover.jpg')`,
-                        boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',
-                      }}
-                    >
-                      <ListItem>
-                        <Box clone mr={2}>
-                          <ListItemAvatar>
-                            <ImageAvatar className={classes.large} user={u} />
-                          </ListItemAvatar>
-                        </Box>
-                        <ListItemText primary={u.username} />
-                        <ListItemSecondaryAction>
-                          <Button size='small' variant='outlined'>
-                            view profile
-                          </Button>
-                        </ListItemSecondaryAction>
-                      </ListItem>
-                    </Box>
+                      <Box
+                        clone
+                        pt={3}
+                        pb={3}
+                        mb={4}
+                        height={100}
+                        style={{
+                          backgroundSize: 'cover',
+                          backgroundImage: u.coverImage
+                            ? `url(${getImage(u.coverImage)})`
+                            : `url('/cover.jpg')`,
+                          boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',
+                        }}
+                      >
+                        <ListItem>
+                          <Box clone mr={2}>
+                            <ListItemAvatar>
+                              <ImageAvatar className={classes.large} user={u} />
+                            </ListItemAvatar>
+                          </Box>
+                          <ListItemText primary={u.username} />
+                          <ListItemSecondaryAction>
+                            <Button size='small' variant='outlined'>
+                              view profile
+                            </Button>
+                          </ListItemSecondaryAction>
+                        </ListItem>
+                      </Box>
                     </NextLink>
                   ))}
               </List>
