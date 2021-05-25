@@ -88,7 +88,7 @@ export default function NewPostForm({ afterSave }) {
   };
 
   const imageHandler = (source_url) => {
-    set_TileData([...tileData, source_url]);
+    set_TileData([...tileData, source_url.url]);
     let obj = {};
     set_FileObj([...fileObj, obj]);
   };
