@@ -138,7 +138,7 @@ function* handleUploadImage({ payload }) {
     );
     const { callback } = payload;
     if (callback) {
-      yield call(callback, response.data[0].url);
+      yield call(callback, response.data[0]);
     }
   } catch (error) {
     console.log('Error occurred in UPLOAD_IMAGE');
