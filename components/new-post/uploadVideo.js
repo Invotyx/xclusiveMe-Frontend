@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { post } from '../actions/post';
+import { post } from '../../actions/post';
 import IconButton from '@material-ui/core/IconButton';
 import { makeStyles } from '@material-ui/core/styles';
 import VideocamOutlinedIcon from '@material-ui/icons/VideocamOutlined';

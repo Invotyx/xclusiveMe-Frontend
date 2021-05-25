@@ -23,8 +23,8 @@ import AddIcon from '@material-ui/icons/Add';
 import NewPostPriceHelpPopover from './new-post-price-help-popover';
 import { useDispatch } from 'react-redux';
 import { post } from '../../actions/post';
-import UploadImage from '../uploadImage';
-import UploadVideo from '../uploadVideo';
+import UploadImage from './uploadImage';
+import UploadVideo from './uploadVideo';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { makeStyles } from '@material-ui/core/styles';
 
