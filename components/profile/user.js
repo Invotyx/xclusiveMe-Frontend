@@ -24,6 +24,7 @@ import ListItem from '@material-ui/core/ListItem';
 import Typography from '@material-ui/core/Typography';
 import CardContent from '@material-ui/core/CardContent';
 import Card from '@material-ui/core/Card';
+import Button from '@material-ui/core/Button';
 import Post from '../post';
 import ProfieImageAvatar from '../profile-image-avatar';
 import ProfileImage from '../change-profile-image';
@@ -36,6 +37,9 @@ import Images from './images';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import CreateIcon from '@material-ui/icons/Create';
 import { AppBar, Toolbar } from '@material-ui/core';
+import { subscription } from '../../actions/subscription';
+import { Add } from '@material-ui/icons';
+import { useDispatch } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -69,6 +73,7 @@ function TabPanel(props) {
 }
 
 export default function Profile({ user }) {
+  const dispatch = useDispatch();
   const [tab, setTab] = React.useState(0);
   const [currentUser, setCurrentUser] = React.useState(user);
   const classes = useStyles();
@@ -76,6 +81,13 @@ export default function Profile({ user }) {
   useEffect(() => {
     setCurrentUser(user);
   }, [user]);
+
+  const handleFollow = (event) => {
+    event.preventDefault();
+    user.subscriptionPlans &&
+      user.subscriptionPlans.length > 0 &&
+      dispatch(subscription.add(user.subscriptionPlans[0]?.id));
+  };
 
   return (
     <motion.div initial='hidden' animate='visible' variants={variants}>
@@ -194,6 +206,22 @@ export default function Profile({ user }) {
                           ml={{ xs: 2, sm: 2, md: 8 }}
                           mr={{ xs: 2, sm: 2, md: 8 }}
                         >
+                          <Box bgcolor='#111' display='flex' p={2}>
+                            <Box flexGrow={1}>
+                              <Typography>
+                                Follow to get posts in your News Feed.
+                              </Typography>
+                            </Box>
+
+                            <Button
+                              startIcon={<Add />}
+                              size='small'
+                              variant='outlined'
+                              onClick={(e) => handleFollow(e)}
+                            >
+                              Follow
+                            </Button>
+                          </Box>
                           <CardHeader
                             action={
                               <>
