@@ -29,6 +29,7 @@ import NewPostPriceHelpPopover from './new-post-price-help-popover';
 import { useDispatch } from 'react-redux';
 import { post } from '../../actions/post';
 import UploadImage from '../uploadImage';
+import UploadVideo from '../uploadVideo';
 
 const styles = (theme) => ({
   root: {
@@ -233,9 +234,7 @@ export default function NewPostDialog() {
                   </Box>
                   <Box mx={1}>
                     <Box clone color='#666'>
-                      <IconButton size='small'>
-                        <VideocamOutlinedIcon />
-                      </IconButton>
+                      <UploadVideo />
                     </Box>
                   </Box>
                   <Box mx={1}>
