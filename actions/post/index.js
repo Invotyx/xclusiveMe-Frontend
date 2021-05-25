@@ -8,6 +8,12 @@ export const post = {
       success: false,
       error: null,
     }),
+  requestSubscribed: () =>
+    createAction(POST.GET_SUBSCRIBED, {
+      fetching: true,
+      success: false,
+      error: null,
+    }),
   save: (data) =>
     createAction(POST.SAVE, {
       ...data,

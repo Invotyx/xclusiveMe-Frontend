@@ -7,6 +7,10 @@ export async function getAll() {
   return apiClient.get(`${SERVER_ADDRESS}/post`);
 }
 
+export async function getAllSubscribed() {
+  return apiClient.get(`${SERVER_ADDRESS}/post/subscribed`);
+}
+
 export async function add(saveData) {
   const data = JSON.stringify(saveData);
   return apiClient.post(`${SERVER_ADDRESS}/post`, data);

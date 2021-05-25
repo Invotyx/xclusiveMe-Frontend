@@ -13,6 +13,15 @@ function* handleGet() {
   }
 }
 
+function* handleGetSubscribed() {
+  try {
+    const { data } = yield call(getAllSubscribed);
+    yield put(post.success({ subscribed: data.posts }));
+  } catch (e) {
+    yield put(post.success({ error: true }));
+  }
+}
+
 function* handlePost(action) {
   try {
     const { saveData } = action.payload;
@@ -95,6 +104,7 @@ function* handleUpdate(action) {
 function* watchPostSagas() {
   yield all([
     takeLatest(POST.GET, handleGet),
+    takeLatest(POST.GET_SUBSCRIBED, handleGetSubscribed),
     takeLatest(POST.SAVE, handlePost),
     takeLatest(POST.UPDATE, handleUpdate),
     takeLatest(POST.DELETE, handleDelete),
