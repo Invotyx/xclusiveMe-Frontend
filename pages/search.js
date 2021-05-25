@@ -78,7 +78,6 @@ export default function Home() {
                       clone
                       pt={3}
                       pb={3}
-                      key={u.id}
                       mb={4}
                       height={100}
                       style={{
