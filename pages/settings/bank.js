@@ -22,6 +22,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
+import BillingAddDialog from '../../components/settings/billing/add-dialog';
 
 export default function Home() {
   const fetching = useSelector(fetchingSelector);
@@ -57,29 +58,14 @@ export default function Home() {
         </Head>
         <Grid container spacing={6}>
           <Grid item xs={12} md={8}>
-            <Box my={2}>
-              <UppercaseInputLabel>ADD DETAILS</UppercaseInputLabel>
+            <Box display='flex' mb={2}>
+              <Box flexGrow={1}>
+                <Typography variant='h6'>Add Details</Typography>
+              </Box>
+              <BillingAddDialog />
             </Box>
             <Divider />
-            <Box my={2}>
-              <Typography variant='subtitle2'>
-                Add your bank card details
-              </Typography>
-            </Box>
-            <Box my={2}>
-              <Typography variant='body2'>
-                Enter the following details
-              </Typography>
-            </Box>
-            <form onSubmit={handleUpdate}>
-              <Box mb={4}>
-                <StripeElements disabledButton={disabledButton} />
 
-                <Button variant='outlined' type='submit'>
-                  Save
-                </Button>
-              </Box>
-            </form>
             <Box mb={2}>
               <List>
                 {fetching ? (
