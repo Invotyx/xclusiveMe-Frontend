@@ -12,28 +12,28 @@ export default function Home() {
       <Head>
         <title>xclusiveme</title>
       </Head>
-        <Grid item xs={12} sm={8} md={5}>
-          <Box pl={6} pr={6} pt={2} mx={4}>
-            <Box py={4} display='block'>
-              <Typography component='h1' variant='h4'>
-                Exclusive club for influencers and members to share exclusive
-                content.
-              </Typography>
+      <Grid item xs={12} sm={8} md={5}>
+        <Box pl={6} pr={6} pt={2} mx={4}>
+          <Box py={4} display='block'>
+            <Typography component='h1' variant='h4'>
+              Exclusive club for influencers and members to share exclusive
+              content.
+            </Typography>
+          </Box>
+          <Box mr={2} mt={2} display='flex'>
+            <Box mr={2}>
+              <NextLink href='/login'>
+                <Button variant='outlined'>Login</Button>
+              </NextLink>
             </Box>
-            <Box mr={2} mt={2} display='flex'>
-              <Box mr={2}>
-                <NextLink href='/login'>
-                  <Button variant='outlined'>Login</Button>
-                </NextLink>
-              </Box>
-              <Box mr={2}>
-                <NextLink href='/register'>
-                  <Button variant='outlined'>Create Account</Button>
-                </NextLink>
-              </Box>
+            <Box mr={2}>
+              <NextLink href='/register'>
+                <Button variant='outlined'>Create Account</Button>
+              </NextLink>
             </Box>
           </Box>
-        </Grid>
+        </Box>
+      </Grid>
     </LayoutGuest>
   );
 }
