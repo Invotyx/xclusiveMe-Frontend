@@ -8,7 +8,7 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Icon from '@material-ui/core/Icon';
 import ArrowForwardOutlinedIcon from '@material-ui/icons/ArrowForwardOutlined';
-import { paymentDataSelector } from '../selectors/paymentSelector';
+import { paymentDataSelector } from '../../../selectors/paymentSelector';
 import { useSelector } from 'react-redux';
 import NextLink from 'next/link';
 

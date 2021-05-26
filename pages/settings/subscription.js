@@ -17,7 +17,7 @@ import { useSelector } from 'react-redux';
 import Layout from '../../components/layouts/layout-settings';
 import { fetchingSelector } from '../../selectors/authSelector';
 import { errorSelector } from '../../selectors/authSelector';
-import Popover from '../../components/popover';
+import Popover from '../../components/settings/subscription/popover';
 
 export default function Home() {
   const fetching = useSelector(fetchingSelector);
