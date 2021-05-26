@@ -3,7 +3,7 @@ import { variants } from '../services/framer-variants';
 import Head from 'next/head';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
-import Post from '../components/post';
+import Post from '../components/profile/post';
 import { makeStyles } from '@material-ui/core/styles';
 import Layout from '../components/layouts/layout-auth';
 import { useDispatch, useSelector } from 'react-redux';
