@@ -1,24 +1,18 @@
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { variants } from '../services/framer-variants';
 import Head from 'next/head';
 import NextLink from 'next/link';
 import Box from '@material-ui/core/Box';
-import Grid from '@material-ui/core/Grid';
-import AuthNav from '../components/layouts/auth-nav';
 import { makeStyles } from '@material-ui/core/styles';
-import HomeLegend from '../components/home-legend';
 import TileButton from '../components/TileButton';
 import TileTextField from '../components/TileTextField';
-import LogoGuest from '../components/layouts/logo-guest';
-import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
 import MenuItem from '@material-ui/core/MenuItem';
 import { auth } from '../actions/auth';
 import { fetchingSelector, errorSelector } from '../selectors/authSelector';
 import countriesList from '../services/countries';
+import LayoutGuest from '../components/layouts/layout-guest';
 
 const useStyles = makeStyles((theme) => ({
   grey: {
@@ -79,17 +73,10 @@ export default function SignInSide() {
   };
 
   return (
-    <Container>
+    <LayoutGuest>
       <Head>
         <title>Register</title>
       </Head>
-      <Grid container component='main'>
-        <Grid item xs={12}>
-          <LogoGuest />
-        </Grid>
-        <Grid item xs={12} sm={8} md={5}>
-          <Box pl={8} pr={8} mx={4}>
-            <AuthNav />
             {registrationState === 1 && (
               <form onSubmit={handleSubmit}>
                 <TileTextField
@@ -287,12 +274,6 @@ export default function SignInSide() {
                 </Box>
               </form>
             )}
-          </Box>
-        </Grid>
-        <Grid item xs={12} sm={4} md={7}>
-          <HomeLegend />
-        </Grid>
-      </Grid>
-    </Container>
+    </LayoutGuest>
   );
 }
