@@ -4,10 +4,10 @@ import Box from '@material-ui/core/Box';
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { payment } from '../../../actions/payment';
+import { paymentMethod } from '../../../../actions/payment-method';
 import { snackbar } from '../../../actions/snackbar';
 import CardSection from './card-section';
-import { fetchingSelector } from '../../../selectors/paymentSelector';
+import { fetchingSelector } from '../../../../selectors/paymentMethodSelector';
 
 export default function CheckoutForm(props) {
   const fetching = useSelector(fetchingSelector);
@@ -47,7 +47,7 @@ export default function CheckoutForm(props) {
     if (result.token) {
       set_disabled(false);
       dispatch(
-        payment.addPayment({
+        paymentMethod.save({
           name,
           token: result.token.id,
           callback: () => {
