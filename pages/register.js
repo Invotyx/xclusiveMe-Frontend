@@ -7,7 +7,7 @@ import Head from 'next/head';
 import NextLink from 'next/link';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
-import AuthNav from '../components/auth-nav';
+import AuthNav from '../components/layouts/auth-nav';
 import { makeStyles } from '@material-ui/core/styles';
 import HomeLegend from '../components/home-legend';
 import TileButton from '../components/TileButton';
