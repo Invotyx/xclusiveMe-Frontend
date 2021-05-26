@@ -6,6 +6,7 @@ import paymentReducer from './paymentReducer';
 import userReducer from './userReducer';
 import bottomAlertReducer from './bottomAlertReducer';
 import postReducer from './postReducer';
+import paymentMethodReducer from './paymentMethodReducer';
 import subscriptionReducer from './subscriptionReducer';
 
 const rootReducer = () =>
@@ -16,6 +17,7 @@ const rootReducer = () =>
     userData: userReducer,
     paymentData: paymentReducer,
     postData: postReducer,
+    paymentMethodData: paymentMethodReducer,
     subscriptionData: subscriptionReducer,
     bottomAlertData: bottomAlertReducer,
   });

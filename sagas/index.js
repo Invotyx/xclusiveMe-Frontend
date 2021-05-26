@@ -5,6 +5,7 @@ import authSagas from './authSagas';
 import paymentSagas from './payment.saga';
 import postSagas from './postSagas';
 import subscriptionSagas from './subscription.saga';
+import paymentMethodSagas from './paymentMethodSagas';
 
 export default function* rootSaga() {
   yield all([
@@ -14,5 +15,6 @@ export default function* rootSaga() {
     fork(paymentSagas),
     fork(postSagas),
     fork(subscriptionSagas),
+    fork(paymentMethodSagas),
   ]);
 }
