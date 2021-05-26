@@ -77,203 +77,203 @@ export default function SignInSide() {
       <Head>
         <title>Register</title>
       </Head>
-            {registrationState === 1 && (
-              <form onSubmit={handleSubmit}>
-                <TileTextField
-                  error={validationErrors && validationErrors.fullName}
-                  helperText={
-                    validationErrors.fullName
-                      ? Object.values(validationErrors.fullName).join(', ')
-                      : ''
-                  }
-                  value={fullName}
-                  onChange={(e) => setFullName(e.target.value)}
-                  variant='outlined'
-                  margin='normal'
-                  required
-                  fullWidth
-                  id='fullName'
-                  label='Full Name'
-                  name='fullName'
-                  autoComplete='fullName'
-                />
-                <TileTextField
-                  error={validationErrors && validationErrors.username}
-                  helperText={
-                    validationErrors.username
-                      ? Object.values(validationErrors.username).join(', ')
-                      : ''
-                  }
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  variant='outlined'
-                  margin='normal'
-                  required
-                  fullWidth
-                  id='username'
-                  label='Username'
-                  name='username'
-                  autoComplete='username'
-                />
-                <TileTextField
-                  error={validationErrors && validationErrors.email}
-                  helperText={
-                    validationErrors.email
-                      ? Object.values(validationErrors.email).join(', ')
-                      : ''
-                  }
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  variant='outlined'
-                  margin='normal'
-                  required
-                  fullWidth
-                  id='email'
-                  label='Email Address'
-                  name='email'
-                  autoComplete='email'
-                />
-                <TileTextField
-                  error={validationErrors && validationErrors.password}
-                  helperText={
-                    validationErrors.password
-                      ? Object.values(validationErrors.password).join(', ')
-                      : ''
-                  }
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  variant='outlined'
-                  margin='normal'
-                  required
-                  fullWidth
-                  name='password'
-                  label='Password'
-                  type='password'
-                  id='password'
-                  autoComplete='current-password'
-                />
-                <Box display='flex'>
-                  <TileTextField
-                    select
-                    error={validationErrors && validationErrors.country}
-                    helperText={
-                      validationErrors.country
-                        ? Object.values(validationErrors.country).join(', ')
-                        : ''
-                    }
-                    value={country}
-                    onChange={(e) => setCountry(e.target.value)}
-                    variant='outlined'
-                    margin='normal'
-                    id='country'
-                    label='Country'
-                    name='country'
-                    autoComplete='country'
-                  >
-                    {countriesList.map((c) => (
-                      <MenuItem value={c.name} key={`countriesList${c.code}`}>
-                        {c.name}
-                      </MenuItem>
-                    ))}
-                  </TileTextField>
-                  <TileTextField
-                    error={validationErrors && validationErrors.phoneNumber}
-                    helperText={
-                      validationErrors.phoneNumber
-                        ? Object.values(validationErrors.phoneNumber).join(', ')
-                        : ''
-                    }
-                    value={phoneNumber}
-                    onChange={(e) => setPhoneNumber(e.target.value)}
-                    variant='outlined'
-                    margin='normal'
-                    required
-                    fullWidth
-                    id='phoneNumber'
-                    label='Phone Number'
-                    name='phoneNumber'
-                    autoComplete='phoneNumber'
-                  />
-                </Box>
-                <Box my={2}>
-                  <TileButton
-                    type='submit'
-                    fullWidth
-                    variant='contained'
-                    color='primary'
-                    disabled={fetching}
-                  >
-                    Register
-                  </TileButton>
-                </Box>
-              </form>
-            )}
-            {registrationState === 2 && (
-              <form onSubmit={handleSubmit}>
-                <TileTextField
-                  error={validationErrors && validationErrors.code}
-                  helperText={
-                    validationErrors.code
-                      ? Object.values(validationErrors.code).join(', ')
-                      : ''
-                  }
-                  value={code}
-                  onChange={(e) => setCode(e.target.value)}
-                  variant='outlined'
-                  margin='normal'
-                  required
-                  fullWidth
-                  id='code'
-                  label='Enter Code'
-                  name='code'
-                  type='number'
-                  autoComplete='code'
-                />
-                <Box textAlign='center' mt={1}>
-                  <NextLink href='#' passHref>
-                    <Link
-                      variant='body2'
-                      onClick={(e) => {
-                        e.preventDefault();
-                        dispatch(
-                          auth.resendOtp({
-                            sessionId,
-                            callback: (sid) => {
-                              set_sessionId(sid);
-                            },
-                          })
-                        );
-                      }}
-                    >
-                      Resend OTP
-                    </Link>
-                  </NextLink>
-                </Box>
-                <Box my={2}>
-                  <TileButton
-                    type='submit'
-                    fullWidth
-                    variant='contained'
-                    color='primary'
-                  >
-                    Verify
-                  </TileButton>
-                  <Box textAlign='center' mt={1}>
-                    <NextLink href='#' passHref>
-                      <Link
-                        variant='body2'
-                        onClick={(e) => {
-                          e.preventDefault();
-                          set_registrationState(1);
-                        }}
-                      >
-                        Cancel
-                      </Link>
-                    </NextLink>
-                  </Box>
-                </Box>
-              </form>
-            )}
+      {registrationState === 1 && (
+        <form onSubmit={handleSubmit}>
+          <TileTextField
+            error={validationErrors && validationErrors.fullName}
+            helperText={
+              validationErrors.fullName
+                ? Object.values(validationErrors.fullName).join(', ')
+                : ''
+            }
+            value={fullName}
+            onChange={(e) => setFullName(e.target.value)}
+            variant='outlined'
+            margin='normal'
+            required
+            fullWidth
+            id='fullName'
+            label='Full Name'
+            name='fullName'
+            autoComplete='fullName'
+          />
+          <TileTextField
+            error={validationErrors && validationErrors.username}
+            helperText={
+              validationErrors.username
+                ? Object.values(validationErrors.username).join(', ')
+                : ''
+            }
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            variant='outlined'
+            margin='normal'
+            required
+            fullWidth
+            id='username'
+            label='Username'
+            name='username'
+            autoComplete='username'
+          />
+          <TileTextField
+            error={validationErrors && validationErrors.email}
+            helperText={
+              validationErrors.email
+                ? Object.values(validationErrors.email).join(', ')
+                : ''
+            }
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            variant='outlined'
+            margin='normal'
+            required
+            fullWidth
+            id='email'
+            label='Email Address'
+            name='email'
+            autoComplete='email'
+          />
+          <TileTextField
+            error={validationErrors && validationErrors.password}
+            helperText={
+              validationErrors.password
+                ? Object.values(validationErrors.password).join(', ')
+                : ''
+            }
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            variant='outlined'
+            margin='normal'
+            required
+            fullWidth
+            name='password'
+            label='Password'
+            type='password'
+            id='password'
+            autoComplete='current-password'
+          />
+          <Box display='flex'>
+            <TileTextField
+              select
+              error={validationErrors && validationErrors.country}
+              helperText={
+                validationErrors.country
+                  ? Object.values(validationErrors.country).join(', ')
+                  : ''
+              }
+              value={country}
+              onChange={(e) => setCountry(e.target.value)}
+              variant='outlined'
+              margin='normal'
+              id='country'
+              label='Country'
+              name='country'
+              autoComplete='country'
+            >
+              {countriesList.map((c) => (
+                <MenuItem value={c.name} key={`countriesList${c.code}`}>
+                  {c.name}
+                </MenuItem>
+              ))}
+            </TileTextField>
+            <TileTextField
+              error={validationErrors && validationErrors.phoneNumber}
+              helperText={
+                validationErrors.phoneNumber
+                  ? Object.values(validationErrors.phoneNumber).join(', ')
+                  : ''
+              }
+              value={phoneNumber}
+              onChange={(e) => setPhoneNumber(e.target.value)}
+              variant='outlined'
+              margin='normal'
+              required
+              fullWidth
+              id='phoneNumber'
+              label='Phone Number'
+              name='phoneNumber'
+              autoComplete='phoneNumber'
+            />
+          </Box>
+          <Box my={2}>
+            <TileButton
+              type='submit'
+              fullWidth
+              variant='contained'
+              color='primary'
+              disabled={fetching}
+            >
+              Register
+            </TileButton>
+          </Box>
+        </form>
+      )}
+      {registrationState === 2 && (
+        <form onSubmit={handleSubmit}>
+          <TileTextField
+            error={validationErrors && validationErrors.code}
+            helperText={
+              validationErrors.code
+                ? Object.values(validationErrors.code).join(', ')
+                : ''
+            }
+            value={code}
+            onChange={(e) => setCode(e.target.value)}
+            variant='outlined'
+            margin='normal'
+            required
+            fullWidth
+            id='code'
+            label='Enter Code'
+            name='code'
+            type='number'
+            autoComplete='code'
+          />
+          <Box textAlign='center' mt={1}>
+            <NextLink href='#' passHref>
+              <Link
+                variant='body2'
+                onClick={(e) => {
+                  e.preventDefault();
+                  dispatch(
+                    auth.resendOtp({
+                      sessionId,
+                      callback: (sid) => {
+                        set_sessionId(sid);
+                      },
+                    })
+                  );
+                }}
+              >
+                Resend OTP
+              </Link>
+            </NextLink>
+          </Box>
+          <Box my={2}>
+            <TileButton
+              type='submit'
+              fullWidth
+              variant='contained'
+              color='primary'
+            >
+              Verify
+            </TileButton>
+            <Box textAlign='center' mt={1}>
+              <NextLink href='#' passHref>
+                <Link
+                  variant='body2'
+                  onClick={(e) => {
+                    e.preventDefault();
+                    set_registrationState(1);
+                  }}
+                >
+                  Cancel
+                </Link>
+              </NextLink>
+            </Box>
+          </Box>
+        </form>
+      )}
     </LayoutGuest>
   );
 }

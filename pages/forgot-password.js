@@ -39,30 +39,30 @@ export default function SignInSide() {
       <Head>
         <title>Login</title>
       </Head>
-            <form onSubmit={handleSubmit}>
-              <TileTextField
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                variant='outlined'
-                margin='normal'
-                required
-                fullWidth
-                id='email'
-                label='Email Address'
-                name='email'
-                autoComplete='email'
-                autoFocus
-              />
-              <TileButton
-                type='submit'
-                fullWidth
-                variant='contained'
-                color='primary'
-                disabled={fetching}
-              >
-                Proceed
-              </TileButton>
-            </form>
+      <form onSubmit={handleSubmit}>
+        <TileTextField
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          variant='outlined'
+          margin='normal'
+          required
+          fullWidth
+          id='email'
+          label='Email Address'
+          name='email'
+          autoComplete='email'
+          autoFocus
+        />
+        <TileButton
+          type='submit'
+          fullWidth
+          variant='contained'
+          color='primary'
+          disabled={fetching}
+        >
+          Proceed
+        </TileButton>
+      </form>
     </LayoutGuest>
   );
 }

@@ -68,137 +68,131 @@ export default function SignInSide() {
       <Head>
         <title>Login</title>
       </Head>
-            {registrationState === 1 && (
-              <form onSubmit={handleSubmit}>
-                <TileTextField
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  variant='outlined'
-                  margin='normal'
-                  required
-                  fullWidth
-                  id='email'
-                  label='Email Address'
-                  name='email'
-                  autoComplete='email'
-                  autoFocus
-                />
-                <TileTextField
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  variant='outlined'
-                  margin='normal'
-                  required
-                  fullWidth
-                  name='password'
-                  label='Password'
-                  type='password'
-                  id='password'
-                  autoComplete='current-password'
-                />
-                <Box my={2}>
-                  <Grid container>
-                    <Grid item xs>
-                      <Box mb={2}>
-                        <FormControlLabel
-                          control={
-                            <Checkbox
-                              value='remember'
-                              color='primary'
-                              size='small'
-                            />
-                          }
-                          label={
-                            <Typography variant='body2'>Remember me</Typography>
-                          }
-                          size='small'
-                          className={classes.grey}
-                        />
-                      </Box>
-                    </Grid>
-                    <Grid item>
-                      <Box mb={2} mt={1}>
-                        <NextLink href='/forgot-password' passHref>
-                          <Link variant='body2' className={classes.grey}>
-                            Forgot your password?
-                          </Link>
-                        </NextLink>
-                      </Box>
-                    </Grid>
-                  </Grid>
+      {registrationState === 1 && (
+        <form onSubmit={handleSubmit}>
+          <TileTextField
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            variant='outlined'
+            margin='normal'
+            required
+            fullWidth
+            id='email'
+            label='Email Address'
+            name='email'
+            autoComplete='email'
+            autoFocus
+          />
+          <TileTextField
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            variant='outlined'
+            margin='normal'
+            required
+            fullWidth
+            name='password'
+            label='Password'
+            type='password'
+            id='password'
+            autoComplete='current-password'
+          />
+          <Box my={2}>
+            <Grid container>
+              <Grid item xs>
+                <Box mb={2}>
+                  <FormControlLabel
+                    control={
+                      <Checkbox value='remember' color='primary' size='small' />
+                    }
+                    label={<Typography variant='body2'>Remember me</Typography>}
+                    size='small'
+                    className={classes.grey}
+                  />
                 </Box>
-
-                <TileButton
-                  type='submit'
-                  fullWidth
-                  variant='contained'
-                  color='primary'
-                  disabled={fetching}
-                >
-                  Login
-                </TileButton>
-              </form>
-            )}
-            {registrationState === 2 && (
-              <form onSubmit={handleSubmit}>
-                <TileTextField
-                  value={code}
-                  onChange={(e) => setCode(e.target.value)}
-                  variant='outlined'
-                  margin='normal'
-                  required
-                  fullWidth
-                  id='code'
-                  label='Enter Code'
-                  name='code'
-                  type='number'
-                  autoComplete='code'
-                />
-                <Box textAlign='center' mt={1}>
-                  <NextLink href='#' passHref>
-                    <Link
-                      variant='body2'
-                      onClick={(e) => {
-                        e.preventDefault();
-                        dispatch(
-                          auth.resendOtp({
-                            sessionId,
-                            callback: (sid) => {
-                              set_sessionId(sid);
-                            },
-                          })
-                        );
-                      }}
-                    >
-                      Resend OTP
+              </Grid>
+              <Grid item>
+                <Box mb={2} mt={1}>
+                  <NextLink href='/forgot-password' passHref>
+                    <Link variant='body2' className={classes.grey}>
+                      Forgot your password?
                     </Link>
                   </NextLink>
                 </Box>
-                <Box my={2}>
-                  <TileButton
-                    type='submit'
-                    fullWidth
-                    variant='contained'
-                    color='primary'
-                  >
-                    Verify
-                  </TileButton>
-                  <Box textAlign='center' mt={1}>
-                    <NextLink href='#' passHref>
-                      <Link
-                        variant='body2'
-                        onClick={(e) => {
-                          e.preventDefault();
-                          set_registrationState(1);
-                        }}
-                      >
-                        Cancel
-                      </Link>
-                    </NextLink>
-                  </Box>
-                </Box>
-              </form>
-            )}
+              </Grid>
+            </Grid>
+          </Box>
+
+          <TileButton
+            type='submit'
+            fullWidth
+            variant='contained'
+            color='primary'
+            disabled={fetching}
+          >
+            Login
+          </TileButton>
+        </form>
+      )}
+      {registrationState === 2 && (
+        <form onSubmit={handleSubmit}>
+          <TileTextField
+            value={code}
+            onChange={(e) => setCode(e.target.value)}
+            variant='outlined'
+            margin='normal'
+            required
+            fullWidth
+            id='code'
+            label='Enter Code'
+            name='code'
+            type='number'
+            autoComplete='code'
+          />
+          <Box textAlign='center' mt={1}>
+            <NextLink href='#' passHref>
+              <Link
+                variant='body2'
+                onClick={(e) => {
+                  e.preventDefault();
+                  dispatch(
+                    auth.resendOtp({
+                      sessionId,
+                      callback: (sid) => {
+                        set_sessionId(sid);
+                      },
+                    })
+                  );
+                }}
+              >
+                Resend OTP
+              </Link>
+            </NextLink>
+          </Box>
+          <Box my={2}>
+            <TileButton
+              type='submit'
+              fullWidth
+              variant='contained'
+              color='primary'
+            >
+              Verify
+            </TileButton>
+            <Box textAlign='center' mt={1}>
+              <NextLink href='#' passHref>
+                <Link
+                  variant='body2'
+                  onClick={(e) => {
+                    e.preventDefault();
+                    set_registrationState(1);
+                  }}
+                >
+                  Cancel
+                </Link>
+              </NextLink>
+            </Box>
+          </Box>
+        </form>
+      )}
     </LayoutGuest>
   );
 }
