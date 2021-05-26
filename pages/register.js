@@ -12,7 +12,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { auth } from '../actions/auth';
 import { fetchingSelector, errorSelector } from '../selectors/authSelector';
 import countriesList from '../services/countries';
-import LayoutGuest from '../components/layouts/layout-guest';
+import LayoutGuest from '../components/layouts/layout-guest-auth';
 
 const useStyles = makeStyles((theme) => ({
   grey: {

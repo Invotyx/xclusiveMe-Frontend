@@ -7,7 +7,7 @@ import TileButton from '../components/TileButton';
 import TileTextField from '../components/TileTextField';
 import { auth } from '../actions/auth';
 import { fetchingSelector } from '../selectors/authSelector';
-import LayoutGuest from '../components/layouts/layout-guest';
+import LayoutGuest from '../components/layouts/layout-guest-auth';
 
 const useStyles = makeStyles((theme) => ({
   grey: {

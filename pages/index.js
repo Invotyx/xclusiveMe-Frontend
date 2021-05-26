@@ -1,26 +1,17 @@
 import NextLink from 'next/link';
-import { motion } from 'framer-motion';
-import { variants } from '../services/framer-variants';
 import Head from 'next/head';
-import HomeLegend from '../components/home-legend';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
-import LogoGuest from '../components/layouts/logo-guest';
-import Container from '@material-ui/core/Container';
+import LayoutGuest from '../components/layouts/layout-guest';
 
 export default function Home() {
   return (
-    <Container>
+    <LayoutGuest>
       <Head>
         <title>xclusiveme</title>
       </Head>
-      <Grid container component='main'>
-        <Grid item xs={12}>
-          <LogoGuest />
-        </Grid>
-
         <Grid item xs={12} sm={8} md={5}>
           <Box pl={6} pr={6} pt={2} mx={4}>
             <Box py={4} display='block'>
@@ -43,10 +34,6 @@ export default function Home() {
             </Box>
           </Box>
         </Grid>
-        <Grid item xs={12} sm={4} md={7}>
-          <HomeLegend />
-        </Grid>
-      </Grid>
-    </Container>
+    </LayoutGuest>
   );
 }

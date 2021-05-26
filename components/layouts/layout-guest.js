@@ -12,12 +12,7 @@ export default function LayoutGuest({ children }) {
         <Grid item xs={12}>
           <LogoGuest />
         </Grid>
-        <Grid item xs={12} sm={8} md={5}>
-          <Box pl={8} pr={8} mx={4}>
-            <AuthNav />
-            {children}
-          </Box>
-        </Grid>
+        {children}
         <Grid item xs={12} sm={4} md={7}>
           <HomeLegend />
         </Grid>
