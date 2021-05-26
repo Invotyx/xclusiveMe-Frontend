@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import { motion } from 'framer-motion';
 import { variants } from '../../services/framer-variants';
 import Head from 'next/head';
@@ -13,7 +12,7 @@ import { currentUserSelector } from '../../selectors/authSelector';
 import { useSelector } from 'react-redux';
 import Layout from '../../components/layout-settings';
 import { errorSelector } from '../../selectors/authSelector';
-import StripeElements from '../../components/StripeElements';
+import StripeElements from '../../components/settings/payment/StripeElements';
 import {
   paymentDataSelector,
   fetchingSelector,
