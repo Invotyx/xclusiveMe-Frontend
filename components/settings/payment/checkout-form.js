@@ -14,6 +14,7 @@ export default function CheckoutForm(props) {
   const stripe = useStripe();
   const elements = useElements();
   const [name, setName] = useState('');
+  const [_disabled, set_disabled] = useState('');
   const dispatch = useDispatch();
 
   const handleSubmit = async (event) => {
@@ -28,9 +29,11 @@ export default function CheckoutForm(props) {
     }
 
     const card = elements.getElement(CardElement);
+    set_disabled(true);
     const result = await stripe.createToken(card);
 
     if (result.error) {
+      set_disabled(false);
       // Show error to your customer.
       console.log(result.error.message);
       dispatch(
@@ -42,6 +45,7 @@ export default function CheckoutForm(props) {
       );
     }
     if (result.token) {
+      set_disabled(false);
       dispatch(
         payment.addPayment({
           name,
@@ -57,6 +61,9 @@ export default function CheckoutForm(props) {
         })
       );
     }
+    setTimeout(() => {
+      set_disabled(false);
+    }, 2000);
   };
 
   return (
