@@ -97,7 +97,7 @@ export default function CheckoutForm(props) {
         <Button
           color='primary'
           variant='contained'
-          disabled={!stripe || fetching}
+          disabled={!stripe || fetching || _disabled}
           type='submit'
         >
           Add Method
