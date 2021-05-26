@@ -40,7 +40,8 @@ export default function CheckoutForm(props) {
           severity: 'error',
         })
       );
-    } else {
+    }
+    if (result.token) {
       dispatch(
         payment.addPayment({
           name,
