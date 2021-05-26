@@ -29,7 +29,7 @@ import {
   currentUserSessionsSelector,
 } from '../../selectors/authSelector';
 import { useSelector } from 'react-redux';
-import Layout from '../../components/layout-settings';
+import Layout from '../../components/layouts/layout-settings';
 import { fetchingSelector } from '../../selectors/authSelector';
 import { errorSelector } from '../../selectors/authSelector';
 
@@ -71,9 +71,8 @@ export default function Home(props) {
   const error = useSelector(errorSelector);
   const dispatch = useDispatch();
   const [editLinkedAccount, set_editLinkedAccount] = React.useState(null);
-  const [editLinkedAccountText, set_editLinkedAccountText] = React.useState(
-    null
-  );
+  const [editLinkedAccountText, set_editLinkedAccountText] =
+    React.useState(null);
   const [username, set_username] = React.useState('');
   const [email, set_email] = React.useState('');
   const [phone, set_phone] = React.useState('');

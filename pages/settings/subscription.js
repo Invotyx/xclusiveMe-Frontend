@@ -14,7 +14,7 @@ import TileTextField from '../../components/TileTextField';
 import { auth } from '../../actions/auth';
 import { currentUserSelector } from '../../selectors/authSelector';
 import { useSelector } from 'react-redux';
-import Layout from '../../components/layout-settings';
+import Layout from '../../components/layouts/layout-settings';
 import { fetchingSelector } from '../../selectors/authSelector';
 import { errorSelector } from '../../selectors/authSelector';
 

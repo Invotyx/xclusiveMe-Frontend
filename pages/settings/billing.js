@@ -24,7 +24,7 @@ import {
   fetchingSelector,
 } from '../../selectors/paymentSelector';
 import { payment } from '../../actions/payment';
-import Layout from '../../components/layout-settings';
+import Layout from '../../components/layouts/layout-settings';
 
 const useStyles = makeStyles((theme) => ({
   root: {

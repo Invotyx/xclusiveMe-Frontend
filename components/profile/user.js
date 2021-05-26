@@ -31,7 +31,7 @@ import ProfileImage from './change-profile-image';
 import CoverImage from './change-cover-image';
 import UpdateCoverImage2 from './update-cover-image-2';
 import { makeStyles } from '@material-ui/core/styles';
-import Layout from '../layout-auth';
+import Layout from '../layouts/layout-auth';
 import UpdateProfile from './update-profile';
 import Images from './images';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';

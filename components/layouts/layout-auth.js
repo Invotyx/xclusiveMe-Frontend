@@ -1,5 +1,5 @@
-import LogoAuth from '../components/logo-auth';
-import BottomNav from '../components/bottom-nav';
+import LogoAuth from './logo-auth';
+import BottomNav from './bottom-nav';
 import Box from '@material-ui/core/Box';
 
 export default function Layout(props) {

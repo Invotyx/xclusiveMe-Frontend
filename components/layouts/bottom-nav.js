@@ -11,7 +11,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import Image from 'next/image';
 import NextLink from 'next/link';
 import { makeStyles } from '@material-ui/core/styles';
-import ProfieImageAvatar from './profile/profile-image-avatar';
+import ProfieImageAvatar from '../profile/profile-image-avatar';
 
 const useStyles = makeStyles((theme) => ({
   bottom: {

@@ -12,7 +12,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import HomeLegend from '../components/home-legend';
 import TileButton from '../components/TileButton';
 import TileTextField from '../components/TileTextField';
-import LogoGuest from '../components/logo-guest';
+import LogoGuest from '../components/layouts/logo-guest';
 import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
 import MenuItem from '@material-ui/core/MenuItem';

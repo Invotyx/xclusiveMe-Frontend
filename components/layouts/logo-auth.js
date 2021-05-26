@@ -12,14 +12,14 @@ import SettingsIcon from '@material-ui/icons/SettingsOutlined';
 import SmsIcon from '@material-ui/icons/SmsOutlined';
 import SearchIcon from '@material-ui/icons/Search';
 import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
-import axiosInterceptorResponse from '../services/axiosInterceptorResponse';
-import { auth } from '../actions/auth';
+import axiosInterceptorResponse from '../../services/axiosInterceptorResponse';
+import { auth } from '../../actions/auth';
 import { useDispatch } from 'react-redux';
 import SortIcon from '@material-ui/icons/Sort';
 import Logo from './logo';
-import Notification from './notification';
-import ProfieImageAvatar from './profile/profile-image-avatar';
-import NewPostDialog from './new-post';
+import Notification from '../notification';
+import ProfieImageAvatar from '../profile/profile-image-avatar';
+import NewPostDialog from '../new-post';
 
 export default function Comp({ sidebarMenu, set_sidebarMenu }) {
   const dispatch = useDispatch();

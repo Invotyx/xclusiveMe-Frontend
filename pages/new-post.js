@@ -4,7 +4,7 @@ import { variants } from '../services/framer-variants';
 import Head from 'next/head';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
-import Layout from '../components/layout-auth';
+import Layout from '../components/layouts/layout-auth';
 import NewPostForm from '../components/new-post/new-post-form';
 
 export default function Home() {
