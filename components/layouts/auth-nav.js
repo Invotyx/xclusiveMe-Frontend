@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Comp(props) {
+export default function AuthNav(props) {
   const { asPath } = useRouter();
   const classes = useStyles();
   return (
