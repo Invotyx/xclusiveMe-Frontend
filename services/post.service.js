@@ -4,7 +4,7 @@ const { publicRuntimeConfig } = getConfig();
 const SERVER_ADDRESS = publicRuntimeConfig.backendUrl;
 
 export async function getAll() {
-  return apiClient.get(`${SERVER_ADDRESS}/post`);
+  return apiClient.get(`${SERVER_ADDRESS}/posts`);
 }
 
 export async function getAllSubscribed() {
@@ -17,7 +17,7 @@ export async function getX(username) {
 
 export async function add(saveData) {
   const data = JSON.stringify(saveData);
-  return apiClient.post(`${SERVER_ADDRESS}/post`, data);
+  return apiClient.post(`${SERVER_ADDRESS}/posts`, data);
 }
 
 export async function update(id, data) {
