@@ -245,7 +245,10 @@ function* handleUpdateSubscriptionFee(action) {
   try {
     const { price } = action.payload;
 
-    yield call(updateSubscriptionFee, { price });
+    yield call(updateSubscriptionFee, {
+      isActive: true,
+      price: parseInt(price),
+    });
     yield put(auth.success({}));
     const { callback } = action.payload;
     if (callback) {
