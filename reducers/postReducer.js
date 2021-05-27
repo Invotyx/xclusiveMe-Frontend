@@ -6,7 +6,7 @@ const initialState = fromJS({
   data: [],
   subscribed: [],
   xfeed: [],
-  xfeed_numberOfPosts: [],
+  xfeed_numberOfPosts: 0,
   fetching: false,
   success: false,
   error: null,
