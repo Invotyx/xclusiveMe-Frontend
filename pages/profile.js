@@ -2,7 +2,10 @@ import User from '../components/profile/user';
 import { useDispatch, useSelector } from 'react-redux';
 import { currentUserSelector } from '../selectors/authSelector';
 import { useEffect } from 'react';
-import { postDataSelector } from '../selectors/postSelector';
+import {
+  numberOfPostsSelector,
+  postDataSelector,
+} from '../selectors/postSelector';
 import { post } from '../actions/post';
 
 export default function Profile() {
@@ -10,9 +13,10 @@ export default function Profile() {
   const u = useSelector(currentUserSelector);
 
   const _feed = useSelector(postDataSelector);
+  const numberOfPosts = useSelector(numberOfPostsSelector);
   useEffect(() => {
     u && dispatch(post.request({ userId: u.id }));
   }, [u]);
 
-  return <User user={u} feed={_feed} me={1} />;
+  return <User user={u} feed={_feed} numberOfPosts={numberOfPosts} me={1} />;
 }

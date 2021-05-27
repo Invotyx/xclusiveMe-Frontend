@@ -8,11 +8,19 @@ const postDataSelector = createSelector(postState, (state) => {
   return data;
 });
 
+const numberOfPostsSelector = createSelector(postState, (state) =>
+  state.get('numberOfPosts')
+);
+
 const subscribedSelector = createSelector(postState, (state) =>
   state.get('subscribed')
 );
 
 const xfeedSelector = createSelector(postState, (state) => state.get('xfeed'));
+
+const xfeed_numberOfPostsSelector = createSelector(postState, (state) =>
+  state.get('xfeed_numberOfPosts')
+);
 
 const fetchingSelector = createSelector(postState, (state) =>
   state.get('fetching')
@@ -25,8 +33,10 @@ const errorSelector = createSelector(postState, (state) => {
 });
 export {
   postDataSelector,
+  numberOfPostsSelector,
   subscribedSelector,
   xfeedSelector,
+  xfeed_numberOfPostsSelector,
   fetchingSelector,
   errorSelector,
 };

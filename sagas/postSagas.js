@@ -19,7 +19,9 @@ function* handleGet(action) {
   try {
     const { userId } = action.payload;
     const { data } = yield call(getAll, userId);
-    yield put(post.success({ data: data.results }));
+    yield put(
+      post.success({ data: data.results, numberOfPosts: data.totalCount })
+    );
   } catch (e) {
     console.log(e);
     yield put(post.success({ error: true }));
@@ -41,7 +43,12 @@ function* handleGetX(action) {
     const { username } = action.payload;
     const { data } = yield call(getX, username);
     if (data.posts && data.posts.length) {
-      yield put(post.success({ xfeed: data.posts[0].posts }));
+      yield put(
+        post.success({
+          xfeed: data.posts[0].posts,
+          xfeed_numberOfPosts: data.totalCount,
+        })
+      );
     }
   } catch (e) {
     console.log(e);

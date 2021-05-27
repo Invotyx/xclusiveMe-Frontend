@@ -3,11 +3,14 @@ import { POST } from '../actions/post/types';
 
 const initialState = fromJS({
   data: [],
+  data: [],
   subscribed: [],
   xfeed: [],
+  xfeed_numberOfPosts: [],
   fetching: false,
   success: false,
   error: null,
+  numberOfPosts: 0,
 });
 
 export default function postReducer(state = initialState, action) {

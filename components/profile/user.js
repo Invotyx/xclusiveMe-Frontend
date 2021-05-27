@@ -72,7 +72,14 @@ function TabPanel(props) {
   );
 }
 
-export default function Profile({ user, profileData, feed, follow, me }) {
+export default function Profile({
+  user,
+  profileData,
+  feed,
+  numberOfPosts,
+  follow,
+  me,
+}) {
   const dispatch = useDispatch();
   const [tab, setTab] = React.useState(0);
   const [currentUser, setCurrentUser] = React.useState(user);
@@ -237,7 +244,7 @@ export default function Profile({ user, profileData, feed, follow, me }) {
                                 </IconButton>
                               </>
                             }
-                            title={`${122} posts`}
+                            title={`${numberOfPosts} posts`}
                           />
                           {userFeed && userFeed.length > 0 ? (
                             <Grid container spacing={2}>
