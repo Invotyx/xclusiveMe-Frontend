@@ -19,6 +19,10 @@ export default function Profile() {
   // const _feed = useSelector(xfeedSelector);
 
   return (
-    <User user={u} feed={u.creator?.posts} follow={!!u.subscriptionPlans} />
+    <User
+      user={u}
+      feed={u.creator?.posts}
+      follow={!!u.subscriptionPlans}
+    />
   );
 }
