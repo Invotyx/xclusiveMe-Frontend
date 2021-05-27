@@ -140,9 +140,8 @@ function* handleUploadImage({ payload }) {
     if (callback) {
       yield call(callback, response.data[0]);
     }
-  } catch (error) {
+  } catch (e) {
     console.log('Error occurred in UPLOAD_IMAGE');
-    console.log(error);
     yield put(
       bottomalert.update({
         open: true,
@@ -164,9 +163,8 @@ function* handleUploadVideoReq({ payload }) {
     if (callback) {
       yield call(callback, url);
     }
-  } catch (error) {
+  } catch (e) {
     console.log('Error occurred in UPLOAD_VIDEO');
-    console.log(error);
   }
 }
 
@@ -182,9 +180,8 @@ function* handleUploadVideoFinalReq({ payload }) {
         severity: 'success',
       })
     );
-  } catch (error) {
+  } catch (e) {
     console.log('Error occurred in UPLOAD_VIDEO');
-    console.log(error);
     yield put(
       bottomalert.update({
         open: true,

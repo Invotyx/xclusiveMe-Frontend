@@ -404,9 +404,8 @@ function* handleUploadImage({ payload }) {
         severity: 'success',
       })
     );
-  } catch (error) {
+  } catch (e) {
     console.log('Error occurred in UPLOAD_IMAGE');
-    console.log(error);
     yield put(
       bottomalert.update({
         open: true,
@@ -429,9 +428,8 @@ function* handleUploadCover({ payload }) {
         severity: 'success',
       })
     );
-  } catch (error) {
+  } catch (e) {
     console.log('Error occurred in UPLOAD_IMAGE');
-    console.log(error);
     yield put(
       bottomalert.update({
         open: true,

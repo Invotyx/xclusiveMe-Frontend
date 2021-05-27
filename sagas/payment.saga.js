@@ -37,7 +37,7 @@ function* handlePostPayment(action) {
     if (callback) {
       yield call(callback);
     }
-  } catch (error) {
+  } catch (e) {
     yield put(payment.success({ error: true }));
     yield put(
       snackbar.update({
