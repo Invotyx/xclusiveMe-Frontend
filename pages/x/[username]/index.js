@@ -23,7 +23,7 @@ export default function Profile() {
       user={u}
       profileData={u && u.creator ? u.creator : {}}
       feed={u && u.creator ? u.creator.posts : []}
-      follow={!!u.subscriptionPlans}
+      follow={(u && !!u.subscriptionPlans) || false}
     />
   );
 }
