@@ -11,8 +11,8 @@ export default function Profile() {
 
   const _feed = useSelector(postDataSelector);
   useEffect(() => {
-    dispatch(post.request());
-  }, []);
+    u && dispatch(post.request({ userId: u.id }));
+  }, [u]);
 
   return <User user={u} feed={_feed} />;
 }

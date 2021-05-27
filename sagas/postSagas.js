@@ -17,7 +17,8 @@ import { bottomalert } from '../actions/bottom-alert';
 
 function* handleGet() {
   try {
-    const { data } = yield call(getAll);
+    const { userId } = action.payload;
+    const { data } = yield call(getAll, userId);
     yield put(post.success({ data: data.posts }));
   } catch (e) {
     console.log(e);
