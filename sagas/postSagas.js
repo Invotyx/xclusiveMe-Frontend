@@ -19,7 +19,7 @@ function* handleGet(action) {
   try {
     const { userId } = action.payload;
     const { data } = yield call(getAll, userId);
-    yield put(post.success({ data: data.posts }));
+    yield put(post.success({ data: data.results }));
   } catch (e) {
     console.log(e);
     yield put(post.success({ error: true }));
