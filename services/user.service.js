@@ -12,20 +12,8 @@ export async function login(email, password) {
   return apiClient.post(`${SERVER_ADDRESS}/auth/login`, data);
 }
 
-export async function register(
-  fullName,
-  username,
-  email,
-  password,
-  phoneNumber
-) {
-  const data = JSON.stringify({
-    fullName,
-    username,
-    email,
-    password,
-    phoneNumber,
-  });
+export async function register(saveData) {
+  const data = JSON.stringify(saveData);
 
   return apiClient.post(`${SERVER_ADDRESS}/auth/register`, data);
 }

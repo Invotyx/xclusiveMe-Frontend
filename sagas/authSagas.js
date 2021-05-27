@@ -92,16 +92,9 @@ function* handleRefreshToken(action) {
 
 function* handleRegister(action) {
   try {
-    const { fullName, username, email, password, phoneNumber } = action.payload;
+    const { saveData } = action.payload;
 
-    const { data } = yield call(
-      register,
-      fullName,
-      username,
-      email,
-      password,
-      phoneNumber
-    );
+    const { data } = yield call(register, saveData);
     yield put(
       snackbar.update({
         open: true,

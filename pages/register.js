@@ -48,12 +48,14 @@ export default function SignInSide() {
     if (registrationState === 1) {
       dispatch(
         auth.register({
-          fullName,
-          username,
-          email,
-          password,
-          confirmPassword,
-          phoneNumber,
+          saveData: {
+            fullName,
+            username,
+            email,
+            password,
+            confirmPassword,
+            phoneNumber,
+          },
           callback: (sid) => {
             set_registrationState(2);
             set_sessionId(sid);
