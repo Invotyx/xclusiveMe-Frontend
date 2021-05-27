@@ -79,7 +79,7 @@ function* handlePost(action) {
     yield put(
       snackbar.update({
         open: true,
-        message: 'Something went wrong!',
+        message: e.response.data.message,
         severity: 'error',
       })
     );
@@ -105,7 +105,7 @@ function* handleDelete(action) {
     yield put(
       snackbar.update({
         open: true,
-        message: 'Something went wrong!',
+        message: e.response.data.message,
         severity: 'error',
       })
     );
@@ -131,7 +131,7 @@ function* handleUpdate(action) {
     yield put(
       snackbar.update({
         open: true,
-        message: 'Something went wrong!',
+        message: e.response.data.message,
         severity: 'error',
       })
     );
@@ -160,7 +160,7 @@ function* handleUploadImage({ payload }) {
     yield put(
       bottomalert.update({
         open: true,
-        message: 'SomeThing Went Wrong!',
+        message: e.response.data.message,
         severity: 'error',
       })
     );
@@ -202,7 +202,7 @@ function* handleUploadVideoFinalReq({ payload }) {
     yield put(
       bottomalert.update({
         open: true,
-        message: 'SomeThing Went Wrong!',
+        message: e.response.data.message,
         severity: 'error',
       })
     );

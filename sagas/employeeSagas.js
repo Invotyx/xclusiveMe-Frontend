@@ -56,7 +56,7 @@ function* handlePost(action) {
     yield put(
       snackbar.update({
         open: true,
-        message: 'Something went wrong!',
+        message: e.response.data.message,
         severity: 'error',
       })
     );
@@ -83,7 +83,7 @@ function* handlePut(action) {
     yield put(
       snackbar.update({
         open: true,
-        message: 'Something went wrong!',
+        message: e.response.data.message,
         severity: 'error',
       })
     );
@@ -126,7 +126,7 @@ function* handleDelete(action) {
     yield put(
       snackbar.update({
         open: true,
-        message: 'Something went wrong!',
+        message: e.response.data.message,
         severity: 'error',
       })
     );

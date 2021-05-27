@@ -114,7 +114,7 @@ function* handleRegister(action) {
     yield put(
       snackbar.update({
         open: true,
-        message: 'Something went wrong!',
+        message: e.response.data.message,
         severity: 'error',
       })
     );
@@ -136,7 +136,7 @@ function* handleResendOtp(action) {
     yield put(
       snackbar.update({
         open: true,
-        message: 'Something went wrong!',
+        message: e.response.data.message,
         severity: 'error',
       })
     );
@@ -229,7 +229,7 @@ function* handleUpdateProfile(action) {
     yield put(
       bottomalert.update({
         open: true,
-        message: 'SomeThing Went Wrong!',
+        message: e.response.data.message,
         severity: 'error',
       })
     );
@@ -260,7 +260,7 @@ function* handleUpdateSubscriptionFee(action) {
     yield put(
       bottomalert.update({
         open: true,
-        message: 'SomeThing Went Wrong!',
+        message: e.response.data.message,
         severity: 'error',
       })
     );
@@ -289,7 +289,7 @@ function* handleForgotPassword(action) {
     yield put(
       snackbar.update({
         open: true,
-        message: 'Something went wrong!',
+        message: e.response.data.message,
         severity: 'error',
       })
     );
@@ -313,7 +313,7 @@ function* handleResetPassword(action) {
     yield put(
       snackbar.update({
         open: true,
-        message: 'Something went wrong!',
+        message: e.response.data.message,
         severity: 'error',
       })
     );
@@ -403,7 +403,7 @@ function* handleUpdateTwoFactorAuthentication(action) {
     yield put(
       snackbar.update({
         open: true,
-        message: 'Something went wrong!',
+        message: e.response.data.message,
         severity: 'error',
       })
     );
@@ -428,7 +428,7 @@ function* handleUploadImage({ payload }) {
     yield put(
       bottomalert.update({
         open: true,
-        message: 'SomeThing Went Wrong!',
+        message: e.response.data.message,
         severity: 'error',
       })
     );
@@ -453,7 +453,7 @@ function* handleUploadCover({ payload }) {
     yield put(
       bottomalert.update({
         open: true,
-        message: 'Something Went Wrong!',
+        message: e.response.data.message,
         severity: 'error',
       })
     );
