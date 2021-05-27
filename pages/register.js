@@ -38,6 +38,7 @@ export default function SignInSide() {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [code, setCode] = useState('');
   const [country, setCountry] = useState('');
@@ -51,6 +52,7 @@ export default function SignInSide() {
           username,
           email,
           password,
+          confirmPassword,
           phoneNumber,
           callback: (sid) => {
             set_registrationState(2);
@@ -151,6 +153,25 @@ export default function SignInSide() {
             type='password'
             id='password'
             autoComplete='current-password'
+          />
+          <TileTextField
+            error={validationErrors && validationErrors.confirmPassword}
+            helperText={
+              validationErrors.confirmPassword
+                ? Object.values(validationErrors.confirmPassword).join(', ')
+                : ''
+            }
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            variant='outlined'
+            margin='normal'
+            required
+            fullWidth
+            name='confirmPassword'
+            label='Repeat Password'
+            type='password'
+            id='confirmPassword'
+            autoComplete='confirm-password'
           />
           <Box display='flex'>
             <TileTextField
