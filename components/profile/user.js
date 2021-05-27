@@ -106,11 +106,7 @@ export default function Profile({ user, feed, follow }) {
                 </IconButton>
                 <Box flex={1}>
                   <Typography>
-                    {currentUser &&
-                    currentUser.profile &&
-                    currentUser.profile.fullName
-                      ? currentUser.profile.fullName
-                      : '(no name)'}
+                    {currentUser.profile?.fullName || '(no name)'}
                   </Typography>
                 </Box>
                 <IconButton>
@@ -166,9 +162,7 @@ export default function Profile({ user, feed, follow }) {
                     title={
                       <Box display={{ xs: 'none', sm: 'none', md: 'flex' }}>
                         <Typography variant='h6'>
-                          {currentUser.profile && currentUser.profile.fullName
-                            ? currentUser.profile.fullName
-                            : '(no name)'}
+                          {currentUser.profile?.fullName || '(no name)'}
                         </Typography>
                       </Box>
                     }
@@ -179,9 +173,7 @@ export default function Profile({ user, feed, follow }) {
                       color='textSecondary'
                       component='p'
                     >
-                      {currentUser.profile && currentUser.profile.headline
-                        ? currentUser.profile.headline
-                        : '(no bio)'}
+                      {currentUser.profile?.bio || '(no bio)'}
                     </Typography>
                   </CardContent>
                 </Card>
