@@ -8,7 +8,7 @@ const SERVER_ADDRESS = publicRuntimeConfig.backendUrl;
 // }
 
 export async function addSubscription(id) {
-  return apiClient.post(`${SERVER_ADDRESS}/subscriptions/purchase/${id}`);
+  return apiClient.post(`${SERVER_ADDRESS}/users/subscriptions/purchase/${id}`);
 }
 
 // export async function updateSubscription(id) {
