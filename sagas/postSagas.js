@@ -20,6 +20,7 @@ function* handleGet() {
     const { data } = yield call(getAll);
     yield put(post.success({ data: data.posts }));
   } catch (e) {
+    console.log(e);
     yield put(post.success({ error: true }));
   }
 }
@@ -29,6 +30,7 @@ function* handleGetSubscribed() {
     const { data } = yield call(getAllSubscribed);
     yield put(post.success({ subscribed: data.posts }));
   } catch (e) {
+    console.log(e);
     yield put(post.success({ error: true }));
   }
 }
@@ -41,6 +43,7 @@ function* handleGetX(action) {
       yield put(post.success({ xfeed: data.posts[0].posts }));
     }
   } catch (e) {
+    console.log(e);
     yield put(post.success({ error: true }));
   }
 }
@@ -63,6 +66,7 @@ function* handlePost(action) {
       yield call(callback, success.payload.success);
     }
   } catch (e) {
+    console.log(e);
     yield put(post.failure({ error: { ...e } }));
     yield put(
       snackbar.update({
@@ -88,6 +92,7 @@ function* handleDelete(action) {
       })
     );
   } catch (e) {
+    console.log(e);
     yield put(post.failure({ error: { ...e } }));
     yield put(
       snackbar.update({
@@ -113,6 +118,7 @@ function* handleUpdate(action) {
       })
     );
   } catch (e) {
+    console.log(e);
     yield put(post.failure({ error: { ...e } }));
     yield put(
       snackbar.update({
@@ -141,6 +147,7 @@ function* handleUploadImage({ payload }) {
       yield call(callback, response.data[0]);
     }
   } catch (e) {
+    console.log(e);
     console.log('Error occurred in UPLOAD_IMAGE');
     yield put(
       bottomalert.update({
@@ -164,6 +171,7 @@ function* handleUploadVideoReq({ payload }) {
       yield call(callback, url);
     }
   } catch (e) {
+    console.log(e);
     console.log('Error occurred in UPLOAD_VIDEO');
   }
 }
@@ -181,6 +189,7 @@ function* handleUploadVideoFinalReq({ payload }) {
       })
     );
   } catch (e) {
+    console.log(e);
     console.log('Error occurred in UPLOAD_VIDEO');
     yield put(
       bottomalert.update({

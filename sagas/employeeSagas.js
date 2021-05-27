@@ -15,6 +15,7 @@ function* handleGet() {
     const { data } = yield call(apiClient.get, `${SERVER_ADDRESS}/employees/`);
     yield put(employee.success({ data: data.employee }));
   } catch (e) {
+    console.log(e);
     yield put(employee.failure({ error: { ...e } }));
   }
 }
@@ -28,6 +29,7 @@ function* handleGetOne(action) {
     );
     yield put(employee.success({ data }));
   } catch (e) {
+    console.log(e);
     yield put(employee.failure({ error: { ...e } }));
   }
 }
@@ -49,6 +51,7 @@ function* handlePost(action) {
       })
     );
   } catch (e) {
+    console.log(e);
     yield put(employee.failure({ error: { ...e } }));
     yield put(
       snackbar.update({
@@ -75,6 +78,7 @@ function* handlePut(action) {
     );
     // yield put(employee.success({ data }))
   } catch (e) {
+    console.log(e);
     yield put(employee.failure({ error: { ...e } }));
     yield put(
       snackbar.update({
@@ -96,6 +100,7 @@ function* handlePatch(action) {
     );
     yield put(employee.success({ data }));
   } catch (e) {
+    console.log(e);
     yield put(employee.failure({ error: { ...e } }));
   }
 }
@@ -116,6 +121,7 @@ function* handleDelete(action) {
       })
     );
   } catch (e) {
+    console.log(e);
     yield put(employee.failure({ error: { ...e } }));
     yield put(
       snackbar.update({

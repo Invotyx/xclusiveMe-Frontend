@@ -16,6 +16,7 @@ function* handleGet() {
     const { data } = yield call(apiClient.get, `${SERVER_ADDRESS}/users/all`);
     yield put(user.success({ data: new List(data.results) }));
   } catch (e) {
+    console.log(e);
     yield put(user.failure({ error: { ...e } }));
   }
 }
@@ -31,6 +32,7 @@ function* handleGetOne(action) {
       user.success({ single: data.totalCount > 0 ? data.results[0] : null })
     );
   } catch (e) {
+    console.log(e);
     yield put(user.failure({ error: { ...e } }));
   }
 }
@@ -44,6 +46,7 @@ function* handleSearch(action) {
     );
     yield put(user.success({ data: data.results }));
   } catch (e) {
+    console.log(e);
     yield put(user.failure({ error: { ...e } }));
   }
 }
@@ -65,6 +68,7 @@ function* handlePost(action) {
       })
     );
   } catch (e) {
+    console.log(e);
     yield put(user.failure({ error: { ...e } }));
     yield put(
       snackbar.update({
@@ -91,6 +95,7 @@ function* handlePut(action) {
     );
     // yield put(user.success({ data }))
   } catch (e) {
+    console.log(e);
     yield put(user.failure({ error: { ...e } }));
     yield put(
       snackbar.update({
@@ -112,6 +117,7 @@ function* handlePatch(action) {
     );
     yield put(user.success({ data }));
   } catch (e) {
+    console.log(e);
     yield put(user.failure({ error: { ...e } }));
   }
 }
@@ -132,6 +138,7 @@ function* handleDelete(action) {
       })
     );
   } catch (e) {
+    console.log(e);
     yield put(user.failure({ error: { ...e } }));
     yield put(
       snackbar.update({

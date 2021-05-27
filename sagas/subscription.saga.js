@@ -13,7 +13,9 @@ function* handleGet() {
     // const { data } = yield call(getUserSubscriptions);
     // yield put(subscription.success({ data }));
     yield put(subscription.success({}));
-  } catch (e) {}
+  } catch (e) {
+    console.log(e);
+  }
 }
 
 function* handleAddSubscription(action) {
@@ -33,6 +35,7 @@ function* handleAddSubscription(action) {
       })
     );
   } catch (e) {
+    console.log(e);
     yield put(subscription.failure({ error: { ...e } }));
     yield put(
       snackbar.update({
@@ -57,6 +60,7 @@ function* handleRemoveSubscription(action) {
       })
     );
   } catch (e) {
+    console.log(e);
     yield put(subscription.failure({ error: { ...e } }));
     yield put(
       snackbar.update({

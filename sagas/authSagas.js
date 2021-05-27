@@ -59,6 +59,7 @@ function* handleLogin(action) {
       }
     }
   } catch (e) {
+    console.log(e);
     yield put(auth.failure({ error: { ...e } }));
     yield put(
       snackbar.update({
@@ -85,6 +86,7 @@ function* handleRefreshToken(action) {
       yield put(useRouter().push('/login')); // TODO: needs to be updated
     }
   } catch (e) {
+    console.log(e);
     yield call(logout);
     yield put(auth.failure({ error: { ...e } }));
   }
@@ -107,6 +109,7 @@ function* handleRegister(action) {
       yield call(callback, data.sessionId);
     }
   } catch (e) {
+    console.log(e);
     yield put(auth.failure({ error: { ...e } }));
     yield put(
       snackbar.update({
@@ -128,6 +131,7 @@ function* handleResendOtp(action) {
       yield call(callback, data.sessionId);
     }
   } catch (e) {
+    console.log(e);
     yield put(auth.failure({ error: { ...e } }));
     yield put(
       snackbar.update({
@@ -158,6 +162,7 @@ function* handleVerifyOtp(action) {
       yield call(callback);
     }
   } catch (e) {
+    console.log(e);
     yield put(auth.failure({ error: { ...e } }));
     yield put(
       snackbar.update({
@@ -219,6 +224,7 @@ function* handleUpdateProfile(action) {
       yield call(callback);
     }
   } catch (e) {
+    console.log(e);
     yield put(auth.failure({ error: { ...e } }));
     yield put(
       bottomalert.update({
@@ -246,6 +252,7 @@ function* handleUpdateSubscriptionFee(action) {
       yield call(callback);
     }
   } catch (e) {
+    console.log(e);
     yield put(auth.failure({ error: { ...e } }));
     yield put(
       bottomalert.update({
@@ -274,6 +281,7 @@ function* handleForgotPassword(action) {
       })
     );
   } catch (e) {
+    console.log(e);
     yield put(auth.failure({ error: { ...e } }));
     yield put(
       snackbar.update({
@@ -298,6 +306,7 @@ function* handleResetPassword(action) {
       })
     );
   } catch (e) {
+    console.log(e);
     yield put(
       snackbar.update({
         open: true,
@@ -314,6 +323,7 @@ function* handleResetPasswordTokenVerify(action) {
     const { data } = yield call(verifyForgotPasswordToken, token, email);
     yield put(useRouter().push(`/reset-password/${token}/${email}/proceed`)); // TODO: needs to be updated
   } catch (e) {
+    console.log(e);
     yield put(useRouter().push('/login')); // TODO: needs to be updated
     yield put(
       snackbar.update({
@@ -330,6 +340,7 @@ function* handleMe() {
     const { data } = yield call(me);
     yield put(auth.success({ currentUser: data }));
   } catch (e) {
+    console.log(e);
     yield put(auth.failure({ error: { ...e } }));
   }
 }
@@ -339,6 +350,7 @@ function* handleGetSessions() {
     const { data } = yield call(getSessions);
     yield put(auth.success({ userSessions: data }));
   } catch (e) {
+    console.log(e);
     yield put(auth.failure({ error: { ...e } }));
   }
 }
@@ -348,6 +360,7 @@ function* handleExpireAllSessions() {
     yield call(expireAllSessions);
     yield put(auth.success());
   } catch (e) {
+    console.log(e);
     yield put(auth.failure({ error: { ...e } }));
   }
 }
@@ -360,6 +373,7 @@ function* handleLogout(action) {
       yield call(callback);
     }
   } catch (e) {
+    console.log(e);
     yield put(auth.failure({ error: { ...e } }));
   }
 }
@@ -381,6 +395,7 @@ function* handleUpdateTwoFactorAuthentication(action) {
       yield call(callback);
     }
   } catch (e) {
+    console.log(e);
     yield put(auth.failure({ error: { ...e } }));
     yield put(
       snackbar.update({
@@ -405,6 +420,7 @@ function* handleUploadImage({ payload }) {
       })
     );
   } catch (e) {
+    console.log(e);
     console.log('Error occurred in UPLOAD_IMAGE');
     yield put(
       bottomalert.update({
@@ -429,6 +445,7 @@ function* handleUploadCover({ payload }) {
       })
     );
   } catch (e) {
+    console.log(e);
     console.log('Error occurred in UPLOAD_IMAGE');
     yield put(
       bottomalert.update({

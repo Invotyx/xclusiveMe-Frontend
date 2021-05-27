@@ -15,6 +15,7 @@ function* handleGet() {
     const { data } = yield call(getUserPaymentMethods);
     yield put(payment.success({ data: data.paymentMethods }));
   } catch (e) {
+    console.log(e);
     yield put(payment.success({ error: true }));
   }
 }
@@ -38,6 +39,7 @@ function* handlePostPayment(action) {
       yield call(callback);
     }
   } catch (e) {
+    console.log(e);
     yield put(payment.success({ error: true }));
     yield put(
       snackbar.update({
@@ -64,6 +66,7 @@ function* handleDelete(action) {
       })
     );
   } catch (e) {
+    console.log(e);
     yield put(payment.failure({ error: { ...e } }));
     yield put(
       snackbar.update({
@@ -90,6 +93,7 @@ function* handleSetDefault(action) {
       })
     );
   } catch (e) {
+    console.log(e);
     yield put(payment.failure({ error: { ...e } }));
     yield put(
       snackbar.update({
