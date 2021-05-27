@@ -245,6 +245,7 @@ export default function Profile({ user, profileData, feed, follow }) {
                                 <Grid item xs={12} key={ix}>
                                   <Post
                                     post={f}
+                                    profileData={profileData}
                                     altHeader={!follow}
                                   />
                                 </Grid>

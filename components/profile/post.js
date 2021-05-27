@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: '56.25%', // 16:9
   },
 }));
-export default function Post({ post, altHeader }) {
+export default function Post({ post, profileData, altHeader }) {
   const classes = useStyles();
   return (
     <Card className={classes.root}>
@@ -47,7 +47,7 @@ export default function Post({ post, altHeader }) {
               <MoreVertIcon />
             </IconButton>
           }
-          title='Shrimp and Chorizo Paella'
+          title={profileData?.fullName || '(no name)'}
           subheader={post.createdAt}
         />
       )}
