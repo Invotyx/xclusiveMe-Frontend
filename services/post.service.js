@@ -8,7 +8,7 @@ export async function getAll() {
 }
 
 export async function getAllSubscribed() {
-  return apiClient.get(`${SERVER_ADDRESS}/post/subscribed`);
+  return apiClient.get(`${SERVER_ADDRESS}/posts/subscribed`);
 }
 
 export async function getX(username) {
