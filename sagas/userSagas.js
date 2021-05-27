@@ -7,6 +7,7 @@ import { USER } from '../actions/user/types';
 
 import { user } from '../actions/user';
 import { snackbar } from '../actions/snackbar';
+import { post } from '../actions/post';
 
 const { publicRuntimeConfig } = getConfig();
 const SERVER_ADDRESS = publicRuntimeConfig.backendUrl;
@@ -31,6 +32,7 @@ function* handleGetOne(action) {
     yield put(
       user.success({ single: data.totalCount > 0 ? data.results[0] : null })
     );
+    yield put(post.success({ xfeed_numberOfPosts: data.totalCount }));
   } catch (e) {
     console.log(e);
     yield put(user.failure({ error: { ...e } }));
