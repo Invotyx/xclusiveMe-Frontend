@@ -21,8 +21,8 @@ export default function Profile() {
   return (
     <User
       user={u}
-      profileData={u.creator}
-      feed={u.creator?.posts}
+      profileData={u && u.creator ? u.creator : {}}
+      feed={u && u.creator ? u.creator.posts : []}
       follow={!!u.subscriptionPlans}
     />
   );
