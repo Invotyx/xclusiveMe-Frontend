@@ -72,7 +72,7 @@ function TabPanel(props) {
   );
 }
 
-export default function Profile({ user, feed, follow }) {
+export default function Profile({ user, profileData, feed, follow }) {
   const dispatch = useDispatch();
   const [tab, setTab] = React.useState(0);
   const [currentUser, setCurrentUser] = React.useState(user);
@@ -106,7 +106,7 @@ export default function Profile({ user, feed, follow }) {
                 </IconButton>
                 <Box flex={1}>
                   <Typography>
-                    {currentUser.profile?.fullName || '(no name)'}
+                    {profileData?.fullName || '(no name)'}
                   </Typography>
                 </Box>
                 <IconButton>
@@ -162,7 +162,7 @@ export default function Profile({ user, feed, follow }) {
                     title={
                       <Box display={{ xs: 'none', sm: 'none', md: 'flex' }}>
                         <Typography variant='h6'>
-                          {currentUser.profile?.fullName || '(no name)'}
+                          {profileData?.fullName || '(no name)'}
                         </Typography>
                       </Box>
                     }
@@ -173,7 +173,7 @@ export default function Profile({ user, feed, follow }) {
                       color='textSecondary'
                       component='p'
                     >
-                      {currentUser.profile?.bio || '(no bio)'}
+                      {profileData?.bio || '(no bio)'}
                     </Typography>
                   </CardContent>
                 </Card>

@@ -21,6 +21,7 @@ export default function Profile() {
   return (
     <User
       user={u}
+      profileData={u.creator}
       feed={u.creator?.posts}
       follow={!!u.subscriptionPlans}
     />
