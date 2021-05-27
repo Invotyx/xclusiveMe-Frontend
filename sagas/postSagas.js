@@ -15,7 +15,7 @@ import {
 } from '../services/post.service';
 import { bottomalert } from '../actions/bottom-alert';
 
-function* handleGet() {
+function* handleGet(action) {
   try {
     const { userId } = action.payload;
     const { data } = yield call(getAll, userId);
