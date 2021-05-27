@@ -72,7 +72,7 @@ function TabPanel(props) {
   );
 }
 
-export default function Profile({ user, profileData, feed, follow }) {
+export default function Profile({ user, profileData, feed, follow, me }) {
   const dispatch = useDispatch();
   const [tab, setTab] = React.useState(0);
   const [currentUser, setCurrentUser] = React.useState(user);
@@ -246,7 +246,7 @@ export default function Profile({ user, profileData, feed, follow }) {
                                   <Post
                                     post={f}
                                     profileData={profileData}
-                                    altHeader={!follow}
+                                    altHeader={me}
                                   />
                                 </Grid>
                               ))}
