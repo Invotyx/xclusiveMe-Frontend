@@ -65,7 +65,7 @@ export async function refreshToken() {
 
 export async function updateProfile(request) {
   const data = JSON.stringify(request);
-  return apiClient.put(`${SERVER_ADDRESS}/auth/updateProfile`, data);
+  return apiClient.put(`${SERVER_ADDRESS}/users/updateProfile`, data);
 }
 
 export async function updateSubscriptionFee(request) {
