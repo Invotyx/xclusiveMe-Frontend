@@ -84,7 +84,12 @@ export default function Profile({
   const [tab, setTab] = React.useState(0);
   const [currentUser, setCurrentUser] = React.useState(user);
   const [userFeed, setUserFeed] = React.useState(feed);
+  const [_numberOfPosts, set_numberOfPosts] = React.useState(numberOfPosts);
   const classes = useStyles();
+
+  useEffect(() => {
+    set_numberOfPosts(numberOfPosts);
+  }, [numberOfPosts]);
 
   useEffect(() => {
     setCurrentUser(user);
@@ -244,7 +249,7 @@ export default function Profile({
                                 </IconButton>
                               </>
                             }
-                            title={`${numberOfPosts} posts`}
+                            title={`${_numberOfPosts} posts`}
                           />
                           {userFeed && userFeed.length > 0 ? (
                             <Grid container spacing={2}>
