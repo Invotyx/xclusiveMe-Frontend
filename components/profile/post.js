@@ -47,7 +47,7 @@ export default function Post({ post, profileData, altHeader }) {
               <MoreVertIcon />
             </IconButton>
           }
-          title={profileData?.fullName || '(no name)'}
+          title={profileData?.profile?.fullName || '(no name)'}
           subheader={post.createdAt}
         />
       )}

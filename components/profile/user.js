@@ -106,7 +106,7 @@ export default function Profile({ user, profileData, feed, follow, me }) {
                 </IconButton>
                 <Box flex={1}>
                   <Typography>
-                    {profileData?.fullName || '(no name)'}
+                    {profileData?.profile?.fullName || '(no name)'}
                   </Typography>
                 </Box>
                 <IconButton>
@@ -162,7 +162,7 @@ export default function Profile({ user, profileData, feed, follow, me }) {
                     title={
                       <Box display={{ xs: 'none', sm: 'none', md: 'flex' }}>
                         <Typography variant='h6'>
-                          {profileData?.fullName || '(no name)'}
+                          {profileData?.profile?.fullName || '(no name)'}
                         </Typography>
                       </Box>
                     }
@@ -173,7 +173,7 @@ export default function Profile({ user, profileData, feed, follow, me }) {
                       color='textSecondary'
                       component='p'
                     >
-                      {profileData?.bio || '(no bio)'}
+                      {profileData?.profile?.description || '(no bio)'}
                     </Typography>
                   </CardContent>
                 </Card>
