@@ -27,7 +27,7 @@ export default function Home() {
   const currentUser = useSelector(currentUserSelector);
 
   useEffect(() => {
-    if (currentUser) {
+    if (currentUser && currentUser.price) {
       set_price(currentUser.price);
     }
   }, [currentUser]);
