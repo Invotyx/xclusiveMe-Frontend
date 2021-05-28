@@ -8,9 +8,10 @@ export const subscription = {
       // success: false,
       // error: null,
     }),
-  add: (id) =>
+  add: (id, callback) =>
     createAction(SUBSCRIPTION.ADD, {
       id,
+      callback,
       fetching: true,
       success: false,
       error: null,

@@ -23,6 +23,7 @@ export default function Profile() {
       feed={u && u.creator ? u.creator.posts : []}
       follow={(u && !!u.subscriptionPlans) || false}
       numberOfPosts={numberOfPosts}
+      afterFollow={() => dispatch(user.requestOne(username))}
     />
   );
 }

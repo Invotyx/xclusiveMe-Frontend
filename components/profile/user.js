@@ -78,6 +78,7 @@ export default function Profile({
   feed,
   numberOfPosts,
   follow,
+  afterFollow,
   me,
 }) {
   const dispatch = useDispatch();
@@ -102,7 +103,7 @@ export default function Profile({
   const handleFollow = (event) => {
     event.preventDefault();
     user.subscriptionPlans &&
-      dispatch(subscription.add(user.subscriptionPlans?.id));
+      dispatch(subscription.add(user.subscriptionPlans?.id, afterFollow));
   };
 
   return (
