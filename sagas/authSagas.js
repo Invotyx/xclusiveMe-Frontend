@@ -413,8 +413,8 @@ function* handleUpdateTwoFactorAuthentication(action) {
 function* handleUploadImage({ payload }) {
   try {
     const { fileObject } = payload;
-    yield call(uploadImage, fileObject);
-    yield call(auth.me);
+    const { data } = yield call(uploadImage, fileObject);
+    yield put(auth.success({ currentUser: data }));
     yield put(
       bottomalert.update({
         open: true,
