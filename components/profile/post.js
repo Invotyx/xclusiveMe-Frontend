@@ -1,7 +1,9 @@
+import NextLink from 'next/link';
 import Avatar from '@material-ui/core/Avatar';
 import BookmarkBorderOutlinedIcon from '@material-ui/icons/BookmarkBorderOutlined';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
+import Link from '@material-ui/core/Link';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
@@ -58,7 +60,11 @@ export default function Post({ post, profileData, altHeader }) {
               <MoreVertIcon />
             </IconButton>
           }
-          title={profileData?.fullName || '(no name)'}
+          title={
+            <NextLink href={`/x/${profileData?.username}`} passHref>
+              <Link>{profileData?.fullName || '(no name)'}</Link>
+            </NextLink>
+          }
           subheader={moment(post.createdAt).format('MMMM DD, YYYY')}
         />
       )}
