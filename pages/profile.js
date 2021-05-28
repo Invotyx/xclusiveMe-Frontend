@@ -18,5 +18,13 @@ export default function Profile() {
     u && dispatch(post.request({ userId: u.id }));
   }, [u]);
 
-  return <User user={u} feed={_feed} numberOfPosts={numberOfPosts} me={1} />;
+  return (
+    <User
+      user={u}
+      profileData={u}
+      feed={_feed}
+      numberOfPosts={numberOfPosts}
+      me={1}
+    />
+  );
 }
