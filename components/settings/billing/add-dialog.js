@@ -81,7 +81,7 @@ export default function CustomizedDialogs() {
         </DialogTitle>
         <DialogContent dividers>
           <StripeElements
-            afterSave={() => {
+            callback={() => {
               handleClose();
             }}
           />
