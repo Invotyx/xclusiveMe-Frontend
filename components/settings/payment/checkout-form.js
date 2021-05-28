@@ -17,6 +17,23 @@ export default function CheckoutForm(props) {
   const [_disabled, set_disabled] = useState('');
   const dispatch = useDispatch();
 
+  const savePaymentMethod = (token) => {
+    dispatch(
+      paymentMethod.save({
+        name,
+        token,
+        callback: () => {
+          if (props.callback) {
+            props.callback();
+          }
+          if (props.afterSave) {
+            props.afterSave();
+          }
+        },
+    })
+    );
+  };
+
   const handleSubmit = async (event) => {
     // We don't want to let default form submission happen here,
     // which would refresh the page.
@@ -46,20 +63,7 @@ export default function CheckoutForm(props) {
     }
     if (result.token) {
       set_disabled(false);
-      dispatch(
-        paymentMethod.save({
-          name,
-          token: result.token.id,
-          callback: () => {
-            if (props.callback) {
-              props.callback();
-            }
-            if (props.afterSave) {
-              props.afterSave();
-            }
-          },
-        })
-      );
+      savePaymentMethod(result.token.id);
     }
     setTimeout(() => {
       set_disabled(false);
