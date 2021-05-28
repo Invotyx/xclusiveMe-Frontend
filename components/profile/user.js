@@ -26,7 +26,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Card from '@material-ui/core/Card';
 import Button from '@material-ui/core/Button';
 import Post from './post';
-import ProfieImageAvatar from './profile-image-avatar';
+import ProfileImageAvatar from './profile-image-avatar';
 import ProfileImage from './change-profile-image';
 import CoverImage from './change-cover-image';
 import UpdateCoverImage2 from './update-cover-image-2';
@@ -158,7 +158,7 @@ export default function Profile({
                     className={classes.header2}
                     avatar={
                       <ProfileImage>
-                        <ProfieImageAvatar
+                        <ProfileImageAvatar
                           className={classes.userAvatar}
                           src={profileData?.profileImage}
                           alt={profileData?.fullName}

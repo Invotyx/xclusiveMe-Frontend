@@ -18,7 +18,7 @@ import { useDispatch } from 'react-redux';
 import SortIcon from '@material-ui/icons/Sort';
 import Logo from './logo';
 import Notification from '../notification';
-import ProfieImageAvatar from '../profile/profile-image-avatar';
+import ProfileImageAvatar from '../profile/profile-image-avatar';
 import NewPostDialog from '../new-post';
 
 export default function Comp({ sidebarMenu, set_sidebarMenu }) {
@@ -96,7 +96,7 @@ export default function Comp({ sidebarMenu, set_sidebarMenu }) {
                 </Box>
                 <NextLink passHref href='/profile'>
                   <IconButton component='a' color='inherit'>
-                    <ProfieImageAvatar />
+                    <ProfileImageAvatar />
                   </IconButton>
                 </NextLink>
               </Box>
