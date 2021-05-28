@@ -47,16 +47,12 @@ export default function Home(props) {
   };
 
   const handleEdit = () => {
-    dispatch(
-      paymentMethod.setDefault(planId, () => dispatch(paymentMethod.request()))
-    );
+    dispatch(paymentMethod.setDefault(planId));
   };
 
   const handleDelete = () => {
     window.confirm('Do you want proceed?') &&
-      dispatch(
-        paymentMethod.delete(planId, () => dispatch(paymentMethod.request()))
-      );
+      dispatch(paymentMethod.delete(planId));
   };
 
   const handleClose = () => {
