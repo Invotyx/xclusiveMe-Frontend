@@ -93,7 +93,7 @@ export default function Notification() {
         className={classes.root}
         subheader={<ListSubheader>Today</ListSubheader>}
       >
-        {notificationToday.map((i) => (
+        {notificationToday.map((i, x) => (
           <ListItem
             onClick={settingsMenuClose}
             key={`notificationToday${x}`}
