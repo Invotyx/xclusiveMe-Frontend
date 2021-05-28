@@ -63,11 +63,13 @@ export default function Post({ post, profileData, altHeader }) {
           {post.postText}
         </Typography>
       </CardContent>
-      <CardMedia
-        className={classes.media}
-        image='/no-media.jpg'
-        title='Paella dish'
-      />
+      {(!post.media || post.media.length === 0) && (
+        <CardMedia
+          className={classes.media}
+          image='/no-media.jpg'
+          title='Paella dish'
+        />
+      )}
       <CardActions disableSpacing>
         <Box flexGrow={1}>
           <Button aria-label='add to favorites' startIcon={<FavoriteIcon />}>
