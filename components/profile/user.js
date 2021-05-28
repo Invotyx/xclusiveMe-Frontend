@@ -159,7 +159,11 @@ export default function Profile({
                     className={classes.header2}
                     avatar={
                       <ProfileImage>
-                        <ProfieImageAvatar className={classes.userAvatar} />
+                        <ProfieImageAvatar
+                          className={classes.userAvatar}
+                          src={profileData?.profileImage}
+                          alt={profileData?.fullName}
+                        />
                       </ProfileImage>
                     }
                     action={
