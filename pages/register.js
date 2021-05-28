@@ -26,7 +26,7 @@ export default function SignInSide() {
   const [validationErrors, setValidationErrors] = useState({});
   useEffect(() => {
     if (error?.response?.data?.errors) {
-      setValidationErrors(Object.assign(...error.response.data.errors));
+      setValidationErrors(error.response.data.errors);
     }
   }, [error]);
   const dispatch = useDispatch();

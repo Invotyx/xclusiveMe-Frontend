@@ -98,7 +98,7 @@ export default function Home(props) {
 
   useEffect(() => {
     if (error?.response?.data?.errors) {
-      setValidationErrors(Object.assign(...error.response.data.errors));
+      setValidationErrors(error.response.data.errors);
     } else {
       setValidationErrors({});
     }
