@@ -11,6 +11,7 @@ import ArrowForwardOutlinedIcon from '@material-ui/icons/ArrowForwardOutlined';
 import { paymentMethodDataSelector } from '../../../selectors/paymentMethodSelector';
 import { useSelector } from 'react-redux';
 import NextLink from 'next/link';
+import PaymentIcon from '@material-ui/icons/Payment';
 
 const useStyles = makeStyles((theme) => ({
   closeButton: {
