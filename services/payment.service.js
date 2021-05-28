@@ -16,9 +16,7 @@ export async function addPayment(name, token) {
 }
 
 export async function deletePaymentMethod(id) {
-  return apiClient.delete(
-    `${SERVER_ADDRESS}/users/payment-methods/${id}/remove`
-  );
+  return apiClient.delete(`${SERVER_ADDRESS}/users/payment-methods/${id}`);
 }
 
 export async function setPaymentMethod(id) {
