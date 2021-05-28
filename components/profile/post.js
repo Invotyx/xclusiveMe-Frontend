@@ -15,6 +15,7 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import moment from 'moment';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -37,7 +38,7 @@ export default function Post({ post, profileData, altHeader }) {
               <MoreHorizIcon />
             </IconButton>
           }
-          subheader={post.createdAt}
+          subheader={moment(post.createdAt).format('MMMM DD, YYYY')}
         />
       ) : (
         <CardHeader
@@ -48,7 +49,7 @@ export default function Post({ post, profileData, altHeader }) {
             </IconButton>
           }
           title={profileData?.profile?.fullName || '(no name)'}
-          subheader={post.createdAt}
+          subheader={moment(post.createdAt).format('MMMM DD, YYYY')}
         />
       )}
       <CardContent>
