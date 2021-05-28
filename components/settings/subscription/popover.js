@@ -8,8 +8,6 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Icon from '@material-ui/core/Icon';
 import ArrowForwardOutlinedIcon from '@material-ui/icons/ArrowForwardOutlined';
-import { paymentMethodDataSelector } from '../../../selectors/paymentMethodSelector';
-import { useSelector } from 'react-redux';
 import NextLink from 'next/link';
 import PaymentIcon from '@material-ui/icons/Payment';
 
@@ -44,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SimplePopover({ open, setOpen }) {
-  const paymentData = useSelector(paymentMethodDataSelector);
+  const bankData = [];
 
   const classes = useStyles();
   const handleClose = () => {
@@ -72,7 +70,7 @@ export default function SimplePopover({ open, setOpen }) {
       >
         <Alert severity='warning' color='white'>
           <AlertTitle>
-            {paymentData.length ? (
+            {bankData.length ? (
               <strong>Your Linked Account</strong>
             ) : (
               <>
@@ -87,8 +85,8 @@ export default function SimplePopover({ open, setOpen }) {
               </>
             )}
           </AlertTitle>
-          {paymentData.length ? (
-            paymentData.map((p) => (
+          {bankData.length ? (
+            bankData.map((p) => (
               <ListItem
                 key={p.id}
                 button
