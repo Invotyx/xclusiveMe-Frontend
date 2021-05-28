@@ -6,11 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
-import { useSelector } from 'react-redux';
 import Layout from '../../components/layouts/layout-settings';
-import {
-  paymentMethodDataSelector,
-} from '../../selectors/paymentMethodSelector';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -20,7 +16,7 @@ import BillingAddDialog from '../../components/settings/billing/add-dialog';
 import PaymentIcon from '@material-ui/icons/Payment';
 
 export default function Home() {
-  const paymentData = useSelector(paymentMethodDataSelector);
+  const bankData = [];
 
   return (
     <motion.div initial='hidden' animate='visible' variants={variants}>
@@ -40,9 +36,8 @@ export default function Home() {
 
             <Box mb={2}>
               <List>
-                  'loading'
-                ) : paymentData.length ? (
-                  paymentData.map((p) => (
+                {bankData.length ? (
+                  bankData.map((p) => (
                     <>
                       <Box mb={2}>
                         <Typography variant='subtitle2'>
