@@ -70,6 +70,15 @@ export default function Post({ post, profileData, altHeader }) {
           title='Paella dish'
         />
       )}
+      {(post.media || post.media.length > 0) &&
+        post.media.map((m, i) => (
+          <CardMedia
+            key={`post.media${i}`}
+            className={classes.media}
+            image={m.url}
+            title='post media'
+          />
+        ))}
       <CardActions disableSpacing>
         <Box flexGrow={1}>
           <Button aria-label='add to favorites' startIcon={<FavoriteIcon />}>
