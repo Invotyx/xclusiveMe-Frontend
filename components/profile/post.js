@@ -1,5 +1,4 @@
 import NextLink from 'next/link';
-import Avatar from '@material-ui/core/Avatar';
 import BookmarkBorderOutlinedIcon from '@material-ui/icons/BookmarkBorderOutlined';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
@@ -18,7 +17,7 @@ import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import moment from 'moment';
-import { getImage } from '../../services/getImage';
+import ProfileImageAvatar from './profile-image-avatar';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -45,16 +44,7 @@ export default function Post({ post, profileData, altHeader }) {
         />
       ) : (
         <CardHeader
-          avatar={
-            <Avatar
-              alt={profileData.fullName}
-              src={
-                profileData && profileData.profileImage
-                  ? getImage(profileData.profileImage)
-                  : 'https://material-ui.com/static/images/avatar/1.jpg'
-              }
-            />
-          }
+          avatar={<ProfileImageAvatar user={profileData} />}
           action={
             <IconButton aria-label='settings'>
               <MoreVertIcon />

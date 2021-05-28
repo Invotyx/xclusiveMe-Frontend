@@ -64,7 +64,7 @@ export default function Comp() {
             </NextLink>
             <NextLink passHref href='/profile'>
               <IconButton color='inherit'>
-                <ProfileImageAvatar />
+                <ProfileImageAvatar user={{}} />
               </IconButton>
             </NextLink>
           </Toolbar>

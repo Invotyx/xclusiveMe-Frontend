@@ -24,6 +24,7 @@ import {
   ListItemText,
 } from '@material-ui/core';
 import { getImage } from '../services/getImage';
+import ProfileImageAvatar from '../components/profile/profile-image-avatar';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -91,7 +92,10 @@ export default function Home() {
                         <ListItem>
                           <Box clone mr={2}>
                             <ListItemAvatar>
-                              <ImageAvatar className={classes.large} user={u} />
+                              <ProfileImageAvatar
+                                className={classes.large}
+                                user={u}
+                              />
                             </ListItemAvatar>
                           </Box>
                           <ListItemText primary={u.username} />

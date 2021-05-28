@@ -96,7 +96,7 @@ export default function Comp({ sidebarMenu, set_sidebarMenu }) {
                 </Box>
                 <NextLink passHref href='/profile'>
                   <IconButton component='a' color='inherit'>
-                    <ProfileImageAvatar />
+                    <ProfileImageAvatar user={{}} />
                   </IconButton>
                 </NextLink>
               </Box>
