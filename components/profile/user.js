@@ -145,8 +145,12 @@ export default function Profile({
                       className={classes.header}
                       action={
                         <Box display={{ xs: 'none', sm: 'none', md: 'flex' }}>
-                          <UpdateProfile />
-                          <UpdateCoverImage2 />
+                          {me && (
+                            <>
+                              <UpdateProfile />
+                              <UpdateCoverImage2 />
+                            </>
+                          )}
                         </Box>
                       }
                     />
