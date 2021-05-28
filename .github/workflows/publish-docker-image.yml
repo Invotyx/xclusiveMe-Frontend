@@ -4,7 +4,8 @@ on:
   push:
     branches:
       - main
-      # - dev
+      - dev
+  workflow_dispatch:
 
 jobs:
   push-docker-image:
@@ -28,10 +29,14 @@ jobs:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Get BASE_URL
-        # if: github.ref == 'refs/heads/dev'
+      - name: Get BASE_URL (prod)
+        if: github.ref == 'refs/heads/main'
         shell: bash
         run: echo "BASE_URL=$(echo https://api.xclusiveme-dev.tk/api)" >> $GITHUB_ENV
+      - name: Get BASE_URL (dev)
+        if: github.ref == 'refs/heads/dev'
+        shell: bash
+        run: echo "BASE_URL=$(echo https://api.dev.xclusiveme.ga/api)" >> $GITHUB_ENV
       - name: Build and push
         uses: docker/build-push-action@v2.4.0
         with:
