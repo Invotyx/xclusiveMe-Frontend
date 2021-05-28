@@ -102,8 +102,7 @@ export default function Profile({
   const handleFollow = (event) => {
     event.preventDefault();
     user.subscriptionPlans &&
-      user.subscriptionPlans.length > 0 &&
-      dispatch(subscription.add(user.subscriptionPlans[0]?.id));
+      dispatch(subscription.add(user.subscriptionPlans?.id));
   };
 
   return (
