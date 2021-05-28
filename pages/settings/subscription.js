@@ -33,8 +33,12 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    if (currentUser && currentUser.price) {
-      set_price(currentUser.price);
+    if (
+      currentUser &&
+      currentUser.subscriptionPlans &&
+      currentUser.subscriptionPlans.length > 0
+    ) {
+      set_price(currentUser.subscriptionPlans[0].price);
     }
   }, [currentUser]);
 
