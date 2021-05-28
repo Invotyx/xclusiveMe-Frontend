@@ -10,7 +10,6 @@ import { useSelector } from 'react-redux';
 import Layout from '../../components/layouts/layout-settings';
 import {
   paymentMethodDataSelector,
-  fetchingSelector,
 } from '../../selectors/paymentMethodSelector';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -21,7 +20,6 @@ import BillingAddDialog from '../../components/settings/billing/add-dialog';
 import PaymentIcon from '@material-ui/icons/Payment';
 
 export default function Home() {
-  const fetching = useSelector(fetchingSelector);
   const paymentData = useSelector(paymentMethodDataSelector);
 
   return (
@@ -42,7 +40,6 @@ export default function Home() {
 
             <Box mb={2}>
               <List>
-                {fetching ? (
                   'loading'
                 ) : paymentData.length ? (
                   paymentData.map((p) => (
