@@ -8,7 +8,7 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Icon from '@material-ui/core/Icon';
 import ArrowForwardOutlinedIcon from '@material-ui/icons/ArrowForwardOutlined';
-import { paymentDataSelector } from '../../../selectors/paymentSelector';
+import { paymentMethodDataSelector } from '../../../selectors/paymentMethodSelector';
 import { useSelector } from 'react-redux';
 import NextLink from 'next/link';
 
@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SimplePopover({ open, setOpen }) {
-  const paymentData = useSelector(paymentDataSelector);
+  const paymentData = useSelector(paymentMethodDataSelector);
 
   const classes = useStyles();
   const handleClose = () => {

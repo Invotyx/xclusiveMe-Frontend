@@ -14,9 +14,9 @@ import Layout from '../../components/layout-settings';
 import { errorSelector } from '../../selectors/authSelector';
 import StripeElements from '../../components/settings/payment/StripeElements';
 import {
-  paymentDataSelector,
+  paymentMethodDataSelector,
   fetchingSelector,
-} from '../../selectors/paymentSelector';
+} from '../../selectors/paymentMethodSelector';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -31,7 +31,7 @@ export default function Home() {
   const [validationErrors, setValidationErrors] = React.useState({});
   const currentUser = useSelector(currentUserSelector);
   const [disabledButton, setDisabledButton] = React.useState(false);
-  const paymentData = useSelector(paymentDataSelector);
+  const paymentData = useSelector(paymentMethodDataSelector);
 
   useEffect(() => {
     if (currentUser) {
