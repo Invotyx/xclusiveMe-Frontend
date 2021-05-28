@@ -94,7 +94,7 @@ export default function Comp({ sidebarMenu, set_sidebarMenu }) {
                 <Box mr={1} display='flex'>
                   <NewPostDialog />
                 </Box>
-                <NextLink href='/profile'>
+                <NextLink passHref href='/profile'>
                   <IconButton component='a' color='inherit'>
                     <ProfieImageAvatar />
                   </IconButton>
@@ -103,7 +103,7 @@ export default function Comp({ sidebarMenu, set_sidebarMenu }) {
             </Box>
             <Box display='flex'>
               <Box ml={3} display={{ xs: 'none', sm: 'none', md: 'flex' }}>
-                <NextLink href='/search'>
+                <NextLink href='/search' passHref>
                   <IconButton color='inherit'>
                     <SearchIcon />
                   </IconButton>
@@ -137,7 +137,7 @@ export default function Comp({ sidebarMenu, set_sidebarMenu }) {
                 </IconButton>
               </Box>
               <Box ml={3}>
-                <NextLink href='/settings/account'>
+                <NextLink href='/settings/account' passHref>
                   <IconButton color='inherit'>
                     <SettingsIcon />
                   </IconButton>

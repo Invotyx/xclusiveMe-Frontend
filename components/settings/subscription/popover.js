@@ -117,7 +117,7 @@ export default function SimplePopover({ open, setOpen }) {
                 To add a subscription fee to your content, please add a bank
               </Typography>
               <br />
-              <NextLink href='/settings/bank'>
+              <NextLink href='/settings/bank' passHref>
                 <Button
                   className={classes.button}
                   endIcon={

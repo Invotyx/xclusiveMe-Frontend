@@ -35,17 +35,17 @@ export default function Comp() {
       >
         <Box clone display='flex' justifyContent='space-around'>
           <Toolbar>
-            <NextLink href='/explore'>
+            <NextLink passHref href='/explore'>
               <IconButton color='inherit'>
                 <HomeIcon />
               </IconButton>
             </NextLink>
-            <NextLink href='/search'>
+            <NextLink passHref href='/search'>
               <IconButton color='inherit'>
                 <SearchIcon />
               </IconButton>
             </NextLink>
-            <NextLink href='/new-post'>
+            <NextLink passHref href='/new-post'>
               <IconButton color='inherit'>
                 <Image
                   width={40}
@@ -55,14 +55,14 @@ export default function Comp() {
                 />
               </IconButton>
             </NextLink>
-            <NextLink href='/notification'>
+            <NextLink passHref href='/notification'>
               <IconButton color='inherit'>
                 <Badge color='secondary' variant='dot'>
                   <CheckBoxOutlineBlankIcon />
                 </Badge>
               </IconButton>
             </NextLink>
-            <NextLink href='/profile'>
+            <NextLink passHref href='/profile'>
               <IconButton color='inherit'>
                 <ProfieImageAvatar />
               </IconButton>
