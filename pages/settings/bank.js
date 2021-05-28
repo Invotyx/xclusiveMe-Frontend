@@ -18,6 +18,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import BillingAddDialog from '../../components/settings/billing/add-dialog';
+import PaymentIcon from '@material-ui/icons/Payment';
 
 export default function Home() {
   const fetching = useSelector(fetchingSelector);
