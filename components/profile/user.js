@@ -140,7 +140,7 @@ export default function Profile({
             <Grid container className={classes.root}>
               <Grid item xs={12}>
                 <Card>
-                  <CoverImage>
+                  <CoverImage profileData={profileData}>
                     <CardHeader
                       className={classes.header}
                       action={
