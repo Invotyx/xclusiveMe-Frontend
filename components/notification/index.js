@@ -94,7 +94,11 @@ export default function Notification() {
         subheader={<ListSubheader>Today</ListSubheader>}
       >
         {notificationToday.map((i) => (
-          <ListItem onClick={settingsMenuClose} alignItems='flex-start'>
+          <ListItem
+            onClick={settingsMenuClose}
+            key={`notificationToday${x}`}
+            alignItems='flex-start'
+          >
             <ListItemAvatar>
               <Avatar
                 alt='Cindy Baker'
@@ -134,8 +138,12 @@ export default function Notification() {
           </ListSubheader>
         }
       >
-        {notificationYesterday.map((i) => (
-          <ListItem onClick={settingsMenuClose} alignItems='flex-start'>
+        {notificationYesterday.map((i, x) => (
+          <ListItem
+            onClick={settingsMenuClose}
+            key={`notificationYesterday${x}`}
+            alignItems='flex-start'
+          >
             <ListItemAvatar>
               <Avatar
                 alt='Cindy Baker'
