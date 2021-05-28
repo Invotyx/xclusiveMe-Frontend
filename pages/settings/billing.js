@@ -20,10 +20,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import PaymentIcon from '@material-ui/icons/Payment';
 import CheckIcon from '@material-ui/icons/Check';
 import {
-  paymentDataSelector,
+  paymentMethodDataSelector,
   fetchingSelector,
-} from '../../selectors/paymentSelector';
-import { payment } from '../../actions/payment';
+} from '../../selectors/paymentMethodSelector';
+import { paymentMethod } from '../../actions/payment-method';
 import Layout from '../../components/layouts/layout-settings';
 
 const useStyles = makeStyles((theme) => ({
@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Home(props) {
   const classes = useStyles();
-  const paymentData = useSelector(paymentDataSelector);
+  const paymentData = useSelector(paymentMethodDataSelector);
   const fetching = useSelector(fetchingSelector);
   const dispatch = useDispatch();
 
@@ -46,11 +46,12 @@ export default function Home(props) {
   };
 
   const handleEdit = () => {
-    dispatch(payment.setDefault(planId));
+    dispatch(paymentMethod.setDefault(planId));
   };
 
   const handleDelete = () => {
-    window.confirm('Do you want proceed?') && dispatch(payment.delete(planId));
+    window.confirm('Do you want proceed?') &&
+      dispatch(paymentMethod.delete(planId));
   };
 
   const handleClose = () => {
@@ -58,7 +59,7 @@ export default function Home(props) {
   };
 
   useEffect(() => {
-    dispatch(payment.request());
+    dispatch(paymentMethod.request());
   }, [dispatch]);
 
   return (

@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import { payment } from '../../actions/payment';
+import { paymentMethod } from '../../../actions/payment-method';
 
 export default function Home(props) {
   const dispatch = useDispatch();
@@ -15,11 +15,12 @@ export default function Home(props) {
   };
 
   const handleEdit = () => {
-    dispatch(payment.setDefault(planId));
+    dispatch(paymentMethod.setDefault(planId));
   };
 
   const handleDelete = () => {
-    window.confirm('Do you want proceed?') && dispatch(payment.delete(planId));
+    window.confirm('Do you want proceed?') &&
+      dispatch(paymentMethod.delete(planId));
   };
 
   const handleClose = () => {
