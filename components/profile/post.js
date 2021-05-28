@@ -65,7 +65,7 @@ export default function Post({ post, profileData, altHeader }) {
       </CardContent>
       <CardMedia
         className={classes.media}
-        image='/post.jpg'
+        image='/no-media.jpg'
         title='Paella dish'
       />
       <CardActions disableSpacing>
