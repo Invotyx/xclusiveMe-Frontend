@@ -2,18 +2,15 @@ import React from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import { getImage } from '../services/getImage';
 
-export default function ImageAvatar(props) {
-  const { user, src, alt, ...other } = props;
-
+export default function ImageAvatar({ src, alt, ...props }) {
   return (
     <Avatar
-      {...other}
-      alt={alt || (user && user.username)}
+      {...props}
+      alt={alt}
       src={
-        src ||
-        (user && user.image
-          ? getImage(user.image)
-          : 'https://material-ui.com/static/images/avatar/1.jpg')
+        src
+          ? getImage(src)
+          : 'https://material-ui.com/static/images/avatar/1.jpg'
       }
     />
   );
