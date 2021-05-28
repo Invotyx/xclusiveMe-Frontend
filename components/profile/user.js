@@ -117,7 +117,7 @@ export default function Profile({
                 </IconButton>
                 <Box flex={1}>
                   <Typography>
-                    {profileData?.profile?.fullName || '(no name)'}
+                    {profileData?.fullName || '(no name)'}
                   </Typography>
                 </Box>
                 <IconButton>
@@ -181,7 +181,7 @@ export default function Profile({
                     title={
                       <Box display={{ xs: 'none', sm: 'none', md: 'flex' }}>
                         <Typography variant='h6'>
-                          {profileData?.profile?.fullName || '(no name)'}
+                          {profileData?.fullName || '(no name)'}
                         </Typography>
                       </Box>
                     }

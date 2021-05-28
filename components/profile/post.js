@@ -58,7 +58,7 @@ export default function Post({ post, profileData, altHeader }) {
               <MoreVertIcon />
             </IconButton>
           }
-          title={profileData?.profile?.fullName || '(no name)'}
+          title={profileData?.fullName || '(no name)'}
           subheader={moment(post.createdAt).format('MMMM DD, YYYY')}
         />
       )}
