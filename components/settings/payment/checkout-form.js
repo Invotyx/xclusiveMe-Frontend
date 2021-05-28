@@ -31,7 +31,7 @@ export default function CheckoutForm(props) {
             props.afterSave();
           }
         },
-    })
+      })
     );
   };
 
@@ -49,25 +49,25 @@ export default function CheckoutForm(props) {
     const card = elements.getElement(CardElement);
     set_disabled(true);
     if (!token) {
-    const result = await stripe.createToken(card);
+      const result = await stripe.createToken(card);
 
-    if (result.error) {
-      set_disabled(false);
-      // Show error to your customer.
-      console.log(result.error.message);
-      dispatch(
-        snackbar.update({
-          open: true,
-          message: result.error.message,
-          severity: 'error',
-        })
-      );
-    }
-    if (result.token) {
-      set_disabled(false);
-      setToken(result.token.id);
-      savePaymentMethod(result.token.id);
-    }
+      if (result.error) {
+        set_disabled(false);
+        // Show error to your customer.
+        console.log(result.error.message);
+        dispatch(
+          snackbar.update({
+            open: true,
+            message: result.error.message,
+            severity: 'error',
+          })
+        );
+      }
+      if (result.token) {
+        set_disabled(false);
+        setToken(result.token.id);
+        savePaymentMethod(result.token.id);
+      }
     } else {
       savePaymentMethod(token);
     }
