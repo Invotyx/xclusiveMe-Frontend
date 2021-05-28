@@ -15,6 +15,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import Avatar from '@material-ui/core/Avatar';
 import { makeStyles } from '@material-ui/core/styles';
 import PaymentIcon from '@material-ui/icons/Payment';
@@ -80,10 +81,9 @@ export default function Home(props) {
       <Box mb={2}>
         <Divider />
       </Box>
+      <div>{fetching ? <CircularProgress /> : ``}</div>
       <List>
-        {fetching ? (
-          'loading'
-        ) : paymentData.length ? (
+        {paymentData.length ? (
           paymentData.map((p) => (
             <ListItem
               key={p.id}
