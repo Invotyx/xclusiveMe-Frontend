@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { variants } from '../../services/framer-variants';
 import Head from 'next/head';
@@ -6,13 +6,8 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
-import UppercaseInputLabel from '../../components/UppercaseInputLabel';
-import Button from '@material-ui/core/Button';
-import { currentUserSelector } from '../../selectors/authSelector';
 import { useSelector } from 'react-redux';
-import Layout from '../../components/layout-settings';
-import { errorSelector } from '../../selectors/authSelector';
-import StripeElements from '../../components/settings/payment/StripeElements';
+import Layout from '../../components/layouts/layout-settings';
 import {
   paymentMethodDataSelector,
   fetchingSelector,
@@ -26,30 +21,8 @@ import BillingAddDialog from '../../components/settings/billing/add-dialog';
 
 export default function Home() {
   const fetching = useSelector(fetchingSelector);
-  const error = useSelector(errorSelector);
-  const [price, set_price] = React.useState('');
-  const [validationErrors, setValidationErrors] = React.useState({});
-  const currentUser = useSelector(currentUserSelector);
-  const [disabledButton, setDisabledButton] = React.useState(false);
   const paymentData = useSelector(paymentMethodDataSelector);
 
-  useEffect(() => {
-    if (currentUser) {
-      set_price(currentUser.price);
-    }
-  }, [currentUser]);
-
-  useEffect(() => {
-    if (error?.response?.data?.errors) {
-      setValidationErrors(Object.assign(...error.response.data.errors));
-    } else {
-      setValidationErrors({});
-    }
-  }, [error]);
-
-  const handleUpdate = (event) => {
-    event.preventDefault();
-  };
   return (
     <motion.div initial='hidden' animate='visible' variants={variants}>
       <Layout>
