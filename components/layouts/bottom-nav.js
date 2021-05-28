@@ -5,13 +5,12 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import HomeIcon from '@material-ui/icons/Home';
 import IconButton from '@material-ui/core/IconButton';
-import Avatar from '@material-ui/core/Avatar';
 import Box from '@material-ui/core/Box';
 import SearchIcon from '@material-ui/icons/Search';
 import Image from 'next/image';
 import NextLink from 'next/link';
 import { makeStyles } from '@material-ui/core/styles';
-import ProfileImageAvatar from '../profile/profile-image-avatar';
+import CurrentUserProfileImageAvatar from '../profile/current-user-profile-image-avatar';
 
 const useStyles = makeStyles((theme) => ({
   bottom: {
@@ -64,7 +63,7 @@ export default function Comp() {
             </NextLink>
             <NextLink passHref href='/profile'>
               <IconButton color='inherit'>
-                <ProfileImageAvatar user={{}} />
+                <CurrentUserProfileImageAvatar />
               </IconButton>
             </NextLink>
           </Toolbar>
