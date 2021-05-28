@@ -9,6 +9,8 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
 import StripeElements from '../payment/StripeElements';
+import { useDispatch } from 'react-redux';
+import { paymentMethod } from '../../../actions/payment-method';
 
 const styles = (theme) => ({
   root: {
@@ -55,6 +57,7 @@ const DialogActions = withStyles((theme) => ({
 }))(MuiDialogActions);
 
 export default function CustomizedDialogs() {
+  const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -82,6 +85,7 @@ export default function CustomizedDialogs() {
         <DialogContent dividers>
           <StripeElements
             callback={() => {
+              dispatch(paymentMethod.request());
               handleClose();
             }}
           />
