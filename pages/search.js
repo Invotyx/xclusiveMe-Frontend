@@ -101,9 +101,14 @@ export default function Home() {
                           </Box>
                           <ListItemText primary={u.username} />
                           <ListItemSecondaryAction>
+                            <NextLink
+                              href={`/x/${u.username}`}
+                              key={`user${u.id}`}
+                            >
                             <Button size='small' variant='outlined'>
                               view profile
                             </Button>
+                            </NextLink>
                           </ListItemSecondaryAction>
                         </ListItem>
                       </Box>
