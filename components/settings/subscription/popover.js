@@ -3,13 +3,15 @@ import { makeStyles } from '@material-ui/core/styles';
 import Popover from '@material-ui/core/Popover';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import { Alert, AlertTitle } from '@material-ui/lab';
+import { AlertTitle } from '@material-ui/lab';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
+import MuiAlert from '@material-ui/lab/Alert';
 import CloseIcon from '@material-ui/icons/Close';
 import ArrowForwardOutlinedIcon from '@material-ui/icons/ArrowForwardOutlined';
 import NextLink from 'next/link';
 import PaymentIcon from '@material-ui/icons/Payment';
+import { withStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   closeButton: {
@@ -29,6 +31,16 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: '20px',
   },
 }));
+
+const Alert = withStyles(() => ({
+  standardSuccess: {
+    color: '#fff',
+    backgroundColor: '#000',
+  },
+  icon: {
+    color: '#fff !important',
+  },
+}))(MuiAlert);
 
 export default function SimplePopover({ open, setOpen }) {
   const bankData = [];
