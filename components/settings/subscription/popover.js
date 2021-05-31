@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Popover from '@material-ui/core/Popover';
+import Snackbar from '@material-ui/core/Snackbar';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import { AlertTitle } from '@material-ui/lab';
@@ -42,7 +42,7 @@ const Alert = withStyles(() => ({
   },
 }))(MuiAlert);
 
-export default function SimplePopover({ open, setOpen }) {
+export default function SimpleSnackbar({ open, setOpen }) {
   const bankData = [];
 
   const classes = useStyles();
@@ -52,20 +52,7 @@ export default function SimplePopover({ open, setOpen }) {
 
   return (
     <div className={classes.root}>
-      <Popover
-        open={open}
-        anchorReference='anchorPosition'
-        anchorPosition={{ top: 600, left: 400 }}
-        onClose={handleClose}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'center',
-        }}
-        transformOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
-        }}
-      >
+      <Snackbar open={open} onClose={handleClose}>
         <Alert>
           <AlertTitle>
             {bankData.length ? (
@@ -141,7 +128,7 @@ export default function SimplePopover({ open, setOpen }) {
             </>
           )}
         </Alert>
-      </Popover>
+      </Snackbar>
     </div>
   );
 }
