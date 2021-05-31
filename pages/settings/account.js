@@ -119,9 +119,11 @@ export default function Home(props) {
     event.preventDefault();
     dispatch(
       auth.updatePassword({
+        saveData: {
         password,
         confirmPassword: password,
         oldPassword: password_old,
+        },
       })
     );
   };
