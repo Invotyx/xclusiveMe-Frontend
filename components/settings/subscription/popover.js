@@ -122,13 +122,13 @@ export default function SimplePopover({ open, setOpen }) {
                 </Button>
               </NextLink>
               <Box clone ml={1}>
-              <Button
-                onClick={handleClose}
-                variant='contained'
-                className={classes.Laterbutton}
-              >
-                maybe later
-              </Button>
+                <Button
+                  onClick={handleClose}
+                  variant='contained'
+                  className={classes.Laterbutton}
+                >
+                  maybe later
+                </Button>
               </Box>
             </>
           )}
