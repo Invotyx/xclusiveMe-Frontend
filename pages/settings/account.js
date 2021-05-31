@@ -120,8 +120,8 @@ export default function Home(props) {
     dispatch(
       auth.updatePassword({
         saveData: {
-        password,
-        confirmPassword: password,
+          password,
+          confirmPassword: password,
         },
       })
     );
