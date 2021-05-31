@@ -438,13 +438,13 @@ function* handleUploadImage({ payload }) {
 function* handleUploadCover({ payload }) {
   try {
     const { fileObject } = payload;
-    yield call(uploadCover, fileObject);
+    const { data } = yield call(uploadCover, fileObject);
     yield put(
       auth.success({
+        currentUser: data,
         uploadingCover: false,
       })
     );
-    yield call(auth.me);
     yield put(
       bottomalert.update({
         open: true,
