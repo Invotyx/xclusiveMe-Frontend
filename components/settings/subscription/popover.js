@@ -99,13 +99,18 @@ export default function SimplePopover({ open, setOpen }) {
             ))
           ) : (
             <>
-              <Typography>
-                You have no bank account linked to this profile.
-              </Typography>
-              <Typography>
-                To add a subscription fee to your content, please add a bank
-              </Typography>
-              <br />
+              <Box mb={2}>
+                <Box>
+                  <Typography>
+                    You have no bank account linked to this profile.
+                  </Typography>
+                </Box>
+                <Box>
+                  <Typography>
+                    To add a subscription fee to your content, please add a bank
+                  </Typography>
+                </Box>
+              </Box>
               <NextLink href='/settings/bank' passHref>
                 <Button
                   variant='contained'
