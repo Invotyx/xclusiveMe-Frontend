@@ -11,6 +11,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import ArrowForwardOutlinedIcon from '@material-ui/icons/ArrowForwardOutlined';
 import NextLink from 'next/link';
 import PaymentIcon from '@material-ui/icons/Payment';
+import BlackButton from '../../BlackButton';
 import { withStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -119,13 +120,13 @@ export default function SimpleSnackbar({ open, setOpen }) {
                 </Button>
               </NextLink>
               <Box clone ml={1}>
-                <Button
+                <BlackButton
                   onClick={handleClose}
                   variant='contained'
                   className={classes.Laterbutton}
                 >
                   maybe later
-                </Button>
+                </BlackButton>
               </Box>
             </>
           )}
