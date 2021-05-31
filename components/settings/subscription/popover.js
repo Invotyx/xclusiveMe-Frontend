@@ -20,8 +20,6 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.grey[500],
   },
   button: {
-    backgroundColor: 'white',
-    color: 'black',
     borderRadius: '10px',
     paddingLeft: '20px',
     '&:hover': {
@@ -29,8 +27,6 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   Laterbutton: {
-    backgroundColor: 'black',
-    color: 'white',
     borderRadius: '10px',
     paddingLeft: '20px',
     marginLeft: '10px',
@@ -118,6 +114,7 @@ export default function SimplePopover({ open, setOpen }) {
               <br />
               <NextLink href='/settings/bank' passHref>
                 <Button
+                  variant='contained'
                   className={classes.button}
                   endIcon={
                       <ArrowForwardOutlinedIcon />
@@ -126,7 +123,11 @@ export default function SimplePopover({ open, setOpen }) {
                   Add a bank
                 </Button>
               </NextLink>
-              <Button onClick={handleClose} className={classes.Laterbutton}>
+              <Button
+                onClick={handleClose}
+                variant='contained'
+                className={classes.Laterbutton}
+              >
                 maybe later
               </Button>
             </>
