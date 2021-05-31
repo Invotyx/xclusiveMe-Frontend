@@ -18,6 +18,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import moment from 'moment';
 import ProfileImageAvatar from './profile-image-avatar';
+import NormalCaseButton from '../NormalCaseButton';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -81,22 +82,22 @@ export default function Post({ post, profileData, altHeader }) {
         ))}
       <CardActions disableSpacing>
         <Box flexGrow={1}>
-          <Button aria-label='add to favorites' startIcon={<FavoriteIcon />}>
+          <NormalCaseButton aria-label='add to favorites' startIcon={<FavoriteIcon />}>
             {post.totalLikes} likes
-          </Button>
-          <Button aria-label='share' startIcon={<ChatBubbleOutlineIcon />}>
+          </NormalCaseButton>
+          <NormalCaseButton aria-label='share' startIcon={<ChatBubbleOutlineIcon />}>
             {post.totalComments} comments
-          </Button>
-          <Button aria-label='tip' startIcon={<MonetizationOnOutlinedIcon />}>
+          </NormalCaseButton>
+          <NormalCaseButton aria-label='tip' startIcon={<MonetizationOnOutlinedIcon />}>
             Tip
-          </Button>
+          </NormalCaseButton>
         </Box>
-        <Button
+        <NormalCaseButton
           aria-label='bookmark'
           startIcon={<BookmarkBorderOutlinedIcon />}
         >
           <Box display={{ xs: 'none', sm: 'none', md: 'flex' }}>Save</Box>
-        </Button>
+        </NormalCaseButton>
       </CardActions>
     </Card>
   );
