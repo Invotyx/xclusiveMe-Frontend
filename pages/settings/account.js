@@ -122,7 +122,6 @@ export default function Home(props) {
         saveData: {
         password,
         confirmPassword: password,
-        oldPassword: password_old,
         },
       })
     );
