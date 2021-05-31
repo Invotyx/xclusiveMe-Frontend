@@ -50,12 +50,9 @@ export default function SimplePopover({ open, setOpen }) {
     setOpen(false);
   };
 
-  const id = open ? 'simple-popover' : undefined;
-
   return (
     <div className={classes.root}>
       <Popover
-        id={id}
         open={open}
         anchorReference='anchorPosition'
         anchorPosition={{ top: 600, left: 400 }}
