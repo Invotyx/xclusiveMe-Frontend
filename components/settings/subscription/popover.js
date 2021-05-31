@@ -116,9 +116,7 @@ export default function SimplePopover({ open, setOpen }) {
                 <Button
                   variant='contained'
                   className={classes.button}
-                  endIcon={
-                      <ArrowForwardOutlinedIcon />
-                  }
+                  endIcon={<ArrowForwardOutlinedIcon />}
                 >
                   Add a bank
                 </Button>
