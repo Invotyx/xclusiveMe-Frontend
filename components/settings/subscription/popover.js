@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
 const Alert = withStyles(() => ({
   standardSuccess: {
     color: '#fff',
-    backgroundColor: '#000',
+    backgroundColor: '#111',
   },
   icon: {
     color: '#fff !important',
