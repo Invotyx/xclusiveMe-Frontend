@@ -118,8 +118,9 @@ export default function Home(props) {
   const handleUpdatePassword = (event) => {
     event.preventDefault();
     dispatch(
-      auth.updateProfile({
+      auth.updatePassword({
         password,
+        confirmPassword: password,
         oldPassword: password_old,
       })
     );
@@ -281,7 +282,7 @@ export default function Home(props) {
                       : ''
                   }
                 />
-                {password && (
+                {/*
                   <TileTextField
                     value={password_old}
                     onChange={(e) => set_password_old(e.target.value)}
@@ -298,7 +299,7 @@ export default function Home(props) {
                         : ''
                     }
                   />
-                )}
+                  */}
                 <Button variant='outlined' type='submit' disabled={fetching}>
                   Update Password
                 </Button>

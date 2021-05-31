@@ -11,6 +11,7 @@ import {
   verifyOtp,
   resendOtp,
   updateProfile,
+  updatePassword,
   updateSubscriptionFee,
   uploadImage,
   uploadCover,
@@ -238,6 +239,37 @@ function* handleUpdateProfile(action) {
     if (callback) {
       yield call(callback, errorCaught);
     }
+  }
+}
+
+function* handleUpdatePassword(action) {
+  try {
+    const { saveData } = action.payload;
+
+    yield call(updatePassword, saveData);
+    yield put(auth.success({}));
+
+    yield put(
+      bottomalert.update({
+        open: true,
+        message: 'Password Changed Successfully!',
+        severity: 'success',
+      })
+    );
+    const { callback } = action.payload;
+    if (callback) {
+      yield call(callback);
+    }
+  } catch (e) {
+    console.log(e);
+    yield put(auth.failure({ error: { ...e } }));
+    yield put(
+      bottomalert.update({
+        open: true,
+        message: e.response.data.message,
+        severity: 'error',
+      })
+    );
   }
 }
 
@@ -473,6 +505,7 @@ function* watchAuthSagas() {
     takeLatest(AUTH.VERIFY_OTP, handleVerifyOtp),
     takeLatest(AUTH.RESEND_OTP, handleResendOtp),
     takeLatest(AUTH.UPDATE_PROFILE, handleUpdateProfile),
+    takeLatest(AUTH.UPDATE_PASSWORD, handleUpdatePassword),
     takeLatest(AUTH.UPDATE_SUBSCRIPTION_FEE, handleUpdateSubscriptionFee),
     takeLatest(AUTH.UPLOAD_IMAGE, handleUploadImage),
     takeLatest(AUTH.UPLOAD_COVER, handleUploadCover),

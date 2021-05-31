@@ -68,6 +68,11 @@ export async function updateProfile(request) {
   return apiClient.put(`${SERVER_ADDRESS}/users/updateProfile`, data);
 }
 
+export async function updatePassword(request) {
+  const data = JSON.stringify(request);
+  return apiClient.put(`${SERVER_ADDRESS}/users/password`, data);
+}
+
 export async function updateSubscriptionFee(request) {
   const data = JSON.stringify(request);
   return apiClient.post(`${SERVER_ADDRESS}/subscriptions/plans`, data);

@@ -44,6 +44,13 @@ export const auth = {
       success: false,
       error: null,
     }),
+  updatePassword: (data) =>
+    createAction(AUTH.UPDATE_PASSWORD, {
+      ...data,
+      fetching: true,
+      success: false,
+      error: null,
+    }),
   updateSubscriptionFee: (price) =>
     createAction(AUTH.UPDATE_SUBSCRIPTION_FEE, {
       price,
