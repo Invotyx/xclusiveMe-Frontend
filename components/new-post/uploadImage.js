@@ -26,6 +26,7 @@ export default function FormDialog({
     var image = event.target.files[0];
     set_Loading(true);
     set_disabled(true);
+    if (image) {
     dispatch(
       post.uploadImage({
         fileObject: image,
@@ -36,6 +37,7 @@ export default function FormDialog({
         },
       })
     );
+    }
   };
 
   return (
