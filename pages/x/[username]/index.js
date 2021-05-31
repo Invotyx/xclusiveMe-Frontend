@@ -19,7 +19,7 @@ export default function Profile() {
   return (
     <User
       user={u}
-      profileData={u && u.creator ? u.creator : {}}
+      profileData={u && u.creator ? u.creator : u}
       feed={u && u.creator ? u.creator.posts : []}
       follow={(u && !!u.subscriptionPlans) || false}
       numberOfPosts={numberOfPosts}
