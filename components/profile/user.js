@@ -136,7 +136,7 @@ export default function Profile({
           <title>xclusiveme</title>
         </Head>
         <Container maxWidth='md' disableGutters>
-          {currentUser && (
+          <>
             <Grid container className={classes.root}>
               <Grid item xs={12}>
                 <Card>
@@ -293,7 +293,7 @@ export default function Profile({
                 </List>
               </Grid>
             </Grid>
-          )}
+          </>
         </Container>
       </Layout>
     </motion.div>
