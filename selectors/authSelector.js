@@ -12,6 +12,10 @@ const loggedInSelector = createSelector(authState, (state) =>
   state.get('loggedIn')
 );
 
+const uploadingCoverSelector = createSelector(authState, (state) =>
+  state.get('uploadingCover')
+);
+
 const fetchingSelector = createSelector(authState, (state) =>
   state.get('fetching')
 );
@@ -34,6 +38,7 @@ export {
   authDataSelector,
   loggedInSelector,
   fetchingSelector,
+  uploadingCoverSelector,
   currentUserSelector,
   currentUserSessionsSelector,
   errorSelector,

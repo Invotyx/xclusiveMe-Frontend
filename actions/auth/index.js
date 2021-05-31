@@ -61,7 +61,7 @@ export const auth = {
   uploadCover: (data) =>
     createAction(AUTH.UPLOAD_COVER, {
       ...data,
-      fetching: true,
+      uploadingCover: true,
       success: false,
       error: null,
     }),

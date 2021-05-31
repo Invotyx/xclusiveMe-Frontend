@@ -439,6 +439,11 @@ function* handleUploadCover({ payload }) {
   try {
     const { fileObject } = payload;
     yield call(uploadCover, fileObject);
+    yield put(
+      auth.success({
+        uploadingCover: false,
+      })
+    );
     yield call(auth.me);
     yield put(
       bottomalert.update({
