@@ -2,6 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Popover from '@material-ui/core/Popover';
 import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
 import { Alert, AlertTitle } from '@material-ui/lab';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
@@ -29,7 +30,6 @@ const useStyles = makeStyles((theme) => ({
   Laterbutton: {
     borderRadius: '10px',
     paddingLeft: '20px',
-    marginLeft: '10px',
     '&:hover': {
       color: 'white',
     },
@@ -121,6 +121,7 @@ export default function SimplePopover({ open, setOpen }) {
                   Add a bank
                 </Button>
               </NextLink>
+              <Box clone ml={1}>
               <Button
                 onClick={handleClose}
                 variant='contained'
@@ -128,6 +129,7 @@ export default function SimplePopover({ open, setOpen }) {
               >
                 maybe later
               </Button>
+              </Box>
             </>
           )}
         </Alert>
