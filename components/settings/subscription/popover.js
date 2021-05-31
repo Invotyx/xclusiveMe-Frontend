@@ -23,16 +23,10 @@ const useStyles = makeStyles((theme) => ({
   button: {
     borderRadius: '10px',
     paddingLeft: '20px',
-    '&:hover': {
-      color: 'white',
-    },
   },
   Laterbutton: {
     borderRadius: '10px',
     paddingLeft: '20px',
-    '&:hover': {
-      color: 'white',
-    },
   },
 }));
 
