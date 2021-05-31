@@ -24,9 +24,9 @@ export default function FormDialog({
     event.stopPropagation();
     event.preventDefault();
     var image = event.target.files[0];
+    if (image) {
     set_Loading(true);
     set_disabled(true);
-    if (image) {
     dispatch(
       post.uploadImage({
         fileObject: image,
