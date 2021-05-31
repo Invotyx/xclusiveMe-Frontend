@@ -25,10 +25,12 @@ const useStyles = makeStyles((theme) => ({
   button: {
     borderRadius: '10px',
     paddingLeft: '20px',
+    paddingRight: '20px',
   },
   Laterbutton: {
     borderRadius: '10px',
     paddingLeft: '20px',
+    paddingRight: '20px',
   },
 }));
 
