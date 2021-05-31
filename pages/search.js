@@ -59,6 +59,7 @@ export default function Home() {
               <form onSubmit={handleSearch}>
                 <Box display='flex' mb={4}>
                   <OutlinedInput
+                    autoFocus
                     fullWidth
                     placeholder='Search…'
                     startAdornment={<SearchIcon />}
