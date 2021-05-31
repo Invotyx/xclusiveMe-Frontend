@@ -70,7 +70,7 @@ export async function updateProfile(request) {
 
 export async function updatePassword(request) {
   const data = JSON.stringify(request);
-  return apiClient.put(`${SERVER_ADDRESS}/users/password`, data);
+  return apiClient.patch(`${SERVER_ADDRESS}/users/password`, data);
 }
 
 export async function updateSubscriptionFee(request) {
