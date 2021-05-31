@@ -6,7 +6,6 @@ import { Alert, AlertTitle } from '@material-ui/lab';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
-import Icon from '@material-ui/core/Icon';
 import ArrowForwardOutlinedIcon from '@material-ui/icons/ArrowForwardOutlined';
 import NextLink from 'next/link';
 import PaymentIcon from '@material-ui/icons/Payment';
@@ -121,9 +120,7 @@ export default function SimplePopover({ open, setOpen }) {
                 <Button
                   className={classes.button}
                   endIcon={
-                    <Icon>
                       <ArrowForwardOutlinedIcon />
-                    </Icon>
                   }
                 >
                   Add a bank
