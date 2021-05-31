@@ -67,7 +67,7 @@ export default function SimplePopover({ open, setOpen }) {
           horizontal: 'left',
         }}
       >
-        <Alert severity='warning' color='white'>
+        <Alert>
           <AlertTitle>
             {bankData.length ? (
               <strong>Your Linked Account</strong>
