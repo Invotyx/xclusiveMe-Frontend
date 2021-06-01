@@ -174,7 +174,7 @@ function* handleUploadVideoReq({ payload }) {
 
     const { callback } = payload;
     if (callback) {
-      yield call(callback, url);
+      yield call(callback, res.data[0]);
     }
   } catch (e) {
     console.log(e);

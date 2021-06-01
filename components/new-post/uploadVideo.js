@@ -24,11 +24,11 @@ export default function FormDialog() {
     dispatch(
       post.uploadVideoReq({
         fileObject: 1,
-        callback: (videoUrl) => {
+        callback: (res) => {
           const upload = UpChunk.createUpload({
             // getUploadUrl is a function that resolves with the upload URL generated
             // on the server-side
-            endpoint: videoUrl,
+            endpoint: res.url,
             // picker here is a file picker HTML element
             file: video,
             chunkSize: 5120, // Uploads the file in ~5mb chunks
