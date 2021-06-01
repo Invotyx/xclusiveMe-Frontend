@@ -22,7 +22,6 @@ import PostMedia from './post-media';
 const useStyles = makeStyles((theme) => ({
   root: {
     marginTop: 0,
-    backgroundColor: 'transparent',
   },
 }));
 export default function Post({ post, profileData, altHeader }) {
