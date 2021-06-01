@@ -87,6 +87,7 @@ export default function Profile({
   const [currentUser, setCurrentUser] = React.useState(user);
   const [userFeed, setUserFeed] = React.useState(feed);
   const [_numberOfPosts, set_numberOfPosts] = React.useState(numberOfPosts);
+  const [imagesData, set_imagesData] = React.useState(null);
   const classes = useStyles();
 
   useEffect(() => {
@@ -99,6 +100,10 @@ export default function Profile({
 
   useEffect(() => {
     setUserFeed(feed);
+    feed &&
+      set_imagesData(
+        feed.map((f) => (f.media && f.media.length > 0 ? f.media[0] : null))
+      );
   }, [feed]);
 
   const handleFollow = (event) => {
@@ -294,7 +299,7 @@ export default function Profile({
                         </Box>
                       </TabPanel>
                       <TabPanel value={tab} index={1}>
-                        <Images />
+                        <Images imagesData={imagesData} />
                       </TabPanel>
                     </ListItemText>
                   </ListItem>
