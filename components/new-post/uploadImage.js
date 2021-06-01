@@ -25,18 +25,18 @@ export default function FormDialog({
     event.preventDefault();
     var image = event.target.files[0];
     if (image) {
-    set_Loading(true);
-    set_disabled(true);
-    dispatch(
-      post.uploadImage({
-        fileObject: image,
-        callback: (source_url) => {
-          imageHandler(source_url);
-          set_Loading(false);
-          set_disabled(false);
-        },
-      })
-    );
+      set_Loading(true);
+      set_disabled(true);
+      dispatch(
+        post.uploadImage({
+          fileObject: image,
+          callback: (source_url) => {
+            imageHandler(source_url);
+            set_Loading(false);
+            set_disabled(false);
+          },
+        })
+      );
     }
   };
 
