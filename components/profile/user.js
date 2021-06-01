@@ -257,7 +257,7 @@ export default function Profile({
                                 </IconButton>
                               </>
                             }
-                            title={`${_numberOfPosts} posts`}
+                            title={`${_numberOfPosts || 0} posts`}
                           />
                           {userFeed && userFeed.length > 0 ? (
                             <Grid container spacing={2}>
