@@ -260,18 +260,18 @@ export default function Profile({
                                 </Typography>
                               </Box>
 
-                            {subscriptionPlans.price > 0 ? (
-                              <Button
-                                startIcon={currencySymbol}
-                                size='small'
-                                variant='outlined'
-                                onClick={(e) => handleFollow(e)}
-                              >
+                              {subscriptionPlans.price > 0 ? (
+                                <Button
+                                  startIcon={currencySymbol}
+                                  size='small'
+                                  variant='outlined'
+                                  onClick={(e) => handleFollow(e)}
+                                >
                                   <span>
                                     {subscriptionPlans.price} Subscribe
                                   </span>
                                 </Button>
-                                ) : (
+                              ) : (
                                 <Button
                                   startIcon={<Add />}
                                   size='small'
@@ -279,7 +279,7 @@ export default function Profile({
                                   onClick={(e) => handleFollow(e)}
                                 >
                                   <span>Follow</span>
-                              </Button>
+                                </Button>
                               )}
                             </Box>
                           )}
