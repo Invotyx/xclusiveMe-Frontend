@@ -260,21 +260,27 @@ export default function Profile({
                                 </Typography>
                               </Box>
 
+                            {subscriptionPlans.price > 0 ? (
                               <Button
-                                startIcon={<Add />}
+                                startIcon={currencySymbol}
                                 size='small'
                                 variant='outlined'
                                 onClick={(e) => handleFollow(e)}
                               >
-                                {subscriptionPlans.price > 0 ? (
                                   <span>
-                                    {currencySymbol}
                                     {subscriptionPlans.price} Subscribe
                                   </span>
+                                </Button>
                                 ) : (
+                                <Button
+                                  startIcon={<Add />}
+                                  size='small'
+                                  variant='outlined'
+                                  onClick={(e) => handleFollow(e)}
+                                >
                                   <span>Follow</span>
-                                )}
                               </Button>
+                              )}
                             </Box>
                           )}
                           <CardHeader
