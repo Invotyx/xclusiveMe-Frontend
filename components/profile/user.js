@@ -24,7 +24,6 @@ import ListItem from '@material-ui/core/ListItem';
 import Typography from '@material-ui/core/Typography';
 import CardContent from '@material-ui/core/CardContent';
 import Card from '@material-ui/core/Card';
-import Button from '@material-ui/core/Button';
 import Post from './post';
 import ProfileImageAvatar from './profile-image-avatar';
 import ProfileImage from './change-profile-image';
@@ -42,6 +41,7 @@ import { Add } from '@material-ui/icons';
 import { useDispatch } from 'react-redux';
 import { currencySymbol } from '../../services/currencySymbol';
 import Videos from './videos';
+import NormalCaseButton from '../NormalCaseButton';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -261,7 +261,7 @@ export default function Profile({
                               </Box>
 
                               {subscriptionPlans.price > 0 ? (
-                                <Button
+                                <NormalCaseButton
                                   startIcon={`${currencySymbol}${subscriptionPlans.price}`}
                                   size='small'
                                   variant='outlined'
@@ -272,16 +272,16 @@ export default function Profile({
                                   }
                                 >
                                   <span>Subscribe</span>
-                                </Button>
+                                </NormalCaseButton>
                               ) : (
-                                <Button
+                                <NormalCaseButton
                                   startIcon={<Add />}
                                   size='small'
                                   variant='outlined'
                                   onClick={(e) => handleFollow(e)}
                                 >
                                   <span>Follow</span>
-                                </Button>
+                                </NormalCaseButton>
                               )}
                             </Box>
                           )}
