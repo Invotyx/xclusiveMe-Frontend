@@ -23,6 +23,7 @@ const useStyles = makeStyles((theme) => ({
 export default function SignInSide() {
   const fetching = useSelector(fetchingSelector);
   const countriesList = useSelector(countriesSelector);
+  const dispatch = useDispatch();
   useEffect(() => {
     dispatch(auth.getCountriesList());
   }, [dispatch]);
@@ -33,7 +34,6 @@ export default function SignInSide() {
       setValidationErrors(error.response.data.errors);
     }
   }, [error]);
-  const dispatch = useDispatch();
   const classes = useStyles();
   const router = useRouter();
   const [registrationState, set_registrationState] = useState(1);
