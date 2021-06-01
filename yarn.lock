@@ -1913,6 +1913,13 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
+"hls.js@npm:^1.0.4":
+  version: 1.0.4
+  resolution: "hls.js@npm:1.0.4"
+  checksum: 72f738bc016d73ea91c4acc1183e87e9927b8e1acb1428bd3c196954df0f9030e6080475fba61b6231982d35b273aa9c380dc52c38cf576e3f27b215012420b9
+  languageName: node
+  linkType: hard
+
 "hmac-drbg@npm:^1.0.1":
   version: 1.0.1
   resolution: "hmac-drbg@npm:1.0.1"
@@ -4552,6 +4559,7 @@ fsevents@~2.3.1:
     "@stripe/stripe-js": ^1.13.2
     axios: ^0.21.1
     framer-motion: ^4.1.10
+    hls.js: ^1.0.4
     immutable: ^4.0.0-rc.12
     moment: ^2.29.1
     next: 10.1.3

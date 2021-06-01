@@ -16,6 +16,7 @@
     "@stripe/stripe-js": "^1.13.2",
     "axios": "^0.21.1",
     "framer-motion": "^4.1.10",
+    "hls.js": "^1.0.4",
     "immutable": "^4.0.0-rc.12",
     "moment": "^2.29.1",
     "next": "10.1.3",
