@@ -75,7 +75,7 @@ export default function NewPostForm({ afterSave }) {
           media: fileObj,
           mediaCount: 1,
         },
-        callback: (res) => {
+        callback: () => {
           afterSave && afterSave();
           set_TileData([]);
           set_FileObj([]);
