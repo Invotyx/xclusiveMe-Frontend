@@ -274,7 +274,7 @@ export default function Profile({
                                   <Post
                                     post={f}
                                     profileData={profileData}
-                                    altHeader={me}
+                                    altHeader={false}
                                   />
                                 </Grid>
                               ))}
