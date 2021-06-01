@@ -142,7 +142,6 @@ function* handleUploadImage({ payload }) {
   try {
     const { fileObject } = payload;
     const response = yield call(uploadImage, fileObject);
-    yield call(post.save);
     yield put(
       bottomalert.update({
         open: true,
@@ -172,7 +171,6 @@ function* handleUploadVideoReq({ payload }) {
     const { fileObject } = payload;
     const res = yield call(uploadVideoReq1, fileObject);
     const url = res.data[0].url;
-    yield call(post.save);
 
     const { callback } = payload;
     if (callback) {
@@ -188,7 +186,6 @@ function* handleUploadVideoFinalReq({ payload }) {
   try {
     const { fileObject, url } = payload;
     yield call(uploadVideoFinalReq, fileObject, url);
-    yield call(post.save);
     yield put(
       bottomalert.update({
         open: true,
