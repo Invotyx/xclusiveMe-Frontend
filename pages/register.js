@@ -46,6 +46,7 @@ export default function SignInSide() {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [code, setCode] = useState('');
   const [country, setCountry] = useState('');
+  const [countryCallingCode, setCountryCallingCode] = useState('');
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -58,7 +59,7 @@ export default function SignInSide() {
             email,
             password,
             confirmPassword,
-            phoneNumber,
+            phoneNumber: `+${countryCallingCode}${phoneNumber}`,
           },
           callback: (sid) => {
             set_registrationState(2);
@@ -189,7 +190,13 @@ export default function SignInSide() {
                   : ''
               }
               value={country}
-              onChange={(e) => setCountry(e.target.value)}
+              onChange={(e) => {
+                setCountry(e.target.value);
+                setCountryCallingCode(
+                  countriesList.find((c) => c.name === e.target.value)
+                    ?.callingCodes[0]
+                );
+              }}
               variant='outlined'
               margin='normal'
               id='country'
