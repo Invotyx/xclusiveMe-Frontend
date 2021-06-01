@@ -4,7 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import CardMedia from '@material-ui/core/CardMedia';
 import Card from '@material-ui/core/Card';
 
-const tileData = [
+const imagesData = [
   {
     img: 'https://material-ui.com/static/images/grid-list/breakfast.jpg',
     title: 'Breakfast',
@@ -81,7 +81,7 @@ export default function ImageGridList() {
 
   return (
     <Grid container spacing={2}>
-      {tileData.map((tile, i) => (
+      {imagesData.map((tile, i) => (
         <Grid item cols={12} md={4} key={i}>
           <Card>
             <CardMedia
