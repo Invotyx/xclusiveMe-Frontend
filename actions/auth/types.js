@@ -20,6 +20,7 @@ export const AUTH = createActionTypes('AUTH', [
   'FAILURE',
   'ME',
   'UPDATE_TWO_FACTOR_AUTHENTICATION',
+  'GET_COUNTRIES',
 ]);
 
 export default AUTH;

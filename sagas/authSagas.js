@@ -26,6 +26,7 @@ import {
   twoFactorAuthentication,
 } from '../services/user.service';
 import { bottomalert } from '../actions/bottom-alert';
+import { getCountries } from '../services/countries';
 
 function* handleLogin(action) {
   try {
@@ -413,6 +414,16 @@ function* handleLogout(action) {
   }
 }
 
+function* handleGetCountries() {
+  try {
+    const { data } = yield call(getCountries);
+    yield put(auth.success({ countriesList: data }));
+  } catch (e) {
+    console.log(e);
+    yield put(auth.failure({ error: { ...e } }));
+  }
+}
+
 function* handleUpdateTwoFactorAuthentication(action) {
   try {
     const { fa2 } = action.payload;
@@ -519,6 +530,7 @@ function* watchAuthSagas() {
       AUTH.UPDATE_TWO_FACTOR_AUTHENTICATION,
       handleUpdateTwoFactorAuthentication
     ),
+    takeLatest(AUTH.GET_COUNTRIES, handleGetCountries),
   ]);
 }
 

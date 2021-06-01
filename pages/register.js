@@ -11,8 +11,8 @@ import Link from '@material-ui/core/Link';
 import MenuItem from '@material-ui/core/MenuItem';
 import { auth } from '../actions/auth';
 import { fetchingSelector, errorSelector } from '../selectors/authSelector';
-import countriesList from '../services/countries';
 import LayoutGuest from '../components/layouts/layout-guest-auth';
+import { countriesSelector } from '../selectors/countriesSelector';
 
 const useStyles = makeStyles((theme) => ({
   grey: {
@@ -22,6 +22,10 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignInSide() {
   const fetching = useSelector(fetchingSelector);
+  const countriesList = useSelector(countriesSelector);
+  useEffect(() => {
+    dispatch(auth.getCountriesList());
+  }, [dispatch]);
   const error = useSelector(errorSelector);
   const [validationErrors, setValidationErrors] = useState({});
   useEffect(() => {
@@ -193,7 +197,7 @@ export default function SignInSide() {
               name='country'
               autoComplete='country'
             >
-              {countriesList.map((c) => (
+              {countriesList?.map((c) => (
                 <MenuItem value={c.name} key={`countriesList${c.code}`}>
                   {c.name}
                 </MenuItem>

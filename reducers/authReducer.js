@@ -8,6 +8,7 @@ const initialState = fromJS({
   loggedIn: false,
   currentUser: null,
   userSessions: [],
+  countriesList: [],
 });
 
 export default function authReducer(state = initialState, action) {
@@ -30,6 +31,7 @@ export default function authReducer(state = initialState, action) {
     case AUTH.LOGOUT:
     case AUTH.SUCCESS:
     case AUTH.FAILURE:
+    case AUTH.GET_COUNTRIES:
       return state.merge(action.payload);
     default:
       return state;

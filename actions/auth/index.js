@@ -9,6 +9,7 @@ export const auth = {
       success: false,
       error: null,
     }),
+  getCountriesList: () => createAction(AUTH.GET_COUNTRIES),
   refreshToken: (data) =>
     createAction(AUTH.REFRESH_TOKEN, {
       ...data,
