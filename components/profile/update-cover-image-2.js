@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { auth } from '../../actions/auth';
 import IconButton from '@material-ui/core/IconButton';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+import CameraAltIcon from '@material-ui/icons/CameraAlt';
 
 export default function FormDialog({ children }) {
   const dispatch = useDispatch();
@@ -32,7 +32,7 @@ export default function FormDialog({ children }) {
         aria-label='settings'
         onClick={() => inputFile.current.click()}
       >
-        <MoreVertIcon />
+        <CameraAltIcon />
       </IconButton>
     </>
   );
