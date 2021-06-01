@@ -1,5 +1,6 @@
 import CardMedia from '@material-ui/core/CardMedia';
 import { makeStyles } from '@material-ui/core/styles';
+import PostMediaVideo from './post-media-video';
 
 const useStyles = makeStyles((theme) => ({
   media: {
@@ -19,14 +20,18 @@ export default function PostMedia({ media }) {
         />
       )}
       {(media || media.length > 0) &&
-        media.map((m, i) => (
-          <CardMedia
-            key={`media${i}`}
-            className={classes.media}
-            image={m.url}
-            title='post media'
-          />
-        ))}
+        media.map((m, i) =>
+          m.type.indexOf('video') !== -1 ? (
+            <PostMediaVideo src={m.url} />
+          ) : (
+            <CardMedia
+              key={`media${i}`}
+              className={classes.media}
+              image={m.url}
+              title='post media'
+            />
+          )
+        )}
     </>
   );
 }
