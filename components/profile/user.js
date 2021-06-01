@@ -41,6 +41,7 @@ import { subscription } from '../../actions/subscription';
 import { Add } from '@material-ui/icons';
 import { useDispatch } from 'react-redux';
 import { currencySymbol } from '../../services/currencySymbol';
+import Videos from './videos';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -88,6 +89,7 @@ export default function Profile({
   const [userFeed, setUserFeed] = React.useState(feed);
   const [_numberOfPosts, set_numberOfPosts] = React.useState(numberOfPosts);
   const [imagesData, set_imagesData] = React.useState(null);
+  const [videosData, set_videosData] = React.useState(null);
   const classes = useStyles();
 
   useEffect(() => {
@@ -105,6 +107,15 @@ export default function Profile({
         feed.map((f) =>
           f.media && f.media.length > 0
             ? f.media[0].type.indexOf('image/') !== -1
+              ? f.media[0]
+              : null
+            : null
+        )
+      );
+      set_videosData(
+        feed.map((f) =>
+          f.media && f.media.length > 0
+            ? f.media[0].type.indexOf('video/') !== -1
               ? f.media[0]
               : null
             : null
@@ -307,6 +318,9 @@ export default function Profile({
                       </TabPanel>
                       <TabPanel value={tab} index={1}>
                         <Images imagesData={imagesData} />
+                      </TabPanel>
+                      <TabPanel value={tab} index={2}>
+                        <Videos videosData={videosData} />
                       </TabPanel>
                     </ListItemText>
                   </ListItem>
