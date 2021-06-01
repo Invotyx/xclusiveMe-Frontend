@@ -265,7 +265,11 @@ export default function Profile({
                                   startIcon={currencySymbol}
                                   size='small'
                                   variant='outlined'
-                                  onClick={(e) => handleFollow(e)}
+                                  onClick={(e) =>
+                                    confirm(
+                                      'Are you sure you want to subscribe?'
+                                    ) && handleFollow(e)
+                                  }
                                 >
                                   <span>
                                     {subscriptionPlans.price} Subscribe
