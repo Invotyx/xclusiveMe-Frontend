@@ -68,7 +68,7 @@ export default function Post({ post, profileData, altHeader }) {
         <CardMedia
           className={classes.media}
           image='/no-media.jpg'
-          title='Paella dish'
+          title='no media'
         />
       )}
       {(post.media || post.media.length > 0) &&
