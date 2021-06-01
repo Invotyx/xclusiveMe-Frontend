@@ -100,7 +100,7 @@ export default function Profile({
 
   useEffect(() => {
     setUserFeed(feed);
-    feed &&
+    if (feed) {
       set_imagesData(
         feed.map((f) =>
           f.media && f.media.length > 0
@@ -110,6 +110,7 @@ export default function Profile({
             : null
         )
       );
+    }
   }, [feed]);
 
   const handleFollow = (event) => {
