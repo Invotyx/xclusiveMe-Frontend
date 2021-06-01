@@ -34,6 +34,7 @@ export default function FormDialog({
             imageHandler(source_url);
             set_Loading(false);
             set_disabled(false);
+            event.target.value = null;
           },
         })
       );
