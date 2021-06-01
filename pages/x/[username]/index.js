@@ -27,7 +27,10 @@ export default function Profile() {
       feed={_feed}
       subscriptionPlans={u?.subscriptionPlans}
       numberOfPosts={numberOfPosts}
-      afterFollow={() => dispatch(user.requestOne(username))}
+      afterFollow={() => {
+        dispatch(user.requestOne(username));
+        dispatch(post.requestX({ username }));
+      }}
     />
   );
 }
