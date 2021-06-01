@@ -102,6 +102,17 @@ export default function NewPostForm({ afterSave }) {
     ]);
   };
 
+  const onUploadVideo = (muxId, mediaType) => {
+    set_TileData([...tileData, '/no-media.jpg']);
+    set_FileObj([
+      ...fileObj,
+      {
+        muxId: muxId,
+        type: mediaType,
+      },
+    ]);
+  };
+
   const removeImageHandler = (tile) => {
     set_TileData(tileData.filter((t) => t !== tile));
   };
@@ -184,7 +195,7 @@ export default function NewPostForm({ afterSave }) {
               </Box>
               <Box mx={1}>
                 <Box clone color='#666'>
-                  <UploadVideo />
+                  <UploadVideo onUploadVideo={onUploadVideo} />
                 </Box>
               </Box>
               <Box mx={1}>

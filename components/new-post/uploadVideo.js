@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function FormDialog() {
+export default function FormDialog({ onUploadVideo }) {
   const dispatch = useDispatch();
   const inputFile = React.useRef(null);
   const classes = useStyles();
@@ -25,6 +25,7 @@ export default function FormDialog() {
       post.uploadVideoReq({
         fileObject: 1,
         callback: (res) => {
+          onUploadVideo(res.id, video.type);
           const upload = UpChunk.createUpload({
             // getUploadUrl is a function that resolves with the upload URL generated
             // on the server-side
