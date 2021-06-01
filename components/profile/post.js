@@ -7,7 +7,6 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
-import CardMedia from '@material-ui/core/CardMedia';
 import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import IconButton from '@material-ui/core/IconButton';
@@ -19,15 +18,12 @@ import { makeStyles } from '@material-ui/core/styles';
 import moment from 'moment';
 import ProfileImageAvatar from './profile-image-avatar';
 import NormalCaseButton from '../NormalCaseButton';
+import PostMedia from './post-media';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     marginTop: 0,
     backgroundColor: 'transparent',
-  },
-  media: {
-    height: 0,
-    paddingTop: '56.25%', // 16:9
   },
 }));
 export default function Post({ post, profileData, altHeader }) {
@@ -64,22 +60,7 @@ export default function Post({ post, profileData, altHeader }) {
           {post.postText}
         </Typography>
       </CardContent>
-      {(!post.media || post.media.length === 0) && (
-        <CardMedia
-          className={classes.media}
-          image='/no-media.jpg'
-          title='no media'
-        />
-      )}
-      {(post.media || post.media.length > 0) &&
-        post.media.map((m, i) => (
-          <CardMedia
-            key={`post.media${i}`}
-            className={classes.media}
-            image={m.url}
-            title='post media'
-          />
-        ))}
+      <PostMedia media={post.media} />
       <CardActions disableSpacing>
         <Box flexGrow={1}>
           <NormalCaseButton
