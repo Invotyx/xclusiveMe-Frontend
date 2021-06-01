@@ -10,7 +10,7 @@ const sidebarNavItems = [
   { url: '/settings/subscription', text: 'Subscription' },
   { url: '#', text: 'Notifications' },
   { url: '#', text: 'Earnings' },
-  { url: '/settings/billing', text: 'Card' },
+  { url: '/settings/billing', text: 'Billing Method' },
   { url: '/settings/bank', text: 'Bank' },
 ];
 
