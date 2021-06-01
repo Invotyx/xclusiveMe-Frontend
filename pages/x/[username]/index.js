@@ -25,7 +25,7 @@ export default function Profile() {
       user={u}
       profileData={u && u.creator ? u.creator : u}
       feed={_feed}
-      follow={(u && !!u.subscriptionPlans) || false}
+      subscriptionPlans={u?.subscriptionPlans}
       numberOfPosts={numberOfPosts}
       afterFollow={() => dispatch(user.requestOne(username))}
     />

@@ -40,6 +40,7 @@ import { AppBar, Toolbar } from '@material-ui/core';
 import { subscription } from '../../actions/subscription';
 import { Add } from '@material-ui/icons';
 import { useDispatch } from 'react-redux';
+import { currencySymbol } from '../../services/currencySymbol';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -77,7 +78,7 @@ export default function Profile({
   profileData,
   feed,
   numberOfPosts,
-  follow,
+  subscriptionPlans,
   afterFollow,
   me,
 }) {
@@ -223,7 +224,7 @@ export default function Profile({
                           ml={{ xs: 2, sm: 2, md: 8 }}
                           mr={{ xs: 2, sm: 2, md: 8 }}
                         >
-                          {follow && (
+                          {subscriptionPlans && (
                             <Box
                               bgcolor='#111'
                               display='flex'
@@ -242,7 +243,14 @@ export default function Profile({
                                 variant='outlined'
                                 onClick={(e) => handleFollow(e)}
                               >
-                                Follow
+                                {subscriptionPlans.price > 0 ? (
+                                  <span>
+                                    {currencySymbol}
+                                    {subscriptionPlans.price} Subscribe
+                                  </span>
+                                ) : (
+                                  <span>Follow</span>
+                                )}
                               </Button>
                             </Box>
                           )}
