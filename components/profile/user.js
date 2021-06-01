@@ -193,7 +193,10 @@ export default function Profile({
                     action={
                       <Box display='flex' textAlign='center'>
                         <Box mx={4}>
-                          <ListItemText primary='1.2k' secondary='Posts' />
+                          <ListItemText
+                            primary={_numberOfPosts}
+                            secondary='Posts'
+                          />
                         </Box>
                         <Box mx={4}>
                           <ListItemText primary='1.2M' secondary='Followers' />
