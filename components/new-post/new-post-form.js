@@ -93,6 +93,10 @@ export default function NewPostForm({ afterSave }) {
       ...fileObj,
       {
         url: source_url.url,
+        assetId: source_url.asset_id,
+        publicId: source_url.public_id,
+        versionId: source_url.version_id,
+        signature: source_url.signature,
         type: `${source_url.resource_type}/${source_url.format}`,
       },
     ]);
