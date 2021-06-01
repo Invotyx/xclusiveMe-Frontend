@@ -102,7 +102,13 @@ export default function Profile({
     setUserFeed(feed);
     feed &&
       set_imagesData(
-        feed.map((f) => (f.media && f.media.length > 0 ? f.media[0] : null))
+        feed.map((f) =>
+          f.media && f.media.length > 0
+            ? f.media[0].type.indexOf('image/') !== -1
+              ? f.media[0]
+              : null
+            : null
+        )
       );
   }, [feed]);
 
