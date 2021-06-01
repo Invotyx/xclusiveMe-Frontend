@@ -208,7 +208,7 @@ export default function SignInSide() {
             >
               {countriesList?.map((c) => (
                 <MenuItem value={c.name} key={`countriesList${c.code}`}>
-                  {c.name}
+                  (+{c.callingCodes[0]}) {c.name}
                 </MenuItem>
               ))}
             </TileTextField>
