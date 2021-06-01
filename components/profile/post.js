@@ -82,13 +82,22 @@ export default function Post({ post, profileData, altHeader }) {
         ))}
       <CardActions disableSpacing>
         <Box flexGrow={1}>
-          <NormalCaseButton aria-label='add to favorites' startIcon={<FavoriteIcon />}>
+          <NormalCaseButton
+            aria-label='add to favorites'
+            startIcon={<FavoriteIcon />}
+          >
             {post.totalLikes} Likes
           </NormalCaseButton>
-          <NormalCaseButton aria-label='share' startIcon={<ChatBubbleOutlineIcon />}>
+          <NormalCaseButton
+            aria-label='share'
+            startIcon={<ChatBubbleOutlineIcon />}
+          >
             {post.totalComments} Comments
           </NormalCaseButton>
-          <NormalCaseButton aria-label='tip' startIcon={<MonetizationOnOutlinedIcon />}>
+          <NormalCaseButton
+            aria-label='tip'
+            startIcon={<MonetizationOnOutlinedIcon />}
+          >
             Tip
           </NormalCaseButton>
         </Box>
