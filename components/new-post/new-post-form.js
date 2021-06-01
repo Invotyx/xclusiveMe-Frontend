@@ -76,12 +76,10 @@ export default function NewPostForm({ afterSave }) {
           mediaCount: 1,
         },
         callback: (res) => {
-          if (res === true) {
-            afterSave && afterSave();
-            set_TileData([]);
-            set_FileObj([]);
-            set_postText('');
-          }
+          afterSave && afterSave();
+          set_TileData([]);
+          set_FileObj([]);
+          set_postText('');
         },
       })
     );

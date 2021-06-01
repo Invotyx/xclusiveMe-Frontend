@@ -58,7 +58,7 @@ function* handlePost(action) {
   try {
     const { saveData } = action.payload;
     yield call(add, saveData);
-    const success = yield put(post.success({}));
+    yield put(post.success({}));
     yield call(post.request);
     yield put(
       snackbar.update({
@@ -69,7 +69,7 @@ function* handlePost(action) {
     );
     const { callback } = action.payload;
     if (callback) {
-      yield call(callback, success.payload.success);
+      yield call(callback);
     }
   } catch (e) {
     console.log(e);
