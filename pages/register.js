@@ -203,6 +203,7 @@ export default function SignInSide() {
               label='Country'
               name='country'
               autoComplete='country'
+              style={{ overflow: 'hidden' }}
             >
               {countriesList?.map((c) => (
                 <MenuItem value={c.name} key={`countriesList${c.code}`}>
