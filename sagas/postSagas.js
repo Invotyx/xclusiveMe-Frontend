@@ -42,12 +42,12 @@ function* handleGetX(action) {
   try {
     const { username } = action.payload;
     const { data } = yield call(getX, username);
-      yield put(
-        post.success({
-          xfeed: data.results,
-          xfeed_numberOfPosts: data.totalCount,
-        })
-      );
+    yield put(
+      post.success({
+        xfeed: data.results,
+        xfeed_numberOfPosts: data.totalCount,
+      })
+    );
   } catch (e) {
     console.log(e);
     yield put(post.success({ error: true }));
