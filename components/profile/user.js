@@ -262,7 +262,7 @@ export default function Profile({
 
                               {subscriptionPlans.price > 0 ? (
                                 <Button
-                                  startIcon={currencySymbol}
+                                  startIcon={`${currencySymbol}${subscriptionPlans.price}`}
                                   size='small'
                                   variant='outlined'
                                   onClick={(e) =>
@@ -271,9 +271,7 @@ export default function Profile({
                                     ) && handleFollow(e)
                                   }
                                 >
-                                  <span>
-                                    {subscriptionPlans.price} Subscribe
-                                  </span>
+                                  <span>Subscribe</span>
                                 </Button>
                               ) : (
                                 <Button
