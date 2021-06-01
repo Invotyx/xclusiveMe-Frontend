@@ -201,6 +201,7 @@ export default function SignInSide() {
               margin='normal'
               id='country'
               label='Country'
+              fullWidth
               name='country'
               autoComplete='country'
               style={{ overflow: 'hidden' }}
