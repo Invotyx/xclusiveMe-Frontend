@@ -31,6 +31,8 @@ export default function Profile() {
         dispatch(user.requestOne(username));
         dispatch(post.requestX({ username }));
       }}
+      followers={u?.totalFollowers}
+      followings={u?.totalFollowings}
     />
   );
 }

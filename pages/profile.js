@@ -34,8 +34,8 @@ export default function Profile() {
       feed={_feed}
       numberOfPosts={numberOfPosts}
       me={1}
-      followers={followers}
-      followings={followings}
+      followers={followers?.totalCount}
+      followings={followings?.totalCount}
     />
   );
 }

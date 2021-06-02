@@ -212,7 +212,7 @@ export default function Profile({
                             <ListItem component='a'>
                               <Box clone textAlign='center'>
                                 <ListItemText
-                                  primary={followers?.totalCount || 0}
+                                  primary={followers || 0}
                                   secondary='Followers'
                                 />
                               </Box>
@@ -224,7 +224,7 @@ export default function Profile({
                             <ListItem component='a'>
                               <Box clone textAlign='center'>
                                 <ListItemText
-                                  primary={followings?.totalCount || 0}
+                                  primary={followings || 0}
                                   secondary='Following'
                                 />
                               </Box>
