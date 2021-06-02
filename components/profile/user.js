@@ -195,7 +195,7 @@ export default function Profile({
                     }
                     action={
                       <Box display='flex'>
-                        <Box mx={4}>
+                        <Box mx={2} width={90}>
                           <NextLink passHref href='#'>
                             <ListItem component='a'>
                               <Box clone textAlign='center'>
@@ -207,7 +207,7 @@ export default function Profile({
                             </ListItem>
                           </NextLink>
                         </Box>
-                        <Box mx={4}>
+                        <Box mx={2} width={90}>
                           <NextLink passHref href='#'>
                             <ListItem component='a'>
                               <Box clone textAlign='center'>
@@ -219,7 +219,7 @@ export default function Profile({
                             </ListItem>
                           </NextLink>
                         </Box>
-                        <Box mx={4}>
+                        <Box mx={2} width={90}>
                           <NextLink passHref href='#'>
                             <ListItem component='a'>
                               <Box clone textAlign='center'>
