@@ -49,15 +49,13 @@ export default function FormDialog({
 
           upload.on('progress', (progress) => {
             console.log('Uploaded', progress.detail, 'percent of this file.');
-            if (progress.detail === 100) {
-              set_Loading(false);
-              set_disabled(false);
-            }
             onUploadVideo(res.id, video.type);
           });
 
           // subscribe to events
           upload.on('success', (err) => {
+            set_Loading(false);
+            set_disabled(false);
             console.log("Wrap it up, we're done here.");
           });
         },
