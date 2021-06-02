@@ -285,6 +285,13 @@ function* handleUpdateSubscriptionFee(action) {
       price: parseInt(price),
     });
     yield put(auth.success({}));
+    yield put(
+      bottomalert.update({
+        open: true,
+        message: 'Subscription Updated Successfully!',
+        severity: 'success',
+      })
+    );
     const { callback } = action.payload;
     if (callback) {
       yield call(callback);
