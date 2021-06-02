@@ -13,7 +13,7 @@ export default function LayoutGuest({ children }) {
           <LogoGuest />
         </Grid>
         {children}
-        <Grid item xs={12} sm={4} md={7}>
+        <Grid item xs={12} md={7}>
           <HomeLegend />
         </Grid>
       </Grid>
