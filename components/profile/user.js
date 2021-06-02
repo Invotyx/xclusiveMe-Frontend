@@ -115,8 +115,6 @@ export default function Profile({
         const videos = f.media.filter(m => m.type.indexOf('video/') !== -1);
         temp_videos.push(...videos);
       });
-      console.log('temp_image', temp_images);
-      console.log('temp_video', temp_videos);
       set_imagesData(temp_images);
       set_videosData(temp_videos);
     }
