@@ -45,7 +45,7 @@ export default function SignInSide() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [code, setCode] = useState('');
-  const [country, setCountry] = useState('');
+  const [country, setCountry] = useState('US');
   const [countryCallingCode, setCountryCallingCode] = useState('1');
 
   const handleSubmit = event => {
@@ -204,7 +204,7 @@ export default function SignInSide() {
               autoComplete='country'
             >
               {countriesList?.map(c => (
-                <MenuItem value={c.name} key={`countriesList${c.code}`}>
+                <MenuItem value={c.alpha2Code} key={`countriesList${c.code}`}>
                   (+{c.callingCodes[0]}) {c.name}
                 </MenuItem>
               ))}
