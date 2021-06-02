@@ -5,7 +5,7 @@ import WallpaperOutlinedIcon from '@material-ui/icons/WallpaperOutlined';
 import IconButton from '@material-ui/core/IconButton';
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   icon: {
     color: '#666',
   },
