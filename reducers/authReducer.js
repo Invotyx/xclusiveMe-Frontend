@@ -8,6 +8,8 @@ const initialState = fromJS({
   loggedIn: false,
   currentUser: null,
   userSessions: [],
+  followers: { results: [], totalCount: 0 },
+  followings: { results: [], totalCount: 0 },
   countriesList: [],
 });
 
@@ -25,6 +27,8 @@ export default function authReducer(state = initialState, action) {
     case AUTH.FORGOT_PASSWORD:
     case AUTH.REFRESH_TOKEN:
     case AUTH.ME:
+    case AUTH.REQUEST_FOLLOWERS:
+    case AUTH.REQUEST_FOLLOWINGS:
     case AUTH.UPDATE_TWO_FACTOR_AUTHENTICATION:
     case AUTH.GET_SESSIONS:
     case AUTH.EXPIRE_ALL_SESSIONS:

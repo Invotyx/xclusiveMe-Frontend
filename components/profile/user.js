@@ -82,6 +82,8 @@ export default function Profile({
   subscriptionPlans,
   afterFollow,
   me,
+  followers,
+  followings,
 }) {
   const dispatch = useDispatch();
   const [tab, setTab] = React.useState(0);
@@ -199,10 +201,16 @@ export default function Profile({
                           />
                         </Box>
                         <Box mx={4}>
-                          <ListItemText primary='1.2M' secondary='Followers' />
+                          <ListItemText
+                            primary={followers?.totalCount}
+                            secondary='Followers'
+                          />
                         </Box>
                         <Box mx={4}>
-                          <ListItemText primary='499' secondary='Following' />
+                          <ListItemText
+                            primary={followings?.totalCount}
+                            secondary='Following'
+                          />
                         </Box>
                       </Box>
                     }

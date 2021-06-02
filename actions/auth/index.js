@@ -108,6 +108,18 @@ export const auth = {
       success: false,
       error: null,
     }),
+  requestFollowers: () =>
+    createAction(AUTH.REQUEST_FOLLOWERS, {
+      fetching: true,
+      success: false,
+      error: null,
+    }),
+  requestFollowings: () =>
+    createAction(AUTH.REQUEST_FOLLOWINGS, {
+      fetching: true,
+      success: false,
+      error: null,
+    }),
   updateTwoFactorAuthentication: (data) =>
     createAction(AUTH.UPDATE_TWO_FACTOR_AUTHENTICATION, {
       ...data,

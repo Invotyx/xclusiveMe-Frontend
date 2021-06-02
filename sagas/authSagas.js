@@ -17,6 +17,8 @@ import {
   uploadCover,
   forgotPassword,
   me,
+  getFollowers,
+  getFollowings,
   logout,
   resetPassword,
   getSessions,
@@ -381,6 +383,26 @@ function* handleMe() {
   }
 }
 
+function* handleRequestFollowers() {
+  try {
+    const { data } = yield call(getFollowers);
+    yield put(auth.success({ followers: data }));
+  } catch (e) {
+    console.log(e);
+    yield put(auth.failure({ error: { ...e } }));
+  }
+}
+
+function* handleRequestFollowings() {
+  try {
+    const { data } = yield call(getFollowings);
+    yield put(auth.success({ followings: data }));
+  } catch (e) {
+    console.log(e);
+    yield put(auth.failure({ error: { ...e } }));
+  }
+}
+
 function* handleGetSessions() {
   try {
     const { data } = yield call(getSessions);
@@ -525,6 +547,8 @@ function* watchAuthSagas() {
     takeLatest(AUTH.GET_SESSIONS, handleGetSessions),
     takeLatest(AUTH.EXPIRE_ALL_SESSIONS, handleExpireAllSessions),
     takeLatest(AUTH.ME, handleMe),
+    takeLatest(AUTH.REQUEST_FOLLOWERS, handleRequestFollowers),
+    takeLatest(AUTH.REQUEST_FOLLOWINGS, handleRequestFollowings),
     takeLatest(AUTH.LOGOUT, handleLogout),
     takeLatest(
       AUTH.UPDATE_TWO_FACTOR_AUTHENTICATION,

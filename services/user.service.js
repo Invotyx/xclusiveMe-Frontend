@@ -47,6 +47,14 @@ export async function me() {
   return apiClient.get(`${SERVER_ADDRESS}/users/me`);
 }
 
+export async function getFollowers() {
+  return apiClient.get(`${SERVER_ADDRESS}/subscriptions/subscribers`);
+}
+
+export async function getFollowings() {
+  return apiClient.get(`${SERVER_ADDRESS}/subscriptions/subscribed`);
+}
+
 export async function getSessions() {
   return apiClient.get(`${SERVER_ADDRESS}/auth/get-sessions`);
 }

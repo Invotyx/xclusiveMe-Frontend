@@ -19,6 +19,8 @@ export const AUTH = createActionTypes('AUTH', [
   'REFRESH_TOKEN',
   'FAILURE',
   'ME',
+  'REQUEST_FOLLOWERS',
+  'REQUEST_FOLLOWINGS',
   'UPDATE_TWO_FACTOR_AUTHENTICATION',
   'GET_COUNTRIES',
 ]);
