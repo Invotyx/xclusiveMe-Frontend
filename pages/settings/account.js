@@ -33,7 +33,7 @@ import Layout from '../../components/layouts/layout-settings';
 import { fetchingSelector } from '../../selectors/authSelector';
 import { errorSelector } from '../../selectors/authSelector';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
     // marginTop: '150px',
   },
@@ -105,7 +105,7 @@ export default function Home(props) {
   }, [error]);
 
   const classes = useStyles();
-  const handleUpdate = (event) => {
+  const handleUpdate = event => {
     event.preventDefault();
     dispatch(
       auth.updateProfile({
@@ -115,7 +115,7 @@ export default function Home(props) {
       })
     );
   };
-  const handleUpdatePassword = (event) => {
+  const handleUpdatePassword = event => {
     event.preventDefault();
     dispatch(
       auth.updatePassword({
@@ -141,7 +141,7 @@ export default function Home(props) {
               <Box mb={4}>
                 <TileTextField
                   value={username}
-                  onChange={(e) => set_username(e.target.value)}
+                  onChange={e => set_username(e.target.value)}
                   variant='outlined'
                   margin='normal'
                   fullWidth
@@ -162,7 +162,7 @@ export default function Home(props) {
 
                 <TileTextField
                   value={email}
-                  onChange={(e) => set_email(e.target.value)}
+                  onChange={e => set_email(e.target.value)}
                   variant='outlined'
                   margin='normal'
                   fullWidth
@@ -179,7 +179,7 @@ export default function Home(props) {
 
                 <TileTextField
                   value={phone}
-                  onChange={(e) => set_phone(e.target.value)}
+                  onChange={e => set_phone(e.target.value)}
                   variant='outlined'
                   margin='normal'
                   fullWidth
@@ -215,7 +215,7 @@ export default function Home(props) {
                                   <Box mr={1}>
                                     <TileTextField
                                       value={editLinkedAccountText}
-                                      onChange={(e) =>
+                                      onChange={e =>
                                         set_editLinkedAccountText(
                                           e.target.value
                                         )
@@ -269,7 +269,7 @@ export default function Home(props) {
                 <TileTextField
                   placeholder='•••••••'
                   value={password}
-                  onChange={(e) => set_password(e.target.value)}
+                  onChange={e => set_password(e.target.value)}
                   variant='outlined'
                   margin='normal'
                   fullWidth
@@ -346,7 +346,7 @@ export default function Home(props) {
                       <ListItemSecondaryAction>
                         <Switch
                           edge='end'
-                          onChange={(e) => {
+                          onChange={e => {
                             set_authenticatorApp(e.target.checked);
                           }}
                           checked={authenticatorApp}
@@ -359,7 +359,7 @@ export default function Home(props) {
                     <ListItemSecondaryAction>
                       <Switch
                         edge='end'
-                        onChange={(e) => {
+                        onChange={e => {
                           set_verificationViaSms(e.target.checked);
                           dispatch(
                             auth.updateTwoFactorAuthentication({
