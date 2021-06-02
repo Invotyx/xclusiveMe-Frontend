@@ -184,6 +184,7 @@ export default function SignInSide() {
           />
           <Box display='flex'>
             <CountryTextField
+              className='tempCountry'
               select
               InputProps={{
                 startAdornment: (
