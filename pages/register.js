@@ -184,6 +184,16 @@ export default function SignInSide() {
           <Box display='flex'>
             <CountryTextField
               select
+              InputProps={{
+                startAdornment: (
+                    <img
+                      src={
+                        countriesList.find(c => c.alpha2Code === country)?.flag
+                      }
+                      style={{ width: '100%' }}
+                    />
+                ),
+              }}
               error={validationErrors && validationErrors.country}
               helperText={
                 validationErrors.country
