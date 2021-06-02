@@ -7,6 +7,7 @@ import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core/styles';
 import TileButton from '../components/TileButton';
 import TileTextField from '../components/TileTextField';
+import Icon from '@material-ui/core/Icon';
 import Link from '@material-ui/core/Link';
 import MenuItem from '@material-ui/core/MenuItem';
 import { auth } from '../actions/auth';
@@ -186,12 +187,14 @@ export default function SignInSide() {
               select
               InputProps={{
                 startAdornment: (
+                  <Icon>
                     <img
                       src={
                         countriesList.find(c => c.alpha2Code === country)?.flag
                       }
                       style={{ width: '100%' }}
                     />
+                  </Icon>
                 ),
               }}
               error={validationErrors && validationErrors.country}
