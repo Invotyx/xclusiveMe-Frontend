@@ -39,7 +39,9 @@ export default function Home() {
             <Grid item xs={12}>
               {posts && posts.length > 0 ? (
                 posts.map((post, i) => (
-                  <Post key={i} post={post} profileData={post.user} />
+                  <Box key={i} mb={2}>
+                    <Post post={post} profileData={post.user} />
+                  </Box>
                 ))
               ) : (
                 <Box
