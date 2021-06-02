@@ -82,7 +82,7 @@ export default function NewPostForm({ afterSave }) {
           set_TileData([]);
           set_FileObj([]);
           set_postText('');
-          dispatch(post.request({ userId: u.id }));
+          dispatch(post.request());
         },
       })
     );

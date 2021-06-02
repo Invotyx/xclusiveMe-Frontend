@@ -15,10 +15,9 @@ import {
 } from '../services/post.service';
 import { bottomalert } from '../actions/bottom-alert';
 
-function* handleGet(action) {
+function* handleGet() {
   try {
-    const { userId } = action.payload;
-    const { data } = yield call(getAll, userId);
+    const { data } = yield call(getAll);
     yield put(
       post.success({ data: data.results, numberOfPosts: data.totalCount })
     );

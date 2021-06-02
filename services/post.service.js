@@ -3,8 +3,8 @@ import getConfig from 'next/config';
 const { publicRuntimeConfig } = getConfig();
 const SERVER_ADDRESS = publicRuntimeConfig.backendUrl;
 
-export async function getAll(userId) {
-  return apiClient.get(`${SERVER_ADDRESS}/posts/${userId}`);
+export async function getAll() {
+  return apiClient.get(`${SERVER_ADDRESS}/posts/`);
 }
 
 export async function getAllSubscribed() {

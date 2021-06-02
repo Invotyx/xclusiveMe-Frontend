@@ -22,7 +22,7 @@ export default function Profile() {
   const _feed = useSelector(postDataSelector);
   const numberOfPosts = useSelector(numberOfPostsSelector);
   useEffect(() => {
-    u && dispatch(post.request({ userId: u.id }));
+    u && dispatch(post.request());
     dispatch(auth.requestFollowers());
     dispatch(auth.requestFollowings());
   }, [u]);

@@ -2,9 +2,8 @@ import { createAction } from '../../utils';
 import { POST } from './types';
 
 export const post = {
-  request: (data) =>
+  request: () =>
     createAction(POST.GET, {
-      ...data,
       fetching: true,
       success: false,
       error: null,
