@@ -5,10 +5,7 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import MuiDialogTitle from '@material-ui/core/DialogTitle';
-import MuiDialogContent from '@material-ui/core/DialogContent';
 import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
 import SendIcon from '@material-ui/icons/Send';
 import Typography from '@material-ui/core/Typography';
 import GridList from '@material-ui/core/GridList';
@@ -132,42 +129,37 @@ export default function NewPostForm({ afterSave }) {
         />
         <Card>
           <CardContent>
-            {loading === true ? (
-              <CircularProgress color='secondary' />
-            ) : (
-              <GridList cellHeight={100} cols={4}>
-                {tileData.map((tile, i) => (
-                  <GridListTile key={`tile${i}`}>
-                    <img src={tile} alt={'no Image'} />
-                    <GridListTileBar
-                      titlePosition='top'
-                      actionPosition='left'
-                      actionIcon={
-                        <Button
-                          size='small'
-                          variant='outlined'
-                          onClick={() => removeImageHandler(tile)}
-                        >
-                          Remove
-                        </Button>
-                      }
-                    />
-                  </GridListTile>
-                ))}
-
-                {tileData && tileData.length > 0 && (
-                  <MuiGridListTile>
-                    <GridListTileBar
-                      actionIcon={
-                        <IconButton size='small' variant='text'>
-                          <AddIcon />
-                        </IconButton>
-                      }
-                    />
-                  </MuiGridListTile>
-                )}
-              </GridList>
-            )}
+            <GridList cellHeight={100} cols={4}>
+              {tileData.map((tile, i) => (
+                <GridListTile key={`tile${i}`}>
+                  <img src={tile} alt={'no Image'} />
+                  <GridListTileBar
+                    titlePosition='top'
+                    actionPosition='left'
+                    actionIcon={
+                      <Button
+                        size='small'
+                        variant='outlined'
+                        onClick={() => removeImageHandler(tile)}
+                      >
+                        Remove
+                      </Button>
+                    }
+                  />
+                </GridListTile>
+              ))}
+              {tileData && tileData.length > 0 && (
+                <MuiGridListTile>
+                  <GridListTileBar
+                    actionIcon={
+                      <IconButton size='small' variant='text'>
+                        <AddIcon />
+                      </IconButton>
+                    }
+                  />
+                </MuiGridListTile>
+              )}
+            </GridList>
           </CardContent>
         </Card>
       </Box>
