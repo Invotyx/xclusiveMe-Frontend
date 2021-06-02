@@ -27,7 +27,7 @@ import {
 import { paymentMethod } from '../../actions/payment-method';
 import Layout from '../../components/layouts/layout-settings';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
     // marginTop: '150px',
   },
@@ -84,11 +84,11 @@ export default function Home(props) {
       <div>{fetching ? <CircularProgress /> : ``}</div>
       <List>
         {paymentData.length ? (
-          paymentData.map((p) => (
+          paymentData.map(p => (
             <ListItem
               key={p.id}
               button
-              onClick={(e) => handleClickListItem(e, p.id)}
+              onClick={e => handleClickListItem(e, p.id)}
             >
               <ListItemIcon>
                 <PaymentIcon />
