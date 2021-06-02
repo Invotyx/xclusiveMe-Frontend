@@ -198,7 +198,7 @@ export default function Profile({
                         <Box mx={4}>
                           <NextLink passHref href='#'>
                             <ListItem component='a'>
-                              <Box textAlign='center'>
+                              <Box clone textAlign='center'>
                                 <ListItemText
                                   primary={_numberOfPosts}
                                   secondary='Posts'
@@ -210,7 +210,7 @@ export default function Profile({
                         <Box mx={4}>
                           <NextLink passHref href='#'>
                             <ListItem component='a'>
-                              <Box textAlign='center'>
+                              <Box clone textAlign='center'>
                                 <ListItemText
                                   primary={followers?.totalCount}
                                   secondary='Followers'
@@ -222,7 +222,7 @@ export default function Profile({
                         <Box mx={4}>
                           <NextLink passHref href='#'>
                             <ListItem component='a'>
-                              <Box textAlign='center'>
+                              <Box clone textAlign='center'>
                                 <ListItemText
                                   primary={followings?.totalCount}
                                   secondary='Following'
