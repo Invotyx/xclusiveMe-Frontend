@@ -131,16 +131,6 @@ export default function NewPostForm({ afterSave }) {
         <Card>
           <CardContent>
             <GridList cellHeight={100} cols={4}>
-              {loadingItems.map((item, i) => (
-                <MuiGridListTile key={`loadingItems${i}`}>
-                  <img src={item} alt={'no Image'} />
-                  <GridListTileBar
-                    titlePosition='top'
-                    actionPosition='left'
-                    actionIcon={<CircularProgress />}
-                  />
-                </MuiGridListTile>
-              ))}
               {tileData.map((tile, i) => (
                 <GridListTile key={`tile${i}`}>
                   <img src={tile} alt={'no Image'} />
@@ -158,6 +148,16 @@ export default function NewPostForm({ afterSave }) {
                     }
                   />
                 </GridListTile>
+              ))}
+              {loadingItems.map((item, i) => (
+                <MuiGridListTile key={`loadingItems${i}`}>
+                  <img src={item} alt={'no Image'} />
+                  <GridListTileBar
+                    titlePosition='top'
+                    actionPosition='left'
+                    actionIcon={<CircularProgress />}
+                  />
+                </MuiGridListTile>
               ))}
               {tileData && tileData.length > 0 && (
                 <MuiGridListTile>
