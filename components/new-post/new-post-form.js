@@ -151,7 +151,7 @@ export default function NewPostForm({ afterSave }) {
               ))}
               {loadingItems.map((item, i) => (
                 <MuiGridListTile key={`loadingItems${i}`}>
-                  <img src={item} alt={'no Image'} />
+                  <img src={item.src} alt={'no Image'} />
                   <GridListTileBar
                     titlePosition='top'
                     actionPosition='left'
@@ -194,7 +194,7 @@ export default function NewPostForm({ afterSave }) {
                     imageHandler={imageHandler}
                     set_disabled={set_disabled}
                     onImageSelect={imgSrc =>
-                      setLoadingItems([...loadingItems, imgSrc])
+                      setLoadingItems([...loadingItems, { src: imgSrc }])
                     }
                     onImageUploaded={() =>
                       setLoadingItems(
@@ -211,9 +211,12 @@ export default function NewPostForm({ afterSave }) {
                   <UploadVideo
                     onUploadVideo={onUploadVideo}
                     set_disabled={set_disabled}
-                    onVideoSelect={() =>
-                      setLoadingItems([...loadingItems, '/no-media.jpg'])
-                    }
+                    onVideoSelect={() => {
+                      setLoadingItems([
+                        ...loadingItems,
+                        { src: '/no-media.jpg' },
+                      ]);
+                    }}
                     onVideoUploaded={() =>
                       setLoadingItems(
                         loadingItems.filter(
