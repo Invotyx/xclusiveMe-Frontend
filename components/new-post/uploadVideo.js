@@ -6,7 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import VideocamOutlinedIcon from '@material-ui/icons/VideocamOutlined';
 import * as UpChunk from '@mux/upchunk';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   icon: {
     color: '#666',
   },
@@ -21,7 +21,7 @@ export default function FormDialog({
   const inputFile = React.useRef(null);
   const classes = useStyles();
 
-  const onChangeFile = (event) => {
+  const onChangeFile = event => {
     event.stopPropagation();
     event.preventDefault();
     var video = event.target.files[0];
@@ -32,7 +32,7 @@ export default function FormDialog({
       dispatch(
         post.uploadVideoReq({
           fileObject: 1,
-          callback: (res) => {
+          callback: res => {
             const upload = UpChunk.createUpload({
               // getUploadUrl is a function that resolves with the upload URL generated
               // on the server-side
@@ -43,18 +43,18 @@ export default function FormDialog({
             });
 
             // subscribe to events
-            upload.on('error', (err) => {
+            upload.on('error', err => {
               console.error('', err.detail);
               set_Loading(false);
               set_disabled(false);
             });
 
-            upload.on('progress', (progress) => {
+            upload.on('progress', progress => {
               console.log('Uploaded', progress.detail, 'percent of this file.');
             });
 
             // subscribe to events
-            upload.on('success', (err) => {
+            upload.on('success', err => {
               set_Loading(false);
               set_disabled(false);
               onUploadVideo(res.id, video.type);
