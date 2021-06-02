@@ -199,10 +199,10 @@ export default function Profile({
                           <NextLink passHref href='#'>
                             <ListItem component='a'>
                               <Box textAlign='center'>
-                          <ListItemText
-                            primary={_numberOfPosts}
-                            secondary='Posts'
-                          />
+                                <ListItemText
+                                  primary={_numberOfPosts}
+                                  secondary='Posts'
+                                />
                               </Box>
                             </ListItem>
                           </NextLink>
@@ -211,10 +211,10 @@ export default function Profile({
                           <NextLink passHref href='#'>
                             <ListItem component='a'>
                               <Box textAlign='center'>
-                          <ListItemText
-                            primary={followers?.totalCount}
-                            secondary='Followers'
-                          />
+                                <ListItemText
+                                  primary={followers?.totalCount}
+                                  secondary='Followers'
+                                />
                               </Box>
                             </ListItem>
                           </NextLink>
@@ -223,10 +223,10 @@ export default function Profile({
                           <NextLink passHref href='#'>
                             <ListItem component='a'>
                               <Box textAlign='center'>
-                          <ListItemText
-                            primary={followings?.totalCount}
-                            secondary='Following'
-                          />
+                                <ListItemText
+                                  primary={followings?.totalCount}
+                                  secondary='Following'
+                                />
                               </Box>
                             </ListItem>
                           </NextLink>
