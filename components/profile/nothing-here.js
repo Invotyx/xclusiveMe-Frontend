@@ -16,7 +16,7 @@ export default function NothingHere({}) {
       <Box>
         <Typography gutterBottom>No content found</Typography>
       </Box>
-      <Box>
+      <Box mb={2}>
         <Typography gutterBottom color='textSecondary' variant='caption'>
           Looks like you need to start following people here
         </Typography>
