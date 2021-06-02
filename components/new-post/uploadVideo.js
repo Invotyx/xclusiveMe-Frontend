@@ -12,7 +12,12 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function FormDialog({ onUploadVideo, set_disabled }) {
+export default function FormDialog({
+  onUploadVideo,
+  onVideoSelect,
+  onVideoUploaded,
+  set_disabled,
+}) {
   const dispatch = useDispatch();
   const inputFile = React.useRef(null);
   const classes = useStyles();
@@ -23,6 +28,7 @@ export default function FormDialog({ onUploadVideo, set_disabled }) {
     var video = event.target.files[0];
     if (video) {
       set_disabled(true);
+      onVideoSelect && onVideoSelect();
 
       dispatch(
         post.uploadVideoReq({
@@ -51,6 +57,7 @@ export default function FormDialog({ onUploadVideo, set_disabled }) {
             upload.on('success', err => {
               set_disabled(false);
               onUploadVideo(res.id, video.type);
+              onVideoUploaded && onVideoUploaded();
               console.log("Wrap it up, we're done here.");
             });
           },

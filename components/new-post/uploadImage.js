@@ -14,6 +14,8 @@ const useStyles = makeStyles(theme => ({
 export default function FormDialog({
   imageHandler,
   set_disabled,
+  onImageSelect,
+  onImageUploaded,
 }) {
   const dispatch = useDispatch();
   const inputFile = React.useRef(null);
@@ -24,6 +26,7 @@ export default function FormDialog({
     event.preventDefault();
     var image = event.target.files[0];
     if (image) {
+      onImageSelect && onImageSelect();
       set_disabled(true);
       dispatch(
         post.uploadImage({
@@ -32,6 +35,7 @@ export default function FormDialog({
             imageHandler(source_url);
             set_disabled(false);
             event.target.value = null;
+            onImageUploaded && onImageUploaded();
           },
         })
       );

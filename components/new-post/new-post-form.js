@@ -63,6 +63,7 @@ export default function NewPostForm({ afterSave }) {
   const [tileData, set_TileData] = React.useState([]);
   const [fileObj, set_FileObj] = React.useState([]);
   const [loading, set_Loading] = React.useState(false);
+  const [loadingItems, setLoadingItems] = React.useState([]);
 
   const handleCreatePost = () => {
     dispatch(
@@ -130,6 +131,16 @@ export default function NewPostForm({ afterSave }) {
         <Card>
           <CardContent>
             <GridList cellHeight={100} cols={4}>
+              {loadingItems.map((item, i) => (
+                <MuiGridListTile key={`loadingItems${i}`}>
+                  <img src={item} alt={'no Image'} />
+                  <GridListTileBar
+                    titlePosition='top'
+                    actionPosition='left'
+                    actionIcon={<CircularProgress />}
+                  />
+                </MuiGridListTile>
+              ))}
               {tileData.map((tile, i) => (
                 <GridListTile key={`tile${i}`}>
                   <img src={tile} alt={'no Image'} />
@@ -182,6 +193,16 @@ export default function NewPostForm({ afterSave }) {
                   <UploadImage
                     imageHandler={imageHandler}
                     set_disabled={set_disabled}
+                    onImageSelect={() =>
+                      setLoadingItems([...loadingItems, '/no-media.jpg'])
+                    }
+                    onImageUploaded={() =>
+                      setLoadingItems(
+                        loadingItems.filter(
+                          (a, i) => i !== loadingItems.length - 1
+                        )
+                      )
+                    }
                   />
                 </Box>
               </Box>
@@ -190,6 +211,16 @@ export default function NewPostForm({ afterSave }) {
                   <UploadVideo
                     onUploadVideo={onUploadVideo}
                     set_disabled={set_disabled}
+                    onVideoSelect={() =>
+                      setLoadingItems([...loadingItems, '/no-media.jpg'])
+                    }
+                    onVideoUploaded={() =>
+                      setLoadingItems(
+                        loadingItems.filter(
+                          (a, i) => i !== loadingItems.length - 1
+                        )
+                      )
+                    }
                   />
                 </Box>
               </Box>
