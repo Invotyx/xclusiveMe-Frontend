@@ -88,7 +88,7 @@ export default function NewPostForm({ afterSave }) {
     );
   };
 
-  const imageHandler = (source_url) => {
+  const imageHandler = source_url => {
     set_TileData([...tileData, source_url.url]);
     set_FileObj([
       ...fileObj,
@@ -114,8 +114,8 @@ export default function NewPostForm({ afterSave }) {
     ]);
   };
 
-  const removeImageHandler = (tile) => {
-    set_TileData(tileData.filter((t) => t !== tile));
+  const removeImageHandler = tile => {
+    set_TileData(tileData.filter(t => t !== tile));
   };
 
   return (
@@ -123,7 +123,7 @@ export default function NewPostForm({ afterSave }) {
       <Box mb={3}>
         <OutlinedInput
           value={postText}
-          onChange={(e) => set_postText(e.target.value)}
+          onChange={e => set_postText(e.target.value)}
           name='postText'
           multiline
           fullWidth
@@ -224,7 +224,7 @@ export default function NewPostForm({ afterSave }) {
                         marginTop: '-5px',
                       }}
                       value={price}
-                      onChange={(e) => set_price(e.target.value)}
+                      onChange={e => set_price(e.target.value)}
                     />
                   ) : (
                     <IconButton
