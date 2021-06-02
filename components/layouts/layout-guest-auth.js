@@ -10,7 +10,7 @@ export default function LayoutGuestAuth({ children }) {
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
   return (
     <LayoutGuest>
-      <Grid item xs={12} sm={8} md={5}>
+      <Grid item xs={12} md={5}>
         <Box pl={isSmall ? 0 : 8} pr={isSmall ? 0 : 8} mx={isSmall ? 0 : 4}>
           <AuthNav />
           {children}
