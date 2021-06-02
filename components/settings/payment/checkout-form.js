@@ -45,7 +45,6 @@ export default function CheckoutForm(props) {
 
     const card = elements.getElement(CardElement);
     set_disabled(true);
-    if (!token) {
       const result = await stripe.createToken(card);
 
       if (result.error) {
@@ -65,9 +64,6 @@ export default function CheckoutForm(props) {
         setToken(result.token.id);
         savePaymentMethod(result.token.id);
       }
-    } else {
-      savePaymentMethod(token);
-    }
     setTimeout(() => {
       set_disabled(false);
     }, 2000);
