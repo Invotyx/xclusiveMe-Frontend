@@ -16,7 +16,7 @@ export default function ImageGridList({ imagesData }) {
 
   return (
     <Grid container spacing={2}>
-      {imagesData.map(
+      {imagesData?.map(
         (tile, i) =>
           tile && (
             <Grid item cols={12} md={4} key={i}>
