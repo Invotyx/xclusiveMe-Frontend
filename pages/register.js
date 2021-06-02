@@ -13,6 +13,7 @@ import { auth } from '../actions/auth';
 import { fetchingSelector, errorSelector } from '../selectors/authSelector';
 import LayoutGuest from '../components/layouts/layout-guest-auth';
 import { countriesSelector } from '../selectors/countriesSelector';
+import CountryTextField from '../components/CountryTextField';
 
 const useStyles = makeStyles(theme => ({
   grey: {
@@ -181,7 +182,7 @@ export default function SignInSide() {
             autoComplete='confirm-password'
           />
           <Box display='flex'>
-            <TileTextField
+            <CountryTextField
               select
               error={validationErrors && validationErrors.country}
               helperText={
@@ -211,7 +212,7 @@ export default function SignInSide() {
                   (+{c.callingCodes[0]}) {c.name}
                 </MenuItem>
               ))}
-            </TileTextField>
+            </CountryTextField>
             <TileTextField
               error={validationErrors && validationErrors.phoneNumber}
               helperText={
