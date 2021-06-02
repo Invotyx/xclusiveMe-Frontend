@@ -28,39 +28,42 @@ export default function FormDialog({
     if (video) {
       set_Loading(true);
       set_disabled(true);
+
+      dispatch(
+        post.uploadVideoReq({
+          fileObject: 1,
+          callback: (res) => {
+            const upload = UpChunk.createUpload({
+              // getUploadUrl is a function that resolves with the upload URL generated
+              // on the server-side
+              endpoint: res.url,
+              // picker here is a file picker HTML element
+              file: video,
+              chunkSize: 5120, // Uploads the file in ~5mb chunks
+            });
+
+            // subscribe to events
+            upload.on('error', (err) => {
+              console.error('', err.detail);
+              set_Loading(false);
+              set_disabled(false);
+            });
+
+            upload.on('progress', (progress) => {
+              console.log('Uploaded', progress.detail, 'percent of this file.');
+              onUploadVideo(res.id, video.type);
+            });
+
+            // subscribe to events
+            upload.on('success', (err) => {
+              set_Loading(false);
+              set_disabled(false);
+              console.log("Wrap it up, we're done here.");
+            });
+          },
+        })
+      );
     }
-    dispatch(
-      post.uploadVideoReq({
-        fileObject: 1,
-        callback: (res) => {
-          const upload = UpChunk.createUpload({
-            // getUploadUrl is a function that resolves with the upload URL generated
-            // on the server-side
-            endpoint: res.url,
-            // picker here is a file picker HTML element
-            file: video,
-            chunkSize: 5120, // Uploads the file in ~5mb chunks
-          });
-
-          // subscribe to events
-          upload.on('error', (err) => {
-            console.error('', err.detail);
-          });
-
-          upload.on('progress', (progress) => {
-            console.log('Uploaded', progress.detail, 'percent of this file.');
-            onUploadVideo(res.id, video.type);
-          });
-
-          // subscribe to events
-          upload.on('success', (err) => {
-            set_Loading(false);
-            set_disabled(false);
-            console.log("Wrap it up, we're done here.");
-          });
-        },
-      })
-    );
   };
 
   return (
