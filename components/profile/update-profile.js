@@ -36,7 +36,7 @@ export default function FormDialog() {
     }
   }, [currentUser]);
 
-  const handleClickOpen = (event) => {
+  const handleClickOpen = event => {
     event.preventDefault();
     event.stopPropagation();
     setOpen(true);
@@ -75,7 +75,7 @@ export default function FormDialog() {
         <DialogContent>
           <TextField
             value={fullName}
-            onChange={(e) => set_fullName(e.target.value)}
+            onChange={e => set_fullName(e.target.value)}
             variant='outlined'
             margin='normal'
             fullWidth
@@ -87,7 +87,7 @@ export default function FormDialog() {
             <RadioGroup
               name='gender'
               value={gender}
-              onChange={(e) => set_gender(e.target.value)}
+              onChange={e => set_gender(e.target.value)}
             >
               <FormControlLabel
                 value='female'
@@ -99,7 +99,7 @@ export default function FormDialog() {
           </FormControl>
           <TextField
             value={dob}
-            onChange={(e) => set_dob(e.target.value)}
+            onChange={e => set_dob(e.target.value)}
             variant='outlined'
             margin='normal'
             fullWidth
@@ -109,7 +109,7 @@ export default function FormDialog() {
           />
           <TextField
             value={description}
-            onChange={(e) => set_description(e.target.value)}
+            onChange={e => set_description(e.target.value)}
             variant='outlined'
             margin='normal'
             fullWidth
@@ -118,7 +118,7 @@ export default function FormDialog() {
           />
           <TextField
             value={headline}
-            onChange={(e) => set_headline(e.target.value)}
+            onChange={e => set_headline(e.target.value)}
             variant='outlined'
             margin='normal'
             fullWidth
