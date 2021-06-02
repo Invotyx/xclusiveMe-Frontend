@@ -13,7 +13,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function FormDialog({
   imageHandler,
-  set_Loading,
   set_disabled,
 }) {
   const dispatch = useDispatch();
@@ -25,14 +24,12 @@ export default function FormDialog({
     event.preventDefault();
     var image = event.target.files[0];
     if (image) {
-      set_Loading(true);
       set_disabled(true);
       dispatch(
         post.uploadImage({
           fileObject: image,
           callback: (source_url) => {
             imageHandler(source_url);
-            set_Loading(false);
             set_disabled(false);
             event.target.value = null;
           },
