@@ -46,7 +46,7 @@ export default function SignInSide() {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [code, setCode] = useState('');
   const [country, setCountry] = useState('');
-  const [countryCallingCode, setCountryCallingCode] = useState('');
+  const [countryCallingCode, setCountryCallingCode] = useState('1');
 
   const handleSubmit = event => {
     event.preventDefault();
