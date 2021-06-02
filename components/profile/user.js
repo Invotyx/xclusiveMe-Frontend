@@ -45,7 +45,7 @@ import Videos from './videos';
 import NormalCaseButton from '../NormalCaseButton';
 import NothingHere from './nothing-here';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
     // marginTop: '150px',
   },
@@ -108,7 +108,7 @@ export default function Profile({
     setUserFeed(feed);
     if (feed) {
       set_imagesData(
-        feed.map((f) =>
+        feed.map(f =>
           f.media && f.media.length > 0
             ? f.media[0].type.indexOf('image/') !== -1
               ? f.media[0]
@@ -117,7 +117,7 @@ export default function Profile({
         )
       );
       set_videosData(
-        feed.map((f) =>
+        feed.map(f =>
           f.media && f.media.length > 0
             ? f.media[0].type.indexOf('video/') !== -1
               ? f.media[0]
@@ -128,7 +128,7 @@ export default function Profile({
     }
   }, [feed]);
 
-  const handleFollow = (event) => {
+  const handleFollow = event => {
     event.preventDefault();
     user.subscriptionPlans &&
       dispatch(subscription.add(user.subscriptionPlans?.id, afterFollow));
@@ -296,7 +296,7 @@ export default function Profile({
                                   startIcon={`${currencySymbol}${subscriptionPlans.price}`}
                                   size='small'
                                   variant='outlined'
-                                  onClick={(e) =>
+                                  onClick={e =>
                                     confirm(
                                       'Are you sure you want to subscribe?'
                                     ) && handleFollow(e)
@@ -309,7 +309,7 @@ export default function Profile({
                                   startIcon={<Add />}
                                   size='small'
                                   variant='outlined'
-                                  onClick={(e) => handleFollow(e)}
+                                  onClick={e => handleFollow(e)}
                                 >
                                   <span>Follow</span>
                                 </NormalCaseButton>
