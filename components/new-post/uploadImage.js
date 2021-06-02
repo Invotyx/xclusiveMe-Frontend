@@ -19,7 +19,7 @@ export default function FormDialog({
   const inputFile = React.useRef(null);
   const classes = useStyles();
 
-  const onChangeFile = (event) => {
+  const onChangeFile = event => {
     event.stopPropagation();
     event.preventDefault();
     var image = event.target.files[0];
@@ -28,7 +28,7 @@ export default function FormDialog({
       dispatch(
         post.uploadImage({
           fileObject: image,
-          callback: (source_url) => {
+          callback: source_url => {
             imageHandler(source_url);
             set_disabled(false);
             event.target.value = null;
