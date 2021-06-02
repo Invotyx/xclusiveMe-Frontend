@@ -12,7 +12,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
-import BillingAddDialog from '../../components/settings/billing/add-dialog';
+import BankAddDialog from '../../components/settings/bank/add-dialog';
 import PaymentIcon from '@material-ui/icons/Payment';
 
 export default function Home() {
@@ -30,7 +30,7 @@ export default function Home() {
               <Box flexGrow={1}>
                 <Typography variant='h6'>Linked Bank Accounts</Typography>
               </Box>
-              <BillingAddDialog />
+              <BankAddDialog />
             </Box>
             <Divider />
 
