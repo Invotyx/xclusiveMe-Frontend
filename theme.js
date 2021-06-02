@@ -30,6 +30,9 @@ const darkTheme = createMuiTheme({
       },
     },
     MuiListItemText: {
+      primary: {
+        color: white,
+      },
       secondary: {
         color: darkText,
       },
