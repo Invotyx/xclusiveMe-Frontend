@@ -204,7 +204,10 @@ export default function SignInSide() {
               autoComplete='country'
             >
               {countriesList?.map(c => (
-                <MenuItem value={c.alpha2Code} key={`countriesList${c.code}`}>
+                <MenuItem
+                  value={c.alpha2Code}
+                  key={`countriesList${c.alpha2Code}`}
+                >
                   (+{c.callingCodes[0]}) {c.name}
                 </MenuItem>
               ))}
