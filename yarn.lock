@@ -1577,13 +1577,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eventemitter3@npm:^4.0.3":
-  version: 4.0.7
-  resolution: "eventemitter3@npm:4.0.7"
-  checksum: 1fc12c7bc3b4194c50975827e72d56ff57c32b75a4c7dbf4d5eebf3c8371f6f1aad6799150b609de1b867c0d8a9885c08b6ca5e7e0dc437d6152f3063b2607dd
-  languageName: node
-  linkType: hard
-
 "events@npm:^3.0.0":
   version: 3.3.0
   resolution: "events@npm:3.3.0"
@@ -1917,16 +1910,6 @@ fsevents@~2.3.1:
   version: 10.7.2
   resolution: "highlight.js@npm:10.7.2"
   checksum: 8208e010011298abc7be9d7f69946a408d9a9b62f88000e76672aa53cee91399d188bc6a8c33cf41323e137e0e03ff8f16ac934bdc53673747658808ea62a7ac
-  languageName: node
-  linkType: hard
-
-"hls.js@npm:^0.14.17":
-  version: 0.14.17
-  resolution: "hls.js@npm:0.14.17"
-  dependencies:
-    eventemitter3: ^4.0.3
-    url-toolkit: ^2.1.6
-  checksum: ad9640e2256ce7d01368bd2a62bc0b83c3285a99b089fc1e71f594389cd9fb834f1e4cf85ff7d98caaf08972cd3ffd55d4984d44b110844e920bd0d2178f14d4
   languageName: node
   linkType: hard
 
@@ -3534,18 +3517,6 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"react-hls-player@npm:^3.0.1":
-  version: 3.0.1
-  resolution: "react-hls-player@npm:3.0.1"
-  dependencies:
-    hls.js: ^0.14.17
-  peerDependencies:
-    react: ^16.13.1
-    react-dom: ^16.13.1
-  checksum: 47d64c68c3e046da5e19b14973c694bb304385025cc553173baefd52de0334e95625548d03c3d079e2ce72e04fefbc99b21af1ce6dea0877064537c4a37f0c51
-  languageName: node
-  linkType: hard
-
 "react-is@npm:16.13.1, react-is@npm:^16.13.1, react-is@npm:^16.7.0, react-is@npm:^16.8.1":
   version: 16.13.1
   resolution: "react-is@npm:16.13.1"
@@ -4415,13 +4386,6 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"url-toolkit@npm:^2.1.6":
-  version: 2.2.2
-  resolution: "url-toolkit@npm:2.2.2"
-  checksum: b530c191556debceab09875f74b67566edc552ef68b7a0f701a5e8be2b0d60f3bca063e5a96c008b83e1e365a803b7644792ee376480268dbc95929095525271
-  languageName: node
-  linkType: hard
-
 "url@npm:^0.11.0":
   version: 0.11.0
   resolution: "url@npm:0.11.0"
@@ -4603,7 +4567,6 @@ fsevents@~2.3.1:
     next-redux-wrapper: ^6.0.2
     react: 17.0.2
     react-dom: 17.0.2
-    react-hls-player: ^3.0.1
     react-redux: ^7.2.3
     redux: ^4.0.5
     redux-devtools-extension: ^2.13.9
