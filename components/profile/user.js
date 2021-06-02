@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import NextLink from 'next/link';
 import { motion } from 'framer-motion';
 import { variants } from '../../services/framer-variants';
 import Head from 'next/head';
@@ -193,24 +194,42 @@ export default function Profile({
                       </ProfileImage>
                     }
                     action={
-                      <Box display='flex' textAlign='center'>
+                      <Box display='flex'>
                         <Box mx={4}>
+                          <NextLink passHref href='#'>
+                            <ListItem component='a'>
+                              <Box textAlign='center'>
                           <ListItemText
                             primary={_numberOfPosts}
                             secondary='Posts'
                           />
+                              </Box>
+                            </ListItem>
+                          </NextLink>
                         </Box>
                         <Box mx={4}>
+                          <NextLink passHref href='#'>
+                            <ListItem component='a'>
+                              <Box textAlign='center'>
                           <ListItemText
                             primary={followers?.totalCount}
                             secondary='Followers'
                           />
+                              </Box>
+                            </ListItem>
+                          </NextLink>
                         </Box>
                         <Box mx={4}>
+                          <NextLink passHref href='#'>
+                            <ListItem component='a'>
+                              <Box textAlign='center'>
                           <ListItemText
                             primary={followings?.totalCount}
                             secondary='Following'
                           />
+                              </Box>
+                            </ListItem>
+                          </NextLink>
                         </Box>
                       </Box>
                     }
