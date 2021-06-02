@@ -1,6 +1,6 @@
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
+import NormalCaseButton from '../NormalCaseButton';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -17,7 +17,7 @@ export default function NothingHere({}) {
       <Typography gutterBottom color='textSecondary' gutter>
         Looks like you need to start following people here
       </Typography>
-      <Button variant='outlined'>Let’s find people</Button>
+      <NormalCaseButton variant='outlined'>Let’s find people</NormalCaseButton>
     </Box>
   );
 }
