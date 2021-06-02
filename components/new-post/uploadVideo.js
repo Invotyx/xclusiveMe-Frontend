@@ -12,7 +12,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function FormDialog({ onUploadVideo }) {
+export default function FormDialog({
+  onUploadVideo,
+  set_Loading,
+  set_disabled,
+}) {
   const dispatch = useDispatch();
   const inputFile = React.useRef(null);
   const classes = useStyles();
@@ -21,11 +25,14 @@ export default function FormDialog({ onUploadVideo }) {
     event.stopPropagation();
     event.preventDefault();
     var video = event.target.files[0];
+    if (video) {
+      set_Loading(true);
+      set_disabled(true);
+    }
     dispatch(
       post.uploadVideoReq({
         fileObject: 1,
         callback: (res) => {
-          onUploadVideo(res.id, video.type);
           const upload = UpChunk.createUpload({
             // getUploadUrl is a function that resolves with the upload URL generated
             // on the server-side
@@ -42,6 +49,11 @@ export default function FormDialog({ onUploadVideo }) {
 
           upload.on('progress', (progress) => {
             console.log('Uploaded', progress.detail, 'percent of this file.');
+            if (progress.detail === 100) {
+              set_Loading(false);
+              set_disabled(false);
+            }
+            onUploadVideo(res.id, video.type);
           });
 
           // subscribe to events

@@ -188,7 +188,11 @@ export default function NewPostForm({ afterSave }) {
               </Box>
               <Box mx={1}>
                 <Box clone color='#666'>
-                  <UploadVideo onUploadVideo={onUploadVideo} />
+                  <UploadVideo
+                    onUploadVideo={onUploadVideo}
+                    set_disabled={set_disabled}
+                    set_Loading={set_Loading}
+                  />
                 </Box>
               </Box>
               <Box mx={1}>
