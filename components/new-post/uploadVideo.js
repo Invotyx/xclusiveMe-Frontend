@@ -12,7 +12,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function FormDialog({ onUploadVideo }) {
+export default function FormDialog({
+  onUploadVideo,
+  set_Loading,
+  set_disabled,
+}) {
   const dispatch = useDispatch();
   const inputFile = React.useRef(null);
   const classes = useStyles();
@@ -21,36 +25,45 @@ export default function FormDialog({ onUploadVideo }) {
     event.stopPropagation();
     event.preventDefault();
     var video = event.target.files[0];
-    dispatch(
-      post.uploadVideoReq({
-        fileObject: 1,
-        callback: (res) => {
-          onUploadVideo(res.id, video.type);
-          const upload = UpChunk.createUpload({
-            // getUploadUrl is a function that resolves with the upload URL generated
-            // on the server-side
-            endpoint: res.url,
-            // picker here is a file picker HTML element
-            file: video,
-            chunkSize: 5120, // Uploads the file in ~5mb chunks
-          });
+    if (video) {
+      set_Loading(true);
+      set_disabled(true);
 
-          // subscribe to events
-          upload.on('error', (err) => {
-            console.error('', err.detail);
-          });
+      dispatch(
+        post.uploadVideoReq({
+          fileObject: 1,
+          callback: (res) => {
+            const upload = UpChunk.createUpload({
+              // getUploadUrl is a function that resolves with the upload URL generated
+              // on the server-side
+              endpoint: res.url,
+              // picker here is a file picker HTML element
+              file: video,
+              chunkSize: 5120, // Uploads the file in ~5mb chunks
+            });
 
-          upload.on('progress', (progress) => {
-            console.log('Uploaded', progress.detail, 'percent of this file.');
-          });
+            // subscribe to events
+            upload.on('error', (err) => {
+              console.error('', err.detail);
+              set_Loading(false);
+              set_disabled(false);
+            });
 
-          // subscribe to events
-          upload.on('success', (err) => {
-            console.log("Wrap it up, we're done here.");
-          });
-        },
-      })
-    );
+            upload.on('progress', (progress) => {
+              console.log('Uploaded', progress.detail, 'percent of this file.');
+            });
+
+            // subscribe to events
+            upload.on('success', (err) => {
+              set_Loading(false);
+              set_disabled(false);
+              onUploadVideo(res.id, video.type);
+              console.log("Wrap it up, we're done here.");
+            });
+          },
+        })
+      );
+    }
   };
 
   return (
