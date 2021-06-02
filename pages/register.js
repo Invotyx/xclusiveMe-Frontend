@@ -213,6 +213,7 @@ export default function SignInSide() {
               }}
               variant='outlined'
               margin='normal'
+              style={{ width: 100 }}
               id='country'
               name='country'
               autoComplete='country'
