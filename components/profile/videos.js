@@ -16,7 +16,7 @@ export default function Videos({ videosData }) {
 
   return (
     <Grid container spacing={2}>
-      {videosData.map(
+      {videosData?.map(
         (tile, i) =>
           tile && (
             <Grid item cols={12} md={4} key={i}>
