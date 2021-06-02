@@ -14,7 +14,7 @@ import { fetchingSelector, errorSelector } from '../selectors/authSelector';
 import LayoutGuest from '../components/layouts/layout-guest-auth';
 import { countriesSelector } from '../selectors/countriesSelector';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   grey: {
     color: '#666',
   },
@@ -48,7 +48,7 @@ export default function SignInSide() {
   const [country, setCountry] = useState('');
   const [countryCallingCode, setCountryCallingCode] = useState('');
 
-  const handleSubmit = (event) => {
+  const handleSubmit = event => {
     event.preventDefault();
     if (registrationState === 1) {
       dispatch(
@@ -61,7 +61,7 @@ export default function SignInSide() {
             confirmPassword,
             phoneNumber: `+${countryCallingCode}${phoneNumber}`,
           },
-          callback: (sid) => {
+          callback: sid => {
             set_registrationState(2);
             set_sessionId(sid);
           },
@@ -96,7 +96,7 @@ export default function SignInSide() {
                 : ''
             }
             value={fullName}
-            onChange={(e) => setFullName(e.target.value)}
+            onChange={e => setFullName(e.target.value)}
             variant='outlined'
             margin='normal'
             required
@@ -114,7 +114,7 @@ export default function SignInSide() {
                 : ''
             }
             value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            onChange={e => setUsername(e.target.value)}
             variant='outlined'
             margin='normal'
             required
@@ -132,7 +132,7 @@ export default function SignInSide() {
                 : ''
             }
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={e => setEmail(e.target.value)}
             variant='outlined'
             margin='normal'
             required
@@ -150,7 +150,7 @@ export default function SignInSide() {
                 : ''
             }
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={e => setPassword(e.target.value)}
             variant='outlined'
             margin='normal'
             required
@@ -169,7 +169,7 @@ export default function SignInSide() {
                 : ''
             }
             value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
+            onChange={e => setConfirmPassword(e.target.value)}
             variant='outlined'
             margin='normal'
             required
@@ -190,10 +190,10 @@ export default function SignInSide() {
                   : ''
               }
               value={country}
-              onChange={(e) => {
+              onChange={e => {
                 setCountry(e.target.value);
                 setCountryCallingCode(
-                  countriesList.find((c) => c.name === e.target.value)
+                  countriesList.find(c => c.name === e.target.value)
                     ?.callingCodes[0]
                 );
               }}
@@ -205,7 +205,7 @@ export default function SignInSide() {
               name='country'
               autoComplete='country'
             >
-              {countriesList?.map((c) => (
+              {countriesList?.map(c => (
                 <MenuItem value={c.name} key={`countriesList${c.code}`}>
                   (+{c.callingCodes[0]}) {c.name}
                 </MenuItem>
@@ -219,7 +219,7 @@ export default function SignInSide() {
                   : ''
               }
               value={phoneNumber}
-              onChange={(e) => setPhoneNumber(e.target.value)}
+              onChange={e => setPhoneNumber(e.target.value)}
               variant='outlined'
               margin='normal'
               required
@@ -253,7 +253,7 @@ export default function SignInSide() {
                 : ''
             }
             value={code}
-            onChange={(e) => setCode(e.target.value)}
+            onChange={e => setCode(e.target.value)}
             variant='outlined'
             margin='normal'
             required
@@ -268,12 +268,12 @@ export default function SignInSide() {
             <NextLink href='#' passHref>
               <Link
                 variant='body2'
-                onClick={(e) => {
+                onClick={e => {
                   e.preventDefault();
                   dispatch(
                     auth.resendOtp({
                       sessionId,
-                      callback: (sid) => {
+                      callback: sid => {
                         set_sessionId(sid);
                       },
                     })
@@ -297,7 +297,7 @@ export default function SignInSide() {
               <NextLink href='#' passHref>
                 <Link
                   variant='body2'
-                  onClick={(e) => {
+                  onClick={e => {
                     e.preventDefault();
                     set_registrationState(1);
                   }}
