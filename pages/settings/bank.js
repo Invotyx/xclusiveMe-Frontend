@@ -28,7 +28,7 @@ export default function Home() {
           <Grid item xs={12} md={8}>
             <Box display='flex' mb={2}>
               <Box flexGrow={1}>
-                <Typography variant='h6'>Add Details</Typography>
+                <Typography variant='h6'>Linked Bank Accounts</Typography>
               </Box>
               <BillingAddDialog />
             </Box>
