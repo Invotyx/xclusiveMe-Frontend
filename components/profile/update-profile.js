@@ -30,7 +30,7 @@ export default function FormDialog() {
     if (currentUser && currentUser.profile) {
       set_fullName(currentUser.profile.fullName);
       set_gender(currentUser.profile.gender);
-      set_dob(currentUser.profile.dob);
+      set_dob(currentUser.profile.dob.substr(0, 10));
       set_description(currentUser.profile.description);
       set_headline(currentUser.profile.headline);
     }
