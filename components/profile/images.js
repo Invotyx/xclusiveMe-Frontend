@@ -4,7 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import CardMedia from '@material-ui/core/CardMedia';
 import Card from '@material-ui/core/Card';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   media: {
     height: 0,
     paddingTop: '100%',
