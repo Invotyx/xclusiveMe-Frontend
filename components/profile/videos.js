@@ -4,7 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import PostMediaVideo from './post-media-video';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   media: {
     height: 0,
     paddingTop: '100%',
