@@ -13,8 +13,8 @@ export default function NothingHere({}) {
   return (
     <Box textAlign='center' p={4}>
       <img src='/nothing-here.svg' alt='no media' />
-      <Typography>No content found</Typography>
-      <Typography color='textSecondary'>
+      <Typography gutterBottom>No content found</Typography>
+      <Typography gutterBottom color='textSecondary' gutter>
         Looks like you need to start following people here
       </Typography>
       <Button variant='outlined'>Let’s find people</Button>
