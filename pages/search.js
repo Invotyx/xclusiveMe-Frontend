@@ -11,7 +11,6 @@ import OutlinedInput from '@material-ui/core/OutlinedInput';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { makeStyles } from '@material-ui/core/styles';
 import Layout from '../components/layouts/layout-auth';
-import ImageAvatar from '../components/image-avatar';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchingSelector, userDataSelector } from '../selectors/userSelector';
 import { user } from '../actions/user';
