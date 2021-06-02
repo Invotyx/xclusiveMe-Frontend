@@ -26,7 +26,8 @@ export default function FormDialog({
     event.preventDefault();
     var image = event.target.files[0];
     if (image) {
-      onImageSelect && onImageSelect();
+      var temp = URL.createObjectURL(image);
+      onImageSelect && onImageSelect(temp);
       set_disabled(true);
       dispatch(
         post.uploadImage({

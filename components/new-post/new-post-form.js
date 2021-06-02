@@ -193,8 +193,8 @@ export default function NewPostForm({ afterSave }) {
                   <UploadImage
                     imageHandler={imageHandler}
                     set_disabled={set_disabled}
-                    onImageSelect={() =>
-                      setLoadingItems([...loadingItems, '/no-media.jpg'])
+                    onImageSelect={imgSrc =>
+                      setLoadingItems([...loadingItems, imgSrc])
                     }
                     onImageUploaded={() =>
                       setLoadingItems(
