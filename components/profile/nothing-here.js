@@ -13,7 +13,7 @@ export default function NothingHere({}) {
   return (
     <Box textAlign='center' p={4}>
       <img src='/nothing-here.svg' alt='no media' />
-      <Box>
+      <Box mt={-2}>
         <Typography gutterBottom>No content found</Typography>
       </Box>
       <Box mb={2}>
