@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { variants } from '../services/framer-variants';
 import Head from 'next/head';
@@ -45,6 +45,9 @@ export default function Home() {
     event.preventDefault();
     dispatch(user.search({ q: _search }));
   };
+  useEffect(() => {
+    dispatch(user.emptySearchList());
+  }, []);
 
   return (
     <motion.div initial='hidden' animate='visible' variants={variants}>
