@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import CardMedia from '@material-ui/core/CardMedia';
 import Card from '@material-ui/core/Card';
+import PostMediaVideo from './post-media-video';
 
 const useStyles = makeStyles((theme) => ({
   media: {
@@ -21,11 +22,7 @@ export default function Videos({ videosData }) {
           tile && (
             <Grid item cols={12} md={4} key={i}>
               <Card>
-                <CardMedia
-                  image={tile.url}
-                  title='post media'
-                  className={classes.media}
-                />
+                <PostMediaVideo src={tile.url} />
               </Card>
             </Grid>
           )
