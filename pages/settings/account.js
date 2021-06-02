@@ -42,25 +42,25 @@ const useStyles = makeStyles(theme => ({
 const linkedAccounts = [
   {
     url: '#',
-    text: 'Twitter',
+    title: 'Twitter',
     active: 'vdotl@gmail.com',
     icon: <Image width={20} height={20} src='/twitter.svg' />,
   },
   {
     url: '#',
-    text: 'Google',
+    title: 'Google',
     active: '',
     icon: <Image width={20} height={20} src='/google.svg' />,
   },
   {
     url: '#',
-    text: 'Facebook',
+    title: 'Facebook',
     active: '',
     icon: <FacebookIcon />,
   },
   {
     url: '#',
-    text: 'Website',
+    title: 'Website',
     active: '',
     icon: <LinkIcon />,
   },
@@ -207,10 +207,10 @@ export default function Home(props) {
                       <ListItem selected={true}>
                         {i.icon && <ListItemIcon>{i.icon}</ListItemIcon>}
                         <ListItemText
-                          primary={i.text}
+                          primary={i.title}
                           secondary={
                             <>
-                              {editLinkedAccount === i.text ? (
+                              {editLinkedAccount === i.title ? (
                                 <Box display='flex' mt={1}>
                                   <Box mr={1}>
                                     <TileTextField
@@ -247,10 +247,10 @@ export default function Home(props) {
                           }
                         />
                         <ListItemSecondaryAction>
-                          {editLinkedAccount !== i.text && (
+                          {editLinkedAccount !== i.title && (
                             <IconButton
                               onClick={() => {
-                                set_editLinkedAccount(i.text);
+                                set_editLinkedAccount(i.title);
                                 set_editLinkedAccountText(i.active);
                               }}
                             >
