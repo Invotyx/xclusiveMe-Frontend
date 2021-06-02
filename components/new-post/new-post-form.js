@@ -190,7 +190,6 @@ export default function NewPostForm({ afterSave }) {
                   <UploadVideo
                     onUploadVideo={onUploadVideo}
                     set_disabled={set_disabled}
-                    set_Loading={set_Loading}
                   />
                 </Box>
               </Box>
