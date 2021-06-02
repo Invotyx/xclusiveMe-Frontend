@@ -43,6 +43,7 @@ import { useDispatch } from 'react-redux';
 import { currencySymbol } from '../../services/currencySymbol';
 import Videos from './videos';
 import NormalCaseButton from '../NormalCaseButton';
+import NothingHere from './nothing-here';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -341,16 +342,7 @@ export default function Profile({
                               ))}
                             </Grid>
                           ) : (
-                            <Box
-                              textAlign='center'
-                              p={4}
-                              bgcolor='#222'
-                              border='1px solid #111'
-                            >
-                              <Typography color='textSecondary'>
-                                nothing to display
-                              </Typography>
-                            </Box>
+                            <NothingHere />
                           )}
                         </Box>
                       </TabPanel>

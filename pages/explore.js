@@ -12,6 +12,7 @@ import { post } from '../actions/post';
 import { subscribedSelector } from '../selectors/postSelector';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
+import NothingHere from '../components/profile/nothing-here';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -44,16 +45,7 @@ export default function Home() {
                   </Box>
                 ))
               ) : (
-                <Box
-                  textAlign='center'
-                  p={4}
-                  bgcolor='#222'
-                  border='1px solid #111'
-                >
-                  <Typography color='textSecondary'>
-                    nothing to display
-                  </Typography>
-                </Box>
+                <NothingHere />
               )}
             </Grid>
           </Grid>
