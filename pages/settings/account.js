@@ -19,7 +19,7 @@ import Button from '@material-ui/core/Button';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import { makeStyles } from '@material-ui/core/styles';
 import TileTextField from '../../components/TileTextField';
-import ClearIcon from '@material-ui/icons/Clear';
+import EditIcon from '@material-ui/icons/Edit';
 import AddIcon from '@material-ui/icons/Add';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import LinkIcon from '@material-ui/icons/Link';
@@ -264,7 +264,7 @@ export default function Home(props) {
                                 set_editLinkedAccountUrl(i.url);
                               }}
                             >
-                              {i.url ? <ClearIcon /> : <AddIcon />}
+                              {i.url ? <EditIcon /> : <AddIcon />}
                             </IconButton>
                           )}
                         </ListItemSecondaryAction>
