@@ -208,7 +208,7 @@ export default function SignInSide() {
               onChange={e => {
                 setCountry(e.target.value);
                 setCountryCallingCode(
-                  countriesList.find(c => c.name === e.target.value)
+                  countriesList.find(c => c.alpha2Code === e.target.value)
                     ?.callingCodes[0]
                 );
               }}
