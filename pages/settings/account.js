@@ -68,8 +68,7 @@ export default function Home(props) {
   const error = useSelector(errorSelector);
   const dispatch = useDispatch();
   const [editLinkedAccount, set_editLinkedAccount] = React.useState(null);
-  const [editLinkedAccountUrl, set_editLinkedAccountUrl] =
-    React.useState(null);
+  const [editLinkedAccountUrl, set_editLinkedAccountUrl] = React.useState(null);
   const [username, set_username] = React.useState('');
   const [email, set_email] = React.useState('');
   const [phone, set_phone] = React.useState('');
@@ -231,9 +230,7 @@ export default function Home(props) {
                                     <TileTextField
                                       value={editLinkedAccountUrl}
                                       onChange={e =>
-                                        set_editLinkedAccountUrl(
-                                          e.target.value
-                                        )
+                                        set_editLinkedAccountUrl(e.target.value)
                                       }
                                       variant='outlined'
                                       size='small'
