@@ -68,7 +68,7 @@ function TabPanel(props) {
   return (
     <div role='tabpanel' hidden={value !== index} {...other}>
       {value === index && (
-        <Box p={3}>
+        <Box>
           <Typography component='div'>{children}</Typography>
         </Box>
       )}
