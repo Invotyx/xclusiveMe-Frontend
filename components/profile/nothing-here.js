@@ -1,3 +1,4 @@
+import NextLink from 'next/link';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import NormalCaseButton from '../NormalCaseButton';
