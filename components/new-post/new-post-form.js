@@ -156,7 +156,7 @@ export default function NewPostForm({ afterSave }) {
                   <GridListTileBar
                     titlePosition='top'
                     actionPosition='left'
-                    actionIcon={<CircularProgress />}
+                    actionIcon={<CircularProgress {...item.progressProps} />}
                   />
                 </MuiGridListTile>
               ))}
@@ -217,7 +217,13 @@ export default function NewPostForm({ afterSave }) {
                       setProgressVideo({ val: 0 });
                       setLoadingItems([
                         ...loadingItems,
-                        { src: '/no-media.jpg' },
+                        {
+                          src: '/no-media.jpg',
+                          progressProps: {
+                            variant: 'determinate',
+                            value: progressVideo.val,
+                          },
+                        },
                       ]);
                     }}
                     onVideoUploaded={() => {
