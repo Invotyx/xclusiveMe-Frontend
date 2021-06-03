@@ -76,6 +76,7 @@ export default function Home(props) {
   const [password_old, set_password_old] = React.useState('');
   const [verificationViaSms, set_verificationViaSms] = React.useState(false);
   const [authenticatorApp, set_authenticatorApp] = React.useState(true);
+  const [links, setLinks] = React.useState(null);
   const [validationErrors, setValidationErrors] = React.useState({});
   const currentUser = useSelector(currentUserSelector);
   const loginSessions = useSelector(currentUserSessionsSelector);
@@ -86,6 +87,7 @@ export default function Home(props) {
       set_email(currentUser.email);
       set_phone(currentUser.phoneNumber);
       set_verificationViaSms(currentUser.fa2);
+      setLinks(currentUser.profile.links);
     }
   }, [currentUser]);
   useEffect(() => {
@@ -217,7 +219,7 @@ export default function Home(props) {
               <Box mb={4}>
                 <UppercaseInputLabel>Linked Accounts</UppercaseInputLabel>
                 <List>
-                  {linkedAccounts.map((i, j) => (
+                  {(links || linkedAccounts).map((i, j) => (
                     <Box mb={1} key={`linkedAccounts${j}`}>
                       <ListItem selected={true}>
                         {i.icon && <ListItemIcon>{i.icon}</ListItemIcon>}
