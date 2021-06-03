@@ -244,6 +244,7 @@ export default function Home(props) {
                                   <Box>
                                     <Button
                                       variant='outlined'
+                                      disabled={fetching}
                                       onClick={e => saveLinks(e, i)}
                                     >
                                       save
