@@ -65,16 +65,8 @@ export default function NewPostForm({ afterSave }) {
   const [loading, set_Loading] = React.useState(false);
   const [progressVideo, setProgressVideo] = React.useState({ val: 0 });
   const [loadingItems, setLoadingItems] = React.useState([]);
-  const [validationErrors, setValidationErrors] = React.useState(null);
 
   const handleCreatePost = () => {
-    setValidationErrors(null);
-    if (!postText || postText.trim() === '') {
-      setValidationErrors({
-        postText: { length: 'Post text cannot be empty' },
-      });
-      return;
-    }
     dispatch(
       post.save({
         saveData: {
@@ -294,7 +286,7 @@ export default function NewPostForm({ afterSave }) {
           variant='contained'
           size='large'
           startIcon={<SendIcon />}
-          disabled={disabled || validationErrors}
+          disabled={disabled}
         >
           Post now
         </GreenButton>
