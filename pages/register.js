@@ -224,7 +224,7 @@ export default function SignInSide() {
                   value={c.alpha2Code}
                   key={`countriesList${c.alpha2Code}`}
                 >
-                  (+{c.callingCodes[0]}) {c.name}
+                  {c.name} (+{c.callingCodes[0]})
                 </MenuItem>
               ))}
             </CountryTextField>
