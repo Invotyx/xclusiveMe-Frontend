@@ -131,9 +131,22 @@ export default function Home(props) {
   };
   const saveLinks = (e, index) => {
     e.preventDefault();
+    let links = linkedAccounts.slice();
+    links = linkedAccounts.map(l =>
+      Object.assign({}, l, { active: undefined, icon: undefined })
+    );
+    dispatch(
+      auth.updateProfile({
+        saveData: {
+          links,
+        },
+        callback: () => {
           linkedAccounts[linkedAccounts.indexOf(index)].active =
             editLinkedAccountText;
           set_editLinkedAccount(null);
+        },
+      })
+    );
   };
   return (
     <motion.div initial='hidden' animate='visible' variants={variants}>
