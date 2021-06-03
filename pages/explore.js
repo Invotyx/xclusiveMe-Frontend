@@ -36,7 +36,7 @@ export default function Home() {
           <title>xclusiveme</title>
         </Head>
         <Container maxWidth='md' disableGutters>
-          <Grid container className={classes.root}>
+          <Grid container className={classes.root} spacing={2}>
             <Grid item xs={12}>
               {posts && posts.length > 0 ? (
                 posts.map((post, i) => (
