@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme) => ({
     height: 0,
   },
 }));
-export default function NothingHere({}) {
+export default function NothingHere({ me }) {
   const classes = useStyles();
   return (
     <Box textAlign='center' p={4}>
@@ -16,12 +16,16 @@ export default function NothingHere({}) {
       <Box mt={-2}>
         <Typography gutterBottom>No content found</Typography>
       </Box>
+      {!me && (
+        <>
       <Box mb={2}>
         <Typography gutterBottom color='textSecondary' variant='caption'>
           Looks like you need to start following people here
         </Typography>
       </Box>
       <NormalCaseButton variant='outlined'>Let’s find people</NormalCaseButton>
+        </>
+      )}
     </Box>
   );
 }
