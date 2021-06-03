@@ -23,9 +23,11 @@ export default function NothingHere({ me }) {
               Looks like you need to start following people here
             </Typography>
           </Box>
-          <NormalCaseButton variant='outlined'>
-            Let’s find people
-          </NormalCaseButton>
+          <NextLink passHref href='/search'>
+            <NormalCaseButton variant='outlined'>
+              Let’s find people
+            </NormalCaseButton>
+          </NextLink>
         </>
       )}
     </Box>
