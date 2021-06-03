@@ -19,7 +19,7 @@ export default function ImageGridList({ imagesData }) {
       {imagesData?.map(
         (tile, i) =>
           tile && (
-            <Grid item cols={12} md={4} key={i}>
+            <Grid item xs={12} md={4} key={i}>
               <Card>
                 <CardMedia
                   image={tile.url}
