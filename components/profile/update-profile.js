@@ -48,11 +48,13 @@ export default function FormDialog() {
   const handleUpdate = () => {
     dispatch(
       auth.updateProfile({
-        fullName,
-        gender,
-        dob,
-        description,
-        headline,
+        saveData: {
+          fullName,
+          gender,
+          dob,
+          description,
+          headline,
+        },
         callback: () => {
           handleClose();
           dispatch(auth.me());

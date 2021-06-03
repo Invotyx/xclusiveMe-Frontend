@@ -180,31 +180,9 @@ function* handleVerifyOtp(action) {
 
 function* handleUpdateProfile(action) {
   try {
-    const {
-      fullName,
-      username,
-      email,
-      password,
-      oldPassword,
-      phoneNumber,
-      gender,
-      dob,
-      description,
-      headline,
-    } = action.payload;
+    const { saveData } = action.payload;
 
-    const { data } = yield call(updateProfile, {
-      fullName,
-      username,
-      email,
-      password,
-      oldPassword,
-      phoneNumber,
-      gender,
-      dob,
-      description,
-      headline,
-    });
+    const { data } = yield call(updateProfile, saveData);
     yield put(auth.success({}));
     if ((password || oldPassword) === undefined) {
       yield put(
