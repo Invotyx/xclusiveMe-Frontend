@@ -16,6 +16,7 @@ export default function FormDialog({
   onUploadVideo,
   onVideoSelect,
   onVideoUploaded,
+  onVideoUploadProgress,
   set_disabled,
 }) {
   const dispatch = useDispatch();
@@ -51,6 +52,7 @@ export default function FormDialog({
 
             upload.on('progress', progress => {
               console.log('Uploaded', progress.detail, 'percent of this file.');
+              onVideoUploadProgress(progress.detail);
             });
 
             // subscribe to events

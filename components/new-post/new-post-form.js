@@ -63,6 +63,7 @@ export default function NewPostForm({ afterSave }) {
   const [tileData, set_TileData] = React.useState([]);
   const [fileObj, set_FileObj] = React.useState([]);
   const [loading, set_Loading] = React.useState(false);
+  const [progressVideo, setProgressVideo] = React.useState({ val: 0 });
   const [loadingItems, setLoadingItems] = React.useState([]);
 
   const handleCreatePost = () => {
@@ -211,13 +212,16 @@ export default function NewPostForm({ afterSave }) {
                   <UploadVideo
                     onUploadVideo={onUploadVideo}
                     set_disabled={set_disabled}
+                    onVideoUploadProgress={val => setProgressVideo({ val })}
                     onVideoSelect={() => {
+                      setProgressVideo({ val: 0 });
                       setLoadingItems([
                         ...loadingItems,
                         { src: '/no-media.jpg' },
                       ]);
                     }}
                     onVideoUploaded={() => {
+                      setProgressVideo({ val: 100 });
                       setLoadingItems(
                         loadingItems.filter(
                           (a, i) => i !== loadingItems.length - 1
