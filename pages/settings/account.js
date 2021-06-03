@@ -6,6 +6,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import Box from '@material-ui/core/Box';
 import IconButton from '@material-ui/core/IconButton';
+import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import Switch from '@material-ui/core/Switch';
 import Grid from '@material-ui/core/Grid';
@@ -226,7 +227,7 @@ export default function Home(props) {
                         <ListItemText
                           primary={i.title}
                           secondary={
-                            <>
+                            <Typography component='div'>
                               {editLinkedAccount === i.title ? (
                                 <Box display='flex' mt={1}>
                                   <Box mr={1}>
@@ -255,7 +256,7 @@ export default function Home(props) {
                               ) : (
                                 i.url
                               )}
-                            </>
+                            </Typography>
                           }
                         />
                         <ListItemSecondaryAction>
