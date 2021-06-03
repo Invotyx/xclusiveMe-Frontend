@@ -88,6 +88,7 @@ export default function FormDialog() {
               name='gender'
               value={gender}
               onChange={e => set_gender(e.target.value)}
+              row
             >
               <FormControlLabel
                 value='female'
