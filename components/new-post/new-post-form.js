@@ -160,7 +160,12 @@ export default function NewPostForm({ afterSave }) {
                   <GridListTileBar
                     titlePosition='top'
                     actionPosition='left'
-                    actionIcon={<CircularProgress {...item.progressProps} />}
+                    actionIcon={
+                      <CircularProgress
+                        {...item.progressProps}
+                        value={progressVideo.val}
+                      />
+                    }
                   />
                 </MuiGridListTile>
               ))}
@@ -225,7 +230,7 @@ export default function NewPostForm({ afterSave }) {
                           src: '/no-media.jpg',
                           progressProps: {
                             variant: 'determinate',
-                            value: progressVideo.val,
+                            // value: progressVideo.val,
                           },
                         },
                       ]);
