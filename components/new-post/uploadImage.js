@@ -3,13 +3,6 @@ import { useDispatch } from 'react-redux';
 import { post } from '../../actions/post';
 import WallpaperOutlinedIcon from '@material-ui/icons/WallpaperOutlined';
 import IconButton from '@material-ui/core/IconButton';
-import { makeStyles } from '@material-ui/core/styles';
-
-const useStyles = makeStyles(theme => ({
-  icon: {
-    color: '#666',
-  },
-}));
 
 export default function FormDialog({
   imageHandler,
@@ -19,7 +12,6 @@ export default function FormDialog({
 }) {
   const dispatch = useDispatch();
   const inputFile = React.useRef(null);
-  const classes = useStyles();
 
   const onChangeFile = event => {
     event.stopPropagation();
@@ -53,14 +45,16 @@ export default function FormDialog({
         onChange={onChangeFile}
       />
 
-      <IconButton
-        size='small'
-        onClick={() => {
-          inputFile.current.click();
-        }}
-      >
-        <WallpaperOutlinedIcon className={classes.icon} />
-      </IconButton>
+      <Box clone color='#666'>
+        <IconButton
+          size='small'
+          onClick={() => {
+            inputFile.current.click();
+          }}
+        >
+          <WallpaperOutlinedIcon />
+        </IconButton>
+      </Box>
     </>
   );
 }
