@@ -80,12 +80,14 @@ export default function Post({ post, profileData, altHeader }) {
             Tip
           </NormalCaseButton>
         </Box>
+        {false && (
         <NormalCaseButton
           aria-label='bookmark'
           startIcon={<BookmarkBorderOutlinedIcon />}
         >
           <Box display={{ xs: 'none', sm: 'none', md: 'flex' }}>Save</Box>
         </NormalCaseButton>
+        )}
       </CardActions>
     </Card>
   );
