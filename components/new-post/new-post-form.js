@@ -67,6 +67,9 @@ export default function NewPostForm({ afterSave }) {
   const [loadingItems, setLoadingItems] = React.useState([]);
 
   const handleCreatePost = () => {
+    if (!postText || postText.trim() === '') {
+      return;
+    }
     dispatch(
       post.save({
         saveData: {
