@@ -217,13 +217,13 @@ export default function NewPostForm({ afterSave }) {
                         { src: '/no-media.jpg' },
                       ]);
                     }}
-                    onVideoUploaded={() =>
+                    onVideoUploaded={() => {
                       setLoadingItems(
                         loadingItems.filter(
                           (a, i) => i !== loadingItems.length - 1
                         )
-                      )
-                    }
+                      );
+                    }}
                   />
                 </Box>
               </Box>
