@@ -184,23 +184,13 @@ function* handleUpdateProfile(action) {
 
     const { data } = yield call(updateProfile, saveData);
     yield put(auth.success({}));
-    if ((password || oldPassword) === undefined) {
-      yield put(
-        bottomalert.update({
-          open: true,
-          message: 'Profile Updated Successfully!',
-          severity: 'success',
-        })
-      );
-    } else {
-      yield put(
-        bottomalert.update({
-          open: true,
-          message: 'Password Changed Successfully!',
-          severity: 'success',
-        })
-      );
-    }
+    yield put(
+      bottomalert.update({
+        open: true,
+        message: 'Password Changed Successfully!',
+        severity: 'success',
+      })
+    );
     const { callback } = action.payload;
     if (callback) {
       yield call(callback);
