@@ -187,7 +187,7 @@ function* handleUpdateProfile(action) {
     yield put(
       bottomalert.update({
         open: true,
-        message: 'Password Changed Successfully!',
+        message: 'Profile Updated Successfully!',
         severity: 'success',
       })
     );
