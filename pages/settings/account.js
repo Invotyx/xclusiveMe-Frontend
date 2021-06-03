@@ -129,6 +129,12 @@ export default function Home(props) {
   const handleLogOutAllSessions = () => {
     dispatch(auth.expireAllSessions());
   };
+  const saveLinks = (e, index) => {
+    e.preventDefault();
+          linkedAccounts[linkedAccounts.indexOf(index)].active =
+            editLinkedAccountText;
+          set_editLinkedAccount(null);
+  };
   return (
     <motion.div initial='hidden' animate='visible' variants={variants}>
       <Layout>
@@ -229,12 +235,7 @@ export default function Home(props) {
                                   <Box>
                                     <Button
                                       variant='outlined'
-                                      onClick={() => {
-                                        linkedAccounts[
-                                          linkedAccounts.indexOf(i)
-                                        ].active = editLinkedAccountText;
-                                        set_editLinkedAccount(null);
-                                      }}
+                                      onClick={e => saveLinks(e, i)}
                                     >
                                       save
                                     </Button>
