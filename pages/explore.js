@@ -3,6 +3,13 @@ import { variants } from '../services/framer-variants';
 import Head from 'next/head';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import Avatar from '@material-ui/core/Avatar';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import Link from '@material-ui/core/Link';
 import Post from '../components/profile/post';
 import { makeStyles } from '@material-ui/core/styles';
 import Layout from '../components/layouts/layout-auth';
@@ -37,7 +44,7 @@ export default function Home() {
         </Head>
         <Container maxWidth='md' disableGutters>
           <Grid container className={classes.root} spacing={2}>
-            <Grid item xs={12}>
+            <Grid item xs={8}>
               {posts && posts.length > 0 ? (
                 posts.map((post, i) => (
                   <Box key={i} mb={2}>
@@ -47,6 +54,25 @@ export default function Home() {
               ) : (
                 <NothingHere />
               )}
+            </Grid>
+            <Grid item xs={4}>
+              <Typography>Suggestions For You</Typography>
+              <List>
+                <ListItem>
+                  <ListItemAvatar>
+                    <Avatar
+                      src={'https://material-ui.com/static/images/avatar/1.jpg'}
+                    />
+                  </ListItemAvatar>
+                  <ListItemText
+                    primary={'John Doe'}
+                    secondary={'Suggested for you'}
+                  />
+                  <ListItemSecondaryAction>
+                    <Link>See Profile</Link>
+                  </ListItemSecondaryAction>
+                </ListItem>
+              </List>
             </Grid>
           </Grid>
         </Container>
