@@ -71,7 +71,7 @@ export default function Home(props) {
   const error = useSelector(errorSelector);
   const dispatch = useDispatch();
   const [editLinkedAccount, set_editLinkedAccount] = React.useState(null);
-  const [editLinkedAccountText, set_editLinkedAccountText] =
+  const [editLinkedAccountUrl, set_editLinkedAccountUrl] =
     React.useState(null);
   const [username, set_username] = React.useState('');
   const [email, set_email] = React.useState('');
@@ -142,7 +142,7 @@ export default function Home(props) {
         },
         callback: () => {
           linkedAccounts[linkedAccounts.indexOf(index)].active =
-            editLinkedAccountText;
+            editLinkedAccountUrl;
           set_editLinkedAccount(null);
         },
       })
@@ -233,9 +233,9 @@ export default function Home(props) {
                                 <Box display='flex' mt={1}>
                                   <Box mr={1}>
                                     <TileTextField
-                                      value={editLinkedAccountText}
+                                      value={editLinkedAccountUrl}
                                       onChange={e =>
-                                        set_editLinkedAccountText(
+                                        set_editLinkedAccountUrl(
                                           e.target.value
                                         )
                                       }
@@ -265,7 +265,7 @@ export default function Home(props) {
                             <IconButton
                               onClick={() => {
                                 set_editLinkedAccount(i.title);
-                                set_editLinkedAccountText(i.active);
+                                set_editLinkedAccountUrl(i.active);
                               }}
                             >
                               {i.active ? <ClearIcon /> : <AddIcon />}
