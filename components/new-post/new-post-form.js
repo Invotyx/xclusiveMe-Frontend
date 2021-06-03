@@ -118,6 +118,7 @@ export default function NewPostForm({ afterSave }) {
 
   const removeImageHandler = tile => {
     set_TileData(tileData.filter(t => t !== tile));
+    set_FileObj(fileObj.filter(f => f.url !== tile));
   };
 
   return (
