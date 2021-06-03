@@ -131,6 +131,7 @@ export default function Home(props) {
   const saveLinks = (e, link) => {
     e.preventDefault();
     let linkx = links.slice();
+    linkx[linkx.indexOf(link)].url = editLinkedAccountUrl;
     linkx = links.map(l => Object.assign({}, l, { icon: undefined }));
     dispatch(
       auth.updateProfile({
@@ -138,7 +139,6 @@ export default function Home(props) {
           links: linkx,
         },
         callback: () => {
-          linkx[linkx.indexOf(link)].url = editLinkedAccountUrl;
           set_editLinkedAccount(null);
         },
       })
