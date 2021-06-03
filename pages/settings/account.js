@@ -43,25 +43,21 @@ const linkedAccounts = [
   {
     url: '#',
     title: 'Twitter',
-    active: 'vdotl@gmail.com',
     icon: <Image width={20} height={20} src='/twitter.svg' />,
   },
   {
     url: '#',
     title: 'Google',
-    active: '',
     icon: <Image width={20} height={20} src='/google.svg' />,
   },
   {
     url: '#',
     title: 'Facebook',
-    active: '',
     icon: <FacebookIcon />,
   },
   {
     url: '#',
     title: 'Website',
-    active: '',
     icon: <LinkIcon />,
   },
 ];
@@ -133,7 +129,7 @@ export default function Home(props) {
     e.preventDefault();
     let links = linkedAccounts.slice();
     links = linkedAccounts.map(l =>
-      Object.assign({}, l, { active: undefined, icon: undefined })
+      Object.assign({}, l, { icon: undefined })
     );
     dispatch(
       auth.updateProfile({
@@ -141,7 +137,7 @@ export default function Home(props) {
           links,
         },
         callback: () => {
-          linkedAccounts[linkedAccounts.indexOf(index)].active =
+          linkedAccounts[linkedAccounts.indexOf(index)].url =
             editLinkedAccountUrl;
           set_editLinkedAccount(null);
         },
@@ -255,7 +251,7 @@ export default function Home(props) {
                                   </Box>
                                 </Box>
                               ) : (
-                                i.active
+                                i.url
                               )}
                             </>
                           }
@@ -265,10 +261,10 @@ export default function Home(props) {
                             <IconButton
                               onClick={() => {
                                 set_editLinkedAccount(i.title);
-                                set_editLinkedAccountUrl(i.active);
+                                set_editLinkedAccountUrl(i.url);
                               }}
                             >
-                              {i.active ? <ClearIcon /> : <AddIcon />}
+                              {i.url ? <ClearIcon /> : <AddIcon />}
                             </IconButton>
                           )}
                         </ListItemSecondaryAction>
