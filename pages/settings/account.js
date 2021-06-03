@@ -88,7 +88,7 @@ export default function Home(props) {
       set_email(currentUser.email);
       set_phone(currentUser.phoneNumber);
       set_verificationViaSms(currentUser.fa2);
-      setLinks(currentUser.profile.links);
+      setLinks(currentUser.profile.links || linkedAccounts);
     }
   }, [currentUser]);
   useEffect(() => {
@@ -218,7 +218,7 @@ export default function Home(props) {
               <Box mb={4}>
                 <UppercaseInputLabel>Linked Accounts</UppercaseInputLabel>
                 <List>
-                  {(links || linkedAccounts).map((i, j) => (
+                  {links?.map((i, j) => (
                     <Box mb={1} key={`linkedAccounts${j}`}>
                       <ListItem selected={true}>
                         {i.icon && <ListItemIcon>{i.icon}</ListItemIcon>}
