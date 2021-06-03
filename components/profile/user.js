@@ -141,12 +141,12 @@ export default function Profile({
                     {profileData?.fullName || '(no name)'}
                   </Typography>
                 </Box>
-                <IconButton>
-                  <CreateIcon fontSize='small' />
-                </IconButton>
-                <IconButton>
-                  <MoreVertIcon fontSize='small' />
-                </IconButton>
+                {me && (
+                  <>
+                    <UpdateProfile />
+                    <UpdateCoverImage2 />
+                  </>
+                )}
               </Toolbar>
             </Box>
           </AppBar>
