@@ -18,12 +18,14 @@ export default function NothingHere({ me }) {
       </Box>
       {!me && (
         <>
-      <Box mb={2}>
-        <Typography gutterBottom color='textSecondary' variant='caption'>
-          Looks like you need to start following people here
-        </Typography>
-      </Box>
-      <NormalCaseButton variant='outlined'>Let’s find people</NormalCaseButton>
+          <Box mb={2}>
+            <Typography gutterBottom color='textSecondary' variant='caption'>
+              Looks like you need to start following people here
+            </Typography>
+          </Box>
+          <NormalCaseButton variant='outlined'>
+            Let’s find people
+          </NormalCaseButton>
         </>
       )}
     </Box>
