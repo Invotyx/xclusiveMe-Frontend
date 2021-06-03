@@ -19,7 +19,8 @@ export default function PostMedia({ media }) {
           title='no media'
         />
       )}
-      {(media || media.length > 0) &&
+      {media &&
+        media.length > 0 &&
         media.map((m, i) =>
           m.type.indexOf('video') !== -1 ? (
             <PostMediaVideo src={m.url} />
