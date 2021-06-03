@@ -3,7 +3,7 @@ import Typography from '@material-ui/core/Typography';
 import NormalCaseButton from '../NormalCaseButton';
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   media: {
     height: 0,
   },
