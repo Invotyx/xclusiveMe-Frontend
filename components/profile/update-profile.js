@@ -90,12 +90,12 @@ export default function FormDialog() {
               onChange={e => set_gender(e.target.value)}
               row
             >
+              <FormControlLabel value='male' control={<Radio />} label='Male' />
               <FormControlLabel
                 value='female'
                 control={<Radio />}
                 label='Female'
               />
-              <FormControlLabel value='male' control={<Radio />} label='Male' />
             </RadioGroup>
           </FormControl>
           <TextField
