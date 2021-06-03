@@ -128,7 +128,7 @@ export default function Home(props) {
   const handleLogOutAllSessions = () => {
     dispatch(auth.expireAllSessions());
   };
-  const saveLinks = (e, index) => {
+  const saveLinks = (e, link) => {
     e.preventDefault();
     let links = linkedAccounts.slice();
     links = linkedAccounts.map(l =>
@@ -140,7 +140,7 @@ export default function Home(props) {
           links,
         },
         callback: () => {
-          linkedAccounts[linkedAccounts.indexOf(index)].url =
+          linkedAccounts[linkedAccounts.indexOf(link)].url =
             editLinkedAccountUrl;
           set_editLinkedAccount(null);
         },
