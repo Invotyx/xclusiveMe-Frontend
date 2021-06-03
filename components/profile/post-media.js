@@ -10,7 +10,7 @@ const useStyles = makeStyles(theme => ({
 }));
 function MediaElement({ m }) {
   const classes = useStyles();
-  return m.type.indexOf('video') !== -1 ? (
+  return m.type && m.type.indexOf('video') !== -1 ? (
     <PostMediaVideo src={m.url} />
   ) : (
     <CardMedia className={classes.media} image={m.url} title='post media' />
