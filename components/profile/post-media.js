@@ -1,5 +1,6 @@
 import CardMedia from '@material-ui/core/CardMedia';
 import { makeStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
 import PostMediaVideo from './post-media-video';
 
 const useStyles = makeStyles(theme => ({
@@ -22,7 +23,18 @@ export default function PostMedia({ media }) {
       {(!media || media.length === 0) && (
         <MediaElement m={{ url: '/no-media.jpg' }} />
       )}
-      {media && media.length > 0 && media.map((m, i) => <MediaElement m={m} />)}
+      {media && media.length > 0 && (
+        <Grid container>
+          <Grid item xs={12}>
+            <MediaElement m={media[0]} />
+          </Grid>
+          {media.slice(1).map((m, i) => (
+            <Grid item xs={12} md={4} key={`media${i}`}>
+              <MediaElement m={m} />
+            </Grid>
+          ))}
+        </Grid>
+      )}
     </>
   );
 }
