@@ -133,9 +133,11 @@ export default function Profile({
           <AppBar position='relative' color='transparent' elevation={0}>
             <Box clone mt={2}>
               <Toolbar>
-                <IconButton>
-                  <ArrowBackIosIcon fontSize='small' />
-                </IconButton>
+                <NextLink passHref href='/explore'>
+                  <IconButton>
+                    <ArrowBackIosIcon fontSize='small' />
+                  </IconButton>
+                </NextLink>
                 <Box flex={1}>
                   <Typography>
                     {profileData?.fullName || '(no name)'}
