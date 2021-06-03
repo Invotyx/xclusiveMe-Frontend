@@ -336,7 +336,7 @@ export default function Profile({
                               ))}
                             </Grid>
                           ) : (
-                            <NothingHere />
+                            <NothingHere me={me} />
                           )}
                         </Box>
                       </TabPanel>
