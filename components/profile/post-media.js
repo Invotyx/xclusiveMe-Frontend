@@ -17,15 +17,10 @@ function MediaElement({ m }) {
   );
 }
 export default function PostMedia({ media }) {
-  const classes = useStyles();
   return (
     <>
       {(!media || media.length === 0) && (
-        <CardMedia
-          className={classes.media}
-          image='/no-media.jpg'
-          title='no media'
-        />
+        <MediaElement m={{ url: '/no-media.jpg' }} />
       )}
       {media && media.length > 0 && media.map((m, i) => <MediaElement m={m} />)}
     </>
