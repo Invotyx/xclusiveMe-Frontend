@@ -267,8 +267,8 @@ export default function Profile({
                     <ListItemText>
                       <TabPanel value={tab} index={0}>
                         <Box
-                          ml={{ xs: 2, sm: 2, md: 8 }}
-                          mr={{ xs: 2, sm: 2, md: 8 }}
+                          ml={{ xs: 0, sm: 0, md: 8 }}
+                          mr={{ xs: 0, sm: 0, md: 8 }}
                         >
                           {subscriptionPlans && (
                             <Box
