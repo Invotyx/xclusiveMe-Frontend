@@ -1,5 +1,5 @@
 import { put, call, takeLatest, all } from 'redux-saga/effects';
-import { useRouter } from 'next/router';
+import Router from 'next/router';
 
 import { AUTH } from '../actions/auth/types';
 
@@ -87,7 +87,7 @@ function* handleRefreshToken(action) {
       }
     } else {
       yield call(logout);
-      yield put(useRouter().push('/login')); // TODO: needs to be updated
+      yield call(Router.push, '/login');
     }
   } catch (e) {
     console.log(e);
@@ -310,7 +310,7 @@ function* handleResetPassword(action) {
   try {
     const { token, email, password } = action.payload;
     const { data } = yield call(resetPassword, email, password, token);
-    yield put(useRouter().push(`/login`)); // TODO: needs to be updated
+    yield call(Router.push, `/login`);
     yield put(
       snackbar.update({
         open: true,
@@ -334,10 +334,10 @@ function* handleResetPasswordTokenVerify(action) {
   try {
     const { token, email } = action.payload;
     const { data } = yield call(verifyForgotPasswordToken, token, email);
-    yield put(useRouter().push(`/reset-password/${token}/${email}/proceed`)); // TODO: needs to be updated
+    yield call(Router.push, `/reset-password/${token}/${email}/proceed`);
   } catch (e) {
     console.log(e);
-    yield put(useRouter().push('/login')); // TODO: needs to be updated
+    yield call(Router.push, '/login');
     yield put(
       snackbar.update({
         open: true,
