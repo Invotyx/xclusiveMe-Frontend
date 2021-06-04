@@ -36,7 +36,7 @@ export async function resendOtp(sessionId) {
 }
 
 export async function forgotPassword(email) {
-  return apiClient.get(`${SERVER_ADDRESS}/users/forgot-password/${email}`);
+  return apiClient.get(`${SERVER_ADDRESS}/auth/forgot-password/${email}`);
 }
 
 export async function me() {
