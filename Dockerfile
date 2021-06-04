@@ -10,11 +10,14 @@ ARG REACT_APP_BASE_URL
 ENV BACKEND_URL=${REACT_APP_BASE_URL}
 ENV STRIPE_KEY=pk_test_51HtIzzBV9RJUxo9gopHOJW9XVDLKXU8D99DC6nkRn7hoOqlz6096MYeLUyoR77PJL8pnIrtHYRozUlazvej389dT00a9my74EQ
 
-# Copy all files
-COPY ./ ./
+COPY ./package.json ./
+COPY ./yarn.lock ./
 
 # Install dependencies
 RUN yarn install
+
+# Copy all files
+COPY ./ ./
 
 # Build app
 RUN yarn run build
