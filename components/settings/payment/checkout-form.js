@@ -18,7 +18,7 @@ export default function CheckoutForm(props) {
   const [_disabled, set_disabled] = useState('');
   const dispatch = useDispatch();
 
-  const savePaymentMethod = (token) => {
+  const savePaymentMethod = token => {
     dispatch(
       paymentMethod.save({
         name,
@@ -32,7 +32,7 @@ export default function CheckoutForm(props) {
     );
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async event => {
     // We don't want to let default form submission happen here,
     // which would refresh the page.
     event.preventDefault();
@@ -45,25 +45,25 @@ export default function CheckoutForm(props) {
 
     const card = elements.getElement(CardElement);
     set_disabled(true);
-      const result = await stripe.createToken(card);
+    const result = await stripe.createToken(card);
 
-      if (result.error) {
-        set_disabled(false);
-        // Show error to your customer.
-        console.log(result.error.message);
-        dispatch(
-          snackbar.update({
-            open: true,
-            message: result.error.message,
-            severity: 'error',
-          })
-        );
-      }
-      if (result.token) {
-        set_disabled(false);
-        setToken(result.token.id);
-        savePaymentMethod(result.token.id);
-      }
+    if (result.error) {
+      set_disabled(false);
+      // Show error to your customer.
+      console.log(result.error.message);
+      dispatch(
+        snackbar.update({
+          open: true,
+          message: result.error.message,
+          severity: 'error',
+        })
+      );
+    }
+    if (result.token) {
+      set_disabled(false);
+      setToken(result.token.id);
+      savePaymentMethod(result.token.id);
+    }
     setTimeout(() => {
       set_disabled(false);
     }, 2000);
@@ -84,7 +84,7 @@ export default function CheckoutForm(props) {
             label='Title'
             fullWidth
             value={name}
-            onChange={(e) => setName(e.target.value)}
+            onChange={e => setName(e.target.value)}
           />
         </Box>
         <Box
