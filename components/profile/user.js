@@ -188,7 +188,11 @@ export default function Profile({
                     }
                     action={
                       <Box display='flex'>
-                        <Box mx={2} width={90}>
+                        <Box
+                          ml={{ xs: 0, sm: 0, md: 2 }}
+                          mr={{ xs: 0, sm: 0, md: 2 }}
+                          width={90}
+                        >
                           <NextLink passHref href='#'>
                             <ListItem component='a' disableGutters>
                               <Box clone textAlign='center'>
@@ -200,7 +204,11 @@ export default function Profile({
                             </ListItem>
                           </NextLink>
                         </Box>
-                        <Box mx={2} width={90}>
+                        <Box
+                          ml={{ xs: 0, sm: 0, md: 2 }}
+                          mr={{ xs: 0, sm: 0, md: 2 }}
+                          width={90}
+                        >
                           <NextLink passHref href='#'>
                             <ListItem component='a' disableGutters>
                               <Box clone textAlign='center'>
@@ -212,7 +220,11 @@ export default function Profile({
                             </ListItem>
                           </NextLink>
                         </Box>
-                        <Box mx={2} width={90}>
+                        <Box
+                          ml={{ xs: 0, sm: 0, md: 2 }}
+                          mr={{ xs: 0, sm: 0, md: 2 }}
+                          width={90}
+                        >
                           <NextLink passHref href='#'>
                             <ListItem component='a' disableGutters>
                               <Box clone textAlign='center'>
