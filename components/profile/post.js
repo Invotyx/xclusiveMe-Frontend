@@ -50,9 +50,16 @@ export default function Post({ post, profileData, altHeader }) {
               <NextLink href={`/x/${profileData?.username}`} passHref>
                 <Link>{profileData?.fullName || '(no name)'}</Link>
               </NextLink>
+              <Typography variant='caption'>
+                {moment(post.createdAt).format('MMMM DD, YYYY')}
+              </Typography>
             </>
           }
-          subheader={moment(post.createdAt).format('MMMM DD, YYYY')}
+          subheader={
+            <Typography variant='caption' class='textSecondary'>
+              {profileData?.profile?.headline}
+            </Typography>
+          }
         />
       )}
       <CardContent>
