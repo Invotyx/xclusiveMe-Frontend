@@ -97,6 +97,7 @@ export default function Profile({
   const classes = useStyles();
   const theme = useTheme();
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
+  const verySmall = useMediaQuery('(max-width:320px)');
 
   useEffect(() => {
     set_numberOfPosts(numberOfPosts);
@@ -191,7 +192,10 @@ export default function Profile({
                       </ProfileImage>
                     }
                     action={
-                      <Box display='flex'>
+                      <Box
+                        display='flex'
+                        style={verySmall ? { zoom: 0.8 } : {}}
+                      >
                         <Box
                           ml={{ xs: 0, sm: 0, md: 2 }}
                           mr={{ xs: 0, sm: 0, md: 2 }}
