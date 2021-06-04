@@ -40,10 +40,10 @@ import { AppBar, Toolbar } from '@material-ui/core';
 import { subscription } from '../../actions/subscription';
 import { Add } from '@material-ui/icons';
 import { useDispatch } from 'react-redux';
-import { currencySymbol } from '../../services/currencySymbol';
 import Videos from './videos';
 import NormalCaseButton from '../NormalCaseButton';
 import NothingHere from './nothing-here';
+import { SubscribeUser } from './subscribe-button';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -286,18 +286,10 @@ export default function Profile({
                               </Box>
 
                               {subscriptionPlans.price > 0 ? (
-                                <NormalCaseButton
-                                  startIcon={`${currencySymbol}${subscriptionPlans.price}`}
-                                  size='small'
-                                  variant='outlined'
-                                  onClick={e =>
-                                    confirm(
-                                      'Are you sure you want to subscribe?'
-                                    ) && handleFollow(e)
-                                  }
-                                >
-                                  <span>Subscribe</span>
-                                </NormalCaseButton>
+                                <SubscribeUser
+                                  price={subscriptionPlans.price}
+                                  handleFollow={handleFollow}
+                                />
                               ) : (
                                 <NormalCaseButton
                                   startIcon={<Add />}
