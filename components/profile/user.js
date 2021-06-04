@@ -190,7 +190,7 @@ export default function Profile({
                       <Box display='flex'>
                         <Box mx={2} width={90}>
                           <NextLink passHref href='#'>
-                            <ListItem component='a'>
+                            <ListItem component='a' disableGutters>
                               <Box clone textAlign='center'>
                                 <ListItemText
                                   primary={_numberOfPosts || 0}
@@ -202,7 +202,7 @@ export default function Profile({
                         </Box>
                         <Box mx={2} width={90}>
                           <NextLink passHref href='#'>
-                            <ListItem component='a'>
+                            <ListItem component='a' disableGutters>
                               <Box clone textAlign='center'>
                                 <ListItemText
                                   primary={followers || 0}
@@ -214,7 +214,7 @@ export default function Profile({
                         </Box>
                         <Box mx={2} width={90}>
                           <NextLink passHref href='#'>
-                            <ListItem component='a'>
+                            <ListItem component='a' disableGutters>
                               <Box clone textAlign='center'>
                                 <ListItemText
                                   primary={followings || 0}
