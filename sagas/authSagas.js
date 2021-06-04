@@ -519,6 +519,10 @@ function* watchAuthSagas() {
     takeLatest(AUTH.UPLOAD_COVER, handleUploadCover),
     takeLatest(AUTH.FORGOT_PASSWORD, handleForgotPassword),
     takeLatest(AUTH.RESET_PASSWORD, handleResetPassword),
+    takeLatest(
+      AUTH.RESET_PASSWORD_TOKEN_VERIFY,
+      handleResetPasswordTokenVerify
+    ),
     takeLatest(AUTH.GET_SESSIONS, handleGetSessions),
     takeLatest(AUTH.EXPIRE_ALL_SESSIONS, handleExpireAllSessions),
     takeLatest(AUTH.ME, handleMe),
