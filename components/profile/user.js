@@ -282,6 +282,33 @@ export default function Profile({
                 </Card>
               </Grid>
               <Grid item xs={12}>
+                {subscriptionPlans && (
+                  <Box bgcolor='#111' display='flex' p={2} alignItems='center'>
+                    <Box flexGrow={1}>
+                      <Typography>
+                        Follow to get posts in your News Feed.
+                      </Typography>
+                    </Box>
+
+                    {subscriptionPlans.price > 0 ? (
+                      <SubscribeUser
+                        price={subscriptionPlans.price}
+                        handleFollow={handleFollow}
+                      />
+                    ) : (
+                      <NormalCaseButton
+                        startIcon={<Add />}
+                        size='small'
+                        variant='outlined'
+                        onClick={e => handleFollow(e)}
+                      >
+                        <span>Follow</span>
+                      </NormalCaseButton>
+                    )}
+                  </Box>
+                )}
+              </Grid>
+              <Grid item xs={12}>
                 <List disablePadding>
                   <ListSubheader disableGutters>
                     <Paper>
@@ -306,36 +333,6 @@ export default function Profile({
                           ml={{ xs: 0, sm: 0, md: 8 }}
                           mr={{ xs: 0, sm: 0, md: 8 }}
                         >
-                          {subscriptionPlans && (
-                            <Box
-                              bgcolor='#111'
-                              display='flex'
-                              p={2}
-                              alignItems='center'
-                            >
-                              <Box flexGrow={1}>
-                                <Typography>
-                                  Follow to get posts in your News Feed.
-                                </Typography>
-                              </Box>
-
-                              {subscriptionPlans.price > 0 ? (
-                                <SubscribeUser
-                                  price={subscriptionPlans.price}
-                                  handleFollow={handleFollow}
-                                />
-                              ) : (
-                                <NormalCaseButton
-                                  startIcon={<Add />}
-                                  size='small'
-                                  variant='outlined'
-                                  onClick={e => handleFollow(e)}
-                                >
-                                  <span>Follow</span>
-                                </NormalCaseButton>
-                              )}
-                            </Box>
-                          )}
                           <CardHeader
                             action={
                               <>
