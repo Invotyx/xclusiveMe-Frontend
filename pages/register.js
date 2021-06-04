@@ -56,9 +56,9 @@ export default function SignInSide() {
       dispatch(
         auth.register({
           saveData: {
-            fullName,
-            username,
-            email,
+            fullName: fullName.trim(),
+            username: username.trim(),
+            email: email.trim(),
             password,
             confirmPassword,
             phoneNumber: `+${countryCallingCode}${phoneNumber}`,
