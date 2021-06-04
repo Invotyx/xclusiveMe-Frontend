@@ -283,7 +283,14 @@ export default function Profile({
               </Grid>
               <Grid item xs={12}>
                 {subscriptionPlans && (
-                  <Box bgcolor='#111' display='flex' p={2} alignItems='center'>
+                  <Box
+                    bgcolor='#111'
+                    display='flex'
+                    p={2}
+                    alignItems='center'
+                    my={2}
+                    border='1px solid #222'
+                  >
                     <Box flexGrow={1}>
                       <Typography>
                         Follow to get posts in your News Feed.
