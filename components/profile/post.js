@@ -56,7 +56,7 @@ export default function Post({ post, profileData, altHeader }) {
             </>
           }
           subheader={
-            <Typography variant='caption' class='textSecondary'>
+            <Typography variant='caption' className='textSecondary'>
               {profileData?.profile?.headline}
             </Typography>
           }
