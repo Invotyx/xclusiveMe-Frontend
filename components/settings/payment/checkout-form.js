@@ -2,12 +2,15 @@ import { TextField, Typography } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { paymentMethod } from '../../../actions/payment-method';
 import { snackbar } from '../../../actions/snackbar';
 import CardSection from './card-section';
-import { fetchingSelector } from '../../../selectors/paymentMethodSelector';
+import {
+  fetchingSelector,
+  errorSelector,
+} from '../../../selectors/paymentMethodSelector';
 
 export default function CheckoutForm(props) {
   const fetching = useSelector(fetchingSelector);
@@ -17,6 +20,16 @@ export default function CheckoutForm(props) {
   const [token, setToken] = useState(null);
   const [_disabled, set_disabled] = useState('');
   const dispatch = useDispatch();
+  const [validationErrors, setValidationErrors] = useState({});
+  const error = useSelector(errorSelector);
+
+  useEffect(() => {
+    if (error?.response?.data?.errors) {
+      setValidationErrors(error.response.data.errors);
+    } else {
+      setValidationErrors({});
+    }
+  }, [error]);
 
   const savePaymentMethod = token => {
     dispatch(
@@ -83,6 +96,12 @@ export default function CheckoutForm(props) {
             name='name'
             label='Title'
             fullWidth
+            error={validationErrors && validationErrors.name}
+            helperText={
+              validationErrors.name
+                ? Object.values(validationErrors.name).join(', ')
+                : ''
+            }
             value={name}
             onChange={e => setName(e.target.value)}
           />
