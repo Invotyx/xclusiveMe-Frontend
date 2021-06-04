@@ -42,6 +42,8 @@ import Videos from './videos';
 import NormalCaseButton from '../NormalCaseButton';
 import NothingHere from './nothing-here';
 import { SubscribeUser } from './subscribe-button';
+import { useTheme } from '@material-ui/core/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -93,6 +95,8 @@ export default function Profile({
   const [imagesData, set_imagesData] = React.useState(null);
   const [videosData, set_videosData] = React.useState(null);
   const classes = useStyles();
+  const theme = useTheme();
+  const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
 
   useEffect(() => {
     set_numberOfPosts(numberOfPosts);
@@ -191,7 +195,7 @@ export default function Profile({
                         <Box
                           ml={{ xs: 0, sm: 0, md: 2 }}
                           mr={{ xs: 0, sm: 0, md: 2 }}
-                          width={90}
+                          width={isSmall ? 70 : 90}
                         >
                           <NextLink passHref href='#'>
                             <ListItem component='a' disableGutters>
@@ -207,7 +211,7 @@ export default function Profile({
                         <Box
                           ml={{ xs: 0, sm: 0, md: 2 }}
                           mr={{ xs: 0, sm: 0, md: 2 }}
-                          width={90}
+                          width={isSmall ? 70 : 90}
                         >
                           <NextLink passHref href='#'>
                             <ListItem component='a' disableGutters>
@@ -223,7 +227,7 @@ export default function Profile({
                         <Box
                           ml={{ xs: 0, sm: 0, md: 2 }}
                           mr={{ xs: 0, sm: 0, md: 2 }}
-                          width={90}
+                          width={isSmall ? 70 : 90}
                         >
                           <NextLink passHref href='#'>
                             <ListItem component='a' disableGutters>
