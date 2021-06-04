@@ -269,13 +269,15 @@ export default function Profile({
                     }
                   />
                   <CardContent>
-                    <Typography
-                      variant='body2'
-                      color='textSecondary'
-                      component='p'
-                    >
-                      {profileData?.profile?.description || '(no bio)'}
-                    </Typography>
+                    <Box px={2}>
+                      <Typography
+                        variant='body2'
+                        color='textSecondary'
+                        component='p'
+                      >
+                        {profileData?.profile?.description || '(no bio)'}
+                      </Typography>
+                    </Box>
                   </CardContent>
                 </Card>
               </Grid>
