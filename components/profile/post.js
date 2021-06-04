@@ -46,9 +46,11 @@ export default function Post({ post, profileData, altHeader }) {
             </IconButton>
           }
           title={
-            <NextLink href={`/x/${profileData?.username}`} passHref>
-              <Link>{profileData?.fullName || '(no name)'}</Link>
-            </NextLink>
+            <>
+              <NextLink href={`/x/${profileData?.username}`} passHref>
+                <Link>{profileData?.fullName || '(no name)'}</Link>
+              </NextLink>
+            </>
           }
           subheader={moment(post.createdAt).format('MMMM DD, YYYY')}
         />
