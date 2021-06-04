@@ -44,7 +44,7 @@ export default function Home() {
         </Head>
         <Container maxWidth='md' disableGutters>
           <Grid container className={classes.root} spacing={2}>
-            <Grid item xs={8}>
+            <Grid item xs={12} md={8}>
               {posts && posts.length > 0 ? (
                 posts.map((post, i) => (
                   <Box key={i} mb={2}>
@@ -55,7 +55,7 @@ export default function Home() {
                 <NothingHere />
               )}
             </Grid>
-            <Grid item xs={4}>
+            <Grid item xs={12} md={4}>
               <Typography>Suggestions For You</Typography>
               <List>
                 <ListItem>
