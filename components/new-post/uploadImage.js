@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { post } from '../../actions/post';
 import WallpaperOutlinedIcon from '@material-ui/icons/WallpaperOutlined';
 import IconButton from '@material-ui/core/IconButton';
+import Box from '@material-ui/core/Box';
 
 export default function FormDialog({
   imageHandler,
