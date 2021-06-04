@@ -33,6 +33,7 @@ import { useSelector } from 'react-redux';
 import Layout from '../../components/layouts/layout-settings';
 import { fetchingSelector } from '../../selectors/authSelector';
 import { errorSelector } from '../../selectors/authSelector';
+import { isValidHttpUrl } from '../../services/helper';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -129,6 +130,10 @@ export default function Home(props) {
   };
   const saveLinks = (e, link) => {
     e.preventDefault();
+    if (!isValidHttpUrl(editLinkedAccountUrl)) {
+      setValidationErrors({ links: { invalidUrl: 'Url is invalid' } });
+      return;
+    }
     let linkx = links.slice();
     linkx[linkx.indexOf(link)].url = editLinkedAccountUrl;
     linkx = links.map(l => Object.assign({}, l, { icon: undefined }));
@@ -236,6 +241,17 @@ export default function Home(props) {
                                       size='small'
                                       name='phone'
                                       type='phone'
+                                      error={
+                                        validationErrors &&
+                                        validationErrors.links
+                                      }
+                                      helperText={
+                                        validationErrors.links
+                                          ? Object.values(
+                                              validationErrors.links
+                                            ).join(', ')
+                                          : ''
+                                      }
                                     />
                                   </Box>
                                   <Box>
