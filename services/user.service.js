@@ -92,9 +92,7 @@ export async function resetPassword(email, password, token) {
 }
 
 export async function verifyForgotPasswordToken(token, email) {
-  return apiClient.get(
-    `${SERVER_ADDRESS}/users/verify-forgot-password?token=${token}&email=${email}`
-  );
+  return apiClient.get(`${SERVER_ADDRESS}/auth/verify-token/${token}/${email}`);
 }
 
 export async function logout() {
