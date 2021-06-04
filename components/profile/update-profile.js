@@ -119,15 +119,17 @@ export default function FormDialog() {
             name='description'
             label='Description'
           />
-          <TextField
-            value={headline}
-            onChange={e => set_headline(e.target.value)}
-            variant='outlined'
-            margin='normal'
-            fullWidth
-            name='headline'
-            label='Headline'
-          />
+          {false && (
+            <TextField
+              value={headline}
+              onChange={e => set_headline(e.target.value)}
+              variant='outlined'
+              margin='normal'
+              fullWidth
+              name='headline'
+              label='Headline'
+            />
+          )}
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color='primary'>
