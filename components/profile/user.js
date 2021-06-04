@@ -260,6 +260,13 @@ export default function Profile({
                         </Typography>
                       </Box>
                     }
+                    subheader={
+                      <Box display={{ xs: 'none', sm: 'none', md: 'flex' }}>
+                        <Typography variant='body2' className='textSecondary'>
+                          @{profileData?.username}
+                        </Typography>
+                      </Box>
+                    }
                   />
                   <CardContent>
                     <Typography
