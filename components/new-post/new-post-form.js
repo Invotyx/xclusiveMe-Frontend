@@ -253,23 +253,26 @@ export default function NewPostForm({ afterSave }) {
               <Box mx={1}>
                 <Box clone color='#666'>
                   {_show_price_input ? (
-                    <TextField
-                      name='price'
-                      type='number'
-                      variant='outlined'
-                      margin='dense'
-                      InputProps={{
-                        startAdornment: <LocalOfferOutlinedIcon />,
-                        endAdornment: <NewPostPriceHelpPopover />,
-                      }}
-                      style={{
-                        width: '140px',
-                        margin: 0,
-                        marginTop: '-5px',
-                      }}
-                      value={price}
-                      onChange={e => set_price(e.target.value)}
-                    />
+                    <>
+                      <TextField
+                        name='price'
+                        type='number'
+                        variant='outlined'
+                        margin='dense'
+                        InputProps={{
+                          startAdornment: <LocalOfferOutlinedIcon />,
+                          endAdornment: <NewPostPriceHelpPopover />,
+                        }}
+                        style={{
+                          width: '140px',
+                          margin: 0,
+                          marginTop: '-5px',
+                        }}
+                        value={price}
+                        onChange={e => set_price(e.target.value)}
+                        onMouseUp={handleMouseUp}
+                      />
+                    </>
                   ) : (
                     <IconButton
                       size='small'
