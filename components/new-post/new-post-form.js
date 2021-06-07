@@ -18,12 +18,11 @@ import GraphicEqRoundedIcon from '@material-ui/icons/GraphicEqRounded';
 import LocalOfferOutlinedIcon from '@material-ui/icons/LocalOfferOutlined';
 import AddIcon from '@material-ui/icons/Add';
 import NewPostPriceHelpPopover from './new-post-price-help-popover';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { post } from '../../actions/post';
 import UploadImage from './uploadImage';
 import UploadVideo from './uploadVideo';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { currentUserSelector } from '../../selectors/authSelector';
 
 const OutlinedInput = withStyles(() => ({
   notchedOutline: {
@@ -55,7 +54,6 @@ const GridListTileBar = withStyles(() => ({
 
 export default function NewPostForm({ afterSave }) {
   const dispatch = useDispatch();
-  const u = useSelector(currentUserSelector);
   const [disabled, set_disabled] = React.useState(false);
   const [_show_price_input, set_show_price_input] = React.useState(false);
   const [price, set_price] = React.useState(false);
