@@ -251,41 +251,41 @@ export default function NewPostForm({ afterSave }) {
                 </Box>
               </Box>
               <Box mx={1}>
-                <Box clone color='#666'>
-                  {_show_price_input ? (
-                    <>
-                      <TextField
-                        name='price'
-                        type='number'
-                        variant='outlined'
-                        margin='dense'
-                        InputProps={{
-                          startAdornment: (
-                            <>
-                              <LocalOfferOutlinedIcon />
-                              {currencySymbol}
-                            </>
-                          ),
-                        }}
-                        style={{
-                          width: '140px',
-                          margin: 0,
-                          marginTop: '-5px',
-                        }}
-                        value={price}
-                        onChange={e => set_price(e.target.value)}
-                        onMouseUp={handleMouseUp}
-                      />
-                    </>
-                  ) : (
+                {_show_price_input ? (
+                  <>
+                    <TextField
+                      name='price'
+                      type='number'
+                      variant='outlined'
+                      margin='dense'
+                      InputProps={{
+                        startAdornment: (
+                          <>
+                            <LocalOfferOutlinedIcon />
+                            {currencySymbol}
+                          </>
+                        ),
+                      }}
+                      style={{
+                        width: '140px',
+                        margin: 0,
+                        marginTop: '-5px',
+                      }}
+                      value={price}
+                      onChange={e => set_price(e.target.value)}
+                      onMouseUp={handleMouseUp}
+                    />
+                  </>
+                ) : (
+                  <Box clone color='#666'>
                     <IconButton
                       size='small'
                       onClick={() => set_show_price_input(true)}
                     >
                       <LocalOfferOutlinedIcon />
                     </IconButton>
-                  )}
-                </Box>
+                  </Box>
+                )}
               </Box>
             </Box>
           </CardContent>
