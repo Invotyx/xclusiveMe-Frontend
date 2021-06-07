@@ -47,9 +47,13 @@ export default function Post({ post, profileData, altHeader }) {
           }
           title={
             <>
-              <NextLink href={`/x/${profileData?.username}`} passHref>
-                <Link>{profileData?.fullName || '(no name)'}</Link>
-              </NextLink>
+              <Box clone mr={1}>
+                <Typography variant='body2' component='span'>
+                  <NextLink href={`/x/${profileData?.username}`} passHref>
+                    <Link>{profileData?.fullName || '(no name)'}</Link>
+                  </NextLink>
+                </Typography>
+              </Box>
               <Typography variant='caption' className='textSecondary'>
                 {moment(post.createdAt).format('MMMM DD, YYYY')}
               </Typography>
