@@ -17,7 +17,6 @@ import CameraAltOutlinedIcon from '@material-ui/icons/CameraAltOutlined';
 import GraphicEqRoundedIcon from '@material-ui/icons/GraphicEqRounded';
 import LocalOfferOutlinedIcon from '@material-ui/icons/LocalOfferOutlined';
 import AddIcon from '@material-ui/icons/Add';
-import NewPostPriceHelpPopover from './new-post-price-help-popover';
 import { useDispatch } from 'react-redux';
 import { post } from '../../actions/post';
 import UploadImage from './uploadImage';
@@ -261,7 +260,6 @@ export default function NewPostForm({ afterSave }) {
                         margin='dense'
                         InputProps={{
                           startAdornment: <LocalOfferOutlinedIcon />,
-                          endAdornment: <NewPostPriceHelpPopover />,
                         }}
                         style={{
                           width: '140px',
