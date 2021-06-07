@@ -56,7 +56,8 @@ export default function FormDialog() {
     setOpen(false);
     setValidationErrors({});
   };
-  const handleUpdate = () => {
+  const handleUpdate = (e) => {
+    e.preventDefault();
     if (!dob || !gender) {
       setValidationErrors({
         dob: { dob: 'must not be empty' },
@@ -93,6 +94,7 @@ export default function FormDialog() {
       >
         <DialogTitle id='form-dialog-title'>Update Profile</DialogTitle>
         <DialogContent>
+          <form onSubmit={handleUpdate}>
           <TextField
             value={fullName}
             onChange={e => set_fullName(e.target.value)}
@@ -168,6 +170,10 @@ export default function FormDialog() {
               label='Headline'
             />
           )}
+            <Button color='primary' type='submit' style={{display:'none'}}>
+              Update
+            </Button>
+          </form>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color='primary'>
