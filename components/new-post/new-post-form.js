@@ -59,7 +59,7 @@ export default function NewPostForm({ afterSave }) {
   const [price, set_price] = React.useState(false);
   const [postText, set_postText] = React.useState('');
   const [tileData, set_TileData] = React.useState([]);
-  const [fileObj, set_FileObj] = React.useState([]);
+  const [media, setMedia] = React.useState([]);
   const [progressVideo, setProgressVideo] = React.useState({ val: 0 });
   const [loadingItems, setLoadingItems] = React.useState([]);
 
@@ -73,13 +73,13 @@ export default function NewPostForm({ afterSave }) {
           price: parseFloat(price),
           postText,
           isPaid: price ? true : false,
-          media: fileObj,
+          media,
           mediaCount: 1,
         },
         callback: () => {
           afterSave && afterSave();
           set_TileData([]);
-          set_FileObj([]);
+          setMedia([]);
           set_postText('');
           dispatch(post.request());
         },
@@ -89,8 +89,8 @@ export default function NewPostForm({ afterSave }) {
 
   const imageHandler = source_url => {
     set_TileData([...tileData, source_url.url]);
-    set_FileObj([
-      ...fileObj,
+    setMedia([
+      ...media,
       {
         url: source_url.url,
         assetId: source_url.asset_id,
@@ -104,8 +104,8 @@ export default function NewPostForm({ afterSave }) {
 
   const onUploadVideo = (muxId, mediaType) => {
     set_TileData([...tileData, '/no-media.jpg']);
-    set_FileObj([
-      ...fileObj,
+    setMedia([
+      ...media,
       {
         muxId: muxId,
         type: mediaType,
@@ -115,7 +115,7 @@ export default function NewPostForm({ afterSave }) {
 
   const removeImageHandler = tile => {
     set_TileData(tileData.filter(t => t !== tile));
-    set_FileObj(fileObj.filter(f => f.url !== tile));
+    setMedia(media.filter(f => f.url !== tile));
   };
 
   return (
