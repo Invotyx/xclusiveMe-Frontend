@@ -292,7 +292,10 @@ export default function NewPostForm({ afterSave }) {
           variant='contained'
           size='large'
           startIcon={<SendIcon />}
-          disabled={disabled || !postText || postText.trim() === ''}
+          disabled={
+            disabled ||
+            ((!postText || postText.trim() === '') && media.length === 0)
+          }
         >
           Post now
         </GreenButton>
