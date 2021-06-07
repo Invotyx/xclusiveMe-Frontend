@@ -60,7 +60,6 @@ export default function NewPostForm({ afterSave }) {
   const [postText, set_postText] = React.useState('');
   const [tileData, set_TileData] = React.useState([]);
   const [fileObj, set_FileObj] = React.useState([]);
-  const [loading, set_Loading] = React.useState(false);
   const [progressVideo, setProgressVideo] = React.useState({ val: 0 });
   const [loadingItems, setLoadingItems] = React.useState([]);
 
