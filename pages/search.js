@@ -12,7 +12,11 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { makeStyles } from '@material-ui/core/styles';
 import Layout from '../components/layouts/layout-auth';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchingSelector, userDataSelector } from '../selectors/userSelector';
+import {
+  fetchingSelector,
+  searchedSelector,
+  userDataSelector,
+} from '../selectors/userSelector';
 import { user } from '../actions/user';
 import {
   Button,
@@ -38,6 +42,7 @@ const useStyles = makeStyles(theme => ({
 export default function Home() {
   const dispatch = useDispatch();
   const fetching = useSelector(fetchingSelector);
+  const searched = useSelector(searchedSelector);
   const users = useSelector(userDataSelector);
   const classes = useStyles();
   const [_search, set_search] = useState('');
@@ -65,7 +70,6 @@ export default function Home() {
                     fullWidth
                     placeholder='Search…'
                     startAdornment={<SearchIcon />}
-                    endAdornment={fetching ? <CircularProgress /> : ''}
                     value={_search}
                     onChange={e => set_search(e.target.value)}
                   />
@@ -73,6 +77,15 @@ export default function Home() {
               </form>
             </Grid>
             <Grid item xs={12}>
+              {fetching ? (
+                <CircularProgress />
+              ) : users.length === 0 && searched ? (
+                'no user found'
+              ) : !searched ? (
+                'type something to start'
+              ) : (
+                ''
+              )}
               <List>
                 {users &&
                   users.length > 0 &&
