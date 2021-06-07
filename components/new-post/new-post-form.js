@@ -120,15 +120,15 @@ export default function NewPostForm({ afterSave }) {
     setMedia(media.filter(f => f.url !== tile));
   };
 
-  const [open, setOpen] = React.useState(false);
+  const [popperOpen, setPopperOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
 
-  const handleClose = () => {
-    setOpen(false);
+  const handlePopperClose = () => {
+    setPopperOpen(false);
   };
 
-  const handleMouseUp = event => {
-    setOpen(true);
+  const handlePopperMouseUp = event => {
+    setPopperOpen(true);
     setAnchorEl(event.currentTarget);
   };
 
@@ -266,7 +266,7 @@ export default function NewPostForm({ afterSave }) {
               </Box>
               <Box mx={1}>
                 {_show_price_input ? (
-                  <div onMouseLeave={handleClose}>
+                  <div onMouseLeave={handlePopperClose}>
                     <TextField
                       name='price'
                       type='number'
@@ -287,10 +287,10 @@ export default function NewPostForm({ afterSave }) {
                       }}
                       value={price}
                       onChange={e => set_price(e.target.value)}
-                      onMouseUp={handleMouseUp}
+                      onMouseUp={handlePopperMouseUp}
                     />
                     <Popper
-                      open={open}
+                      open={popperOpen}
                       anchorEl={anchorEl}
                       transition
                       placement='top-end'
