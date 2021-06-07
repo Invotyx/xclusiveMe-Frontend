@@ -23,6 +23,8 @@ import UploadImage from './uploadImage';
 import UploadVideo from './uploadVideo';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { currencySymbol } from '../../services/currencySymbol';
+import { Fade, Popper } from '@material-ui/core';
+import { Alert, AlertTitle } from '@material-ui/lab';
 
 const OutlinedInput = withStyles(() => ({
   notchedOutline: {
@@ -116,6 +118,18 @@ export default function NewPostForm({ afterSave }) {
   const removeImageHandler = tile => {
     set_TileData(tileData.filter(t => t !== tile));
     setMedia(media.filter(f => f.url !== tile));
+  };
+
+  const [open, setOpen] = React.useState(false);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleMouseUp = event => {
+    setOpen(true);
+    setAnchorEl(event.currentTarget);
   };
 
   return (
@@ -252,7 +266,7 @@ export default function NewPostForm({ afterSave }) {
               </Box>
               <Box mx={1}>
                 {_show_price_input ? (
-                  <>
+                  <div onMouseLeave={handleClose}>
                     <TextField
                       name='price'
                       type='number'
@@ -275,7 +289,28 @@ export default function NewPostForm({ afterSave }) {
                       onChange={e => set_price(e.target.value)}
                       onMouseUp={handleMouseUp}
                     />
-                  </>
+                    <Popper
+                      open={open}
+                      anchorEl={anchorEl}
+                      transition
+                      placement='top-end'
+                      style={{
+                        zIndex: 11111,
+                        maxWidth: '450px',
+                      }}
+                    >
+                      {({ TransitionProps }) => (
+                        <Fade {...TransitionProps} timeout={350}>
+                          <Alert severity='info'>
+                            <AlertTitle>What this means</AlertTitle>
+                            Setting a Tip here means that every one of your
+                            followers will have to pay this amount to view your
+                            content.
+                          </Alert>
+                        </Fade>
+                      )}
+                    </Popper>
+                  </div>
                 ) : (
                   <Box clone color='#666'>
                     <IconButton
