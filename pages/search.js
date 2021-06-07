@@ -25,7 +25,7 @@ import {
 import { getImage } from '../services/getImage';
 import ProfileImageAvatar from '../components/profile/profile-image-avatar';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
     // marginTop: '150px',
   },
@@ -41,7 +41,7 @@ export default function Home() {
   const users = useSelector(userDataSelector);
   const classes = useStyles();
   const [_search, set_search] = useState('');
-  const handleSearch = (event) => {
+  const handleSearch = event => {
     event.preventDefault();
     dispatch(user.search({ q: _search }));
   };
@@ -67,7 +67,7 @@ export default function Home() {
                     startAdornment={<SearchIcon />}
                     endAdornment={fetching ? <CircularProgress /> : ''}
                     value={_search}
-                    onChange={(e) => set_search(e.target.value)}
+                    onChange={e => set_search(e.target.value)}
                   />
                 </Box>
               </form>
@@ -76,7 +76,7 @@ export default function Home() {
               <List>
                 {users &&
                   users.length > 0 &&
-                  users.map((u) => (
+                  users.map(u => (
                     <NextLink href={`/x/${u.username}`} key={`user${u.id}`}>
                       <Box
                         clone
