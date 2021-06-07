@@ -125,7 +125,9 @@ export default function FormDialog() {
             </RadioGroup>
 
             <FormHelperText error={validationErrors && validationErrors.gender}>
-              Must Select Gender
+              {validationErrors.gender
+                ? Object.values(validationErrors.gender).join(', ')
+                : ''}
             </FormHelperText>
           </FormControl>
           <TextField
