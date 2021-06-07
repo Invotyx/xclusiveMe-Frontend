@@ -54,13 +54,13 @@ export default function Post({ post, profileData, altHeader }) {
                   </NextLink>
                 </Typography>
               </Box>
-              <Typography variant='caption' className='textSecondary'>
+              <Typography variant='caption' color='textSecondary'>
                 {moment(post.createdAt).format('MMMM DD, YYYY')}
               </Typography>
             </>
           }
           subheader={
-            <Typography variant='caption' className='textSecondary'>
+            <Typography variant='caption' color='textSecondary'>
               @{profileData?.username}
             </Typography>
           }
