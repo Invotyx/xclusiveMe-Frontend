@@ -35,7 +35,7 @@ export default function Post({ post, profileData, altHeader }) {
               <MoreHorizIcon />
             </IconButton>
           }
-          subheader={moment(post.createdAt).format('MMMM DD, YYYY')}
+          subheader={moment(post.createdAt).fromNow()}
         />
       ) : (
         <CardHeader
@@ -55,7 +55,7 @@ export default function Post({ post, profileData, altHeader }) {
                 </Typography>
               </Box>
               <Typography variant='caption' color='textSecondary'>
-                {moment(post.createdAt).format('MMMM DD, YYYY')}
+                {moment(post.createdAt).fromNow()}
               </Typography>
             </>
           }
