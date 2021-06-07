@@ -56,7 +56,7 @@ export default function FormDialog() {
     setOpen(false);
     setValidationErrors({});
   };
-  const handleUpdate = (e) => {
+  const handleUpdate = e => {
     e.preventDefault();
     if (!dob || !gender) {
       setValidationErrors({
