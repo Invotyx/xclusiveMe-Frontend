@@ -22,6 +22,7 @@ import { post } from '../../actions/post';
 import UploadImage from './uploadImage';
 import UploadVideo from './uploadVideo';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { currencySymbol } from '../../services/currencySymbol';
 
 const OutlinedInput = withStyles(() => ({
   notchedOutline: {
@@ -259,7 +260,12 @@ export default function NewPostForm({ afterSave }) {
                         variant='outlined'
                         margin='dense'
                         InputProps={{
-                          startAdornment: <LocalOfferOutlinedIcon />,
+                          startAdornment: (
+                            <>
+                              <LocalOfferOutlinedIcon />
+                              {currencySymbol}
+                            </>
+                          ),
                         }}
                         style={{
                           width: '140px',
