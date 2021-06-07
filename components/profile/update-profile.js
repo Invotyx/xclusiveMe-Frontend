@@ -152,6 +152,8 @@ export default function FormDialog() {
             fullWidth
             name='description'
             label='Description'
+            helperText={`Max 160 characters`}
+            inputProps={{ maxLength: 160 }}
           />
           {false && (
             <TextField

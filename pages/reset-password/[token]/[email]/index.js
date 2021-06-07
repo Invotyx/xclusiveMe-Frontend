@@ -5,12 +5,22 @@ import { useDispatch, useSelector } from 'react-redux';
 import Head from 'next/head';
 import { auth } from '../../../../actions/auth';
 import LayoutGuestAuth from '../../../../components/layouts/layout-guest-auth';
-import { fetchingSelector } from '../../../../selectors/authSelector';
 import { useRouter } from 'next/router';
+import {
+  fetchingSelector,
+  errorSelector,
+} from '../../../../selectors/authSelector';
 
 export default function ResetPassword() {
   const fetching = useSelector(fetchingSelector);
   const [password, setPassword] = useState('');
+  const error = useSelector(errorSelector);
+  const [validationErrors, setValidationErrors] = React.useState({});
+  useEffect(() => {
+    if (error?.response?.data?.errors) {
+      setValidationErrors(error.response.data.errors);
+    }
+  }, [error]);
   const dispatch = useDispatch();
   const router = useRouter();
   const { token, email } = router.query;
@@ -49,6 +59,12 @@ export default function ResetPassword() {
           id='password'
           value={password}
           onChange={e => setPassword(e.target.value)}
+          error={validationErrors && validationErrors.confirmPassword}
+          helperText={
+            validationErrors.confirmPassword
+              ? Object.values(validationErrors.confirmPassword).join(', ')
+              : ''
+          }
         />
         <Button
           type='submit'
