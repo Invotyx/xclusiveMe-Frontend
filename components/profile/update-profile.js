@@ -95,81 +95,87 @@ export default function FormDialog() {
         <DialogTitle id='form-dialog-title'>Update Profile</DialogTitle>
         <DialogContent>
           <form onSubmit={handleUpdate}>
-          <TextField
-            value={fullName}
-            onChange={e => set_fullName(e.target.value)}
-            variant='outlined'
-            margin='normal'
-            fullWidth
-            name='fullName'
-            label='Full Name'
-            error={validationErrors && validationErrors.fullName}
-            helperText={
-              validationErrors.fullName
-                ? Object.values(validationErrors.fullName).join(', ')
-                : ''
-            }
-          />
-          <FormControl component='fieldset'>
-            <FormLabel component='legend'>Gender</FormLabel>
-            <RadioGroup
-              name='gender'
-              value={gender}
-              onChange={e => set_gender(e.target.value)}
-              row
-            >
-              <FormControlLabel value='male' control={<Radio />} label='Male' />
-              <FormControlLabel
-                value='female'
-                control={<Radio />}
-                label='Female'
-              />
-            </RadioGroup>
-
-            <FormHelperText error={validationErrors && validationErrors.gender}>
-              {validationErrors.gender
-                ? Object.values(validationErrors.gender).join(', ')
-                : ''}
-            </FormHelperText>
-          </FormControl>
-          <TextField
-            value={dob}
-            onChange={e => set_dob(e.target.value)}
-            variant='outlined'
-            margin='normal'
-            fullWidth
-            type='date'
-            name='dob'
-            label='Dob'
-            error={validationErrors && validationErrors.dob}
-            helperText={
-              validationErrors.dob
-                ? Object.values(validationErrors.dob).join(', ')
-                : ''
-            }
-          />
-          <TextField
-            value={description}
-            onChange={e => set_description(e.target.value)}
-            variant='outlined'
-            margin='normal'
-            fullWidth
-            name='description'
-            label='Description'
-            helperText={`Max 160 characters`}
-            inputProps={{ maxLength: 160 }}
-          />
-          {false && (
             <TextField
-              value={headline}
-              onChange={e => set_headline(e.target.value)}
+              value={fullName}
+              onChange={e => set_fullName(e.target.value)}
               variant='outlined'
               margin='normal'
               fullWidth
-              name='headline'
-              label='Headline'
+              name='fullName'
+              label='Full Name'
+              error={validationErrors && validationErrors.fullName}
+              helperText={
+                validationErrors.fullName
+                  ? Object.values(validationErrors.fullName).join(', ')
+                  : ''
+              }
             />
-          )}
+            <FormControl component='fieldset'>
+              <FormLabel component='legend'>Gender</FormLabel>
+              <RadioGroup
+                name='gender'
+                value={gender}
+                onChange={e => set_gender(e.target.value)}
+                row
+              >
+                <FormControlLabel
+                  value='male'
+                  control={<Radio />}
+                  label='Male'
+                />
+                <FormControlLabel
+                  value='female'
+                  control={<Radio />}
+                  label='Female'
+                />
+              </RadioGroup>
+
+              <FormHelperText
+                error={validationErrors && validationErrors.gender}
+              >
+                {validationErrors.gender
+                  ? Object.values(validationErrors.gender).join(', ')
+                  : ''}
+              </FormHelperText>
+            </FormControl>
+            <TextField
+              value={dob}
+              onChange={e => set_dob(e.target.value)}
+              variant='outlined'
+              margin='normal'
+              fullWidth
+              type='date'
+              name='dob'
+              label='Dob'
+              error={validationErrors && validationErrors.dob}
+              helperText={
+                validationErrors.dob
+                  ? Object.values(validationErrors.dob).join(', ')
+                  : ''
+              }
+            />
+            <TextField
+              value={description}
+              onChange={e => set_description(e.target.value)}
+              variant='outlined'
+              margin='normal'
+              fullWidth
+              name='description'
+              label='Description'
+              helperText={`Max 160 characters`}
+              inputProps={{ maxLength: 160 }}
+            />
+            {false && (
+              <TextField
+                value={headline}
+                onChange={e => set_headline(e.target.value)}
+                variant='outlined'
+                margin='normal'
+                fullWidth
+                name='headline'
+                label='Headline'
+              />
+            )}
             <Button color='primary' type='submit' style={{ display: 'none' }}>
               Update
             </Button>
