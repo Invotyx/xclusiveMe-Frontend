@@ -25,6 +25,7 @@ export const user = {
   emptySearchList: () =>
     createAction(USER.EMPTY_SEARCH_LIST, {
       data: [],
+      searched: false,
       fetching: false,
       success: false,
       error: null,

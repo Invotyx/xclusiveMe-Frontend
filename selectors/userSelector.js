@@ -14,9 +14,19 @@ const fetchingSelector = createSelector(userState, state =>
   state.get('fetching')
 );
 
+const searchedSelector = createSelector(userState, state =>
+  state.get('searched')
+);
+
 const errorSelector = createSelector(userState, state => {
   const error = state.get('error');
 
   return error;
 });
-export { userDataSelector, singleSelector, fetchingSelector, errorSelector };
+export {
+  userDataSelector,
+  singleSelector,
+  fetchingSelector,
+  searchedSelector,
+  errorSelector,
+};
