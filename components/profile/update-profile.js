@@ -170,7 +170,7 @@ export default function FormDialog() {
               label='Headline'
             />
           )}
-            <Button color='primary' type='submit' style={{display:'none'}}>
+            <Button color='primary' type='submit' style={{ display: 'none' }}>
               Update
             </Button>
           </form>
