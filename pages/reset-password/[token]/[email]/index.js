@@ -25,6 +25,9 @@ export default function ResetPassword() {
           password,
           confirmPassword: password,
         },
+        callback: () => {
+          router.push('/login');
+        },
       })
     );
   };
