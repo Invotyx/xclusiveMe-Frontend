@@ -334,7 +334,7 @@ function* handleResetPasswordTokenVerify(action) {
   try {
     const { token, email } = action.payload;
     const { data } = yield call(verifyForgotPasswordToken, token, email);
-    yield call(Router.push, `/reset-password/${token}/${email}/proceed`);
+    localStorage.setItem('jwtToken', data.accessToken);
   } catch (e) {
     console.log(e);
     yield call(Router.push, '/login');
