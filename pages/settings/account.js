@@ -108,9 +108,11 @@ export default function Home(props) {
     event.preventDefault();
     dispatch(
       auth.updateProfile({
-        username,
-        email,
-        phoneNumber: phone,
+        saveData: {
+          username,
+          email,
+          phoneNumber: phone,
+        },
       })
     );
   };
