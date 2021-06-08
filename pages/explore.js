@@ -83,11 +83,11 @@ export default function Home() {
                       }
                     />
                     <ListItemSecondaryAction>
-                      <Link>
-                        <NextLink href={`/x/${s.username}`} passHref>
+                      <NextLink href={`/x/${s.username}`} passHref>
+                        <Link>
                           <Typography variant='caption'>See Profile</Typography>
-                        </NextLink>
-                      </Link>
+                        </Link>
+                      </NextLink>
                     </ListItemSecondaryAction>
                   </ListItem>
                 ))}
