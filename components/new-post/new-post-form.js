@@ -301,7 +301,14 @@ export default function NewPostForm({ afterSave }) {
                     >
                       {({ TransitionProps }) => (
                         <Fade {...TransitionProps} timeout={350}>
-                          <Alert severity='info'>
+                          <Alert
+                            severity='info'
+                            style={{
+                              color: 'white',
+                              backgroundColor: 'black',
+                              borderWidth: 2,
+                            }}
+                          >
                             <AlertTitle>What this means</AlertTitle>
                             Setting a Tip here means that every one of your
                             followers will have to pay this amount to view your
