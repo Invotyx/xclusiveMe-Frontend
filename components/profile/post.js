@@ -67,11 +67,11 @@ export default function Post({ post, profileData, altHeader }) {
         />
       )}
       {post.postText && (
-      <CardContent>
-        <Typography variant='body2' color='textSecondary' component='p'>
-          {post.postText}
-        </Typography>
-      </CardContent>
+        <CardContent>
+          <Typography variant='body2' color='textSecondary' component='p'>
+            {post.postText}
+          </Typography>
+        </CardContent>
       )}
       <PostMedia media={post.media} />
       <CardActions disableSpacing>
