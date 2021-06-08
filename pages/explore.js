@@ -68,28 +68,28 @@ export default function Home() {
               <Typography>Suggestions For You</Typography>
               <List>
                 {suggestions.map(s => (
-                <ListItem>
-                  <ListItemAvatar>
-                    <Avatar src={s.profileImage} />
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary={
-                      <Typography variant='body2'>{s.fullName}</Typography>
-                    }
-                    secondary={
-                      <Typography variant='caption' color='textSecondary'>
-                        Suggested for you
-                      </Typography>
-                    }
-                  />
-                  <ListItemSecondaryAction>
-                    <Link>
-                      <NextLink href={`/x/${s.username}`} passHref>
-                      <Typography variant='caption'>See Profile</Typography>
-                      </NextLink>
-                    </Link>
-                  </ListItemSecondaryAction>
-                </ListItem>
+                  <ListItem>
+                    <ListItemAvatar>
+                      <Avatar src={s.profileImage} />
+                    </ListItemAvatar>
+                    <ListItemText
+                      primary={
+                        <Typography variant='body2'>{s.fullName}</Typography>
+                      }
+                      secondary={
+                        <Typography variant='caption' color='textSecondary'>
+                          Suggested for you
+                        </Typography>
+                      }
+                    />
+                    <ListItemSecondaryAction>
+                      <Link>
+                        <NextLink href={`/x/${s.username}`} passHref>
+                          <Typography variant='caption'>See Profile</Typography>
+                        </NextLink>
+                      </Link>
+                    </ListItemSecondaryAction>
+                  </ListItem>
                 ))}
               </List>
             </Grid>
