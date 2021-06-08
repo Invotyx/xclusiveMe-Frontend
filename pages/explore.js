@@ -65,11 +65,19 @@ export default function Home() {
                     />
                   </ListItemAvatar>
                   <ListItemText
-                    primary={'John Doe'}
-                    secondary={'Suggested for you'}
+                    primary={
+                      <Typography variant='body2'>John Doe</Typography>
+                    }
+                    secondary={
+                      <Typography variant='caption' color='textSecondary'>
+                        Suggested for you
+                      </Typography>
+                    }
                   />
                   <ListItemSecondaryAction>
-                    <Link>See Profile</Link>
+                    <Link>
+                      <Typography variant='caption'>See Profile</Typography>
+                    </Link>
                   </ListItemSecondaryAction>
                 </ListItem>
               </List>
