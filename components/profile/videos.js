@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import PostMediaVideo from './post-media-video';
+import { Box } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   media: {
@@ -16,6 +17,11 @@ export default function Videos({ videosData }) {
 
   return (
     <Grid container spacing={2}>
+      {(!videosData || videosData.length === 0) && (
+        <Box flex={1} textAlign='center' p={4}>
+          <div>no content</div>
+        </Box>
+      )}
       {videosData?.map(
         (tile, i) =>
           tile && (
