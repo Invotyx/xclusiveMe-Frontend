@@ -67,8 +67,8 @@ export default function Home() {
             <Grid item xs={12} md={4}>
               <Typography>Suggestions For You</Typography>
               <List>
-                {suggestions.map(s => (
-                  <ListItem>
+                {suggestions.map((s, i) => (
+                  <ListItem key={`suggestions${i}`}>
                     <ListItemAvatar>
                       <Avatar src={s.profileImage} />
                     </ListItemAvatar>
