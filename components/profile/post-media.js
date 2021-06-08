@@ -31,7 +31,7 @@ export default function PostMedia({ media, mediaCount }) {
   return (
     <Grid container spacing={1}>
       {mediaCount > media.length &&
-        Array.apply(null, Array(mediaCount - media.length)).map(() => (
+        Array.apply(null, Array(1)).map(() => (
           <Grid item xs={12} key={Math.random()}>
             <Box
               py={8}
