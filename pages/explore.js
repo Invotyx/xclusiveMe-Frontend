@@ -21,6 +21,13 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import NothingHere from '../components/profile/nothing-here';
 
+const suggestions = [
+  {
+    profileImage: 'https://material-ui.com/static/images/avatar/1.jpg',
+    fullName: 'John Doe',
+  },
+];
+
 const useStyles = makeStyles(theme => ({
   root: {
     // marginTop: '150px',
@@ -58,15 +65,14 @@ export default function Home() {
             <Grid item xs={12} md={4}>
               <Typography>Suggestions For You</Typography>
               <List>
+                {suggestions.map(s => (
                 <ListItem>
                   <ListItemAvatar>
-                    <Avatar
-                      src={'https://material-ui.com/static/images/avatar/1.jpg'}
-                    />
+                    <Avatar src={s.profileImage} />
                   </ListItemAvatar>
                   <ListItemText
                     primary={
-                      <Typography variant='body2'>John Doe</Typography>
+                      <Typography variant='body2'>{s.fullName}</Typography>
                     }
                     secondary={
                       <Typography variant='caption' color='textSecondary'>
@@ -80,6 +86,7 @@ export default function Home() {
                     </Link>
                   </ListItemSecondaryAction>
                 </ListItem>
+                ))}
               </List>
             </Grid>
           </Grid>
