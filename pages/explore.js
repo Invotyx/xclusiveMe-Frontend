@@ -1,3 +1,4 @@
+import NextLink from 'next/link';
 import { motion } from 'framer-motion';
 import { variants } from '../services/framer-variants';
 import Head from 'next/head';
@@ -25,6 +26,7 @@ const suggestions = [
   {
     profileImage: 'https://material-ui.com/static/images/avatar/1.jpg',
     fullName: 'John Doe',
+    username: 'johndoe',
   },
 ];
 
@@ -82,7 +84,9 @@ export default function Home() {
                   />
                   <ListItemSecondaryAction>
                     <Link>
+                      <NextLink href={`/x/${s.username}`} passHref>
                       <Typography variant='caption'>See Profile</Typography>
+                      </NextLink>
                     </Link>
                   </ListItemSecondaryAction>
                 </ListItem>
