@@ -16,6 +16,7 @@ export default function ImageGridList({ imagesData }) {
 
   return (
     <Grid container spacing={2}>
+      {(!imagesData || imagesData.length === 0) && <div>no content</div>}
       {imagesData?.map(
         (tile, i) =>
           tile && (
