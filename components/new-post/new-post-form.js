@@ -25,6 +25,18 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { currencySymbol } from '../../services/currencySymbol';
 import { Fade, Popper } from '@material-ui/core';
 import { Alert, AlertTitle } from '@material-ui/lab';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles(theme => ({
+  alertIcon: {
+    backgroundColor: 'black',
+    border: '1px solid #222',
+    color: 'white',
+    '& .MuiAlert-icon': {
+      color: 'white',
+    },
+  },
+}));
 
 const OutlinedInput = withStyles(() => ({
   notchedOutline: {
@@ -64,6 +76,7 @@ export default function NewPostForm({ afterSave }) {
   const [media, setMedia] = React.useState([]);
   const [progressVideo, setProgressVideo] = React.useState({ val: 0 });
   const [loadingItems, setLoadingItems] = React.useState([]);
+  const classes = useStyles();
 
   const handleCreatePost = () => {
     if (!postText || postText.trim() === '') {
@@ -300,14 +313,7 @@ export default function NewPostForm({ afterSave }) {
                     >
                       {({ TransitionProps }) => (
                         <Fade {...TransitionProps} timeout={350}>
-                          <Alert
-                            severity='info'
-                            style={{
-                              backgroundColor: 'black',
-                              border: '1px solid #222',
-                            }}
-                            color='white'
-                          >
+                          <Alert severity='info' className={classes.alertIcon}>
                             <AlertTitle>What this means</AlertTitle>
                             Setting a Tip here means that every one of your
                             followers will have to pay this amount to view your
