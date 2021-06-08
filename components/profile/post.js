@@ -73,7 +73,7 @@ export default function Post({ post, profileData, altHeader }) {
           </Typography>
         </CardContent>
       )}
-      <PostMedia media={post.media} />
+      <PostMedia media={post.media} mediaCount={post.mediaCount} />
       <CardActions disableSpacing>
         <Box flexGrow={1}>
           <NormalCaseButton
