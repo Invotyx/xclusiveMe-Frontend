@@ -19,12 +19,12 @@ function MediaElement({ m }) {
 }
 export default function PostMedia({ media }) {
   return (
-    <>
+    <Grid container spacing={1}>
       {/* (!media || media.length === 0) && (
         <MediaElement m={{ url: '/no-media.jpg' }} />
       ) */}
       {media && media.length > 0 && (
-        <Grid container spacing={1}>
+        <>
           <Grid item xs={12}>
             <MediaElement m={media[0]} />
           </Grid>
@@ -33,8 +33,8 @@ export default function PostMedia({ media }) {
               <MediaElement m={m} />
             </Grid>
           ))}
-        </Grid>
+        </>
       )}
-    </>
+    </Grid>
   );
 }
