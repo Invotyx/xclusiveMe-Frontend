@@ -80,67 +80,67 @@ export default function Notification({ onClose }) {
   return (
     <>
       <ListSubheader>Today</ListSubheader>
-        {notificationToday.map((i, x) => (
-          <MenuItem onClick={onClose} key={`notificationToday${x}`}>
-            <ListItemAvatar>
-              <Avatar
-                alt='Cindy Baker'
-                src={i.avatar}
-                className={classes.small}
-              />
-            </ListItemAvatar>
-            <ListItemText
-              primary={i.title}
-              secondary={
-                <React.Fragment>
-                  {i.secondary1}
-                  <Typography
-                    component='span'
-                    variant='body2'
-                    className={classes.inline}
-                    color='textPrimary'
-                  >
-                    {i.secondary2}
-                  </Typography>
-                </React.Fragment>
-              }
+      {notificationToday.map((i, x) => (
+        <MenuItem onClick={onClose} key={`notificationToday${x}`}>
+          <ListItemAvatar>
+            <Avatar
+              alt='Cindy Baker'
+              src={i.avatar}
+              className={classes.small}
             />
-            <ListItemSecondaryAction>
-              <Avatar alt='Cindy Baker' src={i.image} variant='square' />
-            </ListItemSecondaryAction>
-          </MenuItem>
-        ))}
-        <ListSubheader>Yesterday</ListSubheader>
-        {notificationYesterday.map((i, x) => (
-          <MenuItem onClick={onClose} key={`notificationYesterday${x}`}>
-            <ListItemAvatar>
-              <Avatar
-                alt='Cindy Baker'
-                src={i.avatar}
-                className={classes.small}
-              />
-            </ListItemAvatar>
-            <ListItemText
-              primary={i.title}
-              secondary={
-                <React.Fragment>
-                  {i.secondary1}
-                  <Typography
-                    component='span'
-                    variant='body2'
-                    className={classes.inline}
-                    color='textPrimary'
-                  >
-                    {i.secondary2}
-                  </Typography>
-                </React.Fragment>
-              }
+          </ListItemAvatar>
+          <ListItemText
+            primary={i.title}
+            secondary={
+              <React.Fragment>
+                {i.secondary1}
+                <Typography
+                  component='span'
+                  variant='body2'
+                  className={classes.inline}
+                  color='textPrimary'
+                >
+                  {i.secondary2}
+                </Typography>
+              </React.Fragment>
+            }
+          />
+          <ListItemSecondaryAction>
+            <Avatar alt='Cindy Baker' src={i.image} variant='square' />
+          </ListItemSecondaryAction>
+        </MenuItem>
+      ))}
+      <ListSubheader>Yesterday</ListSubheader>
+      {notificationYesterday.map((i, x) => (
+        <MenuItem onClick={onClose} key={`notificationYesterday${x}`}>
+          <ListItemAvatar>
+            <Avatar
+              alt='Cindy Baker'
+              src={i.avatar}
+              className={classes.small}
             />
-            <ListItemSecondaryAction>
-              <Avatar alt='Cindy Baker' src={i.image} variant='square' />
-            </ListItemSecondaryAction>
-          </MenuItem>
-        ))}
+          </ListItemAvatar>
+          <ListItemText
+            primary={i.title}
+            secondary={
+              <React.Fragment>
+                {i.secondary1}
+                <Typography
+                  component='span'
+                  variant='body2'
+                  className={classes.inline}
+                  color='textPrimary'
+                >
+                  {i.secondary2}
+                </Typography>
+              </React.Fragment>
+            }
+          />
+          <ListItemSecondaryAction>
+            <Avatar alt='Cindy Baker' src={i.image} variant='square' />
+          </ListItemSecondaryAction>
+        </MenuItem>
+      ))}
     </>
   );
 }
