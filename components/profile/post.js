@@ -66,12 +66,14 @@ export default function Post({ post, profileData, altHeader }) {
           }
         />
       )}
-      <CardContent>
-        <Typography variant='body2' color='textSecondary' component='p'>
-          {post.postText}
-        </Typography>
-      </CardContent>
-      <PostMedia media={post.media} />
+      {post.postText && (
+        <CardContent>
+          <Typography variant='body2' color='textSecondary' component='p'>
+            {post.postText}
+          </Typography>
+        </CardContent>
+      )}
+      <PostMedia media={post.media} mediaCount={post.mediaCount} />
       <CardActions disableSpacing>
         <Box flexGrow={1}>
           <NormalCaseButton

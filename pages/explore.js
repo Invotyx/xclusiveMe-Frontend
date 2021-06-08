@@ -1,3 +1,4 @@
+import NextLink from 'next/link';
 import { motion } from 'framer-motion';
 import { variants } from '../services/framer-variants';
 import Head from 'next/head';
@@ -20,6 +21,14 @@ import { subscribedSelector } from '../selectors/postSelector';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import NothingHere from '../components/profile/nothing-here';
+
+const suggestions = [
+  {
+    profileImage: 'https://material-ui.com/static/images/avatar/1.jpg',
+    fullName: 'John Doe',
+    username: 'johndoe',
+  },
+];
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -58,20 +67,30 @@ export default function Home() {
             <Grid item xs={12} md={4}>
               <Typography>Suggestions For You</Typography>
               <List>
-                <ListItem>
-                  <ListItemAvatar>
-                    <Avatar
-                      src={'https://material-ui.com/static/images/avatar/1.jpg'}
+                {suggestions.map(s => (
+                  <ListItem>
+                    <ListItemAvatar>
+                      <Avatar src={s.profileImage} />
+                    </ListItemAvatar>
+                    <ListItemText
+                      primary={
+                        <Typography variant='body2'>{s.fullName}</Typography>
+                      }
+                      secondary={
+                        <Typography variant='caption' color='textSecondary'>
+                          Suggested for you
+                        </Typography>
+                      }
                     />
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary={'John Doe'}
-                    secondary={'Suggested for you'}
-                  />
-                  <ListItemSecondaryAction>
-                    <Link>See Profile</Link>
-                  </ListItemSecondaryAction>
-                </ListItem>
+                    <ListItemSecondaryAction>
+                      <NextLink href={`/x/${s.username}`} passHref>
+                        <Link>
+                          <Typography variant='caption'>See Profile</Typography>
+                        </Link>
+                      </NextLink>
+                    </ListItemSecondaryAction>
+                  </ListItem>
+                ))}
               </List>
             </Grid>
           </Grid>
