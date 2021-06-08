@@ -7,7 +7,7 @@ export default function FormDialog({ children }) {
   const dispatch = useDispatch();
   const inputFile = React.useRef(null);
 
-  const onChangeFile = (event) => {
+  const onChangeFile = event => {
     event.stopPropagation();
     event.preventDefault();
     var image = event.target.files[0];
