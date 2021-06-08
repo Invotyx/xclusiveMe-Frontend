@@ -1,7 +1,7 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
 import { useDispatch } from 'react-redux';
 import { auth } from '../../actions/auth';
+import DepressedButton from '../DepressedButton';
 
 export default function FormDialog({ children }) {
   const dispatch = useDispatch();
@@ -27,13 +27,13 @@ export default function FormDialog({ children }) {
         style={{ display: 'none' }}
         onChange={onChangeFile}
       />
-      <Button
+      <DepressedButton
         onClick={() => {
           inputFile.current.click();
         }}
       >
         {children}
-      </Button>
+      </DepressedButton>
     </>
   );
 }
