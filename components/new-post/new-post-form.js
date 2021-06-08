@@ -295,6 +295,7 @@ export default function NewPostForm({ afterSave }) {
                       style={{
                         zIndex: 11111,
                         maxWidth: '450px',
+                        marginBottom: 10,
                       }}
                     >
                       {({ TransitionProps }) => (
@@ -303,7 +304,7 @@ export default function NewPostForm({ afterSave }) {
                             severity='info'
                             style={{
                               backgroundColor: 'black',
-                              borderWidth: 2,
+                              border: '1px solid #222',
                             }}
                             color='white'
                           >
