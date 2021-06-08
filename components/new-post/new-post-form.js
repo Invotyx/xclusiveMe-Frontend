@@ -75,7 +75,6 @@ export default function NewPostForm({ afterSave }) {
           price: parseFloat(price),
           postText,
           media,
-          mediaCount: 1,
         },
         callback: () => {
           afterSave && afterSave();
