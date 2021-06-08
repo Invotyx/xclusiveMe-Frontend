@@ -269,7 +269,7 @@ export default function Profile({
                     }
                   />
                   <CardContent>
-                    <Box px={2}>
+                    <Box px={2} maxWidth={500}>
                       <Typography
                         variant='body2'
                         color='textSecondary'
