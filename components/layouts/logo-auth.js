@@ -7,7 +7,6 @@ import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Box from '@material-ui/core/Box';
 import Badge from '@material-ui/core/Badge';
-import Menu from '@material-ui/core/Menu';
 import SettingsIcon from '@material-ui/icons/SettingsOutlined';
 import SmsIcon from '@material-ui/icons/SmsOutlined';
 import SearchIcon from '@material-ui/icons/Search';
@@ -20,6 +19,7 @@ import Logo from './logo';
 import Notification from '../notification';
 import NewPostDialog from '../new-post';
 import CurrentUserProfileImageAvatar from '../profile/current-user-profile-image-avatar';
+import NotificationMenu from '../notification/menu';
 
 export default function Comp({ sidebarMenu, set_sidebarMenu }) {
   const dispatch = useDispatch();
@@ -115,20 +115,13 @@ export default function Comp({ sidebarMenu, set_sidebarMenu }) {
                     <CheckBoxOutlineBlankIcon />
                   </Badge>
                 </IconButton>
-                <Menu
-                  id='simple-menu'
-                  anchorEl={anchorEl}
+                <NotificationMenu
                   open={Boolean(anchorEl)}
-                  keepMounted
+                  anchorEl={anchorEl}
                   onClose={settingsMenuClose}
-                  getContentAnchorEl={null}
-                  anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'right',
-                  }}
                 >
-                  <Notification />
-                </Menu>
+                  <Notification onClose={settingsMenuClose} />
+                </NotificationMenu>
               </Box>
 
               <Box ml={3} display={{ xs: 'none', sm: 'none', md: 'flex' }}>

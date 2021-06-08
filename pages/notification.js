@@ -1,6 +1,7 @@
 import React from 'react';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
+import List from '@material-ui/core/List';
 import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
@@ -74,7 +75,9 @@ export default function Notification() {
             <Tab label='Messages' {...a11yProps(1)} />
           </Tabs>
           <TabPanel value={value} index={0}>
-            <Notifications />
+            <List>
+              <Notifications />
+            </List>
           </TabPanel>
           <TabPanel value={value} index={1}>
             Messages
