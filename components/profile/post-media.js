@@ -20,9 +20,9 @@ function MediaElement({ m }) {
 export default function PostMedia({ media }) {
   return (
     <>
-      {(!media || media.length === 0) && (
+      {/* (!media || media.length === 0) && (
         <MediaElement m={{ url: '/no-media.jpg' }} />
-      )}
+      ) */}
       {media && media.length > 0 && (
         <Grid container spacing={1}>
           <Grid item xs={12}>
