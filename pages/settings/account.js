@@ -132,10 +132,10 @@ export default function Home(props) {
   };
   const saveLinks = (e, link) => {
     e.preventDefault();
-    if (!isValidHttpUrl(editLinkedAccountUrl)) {
-      setValidationErrors({ links: { invalidUrl: 'Url is invalid' } });
-      return;
-    }
+    // if (!isValidHttpUrl(editLinkedAccountUrl)) {
+    //   setValidationErrors({ links: { invalidUrl: 'Url is invalid' } });
+    //   return;
+    // }
     let linkx = links.slice();
     linkx[linkx.indexOf(link)].url = editLinkedAccountUrl;
     linkx = links.map(l => Object.assign({}, l, { icon: undefined }));
