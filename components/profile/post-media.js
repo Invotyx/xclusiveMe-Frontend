@@ -32,7 +32,7 @@ export default function PostMedia({ media, mediaCount }) {
     <Grid container spacing={1}>
       {mediaCount > media.length &&
         Array.apply(null, Array(mediaCount - media.length)).map(() => (
-          <Grid item xs={12}>
+          <Grid item xs={12} key={Math.random()}>
             <Box
               py={8}
               bgcolor='#000'
