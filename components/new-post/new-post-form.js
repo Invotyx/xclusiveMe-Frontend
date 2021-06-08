@@ -304,10 +304,10 @@ export default function NewPostForm({ afterSave }) {
                           <Alert
                             severity='info'
                             style={{
-                              color: 'white',
                               backgroundColor: 'black',
                               borderWidth: 2,
                             }}
+                            color='white'
                           >
                             <AlertTitle>What this means</AlertTitle>
                             Setting a Tip here means that every one of your
