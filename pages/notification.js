@@ -10,7 +10,7 @@ import { motion } from 'framer-motion';
 import { variants } from '../services/framer-variants';
 import Layout from '../components/layouts/layout-auth';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   bottom: {
     top: 'auto',
     bottom: '0',
