@@ -26,7 +26,7 @@ export default function Comp({ sidebarMenu, set_sidebarMenu }) {
   const router = useRouter();
   const [anchorEl, setAnchorEl] = React.useState(null);
 
-  const settingsMenuOpen = (event) => {
+  const settingsMenuOpen = event => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -44,7 +44,7 @@ export default function Comp({ sidebarMenu, set_sidebarMenu }) {
     }
   }, []);
 
-  const logout = (event) => {
+  const logout = event => {
     event.preventDefault();
     dispatch(
       auth.logout({
