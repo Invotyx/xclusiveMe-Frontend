@@ -205,11 +205,6 @@ function* handleUpdateProfile(action) {
         severity: 'error',
       })
     );
-    const errorCaught = true;
-    const { callback } = action.payload;
-    if (callback) {
-      yield call(callback, errorCaught);
-    }
   }
 }
 

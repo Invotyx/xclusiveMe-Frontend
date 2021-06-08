@@ -74,7 +74,7 @@ export default function FormDialog() {
             headline,
           },
           callback: () => {
-            // handleClose();
+            handleClose();
             dispatch(auth.me());
           },
         })
