@@ -36,7 +36,7 @@ export async function resendOtp(sessionId) {
 }
 
 export async function forgotPassword(email) {
-  return apiClient.get(`${SERVER_ADDRESS}/users/forgot-password/${email}`);
+  return apiClient.get(`${SERVER_ADDRESS}/auth/forgot-password/${email}`);
 }
 
 export async function me() {
@@ -45,6 +45,14 @@ export async function me() {
     return null;
   }
   return apiClient.get(`${SERVER_ADDRESS}/users/me`);
+}
+
+export async function getFollowers() {
+  return apiClient.get(`${SERVER_ADDRESS}/subscriptions/subscribers`);
+}
+
+export async function getFollowings() {
+  return apiClient.get(`${SERVER_ADDRESS}/subscriptions/subscribed`);
 }
 
 export async function getSessions() {
@@ -68,6 +76,11 @@ export async function updateProfile(request) {
   return apiClient.put(`${SERVER_ADDRESS}/users/updateProfile`, data);
 }
 
+export async function updatePassword(request) {
+  const data = JSON.stringify(request);
+  return apiClient.patch(`${SERVER_ADDRESS}/users/password`, data);
+}
+
 export async function updateSubscriptionFee(request) {
   const data = JSON.stringify(request);
   return apiClient.post(`${SERVER_ADDRESS}/subscriptions/plans`, data);
@@ -79,9 +92,7 @@ export async function resetPassword(email, password, token) {
 }
 
 export async function verifyForgotPasswordToken(token, email) {
-  return apiClient.get(
-    `${SERVER_ADDRESS}/users/verify-forgot-password?token=${token}&email=${email}`
-  );
+  return apiClient.get(`${SERVER_ADDRESS}/auth/verify-token/${token}/${email}`);
 }
 
 export async function logout() {

@@ -15,6 +15,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import Avatar from '@material-ui/core/Avatar';
 import { makeStyles } from '@material-ui/core/styles';
 import PaymentIcon from '@material-ui/icons/Payment';
@@ -26,7 +27,7 @@ import {
 import { paymentMethod } from '../../actions/payment-method';
 import Layout from '../../components/layouts/layout-settings';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
     // marginTop: '150px',
   },
@@ -80,15 +81,14 @@ export default function Home(props) {
       <Box mb={2}>
         <Divider />
       </Box>
+      <div>{fetching ? <CircularProgress /> : ``}</div>
       <List>
-        {fetching ? (
-          'loading'
-        ) : paymentData.length ? (
-          paymentData.map((p) => (
+        {paymentData.length ? (
+          paymentData.map(p => (
             <ListItem
               key={p.id}
               button
-              onClick={(e) => handleClickListItem(e, p.id)}
+              onClick={e => handleClickListItem(e, p.id)}
             >
               <ListItemIcon>
                 <PaymentIcon />

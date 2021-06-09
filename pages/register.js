@@ -7,14 +7,16 @@ import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core/styles';
 import TileButton from '../components/TileButton';
 import TileTextField from '../components/TileTextField';
+import Icon from '@material-ui/core/Icon';
 import Link from '@material-ui/core/Link';
 import MenuItem from '@material-ui/core/MenuItem';
 import { auth } from '../actions/auth';
 import { fetchingSelector, errorSelector } from '../selectors/authSelector';
-import countriesList from '../services/countries';
 import LayoutGuest from '../components/layouts/layout-guest-auth';
+import { countriesSelector } from '../selectors/countriesSelector';
+import CountryTextField from '../components/CountryTextField';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   grey: {
     color: '#666',
   },
@@ -22,14 +24,18 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignInSide() {
   const fetching = useSelector(fetchingSelector);
+  const countriesList = useSelector(countriesSelector);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(auth.getCountriesList());
+  }, [dispatch]);
   const error = useSelector(errorSelector);
   const [validationErrors, setValidationErrors] = useState({});
   useEffect(() => {
     if (error?.response?.data?.errors) {
-      setValidationErrors(Object.assign(...error.response.data.errors));
+      setValidationErrors(error.response.data.errors);
     }
   }, [error]);
-  const dispatch = useDispatch();
   const classes = useStyles();
   const router = useRouter();
   const [registrationState, set_registrationState] = useState(1);
@@ -41,22 +47,23 @@ export default function SignInSide() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [code, setCode] = useState('');
-  const [country, setCountry] = useState('');
+  const [country, setCountry] = useState('US');
+  const [countryCallingCode, setCountryCallingCode] = useState('1');
 
-  const handleSubmit = (event) => {
+  const handleSubmit = event => {
     event.preventDefault();
     if (registrationState === 1) {
       dispatch(
         auth.register({
           saveData: {
-            fullName,
-            username,
-            email,
+            fullName: fullName.trim(),
+            username: username.trim(),
+            email: email.trim(),
             password,
             confirmPassword,
-            phoneNumber,
+            phoneNumber: `+${countryCallingCode}${phoneNumber}`,
           },
-          callback: (sid) => {
+          callback: sid => {
             set_registrationState(2);
             set_sessionId(sid);
           },
@@ -91,7 +98,7 @@ export default function SignInSide() {
                 : ''
             }
             value={fullName}
-            onChange={(e) => setFullName(e.target.value)}
+            onChange={e => setFullName(e.target.value)}
             variant='outlined'
             margin='normal'
             required
@@ -109,7 +116,7 @@ export default function SignInSide() {
                 : ''
             }
             value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            onChange={e => setUsername(e.target.value)}
             variant='outlined'
             margin='normal'
             required
@@ -127,7 +134,7 @@ export default function SignInSide() {
                 : ''
             }
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={e => setEmail(e.target.value)}
             variant='outlined'
             margin='normal'
             required
@@ -145,7 +152,7 @@ export default function SignInSide() {
                 : ''
             }
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={e => setPassword(e.target.value)}
             variant='outlined'
             margin='normal'
             required
@@ -164,7 +171,7 @@ export default function SignInSide() {
                 : ''
             }
             value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
+            onChange={e => setConfirmPassword(e.target.value)}
             variant='outlined'
             margin='normal'
             required
@@ -176,8 +183,21 @@ export default function SignInSide() {
             autoComplete='confirm-password'
           />
           <Box display='flex'>
-            <TileTextField
+            <CountryTextField
+              className='tempCountry'
               select
+              InputProps={{
+                startAdornment: (
+                  <Icon>
+                    <img
+                      src={
+                        countriesList.find(c => c.alpha2Code === country)?.flag
+                      }
+                      style={{ width: '100%' }}
+                    />
+                  </Icon>
+                ),
+              }}
               error={validationErrors && validationErrors.country}
               helperText={
                 validationErrors.country
@@ -185,20 +205,29 @@ export default function SignInSide() {
                   : ''
               }
               value={country}
-              onChange={(e) => setCountry(e.target.value)}
+              onChange={e => {
+                setCountry(e.target.value);
+                setCountryCallingCode(
+                  countriesList.find(c => c.alpha2Code === e.target.value)
+                    ?.callingCodes[0]
+                );
+              }}
               variant='outlined'
               margin='normal'
+              style={{ width: 100 }}
               id='country'
-              label='Country'
               name='country'
               autoComplete='country'
             >
-              {countriesList.map((c) => (
-                <MenuItem value={c.name} key={`countriesList${c.code}`}>
-                  {c.name}
+              {countriesList?.map(c => (
+                <MenuItem
+                  value={c.alpha2Code}
+                  key={`countriesList${c.alpha2Code}`}
+                >
+                  {c.name} (+{c.callingCodes[0]})
                 </MenuItem>
               ))}
-            </TileTextField>
+            </CountryTextField>
             <TileTextField
               error={validationErrors && validationErrors.phoneNumber}
               helperText={
@@ -207,7 +236,7 @@ export default function SignInSide() {
                   : ''
               }
               value={phoneNumber}
-              onChange={(e) => setPhoneNumber(e.target.value)}
+              onChange={e => setPhoneNumber(e.target.value)}
               variant='outlined'
               margin='normal'
               required
@@ -241,7 +270,7 @@ export default function SignInSide() {
                 : ''
             }
             value={code}
-            onChange={(e) => setCode(e.target.value)}
+            onChange={e => setCode(e.target.value)}
             variant='outlined'
             margin='normal'
             required
@@ -256,12 +285,12 @@ export default function SignInSide() {
             <NextLink href='#' passHref>
               <Link
                 variant='body2'
-                onClick={(e) => {
+                onClick={e => {
                   e.preventDefault();
                   dispatch(
                     auth.resendOtp({
                       sessionId,
-                      callback: (sid) => {
+                      callback: sid => {
                         set_sessionId(sid);
                       },
                     })
@@ -285,7 +314,7 @@ export default function SignInSide() {
               <NextLink href='#' passHref>
                 <Link
                   variant='body2'
-                  onClick={(e) => {
+                  onClick={e => {
                     e.preventDefault();
                     set_registrationState(1);
                   }}

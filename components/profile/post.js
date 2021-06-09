@@ -1,12 +1,11 @@
-import Avatar from '@material-ui/core/Avatar';
+import NextLink from 'next/link';
 import BookmarkBorderOutlinedIcon from '@material-ui/icons/BookmarkBorderOutlined';
 import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
+import Link from '@material-ui/core/Link';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
-import CardMedia from '@material-ui/core/CardMedia';
 import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import IconButton from '@material-ui/core/IconButton';
@@ -15,15 +14,14 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import moment from 'moment';
+import ProfileImageAvatar from './profile-image-avatar';
+import NormalCaseButton from '../NormalCaseButton';
+import PostMedia from './post-media';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
     marginTop: 0,
-    backgroundColor: 'transparent',
-  },
-  media: {
-    height: 0,
-    paddingTop: '56.25%', // 16:9
   },
 }));
 export default function Post({ post, profileData, altHeader }) {
@@ -37,48 +35,74 @@ export default function Post({ post, profileData, altHeader }) {
               <MoreHorizIcon />
             </IconButton>
           }
-          subheader={post.createdAt}
+          subheader={moment(post.createdAt).fromNow()}
         />
       ) : (
         <CardHeader
-          avatar={<Avatar aria-label='recipe'>R</Avatar>}
+          avatar={<ProfileImageAvatar user={profileData} />}
           action={
             <IconButton aria-label='settings'>
               <MoreVertIcon />
             </IconButton>
           }
-          title={profileData?.profile?.fullName || '(no name)'}
-          subheader={post.createdAt}
+          title={
+            <>
+              <Box clone mr={1}>
+                <Typography variant='body2' component='span'>
+                  <NextLink href={`/x/${profileData?.username}`} passHref>
+                    <Link>{profileData?.fullName || '(no name)'}</Link>
+                  </NextLink>
+                </Typography>
+              </Box>
+              <Typography variant='caption' color='textSecondary'>
+                {moment(post.createdAt).fromNow()}
+              </Typography>
+            </>
+          }
+          subheader={
+            <Typography variant='caption' color='textSecondary'>
+              @{profileData?.username}
+            </Typography>
+          }
         />
       )}
-      <CardContent>
-        <Typography variant='body2' color='textSecondary' component='p'>
-          {post.postText}
-        </Typography>
-      </CardContent>
-      <CardMedia
-        className={classes.media}
-        image='/post.jpg'
-        title='Paella dish'
-      />
+      {post.postText && (
+        <CardContent>
+          <Typography variant='body2' color='textSecondary' component='p'>
+            {post.postText}
+          </Typography>
+        </CardContent>
+      )}
+      <PostMedia media={post.media} mediaCount={post.mediaCount} />
       <CardActions disableSpacing>
         <Box flexGrow={1}>
-          <Button aria-label='add to favorites' startIcon={<FavoriteIcon />}>
-            {post.totalLikes} likes
-          </Button>
-          <Button aria-label='share' startIcon={<ChatBubbleOutlineIcon />}>
-            {post.totalComments} comments
-          </Button>
-          <Button aria-label='tip' startIcon={<MonetizationOnOutlinedIcon />}>
+          <NormalCaseButton
+            aria-label='add to favorites'
+            startIcon={<FavoriteIcon />}
+          >
+            {post.totalLikes} Likes
+          </NormalCaseButton>
+          <NormalCaseButton
+            aria-label='share'
+            startIcon={<ChatBubbleOutlineIcon />}
+          >
+            {post.totalComments} Comments
+          </NormalCaseButton>
+          <NormalCaseButton
+            aria-label='tip'
+            startIcon={<MonetizationOnOutlinedIcon />}
+          >
             Tip
-          </Button>
+          </NormalCaseButton>
         </Box>
-        <Button
-          aria-label='bookmark'
-          startIcon={<BookmarkBorderOutlinedIcon />}
-        >
-          <Box display={{ xs: 'none', sm: 'none', md: 'flex' }}>Save</Box>
-        </Button>
+        {false && (
+          <NormalCaseButton
+            aria-label='bookmark'
+            startIcon={<BookmarkBorderOutlinedIcon />}
+          >
+            <Box display={{ xs: 'none', sm: 'none', md: 'flex' }}>Save</Box>
+          </NormalCaseButton>
+        )}
       </CardActions>
     </Card>
   );

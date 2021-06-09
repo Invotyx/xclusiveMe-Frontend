@@ -16,7 +16,7 @@ import { auth } from '../actions/auth';
 import { fetchingSelector } from '../selectors/authSelector';
 import LayoutGuest from '../components/layouts/layout-guest-auth';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   grey: {
     color: '#666',
   },
@@ -33,7 +33,7 @@ export default function SignInSide() {
   const [password, setPassword] = useState('');
   const [code, setCode] = useState('');
 
-  const handleSubmit = (event) => {
+  const handleSubmit = event => {
     event.preventDefault();
     if (registrationState === 1) {
       dispatch(
@@ -43,7 +43,7 @@ export default function SignInSide() {
           callback: () => {
             router.push('/explore');
           },
-          callback202: (sid) => {
+          callback202: sid => {
             set_registrationState(2);
             set_sessionId(sid);
           },
@@ -72,20 +72,20 @@ export default function SignInSide() {
         <form onSubmit={handleSubmit}>
           <TileTextField
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={e => setEmail(e.target.value)}
             variant='outlined'
             margin='normal'
             required
             fullWidth
             id='email'
-            label='Email Address'
+            label='Username'
             name='email'
             autoComplete='email'
             autoFocus
           />
           <TileTextField
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={e => setPassword(e.target.value)}
             variant='outlined'
             margin='normal'
             required
@@ -137,7 +137,7 @@ export default function SignInSide() {
         <form onSubmit={handleSubmit}>
           <TileTextField
             value={code}
-            onChange={(e) => setCode(e.target.value)}
+            onChange={e => setCode(e.target.value)}
             variant='outlined'
             margin='normal'
             required
@@ -152,12 +152,12 @@ export default function SignInSide() {
             <NextLink href='#' passHref>
               <Link
                 variant='body2'
-                onClick={(e) => {
+                onClick={e => {
                   e.preventDefault();
                   dispatch(
                     auth.resendOtp({
                       sessionId,
-                      callback: (sid) => {
+                      callback: sid => {
                         set_sessionId(sid);
                       },
                     })
@@ -181,7 +181,7 @@ export default function SignInSide() {
               <NextLink href='#' passHref>
                 <Link
                   variant='body2'
-                  onClick={(e) => {
+                  onClick={e => {
                     e.preventDefault();
                     set_registrationState(1);
                   }}

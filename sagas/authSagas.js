@@ -1,5 +1,5 @@
 import { put, call, takeLatest, all } from 'redux-saga/effects';
-import { useRouter } from 'next/router';
+import Router from 'next/router';
 
 import { AUTH } from '../actions/auth/types';
 
@@ -11,11 +11,14 @@ import {
   verifyOtp,
   resendOtp,
   updateProfile,
+  updatePassword,
   updateSubscriptionFee,
   uploadImage,
   uploadCover,
   forgotPassword,
   me,
+  getFollowers,
+  getFollowings,
   logout,
   resetPassword,
   getSessions,
@@ -25,6 +28,7 @@ import {
   twoFactorAuthentication,
 } from '../services/user.service';
 import { bottomalert } from '../actions/bottom-alert';
+import { getCountries } from '../services/countries';
 
 function* handleLogin(action) {
   try {
@@ -83,7 +87,7 @@ function* handleRefreshToken(action) {
       }
     } else {
       yield call(logout);
-      yield put(useRouter().push('/login')); // TODO: needs to be updated
+      yield call(Router.push, '/login');
     }
   } catch (e) {
     console.log(e);
@@ -176,49 +180,17 @@ function* handleVerifyOtp(action) {
 
 function* handleUpdateProfile(action) {
   try {
-    const {
-      fullName,
-      username,
-      email,
-      password,
-      oldPassword,
-      phoneNumber,
-      gender,
-      dob,
-      description,
-      headline,
-    } = action.payload;
+    const { saveData } = action.payload;
 
-    const { data } = yield call(updateProfile, {
-      fullName,
-      username,
-      email,
-      password,
-      oldPassword,
-      phoneNumber,
-      gender,
-      dob,
-      description,
-      headline,
-    });
+    const { data } = yield call(updateProfile, saveData);
     yield put(auth.success({}));
-    if ((password || oldPassword) === undefined) {
-      yield put(
-        bottomalert.update({
-          open: true,
-          message: 'Profile Updated Successfully!',
-          severity: 'success',
-        })
-      );
-    } else {
-      yield put(
-        bottomalert.update({
-          open: true,
-          message: 'Password Changed Successfully!',
-          severity: 'success',
-        })
-      );
-    }
+    yield put(
+      bottomalert.update({
+        open: true,
+        message: 'Profile Updated Successfully!',
+        severity: 'success',
+      })
+    );
     const { callback } = action.payload;
     if (callback) {
       yield call(callback);
@@ -233,11 +205,37 @@ function* handleUpdateProfile(action) {
         severity: 'error',
       })
     );
-    const errorCaught = true;
+  }
+}
+
+function* handleUpdatePassword(action) {
+  try {
+    const { saveData } = action.payload;
+
+    yield call(updatePassword, saveData);
+    yield put(auth.success({}));
+
+    yield put(
+      bottomalert.update({
+        open: true,
+        message: 'Password Changed Successfully!',
+        severity: 'success',
+      })
+    );
     const { callback } = action.payload;
     if (callback) {
-      yield call(callback, errorCaught);
+      yield call(callback);
     }
+  } catch (e) {
+    console.log(e);
+    yield put(auth.failure({ error: { ...e } }));
+    yield put(
+      bottomalert.update({
+        open: true,
+        message: e.response.data.message,
+        severity: 'error',
+      })
+    );
   }
 }
 
@@ -250,6 +248,13 @@ function* handleUpdateSubscriptionFee(action) {
       price: parseInt(price),
     });
     yield put(auth.success({}));
+    yield put(
+      bottomalert.update({
+        open: true,
+        message: 'Subscription Updated Successfully!',
+        severity: 'success',
+      })
+    );
     const { callback } = action.payload;
     if (callback) {
       yield call(callback);
@@ -300,7 +305,7 @@ function* handleResetPassword(action) {
   try {
     const { token, email, password } = action.payload;
     const { data } = yield call(resetPassword, email, password, token);
-    yield put(useRouter().push(`/login`)); // TODO: needs to be updated
+    yield call(Router.push, `/login`);
     yield put(
       snackbar.update({
         open: true,
@@ -324,10 +329,10 @@ function* handleResetPasswordTokenVerify(action) {
   try {
     const { token, email } = action.payload;
     const { data } = yield call(verifyForgotPasswordToken, token, email);
-    yield put(useRouter().push(`/reset-password/${token}/${email}/proceed`)); // TODO: needs to be updated
+    localStorage.setItem('jwtToken', data.accessToken);
   } catch (e) {
     console.log(e);
-    yield put(useRouter().push('/login')); // TODO: needs to be updated
+    yield call(Router.push, '/login');
     yield put(
       snackbar.update({
         open: true,
@@ -342,6 +347,26 @@ function* handleMe() {
   try {
     const { data } = yield call(me);
     yield put(auth.success({ currentUser: data }));
+  } catch (e) {
+    console.log(e);
+    yield put(auth.failure({ error: { ...e } }));
+  }
+}
+
+function* handleRequestFollowers() {
+  try {
+    const { data } = yield call(getFollowers);
+    yield put(auth.success({ followers: data }));
+  } catch (e) {
+    console.log(e);
+    yield put(auth.failure({ error: { ...e } }));
+  }
+}
+
+function* handleRequestFollowings() {
+  try {
+    const { data } = yield call(getFollowings);
+    yield put(auth.success({ followings: data }));
   } catch (e) {
     console.log(e);
     yield put(auth.failure({ error: { ...e } }));
@@ -381,6 +406,16 @@ function* handleLogout(action) {
   }
 }
 
+function* handleGetCountries() {
+  try {
+    const { data } = yield call(getCountries);
+    yield put(auth.success({ countriesList: data }));
+  } catch (e) {
+    console.log(e);
+    yield put(auth.failure({ error: { ...e } }));
+  }
+}
+
 function* handleUpdateTwoFactorAuthentication(action) {
   try {
     const { fa2 } = action.payload;
@@ -413,8 +448,8 @@ function* handleUpdateTwoFactorAuthentication(action) {
 function* handleUploadImage({ payload }) {
   try {
     const { fileObject } = payload;
-    yield call(uploadImage, fileObject);
-    yield call(auth.me);
+    const { data } = yield call(uploadImage, fileObject);
+    yield put(auth.success({ currentUser: data }));
     yield put(
       bottomalert.update({
         open: true,
@@ -438,8 +473,13 @@ function* handleUploadImage({ payload }) {
 function* handleUploadCover({ payload }) {
   try {
     const { fileObject } = payload;
-    yield call(uploadCover, fileObject);
-    yield call(auth.me);
+    const { data } = yield call(uploadCover, fileObject);
+    yield put(
+      auth.success({
+        currentUser: data,
+        uploadingCover: false,
+      })
+    );
     yield put(
       bottomalert.update({
         open: true,
@@ -468,19 +508,27 @@ function* watchAuthSagas() {
     takeLatest(AUTH.VERIFY_OTP, handleVerifyOtp),
     takeLatest(AUTH.RESEND_OTP, handleResendOtp),
     takeLatest(AUTH.UPDATE_PROFILE, handleUpdateProfile),
+    takeLatest(AUTH.UPDATE_PASSWORD, handleUpdatePassword),
     takeLatest(AUTH.UPDATE_SUBSCRIPTION_FEE, handleUpdateSubscriptionFee),
     takeLatest(AUTH.UPLOAD_IMAGE, handleUploadImage),
     takeLatest(AUTH.UPLOAD_COVER, handleUploadCover),
     takeLatest(AUTH.FORGOT_PASSWORD, handleForgotPassword),
     takeLatest(AUTH.RESET_PASSWORD, handleResetPassword),
+    takeLatest(
+      AUTH.RESET_PASSWORD_TOKEN_VERIFY,
+      handleResetPasswordTokenVerify
+    ),
     takeLatest(AUTH.GET_SESSIONS, handleGetSessions),
     takeLatest(AUTH.EXPIRE_ALL_SESSIONS, handleExpireAllSessions),
     takeLatest(AUTH.ME, handleMe),
+    takeLatest(AUTH.REQUEST_FOLLOWERS, handleRequestFollowers),
+    takeLatest(AUTH.REQUEST_FOLLOWINGS, handleRequestFollowings),
     takeLatest(AUTH.LOGOUT, handleLogout),
     takeLatest(
       AUTH.UPDATE_TWO_FACTOR_AUTHENTICATION,
       handleUpdateTwoFactorAuthentication
     ),
+    takeLatest(AUTH.GET_COUNTRIES, handleGetCountries),
   ]);
 }
 

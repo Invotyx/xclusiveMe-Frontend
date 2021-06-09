@@ -1,7 +1,7 @@
 import ImageAvatar from '../image-avatar';
 
-export default function FormDialog(props) {
-  const { user, ...other } = props;
-
-  return <ImageAvatar {...other} user={user} />;
+export default function ProfileImageAvatar({ user, ...props }) {
+  return (
+    <ImageAvatar src={user?.profileImage} alt={user?.fullName} {...props} />
+  );
 }

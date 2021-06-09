@@ -30,7 +30,7 @@ function* handleAddSubscription(action) {
     yield put(
       snackbar.update({
         open: true,
-        message: 'Subscription Successfull',
+        message: 'Subscription Successful',
         severity: 'success',
       })
     );

@@ -8,21 +8,29 @@ export const user = {
       success: false,
       error: null,
     }),
-  requestOne: (id) =>
+  requestOne: id =>
     createAction(USER.GET_ONE, {
       id,
       fetching: true,
       success: false,
       error: null,
     }),
-  search: (data) =>
+  search: data =>
     createAction(USER.SEARCH, {
       ...data,
       fetching: true,
       success: false,
       error: null,
     }),
-  save: (data) =>
+  emptySearchList: () =>
+    createAction(USER.EMPTY_SEARCH_LIST, {
+      data: [],
+      searched: false,
+      fetching: false,
+      success: false,
+      error: null,
+    }),
+  save: data =>
     createAction(USER.SAVE, {
       ...data,
       fetching: true,
@@ -45,21 +53,21 @@ export const user = {
       success: false,
       error: null,
     }),
-  delete: (id) =>
+  delete: id =>
     createAction(USER.DELETE, {
       id,
       fetching: true,
       success: false,
       error: null,
     }),
-  success: (data) =>
+  success: data =>
     createAction(USER.SUCCESS, {
       ...data,
       fetching: false,
       success: true,
       error: null,
     }),
-  failure: (error) =>
+  failure: error =>
     createAction(USER.FAILURE, {
       ...error,
       fetching: false,

@@ -2,16 +2,14 @@ import React from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import { getImage } from '../services/getImage';
 
-export default function FormDialog(props) {
-  const { user, ...other } = props;
-
+export default function ImageAvatar({ src, alt, ...props }) {
   return (
     <Avatar
-      {...other}
-      alt={user && user.username}
+      {...props}
+      alt={alt}
       src={
-        user && user.image
-          ? getImage(user.image)
+        src
+          ? getImage(src)
           : 'https://material-ui.com/static/images/avatar/1.jpg'
       }
     />

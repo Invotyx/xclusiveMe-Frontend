@@ -11,7 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import RoundedButton from '../RoundedButton';
 import NewPostForm from './new-post-form';
 
-const styles = (theme) => ({
+const styles = theme => ({
   root: {
     margin: 0,
     padding: theme.spacing(2),
@@ -24,7 +24,7 @@ const styles = (theme) => ({
   },
 });
 
-const DialogTitle = withStyles(styles)((props) => {
+const DialogTitle = withStyles(styles)(props => {
   const { children, classes, onClose, ...other } = props;
   return (
     <MuiDialogTitle disableTypography className={classes.root} {...other}>
@@ -44,7 +44,7 @@ const DialogTitle = withStyles(styles)((props) => {
   );
 });
 
-const DialogContent = withStyles((theme) => ({
+const DialogContent = withStyles(theme => ({
   root: {
     padding: theme.spacing(2),
   },
@@ -82,6 +82,8 @@ export default function NewPostDialog() {
         open={open}
         maxWidth='sm'
         fullWidth={true}
+        disableEscapeKeyDown
+        disableBackdropClick
       >
         <DialogTitle id='customized-dialog-title' onClose={handleClose}>
           Create a new post

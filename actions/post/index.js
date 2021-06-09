@@ -2,9 +2,8 @@ import { createAction } from '../../utils';
 import { POST } from './types';
 
 export const post = {
-  request: (data) =>
+  request: () =>
     createAction(POST.GET, {
-      ...data,
       fetching: true,
       success: false,
       error: null,
@@ -15,7 +14,7 @@ export const post = {
       success: false,
       error: null,
     }),
-  requestX: (data) =>
+  requestX: data =>
     createAction(POST.GET_X, {
       ...data,
       xfeed: [],
@@ -23,56 +22,56 @@ export const post = {
       success: false,
       error: null,
     }),
-  save: (data) =>
+  save: data =>
     createAction(POST.SAVE, {
       ...data,
       fetching: true,
       success: false,
       error: null,
     }),
-  uploadImage: (data) =>
+  uploadImage: data =>
     createAction(POST.UPLOAD_IMAGE, {
       ...data,
       fetching: true,
       success: false,
       error: null,
     }),
-  uploadVideoReq: (data) =>
+  uploadVideoReq: data =>
     createAction(POST.UPLOAD_VIDEO_REQ, {
       ...data,
       fetching: true,
       success: false,
       error: null,
     }),
-  uploadVideoFinalReq: (data) =>
+  uploadVideoFinalReq: data =>
     createAction(POST.UPLOAD_VIDEO_FINAL_REQ, {
       ...data,
       fetching: true,
       success: false,
       error: null,
     }),
-  update: (id) =>
+  update: id =>
     createAction(POST.UPDATE, {
       id,
       fetching: true,
       success: false,
       error: null,
     }),
-  delete: (id) =>
+  delete: id =>
     createAction(POST.DELETE, {
       id,
       fetching: true,
       success: false,
       error: null,
     }),
-  success: (data) =>
+  success: data =>
     createAction(POST.SUCCESS, {
       ...data,
       fetching: false,
       success: true,
       error: null,
     }),
-  failure: (error) =>
+  failure: error =>
     createAction(POST.FAILURE, {
       ...error,
       fetching: false,

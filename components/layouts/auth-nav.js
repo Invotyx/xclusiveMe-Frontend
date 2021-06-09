@@ -17,7 +17,7 @@ export default function AuthNav(props) {
   return (
     <Box mt={8} mb={4} ml={2} display='flex' alignItems='center'>
       <Box>
-        <NextLink href='/register'>
+        <NextLink passHref href='/register'>
           <Button
             variant='text'
             size={'/register' !== asPath ? 'small' : 'large'}
@@ -28,14 +28,14 @@ export default function AuthNav(props) {
         </NextLink>
       </Box>
       <Box mx={3}>
-        <NextLink href='/login'>
+        <NextLink passHref href='/login'>
           <Typography component='p' variant='h5' className={`${classes.grey}`}>
             |
           </Typography>
         </NextLink>
       </Box>
       <Box>
-        <NextLink href='/login'>
+        <NextLink passHref href='/login'>
           <Button
             variant='text'
             size={'/login' !== asPath ? 'small' : 'large'}

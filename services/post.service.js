@@ -3,8 +3,8 @@ import getConfig from 'next/config';
 const { publicRuntimeConfig } = getConfig();
 const SERVER_ADDRESS = publicRuntimeConfig.backendUrl;
 
-export async function getAll(userId) {
-  return apiClient.get(`${SERVER_ADDRESS}/posts/${userId}`);
+export async function getAll() {
+  return apiClient.get(`${SERVER_ADDRESS}/posts/`);
 }
 
 export async function getAllSubscribed() {
@@ -21,22 +21,22 @@ export async function add(saveData) {
 }
 
 export async function update(id, data) {
-  return apiClient.put(`${SERVER_ADDRESS}/post/${id}`, data);
+  return apiClient.put(`${SERVER_ADDRESS}/posts/${id}`, data);
 }
 
 export async function destory(id) {
-  return apiClient.delete(`${SERVER_ADDRESS}/post/${id}/remove`);
+  return apiClient.delete(`${SERVER_ADDRESS}/posts/${id}/remove`);
 }
 
 export async function uploadImage(fileObject) {
   const data = new FormData();
   data.append('images', fileObject);
-  return apiClient.post(`${SERVER_ADDRESS}/post/images`, data);
+  return apiClient.post(`${SERVER_ADDRESS}/posts/images`, data);
 }
 
 export async function uploadVideoReq1(fileObject) {
   const data = { totalVideos: fileObject };
-  return apiClient.post(`${SERVER_ADDRESS}/post/videos`, data);
+  return apiClient.post(`${SERVER_ADDRESS}/posts/videos`, data);
 }
 
 export async function uploadVideoFinalReq(fileObject, url) {

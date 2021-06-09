@@ -11,7 +11,9 @@ const initialState = fromJS({
 export default function userReducer(state = initialState, action) {
   switch (action.type) {
     case PAYMENT_METHOD.GET:
+    case PAYMENT_METHOD.SAVE:
     case PAYMENT_METHOD.SUCCESS:
+    case PAYMENT_METHOD.FAILURE:
     case PAYMENT_METHOD.SET_DEFAULT:
     case PAYMENT_METHOD.DELETE:
       return state.merge(action.payload);

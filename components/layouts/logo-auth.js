@@ -7,7 +7,6 @@ import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Box from '@material-ui/core/Box';
 import Badge from '@material-ui/core/Badge';
-import Menu from '@material-ui/core/Menu';
 import SettingsIcon from '@material-ui/icons/SettingsOutlined';
 import SmsIcon from '@material-ui/icons/SmsOutlined';
 import SearchIcon from '@material-ui/icons/Search';
@@ -18,15 +17,16 @@ import { useDispatch } from 'react-redux';
 import SortIcon from '@material-ui/icons/Sort';
 import Logo from './logo';
 import Notification from '../notification';
-import ProfieImageAvatar from '../profile/profile-image-avatar';
 import NewPostDialog from '../new-post';
+import CurrentUserProfileImageAvatar from '../profile/current-user-profile-image-avatar';
+import NotificationMenu from '../notification/menu';
 
 export default function Comp({ sidebarMenu, set_sidebarMenu }) {
   const dispatch = useDispatch();
   const router = useRouter();
   const [anchorEl, setAnchorEl] = React.useState(null);
 
-  const settingsMenuOpen = (event) => {
+  const settingsMenuOpen = event => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -44,7 +44,7 @@ export default function Comp({ sidebarMenu, set_sidebarMenu }) {
     }
   }, []);
 
-  const logout = (event) => {
+  const logout = event => {
     event.preventDefault();
     dispatch(
       auth.logout({
@@ -94,16 +94,16 @@ export default function Comp({ sidebarMenu, set_sidebarMenu }) {
                 <Box mr={1} display='flex'>
                   <NewPostDialog />
                 </Box>
-                <NextLink href='/profile'>
+                <NextLink passHref href='/profile'>
                   <IconButton component='a' color='inherit'>
-                    <ProfieImageAvatar />
+                    <CurrentUserProfileImageAvatar />
                   </IconButton>
                 </NextLink>
               </Box>
             </Box>
             <Box display='flex'>
               <Box ml={3} display={{ xs: 'none', sm: 'none', md: 'flex' }}>
-                <NextLink href='/search'>
+                <NextLink href='/search' passHref>
                   <IconButton color='inherit'>
                     <SearchIcon />
                   </IconButton>
@@ -115,20 +115,13 @@ export default function Comp({ sidebarMenu, set_sidebarMenu }) {
                     <CheckBoxOutlineBlankIcon />
                   </Badge>
                 </IconButton>
-                <Menu
-                  id='simple-menu'
-                  anchorEl={anchorEl}
+                <NotificationMenu
                   open={Boolean(anchorEl)}
-                  keepMounted
+                  anchorEl={anchorEl}
                   onClose={settingsMenuClose}
-                  getContentAnchorEl={null}
-                  anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'right',
-                  }}
                 >
-                  <Notification />
-                </Menu>
+                  <Notification onClose={settingsMenuClose} />
+                </NotificationMenu>
               </Box>
 
               <Box ml={3} display={{ xs: 'none', sm: 'none', md: 'flex' }}>
@@ -137,7 +130,7 @@ export default function Comp({ sidebarMenu, set_sidebarMenu }) {
                 </IconButton>
               </Box>
               <Box ml={3}>
-                <NextLink href='/settings/account'>
+                <NextLink href='/settings/account' passHref>
                   <IconButton color='inherit'>
                     <SettingsIcon />
                   </IconButton>

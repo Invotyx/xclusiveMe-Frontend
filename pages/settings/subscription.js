@@ -17,6 +17,7 @@ import { useSelector } from 'react-redux';
 import Layout from '../../components/layouts/layout-settings';
 import { fetchingSelector } from '../../selectors/authSelector';
 import { errorSelector } from '../../selectors/authSelector';
+import Popover from '../../components/settings/subscription/popover';
 
 export default function Home() {
   const fetching = useSelector(fetchingSelector);
@@ -25,16 +26,21 @@ export default function Home() {
   const [price, set_price] = React.useState('');
   const [validationErrors, setValidationErrors] = React.useState({});
   const currentUser = useSelector(currentUserSelector);
+  const [open, setOpen] = React.useState(false);
 
   useEffect(() => {
-    if (currentUser && currentUser.price) {
-      set_price(currentUser.price);
+    setOpen(true);
+  }, []);
+
+  useEffect(() => {
+    if (currentUser && currentUser.subscriptionPlans) {
+      set_price(currentUser.subscriptionPlans.price);
     }
   }, [currentUser]);
 
   useEffect(() => {
     if (error?.response?.data?.errors) {
-      setValidationErrors(Object.assign(...error.response.data.errors));
+      setValidationErrors(error.response.data.errors);
     } else {
       setValidationErrors({});
     }
@@ -97,6 +103,7 @@ export default function Home() {
             </form>
           </Grid>
         </Grid>
+        <Popover open={open} setOpen={setOpen} />
       </Layout>
     </motion.div>
   );

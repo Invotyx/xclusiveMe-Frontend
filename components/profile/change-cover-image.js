@@ -1,8 +1,6 @@
 import React from 'react';
 import CardMedia from '@material-ui/core/CardMedia';
 import { makeStyles } from '@material-ui/core/styles';
-import { useSelector } from 'react-redux';
-import { currentUserSelector } from '../../selectors/authSelector';
 import { getImage } from '../../services/getImage';
 
 const useStyles = makeStyles(() => ({
@@ -24,8 +22,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default function FormDialog({ children }) {
-  const userSelector = useSelector(currentUserSelector);
+export default function FormDialog({ children, profileData }) {
   const classes = useStyles();
 
   return (
@@ -34,11 +31,11 @@ export default function FormDialog({ children }) {
       <CardMedia
         className={classes.media}
         image={
-          userSelector && userSelector.coverImage
-            ? getImage(userSelector.coverImage)
+          profileData && profileData.coverImage
+            ? getImage(profileData.coverImage)
             : '/cover.jpg'
         }
-        title='Paella dish'
+        title={profileData && profileData.fullName}
       />
     </>
   );

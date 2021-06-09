@@ -12,12 +12,24 @@ const loggedInSelector = createSelector(authState, (state) =>
   state.get('loggedIn')
 );
 
+const uploadingCoverSelector = createSelector(authState, (state) =>
+  state.get('uploadingCover')
+);
+
 const fetchingSelector = createSelector(authState, (state) =>
   state.get('fetching')
 );
 
 const currentUserSelector = createSelector(authState, (state) =>
   state.get('currentUser')
+);
+
+const currentUserFollowersSelector = createSelector(authState, (state) =>
+  state.get('followers')
+);
+
+const currentUserFollowingsSelector = createSelector(authState, (state) =>
+  state.get('followings')
 );
 
 const currentUserSessionsSelector = createSelector(authState, (state) =>
@@ -34,6 +46,9 @@ export {
   authDataSelector,
   loggedInSelector,
   fetchingSelector,
+  uploadingCoverSelector,
+  currentUserFollowersSelector,
+  currentUserFollowingsSelector,
   currentUserSelector,
   currentUserSessionsSelector,
   errorSelector,

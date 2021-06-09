@@ -29,9 +29,7 @@ function* handleGetOne(action) {
       apiClient.get,
       `${SERVER_ADDRESS}/users/get/${id}`
     );
-    yield put(
-      user.success({ single: data.totalCount > 0 ? data.results[0] : null })
-    );
+    yield put(user.success({ single: data }));
     yield put(post.success({ xfeed_numberOfPosts: data.totalCount }));
   } catch (e) {
     console.log(e);
@@ -46,7 +44,7 @@ function* handleSearch(action) {
       apiClient.get,
       `${SERVER_ADDRESS}/users/look/${q}`
     );
-    yield put(user.success({ data: data.results }));
+    yield put(user.success({ data: data.results, searched: true }));
   } catch (e) {
     console.log(e);
     yield put(user.failure({ error: { ...e } }));

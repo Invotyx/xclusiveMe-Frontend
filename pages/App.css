@@ -1,0 +1,6 @@
+::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
+.tempCountry > div > div {
+  opacity: 0;
+}

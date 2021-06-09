@@ -15,10 +15,9 @@ import {
 } from '../services/post.service';
 import { bottomalert } from '../actions/bottom-alert';
 
-function* handleGet(action) {
+function* handleGet() {
   try {
-    const { userId } = action.payload;
-    const { data } = yield call(getAll, userId);
+    const { data } = yield call(getAll);
     yield put(
       post.success({ data: data.results, numberOfPosts: data.totalCount })
     );
@@ -42,14 +41,12 @@ function* handleGetX(action) {
   try {
     const { username } = action.payload;
     const { data } = yield call(getX, username);
-    if (data.posts && data.posts.length) {
-      yield put(
-        post.success({
-          xfeed: data.posts[0].posts,
-          xfeed_numberOfPosts: data.totalCount,
-        })
-      );
-    }
+    yield put(
+      post.success({
+        xfeed: data.results,
+        xfeed_numberOfPosts: data.totalCount,
+      })
+    );
   } catch (e) {
     console.log(e);
     yield put(post.success({ error: true }));
@@ -60,7 +57,7 @@ function* handlePost(action) {
   try {
     const { saveData } = action.payload;
     yield call(add, saveData);
-    const success = yield put(post.success({}));
+    yield put(post.success({}));
     yield call(post.request);
     yield put(
       snackbar.update({
@@ -71,7 +68,7 @@ function* handlePost(action) {
     );
     const { callback } = action.payload;
     if (callback) {
-      yield call(callback, success.payload.success);
+      yield call(callback);
     }
   } catch (e) {
     console.log(e);
@@ -142,7 +139,6 @@ function* handleUploadImage({ payload }) {
   try {
     const { fileObject } = payload;
     const response = yield call(uploadImage, fileObject);
-    yield call(post.save);
     yield put(
       bottomalert.update({
         open: true,
@@ -172,11 +168,10 @@ function* handleUploadVideoReq({ payload }) {
     const { fileObject } = payload;
     const res = yield call(uploadVideoReq1, fileObject);
     const url = res.data[0].url;
-    yield call(post.save);
 
     const { callback } = payload;
     if (callback) {
-      yield call(callback, url);
+      yield call(callback, res.data[0]);
     }
   } catch (e) {
     console.log(e);
@@ -188,7 +183,6 @@ function* handleUploadVideoFinalReq({ payload }) {
   try {
     const { fileObject, url } = payload;
     yield call(uploadVideoFinalReq, fileObject, url);
-    yield call(post.save);
     yield put(
       bottomalert.update({
         open: true,

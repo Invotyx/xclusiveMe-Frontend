@@ -2,22 +2,50 @@ import { TextField, Typography } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { paymentMethod } from '../../../actions/payment-method';
 import { snackbar } from '../../../actions/snackbar';
 import CardSection from './card-section';
-import { fetchingSelector } from '../../../selectors/paymentMethodSelector';
+import {
+  fetchingSelector,
+  errorSelector,
+} from '../../../selectors/paymentMethodSelector';
 
 export default function CheckoutForm(props) {
   const fetching = useSelector(fetchingSelector);
   const stripe = useStripe();
   const elements = useElements();
   const [name, setName] = useState('');
+  const [token, setToken] = useState(null);
   const [_disabled, set_disabled] = useState('');
   const dispatch = useDispatch();
+  const [validationErrors, setValidationErrors] = useState({});
+  const error = useSelector(errorSelector);
 
-  const handleSubmit = async (event) => {
+  useEffect(() => {
+    if (error?.response?.data?.errors) {
+      setValidationErrors(error.response.data.errors);
+    } else {
+      setValidationErrors({});
+    }
+  }, [error]);
+
+  const savePaymentMethod = token => {
+    dispatch(
+      paymentMethod.save({
+        name,
+        token,
+        callback: () => {
+          if (props.callback) {
+            props.callback();
+          }
+        },
+      })
+    );
+  };
+
+  const handleSubmit = async event => {
     // We don't want to let default form submission happen here,
     // which would refresh the page.
     event.preventDefault();
@@ -46,20 +74,8 @@ export default function CheckoutForm(props) {
     }
     if (result.token) {
       set_disabled(false);
-      dispatch(
-        paymentMethod.save({
-          name,
-          token: result.token.id,
-          callback: () => {
-            if (props.callback) {
-              props.callback();
-            }
-            if (props.afterSave) {
-              props.afterSave();
-            }
-          },
-        })
-      );
+      setToken(result.token.id);
+      savePaymentMethod(result.token.id);
     }
     setTimeout(() => {
       set_disabled(false);
@@ -80,8 +96,14 @@ export default function CheckoutForm(props) {
             name='name'
             label='Title'
             fullWidth
+            error={validationErrors && validationErrors.name}
+            helperText={
+              validationErrors.name
+                ? Object.values(validationErrors.name).join(', ')
+                : ''
+            }
             value={name}
-            onChange={(e) => setName(e.target.value)}
+            onChange={e => setName(e.target.value)}
           />
         </Box>
         <Box

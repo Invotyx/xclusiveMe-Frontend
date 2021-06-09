@@ -5,6 +5,7 @@ import { darkTheme } from '../theme';
 import { makeStyles } from '@material-ui/core/styles';
 import Head from 'next/head';
 import { wrapper } from '../store';
+import './App.css';
 import { AppSnackbar } from '../components/AppSnackbar';
 import BottomAlert from '../components/bottom-alert';
 

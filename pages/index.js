@@ -22,12 +22,12 @@ export default function Home() {
           </Box>
           <Box mr={2} mt={2} display='flex'>
             <Box mr={2}>
-              <NextLink href='/login'>
+              <NextLink href='/login' passHref>
                 <Button variant='outlined'>Login</Button>
               </NextLink>
             </Box>
             <Box mr={2}>
-              <NextLink href='/register'>
+              <NextLink href='/register' passHref>
                 <Button variant='outlined'>Create Account</Button>
               </NextLink>
             </Box>

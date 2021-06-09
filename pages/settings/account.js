@@ -6,6 +6,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import Box from '@material-ui/core/Box';
 import IconButton from '@material-ui/core/IconButton';
+import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import Switch from '@material-ui/core/Switch';
 import Grid from '@material-ui/core/Grid';
@@ -19,7 +20,7 @@ import Button from '@material-ui/core/Button';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import { makeStyles } from '@material-ui/core/styles';
 import TileTextField from '../../components/TileTextField';
-import ClearIcon from '@material-ui/icons/Clear';
+import EditIcon from '@material-ui/icons/Edit';
 import AddIcon from '@material-ui/icons/Add';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import LinkIcon from '@material-ui/icons/Link';
@@ -32,8 +33,9 @@ import { useSelector } from 'react-redux';
 import Layout from '../../components/layouts/layout-settings';
 import { fetchingSelector } from '../../selectors/authSelector';
 import { errorSelector } from '../../selectors/authSelector';
+import { isValidHttpUrl } from '../../services/helper';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
     // marginTop: '150px',
   },
@@ -42,26 +44,22 @@ const useStyles = makeStyles((theme) => ({
 const linkedAccounts = [
   {
     url: '#',
-    text: 'Twitter',
-    active: 'vdotl@gmail.com',
+    title: 'Twitter',
     icon: <Image width={20} height={20} src='/twitter.svg' />,
   },
   {
     url: '#',
-    text: 'Google',
-    active: '',
+    title: 'Google',
     icon: <Image width={20} height={20} src='/google.svg' />,
   },
   {
     url: '#',
-    text: 'Facebook',
-    active: '',
+    title: 'Facebook',
     icon: <FacebookIcon />,
   },
   {
     url: '#',
-    text: 'Website',
-    active: '',
+    title: 'Website',
     icon: <LinkIcon />,
   },
 ];
@@ -71,8 +69,7 @@ export default function Home(props) {
   const error = useSelector(errorSelector);
   const dispatch = useDispatch();
   const [editLinkedAccount, set_editLinkedAccount] = React.useState(null);
-  const [editLinkedAccountText, set_editLinkedAccountText] =
-    React.useState(null);
+  const [editLinkedAccountUrl, set_editLinkedAccountUrl] = React.useState(null);
   const [username, set_username] = React.useState('');
   const [email, set_email] = React.useState('');
   const [phone, set_phone] = React.useState('');
@@ -80,6 +77,7 @@ export default function Home(props) {
   const [password_old, set_password_old] = React.useState('');
   const [verificationViaSms, set_verificationViaSms] = React.useState(false);
   const [authenticatorApp, set_authenticatorApp] = React.useState(true);
+  const [links, setLinks] = React.useState(null);
   const [validationErrors, setValidationErrors] = React.useState({});
   const currentUser = useSelector(currentUserSelector);
   const loginSessions = useSelector(currentUserSessionsSelector);
@@ -90,6 +88,7 @@ export default function Home(props) {
       set_email(currentUser.email);
       set_phone(currentUser.phoneNumber);
       set_verificationViaSms(currentUser.fa2);
+      setLinks(currentUser.profile.links || linkedAccounts);
     }
   }, [currentUser]);
   useEffect(() => {
@@ -98,34 +97,58 @@ export default function Home(props) {
 
   useEffect(() => {
     if (error?.response?.data?.errors) {
-      setValidationErrors(Object.assign(...error.response.data.errors));
+      setValidationErrors(error.response.data.errors);
     } else {
       setValidationErrors({});
     }
   }, [error]);
 
   const classes = useStyles();
-  const handleUpdate = (event) => {
+  const handleUpdate = event => {
     event.preventDefault();
     dispatch(
       auth.updateProfile({
-        username,
-        email,
-        phoneNumber: phone,
+        saveData: {
+          username,
+          email,
+          phoneNumber: phone,
+        },
       })
     );
   };
-  const handleUpdatePassword = (event) => {
+  const handleUpdatePassword = event => {
     event.preventDefault();
     dispatch(
-      auth.updateProfile({
-        password,
-        oldPassword: password_old,
+      auth.updatePassword({
+        saveData: {
+          password,
+          confirmPassword: password,
+        },
       })
     );
   };
   const handleLogOutAllSessions = () => {
     dispatch(auth.expireAllSessions());
+  };
+  const saveLinks = (e, link) => {
+    e.preventDefault();
+    // if (!isValidHttpUrl(editLinkedAccountUrl)) {
+    //   setValidationErrors({ links: { invalidUrl: 'Url is invalid' } });
+    //   return;
+    // }
+    let linkx = links.slice();
+    linkx[linkx.indexOf(link)].url = editLinkedAccountUrl;
+    linkx = links.map(l => Object.assign({}, l, { icon: undefined }));
+    dispatch(
+      auth.updateProfile({
+        saveData: {
+          links: linkx,
+        },
+        callback: () => {
+          set_editLinkedAccount(null);
+        },
+      })
+    );
   };
   return (
     <motion.div initial='hidden' animate='visible' variants={variants}>
@@ -139,7 +162,7 @@ export default function Home(props) {
               <Box mb={4}>
                 <TileTextField
                   value={username}
-                  onChange={(e) => set_username(e.target.value)}
+                  onChange={e => set_username(e.target.value)}
                   variant='outlined'
                   margin='normal'
                   fullWidth
@@ -160,7 +183,7 @@ export default function Home(props) {
 
                 <TileTextField
                   value={email}
-                  onChange={(e) => set_email(e.target.value)}
+                  onChange={e => set_email(e.target.value)}
                   variant='outlined'
                   margin='normal'
                   fullWidth
@@ -177,7 +200,7 @@ export default function Home(props) {
 
                 <TileTextField
                   value={phone}
-                  onChange={(e) => set_phone(e.target.value)}
+                  onChange={e => set_phone(e.target.value)}
                   variant='outlined'
                   margin='normal'
                   fullWidth
@@ -200,59 +223,64 @@ export default function Home(props) {
               <Box mb={4}>
                 <UppercaseInputLabel>Linked Accounts</UppercaseInputLabel>
                 <List>
-                  {linkedAccounts.map((i, j) => (
+                  {links?.map((i, j) => (
                     <Box mb={1} key={`linkedAccounts${j}`}>
                       <ListItem selected={true}>
                         {i.icon && <ListItemIcon>{i.icon}</ListItemIcon>}
                         <ListItemText
-                          primary={i.text}
+                          primary={i.title}
                           secondary={
-                            <>
-                              {editLinkedAccount === i.text ? (
+                            <Typography component='div'>
+                              {editLinkedAccount === i.title ? (
                                 <Box display='flex' mt={1}>
                                   <Box mr={1}>
                                     <TileTextField
-                                      value={editLinkedAccountText}
-                                      onChange={(e) =>
-                                        set_editLinkedAccountText(
-                                          e.target.value
-                                        )
+                                      value={editLinkedAccountUrl}
+                                      onChange={e =>
+                                        set_editLinkedAccountUrl(e.target.value)
                                       }
                                       variant='outlined'
                                       size='small'
                                       name='phone'
                                       type='phone'
+                                      error={
+                                        validationErrors &&
+                                        validationErrors.links
+                                      }
+                                      helperText={
+                                        validationErrors.links
+                                          ? Object.values(
+                                              validationErrors.links
+                                            ).join(', ')
+                                          : ''
+                                      }
                                     />
                                   </Box>
                                   <Box>
                                     <Button
                                       variant='outlined'
-                                      onClick={() => {
-                                        linkedAccounts[
-                                          linkedAccounts.indexOf(i)
-                                        ].active = editLinkedAccountText;
-                                        set_editLinkedAccount(null);
-                                      }}
+                                      disabled={fetching}
+                                      onClick={e => saveLinks(e, i)}
                                     >
                                       save
                                     </Button>
                                   </Box>
                                 </Box>
                               ) : (
-                                i.active
+                                i.url
                               )}
-                            </>
+                            </Typography>
                           }
                         />
                         <ListItemSecondaryAction>
-                          {editLinkedAccount !== i.text && (
+                          {editLinkedAccount !== i.title && (
                             <IconButton
                               onClick={() => {
-                                set_editLinkedAccount(i.text);
-                                set_editLinkedAccountText(i.active);
+                                set_editLinkedAccount(i.title);
+                                set_editLinkedAccountUrl(i.url);
                               }}
                             >
-                              {i.active ? <ClearIcon /> : <AddIcon />}
+                              {i.url ? <EditIcon /> : <AddIcon />}
                             </IconButton>
                           )}
                         </ListItemSecondaryAction>
@@ -267,7 +295,7 @@ export default function Home(props) {
                 <TileTextField
                   placeholder='•••••••'
                   value={password}
-                  onChange={(e) => set_password(e.target.value)}
+                  onChange={e => set_password(e.target.value)}
                   variant='outlined'
                   margin='normal'
                   fullWidth
@@ -281,7 +309,7 @@ export default function Home(props) {
                       : ''
                   }
                 />
-                {password && (
+                {/*
                   <TileTextField
                     value={password_old}
                     onChange={(e) => set_password_old(e.target.value)}
@@ -298,7 +326,7 @@ export default function Home(props) {
                         : ''
                     }
                   />
-                )}
+                  */}
                 <Button variant='outlined' type='submit' disabled={fetching}>
                   Update Password
                 </Button>
@@ -344,7 +372,7 @@ export default function Home(props) {
                       <ListItemSecondaryAction>
                         <Switch
                           edge='end'
-                          onChange={(e) => {
+                          onChange={e => {
                             set_authenticatorApp(e.target.checked);
                           }}
                           checked={authenticatorApp}
@@ -357,7 +385,7 @@ export default function Home(props) {
                     <ListItemSecondaryAction>
                       <Switch
                         edge='end'
-                        onChange={(e) => {
+                        onChange={e => {
                           set_verificationViaSms(e.target.checked);
                           dispatch(
                             auth.updateTwoFactorAuthentication({

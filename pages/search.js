@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { variants } from '../services/framer-variants';
 import Head from 'next/head';
@@ -11,9 +11,12 @@ import OutlinedInput from '@material-ui/core/OutlinedInput';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { makeStyles } from '@material-ui/core/styles';
 import Layout from '../components/layouts/layout-auth';
-import ImageAvatar from '../components/image-avatar';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchingSelector, userDataSelector } from '../selectors/userSelector';
+import {
+  fetchingSelector,
+  searchedSelector,
+  userDataSelector,
+} from '../selectors/userSelector';
 import { user } from '../actions/user';
 import {
   Button,
@@ -24,8 +27,9 @@ import {
   ListItemText,
 } from '@material-ui/core';
 import { getImage } from '../services/getImage';
+import ProfileImageAvatar from '../components/profile/profile-image-avatar';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
     // marginTop: '150px',
   },
@@ -38,13 +42,17 @@ const useStyles = makeStyles((theme) => ({
 export default function Home() {
   const dispatch = useDispatch();
   const fetching = useSelector(fetchingSelector);
+  const searched = useSelector(searchedSelector);
   const users = useSelector(userDataSelector);
   const classes = useStyles();
   const [_search, set_search] = useState('');
-  const handleSearch = (event) => {
+  const handleSearch = event => {
     event.preventDefault();
     dispatch(user.search({ q: _search }));
   };
+  useEffect(() => {
+    dispatch(user.emptySearchList());
+  }, []);
 
   return (
     <motion.div initial='hidden' animate='visible' variants={variants}>
@@ -58,21 +66,30 @@ export default function Home() {
               <form onSubmit={handleSearch}>
                 <Box display='flex' mb={4}>
                   <OutlinedInput
+                    autoFocus
                     fullWidth
                     placeholder='Search…'
                     startAdornment={<SearchIcon />}
-                    endAdornment={fetching ? <CircularProgress /> : ''}
                     value={_search}
-                    onChange={(e) => set_search(e.target.value)}
+                    onChange={e => set_search(e.target.value)}
                   />
                 </Box>
               </form>
             </Grid>
             <Grid item xs={12}>
+              {fetching ? (
+                <CircularProgress />
+              ) : users.length === 0 && searched ? (
+                'no user found'
+              ) : !searched ? (
+                'type something to start'
+              ) : (
+                ''
+              )}
               <List>
                 {users &&
                   users.length > 0 &&
-                  users.map((u) => (
+                  users.map(u => (
                     <NextLink href={`/x/${u.username}`} key={`user${u.id}`}>
                       <Box
                         clone
@@ -84,21 +101,29 @@ export default function Home() {
                           backgroundSize: 'cover',
                           backgroundImage: u.coverImage
                             ? `url(${getImage(u.coverImage)})`
-                            : `url('/cover.jpg')`,
+                            : `url('/no-media.jpg')`,
                           boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',
                         }}
                       >
                         <ListItem>
                           <Box clone mr={2}>
                             <ListItemAvatar>
-                              <ImageAvatar className={classes.large} user={u} />
+                              <ProfileImageAvatar
+                                className={classes.large}
+                                user={u}
+                              />
                             </ListItemAvatar>
                           </Box>
                           <ListItemText primary={u.username} />
                           <ListItemSecondaryAction>
-                            <Button size='small' variant='outlined'>
-                              view profile
-                            </Button>
+                            <NextLink
+                              href={`/x/${u.username}`}
+                              key={`user${u.id}`}
+                            >
+                              <Button size='small' variant='outlined'>
+                                view profile
+                              </Button>
+                            </NextLink>
                           </ListItemSecondaryAction>
                         </ListItem>
                       </Box>
