@@ -29,6 +29,13 @@ export const post = {
       success: false,
       error: null,
     }),
+  getComment: data =>
+    createAction(POST.GET_COMMENTS, {
+      ...data,
+      fetching: true,
+      success: false,
+      error: null,
+    }),
   saveComment: data =>
     createAction(POST.ADD_COMMENT, {
       ...data,

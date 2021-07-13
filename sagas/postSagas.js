@@ -14,6 +14,7 @@ import {
   getX,
   addComment,
   addLike,
+  getComment,
 } from '../services/post.service';
 import { bottomalert } from '../actions/bottom-alert';
 
@@ -82,6 +83,17 @@ function* handlePost(action) {
         severity: 'error',
       })
     );
+  }
+}
+
+function* handleGetComment(action) {
+  try {
+    const { id } = yield call(getComment, id);
+    yield put(post.success({}));
+    yield call(post.getComment);
+  } catch (e) {
+    console.log(e);
+    yield put(post.success({ error: true }));
   }
 }
 
@@ -266,6 +278,7 @@ function* watchPostSagas() {
     takeLatest(POST.GET_X, handleGetX),
     takeLatest(POST.SAVE, handlePost),
     takeLatest(POST.ADD_COMMENT, handleComment),
+    takeLatest(POST.GET_COMMENTS, handleGetComment),
     takeLatest(POST.UPDATE, handleUpdate),
     takeLatest(POST.DELETE, handleDelete),
     takeLatest(POST.ADD_LIKE, handleLike),

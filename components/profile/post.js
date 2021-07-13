@@ -62,6 +62,11 @@ export default function Post({ post, profileData, altHeader }) {
         },
         callback: () => {
           setCommentText('');
+          dispatch(
+            postData.getComment({
+              id: post.id,
+            })
+          );
         },
       })
     );
