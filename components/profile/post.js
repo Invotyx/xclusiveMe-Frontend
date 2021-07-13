@@ -379,8 +379,11 @@ export default function Post({ post, profileData, altHeader }) {
                       </p>
                     </div>
                     <div style={{ display: 'flex', marginRight: '14px' }}>
-                      <ChatBubbleOutlineIcon style={{ marginRight: '9px' }} />
-                      <FavoriteIcon />
+                      <ChatBubbleOutlineIcon
+                        style={{ marginRight: '9px' }}
+                        fontSize='small'
+                      />
+                      <FavoriteIcon fontSize='small' />
                     </div>
                   </div>
                 ))}
@@ -443,8 +446,11 @@ export default function Post({ post, profileData, altHeader }) {
             </p>
           </div>
           <div style={{ display: 'flex', marginRight: '14px' }}>
-            <ChatBubbleOutlineIcon style={{ marginRight: '9px' }} />
-            <FavoriteIcon />
+            <ChatBubbleOutlineIcon
+              style={{ marginRight: '9px' }}
+              fontSize='small'
+            />
+            <FavoriteIcon fontSize='small' />
           </div>
         </div>
       ))}
