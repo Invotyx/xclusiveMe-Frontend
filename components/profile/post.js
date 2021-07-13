@@ -178,7 +178,7 @@ export default function Post({ post, profileData, altHeader }) {
             aria-label='share'
             startIcon={<ChatBubbleOutlineIcon />}
           >
-            {post.totalComments} Comments
+            {post.comments.length} Comments
           </NormalCaseButton>
           <NormalCaseButton
             aria-label='tip'
@@ -197,9 +197,17 @@ export default function Post({ post, profileData, altHeader }) {
           </NormalCaseButton>
         )}
       </CardActions>
-      <p style={{ cursor: 'pointer', marginLeft: '10px' }} onClick={handleOpen}>
-        View all Comments
-      </p>
+      {post.comments.length > 0 ? (
+        <p
+          style={{ cursor: 'pointer', marginLeft: '10px' }}
+          onClick={handleOpen}
+        >
+          View all Comments
+        </p>
+      ) : (
+        ''
+      )}
+
       <Modal
         aria-labelledby='transition-modal-title'
         aria-describedby='transition-modal-description'
@@ -211,7 +219,7 @@ export default function Post({ post, profileData, altHeader }) {
       >
         <Fade in={open}>
           <div className={classes.modelStyle}>
-            <div style={{ width: '30%', height: '30%' }}>
+            <div style={{ width: '40%', height: '40%' }}>
               <PostMedia media={post.media} mediaCount={post.mediaCount} />
             </div>
 
