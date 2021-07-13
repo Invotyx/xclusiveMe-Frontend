@@ -400,7 +400,7 @@ export default function Post({ post, profileData, altHeader }) {
                       alt='profileImage'
                       width='40px'
                       height='35px'
-                      style={{ marginRight: '10px' }}
+                      style={{ marginRight: '10px', borderRadius: '3px' }}
                     />
                   }
                   endAdornment={<SendIcon onClick={handleAddComment} />}
@@ -463,7 +463,7 @@ export default function Post({ post, profileData, altHeader }) {
               alt='profileImage'
               width='40px'
               height='35px'
-              style={{ marginRight: '10px' }}
+              style={{ marginRight: '10px', borderRadius: '3px' }}
             />
           }
           endAdornment={<SendIcon onClick={handleAddComment} />}
