@@ -18,6 +18,8 @@ import moment from 'moment';
 import ProfileImageAvatar from './profile-image-avatar';
 import NormalCaseButton from '../NormalCaseButton';
 import PostMedia from './post-media';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
+import SendIcon from '@material-ui/icons/Send';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -95,6 +97,7 @@ export default function Post({ post, profileData, altHeader }) {
             Tip
           </NormalCaseButton>
         </Box>
+
         {false && (
           <NormalCaseButton
             aria-label='bookmark'
@@ -104,6 +107,27 @@ export default function Post({ post, profileData, altHeader }) {
           </NormalCaseButton>
         )}
       </CardActions>
+      <Box>
+        <OutlinedInput
+          // value={postText}
+          // onChange={e => set_postText(e.target.value)}
+
+          name='commentText'
+          multiline
+          fullWidth
+          rows={1}
+          placeholder='Add Comment'
+          startAdornment={
+            <img
+              src={profileData.profileImage}
+              alt='profileImage'
+              width='40px'
+              height='35px'
+            />
+          }
+          endAdornment={<SendIcon />}
+        />
+      </Box>
     </Card>
   );
 }
