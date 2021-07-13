@@ -20,6 +20,9 @@ import NormalCaseButton from '../NormalCaseButton';
 import PostMedia from './post-media';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import SendIcon from '@material-ui/icons/Send';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { post as postData } from '../../actions/post/index';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -28,6 +31,26 @@ const useStyles = makeStyles(theme => ({
 }));
 export default function Post({ post, profileData, altHeader }) {
   const classes = useStyles();
+  const [commentText, setCommentText] = useState('');
+  const dispatch = useDispatch();
+
+  const handleAddComment = () => {
+    if (!commentText || commentText.trim() === '') {
+      return;
+    }
+    dispatch(
+      postData.saveComment({
+        id: post.id,
+        commentText: {
+          comment: commentText,
+        },
+        callback: () => {
+          setCommentText('');
+        },
+      })
+    );
+  };
+
   return (
     <Card className={classes.root}>
       {altHeader ? (
@@ -109,9 +132,8 @@ export default function Post({ post, profileData, altHeader }) {
       </CardActions>
       <Box>
         <OutlinedInput
-          // value={postText}
-          // onChange={e => set_postText(e.target.value)}
-
+          value={commentText}
+          onChange={e => setCommentText(e.target.value)}
           name='commentText'
           multiline
           fullWidth
@@ -125,7 +147,7 @@ export default function Post({ post, profileData, altHeader }) {
               height='35px'
             />
           }
-          endAdornment={<SendIcon />}
+          endAdornment={<SendIcon onClick={handleAddComment} />}
         />
       </Box>
     </Card>

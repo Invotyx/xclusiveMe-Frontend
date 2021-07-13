@@ -30,7 +30,7 @@ export const post = {
       error: null,
     }),
   saveComment: data =>
-    createAction(POST.SAVE, {
+    createAction(POST.ADD_COMMENT, {
       ...data,
       fetching: true,
       success: false,
