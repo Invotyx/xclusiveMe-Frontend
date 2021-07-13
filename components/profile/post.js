@@ -26,6 +26,7 @@ import { post as postData } from '../../actions/post/index';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
+import CloseIcon from '@material-ui/icons/Close';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -41,6 +42,11 @@ const useStyles = makeStyles(theme => ({
     border: '2px solid #000',
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
+  },
+  modelStyle: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 }));
 export default function Post({ post, profileData, altHeader }) {
@@ -204,7 +210,136 @@ export default function Post({ post, profileData, altHeader }) {
         BackdropComponent={Backdrop}
       >
         <Fade in={open}>
-          <div className={classes.paper}>hello</div>
+          <div className={classes.modelStyle}>
+            <div style={{ width: '30%', height: '30%' }}>
+              <PostMedia media={post.media} mediaCount={post.mediaCount} />
+            </div>
+
+            <div className={classes.profileModelStyle}>
+              {altHeader ? (
+                <CardHeader
+                  action={
+                    <IconButton aria-label='settings'>
+                      <CloseIcon onClick={handleClose} />
+                    </IconButton>
+                  }
+                  subheader={moment(post.createdAt).fromNow()}
+                />
+              ) : (
+                <CardHeader
+                  avatar={<ProfileImageAvatar user={profileData} />}
+                  action={
+                    <IconButton aria-label='settings'>
+                      <CloseIcon onClick={handleClose} />
+                    </IconButton>
+                  }
+                  title={
+                    <>
+                      <Box clone mr={1}>
+                        <Typography variant='body2' component='span'>
+                          <NextLink
+                            href={`/x/${profileData?.username}`}
+                            passHref
+                          >
+                            <Link>{profileData?.fullName || '(no name)'}</Link>
+                          </NextLink>
+                        </Typography>
+                      </Box>
+                      <Typography variant='caption' color='textSecondary'>
+                        {moment(post.createdAt).fromNow()}
+                      </Typography>
+                    </>
+                  }
+                  subheader={
+                    <Typography variant='caption' color='textSecondary'>
+                      @{profileData?.username}
+                    </Typography>
+                  }
+                />
+              )}
+              {post.postText && (
+                <CardContent>
+                  <Typography
+                    variant='body2'
+                    color='textSecondary'
+                    component='p'
+                  >
+                    {post.postText}
+                  </Typography>
+                </CardContent>
+              )}
+              <CardActions disableSpacing>
+                <Box flexGrow={1}>
+                  {post.likes.length === 0 ? (
+                    <NormalCaseButton
+                      aria-label='add to favorites'
+                      startIcon={<FavoriteIcon />}
+                      onClick={handleLike}
+                    >
+                      {post.totalLikes} Likes
+                    </NormalCaseButton>
+                  ) : (
+                    <NormalCaseButton
+                      aria-label='add to favorites'
+                      startIcon={<FavoriteIcon style={{ color: 'red' }} />}
+                      onClick={handleLike}
+                    >
+                      {post.likes.length} Likes
+                    </NormalCaseButton>
+                  )}
+
+                  <NormalCaseButton
+                    aria-label='share'
+                    startIcon={<ChatBubbleOutlineIcon />}
+                  >
+                    {post.totalComments} Comments
+                  </NormalCaseButton>
+                  <NormalCaseButton
+                    aria-label='tip'
+                    startIcon={<MonetizationOnOutlinedIcon />}
+                  >
+                    Tip
+                  </NormalCaseButton>
+                </Box>
+
+                {false && (
+                  <NormalCaseButton
+                    aria-label='bookmark'
+                    startIcon={<BookmarkBorderOutlinedIcon />}
+                  >
+                    <Box display={{ xs: 'none', sm: 'none', md: 'flex' }}>
+                      Save
+                    </Box>
+                  </NormalCaseButton>
+                )}
+              </CardActions>
+              {post.comments.map(comm => (
+                <p style={{ cursor: 'pointer', marginLeft: '10px' }}>
+                  {comm.comment}
+                </p>
+              ))}
+              <Box>
+                <OutlinedInput
+                  value={commentText}
+                  onChange={e => setCommentText(e.target.value)}
+                  name='commentText'
+                  multiline
+                  fullWidth
+                  rows={1}
+                  placeholder='Add Comment'
+                  startAdornment={
+                    <img
+                      src={profileData.profileImage}
+                      alt='profileImage'
+                      width='40px'
+                      height='35px'
+                    />
+                  }
+                  endAdornment={<SendIcon onClick={handleAddComment} />}
+                />
+              </Box>
+            </div>
+          </div>
         </Fade>
       </Modal>
       {post.comments.slice(0, 3).map(comm => (
