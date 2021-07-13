@@ -27,6 +27,7 @@ import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import CloseIcon from '@material-ui/icons/Close';
+import TurnedInNotIcon from '@material-ui/icons/TurnedInNot';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -36,12 +37,16 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: 'rgba(0, 0, 2, 0.9)',
   },
   paper: {
     backgroundColor: theme.palette.background.paper,
     border: '2px solid #000',
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
+  },
+  profileModelStyle: {
+    width: '30%',
   },
   modelStyle: {
     display: 'flex',
@@ -199,10 +204,16 @@ export default function Post({ post, profileData, altHeader }) {
       </CardActions>
       {post.comments.length > 0 ? (
         <p
-          style={{ cursor: 'pointer', marginLeft: '10px' }}
+          style={{
+            cursor: 'pointer',
+            marginLeft: '18px',
+            marginTop: '0px',
+            marginBottom: '9px',
+            fontWeight: 'bold',
+          }}
           onClick={handleOpen}
         >
-          View all Comments
+          View previous comments
         </p>
       ) : (
         ''
@@ -219,7 +230,7 @@ export default function Post({ post, profileData, altHeader }) {
       >
         <Fade in={open}>
           <div className={classes.modelStyle}>
-            <div style={{ width: '40%', height: '40%' }}>
+            <div style={{ width: '40%', height: '100%' }}>
               <PostMedia media={post.media} mediaCount={post.mediaCount} />
             </div>
 
@@ -276,8 +287,8 @@ export default function Post({ post, profileData, altHeader }) {
                   </Typography>
                 </CardContent>
               )}
-              <CardActions disableSpacing>
-                <Box flexGrow={1}>
+              <CardActions>
+                <Box>
                   {post.likes.length === 0 ? (
                     <NormalCaseButton
                       aria-label='add to favorites'
@@ -300,13 +311,19 @@ export default function Post({ post, profileData, altHeader }) {
                     aria-label='share'
                     startIcon={<ChatBubbleOutlineIcon />}
                   >
-                    {post.totalComments} Comments
+                    {post.comments.length} Comments
                   </NormalCaseButton>
                   <NormalCaseButton
                     aria-label='tip'
                     startIcon={<MonetizationOnOutlinedIcon />}
                   >
                     Tip
+                  </NormalCaseButton>
+                  <NormalCaseButton
+                    aria-label='tip'
+                    startIcon={<TurnedInNotIcon />}
+                  >
+                    Save
                   </NormalCaseButton>
                 </Box>
 
@@ -321,11 +338,52 @@ export default function Post({ post, profileData, altHeader }) {
                   </NormalCaseButton>
                 )}
               </CardActions>
-              {post.comments.map(comm => (
-                <p style={{ cursor: 'pointer', marginLeft: '10px' }}>
-                  {comm.comment}
-                </p>
-              ))}
+              <div
+                style={{
+                  overflowY: 'scroll',
+                  overflowX: 'hidden',
+                  height: '350px',
+                }}
+              >
+                {post.comments.map(comm => (
+                  <div style={{ display: 'flex' }}>
+                    <div
+                      style={{
+                        display: 'flex',
+                        marginLeft: '14px',
+                      }}
+                    >
+                      <div style={{ display: 'flex' }}>
+                        <img
+                          src='/dp.png'
+                          alt='profile=image'
+                          width='30px'
+                          height='30px'
+                        />
+                        <h5 style={{ marginTop: '6px', marginLeft: '10px' }}>
+                          My Name
+                        </h5>
+                      </div>
+
+                      <p
+                        style={{
+                          cursor: 'pointer',
+                          marginLeft: '10px',
+                          marginTop: '5px',
+                          width: '190px',
+                          marginRight: '15px',
+                        }}
+                      >
+                        {comm.comment}
+                      </p>
+                    </div>
+                    <div style={{ display: 'flex', marginRight: '14px' }}>
+                      <ChatBubbleOutlineIcon style={{ marginRight: '9px' }} />
+                      <FavoriteIcon />
+                    </div>
+                  </div>
+                ))}
+              </div>
               <Box>
                 <OutlinedInput
                   value={commentText}
@@ -341,6 +399,7 @@ export default function Post({ post, profileData, altHeader }) {
                       alt='profileImage'
                       width='40px'
                       height='35px'
+                      style={{ marginRight: '10px' }}
                     />
                   }
                   endAdornment={<SendIcon onClick={handleAddComment} />}
@@ -351,7 +410,42 @@ export default function Post({ post, profileData, altHeader }) {
         </Fade>
       </Modal>
       {post.comments.slice(0, 3).map(comm => (
-        <p style={{ cursor: 'pointer', marginLeft: '10px' }}>{comm.comment}</p>
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <div style={{ display: 'flex', marginLeft: '14px' }}>
+            <div style={{ display: 'flex' }}>
+              <img
+                src='/dp.png'
+                alt='profile=image'
+                width='30px'
+                height='30px'
+              />
+              <p
+                style={{
+                  marginTop: '6px',
+                  marginLeft: '10px',
+                  fontWeight: 'bold',
+                }}
+              >
+                My Name
+              </p>
+            </div>
+
+            <p
+              style={{
+                cursor: 'pointer',
+                marginLeft: '10px',
+                marginTop: '5px',
+                width: '350px',
+              }}
+            >
+              {comm.comment}
+            </p>
+          </div>
+          <div style={{ display: 'flex', marginRight: '14px' }}>
+            <ChatBubbleOutlineIcon style={{ marginRight: '9px' }} />
+            <FavoriteIcon />
+          </div>
+        </div>
       ))}
       <Box>
         <OutlinedInput
@@ -368,6 +462,7 @@ export default function Post({ post, profileData, altHeader }) {
               alt='profileImage'
               width='40px'
               height='35px'
+              style={{ marginRight: '10px' }}
             />
           }
           endAdornment={<SendIcon onClick={handleAddComment} />}
