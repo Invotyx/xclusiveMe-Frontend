@@ -22,6 +22,7 @@ export default function postReducer(state = initialState, action) {
     case POST.UPDATE:
     case POST.DELETE:
     case POST.FAILURE:
+    case POST.ADD_COMMENT:
       return state.merge(action.payload);
     default:
       return state;

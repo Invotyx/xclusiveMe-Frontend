@@ -12,6 +12,7 @@ export const POST = createActionTypes('POST', [
   'UPLOAD_IMAGE',
   'UPLOAD_VIDEO_REQ',
   'UPLOAD_VIDEO_FINAL_REQ',
+  'ADD_COMMENT',
 ]);
 
 export default POST;

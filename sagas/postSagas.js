@@ -12,6 +12,7 @@ import {
   add,
   getAllSubscribed,
   getX,
+  addComment,
 } from '../services/post.service';
 import { bottomalert } from '../actions/bottom-alert';
 
@@ -63,6 +64,35 @@ function* handlePost(action) {
       snackbar.update({
         open: true,
         message: 'Post Added',
+        severity: 'success',
+      })
+    );
+    const { callback } = action.payload;
+    if (callback) {
+      yield call(callback);
+    }
+  } catch (e) {
+    console.log(e);
+    yield put(post.failure({ error: { ...e } }));
+    yield put(
+      snackbar.update({
+        open: true,
+        message: e.response.data.message,
+        severity: 'error',
+      })
+    );
+  }
+}
+
+function* handleComment(action) {
+  try {
+    const { id, commentText } = action.payload;
+    yield call(addComment, id, commentText);
+    yield put(post.success({}));
+    yield put(
+      snackbar.update({
+        open: true,
+        message: 'Comment Added',
         severity: 'success',
       })
     );
@@ -209,6 +239,7 @@ function* watchPostSagas() {
     takeLatest(POST.GET_SUBSCRIBED, handleGetSubscribed),
     takeLatest(POST.GET_X, handleGetX),
     takeLatest(POST.SAVE, handlePost),
+    takeLatest(POST.ADD_COMMENT, handleComment),
     takeLatest(POST.UPDATE, handleUpdate),
     takeLatest(POST.DELETE, handleDelete),
     takeLatest(POST.UPLOAD_IMAGE, handleUploadImage),

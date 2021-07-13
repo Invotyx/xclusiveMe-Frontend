@@ -20,6 +20,11 @@ export async function add(saveData) {
   return apiClient.post(`${SERVER_ADDRESS}/posts`, data);
 }
 
+export async function addComment(id, commentData) {
+  const data = JSON.stringify(commentData);
+  return apiClient.post(`${SERVER_ADDRESS}/posts/comments/${id}`, data);
+}
+
 export async function update(id, data) {
   return apiClient.put(`${SERVER_ADDRESS}/posts/${id}`, data);
 }
