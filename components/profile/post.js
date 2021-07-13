@@ -23,16 +23,31 @@ import SendIcon from '@material-ui/icons/Send';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { post as postData } from '../../actions/post/index';
+import Modal from '@material-ui/core/Modal';
+import Backdrop from '@material-ui/core/Backdrop';
+import Fade from '@material-ui/core/Fade';
 
 const useStyles = makeStyles(theme => ({
   root: {
     marginTop: 0,
+  },
+  modal: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  paper: {
+    backgroundColor: theme.palette.background.paper,
+    border: '2px solid #000',
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
   },
 }));
 export default function Post({ post, profileData, altHeader }) {
   const classes = useStyles();
   const [commentText, setCommentText] = useState('');
   const [liked, setLiked] = useState(false);
+  const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
 
   const handleAddComment = () => {
@@ -62,6 +77,14 @@ export default function Post({ post, profileData, altHeader }) {
         })
       );
     }
+  };
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
   };
 
   return (
@@ -155,6 +178,25 @@ export default function Post({ post, profileData, altHeader }) {
           </NormalCaseButton>
         )}
       </CardActions>
+      <p style={{ cursor: 'pointer', marginLeft: '10px' }} onClick={handleOpen}>
+        View all Comments
+      </p>
+      <Modal
+        aria-labelledby='transition-modal-title'
+        aria-describedby='transition-modal-description'
+        className={classes.modal}
+        open={open}
+        onClose={handleClose}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+      >
+        <Fade in={open}>
+          <div className={classes.paper}>hello</div>
+        </Fade>
+      </Modal>
+      {post.comments.slice(0, 3).map(comm => (
+        <p style={{ cursor: 'pointer', marginLeft: '10px' }}>{comm.comment}</p>
+      ))}
       <Box>
         <OutlinedInput
           value={commentText}
