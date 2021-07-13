@@ -31,6 +31,17 @@ function* handleGet() {
   }
 }
 
+function* handleGetOne() {
+  try {
+    const { id } = action.payload;
+    const { data } = yield call(get, id);
+    yield put(post.success({ data }));
+  } catch (e) {
+    console.log(e);
+    yield put(post.success({ error: true }));
+  }
+}
+
 function* handleGetSubscribed() {
   try {
     const { data } = yield call(getAllSubscribed);
@@ -300,6 +311,7 @@ function* handleUploadVideoFinalReq({ payload }) {
 function* watchPostSagas() {
   yield all([
     takeLatest(POST.GET, handleGet),
+    takeLatest(POST.GET_ONE, handleGetOne),
     takeLatest(POST.GET_SUBSCRIBED, handleGetSubscribed),
     takeLatest(POST.GET_X, handleGetX),
     takeLatest(POST.SAVE, handlePost),

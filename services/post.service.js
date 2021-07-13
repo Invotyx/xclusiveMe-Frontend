@@ -7,6 +7,10 @@ export async function getAll() {
   return apiClient.get(`${SERVER_ADDRESS}/posts/`);
 }
 
+export async function get(id) {
+  return apiClient.get(`${SERVER_ADDRESS}/posts/${id}`);
+}
+
 export async function getAllSubscribed() {
   return apiClient.get(`${SERVER_ADDRESS}/posts/subscribed`);
 }

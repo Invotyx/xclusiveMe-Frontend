@@ -8,6 +8,13 @@ export const post = {
       success: false,
       error: null,
     }),
+  requestOne: id =>
+    createAction(POST.GET_ONE, {
+      id,
+      fetching: true,
+      success: false,
+      error: null,
+    }),
   requestSubscribed: () =>
     createAction(POST.GET_SUBSCRIBED, {
       fetching: true,

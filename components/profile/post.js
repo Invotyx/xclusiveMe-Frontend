@@ -74,9 +74,10 @@ export default function Post({ post, profileData, altHeader }) {
         callback: () => {
           setCommentText('');
           dispatch(
-            postData.getComment({
-              id: post.id,
-            })
+            postData.requestSubscribed()
+            // postData.getComment({
+            //   id: post.id,
+            // })
           );
         },
       })
