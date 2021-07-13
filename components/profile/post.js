@@ -81,6 +81,14 @@ export default function Post({ post, profileData, altHeader }) {
           },
         })
       );
+    } else {
+      dispatch(
+        postData.deleteLike(post.likes.id, {
+          callback: () => {
+            setLiked(false);
+          },
+        })
+      );
     }
   };
 

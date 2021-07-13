@@ -52,6 +52,14 @@ export const post = {
       error: null,
     }),
 
+  deleteLike: id =>
+    createAction(POST.DELETE_LIKES, {
+      id,
+      fetching: true,
+      success: false,
+      error: null,
+    }),
+
   uploadImage: data =>
     createAction(POST.UPLOAD_IMAGE, {
       ...data,

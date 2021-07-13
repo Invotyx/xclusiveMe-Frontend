@@ -14,6 +14,7 @@ import {
   getX,
   addComment,
   addLike,
+  deleteLikes,
   getComment,
 } from '../services/post.service';
 import { bottomalert } from '../actions/bottom-alert';
@@ -135,6 +136,31 @@ function* handleLike(action) {
       snackbar.update({
         open: true,
         message: 'Liked successfully!',
+        severity: 'success',
+      })
+    );
+  } catch (e) {
+    console.log(e);
+    yield put(post.failure({ error: { ...e } }));
+    yield put(
+      snackbar.update({
+        open: true,
+        message: e.response.data.message,
+        severity: 'error',
+      })
+    );
+  }
+}
+
+function* handleDelLike(action) {
+  try {
+    const { id } = action.payload;
+    yield call(deleteLikes, id);
+    yield put(post.success({}));
+    yield put(
+      snackbar.update({
+        open: true,
+        message: 'Like deleted successfully!',
         severity: 'success',
       })
     );
@@ -282,6 +308,7 @@ function* watchPostSagas() {
     takeLatest(POST.UPDATE, handleUpdate),
     takeLatest(POST.DELETE, handleDelete),
     takeLatest(POST.ADD_LIKE, handleLike),
+    takeLatest(POST.DELETE_LIKES, handleDelLike),
     takeLatest(POST.UPLOAD_IMAGE, handleUploadImage),
     takeLatest(POST.UPLOAD_VIDEO_REQ, handleUploadVideoReq),
     takeLatest(POST.UPLOAD_VIDEO_FINAL_REQ, handleUploadVideoFinalReq),

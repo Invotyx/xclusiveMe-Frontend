@@ -33,6 +33,10 @@ export async function addLike(id) {
   return apiClient.post(`${SERVER_ADDRESS}/posts/likes/${id}`);
 }
 
+export async function deleteLikes(id) {
+  return apiClient.delete(`${SERVER_ADDRESS}/posts/likes/${id}`);
+}
+
 export async function update(id, data) {
   return apiClient.put(`${SERVER_ADDRESS}/posts/${id}`, data);
 }
