@@ -13,6 +13,7 @@ import {
   getAllSubscribed,
   getX,
   addComment,
+  addLike,
 } from '../services/post.service';
 import { bottomalert } from '../actions/bottom-alert';
 
@@ -100,6 +101,31 @@ function* handleComment(action) {
     if (callback) {
       yield call(callback);
     }
+  } catch (e) {
+    console.log(e);
+    yield put(post.failure({ error: { ...e } }));
+    yield put(
+      snackbar.update({
+        open: true,
+        message: e.response.data.message,
+        severity: 'error',
+      })
+    );
+  }
+}
+
+function* handleLike(action) {
+  try {
+    const { id } = action.payload;
+    yield call(addLike, id);
+    yield put(post.success({}));
+    yield put(
+      snackbar.update({
+        open: true,
+        message: 'Post deleted successfully!',
+        severity: 'success',
+      })
+    );
   } catch (e) {
     console.log(e);
     yield put(post.failure({ error: { ...e } }));
@@ -242,6 +268,7 @@ function* watchPostSagas() {
     takeLatest(POST.ADD_COMMENT, handleComment),
     takeLatest(POST.UPDATE, handleUpdate),
     takeLatest(POST.DELETE, handleDelete),
+    takeLatest(POST.ADD_LIKE, handleLike),
     takeLatest(POST.UPLOAD_IMAGE, handleUploadImage),
     takeLatest(POST.UPLOAD_VIDEO_REQ, handleUploadVideoReq),
     takeLatest(POST.UPLOAD_VIDEO_FINAL_REQ, handleUploadVideoFinalReq),

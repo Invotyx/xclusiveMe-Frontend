@@ -25,6 +25,10 @@ export async function addComment(id, commentData) {
   return apiClient.post(`${SERVER_ADDRESS}/posts/comments/${id}`, data);
 }
 
+export async function addLike(id) {
+  return apiClient.post(`${SERVER_ADDRESS}/posts/likes/${id}`);
+}
+
 export async function update(id, data) {
   return apiClient.put(`${SERVER_ADDRESS}/posts/${id}`, data);
 }

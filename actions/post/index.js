@@ -36,6 +36,15 @@ export const post = {
       success: false,
       error: null,
     }),
+
+  saveLike: id =>
+    createAction(POST.ADD_LIKE, {
+      id,
+      fetching: true,
+      success: false,
+      error: null,
+    }),
+
   uploadImage: data =>
     createAction(POST.UPLOAD_IMAGE, {
       ...data,

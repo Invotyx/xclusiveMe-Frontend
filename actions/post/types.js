@@ -13,6 +13,7 @@ export const POST = createActionTypes('POST', [
   'UPLOAD_VIDEO_REQ',
   'UPLOAD_VIDEO_FINAL_REQ',
   'ADD_COMMENT',
+  'ADD_LIKE',
 ]);
 
 export default POST;
