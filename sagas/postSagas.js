@@ -122,7 +122,7 @@ function* handleLike(action) {
     yield put(
       snackbar.update({
         open: true,
-        message: 'Post deleted successfully!',
+        message: 'Liked successfully!',
         severity: 'success',
       })
     );

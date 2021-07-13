@@ -32,6 +32,7 @@ const useStyles = makeStyles(theme => ({
 export default function Post({ post, profileData, altHeader }) {
   const classes = useStyles();
   const [commentText, setCommentText] = useState('');
+  const [liked, setLiked] = useState(false);
   const dispatch = useDispatch();
 
   const handleAddComment = () => {
@@ -49,6 +50,18 @@ export default function Post({ post, profileData, altHeader }) {
         },
       })
     );
+  };
+
+  const handleLike = () => {
+    if (liked === false) {
+      dispatch(
+        postData.saveLike(post.id, {
+          callback: () => {
+            setLiked(true);
+          },
+        })
+      );
+    }
   };
 
   return (
@@ -101,12 +114,24 @@ export default function Post({ post, profileData, altHeader }) {
       <PostMedia media={post.media} mediaCount={post.mediaCount} />
       <CardActions disableSpacing>
         <Box flexGrow={1}>
-          <NormalCaseButton
-            aria-label='add to favorites'
-            startIcon={<FavoriteIcon />}
-          >
-            {post.totalLikes} Likes
-          </NormalCaseButton>
+          {post.likes.length === 0 ? (
+            <NormalCaseButton
+              aria-label='add to favorites'
+              startIcon={<FavoriteIcon />}
+              onClick={handleLike}
+            >
+              {post.totalLikes} Likes
+            </NormalCaseButton>
+          ) : (
+            <NormalCaseButton
+              aria-label='add to favorites'
+              startIcon={<FavoriteIcon style={{ color: 'red' }} />}
+              onClick={handleLike}
+            >
+              {post.likes.length} Likes
+            </NormalCaseButton>
+          )}
+
           <NormalCaseButton
             aria-label='share'
             startIcon={<ChatBubbleOutlineIcon />}
