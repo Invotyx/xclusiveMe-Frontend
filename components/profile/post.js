@@ -498,7 +498,12 @@ export default function Post({ post, profileData, altHeader }) {
               style={{ marginRight: '10px', borderRadius: '3px' }}
             />
           }
-          endAdornment={<SendIcon onClick={handleAddComment} />}
+          endAdornment={
+            <SendIcon
+              onClick={handleAddComment}
+              style={{ cursor: 'pointer' }}
+            />
+          }
         />
       </Box>
     </Card>
