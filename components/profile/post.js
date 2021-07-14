@@ -29,6 +29,7 @@ import Fade from '@material-ui/core/Fade';
 import CloseIcon from '@material-ui/icons/Close';
 import TurnedInNotIcon from '@material-ui/icons/TurnedInNot';
 import { currentUserSelector } from '../../selectors/authSelector';
+import RemoveIcon from '@material-ui/icons/Remove';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -62,6 +63,7 @@ export default function Post({ post, profileData, altHeader }) {
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   const currentUser = useSelector(currentUserSelector);
+  const [commentId, setCommentId] = useState(null);
 
   const handleAddComment = () => {
     if (!commentText || commentText.trim() === '') {
@@ -112,7 +114,8 @@ export default function Post({ post, profileData, altHeader }) {
         );
   };
 
-  const handleOpen = () => {
+  const handleOpen = id => {
+    setCommentId(id);
     setOpen(true);
   };
 
@@ -381,6 +384,7 @@ export default function Post({ post, profileData, altHeader }) {
                           marginTop: '5px',
                           width: '190px',
                           marginRight: '15px',
+                          backgroundColor: comm.id === commentId && 'red',
                         }}
                       >
                         {comm.comment}
@@ -422,44 +426,58 @@ export default function Post({ post, profileData, altHeader }) {
         </Fade>
       </Modal>
       {post.comments.slice(0, 3).map(comm => (
-        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <div style={{ display: 'flex', marginLeft: '14px' }}>
-            <div style={{ display: 'flex' }}>
-              <img
-                src='/dp.png'
-                alt='profile=image'
-                width='30px'
-                height='30px'
-              />
+        <div>
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <div style={{ display: 'flex', marginLeft: '14px' }}>
+              <div style={{ display: 'flex' }}>
+                <img
+                  src='/dp.png'
+                  alt='profile=image'
+                  width='30px'
+                  height='30px'
+                />
+                <p
+                  style={{
+                    marginTop: '6px',
+                    marginLeft: '10px',
+                    fontWeight: 'bold',
+                  }}
+                >
+                  My Name
+                </p>
+              </div>
+
               <p
                 style={{
-                  marginTop: '6px',
+                  cursor: 'pointer',
                   marginLeft: '10px',
-                  fontWeight: 'bold',
+                  marginTop: '5px',
+                  width: '350px',
                 }}
               >
-                My Name
+                {comm.comment}
               </p>
             </div>
-
-            <p
-              style={{
-                cursor: 'pointer',
-                marginLeft: '10px',
-                marginTop: '5px',
-                width: '350px',
-              }}
-            >
-              {comm.comment}
-            </p>
+            <div style={{ display: 'flex', marginRight: '14px' }}>
+              <ChatBubbleOutlineIcon
+                style={{ marginRight: '9px' }}
+                fontSize='small'
+              />
+              <FavoriteIcon fontSize='small' />
+            </div>
           </div>
-          <div style={{ display: 'flex', marginRight: '14px' }}>
-            <ChatBubbleOutlineIcon
-              style={{ marginRight: '9px' }}
-              fontSize='small'
-            />
-            <FavoriteIcon fontSize='small' />
-          </div>
+          <p
+            style={{
+              marginLeft: '80px',
+              marginTop: '-10px',
+              marginBottom: '0px',
+              cursor: 'pointer',
+              fontSize: '13px',
+            }}
+            onClick={() => handleOpen(comm.id)}
+          >
+            VIEW REPLIES
+          </p>
         </div>
       ))}
       <Box>
