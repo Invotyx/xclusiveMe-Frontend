@@ -15,7 +15,7 @@ const useStyles = makeStyles(theme => ({
     marginRight: 10,
   },
   inline: {
-    display: 'inline',
+    display: 'flex',
   },
 }));
 
@@ -25,7 +25,7 @@ const notificationToday = [
     title: 'Ariana Green',
     image: 'https://material-ui.com/static/images/avatar/3.jpg',
     secondary1: 'commented two hours ago',
-    secondary2: ' - This is beautiful one of my favourite',
+    secondary2: ' This is beautiful one of my favourite',
   },
   {
     avatar: 'https://material-ui.com/static/images/avatar/3.jpg',
@@ -56,7 +56,7 @@ const notificationYesterday = [
     title: 'Ariana Green',
     image: 'https://material-ui.com/static/images/avatar/3.jpg',
     secondary1: 'commented two hours ago',
-    secondary2: ' - This is beautiful one of my favourite',
+    secondary2: ' This is beautiful one of my favourite',
   },
   {
     avatar: 'https://material-ui.com/static/images/avatar/3.jpg',
@@ -105,9 +105,9 @@ export default function Notification({ onClose }) {
               </React.Fragment>
             }
           />
-          <ListItemSecondaryAction>
+          {/* <ListItemSecondaryAction>
             <Avatar alt='Cindy Baker' src={i.image} variant='square' />
-          </ListItemSecondaryAction>
+          </ListItemSecondaryAction> */}
         </MenuItem>
       ))}
       <ListSubheader>Yesterday</ListSubheader>
@@ -136,9 +136,9 @@ export default function Notification({ onClose }) {
               </React.Fragment>
             }
           />
-          <ListItemSecondaryAction>
+          {/* <ListItemSecondaryAction>
             <Avatar alt='Cindy Baker' src={i.image} variant='square' />
-          </ListItemSecondaryAction>
+          </ListItemSecondaryAction> */}
         </MenuItem>
       ))}
     </>
