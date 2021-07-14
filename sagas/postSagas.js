@@ -141,8 +141,11 @@ function* handleComment(action) {
 function* handleLike(action) {
   try {
     const { id } = action.payload;
+    console.log(id);
     yield call(addLike, id);
     yield put(post.success({}));
+    yield call(post.request);
+    yield call(post.requestSubscribed);
     yield put(
       snackbar.update({
         open: true,
@@ -150,6 +153,10 @@ function* handleLike(action) {
         severity: 'success',
       })
     );
+    const { callback } = action.payload;
+    if (callback) {
+      yield call(callback);
+    }
   } catch (e) {
     console.log(e);
     yield put(post.failure({ error: { ...e } }));
@@ -168,6 +175,7 @@ function* handleDelLike(action) {
     const { id } = action.payload;
     yield call(deleteLikes, id);
     yield put(post.success({}));
+
     yield put(
       snackbar.update({
         open: true,
@@ -175,6 +183,10 @@ function* handleDelLike(action) {
         severity: 'success',
       })
     );
+    const { callback } = action.payload;
+    if (callback) {
+      yield call(callback);
+    }
   } catch (e) {
     console.log(e);
     yield put(post.failure({ error: { ...e } }));

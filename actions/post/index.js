@@ -36,6 +36,7 @@ export const post = {
       success: false,
       error: null,
     }),
+
   getComment: data =>
     createAction(POST.GET_COMMENTS, {
       ...data,
@@ -53,7 +54,7 @@ export const post = {
 
   saveLike: id =>
     createAction(POST.ADD_LIKE, {
-      id,
+      ...id,
       fetching: true,
       success: false,
       error: null,
@@ -61,7 +62,7 @@ export const post = {
 
   deleteLike: id =>
     createAction(POST.DELETE_LIKES, {
-      id,
+      ...id,
       fetching: true,
       success: false,
       error: null,
