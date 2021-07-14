@@ -145,7 +145,6 @@ export default function SignInSide() {
             id='code'
             label='Enter Code'
             name='code'
-            type='number'
             autoComplete='code'
           />
           <Box textAlign='center' mt={1}>
