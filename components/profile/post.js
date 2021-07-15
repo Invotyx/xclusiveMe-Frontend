@@ -196,7 +196,7 @@ export default function Post({ post, profileData, altHeader }) {
               startIcon={<FavoriteIcon style={{ color: 'red' }} />}
               onClick={handleLike}
             >
-              {post.likes.length} Likes
+              {post.totalLikes} Likes
             </NormalCaseButton>
           )}
 
@@ -204,7 +204,7 @@ export default function Post({ post, profileData, altHeader }) {
             aria-label='share'
             startIcon={<ChatBubbleOutlineIcon />}
           >
-            {post.comments.length} Comments
+            {post.totalComments} Comments
           </NormalCaseButton>
           <NormalCaseButton
             aria-label='tip'
@@ -324,7 +324,7 @@ export default function Post({ post, profileData, altHeader }) {
                       startIcon={<FavoriteIcon style={{ color: 'red' }} />}
                       onClick={handleLike}
                     >
-                      {post.likes.length} Likes
+                      {post.totalLikes} Likes
                     </NormalCaseButton>
                   )}
 
@@ -332,7 +332,7 @@ export default function Post({ post, profileData, altHeader }) {
                     aria-label='share'
                     startIcon={<ChatBubbleOutlineIcon />}
                   >
-                    {post.comments.length} Comments
+                    {post.totalComments} Comments
                   </NormalCaseButton>
                   <NormalCaseButton
                     aria-label='tip'
