@@ -64,6 +64,7 @@ export default function Post({ post, profileData, altHeader }) {
   const dispatch = useDispatch();
   const currentUser = useSelector(currentUserSelector);
   const [commentId, setCommentId] = useState(null);
+  const [isReplyField, setisReplyField] = useState(false);
 
   const handleAddComment = () => {
     if (!commentText || commentText.trim() === '') {
@@ -86,6 +87,10 @@ export default function Post({ post, profileData, altHeader }) {
         },
       })
     );
+  };
+
+  const handleAddReply = () => {
+    setisReplyField(false);
   };
 
   const handleLike = () => {
@@ -121,6 +126,10 @@ export default function Post({ post, profileData, altHeader }) {
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const handleReplyField = () => {
+    setisReplyField(true);
   };
 
   return (
@@ -394,6 +403,7 @@ export default function Post({ post, profileData, altHeader }) {
                       <ChatBubbleOutlineIcon
                         style={{ marginRight: '9px' }}
                         fontSize='small'
+                        onClick={handleReplyField}
                       />
                       <FavoriteIcon fontSize='small' />
                     </div>
@@ -462,10 +472,12 @@ export default function Post({ post, profileData, altHeader }) {
               <ChatBubbleOutlineIcon
                 style={{ marginRight: '9px' }}
                 fontSize='small'
+                onClick={handleReplyField}
               />
               <FavoriteIcon fontSize='small' />
             </div>
           </div>
+
           <p
             style={{
               marginLeft: '80px',
@@ -480,32 +492,61 @@ export default function Post({ post, profileData, altHeader }) {
           </p>
         </div>
       ))}
-      <Box>
-        <OutlinedInput
-          value={commentText}
-          onChange={e => setCommentText(e.target.value)}
-          name='commentText'
-          multiline
-          fullWidth
-          rows={1}
-          placeholder='Add Comment'
-          startAdornment={
-            <img
-              src={profileData.profileImage}
-              alt='profileImage'
-              width='40px'
-              height='35px'
-              style={{ marginRight: '10px', borderRadius: '3px' }}
-            />
-          }
-          endAdornment={
-            <SendIcon
-              onClick={handleAddComment}
-              style={{ cursor: 'pointer' }}
-            />
-          }
-        />
-      </Box>
+      {isReplyField === true ? (
+        <Box>
+          <OutlinedInput
+            // value={commentText}
+            // onChange={e => setCommentText(e.target.value)}
+            name='replyText'
+            multiline
+            fullWidth
+            rows={1}
+            placeholder='Add Reply'
+            startAdornment={
+              <img
+                src={profileData.profileImage}
+                alt='profileImage'
+                width='40px'
+                height='35px'
+                style={{ marginRight: '10px', borderRadius: '3px' }}
+              />
+            }
+            endAdornment={
+              <SendIcon
+                onClick={handleAddReply}
+                style={{ cursor: 'pointer' }}
+              />
+            }
+          />
+        </Box>
+      ) : (
+        <Box>
+          <OutlinedInput
+            value={commentText}
+            onChange={e => setCommentText(e.target.value)}
+            name='commentText'
+            multiline
+            fullWidth
+            rows={1}
+            placeholder='Add Comment'
+            startAdornment={
+              <img
+                src={profileData.profileImage}
+                alt='profileImage'
+                width='40px'
+                height='35px'
+                style={{ marginRight: '10px', borderRadius: '3px' }}
+              />
+            }
+            endAdornment={
+              <SendIcon
+                onClick={handleAddComment}
+                style={{ cursor: 'pointer' }}
+              />
+            }
+          />
+        </Box>
+      )}
     </Card>
   );
 }
