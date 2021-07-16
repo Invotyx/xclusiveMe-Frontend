@@ -68,6 +68,14 @@ export const post = {
       error: null,
     }),
 
+  delCommentLike: id =>
+    createAction(POST.DEL_COMMENT_LIKE, {
+      ...id,
+      fetching: true,
+      success: false,
+      error: null,
+    }),
+
   deleteLike: id =>
     createAction(POST.DELETE_LIKES, {
       ...id,

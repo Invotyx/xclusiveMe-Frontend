@@ -16,6 +16,7 @@ const initialState = fromJS({
 export default function postReducer(state = initialState, action) {
   switch (action.type) {
     case POST.GET:
+    case POST.GET_ONE:
     case POST.GET_SUBSCRIBED:
     case POST.GET_X:
     case POST.SUCCESS:

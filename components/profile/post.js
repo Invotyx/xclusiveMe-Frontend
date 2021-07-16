@@ -20,16 +20,16 @@ import NormalCaseButton from '../NormalCaseButton';
 import PostMedia from './post-media';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import SendIcon from '@material-ui/icons/Send';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { post as postData } from '../../actions/post/index';
-import Modal from '@material-ui/core/Modal';
+
 import Backdrop from '@material-ui/core/Backdrop';
-import Fade from '@material-ui/core/Fade';
-import CloseIcon from '@material-ui/icons/Close';
-import TurnedInNotIcon from '@material-ui/icons/TurnedInNot';
+
 import { currentUserSelector } from '../../selectors/authSelector';
+import { singlepostDataSelector } from '../../selectors/postSelector';
 import RemoveIcon from '@material-ui/icons/Remove';
+import CommentModel from './commentModel';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -59,12 +59,15 @@ const useStyles = makeStyles(theme => ({
 export default function Post({ post, profileData, altHeader }) {
   const classes = useStyles();
   const [commentText, setCommentText] = useState('');
+  const [replyText, setReplyText] = useState('');
   const [liked, setLiked] = useState(false);
+  const [commentedId, setCommentedId] = useState(null);
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   const currentUser = useSelector(currentUserSelector);
   const [commentId, setCommentId] = useState(null);
   const [isReplyField, setisReplyField] = useState(false);
+  const singlePost = useSelector(singlepostDataSelector);
 
   const handleAddComment = () => {
     if (!commentText || commentText.trim() === '') {
@@ -75,7 +78,9 @@ export default function Post({ post, profileData, altHeader }) {
         id: post.id,
         commentText: {
           comment: commentText,
+          isReply: false,
         },
+
         callback: () => {
           setCommentText('');
           dispatch(
@@ -98,7 +103,7 @@ export default function Post({ post, profileData, altHeader }) {
       ? post.likes.map(like =>
           dispatch(
             postData.deleteLike({
-              id: like.id,
+              id: post.id,
               callback: () => {
                 dispatch(postData.request());
                 dispatch(postData.requestSubscribed());
@@ -119,8 +124,37 @@ export default function Post({ post, profileData, altHeader }) {
         );
   };
 
-  const handleOpen = id => {
-    setCommentId(id);
+  const handleCommentLike = cId => {
+    console.log(cId);
+    post.comments.map(comm =>
+      comm.likes && comm.likes.length > 0 && comm.id === cId
+        ? dispatch(
+            postData.delCommentLike({
+              id: comm.id,
+              callback: () => {
+                dispatch(postData.request());
+                dispatch(postData.requestSubscribed());
+                setLiked(false);
+              },
+            })
+          )
+        : comm.id === cId &&
+          dispatch(
+            postData.saveCommentLike({
+              id: comm.id,
+              callback: () => {
+                setLiked(true);
+                dispatch(postData.request());
+                dispatch(postData.requestSubscribed());
+              },
+            })
+          )
+    );
+  };
+
+  const handleOpen = forReplyId => {
+    dispatch(postData.requestOne(post.id));
+    console.log('click');
     setOpen(true);
   };
 
