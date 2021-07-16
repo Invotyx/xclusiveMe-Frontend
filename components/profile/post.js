@@ -96,6 +96,31 @@ export default function Post({ post, profileData, altHeader }) {
 
   const handleAddReply = () => {
     setisReplyField(false);
+    console.log(commentId);
+
+    if (!replyText || replyText.trim() === '') {
+      return;
+    }
+    dispatch(
+      postData.saveComment({
+        id: post.id,
+        commentText: {
+          comment: replyText,
+          isReply: true,
+          parentCommentId: commentId,
+        },
+
+        callback: () => {
+          setReplyText('');
+          dispatch(
+            postData.requestSubscribed()
+            // postData.getComment({
+            //   id: post.id,
+            // })
+          );
+        },
+      })
+    );
   };
 
   const handleLike = () => {
@@ -162,7 +187,9 @@ export default function Post({ post, profileData, altHeader }) {
     setOpen(false);
   };
 
-  const handleReplyField = () => {
+  const handleReplyField = e => {
+    setCommentId(e.target.id);
+    console.log(e.target.id);
     setisReplyField(true);
   };
 
@@ -274,220 +301,33 @@ export default function Post({ post, profileData, altHeader }) {
         ''
       )}
 
-      <Modal
-        aria-labelledby='transition-modal-title'
-        aria-describedby='transition-modal-description'
-        className={classes.modal}
+      <CommentModel
+        post={post}
+        profileData={profileData}
+        altHeader={altHeader}
+        singlePost={singlePost}
         open={open}
-        onClose={handleClose}
-        closeAfterTransition
-        BackdropComponent={Backdrop}
-      >
-        <Fade in={open}>
-          <div className={classes.modelStyle}>
-            <div style={{ width: '40%', height: '100%' }}>
-              <PostMedia media={post.media} mediaCount={post.mediaCount} />
-            </div>
-
-            <div className={classes.profileModelStyle}>
-              {altHeader ? (
-                <CardHeader
-                  action={
-                    <IconButton aria-label='settings'>
-                      <CloseIcon onClick={handleClose} />
-                    </IconButton>
-                  }
-                  subheader={moment(post.createdAt).fromNow()}
-                />
-              ) : (
-                <CardHeader
-                  avatar={<ProfileImageAvatar user={profileData} />}
-                  action={
-                    <IconButton aria-label='settings'>
-                      <CloseIcon onClick={handleClose} />
-                    </IconButton>
-                  }
-                  title={
-                    <>
-                      <Box clone mr={1}>
-                        <Typography variant='body2' component='span'>
-                          <NextLink
-                            href={`/x/${profileData?.username}`}
-                            passHref
-                          >
-                            <Link>{profileData?.fullName || '(no name)'}</Link>
-                          </NextLink>
-                        </Typography>
-                      </Box>
-                      <Typography variant='caption' color='textSecondary'>
-                        {moment(post.createdAt).fromNow()}
-                      </Typography>
-                    </>
-                  }
-                  subheader={
-                    <Typography variant='caption' color='textSecondary'>
-                      @{profileData?.username}
-                    </Typography>
-                  }
-                />
-              )}
-              {post.postText && (
-                <CardContent>
-                  <Typography
-                    variant='body2'
-                    color='textSecondary'
-                    component='p'
-                  >
-                    {post.postText}
-                  </Typography>
-                </CardContent>
-              )}
-              <CardActions>
-                <Box>
-                  {post.likes.length === 0 ? (
-                    <NormalCaseButton
-                      aria-label='add to favorites'
-                      startIcon={<FavoriteIcon />}
-                      onClick={handleLike}
-                    >
-                      {post.totalLikes} Likes
-                    </NormalCaseButton>
-                  ) : (
-                    <NormalCaseButton
-                      aria-label='add to favorites'
-                      startIcon={<FavoriteIcon style={{ color: 'red' }} />}
-                      onClick={handleLike}
-                    >
-                      {post.totalLikes} Likes
-                    </NormalCaseButton>
-                  )}
-
-                  <NormalCaseButton
-                    aria-label='share'
-                    startIcon={<ChatBubbleOutlineIcon />}
-                  >
-                    {post.totalComments} Comments
-                  </NormalCaseButton>
-                  <NormalCaseButton
-                    aria-label='tip'
-                    startIcon={<MonetizationOnOutlinedIcon />}
-                  >
-                    Tip
-                  </NormalCaseButton>
-                  <NormalCaseButton
-                    aria-label='tip'
-                    startIcon={<TurnedInNotIcon />}
-                  >
-                    Save
-                  </NormalCaseButton>
-                </Box>
-
-                {false && (
-                  <NormalCaseButton
-                    aria-label='bookmark'
-                    startIcon={<BookmarkBorderOutlinedIcon />}
-                  >
-                    <Box display={{ xs: 'none', sm: 'none', md: 'flex' }}>
-                      Save
-                    </Box>
-                  </NormalCaseButton>
-                )}
-              </CardActions>
-              <div
-                style={{
-                  overflowY: 'scroll',
-                  overflowX: 'hidden',
-                  height: '350px',
-                }}
-              >
-                {post.comments.map(comm => (
-                  <div style={{ display: 'flex' }}>
-                    <div
-                      style={{
-                        display: 'flex',
-                        marginLeft: '14px',
-                      }}
-                    >
-                      <div style={{ display: 'flex' }}>
-                        <img
-                          src='/dp.png'
-                          alt='profile=image'
-                          width='30px'
-                          height='30px'
-                        />
-                        <h5 style={{ marginTop: '6px', marginLeft: '10px' }}>
-                          My Name
-                        </h5>
-                      </div>
-
-                      <p
-                        style={{
-                          cursor: 'pointer',
-                          marginLeft: '10px',
-                          marginTop: '5px',
-                          width: '190px',
-                          marginRight: '15px',
-                          backgroundColor: comm.id === commentId && 'red',
-                        }}
-                      >
-                        {comm.comment}
-                      </p>
-                    </div>
-                    <div style={{ display: 'flex', marginRight: '14px' }}>
-                      <ChatBubbleOutlineIcon
-                        style={{ marginRight: '9px' }}
-                        fontSize='small'
-                        onClick={handleReplyField}
-                      />
-                      <FavoriteIcon fontSize='small' />
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <Box>
-                <OutlinedInput
-                  value={commentText}
-                  onChange={e => setCommentText(e.target.value)}
-                  name='commentText'
-                  multiline
-                  fullWidth
-                  rows={1}
-                  placeholder='Add Comment'
-                  startAdornment={
-                    <img
-                      src={profileData.profileImage}
-                      alt='profileImage'
-                      width='40px'
-                      height='35px'
-                      style={{ marginRight: '10px', borderRadius: '3px' }}
-                    />
-                  }
-                  endAdornment={<SendIcon onClick={handleAddComment} />}
-                />
-              </Box>
-            </div>
-          </div>
-        </Fade>
-      </Modal>
+        setOpen={setOpen}
+      />
       {post.comments.slice(0, 3).map(comm => (
         <div>
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <div style={{ display: 'flex', marginLeft: '14px' }}>
               <div style={{ display: 'flex' }}>
                 <img
-                  src='/dp.png'
+                  src={comm.user.profileImage}
                   alt='profile=image'
                   width='30px'
                   height='30px'
                 />
                 <p
                   style={{
-                    marginTop: '6px',
+                    marginTop: '2px',
                     marginLeft: '10px',
                     fontWeight: 'bold',
                   }}
                 >
-                  My Name
+                  {comm.user.username}
                 </p>
               </div>
 
@@ -495,7 +335,7 @@ export default function Post({ post, profileData, altHeader }) {
                 style={{
                   cursor: 'pointer',
                   marginLeft: '10px',
-                  marginTop: '5px',
+                  marginTop: '2px',
                   width: '350px',
                 }}
               >

@@ -8,7 +8,13 @@ const postDataSelector = createSelector(postState, state => {
   return data;
 });
 
-const numberOfPostsSelector = createSelector(postState, (state) =>
+const singlepostDataSelector = createSelector(postState, state => {
+  const data = state.get('abc');
+
+  return data;
+});
+
+const numberOfPostsSelector = createSelector(postState, state =>
   state.get('numberOfPosts')
 );
 

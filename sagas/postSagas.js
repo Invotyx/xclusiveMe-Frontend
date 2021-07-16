@@ -17,6 +17,7 @@ import {
   deleteLikes,
   getComment,
   addCommentLike,
+  delCommentLike,
   getOnePost,
 } from '../services/post.service';
 import { bottomalert } from '../actions/bottom-alert';
@@ -33,11 +34,15 @@ function* handleGet() {
   }
 }
 
-function* handleGetOne() {
+function* handleGetOne(action) {
   try {
     const { id } = action.payload;
-    const { data } = yield call(get, id);
-    yield put(post.success({ data }));
+    const { data } = yield call(getOnePost, id);
+    yield put(post.success({ abc: data }));
+    const { callback } = action.payload;
+    if (callback) {
+      yield call(callback);
+    }
   } catch (e) {
     console.log(e);
     yield put(post.success({ error: true }));
