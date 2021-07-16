@@ -37,12 +37,16 @@ export async function addCommentLike(id) {
   return apiClient.patch(`${SERVER_ADDRESS}/posts/comments/${id}/like`);
 }
 
+export async function delCommentLike(id) {
+  return apiClient.delete(`${SERVER_ADDRESS}/posts/comments/${id}/like`);
+}
+
 export async function addLike(id) {
   return apiClient.patch(`${SERVER_ADDRESS}/posts/${id}/like`);
 }
 
 export async function deleteLikes(id) {
-  return apiClient.delete(`${SERVER_ADDRESS}/posts/likes/${id}`);
+  return apiClient.delete(`${SERVER_ADDRESS}/posts/${id}/like`);
 }
 
 export async function update(id, data) {
