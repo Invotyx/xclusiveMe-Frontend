@@ -17,6 +17,7 @@ export const POST = createActionTypes('POST', [
   'GET_COMMENTS',
   'GET_LIKES',
   'ADD_LIKE',
+  'COMMENT_LIKE',
   'DELETE_LIKES',
 ]);
 

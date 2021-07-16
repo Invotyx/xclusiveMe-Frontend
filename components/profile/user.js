@@ -112,6 +112,7 @@ export default function Profile({
     setUserFeed(feed);
     let temp_images = [];
     let temp_videos = [];
+    console.log(feed);
     if (feed) {
       feed.forEach(f => {
         const images = f.media.filter(m => m.type.indexOf('image/') !== -1);

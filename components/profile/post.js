@@ -471,16 +471,29 @@ export default function Post({ post, profileData, altHeader }) {
             <div style={{ display: 'flex', marginRight: '14px' }}>
               <ChatBubbleOutlineIcon
                 style={{ marginRight: '9px' }}
+                id={comm.id}
                 fontSize='small'
                 onClick={handleReplyField}
               />
-              <FavoriteIcon fontSize='small' />
+
+              {comm.likes && comm.likes.length < 1 ? (
+                <FavoriteIcon
+                  fontSize='small'
+                  onClick={() => handleCommentLike(comm.id)}
+                />
+              ) : (
+                <FavoriteIcon
+                  fontSize='small'
+                  style={{ color: 'red' }}
+                  onClick={() => handleCommentLike(comm.id)}
+                />
+              )}
             </div>
           </div>
 
           <p
             style={{
-              marginLeft: '80px',
+              marginLeft: '90px',
               marginTop: '-10px',
               marginBottom: '0px',
               cursor: 'pointer',
@@ -495,8 +508,8 @@ export default function Post({ post, profileData, altHeader }) {
       {isReplyField === true ? (
         <Box>
           <OutlinedInput
-            // value={commentText}
-            // onChange={e => setCommentText(e.target.value)}
+            value={replyText}
+            onChange={e => setReplyText(e.target.value)}
             name='replyText'
             multiline
             fullWidth

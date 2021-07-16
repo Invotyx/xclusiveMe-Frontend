@@ -7,7 +7,7 @@ export async function getAll() {
   return apiClient.get(`${SERVER_ADDRESS}/posts/`);
 }
 
-export async function get(id) {
+export async function getOnePost(id) {
   return apiClient.get(`${SERVER_ADDRESS}/posts/${id}`);
 }
 
@@ -26,15 +26,19 @@ export async function add(saveData) {
 
 export async function addComment(id, commentData) {
   const data = JSON.stringify(commentData);
-  return apiClient.post(`${SERVER_ADDRESS}/posts/comments/${id}`, data);
+  return apiClient.post(`${SERVER_ADDRESS}/posts/${id}/comments`, data);
 }
 
 export async function getComment(id) {
   return apiClient.get(`${SERVER_ADDRESS}/posts/${id}/comments`, data);
 }
 
+export async function addCommentLike(id) {
+  return apiClient.patch(`${SERVER_ADDRESS}/posts/comments/${id}/like`);
+}
+
 export async function addLike(id) {
-  return apiClient.post(`${SERVER_ADDRESS}/posts/likes/${id}`);
+  return apiClient.patch(`${SERVER_ADDRESS}/posts/${id}/like`);
 }
 
 export async function deleteLikes(id) {

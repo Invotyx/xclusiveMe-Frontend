@@ -16,6 +16,7 @@ import {
   addLike,
   deleteLikes,
   getComment,
+  addCommentLike,
 } from '../services/post.service';
 import { bottomalert } from '../actions/bottom-alert';
 
@@ -141,8 +142,38 @@ function* handleComment(action) {
 function* handleLike(action) {
   try {
     const { id } = action.payload;
-    console.log(id);
     yield call(addLike, id);
+    yield put(post.success({}));
+    yield call(post.request);
+    yield call(post.requestSubscribed);
+    yield put(
+      snackbar.update({
+        open: true,
+        message: 'Liked successfully!',
+        severity: 'success',
+      })
+    );
+    const { callback } = action.payload;
+    if (callback) {
+      yield call(callback);
+    }
+  } catch (e) {
+    console.log(e);
+    yield put(post.failure({ error: { ...e } }));
+    yield put(
+      snackbar.update({
+        open: true,
+        message: e.response.data.message,
+        severity: 'error',
+      })
+    );
+  }
+}
+
+function* handleCommentLike(action) {
+  try {
+    const { id } = action.payload;
+    yield call(addCommentLike, id);
     yield put(post.success({}));
     yield call(post.request);
     yield call(post.requestSubscribed);
@@ -333,6 +364,7 @@ function* watchPostSagas() {
     takeLatest(POST.DELETE, handleDelete),
     takeLatest(POST.ADD_LIKE, handleLike),
     takeLatest(POST.DELETE_LIKES, handleDelLike),
+    takeLatest(POST.COMMENT_LIKE, handleCommentLike),
     takeLatest(POST.UPLOAD_IMAGE, handleUploadImage),
     takeLatest(POST.UPLOAD_VIDEO_REQ, handleUploadVideoReq),
     takeLatest(POST.UPLOAD_VIDEO_FINAL_REQ, handleUploadVideoFinalReq),
