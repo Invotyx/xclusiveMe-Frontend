@@ -8,8 +8,10 @@ const postDataSelector = createSelector(postState, state => {
   return data;
 });
 
-const singlepostDataSelector = createSelector(postState, state => {
-  const data = state.get('abc');
+const notificationsData = createSelector(postState, state => {
+  const data = state.get('notifications');
+  return data;
+});
 
   return data;
 });
@@ -46,4 +48,5 @@ export {
   xfeed_numberOfPostsSelector,
   fetchingSelector,
   errorSelector,
+  notificationsData,
 };

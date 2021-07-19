@@ -73,3 +73,12 @@ export async function uploadVideoFinalReq(fileObject, url) {
   data.append('video', fileObject);
   return apiClient.post(`${url}`, data);
 }
+
+export async function getNotifications() {
+  return apiClient.get(`${SERVER_ADDRESS}/notifications`);
+}
+
+export async function viewNotification(id, notify) {
+  const data = JSON.stringify(notify);
+  return apiClient.patch(`${SERVER_ADDRESS}/notifications/${id}/read`, data);
+}

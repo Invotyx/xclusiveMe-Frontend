@@ -19,6 +19,8 @@ import {
   addCommentLike,
   delCommentLike,
   getOnePost,
+  getNotifications,
+  viewNotification,
 } from '../services/post.service';
 import { bottomalert } from '../actions/bottom-alert';
 
@@ -34,11 +36,33 @@ function* handleGet() {
   }
 }
 
+function* getAllNotifications() {
+  try {
+    const { data } = yield call(getNotifications);
+    yield put(post.success({ notifications: data.results }));
+  } catch (e) {
+    console.log(e);
+    yield put(post.success({ error: true }));
+  }
+}
+
 function* handleGetOne(action) {
   try {
     const { id } = action.payload;
     const { data } = yield call(getOnePost, id);
     yield put(post.success({ abc: data }));
+function* handleViewNotify(action) {
+  try {
+    const { id, isNotify } = action.payload;
+    yield call(viewNotification, id, isNotify);
+    yield put(post.success({}));
+    yield put(
+      snackbar.update({
+        open: true,
+        message: 'Viewed successfully!',
+        severity: 'success',
+      })
+    );
     const { callback } = action.payload;
     if (callback) {
       yield call(callback);
@@ -390,6 +414,8 @@ function* handleUploadVideoFinalReq({ payload }) {
 function* watchPostSagas() {
   yield all([
     takeLatest(POST.GET, handleGet),
+    takeLatest(POST.GET_NOTIFICATIONS, getAllNotifications),
+    takeLatest(POST.VIEW_NOTIFICATION, handleViewNotify),
     takeLatest(POST.GET_ONE, handleGetOne),
     takeLatest(POST.GET_SUBSCRIBED, handleGetSubscribed),
     takeLatest(POST.GET_X, handleGetX),

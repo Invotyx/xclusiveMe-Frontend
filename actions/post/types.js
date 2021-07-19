@@ -20,6 +20,8 @@ export const POST = createActionTypes('POST', [
   'COMMENT_LIKE',
   'DEL_COMMENT_LIKE',
   'DELETE_LIKES',
+  'GET_NOTIFICATIONS',
+  'VIEW_NOTIFICATION',
 ]);
 
 export default POST;

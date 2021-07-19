@@ -29,6 +29,8 @@ export default function postReducer(state = initialState, action) {
     case POST.COMMENT_LIKE:
     case POST.DEL_COMMENT_LIKE:
     case POST.GET_COMMENTS:
+    case POST.GET_NOTIFICATIONS:
+    case POST.VIEW_NOTIFICATION:
       return state.merge(action.payload);
     default:
       return state;

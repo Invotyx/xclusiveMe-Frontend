@@ -8,6 +8,22 @@ export const post = {
       success: false,
       error: null,
     }),
+
+  requestNotifications: () =>
+    createAction(POST.GET_NOTIFICATIONS, {
+      fetching: true,
+      success: false,
+      error: null,
+    }),
+
+  viewNotifications: data =>
+    createAction(POST.VIEW_NOTIFICATION, {
+      ...data,
+      fetching: true,
+      success: false,
+      error: null,
+    }),
+
   requestOne: id =>
     createAction(POST.GET_ONE, {
       id,
