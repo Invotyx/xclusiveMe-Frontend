@@ -19,6 +19,7 @@ import {
   addCommentLike,
   delCommentLike,
   getOnePost,
+  getReplies,
   getNotifications,
   viewNotification,
 } from '../services/post.service';
@@ -50,7 +51,17 @@ function* handleGetOne(action) {
   try {
     const { id } = action.payload;
     const { data } = yield call(getOnePost, id);
-    yield put(post.success({ abc: data }));
+    yield put(post.success({ singleData: data[0] }));
+    const { callback } = action.payload;
+    if (callback) {
+      yield call(callback);
+    }
+  } catch (e) {
+    console.log(e);
+    yield put(post.success({ error: true }));
+  }
+}
+
 function* handleViewNotify(action) {
   try {
     const { id, isNotify } = action.payload;
@@ -73,10 +84,26 @@ function* handleViewNotify(action) {
   }
 }
 
+function* handleGetReplies(action) {
+  try {
+    const { postId, parentCommentId } = action.payload;
+    const { data } = yield call(getReplies, postId, parentCommentId);
+    yield put(
+      post.success({
+        repliesData: data.results,
+        repliesCount: data.totalCount,
+      })
+    );
+  } catch (e) {
+    console.log(e);
+    yield put(post.success({ error: true }));
+  }
+}
+
 function* handleGetSubscribed() {
   try {
     const { data } = yield call(getAllSubscribed);
-    yield put(post.success({ subscribed: data.posts }));
+    yield put(post.success({ subscribed: data.results }));
   } catch (e) {
     console.log(e);
     yield put(post.success({ error: true }));
@@ -148,7 +175,7 @@ function* handleComment(action) {
     yield put(
       snackbar.update({
         open: true,
-        message: 'Comment Added',
+        message: 'Added',
         severity: 'success',
       })
     );
@@ -422,6 +449,7 @@ function* watchPostSagas() {
     takeLatest(POST.SAVE, handlePost),
     takeLatest(POST.ADD_COMMENT, handleComment),
     takeLatest(POST.GET_COMMENTS, handleGetComment),
+    takeLatest(POST.GET_REPLIES, handleGetReplies),
     takeLatest(POST.UPDATE, handleUpdate),
     takeLatest(POST.DELETE, handleDelete),
     takeLatest(POST.ADD_LIKE, handleLike),

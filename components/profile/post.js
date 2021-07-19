@@ -28,6 +28,7 @@ import Backdrop from '@material-ui/core/Backdrop';
 
 import { currentUserSelector } from '../../selectors/authSelector';
 import { singlepostDataSelector } from '../../selectors/postSelector';
+import { totalreplies } from '../../selectors/postSelector';
 import RemoveIcon from '@material-ui/icons/Remove';
 import CommentModel from './commentModel';
 
@@ -68,6 +69,7 @@ export default function Post({ post, profileData, altHeader }) {
   const [commentId, setCommentId] = useState(null);
   const [isReplyField, setisReplyField] = useState(false);
   const singlePost = useSelector(singlepostDataSelector);
+  const replyCount = useSelector(totalreplies);
 
   const handleAddComment = () => {
     if (!commentText || commentText.trim() === '') {
@@ -92,6 +94,11 @@ export default function Post({ post, profileData, altHeader }) {
         },
       })
     );
+  };
+
+  const handleReplyField = id => {
+    setCommentId(id);
+    setisReplyField(true);
   };
 
   const handleAddReply = () => {
@@ -178,19 +185,16 @@ export default function Post({ post, profileData, altHeader }) {
   };
 
   const handleOpen = forReplyId => {
+    console.log('commentid', forReplyId);
     dispatch(postData.requestOne(post.id));
+    // dispatch(postData.requestReplies(forReplyId, post.id));
+
     console.log('click');
     setOpen(true);
   };
 
   const handleClose = () => {
     setOpen(false);
-  };
-
-  const handleReplyField = e => {
-    setCommentId(e.target.id);
-    console.log(e.target.id);
-    setisReplyField(true);
   };
 
   return (
@@ -308,10 +312,16 @@ export default function Post({ post, profileData, altHeader }) {
         singlePost={singlePost}
         open={open}
         setOpen={setOpen}
+        replyCount={replyCount}
       />
-      {post.comments.slice(0, 3).map(comm => (
-        <div>
-          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+      {post.comments.map(comm => (
+        <div style={{ marginBottom: '20px' }}>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+            }}
+          >
             <div style={{ display: 'flex', marginLeft: '14px' }}>
               <div style={{ display: 'flex' }}>
                 <img
@@ -347,10 +357,10 @@ export default function Post({ post, profileData, altHeader }) {
                 style={{ marginRight: '9px' }}
                 id={comm.id}
                 fontSize='small'
-                onClick={handleReplyField}
+                onClick={() => handleReplyField(comm.id)}
               />
 
-              {comm.likes && comm.likes.length < 1 ? (
+              {comm.likes && comm.likes.length === 0 ? (
                 <FavoriteIcon
                   fontSize='small'
                   onClick={() => handleCommentLike(comm.id)}
@@ -375,7 +385,7 @@ export default function Post({ post, profileData, altHeader }) {
             }}
             onClick={() => handleOpen(comm.id)}
           >
-            VIEW REPLIES
+            {comm.totalReplies === 0 ? '' : 'VIEW REPLIES'}
           </p>
         </div>
       ))}
@@ -418,7 +428,7 @@ export default function Post({ post, profileData, altHeader }) {
             placeholder='Add Comment'
             startAdornment={
               <img
-                src={profileData.profileImage}
+                src={profileData && profileData.profileImage}
                 alt='profileImage'
                 width='40px'
                 height='35px'

@@ -11,6 +11,12 @@ export async function getOnePost(id) {
   return apiClient.get(`${SERVER_ADDRESS}/posts/${id}`);
 }
 
+export async function getReplies(postId, commentId) {
+  return apiClient.get(
+    `${SERVER_ADDRESS}/posts/${postId}/comments/${commentId}/replies`
+  );
+}
+
 export async function getAllSubscribed() {
   return apiClient.get(`${SERVER_ADDRESS}/posts/subscribed`);
 }

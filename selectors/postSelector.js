@@ -4,7 +4,11 @@ const postState = state => state.get('postData');
 
 const postDataSelector = createSelector(postState, state => {
   const data = state.get('data');
+  return data;
+});
 
+const totalreplies = createSelector(postState, state => {
+  const data = state.get('repliesCount');
   return data;
 });
 
@@ -13,6 +17,13 @@ const notificationsData = createSelector(postState, state => {
   return data;
 });
 
+const repliesDataSelector = createSelector(postState, state => {
+  const data = state.get('repliesData');
+  return data;
+});
+
+const singlepostDataSelector = createSelector(postState, state => {
+  const data = state.get('singleData');
   return data;
 });
 
@@ -48,5 +59,7 @@ export {
   xfeed_numberOfPostsSelector,
   fetchingSelector,
   errorSelector,
+  repliesDataSelector,
+  totalreplies,
   notificationsData,
 };

@@ -45,6 +45,14 @@ export const post = {
       success: false,
       error: null,
     }),
+  requestReplies: data =>
+    createAction(POST.GET_REPLIES, {
+      ...data,
+      fetching: true,
+      success: false,
+      error: null,
+    }),
+
   save: data =>
     createAction(POST.SAVE, {
       ...data,

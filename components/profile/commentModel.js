@@ -26,6 +26,8 @@ import Fade from '@material-ui/core/Fade';
 import CloseIcon from '@material-ui/icons/Close';
 import TurnedInNotIcon from '@material-ui/icons/TurnedInNot';
 import { singlepostDataSelector } from '../../selectors/postSelector';
+import { repliesDataSelector } from '../../selectors/postSelector';
+import { postDataSelector } from '../../selectors/postSelector';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -44,10 +46,11 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(2, 4, 3),
   },
   profileModelStyle: {
-    width: '30%',
+    width: 'auto',
   },
   modelStyle: {
     display: 'flex',
+    flexWrap: 'wrap',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -60,44 +63,78 @@ const CommentModel = ({
   singlePost,
   setOpen,
   open,
+  replyCount,
 }) => {
   const classes = useStyles();
   const [commentText, setCommentText] = useState('');
   const [commentId, setCommentId] = useState(null);
   const [replyText, setReplyText] = useState('');
+  const [replyPostId, setReplyPostId] = useState(0);
   const [isReplyField, setisReplyField] = useState(false);
   const sPost = useSelector(singlepostDataSelector);
+  const replyData = useSelector(repliesDataSelector);
+  const [showReply, setShowReply] = useState(false);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     const data = singlePost?.comments?.filter(c => c.parentCommentId === c.id);
-    console.log(data);
+    // console.log('check', data);
   });
 
+  const getPostId = () => {
+    return sPost.id;
+  };
+
+  const handleReplyLike = repId => {
+    replyData?.map(re =>
+      re.likes && re.likes.length > 0 && repId === re.id
+        ? dispatch(
+            postData.delCommentLike({
+              id: re.id,
+              callback: () => {
+                // dispatch(postData.request());
+
+                dispatch(postData.requestOne(sPost.id));
+              },
+            })
+          )
+        : repId === re.id &&
+          dispatch(
+            postData.saveCommentLike({
+              id: re.id,
+              callback: () => {
+                dispatch(postData.requestOne(sPost.id));
+                // dispatch(postData.request());
+              },
+            })
+          )
+    );
+  };
+
   const handleModelCommentLike = cId => {
-    console.log(cId);
-    singlePost.comments &&
-      singlePost.comments.map(comm =>
-        comm.likes && comm.likes.length > 0 && comm.id === cId
+    // console.log(cId);
+    post.comments &&
+      post.comments.map(comm =>
+        comm.likes && comm.likes.length === 0 && comm.id === cId
           ? dispatch(
-              postData.delCommentLike({
+              postData.saveCommentLike({
                 id: comm.id,
                 callback: () => {
-                  // dispatch(postData.request());
-                  setLiked(false);
+                  console.log('in save');
+
                   dispatch(postData.requestOne(sPost.id));
                 },
               })
             )
           : comm.id === cId &&
             dispatch(
-              postData.saveCommentLike({
+              postData.delCommentLike({
                 id: comm.id,
                 callback: () => {
-                  setLiked(true);
+                  console.log('in');
+
                   dispatch(postData.requestOne(sPost.id));
-                  // dispatch(postData.request());
                 },
               })
             )
@@ -134,7 +171,7 @@ const CommentModel = ({
         callback: () => {
           setReplyText('');
           setisReplyField(false);
-          dispatch(postData.requestOne(post.id));
+          dispatch(postData.requestOne(singlePost.id));
           // postData.getComment({
           //   id: post.id,
           // })
@@ -169,26 +206,35 @@ const CommentModel = ({
 
   const handleLike = () => {
     singlePost.likes && singlePost.likes.length > 0
-      ? singlePost.likes.map(like =>
-          dispatch(
-            postData.deleteLike({
-              id: singlePost.id,
-              callback: () => {
-                dispatch(postData.requestOne(sPost.id));
-                setLiked(false);
-              },
-            })
-          )
+      ? dispatch(
+          postData.deleteLike({
+            id: singlePost.id,
+            callback: () => {
+              console.log('deletw');
+              dispatch(postData.requestOne(sPost.id));
+            },
+          })
         )
       : dispatch(
           postData.saveLike({
             id: singlePost.id,
             callback: () => {
-              setLiked(true);
               dispatch(postData.requestOne(sPost.id));
             },
           })
         );
+  };
+
+  const handleRepliesList = commId => {
+    console.log(commId);
+    setShowReply(true);
+    console.log(showReply);
+    dispatch(
+      postData.requestReplies({
+        postId: post.id,
+        parentCommentId: commId,
+      })
+    );
   };
 
   return (
@@ -202,8 +248,15 @@ const CommentModel = ({
       open={open}
     >
       <Fade in={open}>
-        <div className={classes.modelStyle}>
-          <div style={{ width: '40%', height: '100%' }}>
+        <div
+          style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <div style={{ width: '50%', height: '100%' }}>
             <PostMedia media={post.media} mediaCount={post.mediaCount} />
           </div>
 
@@ -323,11 +376,16 @@ const CommentModel = ({
                   comm =>
                     comm.parentCommentId === null && (
                       <div>
-                        <div style={{ display: 'flex' }}>
+                        <div
+                          style={{
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                          }}
+                        >
                           <div
                             style={{
                               display: 'flex',
-                              marginLeft: '14px',
+                              justifyContent: 'space-between',
                             }}
                           >
                             <div style={{ display: 'flex' }}>
@@ -364,6 +422,7 @@ const CommentModel = ({
                               fontSize='small'
                               onClick={() => handleReplyField(comm.id)}
                             />
+
                             {comm.likes && comm.likes.length === 0 ? (
                               <FavoriteIcon
                                 fontSize='small'
@@ -378,40 +437,183 @@ const CommentModel = ({
                             )}
                           </div>
                         </div>
-                        <div style={{ marginLeft: '50px' }}>
-                          {singlePost.comments
-                            .filter(c => c.parentCommentId === c.id)
-                            .map(co => (
-                              <div style={{ display: 'flex' }}>
-                                <img
-                                  src={comm.user.profileImage}
-                                  alt='profile=image'
-                                  width='30px'
-                                  height='30px'
-                                />
-                                <div
-                                  style={{
-                                    display: 'flex',
-                                    marginTop: '-14px',
-                                    marginLeft: '5px',
-                                  }}
-                                >
+
+                        <div>
+                          <p
+                            style={{
+                              marginLeft: '50px',
+                              marginTop: '-10px',
+                              marginBottom: '0px',
+                              cursor: 'pointer',
+                              fontSize: '13px',
+                              display: 'flex',
+                            }}
+                            onClick={() => handleRepliesList(comm.id)}
+                          >
+                            <div style={{ marginRight: '10px' }}>
+                              {comm.totalLikes === 0 ? (
+                                <div style={{ display: 'flex' }}>
                                   <p
                                     style={{
-                                      fontWeight: 'bold',
+                                      marginTop: '0px',
                                       marginRight: '5px',
                                     }}
                                   >
-                                    {co.user.username}
+                                    0
                                   </p>
-                                  <p>{co.comment}</p>
+                                  <FavoriteIcon
+                                    fontSize='small'
+                                    style={{ color: 'red' }}
+                                  />
                                 </div>
-                              </div>
-                            ))}
+                              ) : (
+                                <div style={{ display: 'flex' }}>
+                                  <p
+                                    style={{
+                                      marginTop: '0px',
+                                      marginRight: '5px',
+                                    }}
+                                  >
+                                    {comm.totalLikes}{' '}
+                                  </p>
+                                  <FavoriteIcon
+                                    fontSize='small'
+                                    style={{ color: 'red' }}
+                                  />
+                                </div>
+                              )}
+                            </div>
+                            {comm.totalReplies > 0 ? 'VIEW REPLIES' : ' '}
+                          </p>
                         </div>
+
+                        {showReply === true &&
+                          replyData?.map(
+                            reply =>
+                              reply.parentCommentId === comm.id && (
+                                <div>
+                                  <div
+                                    style={{
+                                      display: 'flex',
+                                    }}
+                                  >
+                                    <div
+                                      style={{
+                                        display: 'flex',
+                                        marginLeft: '50px',
+                                        marginBottom: '10px',
+                                        marginTop: '5px',
+                                      }}
+                                    >
+                                      <img
+                                        src={reply.user.profileImage}
+                                        alt='profile=image'
+                                        width='30px'
+                                        height='30px'
+                                      />
+                                      <div
+                                        style={{
+                                          display: 'flex',
+                                          marginTop: '-14px',
+                                          marginLeft: '5px',
+                                        }}
+                                      >
+                                        <p
+                                          style={{
+                                            fontWeight: 'bold',
+                                            marginRight: '5px',
+                                          }}
+                                        >
+                                          {reply.user.username}
+                                        </p>
+                                        <p>{reply.comment}</p>
+                                      </div>
+                                    </div>
+
+                                    <div
+                                      style={{
+                                        marginLeft: '10px',
+                                        marginTop: '5px',
+                                      }}
+                                    >
+                                      {reply.likes &&
+                                      reply.likes.length === 0 ? (
+                                        <FavoriteIcon
+                                          fontSize='small'
+                                          onClick={() =>
+                                            handleReplyLike(reply.id)
+                                          }
+                                        />
+                                      ) : (
+                                        <FavoriteIcon
+                                          fontSize='small'
+                                          style={{ color: 'red' }}
+                                          onClick={() =>
+                                            handleReplyLike(reply.id)
+                                          }
+                                        />
+                                      )}
+                                    </div>
+                                  </div>
+
+                                  <div
+                                    style={{
+                                      marginLeft: '40px',
+                                      marginTop: '-10px',
+                                    }}
+                                  >
+                                    <p
+                                      style={{
+                                        marginLeft: '50px',
+                                        marginTop: '-10px',
+                                        marginBottom: '0px',
+                                        cursor: 'pointer',
+                                        fontSize: '13px',
+                                        display: 'flex',
+                                      }}
+                                    >
+                                      <div style={{ marginRight: '10px' }}>
+                                        {reply.totalLikes === 0 ? (
+                                          <div style={{ display: 'flex' }}>
+                                            <p
+                                              style={{
+                                                marginTop: '0px',
+                                                marginRight: '5px',
+                                              }}
+                                            >
+                                              0
+                                            </p>
+                                            <FavoriteIcon
+                                              fontSize='small'
+                                              style={{ color: 'red' }}
+                                            />
+                                          </div>
+                                        ) : (
+                                          <div style={{ display: 'flex' }}>
+                                            <p
+                                              style={{
+                                                marginTop: '0px',
+                                                marginRight: '5px',
+                                              }}
+                                            >
+                                              {reply.totalLikes}{' '}
+                                            </p>
+                                            <FavoriteIcon
+                                              fontSize='small'
+                                              style={{ color: 'red' }}
+                                            />
+                                          </div>
+                                        )}
+                                      </div>
+                                    </p>
+                                  </div>
+                                </div>
+                              )
+                          )}
                       </div>
                     )
                 )}
+              {showReply === true && replyData?.map(rep => console.log(rep))}
             </div>
 
             {isReplyField === true ? (
