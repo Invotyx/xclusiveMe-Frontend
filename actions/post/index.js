@@ -8,6 +8,29 @@ export const post = {
       success: false,
       error: null,
     }),
+
+  requestNotifications: () =>
+    createAction(POST.GET_NOTIFICATIONS, {
+      fetching: true,
+      success: false,
+      error: null,
+    }),
+
+  viewNotifications: data =>
+    createAction(POST.VIEW_NOTIFICATION, {
+      ...data,
+      fetching: true,
+      success: false,
+      error: null,
+    }),
+
+  requestOne: id =>
+    createAction(POST.GET_ONE, {
+      id,
+      fetching: true,
+      success: false,
+      error: null,
+    }),
   requestSubscribed: () =>
     createAction(POST.GET_SUBSCRIBED, {
       fetching: true,
@@ -22,6 +45,14 @@ export const post = {
       success: false,
       error: null,
     }),
+  requestReplies: data =>
+    createAction(POST.GET_REPLIES, {
+      ...data,
+      fetching: true,
+      success: false,
+      error: null,
+    }),
+
   save: data =>
     createAction(POST.SAVE, {
       ...data,
@@ -29,6 +60,54 @@ export const post = {
       success: false,
       error: null,
     }),
+
+  getComment: data =>
+    createAction(POST.GET_COMMENTS, {
+      ...data,
+      fetching: true,
+      success: false,
+      error: null,
+    }),
+  saveComment: data =>
+    createAction(POST.ADD_COMMENT, {
+      ...data,
+      fetching: true,
+      success: false,
+      error: null,
+    }),
+
+  saveLike: id =>
+    createAction(POST.ADD_LIKE, {
+      ...id,
+      fetching: true,
+      success: false,
+      error: null,
+    }),
+
+  saveCommentLike: id =>
+    createAction(POST.COMMENT_LIKE, {
+      ...id,
+      fetching: true,
+      success: false,
+      error: null,
+    }),
+
+  delCommentLike: id =>
+    createAction(POST.DEL_COMMENT_LIKE, {
+      ...id,
+      fetching: true,
+      success: false,
+      error: null,
+    }),
+
+  deleteLike: id =>
+    createAction(POST.DELETE_LIKES, {
+      ...id,
+      fetching: true,
+      success: false,
+      error: null,
+    }),
+
   uploadImage: data =>
     createAction(POST.UPLOAD_IMAGE, {
       ...data,

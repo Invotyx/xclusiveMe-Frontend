@@ -10,6 +10,7 @@ import Container from '@material-ui/core/Container';
 import { motion } from 'framer-motion';
 import { variants } from '../services/framer-variants';
 import Layout from '../components/layouts/layout-auth';
+import { useDispatch, useSelector } from 'react-redux';
 
 const useStyles = makeStyles(theme => ({
   bottom: {
@@ -55,6 +56,7 @@ function a11yProps(index) {
 export default function Notification() {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
+  const dispatch = useDispatch();
 
   const handleChange = (event, newValue) => {
     setValue(newValue);

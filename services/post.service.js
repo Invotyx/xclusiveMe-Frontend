@@ -7,6 +7,16 @@ export async function getAll() {
   return apiClient.get(`${SERVER_ADDRESS}/posts/`);
 }
 
+export async function getOnePost(id) {
+  return apiClient.get(`${SERVER_ADDRESS}/posts/${id}`);
+}
+
+export async function getReplies(postId, commentId) {
+  return apiClient.get(
+    `${SERVER_ADDRESS}/posts/${postId}/comments/${commentId}/replies`
+  );
+}
+
 export async function getAllSubscribed() {
   return apiClient.get(`${SERVER_ADDRESS}/posts/subscribed`);
 }
@@ -18,6 +28,31 @@ export async function getX(username) {
 export async function add(saveData) {
   const data = JSON.stringify(saveData);
   return apiClient.post(`${SERVER_ADDRESS}/posts`, data);
+}
+
+export async function addComment(id, commentData) {
+  const data = JSON.stringify(commentData);
+  return apiClient.post(`${SERVER_ADDRESS}/posts/${id}/comments`, data);
+}
+
+export async function getComment(id) {
+  return apiClient.get(`${SERVER_ADDRESS}/posts/${id}/comments`, data);
+}
+
+export async function addCommentLike(id) {
+  return apiClient.patch(`${SERVER_ADDRESS}/posts/comments/${id}/like`);
+}
+
+export async function delCommentLike(id) {
+  return apiClient.delete(`${SERVER_ADDRESS}/posts/comments/${id}/like`);
+}
+
+export async function addLike(id) {
+  return apiClient.patch(`${SERVER_ADDRESS}/posts/${id}/like`);
+}
+
+export async function deleteLikes(id) {
+  return apiClient.delete(`${SERVER_ADDRESS}/posts/${id}/like`);
 }
 
 export async function update(id, data) {
@@ -43,4 +78,13 @@ export async function uploadVideoFinalReq(fileObject, url) {
   const data = new FormData();
   data.append('video', fileObject);
   return apiClient.post(`${url}`, data);
+}
+
+export async function getNotifications() {
+  return apiClient.get(`${SERVER_ADDRESS}/notifications`);
+}
+
+export async function viewNotification(id, notify) {
+  const data = JSON.stringify(notify);
+  return apiClient.patch(`${SERVER_ADDRESS}/notifications/${id}/read`, data);
 }

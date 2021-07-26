@@ -12,6 +12,16 @@ import {
   add,
   getAllSubscribed,
   getX,
+  addComment,
+  addLike,
+  deleteLikes,
+  getComment,
+  addCommentLike,
+  delCommentLike,
+  getOnePost,
+  getReplies,
+  getNotifications,
+  viewNotification,
 } from '../services/post.service';
 import { bottomalert } from '../actions/bottom-alert';
 
@@ -27,10 +37,73 @@ function* handleGet() {
   }
 }
 
+function* getAllNotifications() {
+  try {
+    const { data } = yield call(getNotifications);
+    yield put(post.success({ notifications: data.results }));
+  } catch (e) {
+    console.log(e);
+    yield put(post.success({ error: true }));
+  }
+}
+
+function* handleGetOne(action) {
+  try {
+    const { id } = action.payload;
+    const { data } = yield call(getOnePost, id);
+    yield put(post.success({ singleData: data[0] }));
+    const { callback } = action.payload;
+    if (callback) {
+      yield call(callback);
+    }
+  } catch (e) {
+    console.log(e);
+    yield put(post.success({ error: true }));
+  }
+}
+
+function* handleViewNotify(action) {
+  try {
+    const { id, isNotify } = action.payload;
+    yield call(viewNotification, id, isNotify);
+    yield put(post.success({}));
+    yield put(
+      snackbar.update({
+        open: true,
+        message: 'Viewed successfully!',
+        severity: 'success',
+      })
+    );
+    const { callback } = action.payload;
+    if (callback) {
+      yield call(callback);
+    }
+  } catch (e) {
+    console.log(e);
+    yield put(post.success({ error: true }));
+  }
+}
+
+function* handleGetReplies(action) {
+  try {
+    const { postId, parentCommentId } = action.payload;
+    const { data } = yield call(getReplies, postId, parentCommentId);
+    yield put(
+      post.success({
+        repliesData: data.results,
+        repliesCount: data.totalCount,
+      })
+    );
+  } catch (e) {
+    console.log(e);
+    yield put(post.success({ error: true }));
+  }
+}
+
 function* handleGetSubscribed() {
   try {
     const { data } = yield call(getAllSubscribed);
-    yield put(post.success({ subscribed: data.posts }));
+    yield put(post.success({ subscribed: data.results }));
   } catch (e) {
     console.log(e);
     yield put(post.success({ error: true }));
@@ -63,6 +136,168 @@ function* handlePost(action) {
       snackbar.update({
         open: true,
         message: 'Post Added',
+        severity: 'success',
+      })
+    );
+    const { callback } = action.payload;
+    if (callback) {
+      yield call(callback);
+    }
+  } catch (e) {
+    console.log(e);
+    yield put(post.failure({ error: { ...e } }));
+    yield put(
+      snackbar.update({
+        open: true,
+        message: e.response.data.message,
+        severity: 'error',
+      })
+    );
+  }
+}
+
+function* handleGetComment(action) {
+  try {
+    const { id } = yield call(getComment, id);
+    yield put(post.success({}));
+    yield call(post.getComment);
+  } catch (e) {
+    console.log(e);
+    yield put(post.success({ error: true }));
+  }
+}
+
+function* handleComment(action) {
+  try {
+    const { id, commentText } = action.payload;
+    yield call(addComment, id, commentText);
+    yield put(post.success({}));
+    yield put(
+      snackbar.update({
+        open: true,
+        message: 'Added',
+        severity: 'success',
+      })
+    );
+    const { callback } = action.payload;
+    if (callback) {
+      yield call(callback);
+    }
+  } catch (e) {
+    console.log(e);
+    yield put(post.failure({ error: { ...e } }));
+    yield put(
+      snackbar.update({
+        open: true,
+        message: e.response.data.message,
+        severity: 'error',
+      })
+    );
+  }
+}
+
+function* handleLike(action) {
+  try {
+    const { id } = action.payload;
+    yield call(addLike, id);
+    yield put(post.success({}));
+    yield call(post.request);
+    yield call(post.requestSubscribed);
+    yield put(
+      snackbar.update({
+        open: true,
+        message: 'Liked successfully!',
+        severity: 'success',
+      })
+    );
+    const { callback } = action.payload;
+    if (callback) {
+      yield call(callback);
+    }
+  } catch (e) {
+    console.log(e);
+    yield put(post.failure({ error: { ...e } }));
+    yield put(
+      snackbar.update({
+        open: true,
+        message: e.response.data.message,
+        severity: 'error',
+      })
+    );
+  }
+}
+
+function* handleCommentLike(action) {
+  try {
+    const { id } = action.payload;
+    yield call(addCommentLike, id);
+    yield put(post.success({}));
+    yield call(post.request);
+    yield call(post.requestSubscribed);
+    yield put(
+      snackbar.update({
+        open: true,
+        message: 'Liked successfully!',
+        severity: 'success',
+      })
+    );
+    const { callback } = action.payload;
+    if (callback) {
+      yield call(callback);
+    }
+  } catch (e) {
+    console.log(e);
+    yield put(post.failure({ error: { ...e } }));
+    yield put(
+      snackbar.update({
+        open: true,
+        message: e.response.data.message,
+        severity: 'error',
+      })
+    );
+  }
+}
+
+function* handleDelCommentLike(action) {
+  try {
+    const { id } = action.payload;
+    yield call(delCommentLike, id);
+    yield put(post.success({}));
+
+    yield put(
+      snackbar.update({
+        open: true,
+        message: 'Like deleted successfully!',
+        severity: 'success',
+      })
+    );
+    const { callback } = action.payload;
+    if (callback) {
+      yield call(callback);
+    }
+  } catch (e) {
+    console.log(e);
+    yield put(post.failure({ error: { ...e } }));
+    yield put(
+      snackbar.update({
+        open: true,
+        message: e.response.data.message,
+        severity: 'error',
+      })
+    );
+  }
+}
+
+function* handleDelLike(action) {
+  try {
+    const { id } = action.payload;
+    yield call(deleteLikes, id);
+    yield put(post.success({}));
+
+    yield put(
+      snackbar.update({
+        open: true,
+        message: 'Like deleted successfully!',
         severity: 'success',
       })
     );
@@ -206,11 +441,21 @@ function* handleUploadVideoFinalReq({ payload }) {
 function* watchPostSagas() {
   yield all([
     takeLatest(POST.GET, handleGet),
+    takeLatest(POST.GET_NOTIFICATIONS, getAllNotifications),
+    takeLatest(POST.VIEW_NOTIFICATION, handleViewNotify),
+    takeLatest(POST.GET_ONE, handleGetOne),
     takeLatest(POST.GET_SUBSCRIBED, handleGetSubscribed),
     takeLatest(POST.GET_X, handleGetX),
     takeLatest(POST.SAVE, handlePost),
+    takeLatest(POST.ADD_COMMENT, handleComment),
+    takeLatest(POST.GET_COMMENTS, handleGetComment),
+    takeLatest(POST.GET_REPLIES, handleGetReplies),
     takeLatest(POST.UPDATE, handleUpdate),
     takeLatest(POST.DELETE, handleDelete),
+    takeLatest(POST.ADD_LIKE, handleLike),
+    takeLatest(POST.DELETE_LIKES, handleDelLike),
+    takeLatest(POST.COMMENT_LIKE, handleCommentLike),
+    takeLatest(POST.DEL_COMMENT_LIKE, handleDelCommentLike),
     takeLatest(POST.UPLOAD_IMAGE, handleUploadImage),
     takeLatest(POST.UPLOAD_VIDEO_REQ, handleUploadVideoReq),
     takeLatest(POST.UPLOAD_VIDEO_FINAL_REQ, handleUploadVideoFinalReq),
