@@ -20,7 +20,6 @@ import Notification from '../notification';
 import NewPostDialog from '../new-post';
 import CurrentUserProfileImageAvatar from '../profile/current-user-profile-image-avatar';
 import NotificationMenu from '../notification/menu';
-import { getNotifications } from '../../services/post.service';
 
 export default function Comp({ sidebarMenu, set_sidebarMenu }) {
   const dispatch = useDispatch();
@@ -54,10 +53,6 @@ export default function Comp({ sidebarMenu, set_sidebarMenu }) {
         },
       })
     );
-  };
-
-  const handleGetNotifications = () => {
-    dispatch(getNotifications());
   };
 
   return (
@@ -125,10 +120,7 @@ export default function Comp({ sidebarMenu, set_sidebarMenu }) {
                   anchorEl={anchorEl}
                   onClose={settingsMenuClose}
                 >
-                  <Notification
-                    onClose={settingsMenuClose}
-                    onClick={handleGetNotifications}
-                  />
+                  <Notification onClose={settingsMenuClose} />
                 </NotificationMenu>
               </Box>
 

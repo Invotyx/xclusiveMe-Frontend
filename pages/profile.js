@@ -8,7 +8,7 @@ import {
 import { useEffect } from 'react';
 import {
   numberOfPostsSelector,
-  singlepostDataSelector,
+  postDataSelector,
 } from '../selectors/postSelector';
 import { post } from '../actions/post';
 import { auth } from '../actions/auth';
@@ -19,7 +19,7 @@ export default function Profile() {
   const followers = useSelector(currentUserFollowersSelector);
   const followings = useSelector(currentUserFollowingsSelector);
 
-  const _feed = useSelector(singlepostDataSelector);
+  const _feed = useSelector(postDataSelector);
   const numberOfPosts = useSelector(numberOfPostsSelector);
   useEffect(() => {
     u && dispatch(post.request());

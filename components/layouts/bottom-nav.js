@@ -11,10 +11,8 @@ import Image from 'next/image';
 import NextLink from 'next/link';
 import { makeStyles } from '@material-ui/core/styles';
 import CurrentUserProfileImageAvatar from '../profile/current-user-profile-image-avatar';
-import { useDispatch } from 'react-redux';
-import { post } from '../../actions/post';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   bottom: {
     top: 'auto',
     bottom: '0',
@@ -26,11 +24,6 @@ const useStyles = makeStyles(theme => ({
 
 export default function Comp() {
   const classes = useStyles();
-  const dispatch = useDispatch();
-
-  const handleGetNotifications = () => {
-    dispatch(post.requestNotifications());
-  };
   return (
     <>
       <AppBar
@@ -61,16 +54,13 @@ export default function Comp() {
                 />
               </IconButton>
             </NextLink>
-            <div onClick={handleGetNotifications}>
-              <NextLink passHref href='/notification'>
-                <IconButton color='inherit'>
-                  <Badge color='secondary' variant='dot'>
-                    <CheckBoxOutlineBlankIcon />
-                  </Badge>
-                </IconButton>
-              </NextLink>
-            </div>
-
+            <NextLink passHref href='/notification'>
+              <IconButton color='inherit'>
+                <Badge color='secondary' variant='dot'>
+                  <CheckBoxOutlineBlankIcon />
+                </Badge>
+              </IconButton>
+            </NextLink>
             <NextLink passHref href='/profile'>
               <IconButton color='inherit'>
                 <CurrentUserProfileImageAvatar />

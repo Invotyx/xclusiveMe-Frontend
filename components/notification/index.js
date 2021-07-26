@@ -7,9 +7,6 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
-import { useDispatch, useSelector } from 'react-redux';
-import { notificationsData } from '../../selectors/postSelector';
-import { post } from '../../actions/post';
 
 const useStyles = makeStyles(theme => ({
   small: {
@@ -18,7 +15,7 @@ const useStyles = makeStyles(theme => ({
     marginRight: 10,
   },
   inline: {
-    display: 'flex',
+    display: 'inline',
   },
 }));
 
@@ -28,7 +25,7 @@ const notificationToday = [
     title: 'Ariana Green',
     image: 'https://material-ui.com/static/images/avatar/3.jpg',
     secondary1: 'commented two hours ago',
-    secondary2: ' This is beautiful one of my favourite',
+    secondary2: ' - This is beautiful one of my favourite',
   },
   {
     avatar: 'https://material-ui.com/static/images/avatar/3.jpg',
@@ -59,7 +56,7 @@ const notificationYesterday = [
     title: 'Ariana Green',
     image: 'https://material-ui.com/static/images/avatar/3.jpg',
     secondary1: 'commented two hours ago',
-    secondary2: ' This is beautiful one of my favourite',
+    secondary2: ' - This is beautiful one of my favourite',
   },
   {
     avatar: 'https://material-ui.com/static/images/avatar/3.jpg',
@@ -79,57 +76,71 @@ const notificationYesterday = [
 
 export default function Notification({ onClose }) {
   const classes = useStyles();
-  const listofNotifications = useSelector(notificationsData);
-  const dispatch = useDispatch();
-
-  const readNotification = notifyId => {
-    dispatch(
-      post.viewNotifications({
-        id: notifyId,
-        isNotify: {
-          isRead: true,
-        },
-      })
-    );
-  };
 
   return (
     <>
-      {/* <ListSubheader>Today</ListSubheader> */}
-      <div>
-        {listofNotifications?.map((i, x) => (
-          <div onClick={() => readNotification(i.id)}>
-            <MenuItem onClick={onClose} key={`notificationToday${x}`}>
-              <ListItemAvatar>
-                <Avatar
-                  alt='Cindy Baker'
-                  src={i.avatar}
-                  className={classes.small}
-                />
-              </ListItemAvatar>
-              <ListItemText
-                primary={i.relatedUsersNames[0]}
-                secondary={
-                  <React.Fragment>
-                    {i.createdAt}
-                    <Typography
-                      component='span'
-                      variant='body2'
-                      className={classes.inline}
-                      color='textPrimary'
-                    >
-                      {i.title}
-                    </Typography>
-                  </React.Fragment>
-                }
-              />
-              {/* <ListItemSecondaryAction>
+      <ListSubheader>Today</ListSubheader>
+      {notificationToday.map((i, x) => (
+        <MenuItem onClick={onClose} key={`notificationToday${x}`}>
+          <ListItemAvatar>
+            <Avatar
+              alt='Cindy Baker'
+              src={i.avatar}
+              className={classes.small}
+            />
+          </ListItemAvatar>
+          <ListItemText
+            primary={i.title}
+            secondary={
+              <React.Fragment>
+                {i.secondary1}
+                <Typography
+                  component='span'
+                  variant='body2'
+                  className={classes.inline}
+                  color='textPrimary'
+                >
+                  {i.secondary2}
+                </Typography>
+              </React.Fragment>
+            }
+          />
+          <ListItemSecondaryAction>
             <Avatar alt='Cindy Baker' src={i.image} variant='square' />
-          </ListItemSecondaryAction> */}
-            </MenuItem>
-          </div>
-        ))}
-      </div>
+          </ListItemSecondaryAction>
+        </MenuItem>
+      ))}
+      <ListSubheader>Yesterday</ListSubheader>
+      {notificationYesterday.map((i, x) => (
+        <MenuItem onClick={onClose} key={`notificationYesterday${x}`}>
+          <ListItemAvatar>
+            <Avatar
+              alt='Cindy Baker'
+              src={i.avatar}
+              className={classes.small}
+            />
+          </ListItemAvatar>
+          <ListItemText
+            primary={i.title}
+            secondary={
+              <React.Fragment>
+                {i.secondary1}
+                <Typography
+                  component='span'
+                  variant='body2'
+                  className={classes.inline}
+                  color='textPrimary'
+                >
+                  {i.secondary2}
+                </Typography>
+              </React.Fragment>
+            }
+          />
+          <ListItemSecondaryAction>
+            <Avatar alt='Cindy Baker' src={i.image} variant='square' />
+          </ListItemSecondaryAction>
+        </MenuItem>
+      ))}
     </>
   );
 }
