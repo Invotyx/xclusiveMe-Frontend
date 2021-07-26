@@ -7,6 +7,11 @@ const postDataSelector = createSelector(postState, state => {
   return data;
 });
 
+const profileDataSelector = createSelector(postState, state => {
+  const data = state.get('profileData');
+  return data;
+});
+
 const totalreplies = createSelector(postState, state => {
   const data = state.get('repliesCount');
   return data;
@@ -52,6 +57,7 @@ const errorSelector = createSelector(postState, state => {
 });
 export {
   postDataSelector,
+  profileDataSelector,
   singlepostDataSelector,
   numberOfPostsSelector,
   subscribedSelector,

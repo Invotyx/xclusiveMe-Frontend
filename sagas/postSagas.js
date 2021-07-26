@@ -37,6 +37,21 @@ function* handleGet() {
   }
 }
 
+function* handleGetProfile() {
+  try {
+    const { data } = yield call(getAll);
+    yield put(
+      post.success({
+        profileData: data.results,
+        numberOfPosts: data.totalCount,
+      })
+    );
+  } catch (e) {
+    console.log(e);
+    yield put(post.success({ error: true }));
+  }
+}
+
 function* getAllNotifications() {
   try {
     const { data } = yield call(getNotifications);
@@ -441,6 +456,7 @@ function* handleUploadVideoFinalReq({ payload }) {
 function* watchPostSagas() {
   yield all([
     takeLatest(POST.GET, handleGet),
+    takeLatest(POST.GET, handleGetProfile),
     takeLatest(POST.GET_NOTIFICATIONS, getAllNotifications),
     takeLatest(POST.VIEW_NOTIFICATION, handleViewNotify),
     takeLatest(POST.GET_ONE, handleGetOne),
