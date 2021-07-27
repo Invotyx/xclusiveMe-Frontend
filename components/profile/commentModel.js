@@ -94,7 +94,7 @@ const CommentModel = ({
               id: re.id,
               callback: () => {
                 // dispatch(postData.request());
-
+                console.log('eee');
                 dispatch(postData.requestOne(sPost.id));
               },
             })
@@ -104,7 +104,9 @@ const CommentModel = ({
             postData.saveCommentLike({
               id: re.id,
               callback: () => {
+                console.log('ddd');
                 dispatch(postData.requestOne(sPost.id));
+                console.log(dispatch(postData.requestOne(sPost.id)));
                 // dispatch(postData.request());
               },
             })

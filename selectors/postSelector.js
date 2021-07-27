@@ -7,6 +7,11 @@ const postDataSelector = createSelector(postState, state => {
   return data;
 });
 
+const settingsNotify = createSelector(postState, state => {
+  const data = state.get('notiData');
+  return data;
+});
+
 const profileDataSelector = createSelector(postState, state => {
   const data = state.get('profileData');
   return data;
@@ -68,4 +73,5 @@ export {
   repliesDataSelector,
   totalreplies,
   notificationsData,
+  settingsNotify,
 };

@@ -16,6 +16,21 @@ export const post = {
       error: null,
     }),
 
+  requestSettingsNotifications: () =>
+    createAction(POST.GET_SETTING_NOTIFICATIONS, {
+      fetching: true,
+      success: false,
+      error: null,
+    }),
+
+  addSettingNotification: data =>
+    createAction(POST.ADD_SETTING_NOTIFICATIONS, {
+      ...data,
+      fetching: true,
+      success: false,
+      error: null,
+    }),
+
   viewNotifications: data =>
     createAction(POST.VIEW_NOTIFICATION, {
       ...data,

@@ -22,6 +22,8 @@ import {
   getReplies,
   getNotifications,
   viewNotification,
+  addSettingNotification,
+  getSettingNotifications,
 } from '../services/post.service';
 import { bottomalert } from '../actions/bottom-alert';
 
@@ -59,6 +61,47 @@ function* getAllNotifications() {
   } catch (e) {
     console.log(e);
     yield put(post.success({ error: true }));
+  }
+}
+
+function* getSettingsNotifications() {
+  try {
+    const { data } = yield call(getSettingNotifications);
+    console.log(data);
+    yield put(post.success({ notiData: data.notifications }));
+  } catch (e) {
+    console.log(e);
+    yield put(post.success({ error: true }));
+  }
+}
+
+function* handleAddSettingNotifications(action) {
+  try {
+    const { data } = action.payload;
+    yield call(addSettingNotification, data);
+    yield put(post.success({}));
+    yield call(post.request);
+    yield put(
+      snackbar.update({
+        open: true,
+        message: 'Saved',
+        severity: 'success',
+      })
+    );
+    const { callback } = action.payload;
+    if (callback) {
+      yield call(callback);
+    }
+  } catch (e) {
+    console.log(e);
+    yield put(post.failure({ error: { ...e } }));
+    yield put(
+      snackbar.update({
+        open: true,
+        message: e.response.data.message,
+        severity: 'error',
+      })
+    );
   }
 }
 
@@ -458,6 +501,8 @@ function* watchPostSagas() {
     takeLatest(POST.GET, handleGet),
     takeLatest(POST.GET, handleGetProfile),
     takeLatest(POST.GET_NOTIFICATIONS, getAllNotifications),
+    takeLatest(POST.ADD_SETTING_NOTIFICATIONS, handleAddSettingNotifications),
+    takeLatest(POST.GET_SETTING_NOTIFICATIONS, getSettingsNotifications),
     takeLatest(POST.VIEW_NOTIFICATION, handleViewNotify),
     takeLatest(POST.GET_ONE, handleGetOne),
     takeLatest(POST.GET_SUBSCRIBED, handleGetSubscribed),

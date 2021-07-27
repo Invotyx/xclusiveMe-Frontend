@@ -88,3 +88,12 @@ export async function viewNotification(id, notify) {
   const data = JSON.stringify(notify);
   return apiClient.patch(`${SERVER_ADDRESS}/notifications/${id}/read`, data);
 }
+
+export async function getSettingNotifications() {
+  return apiClient.get(`${SERVER_ADDRESS}/notifications/settings`);
+}
+
+export async function addSettingNotification(notiData) {
+  const data = JSON.stringify(notiData);
+  return apiClient.post(`${SERVER_ADDRESS}/notifications/settings`, data);
+}
