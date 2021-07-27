@@ -11,8 +11,9 @@ import { useEffect, useState } from 'react';
 import CloseIcon from '@material-ui/icons/Close';
 import Button from '@material-ui/core/Button';
 import { post as postData } from '../../actions/post/index';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { paymentMethod } from '../../actions/payment-method';
+import { paymentMethodDataSelector } from '../../selectors/paymentMethodSelector';
 
 const useStyles = makeStyles(theme => ({
   media: {
@@ -54,6 +55,8 @@ export default function PostMedia({ media, mediaCount, post }) {
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const [purchased, setPurchased] = useState(false);
+  const paymentData = useSelector(paymentMethodDataSelector);
+  console.log(paymentData);
   const handleOpen = () => {
     setOpen(true);
   };
@@ -207,7 +210,7 @@ export default function PostMedia({ media, mediaCount, post }) {
                       <p>Mastercard</p>
                     </div>
                     <p style={{ margin: '0px', marginLeft: '15px' }}>
-                      ******** 2459
+                      ******** {paymentData[0]?.last4_card}
                     </p>
                   </div>
                 </div>
