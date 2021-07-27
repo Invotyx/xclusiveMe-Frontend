@@ -24,6 +24,7 @@ import {
   viewNotification,
   addSettingNotification,
   getSettingNotifications,
+  postPurchase,
 } from '../services/post.service';
 import { bottomalert } from '../actions/bottom-alert';
 
@@ -285,6 +286,36 @@ function* handleLike(action) {
   }
 }
 
+function* handlePostPurchase(action) {
+  try {
+    const { id } = action.payload;
+    yield call(postPurchase, id);
+    yield put(post.success({}));
+
+    yield put(
+      snackbar.update({
+        open: true,
+        message: 'Sended successfully!',
+        severity: 'success',
+      })
+    );
+    const { callback } = action.payload;
+    if (callback) {
+      yield call(callback);
+    }
+  } catch (e) {
+    console.log(e);
+    yield put(post.failure({ error: { ...e } }));
+    yield put(
+      snackbar.update({
+        open: true,
+        message: e.response.data.message,
+        severity: 'error',
+      })
+    );
+  }
+}
+
 function* handleCommentLike(action) {
   try {
     const { id } = action.payload;
@@ -500,6 +531,7 @@ function* watchPostSagas() {
   yield all([
     takeLatest(POST.GET, handleGet),
     takeLatest(POST.GET, handleGetProfile),
+    takeLatest(POST.PURCHASE_POST, handlePostPurchase),
     takeLatest(POST.GET_NOTIFICATIONS, getAllNotifications),
     takeLatest(POST.ADD_SETTING_NOTIFICATIONS, handleAddSettingNotifications),
     takeLatest(POST.GET_SETTING_NOTIFICATIONS, getSettingsNotifications),

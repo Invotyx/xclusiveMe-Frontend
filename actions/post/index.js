@@ -46,6 +46,15 @@ export const post = {
       success: false,
       error: null,
     }),
+
+  purchasePost: id =>
+    createAction(POST.PURCHASE_POST, {
+      ...id,
+      fetching: true,
+      success: false,
+      error: null,
+    }),
+
   requestSubscribed: () =>
     createAction(POST.GET_SUBSCRIBED, {
       fetching: true,

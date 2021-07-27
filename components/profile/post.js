@@ -139,7 +139,6 @@ export default function Post({ post, profileData, altHeader }) {
               callback: () => {
                 dispatch(postData.request());
                 dispatch(postData.requestSubscribed());
-                setLiked(false);
               },
             })
           )
@@ -148,7 +147,6 @@ export default function Post({ post, profileData, altHeader }) {
           postData.saveLike({
             id: post.id,
             callback: () => {
-              setLiked(true);
               dispatch(postData.request());
               dispatch(postData.requestSubscribed());
             },
@@ -166,7 +164,6 @@ export default function Post({ post, profileData, altHeader }) {
               callback: () => {
                 dispatch(postData.request());
                 dispatch(postData.requestSubscribed());
-                setLiked(false);
               },
             })
           )
@@ -175,7 +172,6 @@ export default function Post({ post, profileData, altHeader }) {
             postData.saveCommentLike({
               id: comm.id,
               callback: () => {
-                setLiked(true);
                 dispatch(postData.request());
                 dispatch(postData.requestSubscribed());
               },
@@ -244,7 +240,7 @@ export default function Post({ post, profileData, altHeader }) {
           </Typography>
         </CardContent>
       )}
-      <PostMedia media={post.media} mediaCount={post.mediaCount} />
+      <PostMedia media={post.media} mediaCount={post.mediaCount} post={post} />
       <CardActions disableSpacing>
         <Box flexGrow={1}>
           {post.likes.length === 0 ? (
@@ -429,6 +425,11 @@ export default function Post({ post, profileData, altHeader }) {
             startAdornment={
               <img
                 src={profileData && profileData.profileImage}
+                onError={e => {
+                  e.target.onerror = null;
+                  e.target.src =
+                    'https://images.unsplash.com/photo-1579158950237-a1d86ef408c4?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8aW1hZ2V8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60';
+                }}
                 alt='profileImage'
                 width='40px'
                 height='35px'

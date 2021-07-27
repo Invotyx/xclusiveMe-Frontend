@@ -18,6 +18,7 @@ export default function postReducer(state = initialState, action) {
   switch (action.type) {
     case POST.GET:
     case POST.GET_ONE:
+    case POST.PURCHASE_POST:
     case POST.GET_SUBSCRIBED:
     case POST.GET_X:
     case POST.SUCCESS:
