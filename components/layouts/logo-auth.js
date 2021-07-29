@@ -13,7 +13,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import axiosInterceptorResponse from '../../services/axiosInterceptorResponse';
 import { auth } from '../../actions/auth';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import SortIcon from '@material-ui/icons/Sort';
 import Logo from './logo';
 import Notification from '../notification';
@@ -21,11 +21,13 @@ import NewPostDialog from '../new-post';
 import CurrentUserProfileImageAvatar from '../profile/current-user-profile-image-avatar';
 import NotificationMenu from '../notification/menu';
 import { getNotifications } from '../../services/post.service';
+import { post } from '../../actions/post';
 
 export default function Comp({ sidebarMenu, set_sidebarMenu }) {
   const dispatch = useDispatch();
   const router = useRouter();
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const listofNotifications = useSelector(getNotifications);
 
   const settingsMenuOpen = event => {
     setAnchorEl(event.currentTarget);
@@ -34,6 +36,10 @@ export default function Comp({ sidebarMenu, set_sidebarMenu }) {
   const settingsMenuClose = () => {
     setAnchorEl(null);
   };
+
+  React.useEffect(() => {
+    dispatch(post.requestNotifications());
+  }, []);
 
   React.useEffect(() => {
     axiosInterceptorResponse(dispatch);
@@ -54,10 +60,6 @@ export default function Comp({ sidebarMenu, set_sidebarMenu }) {
         },
       })
     );
-  };
-
-  const handleGetNotifications = () => {
-    dispatch(getNotifications());
   };
 
   return (
@@ -116,19 +118,22 @@ export default function Comp({ sidebarMenu, set_sidebarMenu }) {
               </Box>
               <Box ml={3} display={{ xs: 'none', sm: 'none', md: 'flex' }}>
                 <IconButton color='inherit' onClick={settingsMenuOpen}>
-                  <Badge color='secondary' variant='dot'>
-                    <CheckBoxOutlineBlankIcon />
-                  </Badge>
+                  {listofNotifications?.length === 0 ? (
+                    <Badge color='secondary'>
+                      <CheckBoxOutlineBlankIcon />
+                    </Badge>
+                  ) : (
+                    <Badge color='secondary' variant='dot'>
+                      <CheckBoxOutlineBlankIcon />
+                    </Badge>
+                  )}
                 </IconButton>
                 <NotificationMenu
                   open={Boolean(anchorEl)}
                   anchorEl={anchorEl}
                   onClose={settingsMenuClose}
                 >
-                  <Notification
-                    onClose={settingsMenuClose}
-                    onClick={handleGetNotifications}
-                  />
+                  <Notification onClose={settingsMenuClose} />
                 </NotificationMenu>
               </Box>
 
