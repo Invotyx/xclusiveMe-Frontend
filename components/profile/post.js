@@ -31,10 +31,12 @@ import { singlepostDataSelector } from '../../selectors/postSelector';
 import { totalreplies } from '../../selectors/postSelector';
 import RemoveIcon from '@material-ui/icons/Remove';
 import CommentModel from './commentModel';
+import { Button } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   root: {
     marginTop: 0,
+    border: '1px solid #444444',
   },
   modal: {
     display: 'flex',
@@ -71,7 +73,8 @@ export default function Post({ post, profileData, altHeader }) {
   const singlePost = useSelector(singlepostDataSelector);
   const replyCount = useSelector(totalreplies);
 
-  const handleAddComment = () => {
+  const handleAddComment = event => {
+    event.preventDefault();
     if (!commentText || commentText.trim() === '') {
       return;
     }
@@ -309,6 +312,7 @@ export default function Post({ post, profileData, altHeader }) {
         open={open}
         setOpen={setOpen}
         replyCount={replyCount}
+        currentUser={currentUser}
       />
       {post.comments.map(comm => (
         <div style={{ marginBottom: '20px' }}>
@@ -318,14 +322,29 @@ export default function Post({ post, profileData, altHeader }) {
               justifyContent: 'space-between',
             }}
           >
-            <div style={{ display: 'flex', marginLeft: '14px' }}>
+            <div
+              style={{
+                display: 'flex',
+                marginLeft: '14px',
+              }}
+            >
               <div style={{ display: 'flex' }}>
-                <img
-                  src={comm.user.profileImage}
-                  alt='profile=image'
-                  width='30px'
-                  height='30px'
-                />
+                {comm?.user?.profileImage ? (
+                  <img
+                    src={comm.user.profileImage}
+                    alt='profile=image'
+                    width='30px'
+                    height='30px'
+                  />
+                ) : (
+                  <img
+                    src='/dp.png'
+                    alt='profile=image'
+                    width='35px'
+                    height='35px'
+                  />
+                )}
+
                 <p
                   style={{
                     marginTop: '2px',
@@ -333,7 +352,7 @@ export default function Post({ post, profileData, altHeader }) {
                     fontWeight: 'bold',
                   }}
                 >
-                  {comm.user.username}
+                  {comm.user.fullName}
                 </p>
               </div>
 
@@ -343,6 +362,7 @@ export default function Post({ post, profileData, altHeader }) {
                   marginLeft: '10px',
                   marginTop: '2px',
                   width: '350px',
+                  color: '#ACACAC',
                 }}
               >
                 {comm.comment}
@@ -377,7 +397,7 @@ export default function Post({ post, profileData, altHeader }) {
               marginTop: '-10px',
               marginBottom: '0px',
               cursor: 'pointer',
-              fontSize: '13px',
+              fontSize: '11px',
             }}
             onClick={() => handleOpen(comm.id)}
           >
@@ -386,23 +406,40 @@ export default function Post({ post, profileData, altHeader }) {
         </div>
       ))}
       {isReplyField === true ? (
-        <Box>
+        <Box style={{ borderTop: '1px solid #444444' }}>
           <OutlinedInput
             value={replyText}
             onChange={e => setReplyText(e.target.value)}
             name='replyText'
             multiline
             fullWidth
-            rows={1}
+            onKeyDown={e => {
+              if (e.keyCode === 13 && !e.shiftKey) {
+                e.preventDefault();
+              }
+              // } else if (e.keyCode === 13) {
+              //   handleAddComment(e);
+              // }
+            }}
             placeholder='Add Reply'
             startAdornment={
-              <img
-                src={profileData.profileImage}
-                alt='profileImage'
-                width='40px'
-                height='35px'
-                style={{ marginRight: '10px', borderRadius: '3px' }}
-              />
+              currentUser?.profileImage ? (
+                <img
+                  src={currentUser && currentUser.profileImage}
+                  alt='profileImage'
+                  width='40px'
+                  height='35px'
+                  style={{ marginRight: '10px', borderRadius: '3px' }}
+                />
+              ) : (
+                <img
+                  src='/dp.png'
+                  alt='profileImage'
+                  width='40px'
+                  height='35px'
+                  style={{ marginRight: '10px', borderRadius: '3px' }}
+                />
+              )
             }
             endAdornment={
               <SendIcon
@@ -413,37 +450,53 @@ export default function Post({ post, profileData, altHeader }) {
           />
         </Box>
       ) : (
-        <Box>
-          <OutlinedInput
-            value={commentText}
-            onChange={e => setCommentText(e.target.value)}
-            name='commentText'
-            multiline
-            fullWidth
-            rows={1}
-            placeholder='Add Comment'
-            startAdornment={
-              <img
-                src={profileData && profileData.profileImage}
-                onError={e => {
-                  e.target.onerror = null;
-                  e.target.src =
-                    'https://images.unsplash.com/photo-1579158950237-a1d86ef408c4?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8aW1hZ2V8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60';
-                }}
-                alt='profileImage'
-                width='40px'
-                height='35px'
-                style={{ marginRight: '10px', borderRadius: '3px' }}
-              />
-            }
-            endAdornment={
-              <SendIcon
-                onClick={handleAddComment}
-                style={{ cursor: 'pointer' }}
-              />
-            }
-          />
-        </Box>
+        <form onSubmit={handleAddComment}>
+          <Box style={{ borderTop: '1px solid #444444' }}>
+            <OutlinedInput
+              value={commentText}
+              onChange={e => setCommentText(e.target.value)}
+              name='commentText'
+              multiline
+              fullWidth
+              onKeyDown={e => {
+                if (e.keyCode === 13 && !e.shiftKey) {
+                  e.preventDefault();
+                }
+                // } else if (e.keyCode === 13) {
+                //   handleAddComment(e);
+                // }
+              }}
+              placeholder='Add Comment'
+              startAdornment={
+                currentUser.profileImage ? (
+                  <img
+                    src={currentUser && currentUser.profileImage}
+                    alt='profileImage'
+                    width='40px'
+                    height='35px'
+                    style={{ marginRight: '10px', borderRadius: '3px' }}
+                  />
+                ) : (
+                  <img
+                    src='/dp.png'
+                    alt='profileImage'
+                    width='40px'
+                    height='35px'
+                    style={{ marginRight: '10px', borderRadius: '3px' }}
+                  />
+                )
+              }
+              endAdornment={
+                <Button
+                  type='submit'
+                  style={{ backgroundColor: '#111111', border: 'none' }}
+                >
+                  <SendIcon style={{ cursor: 'pointer', color: 'white' }} />
+                </Button>
+              }
+            />
+          </Box>
+        </form>
       )}
     </Card>
   );
