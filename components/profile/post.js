@@ -32,6 +32,7 @@ import { totalreplies } from '../../selectors/postSelector';
 import RemoveIcon from '@material-ui/icons/Remove';
 import CommentModel from './commentModel';
 import { Button } from '@material-ui/core';
+import LocalMallIcon from '@material-ui/icons/LocalMall';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -246,36 +247,51 @@ export default function Post({ post, profileData, altHeader }) {
       <PostMedia media={post.media} mediaCount={post.mediaCount} post={post} />
       <CardActions disableSpacing>
         <Box flexGrow={1}>
-          {post.likes.length === 0 ? (
-            <NormalCaseButton
-              aria-label='add to favorites'
-              startIcon={<FavoriteIcon />}
-              onClick={handleLike}
-            >
-              {post.totalLikes} Likes
-            </NormalCaseButton>
-          ) : (
-            <NormalCaseButton
-              aria-label='add to favorites'
-              startIcon={<FavoriteIcon style={{ color: 'red' }} />}
-              onClick={handleLike}
-            >
-              {post.totalLikes} Likes
-            </NormalCaseButton>
-          )}
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <div>
+              {post.likes.length === 0 ? (
+                <NormalCaseButton
+                  aria-label='add to favorites'
+                  startIcon={<FavoriteIcon />}
+                  onClick={handleLike}
+                >
+                  {post.totalLikes} Likes
+                </NormalCaseButton>
+              ) : (
+                <NormalCaseButton
+                  aria-label='add to favorites'
+                  startIcon={<FavoriteIcon style={{ color: 'red' }} />}
+                  onClick={handleLike}
+                >
+                  {post.totalLikes} Likes
+                </NormalCaseButton>
+              )}
 
-          <NormalCaseButton
-            aria-label='share'
-            startIcon={<ChatBubbleOutlineIcon />}
-          >
-            {post.totalComments} Comments
-          </NormalCaseButton>
-          <NormalCaseButton
-            aria-label='tip'
-            startIcon={<MonetizationOnOutlinedIcon />}
-          >
-            Tip
-          </NormalCaseButton>
+              <NormalCaseButton
+                aria-label='share'
+                startIcon={<ChatBubbleOutlineIcon />}
+              >
+                {post.totalComments} Comments
+              </NormalCaseButton>
+              <NormalCaseButton
+                aria-label='tip'
+                startIcon={<MonetizationOnOutlinedIcon />}
+              >
+                Tip
+              </NormalCaseButton>
+            </div>
+
+            {post.isPaid === true ? (
+              <NormalCaseButton
+                aria-label='Buy Post'
+                startIcon={<LocalMallIcon />}
+              >
+                Buy Post
+              </NormalCaseButton>
+            ) : (
+              ''
+            )}
+          </div>
         </Box>
 
         {false && (
@@ -468,7 +484,7 @@ export default function Post({ post, profileData, altHeader }) {
               }}
               placeholder='Add Comment'
               startAdornment={
-                currentUser.profileImage ? (
+                currentUser?.profileImage ? (
                   <img
                     src={currentUser && currentUser.profileImage}
                     alt='profileImage'
