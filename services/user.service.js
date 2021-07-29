@@ -81,9 +81,9 @@ export async function updatePassword(request) {
   return apiClient.patch(`${SERVER_ADDRESS}/users/password`, data);
 }
 
-export async function updateSubscriptionFee(request) {
-  const data = JSON.stringify(request);
-  return apiClient.post(`${SERVER_ADDRESS}/subscriptions/plans`, data);
+export async function updateSubscriptionFee(id, subData) {
+  const data = JSON.stringify(subData);
+  return apiClient.patch(`${SERVER_ADDRESS}/subscriptions/${id}/price`, data);
 }
 
 export async function resetPassword(email, password, token) {
