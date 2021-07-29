@@ -28,6 +28,8 @@ import TurnedInNotIcon from '@material-ui/icons/TurnedInNot';
 import { singlepostDataSelector } from '../../selectors/postSelector';
 import { repliesDataSelector } from '../../selectors/postSelector';
 import { postDataSelector } from '../../selectors/postSelector';
+import TextField from '@material-ui/core/TextField';
+import { Button } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -64,13 +66,19 @@ const CommentModel = ({
   setOpen,
   open,
   replyCount,
+  currentUser,
 }) => {
   const classes = useStyles();
   const [commentText, setCommentText] = useState('');
   const [commentId, setCommentId] = useState(null);
   const [replyText, setReplyText] = useState('');
   const [replyPostId, setReplyPostId] = useState(0);
-  const [isReplyField, setisReplyField] = useState(false);
+  const [isReplyField, setisReplyField] = useState({ id: '', check: false });
+  const [issubReplyField, setissubReplyField] = useState({
+    id: '',
+    check: false,
+  });
+  const [isCommentField, setIsCommentField] = useState(false);
   const sPost = useSelector(singlepostDataSelector);
   const replyData = useSelector(repliesDataSelector);
   const [showReply, setShowReply] = useState(false);
@@ -150,10 +158,18 @@ const CommentModel = ({
   const handleReplyField = id => {
     setCommentId(id);
     console.log('reply id', id);
-    setisReplyField(true);
+    setisReplyField({ check: true, id });
+    setissubReplyField({ check: false });
   };
 
-  const handleAddReply = () => {
+  const handleSubReplyField = id => {
+    setCommentId(id);
+    console.log('reply id', id);
+    setissubReplyField({ check: true, id });
+  };
+
+  const handleAddReply = event => {
+    event.preventDefault();
     console.log(commentId);
 
     if (!replyText || replyText.trim() === '') {
@@ -173,6 +189,7 @@ const CommentModel = ({
         callback: () => {
           setReplyText('');
           setisReplyField(false);
+          setissubReplyField(false);
           dispatch(postData.requestOne(singlePost.id));
           // postData.getComment({
           //   id: post.id,
@@ -182,7 +199,8 @@ const CommentModel = ({
     );
   };
 
-  const handleAddComment = () => {
+  const handleAddComment = event => {
+    event.preventDefault();
     if (!commentText || commentText.trim() === '') {
       return;
     }
@@ -257,11 +275,18 @@ const CommentModel = ({
             alignItems: 'center',
           }}
         >
-          <div style={{ width: '50%', height: '100%' }}>
-            <PostMedia media={post.media} mediaCount={post.mediaCount} />
+          <div style={{ width: 'auto', height: '100%' }}>
+            <PostMedia
+              media={post.media}
+              mediaCount={post.mediaCount}
+              post={post}
+            />
           </div>
 
-          <div className={classes.profileModelStyle}>
+          <div
+            className={classes.profileModelStyle}
+            style={{ backgroundColor: '#101010' }}
+          >
             {altHeader ? (
               <CardHeader
                 action={
@@ -345,12 +370,6 @@ const CommentModel = ({
                 >
                   Tip
                 </NormalCaseButton>
-                <NormalCaseButton
-                  aria-label='tip'
-                  startIcon={<TurnedInNotIcon />}
-                >
-                  Save
-                </NormalCaseButton>
               </Box>
 
               {false && (
@@ -369,6 +388,7 @@ const CommentModel = ({
                 overflowY: 'scroll',
                 overflowX: 'hidden',
                 height: '350px',
+                marginLeft: '15px',
               }}
             >
               {singlePost &&
@@ -390,17 +410,30 @@ const CommentModel = ({
                             }}
                           >
                             <div style={{ display: 'flex' }}>
-                              <img
-                                src={comm.user.profileImage}
-                                alt='profile=image'
-                                width='30px'
-                                height='30px'
-                              />
-                              <h5
-                                style={{ marginTop: '6px', marginLeft: '10px' }}
+                              {comm?.user?.profileImage ? (
+                                <img
+                                  src={comm.user.profileImage}
+                                  alt='profile=image'
+                                  width='30px'
+                                  height='30px'
+                                />
+                              ) : (
+                                <img
+                                  src='/dp.png'
+                                  alt='profile=image'
+                                  width='35px'
+                                  height='35px'
+                                />
+                              )}
+                              <p
+                                style={{
+                                  marginTop: '2px',
+                                  marginLeft: '10px',
+                                  fontWeight: 'bold',
+                                }}
                               >
-                                {comm.user.username}
-                              </h5>
+                                {comm.user.fullName}
+                              </p>
                             </div>
 
                             <p
@@ -410,7 +443,8 @@ const CommentModel = ({
                                 marginTop: '5px',
                                 width: '190px',
                                 marginRight: '15px',
-                                backgroundColor: comm.id === commentId && 'red',
+                                color: '#ACACAC',
+                                fontWeight: comm.id === commentId && 'bold',
                               }}
                             >
                               {comm.comment}
@@ -446,7 +480,7 @@ const CommentModel = ({
                               marginTop: '-10px',
                               marginBottom: '0px',
                               cursor: 'pointer',
-                              fontSize: '13px',
+                              fontSize: '11px',
                               display: 'flex',
                             }}
                             onClick={() => handleRepliesList(comm.id)}
@@ -463,8 +497,7 @@ const CommentModel = ({
                                     0
                                   </p>
                                   <FavoriteIcon
-                                    fontSize='small'
-                                    style={{ color: 'red' }}
+                                    style={{ color: 'red', fontSize: '15px' }}
                                   />
                                 </div>
                               ) : (
@@ -478,8 +511,7 @@ const CommentModel = ({
                                     {comm.totalLikes}{' '}
                                   </p>
                                   <FavoriteIcon
-                                    fontSize='small'
-                                    style={{ color: 'red' }}
+                                    style={{ color: 'red', fontSize: '15px' }}
                                   />
                                 </div>
                               )}
@@ -506,12 +538,22 @@ const CommentModel = ({
                                         marginTop: '5px',
                                       }}
                                     >
-                                      <img
-                                        src={reply.user.profileImage}
-                                        alt='profile=image'
-                                        width='30px'
-                                        height='30px'
-                                      />
+                                      {reply?.user?.profileImage ? (
+                                        <img
+                                          src={reply.user.profileImage}
+                                          alt='profile=image'
+                                          width='30px'
+                                          height='30px'
+                                        />
+                                      ) : (
+                                        <img
+                                          src='/dp.png'
+                                          alt='profile=image'
+                                          width='30px'
+                                          height='30px'
+                                        />
+                                      )}
+
                                       <div
                                         style={{
                                           display: 'flex',
@@ -525,9 +567,11 @@ const CommentModel = ({
                                             marginRight: '5px',
                                           }}
                                         >
-                                          {reply.user.username}
+                                          {reply.user.fullName}
                                         </p>
-                                        <p>{reply.comment}</p>
+                                        <p style={{ color: '#ACACAC' }}>
+                                          {reply.comment}
+                                        </p>
                                       </div>
                                     </div>
 
@@ -537,6 +581,14 @@ const CommentModel = ({
                                         marginTop: '5px',
                                       }}
                                     >
+                                      <ChatBubbleOutlineIcon
+                                        style={{ marginRight: '9px' }}
+                                        id={comm.id}
+                                        fontSize='small'
+                                        onClick={() =>
+                                          handleSubReplyField(comm.id)
+                                        }
+                                      />
                                       {reply.likes &&
                                       reply.likes.length === 0 ? (
                                         <FavoriteIcon
@@ -548,7 +600,9 @@ const CommentModel = ({
                                       ) : (
                                         <FavoriteIcon
                                           fontSize='small'
-                                          style={{ color: 'red' }}
+                                          style={{
+                                            color: 'red',
+                                          }}
                                           onClick={() =>
                                             handleReplyLike(reply.id)
                                           }
@@ -556,7 +610,6 @@ const CommentModel = ({
                                       )}
                                     </div>
                                   </div>
-
                                   <div
                                     style={{
                                       marginLeft: '40px',
@@ -585,8 +638,10 @@ const CommentModel = ({
                                               0
                                             </p>
                                             <FavoriteIcon
-                                              fontSize='small'
-                                              style={{ color: 'red' }}
+                                              style={{
+                                                color: 'red',
+                                                fontSize: '15px',
+                                              }}
                                             />
                                           </div>
                                         ) : (
@@ -611,67 +666,136 @@ const CommentModel = ({
                                 </div>
                               )
                           )}
+                        {(isReplyField.check === true &&
+                          isReplyField.id === comm.id) ||
+                        (issubReplyField.check === true &&
+                          issubReplyField.id === comm.id) ? (
+                          <form onSubmit={handleAddReply}>
+                            <Box mb={2} ml={5}>
+                              <OutlinedInput
+                                value={replyText}
+                                onChange={e => setReplyText(e.target.value)}
+                                name='replyText'
+                                multiline
+                                onKeyDown={e => {
+                                  if (e.keyCode === 13 && !e.shiftKey) {
+                                    e.preventDefault();
+                                  }
+                                  // } else if (e.keyCode === 13) {
+                                  //   handleAddReply(e);
+                                  // }
+                                }}
+                                placeholder={
+                                  issubReplyField.check === true
+                                    ? 'Tagged user'
+                                    : 'Add Reply'
+                                }
+                                startAdornment={
+                                  currentUser?.profileImage ? (
+                                    <img
+                                      src={
+                                        currentUser && currentUser.profileImage
+                                      }
+                                      alt='profileImage'
+                                      width='35px'
+                                      height='30px'
+                                      style={{
+                                        marginRight: '10px',
+                                        borderRadius: '3px',
+                                      }}
+                                    />
+                                  ) : (
+                                    <img
+                                      src='/dp.png'
+                                      alt='profileImage'
+                                      width='40px'
+                                      height='35px'
+                                      style={{
+                                        marginRight: '10px',
+                                        borderRadius: '3px',
+                                      }}
+                                    />
+                                  )
+                                }
+                                endAdornment={
+                                  <Button
+                                    type='submit'
+                                    style={{
+                                      backgroundColor: '#111111',
+                                      border: 'none',
+                                    }}
+                                  >
+                                    <SendIcon
+                                      style={{
+                                        cursor: 'pointer',
+                                        color: 'white',
+                                      }}
+                                    />
+                                  </Button>
+                                }
+                              />
+                            </Box>
+                          </form>
+                        ) : (
+                          ''
+                        )}
                       </div>
                     )
                 )}
               {showReply === true && replyData?.map(rep => console.log(rep))}
             </div>
 
-            {isReplyField === true ? (
-              <Box>
-                <OutlinedInput
-                  value={replyText}
-                  onChange={e => setReplyText(e.target.value)}
-                  name='replyText'
-                  multiline
-                  fullWidth
-                  rows={1}
-                  placeholder='Add Reply'
-                  startAdornment={
-                    <img
-                      src={profileData.profileImage}
-                      alt='profileImage'
-                      width='40px'
-                      height='35px'
-                      style={{ marginRight: '10px', borderRadius: '3px' }}
-                    />
-                  }
-                  endAdornment={
-                    <SendIcon
-                      onClick={handleAddReply}
-                      style={{ cursor: 'pointer' }}
-                    />
-                  }
-                />
-              </Box>
-            ) : (
-              <Box>
+            <form onSubmit={handleAddComment}>
+              <Box style={{ borderTop: '1px solid #444444' }}>
                 <OutlinedInput
                   value={commentText}
                   onChange={e => setCommentText(e.target.value)}
                   name='commentText'
-                  multiline
                   fullWidth
-                  rows={1}
+                  multiline
+                  onKeyDown={e => {
+                    if (e.keyCode === 13 && !e.shiftKey) {
+                      e.preventDefault();
+                    }
+                    // if (e.keyCode === 13) {
+                    //   handleAddComment(e);
+                    // }
+                    // } else if (e.keyCode === 13) {
+                    //   console.log('enter');
+                    //   handleAddComment(e);
+                    // }
+                  }}
                   placeholder='Add Comment'
                   startAdornment={
-                    <img
-                      src={profileData.profileImage}
-                      alt='profileImage'
-                      width='40px'
-                      height='35px'
-                      style={{ marginRight: '10px', borderRadius: '3px' }}
-                    />
+                    currentUser?.profileImage ? (
+                      <img
+                        src={currentUser && currentUser.profileImage}
+                        alt='profileImage'
+                        width='40px'
+                        height='35px'
+                        style={{ marginRight: '10px', borderRadius: '3px' }}
+                      />
+                    ) : (
+                      <img
+                        src='/dp.png'
+                        alt='profileImage'
+                        width='40px'
+                        height='35px'
+                        style={{ marginRight: '10px', borderRadius: '3px' }}
+                      />
+                    )
                   }
                   endAdornment={
-                    <SendIcon
-                      onClick={handleAddComment}
-                      style={{ cursor: 'pointer' }}
-                    />
+                    <Button
+                      type='submit'
+                      style={{ backgroundColor: '#111111', border: 'none' }}
+                    >
+                      <SendIcon style={{ cursor: 'pointer', color: 'white' }} />
+                    </Button>
                   }
                 />
               </Box>
-            )}
+            </form>
           </div>
         </div>
       </Fade>

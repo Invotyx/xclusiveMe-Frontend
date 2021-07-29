@@ -52,9 +52,9 @@ export const auth = {
       success: false,
       error: null,
     }),
-  updateSubscriptionFee: price =>
+  updateSubscriptionFee: data =>
     createAction(AUTH.UPDATE_SUBSCRIPTION_FEE, {
-      price,
+      ...data,
       fetching: true,
       success: false,
       error: null,

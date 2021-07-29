@@ -58,9 +58,10 @@ function* handleGetProfile() {
 function* getAllNotifications() {
   try {
     const { data } = yield call(getNotifications);
-    yield put(post.success({ notifications: data.results }));
+    yield put(
+      post.success({ notifications: data.results, notiCount: data.totalCount })
+    );
   } catch (e) {
-    console.log(e);
     yield put(post.success({ error: true }));
   }
 }

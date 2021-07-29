@@ -241,12 +241,13 @@ function* handleUpdatePassword(action) {
 
 function* handleUpdateSubscriptionFee(action) {
   try {
-    const { price } = action.payload;
+    const { id, data } = action.payload;
+    yield call(updateSubscriptionFee, id, data);
 
-    yield call(updateSubscriptionFee, {
-      isActive: true,
-      price: parseInt(price),
-    });
+    // yield call(updateSubscriptionFee, {
+    //   isActive: true,
+    //   price: parseInt(price),
+    // });
     yield put(auth.success({}));
     yield put(
       bottomalert.update({

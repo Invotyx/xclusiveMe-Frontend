@@ -44,6 +44,8 @@ import NothingHere from './nothing-here';
 import { SubscribeUser } from './subscribe-button';
 import { useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+import ChatIcon from '@material-ui/icons/Chat';
+import queryString from 'query-string';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -100,6 +102,15 @@ export default function Profile({
   const verySmall = useMediaQuery('(max-width:350px)');
   const veryVerySmall = useMediaQuery('(max-width:310px)');
 
+  const Link = ({ passQueryString, href, children, ...otherProps }) => (
+    <NextLink
+      href={`${href}?${queryString.stringify(passQueryString)}`}
+      {...otherProps}
+    >
+      {children}
+    </NextLink>
+  );
+
   useEffect(() => {
     set_numberOfPosts(numberOfPosts);
   }, [numberOfPosts]);
@@ -148,6 +159,7 @@ export default function Profile({
                     {profileData?.fullName || '(no name)'}
                   </Typography>
                 </Box>
+
                 {me && (
                   <>
                     <UpdateProfile />
@@ -266,6 +278,16 @@ export default function Profile({
                         <Typography variant='body2' className='textSecondary'>
                           @{profileData?.username}
                         </Typography>
+                        <Link
+                          passHref
+                          href='/chat'
+                          passQueryString={{
+                            user: `${profileData?.fullName}`,
+                            image: `${profileData?.profileImage}`,
+                          }}
+                        >
+                          <ChatIcon style={{ marginLeft: '15px' }} />
+                        </Link>
                       </Box>
                     }
                   />

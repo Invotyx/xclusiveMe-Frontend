@@ -1,6 +1,16 @@
 ::-webkit-calendar-picker-indicator {
   filter: invert(1);
 }
-.tempCountry > div > div {
+
+.tempCountry>div>div {
   opacity: 0;
+}
+
+.MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
+  border: none;
+}
+
+.react-input-emoji--container {
+  background-color: #101010 !important;
+  border: none;
 }
