@@ -35,8 +35,11 @@ export async function addComment(id, commentData) {
   return apiClient.post(`${SERVER_ADDRESS}/posts/${id}/comments`, data);
 }
 
-export async function getComment(id) {
-  return apiClient.get(`${SERVER_ADDRESS}/posts/${id}/comments`, data);
+export async function getComment(id, pageNum, limit) {
+  return apiClient.get(
+    `${SERVER_ADDRESS}/posts/${id}/comments?page=${pageNum}&limit=${limit}`,
+    data
+  );
 }
 
 export async function addCommentLike(id) {

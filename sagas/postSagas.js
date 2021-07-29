@@ -218,7 +218,7 @@ function* handlePost(action) {
 
 function* handleGetComment(action) {
   try {
-    const { id } = yield call(getComment, id);
+    const { id, page, limit } = yield call(getComment, id, page, limit);
     yield put(post.success({}));
     yield call(post.getComment);
   } catch (e) {
