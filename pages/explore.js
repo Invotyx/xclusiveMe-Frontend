@@ -43,6 +43,7 @@ export default function Home() {
 
   useEffect(() => {
     dispatch(post.requestSubscribed());
+    dispatch(post.requestNotifications());
   }, []);
 
   return (
