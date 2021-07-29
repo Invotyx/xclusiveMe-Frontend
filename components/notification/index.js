@@ -96,40 +96,45 @@ export default function Notification({ onClose }) {
   return (
     <>
       {/* <ListSubheader>Today</ListSubheader> */}
-      <div>
-        {listofNotifications?.map((i, x) => (
-          <div onClick={() => readNotification(i.id)}>
-            <MenuItem onClick={onClose} key={`notificationToday${x}`}>
-              <ListItemAvatar>
-                <Avatar
-                  alt='Cindy Baker'
-                  src={i.avatar}
-                  className={classes.small}
+      {listofNotifications?.length === 0 ? (
+        <p>No Data Found</p>
+      ) : (
+        <div>
+          <p style={{ marginLeft: '20px' }}>All Notifications</p>
+          {listofNotifications?.map((i, x) => (
+            <div onClick={() => readNotification(i.id)}>
+              <MenuItem onClick={onClose} key={`notificationToday${x}`}>
+                <ListItemAvatar>
+                  <Avatar
+                    alt='Cindy Baker'
+                    src={i.avatar}
+                    className={classes.small}
+                  />
+                </ListItemAvatar>
+                <ListItemText
+                  primary={i.relatedUsersNames[0]}
+                  secondary={
+                    <React.Fragment>
+                      {i.createdAt}
+                      <Typography
+                        component='span'
+                        variant='body2'
+                        className={classes.inline}
+                        color='textPrimary'
+                      >
+                        {i.title}
+                      </Typography>
+                    </React.Fragment>
+                  }
                 />
-              </ListItemAvatar>
-              <ListItemText
-                primary={i.relatedUsersNames[0]}
-                secondary={
-                  <React.Fragment>
-                    {i.createdAt}
-                    <Typography
-                      component='span'
-                      variant='body2'
-                      className={classes.inline}
-                      color='textPrimary'
-                    >
-                      {i.title}
-                    </Typography>
-                  </React.Fragment>
-                }
-              />
-              {/* <ListItemSecondaryAction>
+                {/* <ListItemSecondaryAction>
             <Avatar alt='Cindy Baker' src={i.image} variant='square' />
           </ListItemSecondaryAction> */}
-            </MenuItem>
-          </div>
-        ))}
-      </div>
+              </MenuItem>
+            </div>
+          ))}
+        </div>
+      )}
     </>
   );
 }
