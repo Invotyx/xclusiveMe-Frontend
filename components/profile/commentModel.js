@@ -82,17 +82,21 @@ const CommentModel = ({
   const sPost = useSelector(singlepostDataSelector);
   const replyData = useSelector(repliesDataSelector);
   const [showReply, setShowReply] = useState(false);
-
+  var pageNum = 1;
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    const data = singlePost?.comments?.filter(c => c.parentCommentId === c.id);
-    // console.log('check', data);
-  });
+  // useEffect(() => {
+  //   const data = singlePost?.comments?.filter(c => c.parentCommentId === c.id);
+  //   // console.log('check', data);
+  // });
 
   const getPostId = () => {
     return sPost.id;
   };
+
+  // const increasePage = () => {
+  //   pageNum++;
+  // };
 
   const handleReplyLike = repId => {
     replyData?.map(re =>
@@ -211,10 +215,8 @@ const CommentModel = ({
           comment: commentText,
           isReply: false,
         },
-
         callback: () => {
           setCommentText('');
-
           dispatch(postData.requestOne(sPost.id));
           // postData.getComment({
           //   id: post.id,
@@ -275,7 +277,7 @@ const CommentModel = ({
             alignItems: 'center',
           }}
         >
-          <div style={{ width: 'auto', height: '100%' }}>
+          <div style={{ width: '50%', height: '100%' }}>
             <PostMedia
               media={post.media}
               mediaCount={post.mediaCount}
@@ -383,6 +385,16 @@ const CommentModel = ({
                 </NormalCaseButton>
               )}
             </CardActions>
+            {/* <div
+              style={{
+                marginLeft: '10px',
+                marginBottom: '5px',
+                cursor: 'pointer',
+              }}
+              onClick={increasePage}
+            >
+              View more comments
+            </div> */}
             <div
               style={{
                 overflowY: 'scroll',
