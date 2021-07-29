@@ -44,6 +44,7 @@ import NothingHere from './nothing-here';
 import { SubscribeUser } from './subscribe-button';
 import { useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+import ChatIcon from '@material-ui/icons/Chat';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -148,6 +149,7 @@ export default function Profile({
                     {profileData?.fullName || '(no name)'}
                   </Typography>
                 </Box>
+
                 {me && (
                   <>
                     <UpdateProfile />
@@ -266,6 +268,9 @@ export default function Profile({
                         <Typography variant='body2' className='textSecondary'>
                           @{profileData?.username}
                         </Typography>
+                        <NextLink passHref href='/chat'>
+                          <ChatIcon style={{ marginLeft: '15px' }} />
+                        </NextLink>
                       </Box>
                     }
                   />
