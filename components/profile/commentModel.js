@@ -275,7 +275,7 @@ const CommentModel = ({
             alignItems: 'center',
           }}
         >
-          <div style={{ width: '50%', height: '100%' }}>
+          <div style={{ width: 'auto', height: '100%' }}>
             <PostMedia
               media={post.media}
               mediaCount={post.mediaCount}
