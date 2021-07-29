@@ -22,12 +22,15 @@ import CurrentUserProfileImageAvatar from '../profile/current-user-profile-image
 import NotificationMenu from '../notification/menu';
 import { getNotifications } from '../../services/post.service';
 import { post } from '../../actions/post';
+import { notificationsCount } from '../../selectors/postSelector';
 
 export default function Comp({ sidebarMenu, set_sidebarMenu }) {
   const dispatch = useDispatch();
   const router = useRouter();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const listofNotifications = useSelector(getNotifications);
+  const notificationCount = useSelector(notificationsCount);
+  console.log(notificationCount);
 
   const settingsMenuOpen = event => {
     setAnchorEl(event.currentTarget);
@@ -118,7 +121,7 @@ export default function Comp({ sidebarMenu, set_sidebarMenu }) {
               </Box>
               <Box ml={3} display={{ xs: 'none', sm: 'none', md: 'flex' }}>
                 <IconButton color='inherit' onClick={settingsMenuOpen}>
-                  {listofNotifications?.length === 0 ? (
+                  {notificationCount == 0 ? (
                     <Badge color='secondary'>
                       <CheckBoxOutlineBlankIcon />
                     </Badge>

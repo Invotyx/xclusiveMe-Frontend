@@ -56,7 +56,7 @@ export default function PostMedia({ media, mediaCount, post }) {
   const [open, setOpen] = useState(false);
   const [purchased, setPurchased] = useState(false);
   const paymentData = useSelector(paymentMethodDataSelector);
-  console.log(paymentData);
+
   const handleOpen = () => {
     setOpen(true);
   };

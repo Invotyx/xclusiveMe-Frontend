@@ -9,6 +9,7 @@ import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import { useDispatch, useSelector } from 'react-redux';
 import { notificationsData } from '../../selectors/postSelector';
+import { notificationsCount } from '../../selectors/postSelector';
 import { post } from '../../actions/post';
 
 const useStyles = makeStyles(theme => ({
@@ -80,6 +81,7 @@ const notificationYesterday = [
 export default function Notification({ onClose }) {
   const classes = useStyles();
   const listofNotifications = useSelector(notificationsData);
+  const notifyCount = useSelector(notificationsCount);
   const dispatch = useDispatch();
 
   const readNotification = notifyId => {
@@ -96,8 +98,10 @@ export default function Notification({ onClose }) {
   return (
     <>
       {/* <ListSubheader>Today</ListSubheader> */}
-      {listofNotifications?.length === 0 ? (
-        <p>No Data Found</p>
+      {notifyCount === 0 ? (
+        <p style={{ marginLeft: '20px', padding: '20px', width: '200px' }}>
+          No Data Found
+        </p>
       ) : (
         <div>
           <p style={{ marginLeft: '20px' }}>All Notifications</p>

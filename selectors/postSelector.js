@@ -27,6 +27,11 @@ const notificationsData = createSelector(postState, state => {
   return data;
 });
 
+const notificationsCount = createSelector(postState, state => {
+  const data = state.get('notiCount');
+  return data;
+});
+
 const repliesDataSelector = createSelector(postState, state => {
   const data = state.get('repliesData');
   return data;
@@ -62,6 +67,7 @@ const errorSelector = createSelector(postState, state => {
 });
 export {
   postDataSelector,
+  notificationsCount,
   profileDataSelector,
   singlepostDataSelector,
   numberOfPostsSelector,
