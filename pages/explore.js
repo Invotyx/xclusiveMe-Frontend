@@ -54,7 +54,7 @@ export default function Home() {
         </Head>
         <Container maxWidth='md' disableGutters>
           <Grid container className={classes.root} spacing={2}>
-            <Grid item xs={12} md={8}>
+            <Grid item xs={12} md={9}>
               {posts && posts.length > 0 ? (
                 posts.map((post, i) => (
                   <Box key={i} mb={2}>
@@ -65,7 +65,8 @@ export default function Home() {
                 <NothingHere />
               )}
             </Grid>
-            <Grid item xs={12} md={4}>
+
+            <Grid item xs={12} md={3}>
               <Typography>Suggestions For You</Typography>
               <List>
                 {suggestions.map((s, i) => (
@@ -83,10 +84,15 @@ export default function Home() {
                         </Typography>
                       }
                     />
+
                     <ListItemSecondaryAction>
                       <NextLink href={`/x/${s.username}`} passHref>
                         <Link>
-                          <Typography variant='caption'>See Profile</Typography>
+                          <div style={{ marginRight: '-10vw' }}>
+                            <Typography variant='caption'>
+                              See Profile
+                            </Typography>
+                          </div>
                         </Link>
                       </NextLink>
                     </ListItemSecondaryAction>

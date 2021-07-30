@@ -1,0 +1,22 @@
+@media only screen and (max-width: 600px) {
+    .hideOnMobile {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .commMobile {
+        margin-left: '10px';
+    }
+}
+
+.postCard {
+    margin-top: 0;
+    border: 1px solid #444444;
+}
+
+@media only screen and (max-width: 600px) {
+    .postCard {
+        width: 100%;
+    }
+}

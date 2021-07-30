@@ -23,20 +23,24 @@ import SendIcon from '@material-ui/icons/Send';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { post as postData } from '../../actions/post/index';
-
-import Backdrop from '@material-ui/core/Backdrop';
-
+import styles from './profile.module.css';
 import { currentUserSelector } from '../../selectors/authSelector';
 import { singlepostDataSelector } from '../../selectors/postSelector';
 import { totalreplies } from '../../selectors/postSelector';
 import RemoveIcon from '@material-ui/icons/Remove';
 import CommentModel from './commentModel';
 import { Button } from '@material-ui/core';
+import LocalMallIcon from '@material-ui/icons/LocalMall';
+import { Hidden } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   root: {
     marginTop: 0,
     border: '1px solid #444444',
+    ['@media and screen and (maxWidth: 600px)']: {
+      width: '50px',
+      height: '50px',
+    },
   },
   modal: {
     display: 'flex',
@@ -196,8 +200,16 @@ export default function Post({ post, profileData, altHeader }) {
     setOpen(false);
   };
 
+  const nFormatter = n => {
+    if (n < 1e3) return n;
+    if (n >= 1e3 && n < 1e6) return +(n / 1e3).toFixed(1) + 'K';
+    if (n >= 1e6 && n < 1e9) return +(n / 1e6).toFixed(1) + 'M';
+    if (n >= 1e9 && n < 1e12) return +(n / 1e9).toFixed(1) + 'B';
+    if (n >= 1e12) return +(n / 1e12).toFixed(1) + 'T';
+  };
+
   return (
-    <Card className={classes.root}>
+    <Card className={styles.postCard}>
       {altHeader ? (
         <CardHeader
           action={
@@ -218,13 +230,21 @@ export default function Post({ post, profileData, altHeader }) {
           title={
             <>
               <Box clone mr={1}>
-                <Typography variant='body2' component='span'>
+                <Typography
+                  variant='body2'
+                  component='span'
+                  style={{ fontWeight: '600' }}
+                >
                   <NextLink href={`/x/${profileData?.username}`} passHref>
                     <Link>{profileData?.fullName || '(no name)'}</Link>
                   </NextLink>
                 </Typography>
               </Box>
-              <Typography variant='caption' color='textSecondary'>
+              <Typography
+                variant='caption'
+                color='textSecondary'
+                style={{ fontWeight: '900' }}
+              >
                 {moment(post.createdAt).fromNow()}
               </Typography>
             </>
@@ -238,7 +258,16 @@ export default function Post({ post, profileData, altHeader }) {
       )}
       {post.postText && (
         <CardContent>
-          <Typography variant='body2' color='textSecondary' component='p'>
+          <Typography
+            variant='body2'
+            component='p'
+            style={{
+              color: 'white',
+              lineHeight: '24px',
+              fontWeight: '500',
+              fontFamily: 'Poppins',
+            }}
+          >
             {post.postText}
           </Typography>
         </CardContent>
@@ -246,36 +275,72 @@ export default function Post({ post, profileData, altHeader }) {
       <PostMedia media={post.media} mediaCount={post.mediaCount} post={post} />
       <CardActions disableSpacing>
         <Box flexGrow={1}>
-          {post.likes.length === 0 ? (
-            <NormalCaseButton
-              aria-label='add to favorites'
-              startIcon={<FavoriteIcon />}
-              onClick={handleLike}
-            >
-              {post.totalLikes} Likes
-            </NormalCaseButton>
-          ) : (
-            <NormalCaseButton
-              aria-label='add to favorites'
-              startIcon={<FavoriteIcon style={{ color: 'red' }} />}
-              onClick={handleLike}
-            >
-              {post.totalLikes} Likes
-            </NormalCaseButton>
-          )}
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <div>
+              {post.likes.length === 0 ? (
+                <NormalCaseButton
+                  aria-label='add to favorites'
+                  startIcon={<img src='/emptyHeart.png' alt='unliked' />}
+                  onClick={handleLike}
+                >
+                  {nFormatter(post.totalLikes)}{' '}
+                  <span
+                    className={styles.hideOnMobile}
+                    style={{ marginLeft: '5px' }}
+                  >
+                    Likes
+                  </span>
+                </NormalCaseButton>
+              ) : (
+                <NormalCaseButton
+                  aria-label='add to favorites'
+                  startIcon={<img src='/filled.png' alt='liked' />}
+                  onClick={handleLike}
+                >
+                  {nFormatter(post.totalLikes)}{' '}
+                  <span
+                    className={styles.hideOnMobile}
+                    style={{ marginLeft: '5px' }}
+                  >
+                    Likes
+                  </span>
+                </NormalCaseButton>
+              )}
 
-          <NormalCaseButton
-            aria-label='share'
-            startIcon={<ChatBubbleOutlineIcon />}
-          >
-            {post.totalComments} Comments
-          </NormalCaseButton>
-          <NormalCaseButton
-            aria-label='tip'
-            startIcon={<MonetizationOnOutlinedIcon />}
-          >
-            Tip
-          </NormalCaseButton>
+              <NormalCaseButton
+                aria-label='share'
+                startIcon={<img src='/comment.png' alt='comment' />}
+              >
+                {nFormatter(post.totalComments)}{' '}
+                <span
+                  className={styles.hideOnMobile}
+                  style={{ marginLeft: '5px' }}
+                >
+                  {' '}
+                  Comments
+                </span>
+              </NormalCaseButton>
+              <NormalCaseButton
+                aria-label='tip'
+                startIcon={<MonetizationOnOutlinedIcon />}
+              >
+                <span className={styles.hideOnMobile}>Tip</span>
+              </NormalCaseButton>
+            </div>
+
+            <div>
+              {post.media.length === 0 ? (
+                <NormalCaseButton
+                  aria-label='Buy Post'
+                  startIcon={<LocalMallIcon />}
+                >
+                  Buy Post
+                </NormalCaseButton>
+              ) : (
+                ''
+              )}
+            </div>
+          </div>
         </Box>
 
         {false && (
@@ -329,25 +394,29 @@ export default function Post({ post, profileData, altHeader }) {
               }}
             >
               <div style={{ display: 'flex' }}>
-                {comm?.user?.profileImage ? (
+                {/* {comm?.user?.profileImage ? (
                   <img
                     src={comm.user.profileImage}
                     alt='profile=image'
-                    width='30px'
-                    height='30px'
+                    width='40px'
+                    height='40px'
+                    style={{ marginRight: '10px', borderRadius: '50%' }}
                   />
                 ) : (
                   <img
                     src='/dp.png'
                     alt='profile=image'
-                    width='35px'
-                    height='35px'
+                    width='55px'
+                    height='45px'
+                    style={{ marginRight: '10px', borderRadius: '50%' }}
                   />
-                )}
+                )} */}
+
+                {<ProfileImageAvatar user={comm?.user} />}
 
                 <p
                   style={{
-                    marginTop: '2px',
+                    marginTop: '7px',
                     marginLeft: '10px',
                     fontWeight: 'bold',
                   }}
@@ -360,31 +429,51 @@ export default function Post({ post, profileData, altHeader }) {
                 style={{
                   cursor: 'pointer',
                   marginLeft: '10px',
-                  marginTop: '2px',
-                  width: '350px',
+                  marginTop: '7px',
+                  textAlign: 'left',
                   color: '#ACACAC',
+                  whiteSpace: 'normal',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
                 }}
               >
                 {comm.comment}
               </p>
             </div>
-            <div style={{ display: 'flex', marginRight: '14px' }}>
-              <ChatBubbleOutlineIcon
+            <div
+              style={{ display: 'flex', marginRight: '14px', marginTop: '5px' }}
+              id={comm.id}
+              onClick={() => handleReplyField(comm.id)}
+            >
+              <img
+                src='/comment.png'
+                alt='reply button'
+                style={{ width: '20px', height: '20px', marginRight: '9px' }}
+                className={styles.commMobile}
+              />
+              {/* <ChatBubbleOutlineIcon
                 style={{ marginRight: '9px' }}
                 id={comm.id}
                 fontSize='small'
                 onClick={() => handleReplyField(comm.id)}
-              />
+              /> */}
 
               {comm.likes && comm.likes.length === 0 ? (
-                <FavoriteIcon
-                  fontSize='small'
+                <img
+                  src='/emptyHeart.png'
+                  alt='unliked'
+                  style={{ width: '20px', height: '20px' }}
                   onClick={() => handleCommentLike(comm.id)}
                 />
               ) : (
-                <FavoriteIcon
-                  fontSize='small'
-                  style={{ color: 'red' }}
+                // <FavoriteIcon
+                //   fontSize='small'
+                //   onClick={() => handleCommentLike(comm.id)}
+                // />
+                <img
+                  src='/filled.png'
+                  alt='unliked'
+                  style={{ width: '20px', height: '20px' }}
                   onClick={() => handleCommentLike(comm.id)}
                 />
               )}
@@ -397,7 +486,7 @@ export default function Post({ post, profileData, altHeader }) {
               marginTop: '-10px',
               marginBottom: '0px',
               cursor: 'pointer',
-              fontSize: '11px',
+              fontSize: '13px',
             }}
             onClick={() => handleOpen(comm.id)}
           >
@@ -421,31 +510,46 @@ export default function Post({ post, profileData, altHeader }) {
               //   handleAddComment(e);
               // }
             }}
-            placeholder='Add Reply'
+            placeholder='Add a Reply'
             startAdornment={
-              currentUser?.profileImage ? (
-                <img
-                  src={currentUser && currentUser.profileImage}
-                  alt='profileImage'
-                  width='40px'
-                  height='35px'
-                  style={{ marginRight: '10px', borderRadius: '3px' }}
-                />
-              ) : (
-                <img
-                  src='/dp.png'
-                  alt='profileImage'
-                  width='40px'
-                  height='35px'
-                  style={{ marginRight: '10px', borderRadius: '3px' }}
-                />
-              )
+              // currentUser?.profileImage ? (
+              //   <img
+              //     src={currentUser && currentUser.profileImage}
+              //     alt='profileImage'
+              //     width='50px'
+              //     height='45px'
+              //     style={{ marginRight: '10px', borderRadius: '50%' }}
+              //   />
+              // ) : (
+              //   <img
+              //     src='/dp.png'
+              //     alt='profileImage'
+              //     width='50px'
+              //     height='45px'
+              //     style={{ marginRight: '10px', borderRadius: '50%' }}
+              //   />
+              // )
+
+              <ProfileImageAvatar
+                user={currentUser}
+                style={{ marginRight: '10px' }}
+              />
             }
             endAdornment={
-              <SendIcon
+              <Button
                 onClick={handleAddReply}
-                style={{ cursor: 'pointer' }}
-              />
+                style={{
+                  backgroundColor: '#111111',
+                  border: 'none',
+                  marginRight: '-20px',
+                }}
+              >
+                <img
+                  src='/send.png'
+                  alt='send button'
+                  style={{ marginRight: '10px' }}
+                />
+              </Button>
             }
           />
         </Box>
@@ -466,32 +570,45 @@ export default function Post({ post, profileData, altHeader }) {
                 //   handleAddComment(e);
                 // }
               }}
-              placeholder='Add Comment'
+              placeholder='Add a Comment'
               startAdornment={
-                currentUser.profileImage ? (
-                  <img
-                    src={currentUser && currentUser.profileImage}
-                    alt='profileImage'
-                    width='40px'
-                    height='35px'
-                    style={{ marginRight: '10px', borderRadius: '3px' }}
-                  />
-                ) : (
-                  <img
-                    src='/dp.png'
-                    alt='profileImage'
-                    width='40px'
-                    height='35px'
-                    style={{ marginRight: '10px', borderRadius: '3px' }}
-                  />
-                )
+                // currentUser?.profileImage ? (
+                //   <img
+                //     src={currentUser && currentUser.profileImage}
+                //     alt='profileImage'
+                //     width='55px'
+                //     height='45px'
+                //     style={{ marginRight: '10px', borderRadius: '50%' }}
+                //   />
+                // ) : (
+                //   <img
+                //     src='/dp.png'
+                //     alt='profileImage'
+                //     width='55px'
+                //     height='45px'
+                //     style={{ marginRight: '10px', borderRadius: '50%' }}
+                //   />
+                // )
+
+                <ProfileImageAvatar
+                  user={currentUser}
+                  style={{ marginRight: '10px' }}
+                />
               }
               endAdornment={
                 <Button
                   type='submit'
-                  style={{ backgroundColor: '#111111', border: 'none' }}
+                  style={{
+                    backgroundColor: '#111111',
+                    border: 'none',
+                    marginRight: '-20px',
+                  }}
                 >
-                  <SendIcon style={{ cursor: 'pointer', color: 'white' }} />
+                  <img
+                    src='/send.png'
+                    alt='send button'
+                    style={{ marginRight: '10px' }}
+                  />
                 </Button>
               }
             />

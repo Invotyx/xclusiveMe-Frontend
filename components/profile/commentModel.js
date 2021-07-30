@@ -30,6 +30,7 @@ import { repliesDataSelector } from '../../selectors/postSelector';
 import { postDataSelector } from '../../selectors/postSelector';
 import TextField from '@material-ui/core/TextField';
 import { Button } from '@material-ui/core';
+import SinglePostMedia from './SinglePostMedia';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -48,7 +49,7 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(2, 4, 3),
   },
   profileModelStyle: {
-    width: 'auto',
+    width: '40vw',
   },
   modelStyle: {
     display: 'flex',
@@ -82,17 +83,21 @@ const CommentModel = ({
   const sPost = useSelector(singlepostDataSelector);
   const replyData = useSelector(repliesDataSelector);
   const [showReply, setShowReply] = useState(false);
-
+  var pageNum = 1;
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    const data = singlePost?.comments?.filter(c => c.parentCommentId === c.id);
-    // console.log('check', data);
-  });
+  // useEffect(() => {
+  //   const data = singlePost?.comments?.filter(c => c.parentCommentId === c.id);
+  //   // console.log('check', data);
+  // });
 
   const getPostId = () => {
     return sPost.id;
   };
+
+  // const increasePage = () => {
+  //   pageNum++;
+  // };
 
   const handleReplyLike = repId => {
     replyData?.map(re =>
@@ -211,10 +216,8 @@ const CommentModel = ({
           comment: commentText,
           isReply: false,
         },
-
         callback: () => {
           setCommentText('');
-
           dispatch(postData.requestOne(sPost.id));
           // postData.getComment({
           //   id: post.id,
@@ -275,11 +278,11 @@ const CommentModel = ({
             alignItems: 'center',
           }}
         >
-          <div style={{ width: 'auto', height: '100%' }}>
-            <PostMedia
-              media={post.media}
-              mediaCount={post.mediaCount}
-              post={post}
+          <div>
+            <SinglePostMedia
+              media={post?.media}
+              mediaCount={post?.mediaCount}
+              singlePost={post}
             />
           </div>
 
@@ -331,7 +334,16 @@ const CommentModel = ({
             )}
             {singlePost && singlePost.postText && (
               <CardContent>
-                <Typography variant='body2' color='textSecondary' component='p'>
+                <Typography
+                  variant='body2'
+                  color='textSecondary'
+                  component='p'
+                  style={{
+                    whiteSpace: 'normal',
+                    overflow: 'hidden',
+                    textOverflow: 'clip',
+                  }}
+                >
                   {singlePost.postText}
                 </Typography>
               </CardContent>
@@ -383,6 +395,16 @@ const CommentModel = ({
                 </NormalCaseButton>
               )}
             </CardActions>
+            {/* <div
+              style={{
+                marginLeft: '10px',
+                marginBottom: '5px',
+                cursor: 'pointer',
+              }}
+              onClick={increasePage}
+            >
+              View more comments
+            </div> */}
             <div
               style={{
                 overflowY: 'scroll',
@@ -410,7 +432,7 @@ const CommentModel = ({
                             }}
                           >
                             <div style={{ display: 'flex' }}>
-                              {comm?.user?.profileImage ? (
+                              {/* {comm?.user?.profileImage ? (
                                 <img
                                   src={comm.user.profileImage}
                                   alt='profile=image'
@@ -424,7 +446,8 @@ const CommentModel = ({
                                   width='35px'
                                   height='35px'
                                 />
-                              )}
+                              )} */}
+                              {<ProfileImageAvatar user={comm?.user} />}
                               <p
                                 style={{
                                   marginTop: '2px',
@@ -441,7 +464,9 @@ const CommentModel = ({
                                 cursor: 'pointer',
                                 marginLeft: '10px',
                                 marginTop: '5px',
-                                width: '190px',
+                                whiteSpace: 'normal',
+                                overflow: 'hidden',
+                                textOverflow: 'ellipsis',
                                 marginRight: '15px',
                                 color: '#ACACAC',
                                 fontWeight: comm.id === commentId && 'bold',
@@ -528,6 +553,7 @@ const CommentModel = ({
                                   <div
                                     style={{
                                       display: 'flex',
+                                      justifyContent: 'space-around',
                                     }}
                                   >
                                     <div
@@ -538,27 +564,17 @@ const CommentModel = ({
                                         marginTop: '5px',
                                       }}
                                     >
-                                      {reply?.user?.profileImage ? (
-                                        <img
-                                          src={reply.user.profileImage}
-                                          alt='profile=image'
-                                          width='30px'
-                                          height='30px'
+                                      {
+                                        <ProfileImageAvatar
+                                          user={reply?.user}
                                         />
-                                      ) : (
-                                        <img
-                                          src='/dp.png'
-                                          alt='profile=image'
-                                          width='30px'
-                                          height='30px'
-                                        />
-                                      )}
+                                      }
 
                                       <div
                                         style={{
                                           display: 'flex',
-                                          marginTop: '-14px',
-                                          marginLeft: '5px',
+                                          marginTop: '-6px',
+                                          marginLeft: '10px',
                                         }}
                                       >
                                         <p
@@ -569,7 +585,14 @@ const CommentModel = ({
                                         >
                                           {reply.user.fullName}
                                         </p>
-                                        <p style={{ color: '#ACACAC' }}>
+                                        <p
+                                          style={{
+                                            color: '#ACACAC',
+                                            whiteSpace: 'wrap',
+                                            overflow: 'hidden',
+                                            textOverflow: 'ellipsis',
+                                          }}
+                                        >
                                           {reply.comment}
                                         </p>
                                       </div>
@@ -577,8 +600,7 @@ const CommentModel = ({
 
                                     <div
                                       style={{
-                                        marginLeft: '10px',
-                                        marginTop: '5px',
+                                        marginTop: '10px',
                                       }}
                                     >
                                       <ChatBubbleOutlineIcon
@@ -626,7 +648,12 @@ const CommentModel = ({
                                         display: 'flex',
                                       }}
                                     >
-                                      <div style={{ marginRight: '10px' }}>
+                                      <div
+                                        style={{
+                                          marginLeft: '10px',
+                                          marginTop: '-3px',
+                                        }}
+                                      >
                                         {reply.totalLikes === 0 ? (
                                           <div style={{ display: 'flex' }}>
                                             <p
@@ -691,31 +718,10 @@ const CommentModel = ({
                                     : 'Add Reply'
                                 }
                                 startAdornment={
-                                  currentUser?.profileImage ? (
-                                    <img
-                                      src={
-                                        currentUser && currentUser.profileImage
-                                      }
-                                      alt='profileImage'
-                                      width='35px'
-                                      height='30px'
-                                      style={{
-                                        marginRight: '10px',
-                                        borderRadius: '3px',
-                                      }}
-                                    />
-                                  ) : (
-                                    <img
-                                      src='/dp.png'
-                                      alt='profileImage'
-                                      width='40px'
-                                      height='35px'
-                                      style={{
-                                        marginRight: '10px',
-                                        borderRadius: '3px',
-                                      }}
-                                    />
-                                  )
+                                  <ProfileImageAvatar
+                                    user={currentUser}
+                                    style={{ marginRight: '10px' }}
+                                  />
                                 }
                                 endAdornment={
                                   <Button
@@ -767,23 +773,10 @@ const CommentModel = ({
                   }}
                   placeholder='Add Comment'
                   startAdornment={
-                    currentUser?.profileImage ? (
-                      <img
-                        src={currentUser && currentUser.profileImage}
-                        alt='profileImage'
-                        width='40px'
-                        height='35px'
-                        style={{ marginRight: '10px', borderRadius: '3px' }}
-                      />
-                    ) : (
-                      <img
-                        src='/dp.png'
-                        alt='profileImage'
-                        width='40px'
-                        height='35px'
-                        style={{ marginRight: '10px', borderRadius: '3px' }}
-                      />
-                    )
+                    <ProfileImageAvatar
+                      user={currentUser}
+                      style={{ marginRight: '10px' }}
+                    />
                   }
                   endAdornment={
                     <Button
