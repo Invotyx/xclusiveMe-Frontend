@@ -84,7 +84,7 @@ export default function PostMedia({ media, mediaCount, post }) {
 
   return (
     <Grid container spacing={1}>
-      {mediaCount > media.length &&
+      {mediaCount > media?.length &&
         Array.apply(null, Array(1)).map(() => (
           <Grid item xs={12} key={Math.random()}>
             <Box
@@ -97,6 +97,19 @@ export default function PostMedia({ media, mediaCount, post }) {
             </Box>
           </Grid>
         ))}
+
+      {media && media.length > 0 && (
+        <>
+          <Grid item xs={12}>
+            <MediaElement m={media[0]} />
+          </Grid>
+          {media.slice(1).map((m, i) => (
+            <Grid item xs={12} md={4} key={`media${i}`}>
+              <MediaElement m={m} />
+            </Grid>
+          ))}
+        </>
+      )}
       {/* (!media || media.length === 0) && (
         <MediaElement m={{ url: '/no-media.jpg' }} />
       ) */}
@@ -321,19 +334,6 @@ export default function PostMedia({ media, mediaCount, post }) {
           </div>
         </Fade>
       </Modal>
-
-      {media && media.length > 0 && (
-        <>
-          <Grid item xs={12}>
-            <MediaElement m={media[0]} />
-          </Grid>
-          {media.slice(1).map((m, i) => (
-            <Grid item xs={12} md={4} key={`media${i}`}>
-              <MediaElement m={m} />
-            </Grid>
-          ))}
-        </>
-      )}
     </Grid>
   );
 }
