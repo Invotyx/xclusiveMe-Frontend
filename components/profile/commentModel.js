@@ -31,6 +31,7 @@ import { postDataSelector } from '../../selectors/postSelector';
 import TextField from '@material-ui/core/TextField';
 import { Button } from '@material-ui/core';
 import SinglePostMedia from './SinglePostMedia';
+import styles from './profile.module.css';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -46,10 +47,12 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.background.paper,
     border: '2px solid #000',
     boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
   },
   profileModelStyle: {
     width: '40vw',
+    ['@media and screen and (minWidth: 600px)']: {
+      maxWidth: '100%',
+    },
   },
   modelStyle: {
     display: 'flex',
@@ -68,6 +71,8 @@ const CommentModel = ({
   open,
   replyCount,
   currentUser,
+  forCommentId,
+  openReply,
 }) => {
   const classes = useStyles();
   const [commentText, setCommentText] = useState('');
@@ -86,10 +91,12 @@ const CommentModel = ({
   var pageNum = 1;
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   const data = singlePost?.comments?.filter(c => c.parentCommentId === c.id);
-  //   // console.log('check', data);
-  // });
+  useEffect(() => {
+    if (forCommentId) {
+      handleReplyField(forCommentId);
+    }
+    // console.log('check', data);
+  }, [forCommentId]);
 
   const getPostId = () => {
     return sPost.id;
@@ -158,11 +165,14 @@ const CommentModel = ({
 
   const handleClose = () => {
     setOpen(false);
+    setisReplyField(false);
+    setissubReplyField(false);
   };
 
   const handleReplyField = id => {
     setCommentId(id);
     console.log('reply id', id);
+
     setisReplyField({ check: true, id });
     setissubReplyField({ check: false });
   };
@@ -260,6 +270,14 @@ const CommentModel = ({
     );
   };
 
+  const nFormatter = n => {
+    if (n < 1e3) return n;
+    if (n >= 1e3 && n < 1e6) return +(n / 1e3).toFixed(1) + 'K';
+    if (n >= 1e6 && n < 1e9) return +(n / 1e6).toFixed(1) + 'M';
+    if (n >= 1e9 && n < 1e12) return +(n / 1e9).toFixed(1) + 'B';
+    if (n >= 1e12) return +(n / 1e12).toFixed(1) + 'T';
+  };
+
   return (
     <Modal
       aria-labelledby='transition-modal-title'
@@ -276,9 +294,10 @@ const CommentModel = ({
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
+            backgroundColor: '#101010',
           }}
         >
-          <div>
+          <div className={styles.hideOnMobile}>
             <SinglePostMedia
               media={post?.media}
               mediaCount={post?.mediaCount}
@@ -287,7 +306,7 @@ const CommentModel = ({
           </div>
 
           <div
-            className={classes.profileModelStyle}
+            className={styles.profileModelStyle}
             style={{ backgroundColor: '#101010' }}
           >
             {altHeader ? (
@@ -355,32 +374,51 @@ const CommentModel = ({
                 singlePost.likes.length === 0 ? (
                   <NormalCaseButton
                     aria-label='add to favorites'
-                    startIcon={<FavoriteIcon />}
+                    startIcon={<img src='/emptyHeart.png' alt='unliked' />}
                     onClick={handleLike}
                   >
-                    {singlePost && singlePost.totalLikes} Likes
+                    {nFormatter(singlePost?.totalLikes)}{' '}
+                    <span
+                      className={styles.hideOnMobile}
+                      style={{ marginLeft: '5px' }}
+                    >
+                      Likes
+                    </span>
                   </NormalCaseButton>
                 ) : (
                   <NormalCaseButton
                     aria-label='add to favorites'
-                    startIcon={<FavoriteIcon style={{ color: 'red' }} />}
+                    startIcon={<img src='/filled.png' alt='liked' />}
                     onClick={handleLike}
                   >
-                    {singlePost && singlePost.totalLikes} Likes
+                    {nFormatter(singlePost?.totalLikes)}{' '}
+                    <span
+                      className={styles.hideOnMobile}
+                      style={{ marginLeft: '5px' }}
+                    >
+                      Likes
+                    </span>
                   </NormalCaseButton>
                 )}
 
                 <NormalCaseButton
                   aria-label='share'
-                  startIcon={<ChatBubbleOutlineIcon />}
+                  startIcon={<img src='/comment.png' alt='comment' />}
                 >
-                  {singlePost && singlePost.totalComments} Comments
+                  {nFormatter(singlePost?.totalComments)}{' '}
+                  <span
+                    className={styles.hideOnMobile}
+                    style={{ marginLeft: '5px' }}
+                  >
+                    {' '}
+                    Comments
+                  </span>
                 </NormalCaseButton>
                 <NormalCaseButton
                   aria-label='tip'
                   startIcon={<MonetizationOnOutlinedIcon />}
                 >
-                  Tip
+                  <span className={styles.hideOnMobile}>Tip</span>
                 </NormalCaseButton>
               </Box>
 
@@ -447,16 +485,33 @@ const CommentModel = ({
                                   height='35px'
                                 />
                               )} */}
-                              {<ProfileImageAvatar user={comm?.user} />}
-                              <p
-                                style={{
-                                  marginTop: '2px',
-                                  marginLeft: '10px',
-                                  fontWeight: 'bold',
-                                }}
+                              <NextLink
+                                href={`/x/${comm?.user?.username}`}
+                                passHref
                               >
-                                {comm.user.fullName}
-                              </p>
+                                <Link>
+                                  <ProfileImageAvatar user={comm?.user} />
+                                </Link>
+                              </NextLink>
+
+                              <NextLink
+                                href={`/x/${comm?.user?.username}`}
+                                passHref
+                              >
+                                <Link>
+                                  <p
+                                    style={{
+                                      marginTop: '7px',
+                                      marginLeft: '10px',
+                                      fontWeight: 'bold',
+                                      cursor: 'pointer',
+                                    }}
+                                    className={styles.userNameMobile}
+                                  >
+                                    {comm?.user?.fullName}
+                                  </p>
+                                </Link>
+                              </NextLink>
                             </div>
 
                             <p
@@ -476,22 +531,56 @@ const CommentModel = ({
                             </p>
                           </div>
                           <div style={{ display: 'flex', marginRight: '14px' }}>
-                            <ChatBubbleOutlineIcon
+                            {/* <ChatBubbleOutlineIcon
                               style={{ marginRight: '9px' }}
                               id={comm.id}
                               fontSize='small'
                               onClick={() => handleReplyField(comm.id)}
+                            /> */}
+
+                            <img
+                              src='/comment.png'
+                              alt='reply button'
+                              style={{
+                                width: '20px',
+                                height: '20px',
+                                marginRight: '9px',
+                                cursor: 'pointer',
+                              }}
+                              className={styles.commMobile}
+                              id={comm.id}
+                              onClick={() => handleReplyField(comm.id)}
                             />
 
                             {comm.likes && comm.likes.length === 0 ? (
-                              <FavoriteIcon
-                                fontSize='small'
+                              // <FavoriteIcon
+                              //   fontSize='small'
+                              //   onClick={() => handleModelCommentLike(comm.id)}
+                              // />
+                              <img
+                                src='/emptyHeart.png'
+                                alt='unliked'
+                                style={{
+                                  width: '20px',
+                                  height: '20px',
+                                  cursor: 'pointer',
+                                }}
                                 onClick={() => handleModelCommentLike(comm.id)}
                               />
                             ) : (
-                              <FavoriteIcon
-                                fontSize='small'
-                                style={{ color: 'red' }}
+                              // <FavoriteIcon
+                              //   fontSize='small'
+                              //   style={{ color: 'red' }}
+                              //   onClick={() => handleModelCommentLike(comm.id)}
+                              // />
+                              <img
+                                src='/filled.png'
+                                alt='unliked'
+                                style={{
+                                  width: '20px',
+                                  height: '20px',
+                                  cursor: 'pointer',
+                                }}
                                 onClick={() => handleModelCommentLike(comm.id)}
                               />
                             )}

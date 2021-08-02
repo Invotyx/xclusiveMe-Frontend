@@ -20,7 +20,7 @@ import NormalCaseButton from '../NormalCaseButton';
 import PostMedia from './post-media';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import SendIcon from '@material-ui/icons/Send';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { post as postData } from '../../actions/post/index';
 import styles from './profile.module.css';
@@ -32,6 +32,7 @@ import CommentModel from './commentModel';
 import { Button } from '@material-ui/core';
 import LocalMallIcon from '@material-ui/icons/LocalMall';
 import { Hidden } from '@material-ui/core';
+import PostPurchaseModel from './PostPurchaseModel';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -69,13 +70,30 @@ export default function Post({ post, profileData, altHeader }) {
   const [replyText, setReplyText] = useState('');
   const [liked, setLiked] = useState(false);
   const [commentedId, setCommentedId] = useState(null);
+  const [forCommentId, setForCommentId] = useState(null);
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   const currentUser = useSelector(currentUserSelector);
   const [commentId, setCommentId] = useState(null);
+  const [openReply, setOpenReply] = useState(false);
   const [isReplyField, setisReplyField] = useState(false);
   const singlePost = useSelector(singlepostDataSelector);
   const replyCount = useSelector(totalreplies);
+  const [openModel, setOpenModel] = useState(false);
+  const [focused, setFocused] = useState(false);
+  const searchInput = useRef(null);
+  const replyInput = useRef(null);
+
+  const handleOpenModel = () => {
+    console.log('in model');
+    setOpenModel(true);
+    console.log(openModel);
+  };
+
+  function handleFocus() {
+    searchInput.current.focus();
+    console.log('focused');
+  }
 
   const handleAddComment = event => {
     event.preventDefault();
@@ -191,8 +209,9 @@ export default function Post({ post, profileData, altHeader }) {
     console.log('commentid', forReplyId);
     dispatch(postData.requestOne(post.id));
     // dispatch(postData.requestReplies(forReplyId, post.id));
-
-    console.log('click');
+    setForCommentId(forReplyId);
+    searchInput.current.focus();
+    setOpenReply(true);
     setOpen(true);
   };
 
@@ -310,6 +329,7 @@ export default function Post({ post, profileData, altHeader }) {
               <NormalCaseButton
                 aria-label='share'
                 startIcon={<img src='/comment.png' alt='comment' />}
+                onClick={handleFocus}
               >
                 {nFormatter(post.totalComments)}{' '}
                 <span
@@ -333,6 +353,7 @@ export default function Post({ post, profileData, altHeader }) {
                 <NormalCaseButton
                   aria-label='Buy Post'
                   startIcon={<LocalMallIcon />}
+                  onClick={handleOpenModel}
                 >
                   Buy Post
                 </NormalCaseButton>
@@ -340,6 +361,11 @@ export default function Post({ post, profileData, altHeader }) {
                 ''
               )}
             </div>
+            <PostPurchaseModel
+              post={post}
+              openModel={openModel}
+              setOpenModel={setOpenModel}
+            />
           </div>
         </Box>
 
@@ -352,7 +378,7 @@ export default function Post({ post, profileData, altHeader }) {
           </NormalCaseButton>
         )}
       </CardActions>
-      {post.comments.length > 0 ? (
+      {post.comments.length >= 3 ? (
         <p
           style={{
             cursor: 'pointer',
@@ -378,6 +404,8 @@ export default function Post({ post, profileData, altHeader }) {
         setOpen={setOpen}
         replyCount={replyCount}
         currentUser={currentUser}
+        forCommentId={forCommentId}
+        openReply={openReply}
       />
       {post.comments.map(comm => (
         <div style={{ marginBottom: '20px' }}>
@@ -411,23 +439,31 @@ export default function Post({ post, profileData, altHeader }) {
                     style={{ marginRight: '10px', borderRadius: '50%' }}
                   />
                 )} */}
+                <NextLink href={`/x/${comm?.user?.username}`} passHref>
+                  <Link>
+                    <ProfileImageAvatar user={comm?.user} />
+                  </Link>
+                </NextLink>
 
-                {<ProfileImageAvatar user={comm?.user} />}
-
-                <p
-                  style={{
-                    marginTop: '7px',
-                    marginLeft: '10px',
-                    fontWeight: 'bold',
-                  }}
-                >
-                  {comm.user.fullName}
-                </p>
+                <NextLink href={`/x/${comm?.user?.username}`} passHref>
+                  <Link>
+                    <p
+                      style={{
+                        marginTop: '7px',
+                        marginLeft: '5px',
+                        fontWeight: 'bold',
+                        cursor: 'pointer',
+                      }}
+                      className={styles.userNameMobile}
+                    >
+                      {comm?.user?.fullName}
+                    </p>
+                  </Link>
+                </NextLink>
               </div>
 
               <p
                 style={{
-                  cursor: 'pointer',
                   marginLeft: '10px',
                   marginTop: '7px',
                   textAlign: 'left',
@@ -442,14 +478,19 @@ export default function Post({ post, profileData, altHeader }) {
             </div>
             <div
               style={{ display: 'flex', marginRight: '14px', marginTop: '5px' }}
-              id={comm.id}
-              onClick={() => handleReplyField(comm.id)}
             >
               <img
                 src='/comment.png'
                 alt='reply button'
-                style={{ width: '20px', height: '20px', marginRight: '9px' }}
+                style={{
+                  width: '20px',
+                  height: '20px',
+                  marginRight: '9px',
+                  cursor: 'pointer',
+                }}
                 className={styles.commMobile}
+                id={comm.id}
+                onClick={() => handleOpen(comm.id)}
               />
               {/* <ChatBubbleOutlineIcon
                 style={{ marginRight: '9px' }}
@@ -462,7 +503,7 @@ export default function Post({ post, profileData, altHeader }) {
                 <img
                   src='/emptyHeart.png'
                   alt='unliked'
-                  style={{ width: '20px', height: '20px' }}
+                  style={{ width: '20px', height: '20px', cursor: 'pointer' }}
                   onClick={() => handleCommentLike(comm.id)}
                 />
               ) : (
@@ -473,28 +514,45 @@ export default function Post({ post, profileData, altHeader }) {
                 <img
                   src='/filled.png'
                   alt='unliked'
-                  style={{ width: '20px', height: '20px' }}
+                  style={{ width: '20px', height: '20px', cursor: 'pointer' }}
                   onClick={() => handleCommentLike(comm.id)}
                 />
               )}
             </div>
           </div>
 
-          <p
-            style={{
-              marginLeft: '90px',
-              marginTop: '-10px',
-              marginBottom: '0px',
-              cursor: 'pointer',
-              fontSize: '13px',
-            }}
-            onClick={() => handleOpen(comm.id)}
-          >
-            {comm.totalReplies === 0 ? '' : 'VIEW REPLIES'}
-          </p>
+          <div>
+            <p
+              style={{
+                marginLeft: '60px',
+                marginTop: '-10px',
+                marginBottom: '0px',
+                cursor: 'pointer',
+                fontSize: '13px',
+                display: 'flex',
+              }}
+              onClick={() => handleOpen(comm.id)}
+            >
+              {comm.totalReplies === 0 ? (
+                ''
+              ) : (
+                <div>
+                  <img
+                    src='/lineReply.svg'
+                    alt='line'
+                    style={{
+                      marginBottom: '5px',
+                      marginRight: '3px',
+                    }}
+                  />
+                </div>
+              )}
+              {comm.totalReplies === 0 ? '' : 'VIEW REPLIES'}
+            </p>
+          </div>
         </div>
       ))}
-      {isReplyField === true ? (
+      {/* {isReplyField === true ? (
         <Box style={{ borderTop: '1px solid #444444' }}>
           <OutlinedInput
             value={replyText}
@@ -510,7 +568,7 @@ export default function Post({ post, profileData, altHeader }) {
               //   handleAddComment(e);
               // }
             }}
-            placeholder='Add a Reply'
+            placeholder='Add a reply'
             startAdornment={
               // currentUser?.profileImage ? (
               //   <img
@@ -553,68 +611,67 @@ export default function Post({ post, profileData, altHeader }) {
             }
           />
         </Box>
-      ) : (
-        <form onSubmit={handleAddComment}>
-          <Box style={{ borderTop: '1px solid #444444' }}>
-            <OutlinedInput
-              value={commentText}
-              onChange={e => setCommentText(e.target.value)}
-              name='commentText'
-              multiline
-              fullWidth
-              onKeyDown={e => {
-                if (e.keyCode === 13 && !e.shiftKey) {
-                  e.preventDefault();
+      ) : ( */}
+      <form onSubmit={handleAddComment}>
+        <Box style={{ borderTop: '1px solid #444444' }}>
+          <OutlinedInput
+            value={commentText}
+            onChange={e => setCommentText(e.target.value)}
+            name='commentText'
+            multiline
+            fullWidth
+            onKeyDown={e => {
+              if (e.keyCode === 13) {
+                if (!event.shiftKey) {
+                  handleAddComment(e);
                 }
-                // } else if (e.keyCode === 13) {
-                //   handleAddComment(e);
-                // }
-              }}
-              placeholder='Add a Comment'
-              startAdornment={
-                // currentUser?.profileImage ? (
-                //   <img
-                //     src={currentUser && currentUser.profileImage}
-                //     alt='profileImage'
-                //     width='55px'
-                //     height='45px'
-                //     style={{ marginRight: '10px', borderRadius: '50%' }}
-                //   />
-                // ) : (
-                //   <img
-                //     src='/dp.png'
-                //     alt='profileImage'
-                //     width='55px'
-                //     height='45px'
-                //     style={{ marginRight: '10px', borderRadius: '50%' }}
-                //   />
-                // )
+              }
+            }}
+            inputRef={searchInput}
+            placeholder='Add a comment'
+            startAdornment={
+              // currentUser?.profileImage ? (
+              //   <img
+              //     src={currentUser && currentUser.profileImage}
+              //     alt='profileImage'
+              //     width='55px'
+              //     height='45px'
+              //     style={{ marginRight: '10px', borderRadius: '50%' }}
+              //   />
+              // ) : (
+              //   <img
+              //     src='/dp.png'
+              //     alt='profileImage'
+              //     width='55px'
+              //     height='45px'
+              //     style={{ marginRight: '10px', borderRadius: '50%' }}
+              //   />
+              // )
 
-                <ProfileImageAvatar
-                  user={currentUser}
+              <ProfileImageAvatar
+                user={currentUser}
+                style={{ marginRight: '10px' }}
+              />
+            }
+            endAdornment={
+              <Button
+                type='submit'
+                style={{
+                  backgroundColor: '#111111',
+                  border: 'none',
+                  marginRight: '-20px',
+                }}
+              >
+                <img
+                  src='/send.png'
+                  alt='send button'
                   style={{ marginRight: '10px' }}
                 />
-              }
-              endAdornment={
-                <Button
-                  type='submit'
-                  style={{
-                    backgroundColor: '#111111',
-                    border: 'none',
-                    marginRight: '-20px',
-                  }}
-                >
-                  <img
-                    src='/send.png'
-                    alt='send button'
-                    style={{ marginRight: '10px' }}
-                  />
-                </Button>
-              }
-            />
-          </Box>
-        </form>
-      )}
+              </Button>
+            }
+          />
+        </Box>
+      </form>
     </Card>
   );
 }
