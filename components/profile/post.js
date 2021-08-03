@@ -6,8 +6,6 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
-import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
-import FavoriteIcon from '@material-ui/icons/Favorite';
 import IconButton from '@material-ui/core/IconButton';
 import MonetizationOnOutlinedIcon from '@material-ui/icons/MonetizationOnOutlined';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
@@ -82,7 +80,6 @@ export default function Post({ post, profileData, altHeader }) {
   const [openModel, setOpenModel] = useState(false);
   const [focused, setFocused] = useState(false);
   const searchInput = useRef(null);
-  const replyInput = useRef(null);
 
   const handleOpenModel = () => {
     console.log('in model');
@@ -284,7 +281,9 @@ export default function Post({ post, profileData, altHeader }) {
               color: 'white',
               lineHeight: '24px',
               fontWeight: '500',
+              fontSize: '16px',
               fontFamily: 'Poppins',
+              marginTop: '-13px',
             }}
           >
             {post.postText}
@@ -385,7 +384,8 @@ export default function Post({ post, profileData, altHeader }) {
             marginLeft: '18px',
             marginTop: '0px',
             marginBottom: '9px',
-            fontWeight: 'bold',
+            fontWeight: '500',
+            fontSize: '14px',
           }}
           onClick={handleOpen}
         >
@@ -450,8 +450,9 @@ export default function Post({ post, profileData, altHeader }) {
                     <p
                       style={{
                         marginTop: '7px',
-                        marginLeft: '5px',
-                        fontWeight: 'bold',
+                        marginLeft: '7px',
+                        fontWeight: '600',
+                        fontSize: '14px',
                         cursor: 'pointer',
                       }}
                       className={styles.userNameMobile}
@@ -468,6 +469,8 @@ export default function Post({ post, profileData, altHeader }) {
                   marginTop: '7px',
                   textAlign: 'left',
                   color: '#ACACAC',
+                  fontSize: '14px',
+                  fontWeight: '600',
                   whiteSpace: 'normal',
                   overflow: 'hidden',
                   textOverflow: 'ellipsis',
@@ -547,7 +550,15 @@ export default function Post({ post, profileData, altHeader }) {
                   />
                 </div>
               )}
-              {comm.totalReplies === 0 ? '' : 'VIEW REPLIES'}
+              <span
+                style={{
+                  fontSize: '12px',
+                  fontWeight: '500',
+                  marginLeft: '10px',
+                }}
+              >
+                {comm.totalReplies === 0 ? '' : 'VIEW REPLIES'}
+              </span>
             </p>
           </div>
         </div>
@@ -630,24 +641,6 @@ export default function Post({ post, profileData, altHeader }) {
             inputRef={searchInput}
             placeholder='Add a comment'
             startAdornment={
-              // currentUser?.profileImage ? (
-              //   <img
-              //     src={currentUser && currentUser.profileImage}
-              //     alt='profileImage'
-              //     width='55px'
-              //     height='45px'
-              //     style={{ marginRight: '10px', borderRadius: '50%' }}
-              //   />
-              // ) : (
-              //   <img
-              //     src='/dp.png'
-              //     alt='profileImage'
-              //     width='55px'
-              //     height='45px'
-              //     style={{ marginRight: '10px', borderRadius: '50%' }}
-              //   />
-              // )
-
               <ProfileImageAvatar
                 user={currentUser}
                 style={{ marginRight: '10px' }}
