@@ -17,7 +17,7 @@ import NormalCaseButton from '../NormalCaseButton';
 import PostMedia from './post-media';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import SendIcon from '@material-ui/icons/Send';
-import { useEffect, useState } from 'react';
+import { createRef, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { post as postData } from '../../actions/post/index';
 import Modal from '@material-ui/core/Modal';
@@ -32,6 +32,7 @@ import TextField from '@material-ui/core/TextField';
 import { Button } from '@material-ui/core';
 import SinglePostMedia from './SinglePostMedia';
 import styles from './profile.module.css';
+import RepliesData from './RepliesData';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -50,6 +51,7 @@ const useStyles = makeStyles(theme => ({
   },
   profileModelStyle: {
     width: '40vw',
+
     ['@media and screen and (minWidth: 600px)']: {
       maxWidth: '100%',
     },
@@ -87,9 +89,10 @@ const CommentModel = ({
   const [isCommentField, setIsCommentField] = useState(false);
   const sPost = useSelector(singlepostDataSelector);
   const replyData = useSelector(repliesDataSelector);
-  const [showReply, setShowReply] = useState(false);
+  const [showReply, setShowReply] = useState({ idx: '', replyCheck: false });
   var pageNum = 1;
   const dispatch = useDispatch();
+  const replyInput = useRef([]);
 
   useEffect(() => {
     if (forCommentId) {
@@ -97,14 +100,6 @@ const CommentModel = ({
     }
     // console.log('check', data);
   }, [forCommentId]);
-
-  const getPostId = () => {
-    return sPost.id;
-  };
-
-  // const increasePage = () => {
-  //   pageNum++;
-  // };
 
   const handleReplyLike = repId => {
     replyData?.map(re =>
@@ -169,8 +164,16 @@ const CommentModel = ({
     setissubReplyField(false);
   };
 
+  // replyInput.current = singlePost?.comments.map(
+  //   (elm, indx) => replyInput.current[indx] ?? createRef()
+  // );
+
+  // const handleFocusReply = idx => {
+  //   replyInput.current.focus();
+  // };
   const handleReplyField = id => {
     setCommentId(id);
+
     console.log('reply id', id);
 
     setisReplyField({ check: true, id });
@@ -258,9 +261,10 @@ const CommentModel = ({
         );
   };
 
-  const handleRepliesList = commId => {
+  const handleRepliesList = (commId, index) => {
     console.log(commId);
-    setShowReply(true);
+    setShowReply({ idx: index, replyCheck: true });
+    console.log(' reply index', showReply.idx, 'index', index);
     console.log(showReply);
     dispatch(
       postData.requestReplies({
@@ -361,78 +365,97 @@ const CommentModel = ({
                     whiteSpace: 'normal',
                     overflow: 'hidden',
                     textOverflow: 'clip',
+                    color: 'white',
+                    fontFamily: 'Poppins',
+                    fontSize: '16px',
                   }}
                 >
                   {singlePost.postText}
                 </Typography>
               </CardContent>
             )}
-            <CardActions>
-              <Box>
-                {singlePost &&
-                singlePost.likes &&
-                singlePost.likes.length === 0 ? (
+            <div style={{ marginLeft: '10px' }}>
+              <div>
+                <Box>
+                  {singlePost &&
+                  singlePost.likes &&
+                  singlePost.likes.length === 0 ? (
+                    <NormalCaseButton
+                      aria-label='add to favorites'
+                      startIcon={<img src='/emptyHeart.png' alt='unliked' />}
+                      onClick={handleLike}
+                    >
+                      {nFormatter(singlePost?.totalLikes)}{' '}
+                      <span
+                        className={styles.hideOnMobile}
+                        style={{ marginLeft: '5px' }}
+                      >
+                        Likes
+                      </span>
+                    </NormalCaseButton>
+                  ) : (
+                    <NormalCaseButton
+                      aria-label='add to favorites'
+                      startIcon={<img src='/filled.png' alt='liked' />}
+                      onClick={handleLike}
+                    >
+                      {nFormatter(singlePost?.totalLikes)}{' '}
+                      <span
+                        className={styles.hideOnMobile}
+                        style={{ marginLeft: '5px' }}
+                      >
+                        Likes
+                      </span>
+                    </NormalCaseButton>
+                  )}
+
                   <NormalCaseButton
-                    aria-label='add to favorites'
-                    startIcon={<img src='/emptyHeart.png' alt='unliked' />}
-                    onClick={handleLike}
+                    aria-label='share'
+                    startIcon={<img src='/comment.png' alt='comment' />}
                   >
-                    {nFormatter(singlePost?.totalLikes)}{' '}
+                    {nFormatter(singlePost?.totalComments)}{' '}
                     <span
                       className={styles.hideOnMobile}
                       style={{ marginLeft: '5px' }}
                     >
-                      Likes
+                      {' '}
+                      Comments
                     </span>
                   </NormalCaseButton>
-                ) : (
                   <NormalCaseButton
-                    aria-label='add to favorites'
-                    startIcon={<img src='/filled.png' alt='liked' />}
-                    onClick={handleLike}
+                    aria-label='tip'
+                    startIcon={<MonetizationOnOutlinedIcon />}
                   >
-                    {nFormatter(singlePost?.totalLikes)}{' '}
-                    <span
-                      className={styles.hideOnMobile}
-                      style={{ marginLeft: '5px' }}
-                    >
-                      Likes
-                    </span>
+                    <span className={styles.hideOnMobile}>Tip</span>
+                  </NormalCaseButton>
+                </Box>
+
+                {false && (
+                  <NormalCaseButton
+                    aria-label='bookmark'
+                    startIcon={<BookmarkBorderOutlinedIcon />}
+                  >
+                    <Box display={{ xs: 'none', sm: 'none', md: 'flex' }}>
+                      Save
+                    </Box>
                   </NormalCaseButton>
                 )}
+              </div>
+            </div>
+            <div>
+              <img src='/border.png' alt='bar' style={{ width: '100%' }} />
 
-                <NormalCaseButton
-                  aria-label='share'
-                  startIcon={<img src='/comment.png' alt='comment' />}
-                >
-                  {nFormatter(singlePost?.totalComments)}{' '}
-                  <span
-                    className={styles.hideOnMobile}
-                    style={{ marginLeft: '5px' }}
-                  >
-                    {' '}
-                    Comments
-                  </span>
-                </NormalCaseButton>
-                <NormalCaseButton
-                  aria-label='tip'
-                  startIcon={<MonetizationOnOutlinedIcon />}
-                >
-                  <span className={styles.hideOnMobile}>Tip</span>
-                </NormalCaseButton>
-              </Box>
+              <p
+                style={{
+                  fontWeight: '500',
+                  fontSize: '14px',
+                  marginLeft: '30px',
+                }}
+              >
+                View previous comments
+              </p>
+            </div>
 
-              {false && (
-                <NormalCaseButton
-                  aria-label='bookmark'
-                  startIcon={<BookmarkBorderOutlinedIcon />}
-                >
-                  <Box display={{ xs: 'none', sm: 'none', md: 'flex' }}>
-                    Save
-                  </Box>
-                </NormalCaseButton>
-              )}
-            </CardActions>
             {/* <div
               style={{
                 marginLeft: '10px',
@@ -443,18 +466,19 @@ const CommentModel = ({
             >
               View more comments
             </div> */}
+
             <div
               style={{
                 overflowY: 'scroll',
                 overflowX: 'hidden',
-                height: '350px',
-                marginLeft: '15px',
+                height: '280px',
+                marginLeft: '30px',
               }}
             >
               {singlePost &&
                 singlePost.comments &&
                 singlePost.comments.map(
-                  comm =>
+                  (comm, index) =>
                     comm.parentCommentId === null && (
                       <div>
                         <div
@@ -538,19 +562,26 @@ const CommentModel = ({
                               onClick={() => handleReplyField(comm.id)}
                             /> */}
 
-                            <img
-                              src='/comment.png'
-                              alt='reply button'
-                              style={{
-                                width: '20px',
-                                height: '20px',
-                                marginRight: '9px',
-                                cursor: 'pointer',
-                              }}
-                              className={styles.commMobile}
-                              id={comm.id}
-                              onClick={() => handleReplyField(comm.id)}
-                            />
+                            <div
+                              key={index}
+                              // onClick={() =>
+                              //   handleFocusReply(replyInput.current[index])
+                              // }
+                            >
+                              <img
+                                src='/comment.png'
+                                alt='reply button'
+                                style={{
+                                  width: '20px',
+                                  height: '20px',
+                                  marginRight: '9px',
+                                  cursor: 'pointer',
+                                }}
+                                className={styles.commMobile}
+                                id={comm.id}
+                                onClick={() => handleReplyField(comm.id)}
+                              />
+                            </div>
 
                             {comm.likes && comm.likes.length === 0 ? (
                               // <FavoriteIcon
@@ -588,256 +619,37 @@ const CommentModel = ({
                         </div>
 
                         <div>
-                          <p
+                          <div
                             style={{
                               marginLeft: '50px',
                               marginTop: '-10px',
                               marginBottom: '0px',
                               cursor: 'pointer',
                               fontSize: '11px',
-                              display: 'flex',
                             }}
-                            onClick={() => handleRepliesList(comm.id)}
                           >
-                            <div style={{ marginRight: '10px' }}>
-                              {comm.totalLikes === 0 ? (
-                                <div style={{ display: 'flex' }}>
-                                  <p
-                                    style={{
-                                      marginTop: '0px',
-                                      marginRight: '5px',
-                                    }}
-                                  >
-                                    0
-                                  </p>
-                                  <FavoriteIcon
-                                    style={{ color: 'red', fontSize: '15px' }}
-                                  />
-                                </div>
-                              ) : (
-                                <div style={{ display: 'flex' }}>
-                                  <p
-                                    style={{
-                                      marginTop: '0px',
-                                      marginRight: '5px',
-                                    }}
-                                  >
-                                    {comm.totalLikes}{' '}
-                                  </p>
-                                  <FavoriteIcon
-                                    style={{ color: 'red', fontSize: '15px' }}
-                                  />
-                                </div>
-                              )}
-                            </div>
-                            {comm.totalReplies > 0 ? 'VIEW REPLIES' : ' '}
-                          </p>
+                            <RepliesData
+                              comm={comm}
+                              post={post}
+                              currentUser={currentUser}
+                              isReplyField={isReplyField}
+                              setisReplyField={setisReplyField}
+                              issubReplyField={issubReplyField}
+                              setissubReplyField={setissubReplyField}
+                              commentId={commentId}
+                              setCommentId={setCommentId}
+                            />
+
+                            {/* {comm.totalReplies > 0  ? (
+                              <ViewReplies />
+                            ) : (
+                              ' '
+                            )} */}
+                          </div>
                         </div>
-
-                        {showReply === true &&
-                          replyData?.map(
-                            reply =>
-                              reply.parentCommentId === comm.id && (
-                                <div>
-                                  <div
-                                    style={{
-                                      display: 'flex',
-                                      justifyContent: 'space-around',
-                                    }}
-                                  >
-                                    <div
-                                      style={{
-                                        display: 'flex',
-                                        marginLeft: '50px',
-                                        marginBottom: '10px',
-                                        marginTop: '5px',
-                                      }}
-                                    >
-                                      {
-                                        <ProfileImageAvatar
-                                          user={reply?.user}
-                                        />
-                                      }
-
-                                      <div
-                                        style={{
-                                          display: 'flex',
-                                          marginTop: '-6px',
-                                          marginLeft: '10px',
-                                        }}
-                                      >
-                                        <p
-                                          style={{
-                                            fontWeight: 'bold',
-                                            marginRight: '5px',
-                                          }}
-                                        >
-                                          {reply.user.fullName}
-                                        </p>
-                                        <p
-                                          style={{
-                                            color: '#ACACAC',
-                                            whiteSpace: 'wrap',
-                                            overflow: 'hidden',
-                                            textOverflow: 'ellipsis',
-                                          }}
-                                        >
-                                          {reply.comment}
-                                        </p>
-                                      </div>
-                                    </div>
-
-                                    <div
-                                      style={{
-                                        marginTop: '10px',
-                                      }}
-                                    >
-                                      <ChatBubbleOutlineIcon
-                                        style={{ marginRight: '9px' }}
-                                        id={comm.id}
-                                        fontSize='small'
-                                        onClick={() =>
-                                          handleSubReplyField(comm.id)
-                                        }
-                                      />
-                                      {reply.likes &&
-                                      reply.likes.length === 0 ? (
-                                        <FavoriteIcon
-                                          fontSize='small'
-                                          onClick={() =>
-                                            handleReplyLike(reply.id)
-                                          }
-                                        />
-                                      ) : (
-                                        <FavoriteIcon
-                                          fontSize='small'
-                                          style={{
-                                            color: 'red',
-                                          }}
-                                          onClick={() =>
-                                            handleReplyLike(reply.id)
-                                          }
-                                        />
-                                      )}
-                                    </div>
-                                  </div>
-                                  <div
-                                    style={{
-                                      marginLeft: '40px',
-                                      marginTop: '-10px',
-                                    }}
-                                  >
-                                    <p
-                                      style={{
-                                        marginLeft: '50px',
-                                        marginTop: '-10px',
-                                        marginBottom: '0px',
-                                        cursor: 'pointer',
-                                        fontSize: '13px',
-                                        display: 'flex',
-                                      }}
-                                    >
-                                      <div
-                                        style={{
-                                          marginLeft: '10px',
-                                          marginTop: '-3px',
-                                        }}
-                                      >
-                                        {reply.totalLikes === 0 ? (
-                                          <div style={{ display: 'flex' }}>
-                                            <p
-                                              style={{
-                                                marginTop: '0px',
-                                                marginRight: '5px',
-                                              }}
-                                            >
-                                              0
-                                            </p>
-                                            <FavoriteIcon
-                                              style={{
-                                                color: 'red',
-                                                fontSize: '15px',
-                                              }}
-                                            />
-                                          </div>
-                                        ) : (
-                                          <div style={{ display: 'flex' }}>
-                                            <p
-                                              style={{
-                                                marginTop: '0px',
-                                                marginRight: '5px',
-                                              }}
-                                            >
-                                              {reply.totalLikes}{' '}
-                                            </p>
-                                            <FavoriteIcon
-                                              fontSize='small'
-                                              style={{ color: 'red' }}
-                                            />
-                                          </div>
-                                        )}
-                                      </div>
-                                    </p>
-                                  </div>
-                                </div>
-                              )
-                          )}
-                        {(isReplyField.check === true &&
-                          isReplyField.id === comm.id) ||
-                        (issubReplyField.check === true &&
-                          issubReplyField.id === comm.id) ? (
-                          <form onSubmit={handleAddReply}>
-                            <Box mb={2} ml={5}>
-                              <OutlinedInput
-                                value={replyText}
-                                onChange={e => setReplyText(e.target.value)}
-                                name='replyText'
-                                multiline
-                                onKeyDown={e => {
-                                  if (e.keyCode === 13 && !e.shiftKey) {
-                                    e.preventDefault();
-                                  }
-                                  // } else if (e.keyCode === 13) {
-                                  //   handleAddReply(e);
-                                  // }
-                                }}
-                                placeholder={
-                                  issubReplyField.check === true
-                                    ? 'Tagged user'
-                                    : 'Add Reply'
-                                }
-                                startAdornment={
-                                  <ProfileImageAvatar
-                                    user={currentUser}
-                                    style={{ marginRight: '10px' }}
-                                  />
-                                }
-                                endAdornment={
-                                  <Button
-                                    type='submit'
-                                    style={{
-                                      backgroundColor: '#111111',
-                                      border: 'none',
-                                    }}
-                                  >
-                                    <SendIcon
-                                      style={{
-                                        cursor: 'pointer',
-                                        color: 'white',
-                                      }}
-                                    />
-                                  </Button>
-                                }
-                              />
-                            </Box>
-                          </form>
-                        ) : (
-                          ''
-                        )}
                       </div>
                     )
                 )}
-              {showReply === true && replyData?.map(rep => console.log(rep))}
             </div>
 
             <form onSubmit={handleAddComment}>
@@ -849,16 +661,11 @@ const CommentModel = ({
                   fullWidth
                   multiline
                   onKeyDown={e => {
-                    if (e.keyCode === 13 && !e.shiftKey) {
-                      e.preventDefault();
+                    if (e.keyCode === 13) {
+                      if (!event.shiftKey) {
+                        handleAddComment(e);
+                      }
                     }
-                    // if (e.keyCode === 13) {
-                    //   handleAddComment(e);
-                    // }
-                    // } else if (e.keyCode === 13) {
-                    //   console.log('enter');
-                    //   handleAddComment(e);
-                    // }
                   }}
                   placeholder='Add Comment'
                   startAdornment={
