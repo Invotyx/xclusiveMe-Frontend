@@ -423,12 +423,7 @@ const RepliesData = ({
                     border: 'none',
                   }}
                 >
-                  <SendIcon
-                    style={{
-                      cursor: 'pointer',
-                      color: 'white',
-                    }}
-                  />
+                  <img src='/send.png' alt='send button' />
                 </Button>
               }
             />

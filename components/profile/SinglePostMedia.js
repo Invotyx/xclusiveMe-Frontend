@@ -32,7 +32,15 @@ function MediaElement({ m }) {
   const classes = useStyles();
 
   return m.type && m.type.indexOf('video') !== -1 ? (
-    <div style={{ width: '40vw', height: '30vw' }}>
+    <div
+      style={{
+        width: '40vw',
+        height: '30vw',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
+    >
       <PostMediaVideo src={m.url} />
     </div>
   ) : (
