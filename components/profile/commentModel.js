@@ -33,6 +33,8 @@ import { Button } from '@material-ui/core';
 import SinglePostMedia from './SinglePostMedia';
 import styles from './profile.module.css';
 import RepliesData from './RepliesData';
+import LocalMallIcon from '@material-ui/icons/LocalMall';
+import PostPurchaseModel from './PostPurchaseModel';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -93,6 +95,13 @@ const CommentModel = ({
   var pageNum = 1;
   const dispatch = useDispatch();
   const replyInput = useRef([]);
+  const [openModel, setOpenModel] = useState(false);
+
+  const handleOpenModel = () => {
+    console.log('in model');
+    setOpenModel(true);
+    console.log(openModel);
+  };
 
   useEffect(() => {
     if (forCommentId) {
@@ -374,7 +383,13 @@ const CommentModel = ({
                 </Typography>
               </CardContent>
             )}
-            <div style={{ marginLeft: '10px' }}>
+            <div
+              style={{
+                marginLeft: '10px',
+                display: 'flex',
+                justifyContent: 'space-between',
+              }}
+            >
               <div>
                 <Box>
                   {singlePost &&
@@ -429,18 +444,23 @@ const CommentModel = ({
                     <span className={styles.hideOnMobile}>Tip</span>
                   </NormalCaseButton>
                 </Box>
-
-                {false && (
-                  <NormalCaseButton
-                    aria-label='bookmark'
-                    startIcon={<BookmarkBorderOutlinedIcon />}
-                  >
-                    <Box display={{ xs: 'none', sm: 'none', md: 'flex' }}>
-                      Save
-                    </Box>
-                  </NormalCaseButton>
-                )}
               </div>
+              <div style={{ marginRight: '6px' }}>
+                {
+                  <NormalCaseButton
+                    aria-label='Buy Post'
+                    startIcon={<LocalMallIcon />}
+                    onClick={handleOpenModel}
+                  >
+                    Buy Post
+                  </NormalCaseButton>
+                }
+              </div>
+              <PostPurchaseModel
+                post={post}
+                openModel={openModel}
+                setOpenModel={setOpenModel}
+              />
             </div>
             <div>
               <img src='/border.png' alt='bar' style={{ width: '100%' }} />
@@ -449,7 +469,7 @@ const CommentModel = ({
                 style={{
                   fontWeight: '500',
                   fontSize: '14px',
-                  marginLeft: '30px',
+                  marginLeft: '15px',
                 }}
               >
                 View previous comments
@@ -468,11 +488,12 @@ const CommentModel = ({
             </div> */}
 
             <div
+              // className={styles.commentBox}
               style={{
                 overflowY: 'scroll',
                 overflowX: 'hidden',
                 height: '280px',
-                marginLeft: '30px',
+                marginLeft: '15px',
               }}
             >
               {singlePost &&
@@ -671,7 +692,7 @@ const CommentModel = ({
                   startAdornment={
                     <ProfileImageAvatar
                       user={currentUser}
-                      style={{ marginRight: '10px' }}
+                      style={{ marginLeft: '2px', marginRight: '5px' }}
                     />
                   }
                   endAdornment={
@@ -679,7 +700,7 @@ const CommentModel = ({
                       type='submit'
                       style={{ backgroundColor: '#111111', border: 'none' }}
                     >
-                      <SendIcon style={{ cursor: 'pointer', color: 'white' }} />
+                      <img src='/send.png' alt='send button' />
                     </Button>
                   }
                 />
