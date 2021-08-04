@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListSubheader from '@material-ui/core/ListSubheader';
@@ -11,15 +11,21 @@ import { useDispatch, useSelector } from 'react-redux';
 import { notificationsData } from '../../selectors/postSelector';
 import { notificationsCount } from '../../selectors/postSelector';
 import { post } from '../../actions/post';
+import moment from 'moment';
+import styles from './newPost.module.css';
 
 const useStyles = makeStyles(theme => ({
   small: {
-    width: theme.spacing(4),
-    height: theme.spacing(4),
+    width: '40px',
+    height: '40px',
     marginRight: 10,
   },
   inline: {
     display: 'flex',
+    marginLeft: '8px',
+    fontWeight: '900',
+    fontSize: '12px',
+    fontFamily: 'Poppins',
   },
 }));
 
@@ -83,6 +89,7 @@ export default function Notification({ onClose }) {
   const listofNotifications = useSelector(notificationsData);
   const notifyCount = useSelector(notificationsCount);
   const dispatch = useDispatch();
+  const [isToday, setIsToday] = useState(false);
 
   const readNotification = notifyId => {
     dispatch(
@@ -95,6 +102,19 @@ export default function Notification({ onClose }) {
     );
   };
 
+  function todayDate() {
+    var today = new Date();
+    var date =
+      today.getFullYear() +
+      '-' +
+      '0' +
+      (today.getMonth() + 1) +
+      '-' +
+      '0' +
+      today.getDate();
+    return date;
+  }
+
   return (
     <>
       {/* <ListSubheader>Today</ListSubheader> */}
@@ -104,39 +124,154 @@ export default function Notification({ onClose }) {
         </p>
       ) : (
         <div>
-          <p style={{ marginLeft: '20px' }}>All Notifications</p>
-          {listofNotifications?.map((i, x) => (
-            <div onClick={() => readNotification(i.id)}>
-              <MenuItem onClick={onClose} key={`notificationToday${x}`}>
-                <ListItemAvatar>
-                  <Avatar
-                    alt='Cindy Baker'
-                    src={i.avatar}
-                    className={classes.small}
-                  />
-                </ListItemAvatar>
-                <ListItemText
-                  primary={i.relatedUsersNames[0]}
-                  secondary={
-                    <React.Fragment>
-                      {i.createdAt}
-                      <Typography
-                        component='span'
-                        variant='body2'
-                        className={classes.inline}
-                        color='textPrimary'
-                      >
-                        {i.title}
-                      </Typography>
-                    </React.Fragment>
-                  }
-                />
-                {/* <ListItemSecondaryAction>
-            <Avatar alt='Cindy Baker' src={i.image} variant='square' />
-          </ListItemSecondaryAction> */}
-              </MenuItem>
-            </div>
-          ))}
+          <p
+            style={{
+              marginLeft: '20px',
+              fontWeight: '500',
+              fontSize: '14px',
+              fontStyle: 'normal',
+            }}
+          >
+            Today
+          </p>
+          <div>
+            {listofNotifications?.map((i, x) => (
+              <div>
+                {i.createdAt.substring(0, 10) == todayDate() ? (
+                  <div onClick={() => readNotification(i.id)}>
+                    <MenuItem onClick={onClose} key={`notificationToday${x}`}>
+                      <ListItemAvatar>
+                        <Avatar
+                          alt='Cindy Baker'
+                          src={i.relatedUserProfileImage}
+                          className={classes.small}
+                        />
+                      </ListItemAvatar>
+                      <ListItemText
+                        primary={
+                          <span className={styles.nameStyle}>
+                            {i.relatedUsersNames[0]}
+                          </span>
+                        }
+                        secondary={
+                          <div className={styles.dataAndTitle}>
+                            <span className={styles.timeStyle}>
+                              {moment(i.createdAt).fromNow()}
+                            </span>
+                            <Typography
+                              component='span'
+                              variant='body2'
+                              className={classes.inline}
+                              color='textPrimary'
+                            >
+                              {i.type === 'comment' ? (
+                                <>
+                                  {' '}
+                                  <img src='/noticomm.svg' alt='comment' />{' '}
+                                  {i.title}
+                                </>
+                              ) : i.type === 'like' ? (
+                                <>
+                                  {' '}
+                                  <img src='/notilike.svg' alt='comment' />{' '}
+                                  {i.title}
+                                </>
+                              ) : (
+                                <>{i.title}</>
+                              )}
+                            </Typography>
+                          </div>
+                        }
+                      />
+                      {/* <ListItemSecondaryAction>
+                        <Avatar
+                          alt='Cindy Baker'
+                          src={i.image}
+                          variant='square'
+                        />
+                      </ListItemSecondaryAction> */}
+                    </MenuItem>
+                  </div>
+                ) : (
+                  ''
+                )}
+              </div>
+            ))}
+          </div>
+          <p
+            style={{
+              marginLeft: '20px',
+              fontWeight: '500',
+              fontSize: '14px',
+              fontStyle: 'normal',
+            }}
+          >
+            Older
+          </p>
+          <div>
+            {listofNotifications?.map((i, x) => (
+              <div>
+                {i.createdAt.substring(0, 10) !== todayDate() ? (
+                  <div onClick={() => readNotification(i.id)}>
+                    <MenuItem onClick={onClose} key={`notificationToday${x}`}>
+                      <ListItemAvatar>
+                        <Avatar
+                          alt='Cindy Baker'
+                          src={i.relatedUserProfileImage}
+                          className={classes.small}
+                        />
+                      </ListItemAvatar>
+                      <ListItemText
+                        primary={
+                          <span className={styles.nameStyle}>
+                            {i.relatedUsersNames[0]}
+                          </span>
+                        }
+                        secondary={
+                          <div className={styles.dataAndTitle}>
+                            <span className={styles.timeStyle}>
+                              {moment(i.createdAt).fromNow()}
+                            </span>
+                            <Typography
+                              component='p'
+                              variant='body2'
+                              className={classes.inline}
+                              color='textPrimary'
+                            >
+                              {i.type === 'comment' ? (
+                                <>
+                                  {' '}
+                                  <img src='/noticomm.svg' alt='comment' />{' '}
+                                  {i.title}
+                                </>
+                              ) : i.type === 'like' ? (
+                                <>
+                                  {' '}
+                                  <img src='/notilike.svg' alt='comment' />{' '}
+                                  {i.title}
+                                </>
+                              ) : (
+                                <>{i.title}</>
+                              )}
+                            </Typography>
+                          </div>
+                        }
+                      />
+                      {/* <ListItemSecondaryAction>
+                        <Avatar
+                          alt='Cindy Baker'
+                          src={i.image}
+                          variant='square'
+                        />
+                      </ListItemSecondaryAction> */}
+                    </MenuItem>
+                  </div>
+                ) : (
+                  ''
+                )}
+              </div>
+            ))}
+          </div>
         </div>
       )}
     </>
