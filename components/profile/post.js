@@ -284,6 +284,7 @@ export default function Post({ post, profileData, altHeader }) {
               fontSize: '16px',
               fontFamily: 'Poppins',
               marginTop: '-13px',
+              marginLeft: '4px',
             }}
           >
             {post.postText}
@@ -293,7 +294,13 @@ export default function Post({ post, profileData, altHeader }) {
       <PostMedia media={post.media} mediaCount={post.mediaCount} post={post} />
       <CardActions disableSpacing>
         <Box flexGrow={1}>
-          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              marginLeft: '4px',
+            }}
+          >
             <div>
               {post.likes.length === 0 ? (
                 <NormalCaseButton
@@ -347,7 +354,7 @@ export default function Post({ post, profileData, altHeader }) {
               </NormalCaseButton>
             </div>
 
-            <div>
+            <div style={{ marginRight: '4px' }}>
               {post.media.length === 0 ? (
                 <NormalCaseButton
                   aria-label='Buy Post'
@@ -381,9 +388,9 @@ export default function Post({ post, profileData, altHeader }) {
         <p
           style={{
             cursor: 'pointer',
-            marginLeft: '18px',
+            marginLeft: '21px',
             marginTop: '0px',
-            marginBottom: '9px',
+            marginBottom: '12px',
             fontWeight: '500',
             fontSize: '14px',
           }}
@@ -421,7 +428,7 @@ export default function Post({ post, profileData, altHeader }) {
                 marginLeft: '14px',
               }}
             >
-              <div style={{ display: 'flex' }}>
+              <div style={{ display: 'flex', marginLeft: '3px' }}>
                 {/* {comm?.user?.profileImage ? (
                   <img
                     src={comm.user.profileImage}
@@ -450,7 +457,7 @@ export default function Post({ post, profileData, altHeader }) {
                     <p
                       style={{
                         marginTop: '7px',
-                        marginLeft: '7px',
+                        marginLeft: '15px',
                         fontWeight: '600',
                         fontSize: '14px',
                         cursor: 'pointer',
@@ -506,7 +513,12 @@ export default function Post({ post, profileData, altHeader }) {
                 <img
                   src='/emptyHeart.png'
                   alt='unliked'
-                  style={{ width: '20px', height: '20px', cursor: 'pointer' }}
+                  style={{
+                    width: '20px',
+                    height: '20px',
+                    cursor: 'pointer',
+                    marginRight: '7px',
+                  }}
                   onClick={() => handleCommentLike(comm.id)}
                 />
               ) : (
@@ -517,7 +529,12 @@ export default function Post({ post, profileData, altHeader }) {
                 <img
                   src='/filled.png'
                   alt='unliked'
-                  style={{ width: '20px', height: '20px', cursor: 'pointer' }}
+                  style={{
+                    width: '20px',
+                    height: '20px',
+                    cursor: 'pointer',
+                    marginRight: '7px',
+                  }}
                   onClick={() => handleCommentLike(comm.id)}
                 />
               )}
@@ -527,7 +544,7 @@ export default function Post({ post, profileData, altHeader }) {
           <div>
             <p
               style={{
-                marginLeft: '60px',
+                marginLeft: '72px',
                 marginTop: '-10px',
                 marginBottom: '0px',
                 cursor: 'pointer',

@@ -23,6 +23,7 @@ import NotificationMenu from '../notification/menu';
 import { getNotifications } from '../../services/post.service';
 import { post } from '../../actions/post';
 import { notificationsCount } from '../../selectors/postSelector';
+import styles from './layout.module.css';
 
 export default function Comp({ sidebarMenu, set_sidebarMenu }) {
   const dispatch = useDispatch();
@@ -30,7 +31,6 @@ export default function Comp({ sidebarMenu, set_sidebarMenu }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const listofNotifications = useSelector(getNotifications);
   const notificationCount = useSelector(notificationsCount);
-  console.log(notificationCount);
 
   const settingsMenuOpen = event => {
     setAnchorEl(event.currentTarget);
@@ -131,13 +131,18 @@ export default function Comp({ sidebarMenu, set_sidebarMenu }) {
                     </Badge>
                   )}
                 </IconButton>
-                <NotificationMenu
-                  open={Boolean(anchorEl)}
-                  anchorEl={anchorEl}
-                  onClose={settingsMenuClose}
-                >
-                  <Notification onClose={settingsMenuClose} />
-                </NotificationMenu>
+
+                <div>
+                  <NotificationMenu
+                    open={Boolean(anchorEl)}
+                    anchorEl={anchorEl}
+                    onClose={settingsMenuClose}
+                  >
+                    <div className={styles.notiBox}>
+                      <Notification onClose={settingsMenuClose} />
+                    </div>
+                  </NotificationMenu>
+                </div>
               </Box>
 
               <Box ml={3} display={{ xs: 'none', sm: 'none', md: 'flex' }}>

@@ -8,6 +8,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import { paymentMethod } from '../../actions/payment-method';
 import { paymentMethodDataSelector } from '../../selectors/paymentMethodSelector';
 import { useDispatch, useSelector } from 'react-redux';
+import { useMediaQuery } from 'react-responsive';
+import ShareIcon from '@material-ui/icons/Share';
+import styles from './profile.module.css';
 
 const useStyles = makeStyles(theme => ({
   modal: {
@@ -21,6 +24,7 @@ const useStyles = makeStyles(theme => ({
     boxShadow: theme.shadows[5],
     width: 'auto',
     height: 'auto',
+    borderRadius: '8px',
   },
 }));
 
@@ -29,10 +33,11 @@ const PostPurchaseModel = ({ post, openModel, setOpenModel }) => {
   const dispatch = useDispatch();
   const [purchased, setPurchased] = useState(false);
   const paymentData = useSelector(paymentMethodDataSelector);
+  const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
 
   const handlePurchase = () => {
     dispatch(
-      postData.purchasePost({
+      postData?.purchasePost({
         id: post.id,
         callback: () => {
           setPurchased(true);
@@ -69,31 +74,38 @@ const PostPurchaseModel = ({ post, openModel, setOpenModel }) => {
             <div>
               <div
                 style={{
-                  position: 'absolute',
-                  right: '32vw',
-                  top: '32vh',
-                  cursor: 'pointer',
-                }}
-              >
-                <CloseIcon onClick={handleClose} />
-              </div>
-              <div
-                style={{
                   display: 'flex',
                   justifyContent: 'center',
-                  flexWrap: 'wrap',
                 }}
               >
-                <img
-                  src={post?.user?.profileImage}
-                  alt='profile image'
-                  width='50px'
-                  height='50px'
+                <div
                   style={{
-                    borderRadius: '50%',
-                    marginTop: '-20px',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    width: '90%',
                   }}
-                />
+                >
+                  <img
+                    src={post?.user?.profileImage}
+                    alt='profile image'
+                    width='60px'
+                    height='65px'
+                    style={{
+                      borderRadius: '50%',
+                      marginTop: '-20px',
+                      marginLeft: isMobile ? '40%' : '44%',
+                    }}
+                  />
+                  <CloseIcon
+                    onClick={handleClose}
+                    style={{
+                      marginTop: '20px',
+                      width: '35px',
+                      height: '35px',
+                      cursor: 'pointer',
+                    }}
+                  />
+                </div>
               </div>
               <div>
                 <div
@@ -103,7 +115,9 @@ const PostPurchaseModel = ({ post, openModel, setOpenModel }) => {
                     alignItems: 'center',
                   }}
                 >
-                  <p style={{ fontWeight: 'bold' }}>Buy this Post</p>
+                  <p style={{ fontWeight: '600', fontSize: '17px' }}>
+                    Buy this Post
+                  </p>
                 </div>
               </div>
               <div
@@ -112,30 +126,27 @@ const PostPurchaseModel = ({ post, openModel, setOpenModel }) => {
                   justifyContent: 'center',
                 }}
               >
-                <p
-                  style={{
-                    fontSize: '3vw',
-                    fontWeight: 'bold',
-                  }}
-                >
-                  ${post?.price}.00
-                </p>
+                <div>
+                  <p
+                    style={{
+                      fontSize: '40px',
+                      fontWeight: '600',
+                    }}
+                  >
+                    ${post?.price}.00
+                  </p>
+                  <p
+                    style={{
+                      color: '#444444',
+                      marginTop: '-40px',
+                      marginLeft: '20px',
+                    }}
+                  >
+                    Total Amount
+                  </p>
+                </div>
               </div>
-              <div
-                style={{
-                  display: 'flex',
 
-                  justifyContent: 'center',
-                }}
-              >
-                <p
-                  style={{
-                    color: '#444444',
-                  }}
-                >
-                  Total Amount
-                </p>
-              </div>
               <div
                 style={{
                   display: 'flex',
@@ -154,18 +165,20 @@ const PostPurchaseModel = ({ post, openModel, setOpenModel }) => {
               >
                 <p>Your default payment method</p>
                 <div>
-                  <div style={{ display: 'flex' }}>
-                    <img
-                      src='/mastercard.png'
-                      alt='card'
-                      width='35px'
-                      height='35px'
-                      style={{ margin: 'auto' }}
-                    />
-                    <p>Mastercard</p>
+                  <div style={{ display: 'flex', marginLeft: '70px' }}>
+                    <p>{paymentData[0]?.type}</p>
                   </div>
-                  <p style={{ margin: '0px', marginLeft: '15px' }}>
-                    ******** {paymentData[0]?.last4_card}
+                  <p
+                    style={{
+                      margin: '0px',
+                      marginLeft: '-30px',
+                      display: 'flex',
+                    }}
+                  >
+                    **** **** ****{' '}
+                    <p style={{ marginLeft: '10px', marginTop: '-4px' }}>
+                      {paymentData[0]?.last4_card}
+                    </p>
                   </p>
                 </div>
               </div>
@@ -184,31 +197,49 @@ const PostPurchaseModel = ({ post, openModel, setOpenModel }) => {
               </Button>
             </div>
           ) : (
-            <div style={{ margin: '0px', padding: '0px' }}>
+            <div
+              style={{
+                width: 'auto',
+                backgroundColor: '#000000',
+                borderRadius: '8px',
+              }}
+            >
               <div
                 style={{
                   backgroundColor: '#67E697',
-                  marginTop: '-3vh',
-                  height: '70px',
+                  borderTopLeftRadius: '8px',
+                  borderTopRightRadius: '8px',
+                  height: '13vh',
                 }}
               >
                 <div
-                  style={{ display: 'flex', justifyContent: 'space-evenly' }}
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'space-evenly',
+                    marginLeft: isMobile ? '15vw' : '10vw',
+                  }}
                 >
                   <div>
-                    <h3>Paid Successfully</h3>
+                    <p
+                      style={{
+                        fontSize: '24px',
+                        fontWeight: '600',
+                        marginTop: isMobile ? '35px' : '',
+                      }}
+                    >
+                      Paid Successfully
+                    </p>
                   </div>
-
-                  <div
+                  <CloseIcon
+                    onClick={handleClose}
                     style={{
-                      position: 'absolute',
-                      right: '33vw',
-                      top: '25vh',
-                      cursor: 'pointer',
+                      marginTop: isMobile ? '35px' : '25px',
+                      marginLeft: isMobile ? '40px' : '20px',
+                      marginRight: isMobile ? '20px' : '',
+                      width: '27px',
+                      height: '27px',
                     }}
-                  >
-                    <CloseIcon onClick={handleClose} />
-                  </div>
+                  />
                 </div>
               </div>
               <div>
@@ -216,8 +247,8 @@ const PostPurchaseModel = ({ post, openModel, setOpenModel }) => {
                   <img
                     src={post?.user?.profileImage}
                     alt='profile image'
-                    width='50px'
-                    height='50px'
+                    width='70px'
+                    height='75px'
                     style={{
                       borderRadius: '50%',
                       marginTop: '20px',
@@ -233,7 +264,7 @@ const PostPurchaseModel = ({ post, openModel, setOpenModel }) => {
                 >
                   <p
                     style={{
-                      fontSize: '3vw',
+                      fontSize: '26px',
                       fontWeight: 'bold',
                       marginTop: '-1vh',
                     }}
@@ -250,7 +281,7 @@ const PostPurchaseModel = ({ post, openModel, setOpenModel }) => {
                 >
                   <p
                     style={{
-                      marginTop: '-6vh',
+                      marginTop: isMobile ? '-3vh' : '-5vh',
                       color: '#444444',
                     }}
                   >
@@ -258,35 +289,61 @@ const PostPurchaseModel = ({ post, openModel, setOpenModel }) => {
                   </p>
                 </div>
 
-                <div>
-                  <Button
-                    variant='outlined'
-                    onClick={handleClose}
-                    style={{
-                      margin: '20px',
-                      width: '80%',
-                      display: 'flex',
-                      justifyContent: 'center',
-                      marginLeft: '4vw',
-                    }}
-                  >
-                    Close
-                  </Button>
+                {isMobile ? (
+                  <div>
+                    <div>
+                      <Button
+                        variant='outlined'
+                        onClick={handleClose}
+                        style={{
+                          margin: '20px',
+                          width: '90%',
+                          padding: '10px',
+                        }}
+                      >
+                        <CloseIcon className={styles.buttonIcons} /> Close
+                      </Button>
+                    </div>
 
-                  <Button
-                    variant='outlined'
-                    onClick={handleClose}
-                    style={{
-                      margin: '20px',
-                      width: '80%',
-                      display: 'flex',
-                      justifyContent: 'center',
-                      marginLeft: '4vw',
-                    }}
-                  >
-                    Share
-                  </Button>
-                </div>
+                    <div>
+                      <Button
+                        variant='outlined'
+                        onClick={handleClose}
+                        style={{
+                          margin: '20px',
+                          width: '90%',
+                        }}
+                      >
+                        <ShareIcon className={styles.buttonIcons} /> Share
+                      </Button>
+                    </div>
+                  </div>
+                ) : (
+                  <div style={{ display: 'flex' }}>
+                    <Button
+                      variant='outlined'
+                      onClick={handleClose}
+                      style={{
+                        margin: '20px',
+                        width: '20vw',
+                        padding: '10px',
+                      }}
+                    >
+                      <CloseIcon className={styles.buttonIcons} /> Close
+                    </Button>
+
+                    <Button
+                      variant='outlined'
+                      onClick={handleClose}
+                      style={{
+                        margin: '20px',
+                        width: '20vw',
+                      }}
+                    >
+                      <ShareIcon className={styles.buttonIcons} /> Share
+                    </Button>
+                  </div>
+                )}
               </div>
             </div>
           )}
