@@ -142,6 +142,15 @@ export default function Profile({
       dispatch(subscription.add(user.subscriptionPlans?.id, afterFollow));
   };
 
+  const handleUnFollow = e => {
+    e.preventDefault();
+    dispatch(
+      subscription.removeSub({
+        id: user?.id,
+      })
+    );
+  };
+
   return (
     <motion.div initial='hidden' animate='visible' variants={variants}>
       <Layout
@@ -347,17 +356,16 @@ export default function Profile({
                   >
                     <Box flexGrow={1}>
                       <Typography>
-                        Unfollow to stop getting posts posts in your News Feed.
+                        Unfollow to stop getting posts in your News Feed.
                       </Typography>
                     </Box>
 
                     <NormalCaseButton
-                      startIcon={<Add />}
                       size='small'
                       variant='outlined'
-                      // onClick={e => handleFollow(e)}
+                      onClick={e => handleUnFollow(e)}
                     >
-                      <span>unfollow</span>
+                      <span>Unfollow</span>
                     </NormalCaseButton>
                   </Box>
                 )}

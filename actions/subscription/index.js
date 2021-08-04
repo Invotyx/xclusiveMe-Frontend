@@ -8,6 +8,15 @@ export const subscription = {
       // success: false,
       // error: null,
     }),
+
+  removeSub: id =>
+    createAction(SUBSCRIPTION.REMOVE, {
+      ...id,
+      fetching: true,
+      success: false,
+      error: null,
+    }),
+
   add: (id, callback) =>
     createAction(SUBSCRIPTION.ADD, {
       id,
@@ -16,21 +25,21 @@ export const subscription = {
       success: false,
       error: null,
     }),
-  put: (data) =>
+  put: data =>
     createAction(SUBSCRIPTION.PUT, {
       ...data,
       fetching: true,
       success: false,
       error: null,
     }),
-  success: (data) =>
+  success: data =>
     createAction(SUBSCRIPTION.SUCCESS, {
       ...data,
       fetching: false,
       success: true,
       error: null,
     }),
-  failure: (error) =>
+  failure: error =>
     createAction(SUBSCRIPTION.FAILURE, {
       ...error,
       fetching: false,
