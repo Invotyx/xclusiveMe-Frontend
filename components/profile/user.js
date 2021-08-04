@@ -305,7 +305,7 @@ export default function Profile({
                 </Card>
               </Grid>
               <Grid item xs={12}>
-                {subscriptionPlans && (
+                {subscriptionPlans ? (
                   <Box
                     bgcolor='#111'
                     display='flex'
@@ -335,6 +335,30 @@ export default function Profile({
                         <span>Follow</span>
                       </NormalCaseButton>
                     )}
+                  </Box>
+                ) : (
+                  <Box
+                    bgcolor='#111'
+                    display='flex'
+                    p={2}
+                    alignItems='center'
+                    my={2}
+                    border='1px solid #222'
+                  >
+                    <Box flexGrow={1}>
+                      <Typography>
+                        Unfollow to stop getting posts posts in your News Feed.
+                      </Typography>
+                    </Box>
+
+                    <NormalCaseButton
+                      startIcon={<Add />}
+                      size='small'
+                      variant='outlined'
+                      // onClick={e => handleFollow(e)}
+                    >
+                      <span>unfollow</span>
+                    </NormalCaseButton>
                   </Box>
                 )}
               </Grid>
