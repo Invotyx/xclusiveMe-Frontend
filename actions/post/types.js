@@ -26,6 +26,7 @@ export const POST = createActionTypes('POST', [
   'GET_SETTING_NOTIFICATIONS',
   'ADD_SETTING_NOTIFICATIONS',
   'VIEW_NOTIFICATION',
+  'REPORT_POST',
 ]);
 
 export default POST;
