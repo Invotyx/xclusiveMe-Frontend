@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
 import ShareIcon from '@material-ui/icons/Share';
 import styles from './profile.module.css';
-import { post as postData } from '../../actions/post';
+import TextField from '@material-ui/core/TextField';
 
 const useStyles = makeStyles(theme => ({
   modal: {
@@ -29,7 +29,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const PostPurchaseModel = ({ post, openModel, setOpenModel }) => {
+const TipModal = ({ openTip, setopenTip, post }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const [purchased, setPurchased] = useState(false);
@@ -37,32 +37,33 @@ const PostPurchaseModel = ({ post, openModel, setOpenModel }) => {
   const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
 
   const handlePurchase = () => {
-    // setPurchased(true);
-    dispatch(
-      postData?.purchasePost({
-        id: post.id,
-        callback: () => {
-          setPurchased(true);
-          dispatch(postData.request());
-          dispatch(postData.requestSubscribed());
-        },
-      })
-    );
+    setPurchased(true);
+    // dispatch(
+    //   postData?.purchasePost({
+    //     id: post.id,
+    //     callback: () => {
+    //       setPurchased(true);
+    //       dispatch(postData.request());
+    //       dispatch(postData.requestSubscribed());
+    //     },
+    //   })
+    // );
   };
 
   const handleClose = () => {
-    setOpenModel(false);
+    setopenTip(false);
+    setPurchased(false);
   };
 
-  useEffect(() => {
-    dispatch(paymentMethod.request());
-  }, []);
+  //   useEffect(() => {
+  //     dispatch(paymentMethod.request());
+  //   }, []);
   return (
     <Modal
       aria-labelledby='transition-modal-title'
       aria-describedby='transition-modal-description'
       className={classes.modal}
-      open={openModel}
+      open={openTip}
       onClose={handleClose}
       closeAfterTransition
       BackdropComponent={Backdrop}
@@ -70,7 +71,7 @@ const PostPurchaseModel = ({ post, openModel, setOpenModel }) => {
         timeout: 500,
       }}
     >
-      <Fade in={openModel}>
+      <Fade in={openTip}>
         <div className={classes.paper}>
           {purchased === false ? (
             <div>
@@ -118,7 +119,7 @@ const PostPurchaseModel = ({ post, openModel, setOpenModel }) => {
                   }}
                 >
                   <p style={{ fontWeight: '600', fontSize: '17px' }}>
-                    Buy this Post
+                    Donate to {post?.user?.fullName}
                   </p>
                 </div>
               </div>
@@ -129,19 +130,26 @@ const PostPurchaseModel = ({ post, openModel, setOpenModel }) => {
                 }}
               >
                 <div>
-                  <p
+                  {/* <p
                     style={{
                       fontSize: '40px',
                       fontWeight: '600',
                     }}
                   >
                     ${post?.price}.00
-                  </p>
+                  </p> */}
+                  <form>
+                    <TextField
+                      id='outlined-basic'
+                      variant='outlined'
+                      placeholder='Enter amount'
+                    />
+                  </form>
                   <p
                     style={{
                       color: '#444444',
-                      marginTop: '-40px',
-                      marginLeft: '20px',
+
+                      marginLeft: '65px',
                     }}
                   >
                     Total Amount
@@ -229,7 +237,7 @@ const PostPurchaseModel = ({ post, openModel, setOpenModel }) => {
                         marginTop: isMobile ? '35px' : '',
                       }}
                     >
-                      Paid Successfully
+                      Sent Successfully
                     </p>
                   </div>
                   <CloseIcon
@@ -287,7 +295,7 @@ const PostPurchaseModel = ({ post, openModel, setOpenModel }) => {
                       color: '#444444',
                     }}
                   >
-                    Paid to {post?.user?.fullName}
+                    sent to {post?.user?.fullName}
                   </p>
                 </div>
 
@@ -307,7 +315,7 @@ const PostPurchaseModel = ({ post, openModel, setOpenModel }) => {
                       </Button>
                     </div>
 
-                    <div>
+                    {/* <div>
                       <Button
                         variant='outlined'
                         onClick={handleClose}
@@ -318,7 +326,7 @@ const PostPurchaseModel = ({ post, openModel, setOpenModel }) => {
                       >
                         <ShareIcon className={styles.buttonIcons} /> Share
                       </Button>
-                    </div>
+                    </div> */}
                   </div>
                 ) : (
                   <div style={{ display: 'flex' }}>
@@ -358,4 +366,4 @@ const PostPurchaseModel = ({ post, openModel, setOpenModel }) => {
   );
 };
 
-export default PostPurchaseModel;
+export default TipModal;

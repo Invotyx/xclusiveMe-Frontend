@@ -180,4 +180,12 @@ export const post = {
       fetching: false,
       success: false,
     }),
+
+  postReport: data =>
+    createAction(POST.REPORT_POST, {
+      ...data,
+      fetching: true,
+      success: false,
+      error: null,
+    }),
 };

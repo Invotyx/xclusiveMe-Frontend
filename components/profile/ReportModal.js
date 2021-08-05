@@ -1,10 +1,17 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { useEffect, useState } from 'react';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
-import TextField from '@material-ui/core/TextField';
+import CloseIcon from '@material-ui/icons/Close';
 import Button from '@material-ui/core/Button';
+import { makeStyles } from '@material-ui/core/styles';
+import { paymentMethod } from '../../actions/payment-method';
+import { paymentMethodDataSelector } from '../../selectors/paymentMethodSelector';
+import { useDispatch, useSelector } from 'react-redux';
+import { useMediaQuery } from 'react-responsive';
+import ShareIcon from '@material-ui/icons/Share';
+import styles from './profile.module.css';
+import TextField from '@material-ui/core/TextField';
 
 const useStyles = makeStyles(theme => ({
   modal: {
@@ -13,55 +20,159 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'center',
   },
   paper: {
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: 'black',
+    border: 'none',
     boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
+    width: 'auto',
+    height: 'auto',
+    borderRadius: '8px',
   },
 }));
 
-export default function ReportModal({ openReportModal, setreportModal }) {
+const ReportModal = ({ openReportModal, setreportModal, post }) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const [purchased, setPurchased] = useState(false);
+  const paymentData = useSelector(paymentMethodDataSelector);
+  const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
+
+  const handlePurchase = () => {
+    setPurchased(true);
+    setreportModal(false);
+    // dispatch(
+    //   postData?.purchasePost({
+    //     id: post.id,
+    //     callback: () => {
+    //       setPurchased(true);
+    //       dispatch(postData.request());
+    //       dispatch(postData.requestSubscribed());
+    //     },
+    //   })
+    // );
+  };
 
   const handleClose = () => {
     setreportModal(false);
+    setPurchased(false);
   };
 
+  //   useEffect(() => {
+  //     dispatch(paymentMethod.request());
+  //   }, []);
   return (
-    <div>
-      <Modal
-        aria-labelledby='transition-modal-title'
-        aria-describedby='transition-modal-description'
-        className={classes.modal}
-        open={openReportModal}
-        onClose={handleClose}
-        closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 500,
-        }}
-      >
-        <Fade in={openReportModal}>
-          <div className={classes.paper}>
-            <h2 id='transition-modal-title'>Report</h2>
-            <form style={{ display: 'block' }}>
-              <TextField
-                id='outlined-basic'
-                placeholder='Write Something...'
-                variant='outlined'
-                rows={3}
-                multiline
-              />
-            </form>
-            <Button
-              variant='outlined'
-              onClick={handleClose}
-              style={{ marginTop: '20px', width: '10vw' }}
+    <Modal
+      aria-labelledby='transition-modal-title'
+      aria-describedby='transition-modal-description'
+      className={classes.modal}
+      open={openReportModal}
+      onClose={handleClose}
+      closeAfterTransition
+      BackdropComponent={Backdrop}
+      BackdropProps={{
+        timeout: 500,
+      }}
+    >
+      <Fade in={openReportModal}>
+        <div className={classes.paper}>
+          <div>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+              }}
             >
-              Send
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  width: '90%',
+                }}
+              >
+                <img
+                  src={post?.user?.profileImage}
+                  alt='profile image'
+                  width='60px'
+                  height='65px'
+                  style={{
+                    borderRadius: '50%',
+                    marginTop: '-20px',
+                    marginLeft: isMobile ? '40%' : '44%',
+                  }}
+                />
+                <CloseIcon
+                  onClick={handleClose}
+                  style={{
+                    marginTop: '20px',
+                    width: '30px',
+                    height: '30px',
+                    cursor: 'pointer',
+                  }}
+                />
+              </div>
+            </div>
+            <div>
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+              >
+                <p style={{ fontWeight: '600', fontSize: '17px' }}>
+                  {/* Donate to {post?.user?.fullName} */}
+                  Report this Post
+                </p>
+              </div>
+            </div>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                marginBottom: '10px',
+                marginLeft: '10px',
+                marginRight: '10px',
+              }}
+            >
+              <div>
+                {/* <p
+                    style={{
+                      fontSize: '40px',
+                      fontWeight: '600',
+                    }}
+                  >
+                    ${post?.price}.00
+                  </p> */}
+
+                <TextField
+                  id='outlined-basic'
+                  variant='outlined'
+                  fullWidth
+                  multiline
+                  rows={3}
+                  placeholder='Write something...'
+                  style={{ width: isMobile ? '80vw' : '30vw' }}
+                />
+              </div>
+            </div>
+
+            <Button
+              variant='contained'
+              style={{
+                backgroundColor: '#67E697',
+                color: 'white',
+                width: isMobile ? '80vw' : '30vw',
+                margin: '20px',
+                marginTop: '10px',
+              }}
+              onClick={handlePurchase}
+            >
+              SEND NOW
             </Button>
           </div>
-        </Fade>
-      </Modal>
-    </div>
+        </div>
+      </Fade>
+    </Modal>
   );
-}
+};
+
+export default ReportModal;

@@ -35,6 +35,8 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
 import ReportModal from './ReportModal';
+import TipModal from './TipModal';
+import { TramRounded } from '@material-ui/icons';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -85,11 +87,16 @@ export default function Post({ post, profileData, altHeader }) {
   const [focused, setFocused] = useState(false);
   const searchInput = useRef(null);
   const [openReportModal, setreportModal] = useState(false);
+  const [openTip, setopenTip] = useState(false);
 
   const handleOpenModel = () => {
     console.log('in model');
     setOpenModel(true);
     console.log(openModel);
+  };
+
+  const handleOpenTopModal = () => {
+    setopenTip(true);
   };
 
   const handleReportModal = () => {
@@ -162,12 +169,14 @@ export default function Post({ post, profileData, altHeader }) {
   };
 
   const handleLike = () => {
+    console.log('post.likes = ', post.likes);
     post.likes.length > 0
       ? post.likes.map(like =>
           dispatch(
             postData.deleteLike({
               id: post.id,
               callback: () => {
+                setLiked(false);
                 dispatch(postData.request());
                 dispatch(postData.requestSubscribed());
               },
@@ -178,6 +187,7 @@ export default function Post({ post, profileData, altHeader }) {
           postData.saveLike({
             id: post.id,
             callback: () => {
+              setLiked(true);
               dispatch(postData.request());
               dispatch(postData.requestSubscribed());
             },
@@ -225,19 +235,23 @@ export default function Post({ post, profileData, altHeader }) {
     setOpen(false);
   };
 
-  const options = ['report'];
+  const options = ['Report'];
   const ITEM_HEIGHT = 48;
 
   const [anchorEl, setAnchorEl] = useState(null);
-  const openM = Boolean(anchorEl);
+  // const openM = Boolean(anchorEl);
 
   const handleOpenmenu = event => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleCloseMenu = () => {
+  const handleOpenReportModal = () => {
     setAnchorEl(null);
     setreportModal(true);
+  };
+
+  const handleCloseMenu = () => {
+    setAnchorEl(null);
   };
 
   const nFormatter = n => {
@@ -270,30 +284,20 @@ export default function Post({ post, profileData, altHeader }) {
             <div>
               <IconButton
                 aria-label='more'
-                aria-controls='long-menu'
+                aria-controls='simple-menu'
                 aria-haspopup='true'
                 onClick={handleOpenmenu}
               >
                 <MoreVertIcon />
               </IconButton>
               <Menu
-                id='long-menu'
+                id='simple-menu'
                 anchorEl={anchorEl}
                 keepMounted
-                open={openM}
+                open={Boolean(anchorEl)}
                 onClose={handleCloseMenu}
-                PaperProps={{
-                  style: {
-                    maxHeight: ITEM_HEIGHT * 4.5,
-                    width: '20ch',
-                  },
-                }}
               >
-                {options.map(option => (
-                  <MenuItem key={option} onClick={handleCloseMenu}>
-                    {option}
-                  </MenuItem>
-                ))}
+                <MenuItem onClick={handleOpenReportModal}>Report</MenuItem>
               </Menu>
             </div>
 
@@ -374,36 +378,43 @@ export default function Post({ post, profileData, altHeader }) {
         </CardContent>
       )}
       <PostMedia media={post.media} mediaCount={post.mediaCount} post={post} />
-      <CardActions disableSpacing>
-        <Box flexGrow={1}>
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              marginLeft: '4px',
-            }}
-          >
-            <div>
-              {post.likes.length === 0 ? (
-                <NormalCaseButton
-                  aria-label='add to favorites'
-                  startIcon={<img src='/emptyHeart.png' alt='unliked' />}
-                  onClick={handleLike}
+
+      <div
+        style={{
+          marginLeft: '4px',
+          padding: '5px',
+        }}
+      >
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            width: '100%',
+          }}
+        >
+          <div style={{ marginLeft: '10px' }}>
+            {post.likes.length === 0 || liked === false ? (
+              <NormalCaseButton
+                aria-label='add to favorites'
+                startIcon={<img src='/emptyHeart.png' alt='unliked' />}
+                onClick={handleLike}
+              >
+                {nFormatter(post.totalLikes)}{' '}
+                <span
+                  className={styles.hideOnMobile}
+                  style={{ marginLeft: '5px' }}
                 >
-                  {nFormatter(post.totalLikes)}{' '}
-                  <span
-                    className={styles.hideOnMobile}
-                    style={{ marginLeft: '5px' }}
-                  >
-                    Likes
-                  </span>
-                </NormalCaseButton>
-              ) : (
+                  Likes
+                </span>
+              </NormalCaseButton>
+            ) : (
+              liked === true && (
                 <NormalCaseButton
                   aria-label='add to favorites'
                   startIcon={<img src='/filled.png' alt='liked' />}
                   onClick={handleLike}
                 >
+                  {console.log('likeeddd')}
                   {nFormatter(post.totalLikes)}{' '}
                   <span
                     className={styles.hideOnMobile}
@@ -412,64 +423,68 @@ export default function Post({ post, profileData, altHeader }) {
                     Likes
                   </span>
                 </NormalCaseButton>
-              )}
+              )
+            )}
 
-              <NormalCaseButton
-                aria-label='share'
-                startIcon={<img src='/comment.png' alt='comment' />}
-                onClick={handleFocus}
+            <NormalCaseButton
+              aria-label='share'
+              startIcon={<img src='/comment.png' alt='comment' />}
+              onClick={handleFocus}
+            >
+              {nFormatter(post.totalComments)}{' '}
+              <span
+                className={styles.hideOnMobile}
+                style={{ marginLeft: '5px' }}
               >
-                {nFormatter(post.totalComments)}{' '}
-                <span
-                  className={styles.hideOnMobile}
-                  style={{ marginLeft: '5px' }}
-                >
-                  {' '}
-                  Comments
-                </span>
-              </NormalCaseButton>
-              <NormalCaseButton
-                aria-label='tip'
-                startIcon={<MonetizationOnOutlinedIcon />}
-              >
-                <span className={styles.hideOnMobile}>Tip</span>
-              </NormalCaseButton>
-            </div>
-
-            <div style={{ marginRight: '4px' }}>
-              {post.media.length === 0 ? (
-                <NormalCaseButton
-                  aria-label='Buy Post'
-                  startIcon={<LocalMallIcon />}
-                  onClick={handleOpenModel}
-                >
-                  Buy Post
-                </NormalCaseButton>
-              ) : (
-                ''
-              )}
-            </div>
-            <PostPurchaseModel
-              post={post}
-              openModel={openModel}
-              setOpenModel={setOpenModel}
-            />
-            <ReportModal
-              openReportModal={openReportModal}
-              setreportModal={setreportModal}
-            />
+                {' '}
+                Comments
+              </span>
+            </NormalCaseButton>
+            <NormalCaseButton
+              aria-label='tip'
+              startIcon={<MonetizationOnOutlinedIcon />}
+              onClick={handleOpenTopModal}
+            >
+              <span className={styles.hideOnMobile}>Tip</span>
+            </NormalCaseButton>
           </div>
-        </Box>
 
-        {false && (
-          <NormalCaseButton
-            aria-label='bookmark'
-            startIcon={<BookmarkBorderOutlinedIcon />}
-          >
-            <Box display={{ xs: 'none', sm: 'none', md: 'flex' }}>Save</Box>
-          </NormalCaseButton>
-        )}
-      </CardActions>
+          <div style={{ marginRight: '4px' }}>
+            {post.media.length === 0 ? (
+              <NormalCaseButton
+                aria-label='Buy Post'
+                startIcon={<LocalMallIcon />}
+                onClick={handleOpenModel}
+              >
+                Buy Post
+              </NormalCaseButton>
+            ) : (
+              ''
+            )}
+          </div>
+        </div>
+        <PostPurchaseModel
+          post={post}
+          openModel={openModel}
+          setOpenModel={setOpenModel}
+        />
+        <ReportModal
+          openReportModal={openReportModal}
+          setreportModal={setreportModal}
+          post={post}
+        />
+        <TipModal openTip={openTip} setopenTip={setopenTip} post={post} />
+      </div>
+
+      {false && (
+        <NormalCaseButton
+          aria-label='bookmark'
+          startIcon={<BookmarkBorderOutlinedIcon />}
+        >
+          <Box display={{ xs: 'none', sm: 'none', md: 'flex' }}>Save</Box>
+        </NormalCaseButton>
+      )}
+
       {post.comments.length >= 3 ? (
         <p
           style={{

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListSubheader from '@material-ui/core/ListSubheader';
@@ -90,6 +90,7 @@ export default function Notification({ onClose }) {
   const notifyCount = useSelector(notificationsCount);
   const dispatch = useDispatch();
   const [isToday, setIsToday] = useState(false);
+  let count;
 
   const readNotification = notifyId => {
     dispatch(
@@ -114,6 +115,17 @@ export default function Notification({ onClose }) {
       today.getDate();
     return date;
   }
+
+  useEffect(() => {
+    listofNotifications?.map(l => {
+      console.log('count = ', count);
+      l.createdAt.substring(0, 10) == todayDate()
+        ? console.log('jhfjhc')
+        : (count = -1);
+    });
+  }, [listofNotifications]);
+
+  console.log(count);
 
   return (
     <>

@@ -35,6 +35,7 @@ import styles from './profile.module.css';
 import RepliesData from './RepliesData';
 import LocalMallIcon from '@material-ui/icons/LocalMall';
 import PostPurchaseModel from './PostPurchaseModel';
+import { useMediaQuery } from 'react-responsive';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -96,6 +97,7 @@ const CommentModel = ({
   const dispatch = useDispatch();
   const replyInput = useRef([]);
   const [openModel, setOpenModel] = useState(false);
+  const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
 
   const handleOpenModel = () => {
     console.log('in model');
@@ -332,136 +334,196 @@ const CommentModel = ({
                 subheader={moment(singlePost.createdAt).fromNow()}
               />
             ) : (
-              <CardHeader
-                avatar={<ProfileImageAvatar user={profileData} />}
-                action={
-                  <IconButton aria-label='settings'>
-                    <CloseIcon onClick={handleClose} />
-                  </IconButton>
-                }
-                title={
-                  <>
-                    <Box clone mr={1}>
-                      <Typography variant='body2' component='span'>
-                        <NextLink href={`/x/${profileData?.username}`} passHref>
-                          <Link>{profileData?.fullName || '(no name)'}</Link>
-                        </NextLink>
+              !isMobile && (
+                <CardHeader
+                  avatar={<ProfileImageAvatar user={profileData} />}
+                  action={
+                    <IconButton aria-label='settings'>
+                      {!isMobile && <CloseIcon onClick={handleClose} />}
+                    </IconButton>
+                  }
+                  title={
+                    <>
+                      <Box clone mr={1}>
+                        <Typography variant='body2' component='span'>
+                          <NextLink
+                            href={`/x/${profileData?.username}`}
+                            passHref
+                          >
+                            <Link>{profileData?.fullName || '(no name)'}</Link>
+                          </NextLink>
+                        </Typography>
+                      </Box>
+                      <Typography variant='caption' color='textSecondary'>
+                        {moment(
+                          singlePost &&
+                            singlePost.createdAt &&
+                            singlePost.createdAt
+                        ).fromNow()}
                       </Typography>
-                    </Box>
+                    </>
+                  }
+                  subheader={
                     <Typography variant='caption' color='textSecondary'>
-                      {moment(
-                        singlePost &&
-                          singlePost.createdAt &&
-                          singlePost.createdAt
-                      ).fromNow()}
+                      @{profileData?.username}
                     </Typography>
-                  </>
-                }
-                subheader={
-                  <Typography variant='caption' color='textSecondary'>
-                    @{profileData?.username}
-                  </Typography>
-                }
-              />
+                  }
+                />
+              )
             )}
-            {singlePost && singlePost.postText && (
-              <CardContent>
-                <Typography
-                  variant='body2'
-                  color='textSecondary'
-                  component='p'
+            {isMobile && (
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  marginLeft: '25px',
+                  marginRight: '40vw',
+                  marginTop: '20px',
+                }}
+              >
+                <img src='/backBtn.svg' alt='back' onClick={handleClose} />
+                <p
                   style={{
-                    whiteSpace: 'normal',
-                    overflow: 'hidden',
-                    textOverflow: 'clip',
-                    color: 'white',
+                    fontWeight: '500',
+                    fontSize: '15px',
                     fontFamily: 'Poppins',
-                    fontSize: '16px',
                   }}
                 >
-                  {singlePost.postText}
-                </Typography>
-              </CardContent>
+                  Comments
+                </p>
+              </div>
             )}
-            <div
-              style={{
-                marginLeft: '10px',
-                display: 'flex',
-                justifyContent: 'space-between',
-              }}
-            >
-              <div>
-                <Box>
-                  {singlePost &&
-                  singlePost.likes &&
-                  singlePost.likes.length === 0 ? (
-                    <NormalCaseButton
-                      aria-label='add to favorites'
-                      startIcon={<img src='/emptyHeart.png' alt='unliked' />}
-                      onClick={handleLike}
-                    >
-                      {nFormatter(singlePost?.totalLikes)}{' '}
-                      <span
-                        className={styles.hideOnMobile}
-                        style={{ marginLeft: '5px' }}
-                      >
-                        Likes
-                      </span>
-                    </NormalCaseButton>
-                  ) : (
-                    <NormalCaseButton
-                      aria-label='add to favorites'
-                      startIcon={<img src='/filled.png' alt='liked' />}
-                      onClick={handleLike}
-                    >
-                      {nFormatter(singlePost?.totalLikes)}{' '}
-                      <span
-                        className={styles.hideOnMobile}
-                        style={{ marginLeft: '5px' }}
-                      >
-                        Likes
-                      </span>
-                    </NormalCaseButton>
-                  )}
+            {singlePost &&
+              singlePost.postText &&
+              (isMobile ? (
+                <div
+                  style={{
+                    display: 'flex',
+                    marginLeft: '18px',
+                    marginTop: '10px',
+                  }}
+                >
+                  <ProfileImageAvatar user={profileData} />
+                  <CardContent>
+                    <Typography
+                      variant='body2'
+                      color='textSecondary'
+                      component='p'
+                      style={{
+                        whiteSpace: 'normal',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
 
-                  <NormalCaseButton
-                    aria-label='share'
-                    startIcon={<img src='/comment.png' alt='comment' />}
-                  >
-                    {nFormatter(singlePost?.totalComments)}{' '}
-                    <span
-                      className={styles.hideOnMobile}
-                      style={{ marginLeft: '5px' }}
+                        color: 'white',
+                        fontFamily: 'Poppins',
+                        fontSize: '16px',
+                        marginTop: '-10px',
+                      }}
                     >
-                      {' '}
-                      Comments
-                    </span>
-                  </NormalCaseButton>
-                  <NormalCaseButton
-                    aria-label='tip'
-                    startIcon={<MonetizationOnOutlinedIcon />}
+                      {singlePost.postText.slice(0, 90)}
+                    </Typography>
+                  </CardContent>
+                </div>
+              ) : (
+                <CardContent>
+                  <Typography
+                    variant='body2'
+                    color='textSecondary'
+                    component='p'
+                    style={{
+                      whiteSpace: 'normal',
+                      overflow: 'hidden',
+                      textOverflow: 'clip',
+                      color: 'white',
+                      fontFamily: 'Poppins',
+                      fontSize: '16px',
+                    }}
                   >
-                    <span className={styles.hideOnMobile}>Tip</span>
-                  </NormalCaseButton>
-                </Box>
+                    {singlePost.postText.slice(0, 140)}
+                  </Typography>
+                </CardContent>
+              ))}
+            {!isMobile && (
+              <div
+                style={{
+                  marginLeft: '10px',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                }}
+              >
+                <div>
+                  <Box>
+                    {singlePost &&
+                    singlePost.likes &&
+                    singlePost.likes.length === 0 ? (
+                      <NormalCaseButton
+                        aria-label='add to favorites'
+                        startIcon={<img src='/emptyHeart.png' alt='unliked' />}
+                        onClick={handleLike}
+                      >
+                        {nFormatter(singlePost?.totalLikes)}{' '}
+                        <span
+                          className={styles.hideOnMobile}
+                          style={{ marginLeft: '5px' }}
+                        >
+                          Likes
+                        </span>
+                      </NormalCaseButton>
+                    ) : (
+                      <NormalCaseButton
+                        aria-label='add to favorites'
+                        startIcon={<img src='/filled.png' alt='liked' />}
+                        onClick={handleLike}
+                      >
+                        {nFormatter(singlePost?.totalLikes)}{' '}
+                        <span
+                          className={styles.hideOnMobile}
+                          style={{ marginLeft: '5px' }}
+                        >
+                          Likes
+                        </span>
+                      </NormalCaseButton>
+                    )}
+
+                    <NormalCaseButton
+                      aria-label='share'
+                      startIcon={<img src='/comment.png' alt='comment' />}
+                    >
+                      {nFormatter(singlePost?.totalComments)}{' '}
+                      <span
+                        className={styles.hideOnMobile}
+                        style={{ marginLeft: '5px' }}
+                      >
+                        {' '}
+                        Comments
+                      </span>
+                    </NormalCaseButton>
+                    <NormalCaseButton
+                      aria-label='tip'
+                      startIcon={<MonetizationOnOutlinedIcon />}
+                    >
+                      <span className={styles.hideOnMobile}>Tip</span>
+                    </NormalCaseButton>
+                  </Box>
+                </div>
+                <div style={{ marginRight: '6px' }}>
+                  {
+                    <NormalCaseButton
+                      aria-label='Buy Post'
+                      startIcon={<LocalMallIcon />}
+                      onClick={handleOpenModel}
+                    >
+                      Buy Post
+                    </NormalCaseButton>
+                  }
+                </div>
+                <PostPurchaseModel
+                  post={post}
+                  openModel={openModel}
+                  setOpenModel={setOpenModel}
+                />
               </div>
-              <div style={{ marginRight: '6px' }}>
-                {
-                  <NormalCaseButton
-                    aria-label='Buy Post'
-                    startIcon={<LocalMallIcon />}
-                    onClick={handleOpenModel}
-                  >
-                    Buy Post
-                  </NormalCaseButton>
-                }
-              </div>
-              <PostPurchaseModel
-                post={post}
-                openModel={openModel}
-                setOpenModel={setOpenModel}
-              />
-            </div>
+            )}
             <div>
               <img src='/border.png' alt='bar' style={{ width: '100%' }} />
 
@@ -492,7 +554,7 @@ const CommentModel = ({
               style={{
                 overflowY: 'scroll',
                 overflowX: 'hidden',
-                height: '280px',
+                height: isMobile ? '65vh' : '280px',
                 marginLeft: '15px',
               }}
             >
@@ -572,7 +634,7 @@ const CommentModel = ({
                                 fontWeight: comm.id === commentId && 'bold',
                               }}
                             >
-                              {comm.comment}
+                              {comm.comment.slice(0, 100)}
                             </p>
                           </div>
                           <div style={{ display: 'flex', marginRight: '14px' }}>

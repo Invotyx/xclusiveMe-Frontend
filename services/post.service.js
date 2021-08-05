@@ -104,3 +104,8 @@ export async function addSettingNotification(notiData) {
 export async function postPurchase(id) {
   return apiClient.post(`${SERVER_ADDRESS}/posts/purchase/${id}`);
 }
+
+export async function reportPost(reason) {
+  const data = JSON.stringify(reason);
+  return apiClient.post(`${SERVER_ADDRESS}/report/post`, data);
+}
