@@ -9,6 +9,7 @@ import Box from '@material-ui/core/Box';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import { Button } from '@material-ui/core';
 import SendIcon from '@material-ui/icons/Send';
+import { useMediaQuery } from 'react-responsive';
 
 const RepliesData = ({
   post,
@@ -24,7 +25,7 @@ const RepliesData = ({
   const [showMyReply, setShowMyReply] = useState(false);
   const dispatch = useDispatch();
   const replyData = useSelector(repliesDataSelector);
-
+  const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
   const [replyText, setReplyText] = useState('');
 
   const handleReplyList = commId => {
@@ -192,7 +193,7 @@ const RepliesData = ({
                       src='/horizentolLine.svg'
                       alt='reply line'
                       style={{
-                        height: '13vh',
+                        height: '14vh',
                         marginBottom: '-1vh',
                         marginLeft: '-4vw',
                       }}
@@ -234,13 +235,76 @@ const RepliesData = ({
                             overflowWrap: 'break-word',
                             // overflow: 'hidden',
                             // textOverflow: 'ellipsis',
-                            width: '180px',
+                            width: isMobile ? '100px' : '260px',
                             marginTop: '-10px',
                             fontSize: '14px',
                           }}
                         >
-                          {reply.comment}
+                          {reply.comment.slice(0, 40)}
                         </p>
+                        <div style={{}}>
+                          <p
+                            style={{
+                              marginBottom: '0px',
+                              cursor: 'pointer',
+                              fontSize: '13px',
+                              display: 'flex',
+                            }}
+                          >
+                            <div
+                              style={{
+                                marginTop: '-10px',
+                              }}
+                            >
+                              {reply.totalLikes === 0 ? (
+                                <div
+                                  style={{
+                                    display: 'flex',
+                                  }}
+                                >
+                                  <p
+                                    style={{
+                                      marginTop: '0px',
+                                      marginRight: '5px',
+                                    }}
+                                  >
+                                    0
+                                  </p>
+                                  <FavoriteIcon
+                                    style={{
+                                      color: 'red',
+                                      fontSize: '15px',
+                                    }}
+                                  />
+                                </div>
+                              ) : (
+                                <div
+                                  style={{
+                                    display: 'flex',
+                                    marginLeft: '-3.3vw',
+                                    marginTop: '-5px',
+                                  }}
+                                >
+                                  <p
+                                    style={{
+                                      marginTop: '0px',
+                                      marginRight: '5px',
+                                      fontSize: '12px',
+                                    }}
+                                  >
+                                    {reply.totalLikes}{' '}
+                                  </p>
+                                  <FavoriteIcon
+                                    style={{
+                                      color: 'red',
+                                      fontSize: '15px',
+                                    }}
+                                  />
+                                </div>
+                              )}
+                            </div>
+                          </p>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -311,78 +375,6 @@ const RepliesData = ({
                     )}
                   </div>
                 </div>
-                <div
-                  style={{
-                    marginLeft: '40px',
-                    marginTop: '-10px',
-                  }}
-                >
-                  <p
-                    style={{
-                      marginLeft: '50px',
-                      marginTop: '-10px',
-                      marginBottom: '0px',
-                      cursor: 'pointer',
-                      fontSize: '13px',
-                      display: 'flex',
-                    }}
-                  >
-                    <div
-                      style={{
-                        marginTop: '-10px',
-                      }}
-                    >
-                      {reply.totalLikes === 0 ? (
-                        <div
-                          style={{
-                            display: 'flex',
-                            marginTop: '-5px',
-                            marginLeft: '-2.5vw',
-                          }}
-                        >
-                          <p
-                            style={{
-                              marginTop: '0px',
-                              marginRight: '5px',
-                            }}
-                          >
-                            0
-                          </p>
-                          <FavoriteIcon
-                            style={{
-                              color: 'red',
-                              fontSize: '15px',
-                            }}
-                          />
-                        </div>
-                      ) : (
-                        <div
-                          style={{
-                            display: 'flex',
-                            marginLeft: '-2.5vw',
-                            marginTop: '-5px',
-                          }}
-                        >
-                          <p
-                            style={{
-                              marginTop: '0px',
-                              marginRight: '5px',
-                              fontSize: '12px',
-                            }}
-                          >
-                            {reply.totalLikes}{' '}
-                          </p>
-                          <FavoriteIcon
-                            style={{
-                              color: 'red',
-                              fontSize: '15px',
-                            }}
-                          />
-                        </div>
-                      )}
-                    </div>
-                  </p>
-                </div>
               </div>
             )
         )}
@@ -433,7 +425,10 @@ const RepliesData = ({
         ''
       )}
       {showMyReply === true ? (
-        <div onClick={() => hideReply(comm.id)}>
+        <div
+          onClick={() => hideReply(comm.id)}
+          style={{ marginLeft: isMobile ? '5px' : '-16px' }}
+        >
           <img
             src='/lineReply.svg'
             alt='view reply line'
