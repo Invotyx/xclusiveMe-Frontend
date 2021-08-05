@@ -8,7 +8,7 @@ export default function FormDialog({ children }) {
   const dispatch = useDispatch();
   const inputFile = React.useRef(null);
 
-  const onChangeFile = (event) => {
+  const onChangeFile = event => {
     event.stopPropagation();
     event.preventDefault();
     var image = event.target.files[0];
@@ -32,7 +32,7 @@ export default function FormDialog({ children }) {
         aria-label='settings'
         onClick={() => inputFile.current.click()}
       >
-        <CameraAltIcon />
+        <CameraAltIcon style={{ color: '#606366' }} />
       </IconButton>
     </>
   );

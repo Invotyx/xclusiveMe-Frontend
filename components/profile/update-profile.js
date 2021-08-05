@@ -85,7 +85,7 @@ export default function FormDialog() {
   return (
     <>
       <IconButton aria-label='create' onClick={handleClickOpen}>
-        <CreateIcon />
+        <CreateIcon style={{ color: '#606366' }} />
       </IconButton>
       <Dialog
         open={open}

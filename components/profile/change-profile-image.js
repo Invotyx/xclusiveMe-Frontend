@@ -27,6 +27,7 @@ export default function FormDialog({ children }) {
         style={{ display: 'none' }}
         onChange={onChangeFile}
       />
+
       <DepressedButton
         onClick={() => {
           inputFile.current.click();
