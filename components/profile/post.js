@@ -68,7 +68,13 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
   },
 }));
-export default function Post({ post, profileData, altHeader }) {
+export default function Post({
+  post,
+  profileData,
+  altHeader,
+  me,
+  subscriptionPlans,
+}) {
   const classes = useStyles();
   const [commentText, setCommentText] = useState('');
   const [replyText, setReplyText] = useState('');
@@ -290,15 +296,17 @@ export default function Post({ post, profileData, altHeader }) {
               >
                 <MoreVertIcon />
               </IconButton>
-              <Menu
-                id='simple-menu'
-                anchorEl={anchorEl}
-                keepMounted
-                open={Boolean(anchorEl)}
-                onClose={handleCloseMenu}
-              >
-                <MenuItem onClick={handleOpenReportModal}>Report</MenuItem>
-              </Menu>
+              {!subscriptionPlans && !me && (
+                <Menu
+                  id='simple-menu'
+                  anchorEl={anchorEl}
+                  keepMounted
+                  open={Boolean(anchorEl)}
+                  onClose={handleCloseMenu}
+                >
+                  <MenuItem onClick={handleOpenReportModal}>Report</MenuItem>
+                </Menu>
+              )}
             </div>
 
             // <PopupState variant='popover' popupId='demo-popup-menu'>
@@ -393,7 +401,7 @@ export default function Post({ post, profileData, altHeader }) {
           }}
         >
           <div style={{ marginLeft: '10px' }}>
-            {post.likes.length === 0 || liked === false ? (
+            {post.likes.length === 0 ? (
               <NormalCaseButton
                 aria-label='add to favorites'
                 startIcon={<img src='/emptyHeart.png' alt='unliked' />}
@@ -408,22 +416,20 @@ export default function Post({ post, profileData, altHeader }) {
                 </span>
               </NormalCaseButton>
             ) : (
-              liked === true && (
-                <NormalCaseButton
-                  aria-label='add to favorites'
-                  startIcon={<img src='/filled.png' alt='liked' />}
-                  onClick={handleLike}
+              <NormalCaseButton
+                aria-label='add to favorites'
+                startIcon={<img src='/filled.png' alt='liked' />}
+                onClick={handleLike}
+              >
+                {console.log('likeeddd')}
+                {nFormatter(post.totalLikes)}{' '}
+                <span
+                  className={styles.hideOnMobile}
+                  style={{ marginLeft: '5px' }}
                 >
-                  {console.log('likeeddd')}
-                  {nFormatter(post.totalLikes)}{' '}
-                  <span
-                    className={styles.hideOnMobile}
-                    style={{ marginLeft: '5px' }}
-                  >
-                    Likes
-                  </span>
-                </NormalCaseButton>
-              )
+                  Likes
+                </span>
+              </NormalCaseButton>
             )}
 
             <NormalCaseButton
@@ -440,28 +446,32 @@ export default function Post({ post, profileData, altHeader }) {
                 Comments
               </span>
             </NormalCaseButton>
-            <NormalCaseButton
-              aria-label='tip'
-              startIcon={<MonetizationOnOutlinedIcon />}
-              onClick={handleOpenTopModal}
-            >
-              <span className={styles.hideOnMobile}>Tip</span>
-            </NormalCaseButton>
-          </div>
-
-          <div style={{ marginRight: '4px' }}>
-            {post.media.length === 0 ? (
+            {!me && (
               <NormalCaseButton
-                aria-label='Buy Post'
-                startIcon={<LocalMallIcon />}
-                onClick={handleOpenModel}
+                aria-label='tip'
+                startIcon={<MonetizationOnOutlinedIcon />}
+                onClick={handleOpenTopModal}
               >
-                Buy Post
+                <span className={styles.hideOnMobile}>Tip</span>
               </NormalCaseButton>
-            ) : (
-              ''
             )}
           </div>
+
+          {!me && (
+            <div style={{ marginRight: '4px' }}>
+              {post.media.length === 0 ? (
+                <NormalCaseButton
+                  aria-label='Buy Post'
+                  startIcon={<LocalMallIcon />}
+                  onClick={handleOpenModel}
+                >
+                  Buy Post
+                </NormalCaseButton>
+              ) : (
+                ''
+              )}
+            </div>
+          )}
         </div>
         <PostPurchaseModel
           post={post}
