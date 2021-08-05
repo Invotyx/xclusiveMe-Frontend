@@ -5,6 +5,7 @@ import { subscription } from '../actions/subscription';
 import {
   // getUserSubscriptions,
   addSubscription,
+  unSubscribed,
   updateSubscription,
 } from '../services/subscription.service';
 
@@ -50,7 +51,7 @@ function* handleAddSubscription(action) {
 function* handleRemoveSubscription(action) {
   try {
     const { id } = action.payload;
-    // yield call(updateSubscription, id);
+    yield call(unSubscribed, id);
     yield put(subscription.success({}));
     yield put(
       snackbar.update({

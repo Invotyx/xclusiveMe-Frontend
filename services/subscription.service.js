@@ -11,6 +11,10 @@ export async function addSubscription(id) {
   return apiClient.post(`${SERVER_ADDRESS}/users/subscriptions/purchase/${id}`);
 }
 
+export async function unSubscribed(id) {
+  return apiClient.patch(`${SERVER_ADDRESS}/users/${id}/unsubscribe`);
+}
+
 // export async function updateSubscription(id) {
 //   return apiClient.delete(`${SERVER_ADDRESS}/subscriptions/${id}`);
 // }

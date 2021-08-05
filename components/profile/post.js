@@ -31,6 +31,10 @@ import { Button } from '@material-ui/core';
 import LocalMallIcon from '@material-ui/icons/LocalMall';
 import { Hidden } from '@material-ui/core';
 import PostPurchaseModel from './PostPurchaseModel';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
+import ReportModal from './ReportModal';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -80,11 +84,16 @@ export default function Post({ post, profileData, altHeader }) {
   const [openModel, setOpenModel] = useState(false);
   const [focused, setFocused] = useState(false);
   const searchInput = useRef(null);
+  const [openReportModal, setreportModal] = useState(false);
 
   const handleOpenModel = () => {
     console.log('in model');
     setOpenModel(true);
     console.log(openModel);
+  };
+
+  const handleReportModal = () => {
+    setreportModal(true);
   };
 
   function handleFocus() {
@@ -216,6 +225,21 @@ export default function Post({ post, profileData, altHeader }) {
     setOpen(false);
   };
 
+  const options = ['report'];
+  const ITEM_HEIGHT = 48;
+
+  const [anchorEl, setAnchorEl] = useState(null);
+  const openM = Boolean(anchorEl);
+
+  const handleOpenmenu = event => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleCloseMenu = () => {
+    setAnchorEl(null);
+    setreportModal(true);
+  };
+
   const nFormatter = n => {
     if (n < 1e3) return n;
     if (n >= 1e3 && n < 1e6) return +(n / 1e3).toFixed(1) + 'K';
@@ -239,9 +263,67 @@ export default function Post({ post, profileData, altHeader }) {
         <CardHeader
           avatar={<ProfileImageAvatar user={profileData} />}
           action={
-            <IconButton aria-label='settings'>
-              <MoreVertIcon />
-            </IconButton>
+            // <IconButton aria-label='settings'>
+            //   <MoreVertIcon />
+            // </IconButton>
+
+            <div>
+              <IconButton
+                aria-label='more'
+                aria-controls='long-menu'
+                aria-haspopup='true'
+                onClick={handleOpenmenu}
+              >
+                <MoreVertIcon />
+              </IconButton>
+              <Menu
+                id='long-menu'
+                anchorEl={anchorEl}
+                keepMounted
+                open={openM}
+                onClose={handleCloseMenu}
+                PaperProps={{
+                  style: {
+                    maxHeight: ITEM_HEIGHT * 4.5,
+                    width: '20ch',
+                  },
+                }}
+              >
+                {options.map(option => (
+                  <MenuItem key={option} onClick={handleCloseMenu}>
+                    {option}
+                  </MenuItem>
+                ))}
+              </Menu>
+            </div>
+
+            // <PopupState variant='popover' popupId='demo-popup-menu'>
+            //   {popupState => (
+            //     <>
+            //       {/* <Button
+            //         variant='contained'
+            //         color='primary'
+            //         {...bindTrigger(popupState)}
+            //       >
+            //         Open Menu
+            //       </Button> */}
+            //       <IconButton
+            //         aria-label='settings'
+            //         {...bindTrigger(popupState)}
+            //       >
+            //         <MoreVertIcon />
+            //       </IconButton>
+            //       <Menu {...bindMenu(popupState)}>
+            //         <MenuItem onClick={handleReportModal}>Report</MenuItem>
+            // <ReportModal
+            //   reportModal={reportModal}
+            //   setreportModal={setreportModal}
+            // />
+            //         {/* <MenuItem onClick={popupState.close}>Death</MenuItem> */}
+            //       </Menu>
+            //     </>
+            //   )}
+            // </PopupState>
           }
           title={
             <>
@@ -371,6 +453,10 @@ export default function Post({ post, profileData, altHeader }) {
               post={post}
               openModel={openModel}
               setOpenModel={setOpenModel}
+            />
+            <ReportModal
+              openReportModal={openReportModal}
+              setreportModal={setreportModal}
             />
           </div>
         </Box>
