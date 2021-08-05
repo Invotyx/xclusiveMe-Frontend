@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
 import ShareIcon from '@material-ui/icons/Share';
 import styles from './profile.module.css';
+import { post as postData } from '../../actions/post';
 
 const useStyles = makeStyles(theme => ({
   modal: {
@@ -36,6 +37,7 @@ const PostPurchaseModel = ({ post, openModel, setOpenModel }) => {
   const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
 
   const handlePurchase = () => {
+    // setPurchased(true);
     dispatch(
       postData?.purchasePost({
         id: post.id,
@@ -216,7 +218,7 @@ const PostPurchaseModel = ({ post, openModel, setOpenModel }) => {
                   style={{
                     display: 'flex',
                     justifyContent: 'space-evenly',
-                    marginLeft: isMobile ? '15vw' : '10vw',
+                    marginLeft: isMobile ? '15vw' : '8vw',
                   }}
                 >
                   <div>
@@ -281,7 +283,7 @@ const PostPurchaseModel = ({ post, openModel, setOpenModel }) => {
                 >
                   <p
                     style={{
-                      marginTop: isMobile ? '-3vh' : '-5vh',
+                      marginTop: isMobile ? '-3vh' : '-4vh',
                       color: '#444444',
                     }}
                   >
@@ -324,15 +326,18 @@ const PostPurchaseModel = ({ post, openModel, setOpenModel }) => {
                       variant='outlined'
                       onClick={handleClose}
                       style={{
-                        margin: '20px',
-                        width: '20vw',
+                        margin: 'auto',
+                        width: '30vw',
+                        marginBottom: '20px',
+                        marginLeft: '10px',
+                        marginRight: '10px',
                         padding: '10px',
                       }}
                     >
                       <CloseIcon className={styles.buttonIcons} /> Close
                     </Button>
 
-                    <Button
+                    {/* <Button
                       variant='outlined'
                       onClick={handleClose}
                       style={{
@@ -341,7 +346,7 @@ const PostPurchaseModel = ({ post, openModel, setOpenModel }) => {
                       }}
                     >
                       <ShareIcon className={styles.buttonIcons} /> Share
-                    </Button>
+                    </Button> */}
                   </div>
                 )}
               </div>
