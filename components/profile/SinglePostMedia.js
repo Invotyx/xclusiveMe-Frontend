@@ -4,14 +4,8 @@ import LockIcon from '@material-ui/icons/Lock';
 import { makeStyles } from '@material-ui/core/styles';
 import CardMedia from '@material-ui/core/CardMedia';
 import PostMediaVideo from './post-media-video';
-import {
-  CarouselProvider,
-  Slider,
-  Slide,
-  ButtonBack,
-  ButtonNext,
-} from 'pure-react-carousel';
-import 'pure-react-carousel/dist/react-carousel.es.css';
+import Carousel from 'react-material-ui-carousel';
+import { Paper, Button } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   media: {
@@ -80,18 +74,16 @@ const SinglePostMedia = ({ media, mediaCount, singlePost }) => {
 
       {media && media.length > 0 && (
         <>
-          <Grid item xs={12}>
+          {/* <Grid item xs={12}>
             <MediaElement m={media[0]} />
-          </Grid>
-          <CarouselProvider>
-            {media.slice(1).map((m, i) => (
-              <Slider>
-                <Grid item xs={12} md={4} key={`media${i}`}>
-                  <MediaElement m={m} />
-                </Grid>
-              </Slider>
+          </Grid> */}
+          <Carousel autoPlay={false} animation={'slide'}>
+            {media.map((m, i) => (
+              <div index={i} key={`media${i}`}>
+                <MediaElement m={m} />
+              </div>
             ))}
-          </CarouselProvider>
+          </Carousel>
         </>
       )}
     </div>
