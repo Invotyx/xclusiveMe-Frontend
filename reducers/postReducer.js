@@ -36,6 +36,7 @@ export default function postReducer(state = initialState, action) {
     case POST.VIEW_NOTIFICATION:
     case POST.GET_SETTING_NOTIFICATIONS:
     case POST.ADD_SETTING_NOTIFICATIONS:
+    case POST.REPORT_POST:
       return state.merge(action.payload);
     default:
       return state;
