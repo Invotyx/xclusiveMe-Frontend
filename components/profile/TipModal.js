@@ -12,6 +12,7 @@ import { useMediaQuery } from 'react-responsive';
 import ShareIcon from '@material-ui/icons/Share';
 import styles from './profile.module.css';
 import TextField from '@material-ui/core/TextField';
+import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 
 const useStyles = makeStyles(theme => ({
   modal: {
@@ -138,13 +139,21 @@ const TipModal = ({ openTip, setopenTip, post }) => {
                   >
                     ${post?.price}.00
                   </p> */}
-                  <form>
-                    <TextField
-                      id='outlined-basic'
-                      variant='outlined'
-                      placeholder='Enter amount'
+
+                  <div style={{ display: 'flex' }}>
+                    <AttachMoneyIcon
+                      style={{ fontSize: '60px', marginLeft: '-30px' }}
                     />
-                  </form>
+
+                    <form>
+                      <TextField
+                        id='outlined-basic'
+                        variant='outlined'
+                        placeholder='Enter amount'
+                      />
+                    </form>
+                  </div>
+
                   <p
                     style={{
                       color: '#444444',
@@ -160,7 +169,6 @@ const TipModal = ({ openTip, setopenTip, post }) => {
               <div
                 style={{
                   display: 'flex',
-
                   justifyContent: 'center',
                 }}
               >
