@@ -37,6 +37,11 @@ const repliesDataSelector = createSelector(postState, state => {
   return data;
 });
 
+const getCommentsDataSelector = createSelector(postState, state => {
+  const data = state.get('Commdata');
+  return data;
+});
+
 const singlepostDataSelector = createSelector(postState, state => {
   const data = state.get('singleData');
   return data;
@@ -74,6 +79,7 @@ export {
   subscribedSelector,
   xfeedSelector,
   xfeed_numberOfPostsSelector,
+  getCommentsDataSelector,
   fetchingSelector,
   errorSelector,
   repliesDataSelector,

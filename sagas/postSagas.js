@@ -26,6 +26,7 @@ import {
   getSettingNotifications,
   postPurchase,
   reportPost,
+  getCommentsData,
 } from '../services/post.service';
 import { bottomalert } from '../actions/bottom-alert';
 
@@ -219,14 +220,31 @@ function* handlePost(action) {
 
 function* handleGetComment(action) {
   try {
-    const { id, page, limit } = yield call(getComment, id, page, limit);
-    yield put(post.success({}));
-    yield call(post.getComment);
+    const { id, page, limit } = action.payload;
+    console.log(id, page, limit);
+    const { data } = yield call(getCommentsData, id, page, limit);
+    yield put(post.success({ Commdata: data }));
   } catch (e) {
     console.log(e);
     yield put(post.success({ error: true }));
   }
 }
+
+// function* handleGetX(action) {
+//   try {
+//     const { username } = action.payload;
+//     const { data } = yield call(getX, username);
+//     yield put(
+//       post.success({
+//         xfeed: data.results,
+//         xfeed_numberOfPosts: data.totalCount,
+//       })
+//     );
+//   } catch (e) {
+//     console.log(e);
+//     yield put(post.success({ error: true }));
+//   }
+// }
 
 function* handleComment(action) {
   try {

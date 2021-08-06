@@ -15,13 +15,15 @@ import Post from '../components/profile/post';
 import { makeStyles } from '@material-ui/core/styles';
 import Layout from '../components/layouts/layout-auth';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { post } from '../actions/post';
 import { subscribedSelector } from '../selectors/postSelector';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import NothingHere from '../components/profile/nothing-here';
 import { useMediaQuery } from 'react-responsive';
+import LinearProgress from '@material-ui/core/LinearProgress';
+import { fetchingSelector } from '../selectors/postSelector';
 
 const suggestions = [
   {
@@ -43,6 +45,8 @@ export default function Home() {
   const posts = useSelector(subscribedSelector);
   const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
 
+  const fetching = useSelector(fetchingSelector);
+
   useEffect(() => {
     dispatch(post.requestSubscribed());
     dispatch(post.requestNotifications());
@@ -50,6 +54,7 @@ export default function Home() {
 
   return (
     <motion.div initial='hidden' animate='visible' variants={variants}>
+      {fetching === true && <LinearProgress />}
       <Layout>
         <Head>
           <title>xclusiveme</title>

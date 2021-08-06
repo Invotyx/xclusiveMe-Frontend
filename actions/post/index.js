@@ -85,13 +85,14 @@ export const post = {
       error: null,
     }),
 
-  getComment: data =>
+  getCommentsVal: data =>
     createAction(POST.GET_COMMENTS, {
       ...data,
       fetching: true,
       success: false,
       error: null,
     }),
+
   saveComment: data =>
     createAction(POST.ADD_COMMENT, {
       ...data,
