@@ -35,10 +35,10 @@ export async function addComment(id, commentData) {
   return apiClient.post(`${SERVER_ADDRESS}/posts/${id}/comments`, data);
 }
 
-export async function getComment(id, pageNum, limit) {
+export async function getCommentsData(id, pageNum, limit) {
+  console.log(id, pageNum, limit);
   return apiClient.get(
-    `${SERVER_ADDRESS}/posts/${id}/comments?page=${pageNum}&limit=${limit}`,
-    data
+    `${SERVER_ADDRESS}/posts/${id}/comments?page=${pageNum}&limit=${limit}`
   );
 }
 
