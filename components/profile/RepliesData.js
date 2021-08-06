@@ -378,6 +378,31 @@ const RepliesData = ({
               </div>
             )
         )}
+      {showMyReply === true ? (
+        <div
+          onClick={() => hideReply(comm.id)}
+          style={{ marginLeft: isMobile ? '5px' : '-16px' }}
+        >
+          <img
+            src='/lineReply.svg'
+            alt='view reply line'
+            style={{
+              marginBottom: '4px',
+            }}
+          />
+          <span
+            style={{
+              fontSize: '12px',
+              fontFamily: 'Poppins',
+              marginLeft: '10px',
+            }}
+          >
+            HIDE REPLIES
+          </span>
+        </div>
+      ) : (
+        ''
+      )}
 
       {(isReplyField.check === true && isReplyField.id === comm.id) ||
       (issubReplyField.check === true && issubReplyField.id === comm.id) ? (
@@ -424,31 +449,6 @@ const RepliesData = ({
             />
           </Box>
         </form>
-      ) : (
-        ''
-      )}
-      {showMyReply === true ? (
-        <div
-          onClick={() => hideReply(comm.id)}
-          style={{ marginLeft: isMobile ? '5px' : '-16px' }}
-        >
-          <img
-            src='/lineReply.svg'
-            alt='view reply line'
-            style={{
-              marginBottom: '4px',
-            }}
-          />
-          <span
-            style={{
-              fontSize: '12px',
-              fontFamily: 'Poppins',
-              marginLeft: '10px',
-            }}
-          >
-            HIDE REPLIES
-          </span>
-        </div>
       ) : (
         ''
       )}
