@@ -90,7 +90,8 @@ export default function Notification({ onClose }) {
   const notifyCount = useSelector(notificationsCount);
   const dispatch = useDispatch();
   const [isToday, setIsToday] = useState(false);
-  let count;
+  const [count, setCount] = useState(0);
+  const [oldCount, setOldCount] = useState(0);
 
   const readNotification = notifyId => {
     dispatch(
@@ -120,12 +121,12 @@ export default function Notification({ onClose }) {
     listofNotifications?.map(l => {
       console.log('count = ', count);
       l.createdAt.substring(0, 10) == todayDate()
-        ? console.log('jhfjhc')
-        : (count = -1);
+        ? setCount(count + 1)
+        : setOldCount(oldCount + 1);
     });
   }, [listofNotifications]);
 
-  console.log(count);
+  console.log('count', count, 'oldCount', oldCount);
 
   return (
     <>
@@ -136,16 +137,18 @@ export default function Notification({ onClose }) {
         </p>
       ) : (
         <div>
-          <p
-            style={{
-              marginLeft: '20px',
-              fontWeight: '500',
-              fontSize: '14px',
-              fontStyle: 'normal',
-            }}
-          >
-            Today
-          </p>
+          {count > 0 && (
+            <p
+              style={{
+                marginLeft: '20px',
+                fontWeight: '500',
+                fontSize: '14px',
+                fontStyle: 'normal',
+              }}
+            >
+              Today
+            </p>
+          )}
           <div>
             {listofNotifications?.map((i, x) => (
               <div>
@@ -210,16 +213,18 @@ export default function Notification({ onClose }) {
               </div>
             ))}
           </div>
-          <p
-            style={{
-              marginLeft: '20px',
-              fontWeight: '500',
-              fontSize: '14px',
-              fontStyle: 'normal',
-            }}
-          >
-            Older
-          </p>
+          {oldCount > 0 && (
+            <p
+              style={{
+                marginLeft: '20px',
+                fontWeight: '500',
+                fontSize: '14px',
+                fontStyle: 'normal',
+              }}
+            >
+              Older
+            </p>
+          )}
           <div>
             {listofNotifications?.map((i, x) => (
               <div>

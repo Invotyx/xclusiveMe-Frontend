@@ -44,6 +44,7 @@ export default function FormDialog({
         ref={inputFile}
         style={{ display: 'none' }}
         onChange={onChangeFile}
+        multiple
       />
 
       <Box clone color='#666'>

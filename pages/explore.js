@@ -21,6 +21,7 @@ import { subscribedSelector } from '../selectors/postSelector';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import NothingHere from '../components/profile/nothing-here';
+import { useMediaQuery } from 'react-responsive';
 
 const suggestions = [
   {
@@ -40,6 +41,7 @@ export default function Home() {
   const classes = useStyles();
   const dispatch = useDispatch();
   const posts = useSelector(subscribedSelector);
+  const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
 
   useEffect(() => {
     dispatch(post.requestSubscribed());
@@ -66,40 +68,42 @@ export default function Home() {
               )}
             </Grid>
 
-            <Grid item xs={12} md={3}>
-              <Typography>Suggestions For You</Typography>
-              <List>
-                {suggestions.map((s, i) => (
-                  <ListItem key={`suggestions${i}`}>
-                    <ListItemAvatar>
-                      <Avatar src={s.profileImage} />
-                    </ListItemAvatar>
-                    <ListItemText
-                      primary={
-                        <Typography variant='body2'>{s.fullName}</Typography>
-                      }
-                      secondary={
-                        <Typography variant='caption' color='textSecondary'>
-                          Suggested for you
-                        </Typography>
-                      }
-                    />
+            {!isMobile && (
+              <Grid item xs={12} md={3}>
+                <Typography>Suggestions For You</Typography>
+                <List>
+                  {suggestions.map((s, i) => (
+                    <ListItem key={`suggestions${i}`}>
+                      <ListItemAvatar>
+                        <Avatar src={s.profileImage} />
+                      </ListItemAvatar>
+                      <ListItemText
+                        primary={
+                          <Typography variant='body2'>{s.fullName}</Typography>
+                        }
+                        secondary={
+                          <Typography variant='caption' color='textSecondary'>
+                            Suggested for you
+                          </Typography>
+                        }
+                      />
 
-                    <ListItemSecondaryAction>
-                      <NextLink href={`/x/${s.username}`} passHref>
-                        <Link>
-                          <div style={{ marginRight: '-10vw' }}>
-                            <Typography variant='caption'>
-                              See Profile
-                            </Typography>
-                          </div>
-                        </Link>
-                      </NextLink>
-                    </ListItemSecondaryAction>
-                  </ListItem>
-                ))}
-              </List>
-            </Grid>
+                      <ListItemSecondaryAction>
+                        <NextLink href={`/x/${s.username}`} passHref>
+                          <Link>
+                            <div style={{ marginRight: '-10vw' }}>
+                              <Typography variant='caption'>
+                                See Profile
+                              </Typography>
+                            </div>
+                          </Link>
+                        </NextLink>
+                      </ListItemSecondaryAction>
+                    </ListItem>
+                  ))}
+                </List>
+              </Grid>
+            )}
           </Grid>
         </Container>
       </Layout>

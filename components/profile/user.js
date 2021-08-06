@@ -206,13 +206,21 @@ export default function Profile({
                   <CardHeader
                     className={classes.header2}
                     avatar={
-                      <ProfileImage>
+                      me && me ? (
+                        <ProfileImage>
+                          <ProfileImageAvatar
+                            className={classes.userAvatar}
+                            src={profileData?.profileImage}
+                            alt={profileData?.fullName}
+                          />
+                        </ProfileImage>
+                      ) : (
                         <ProfileImageAvatar
                           className={classes.userAvatar}
                           src={profileData?.profileImage}
                           alt={profileData?.fullName}
                         />
-                      </ProfileImage>
+                      )
                     }
                     action={
                       <Box
@@ -287,16 +295,18 @@ export default function Profile({
                         <Typography variant='body2' className='textSecondary'>
                           @{profileData?.username}
                         </Typography>
-                        <Link
-                          passHref
-                          href='/chat'
-                          passQueryString={{
-                            user: `${profileData?.fullName}`,
-                            image: `${profileData?.profileImage}`,
-                          }}
-                        >
-                          <ChatIcon style={{ marginLeft: '15px' }} />
-                        </Link>
+                        {!me && (
+                          <Link
+                            passHref
+                            href='/chat'
+                            passQueryString={{
+                              user: `${profileData?.fullName}`,
+                              image: `${profileData?.profileImage}`,
+                            }}
+                          >
+                            <ChatIcon style={{ marginLeft: '15px' }} />
+                          </Link>
+                        )}
                       </Box>
                     }
                   />
@@ -314,7 +324,7 @@ export default function Profile({
                 </Card>
               </Grid>
               <Grid item xs={12}>
-                {subscriptionPlans ? (
+                {subscriptionPlans && !me ? (
                   <Box
                     bgcolor='#111'
                     display='flex'
@@ -329,9 +339,9 @@ export default function Profile({
                       </Typography>
                     </Box>
 
-                    {subscriptionPlans.price > 0 ? (
+                    {subscriptionPlans?.price > 0 ? (
                       <SubscribeUser
-                        price={subscriptionPlans.price}
+                        price={subscriptionPlans?.price}
                         handleFollow={handleFollow}
                       />
                     ) : (
@@ -346,28 +356,30 @@ export default function Profile({
                     )}
                   </Box>
                 ) : (
-                  <Box
-                    bgcolor='#111'
-                    display='flex'
-                    p={2}
-                    alignItems='center'
-                    my={2}
-                    border='1px solid #222'
-                  >
-                    <Box flexGrow={1}>
-                      <Typography>
-                        Unfollow to stop getting posts in your News Feed.
-                      </Typography>
-                    </Box>
-
-                    <NormalCaseButton
-                      size='small'
-                      variant='outlined'
-                      onClick={e => handleUnFollow(e)}
+                  !me && (
+                    <Box
+                      bgcolor='#111'
+                      display='flex'
+                      p={2}
+                      alignItems='center'
+                      my={2}
+                      border='1px solid #222'
                     >
-                      <span>Unfollow</span>
-                    </NormalCaseButton>
-                  </Box>
+                      <Box flexGrow={1}>
+                        <Typography>
+                          Unfollow to stop getting posts in your News Feed.
+                        </Typography>
+                      </Box>
+
+                      <NormalCaseButton
+                        size='small'
+                        variant='outlined'
+                        onClick={e => handleUnFollow(e)}
+                      >
+                        <span>Unfollow</span>
+                      </NormalCaseButton>
+                    </Box>
+                  )
                 )}
               </Grid>
               <Grid item xs={12}>
@@ -416,6 +428,8 @@ export default function Profile({
                                     post={f}
                                     profileData={profileData}
                                     altHeader={false}
+                                    me={me}
+                                    subscriptionPlans={subscriptionPlans}
                                   />
                                 </Grid>
                               ))}

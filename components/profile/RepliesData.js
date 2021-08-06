@@ -385,7 +385,10 @@ const RepliesData = ({
           {/* <img src='/border.png' alt='border' /> */}
           <Box mb={2} ml={5}>
             <OutlinedInput
-              style={{ width: '29vw', marginLeft: '-4vw' }}
+              style={{
+                width: isMobile ? '80vw' : '29vw',
+                marginLeft: isMobile ? '-10vw' : '-4vw',
+              }}
               value={replyText}
               onChange={e => setReplyText(e.target.value)}
               name='replyText'
