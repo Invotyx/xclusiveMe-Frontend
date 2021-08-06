@@ -12,6 +12,7 @@ import { useMediaQuery } from 'react-responsive';
 import ShareIcon from '@material-ui/icons/Share';
 import styles from './profile.module.css';
 import TextField from '@material-ui/core/TextField';
+import { post as postData } from '../../actions/post';
 
 const useStyles = makeStyles(theme => ({
   modal: {
@@ -35,20 +36,27 @@ const ReportModal = ({ openReportModal, setreportModal, post }) => {
   const [purchased, setPurchased] = useState(false);
   const paymentData = useSelector(paymentMethodDataSelector);
   const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
+  const [postText, set_postText] = useState('');
 
   const handlePurchase = () => {
-    setPurchased(true);
-    setreportModal(false);
-    // dispatch(
-    //   postData?.purchasePost({
-    //     id: post.id,
-    //     callback: () => {
-    //       setPurchased(true);
-    //       dispatch(postData.request());
-    //       dispatch(postData.requestSubscribed());
-    //     },
-    //   })
-    // );
+    // setPurchased(true);
+    if (!postText || postText.trim() === '') {
+      return;
+    }
+
+    dispatch(
+      postData?.postReport({
+        reportData: {
+          itemId: post.id,
+          reason: postText,
+        },
+        callback: () => {
+          setreportModal(false);
+          dispatch(postData.request());
+          dispatch(postData.requestSubscribed());
+        },
+      })
+    );
   };
 
   const handleClose = () => {
@@ -148,6 +156,8 @@ const ReportModal = ({ openReportModal, setreportModal, post }) => {
                   variant='outlined'
                   fullWidth
                   multiline
+                  value={postText}
+                  onChange={e => set_postText(e.target.value)}
                   rows={3}
                   placeholder='Write something...'
                   style={{ width: isMobile ? '80vw' : '30vw' }}
