@@ -24,6 +24,9 @@ import { getNotifications } from '../../services/post.service';
 import { post } from '../../actions/post';
 import { notificationsCount } from '../../selectors/postSelector';
 import styles from './layout.module.css';
+import { fetchingSelector } from '../../selectors/postSelector';
+import LoadingOverlay from 'react-loading-overlay';
+import BounceLoader from 'react-spinners/BounceLoader';
 
 export default function Comp({ sidebarMenu, set_sidebarMenu }) {
   const dispatch = useDispatch();
@@ -31,6 +34,7 @@ export default function Comp({ sidebarMenu, set_sidebarMenu }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const listofNotifications = useSelector(getNotifications);
   const notificationCount = useSelector(notificationsCount);
+  const fetchData = useSelector(fetchingSelector);
 
   const settingsMenuOpen = event => {
     setAnchorEl(event.currentTarget);
@@ -40,9 +44,9 @@ export default function Comp({ sidebarMenu, set_sidebarMenu }) {
     setAnchorEl(null);
   };
 
-  React.useEffect(() => {
-    dispatch(post.requestNotifications());
-  }, []);
+  // React.useEffect(() => {
+  //   dispatch(post.requestNotifications());
+  // }, []);
 
   React.useEffect(() => {
     axiosInterceptorResponse(dispatch);
