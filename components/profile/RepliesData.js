@@ -15,6 +15,7 @@ const RepliesData = ({
   post,
   comm,
   currentUser,
+  singlePost,
   isReplyField,
   setisReplyField,
   issubReplyField,
@@ -32,7 +33,7 @@ const RepliesData = ({
     setShowMyReply(!showMyReply);
     dispatch(
       postData.requestReplies({
-        postId: post.id,
+        postId: singlePost.id,
         parentCommentId: commId,
       })
     );
@@ -44,7 +45,7 @@ const RepliesData = ({
     setissubReplyField(false);
     dispatch(
       postData.requestReplies({
-        postId: post.id,
+        postId: singlePost.id,
         parentCommentId: commId,
       })
     );
@@ -95,7 +96,7 @@ const RepliesData = ({
     }
     dispatch(
       postData.saveComment({
-        id: post.id,
+        id: singlePost.id,
         commentText: {
           comment: replyText,
           isReply: true,
@@ -240,7 +241,7 @@ const RepliesData = ({
                             fontSize: '14px',
                           }}
                         >
-                          {reply.comment.slice(0, 40)}
+                          {reply.comment.slice(0, 511)}
                         </p>
                         <div style={{}}>
                           <p
