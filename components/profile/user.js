@@ -37,7 +37,7 @@ import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import { AppBar, Toolbar } from '@material-ui/core';
 import { subscription } from '../../actions/subscription';
 import { Add } from '@material-ui/icons';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Videos from './videos';
 import NormalCaseButton from '../NormalCaseButton';
 import NothingHere from './nothing-here';
@@ -46,6 +46,9 @@ import { useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import ChatIcon from '@material-ui/icons/Chat';
 import queryString from 'query-string';
+import LoadingOverlay from 'react-loading-overlay';
+import BounceLoader from 'react-spinners/BounceLoader';
+import { fetchingSelector } from '../../selectors/postSelector';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -101,6 +104,7 @@ export default function Profile({
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
   const verySmall = useMediaQuery('(max-width:350px)');
   const veryVerySmall = useMediaQuery('(max-width:310px)');
+  const fetchData = useSelector(fetchingSelector);
 
   const Link = ({ passQueryString, href, children, ...otherProps }) => (
     <NextLink
@@ -152,211 +156,180 @@ export default function Profile({
   };
 
   return (
-    <motion.div initial='hidden' animate='visible' variants={variants}>
-      <Layout
-        hideMainAppBar={
-          <AppBar position='relative' color='transparent' elevation={0}>
-            <Box clone mt={2}>
-              <Toolbar>
-                <NextLink passHref href='/explore'>
-                  <IconButton>
-                    <ArrowBackIosIcon fontSize='small' />
-                  </IconButton>
-                </NextLink>
-                <Box flex={1}>
-                  <Typography>
-                    {profileData?.fullName || '(no name)'}
-                  </Typography>
-                </Box>
+    <LoadingOverlay active={fetchData} spinner={<BounceLoader />}>
+      <motion.div initial='hidden' animate='visible' variants={variants}>
+        <Layout
+          hideMainAppBar={
+            <AppBar position='relative' color='transparent' elevation={0}>
+              <Box clone mt={2}>
+                <Toolbar>
+                  <NextLink passHref href='/explore'>
+                    <IconButton>
+                      <ArrowBackIosIcon fontSize='small' />
+                    </IconButton>
+                  </NextLink>
+                  <Box flex={1}>
+                    <Typography>
+                      {profileData?.fullName || '(no name)'}
+                    </Typography>
+                  </Box>
 
-                {me && (
-                  <>
-                    <UpdateProfile />
-                    <UpdateCoverImage2 />
-                  </>
-                )}
-              </Toolbar>
-            </Box>
-          </AppBar>
-        }
-      >
-        <Head>
-          <title>xclusiveme</title>
-        </Head>
-        <Container maxWidth='md' disableGutters>
-          <>
-            <Grid container className={classes.root}>
-              <Grid item xs={12}>
-                <Card>
-                  <CoverImage profileData={profileData}>
+                  {me && (
+                    <>
+                      <UpdateProfile />
+                      <UpdateCoverImage2 />
+                    </>
+                  )}
+                </Toolbar>
+              </Box>
+            </AppBar>
+          }
+        >
+          <Head>
+            <title>xclusiveme</title>
+          </Head>
+          <Container maxWidth='md' disableGutters>
+            <>
+              <Grid container className={classes.root}>
+                <Grid item xs={12}>
+                  <Card>
+                    <CoverImage profileData={profileData}>
+                      <CardHeader
+                        className={classes.header}
+                        action={
+                          <Box display={{ xs: 'none', sm: 'none', md: 'flex' }}>
+                            {me && (
+                              <>
+                                <UpdateProfile />
+                                <UpdateCoverImage2 />
+                              </>
+                            )}
+                          </Box>
+                        }
+                      />
+                    </CoverImage>
                     <CardHeader
-                      className={classes.header}
-                      action={
-                        <Box display={{ xs: 'none', sm: 'none', md: 'flex' }}>
-                          {me && (
-                            <>
-                              <UpdateProfile />
-                              <UpdateCoverImage2 />
-                            </>
-                          )}
-                        </Box>
-                      }
-                    />
-                  </CoverImage>
-                  <CardHeader
-                    className={classes.header2}
-                    avatar={
-                      me && me ? (
-                        <ProfileImage>
+                      className={classes.header2}
+                      avatar={
+                        me && me ? (
+                          <ProfileImage>
+                            <ProfileImageAvatar
+                              className={classes.userAvatar}
+                              src={profileData?.profileImage}
+                              alt={profileData?.fullName}
+                            />
+                          </ProfileImage>
+                        ) : (
                           <ProfileImageAvatar
                             className={classes.userAvatar}
                             src={profileData?.profileImage}
                             alt={profileData?.fullName}
                           />
-                        </ProfileImage>
-                      ) : (
-                        <ProfileImageAvatar
-                          className={classes.userAvatar}
-                          src={profileData?.profileImage}
-                          alt={profileData?.fullName}
-                        />
-                      )
-                    }
-                    action={
-                      <Box
-                        display='flex'
-                        style={
-                          veryVerySmall
-                            ? { zoom: 0.6 }
-                            : verySmall
-                            ? { zoom: 0.8 }
-                            : {}
-                        }
-                      >
+                        )
+                      }
+                      action={
                         <Box
-                          ml={{ xs: 0, sm: 0, md: 2 }}
-                          mr={{ xs: 0, sm: 0, md: 2 }}
-                          width={isSmall ? 70 : 90}
+                          display='flex'
+                          style={
+                            veryVerySmall
+                              ? { zoom: 0.6 }
+                              : verySmall
+                              ? { zoom: 0.8 }
+                              : {}
+                          }
                         >
-                          <NextLink passHref href='#'>
-                            <ListItem component='a' disableGutters>
-                              <Box clone textAlign='center'>
-                                <ListItemText
-                                  primary={_numberOfPosts || 0}
-                                  secondary='Posts'
-                                />
-                              </Box>
-                            </ListItem>
-                          </NextLink>
-                        </Box>
-                        <Box
-                          ml={{ xs: 0, sm: 0, md: 2 }}
-                          mr={{ xs: 0, sm: 0, md: 2 }}
-                          width={isSmall ? 70 : 90}
-                        >
-                          <NextLink passHref href='#'>
-                            <ListItem component='a' disableGutters>
-                              <Box clone textAlign='center'>
-                                <ListItemText
-                                  primary={followers || 0}
-                                  secondary='Followers'
-                                />
-                              </Box>
-                            </ListItem>
-                          </NextLink>
-                        </Box>
-                        <Box
-                          ml={{ xs: 0, sm: 0, md: 2 }}
-                          mr={{ xs: 0, sm: 0, md: 2 }}
-                          width={isSmall ? 70 : 90}
-                        >
-                          <NextLink passHref href='#'>
-                            <ListItem component='a' disableGutters>
-                              <Box clone textAlign='center'>
-                                <ListItemText
-                                  primary={followings || 0}
-                                  secondary='Following'
-                                />
-                              </Box>
-                            </ListItem>
-                          </NextLink>
-                        </Box>
-                      </Box>
-                    }
-                    title={
-                      <Box display={{ xs: 'none', sm: 'none', md: 'flex' }}>
-                        <Typography variant='h6'>
-                          {profileData?.fullName || '(no name)'}
-                        </Typography>
-                      </Box>
-                    }
-                    subheader={
-                      <Box display={{ xs: 'none', sm: 'none', md: 'flex' }}>
-                        <Typography variant='body2' className='textSecondary'>
-                          @{profileData?.username}
-                        </Typography>
-                        {!me && (
-                          <Link
-                            passHref
-                            href='/chat'
-                            passQueryString={{
-                              user: `${profileData?.fullName}`,
-                              image: `${profileData?.profileImage}`,
-                            }}
+                          <Box
+                            ml={{ xs: 0, sm: 0, md: 2 }}
+                            mr={{ xs: 0, sm: 0, md: 2 }}
+                            width={isSmall ? 70 : 90}
                           >
-                            <ChatIcon style={{ marginLeft: '15px' }} />
-                          </Link>
-                        )}
+                            <NextLink passHref href='#'>
+                              <ListItem component='a' disableGutters>
+                                <Box clone textAlign='center'>
+                                  <ListItemText
+                                    primary={_numberOfPosts || 0}
+                                    secondary='Posts'
+                                  />
+                                </Box>
+                              </ListItem>
+                            </NextLink>
+                          </Box>
+                          <Box
+                            ml={{ xs: 0, sm: 0, md: 2 }}
+                            mr={{ xs: 0, sm: 0, md: 2 }}
+                            width={isSmall ? 70 : 90}
+                          >
+                            <NextLink passHref href='#'>
+                              <ListItem component='a' disableGutters>
+                                <Box clone textAlign='center'>
+                                  <ListItemText
+                                    primary={followers || 0}
+                                    secondary='Followers'
+                                  />
+                                </Box>
+                              </ListItem>
+                            </NextLink>
+                          </Box>
+                          <Box
+                            ml={{ xs: 0, sm: 0, md: 2 }}
+                            mr={{ xs: 0, sm: 0, md: 2 }}
+                            width={isSmall ? 70 : 90}
+                          >
+                            <NextLink passHref href='#'>
+                              <ListItem component='a' disableGutters>
+                                <Box clone textAlign='center'>
+                                  <ListItemText
+                                    primary={followings || 0}
+                                    secondary='Following'
+                                  />
+                                </Box>
+                              </ListItem>
+                            </NextLink>
+                          </Box>
+                        </Box>
+                      }
+                      title={
+                        <Box display={{ xs: 'none', sm: 'none', md: 'flex' }}>
+                          <Typography variant='h6'>
+                            {profileData?.fullName || '(no name)'}
+                          </Typography>
+                        </Box>
+                      }
+                      subheader={
+                        <Box display={{ xs: 'none', sm: 'none', md: 'flex' }}>
+                          <Typography variant='body2' className='textSecondary'>
+                            @{profileData?.username}
+                          </Typography>
+                          {!me && (
+                            <Link
+                              passHref
+                              href='/chat'
+                              passQueryString={{
+                                user: `${profileData?.fullName}`,
+                                image: `${profileData?.profileImage}`,
+                              }}
+                            >
+                              <ChatIcon style={{ marginLeft: '15px' }} />
+                            </Link>
+                          )}
+                        </Box>
+                      }
+                    />
+                    <CardContent>
+                      <Box px={2} maxWidth={500}>
+                        <Typography
+                          variant='body2'
+                          color='textSecondary'
+                          component='p'
+                        >
+                          {profileData?.profile?.description || '(no bio)'}
+                        </Typography>
                       </Box>
-                    }
-                  />
-                  <CardContent>
-                    <Box px={2} maxWidth={500}>
-                      <Typography
-                        variant='body2'
-                        color='textSecondary'
-                        component='p'
-                      >
-                        {profileData?.profile?.description || '(no bio)'}
-                      </Typography>
-                    </Box>
-                  </CardContent>
-                </Card>
-              </Grid>
-              <Grid item xs={12}>
-                {subscriptionPlans && !me ? (
-                  <Box
-                    bgcolor='#111'
-                    display='flex'
-                    p={2}
-                    alignItems='center'
-                    my={2}
-                    border='1px solid #222'
-                  >
-                    <Box flexGrow={1}>
-                      <Typography>
-                        Follow to get posts in your News Feed.
-                      </Typography>
-                    </Box>
-
-                    {subscriptionPlans?.price > 0 ? (
-                      <SubscribeUser
-                        price={subscriptionPlans?.price}
-                        handleFollow={handleFollow}
-                      />
-                    ) : (
-                      <NormalCaseButton
-                        startIcon={<Add />}
-                        size='small'
-                        variant='outlined'
-                        onClick={e => handleFollow(e)}
-                      >
-                        <span>Follow</span>
-                      </NormalCaseButton>
-                    )}
-                  </Box>
-                ) : (
-                  !me && (
+                    </CardContent>
+                  </Card>
+                </Grid>
+                <Grid item xs={12}>
+                  {subscriptionPlans && !me ? (
                     <Box
                       bgcolor='#111'
                       display='flex'
@@ -367,92 +340,125 @@ export default function Profile({
                     >
                       <Box flexGrow={1}>
                         <Typography>
-                          Unfollow to stop getting posts in your News Feed.
+                          Follow to get posts in your News Feed.
                         </Typography>
                       </Box>
 
-                      <NormalCaseButton
-                        size='small'
-                        variant='outlined'
-                        onClick={e => handleUnFollow(e)}
-                      >
-                        <span>Unfollow</span>
-                      </NormalCaseButton>
-                    </Box>
-                  )
-                )}
-              </Grid>
-              <Grid item xs={12}>
-                <List disablePadding>
-                  <ListSubheader disableGutters>
-                    <Paper>
-                      <Tabs
-                        value={tab}
-                        onChange={(e, v) => setTab(v)}
-                        variant='fullWidth'
-                        indicatorColor='primary'
-                        textColor='primary'
-                      >
-                        <Tab icon={<FeaturedPlayListOutlinedIcon />} />
-                        <Tab icon={<ImageOutlinedIcon />} />
-                        <Tab icon={<VideocamOutlinedIcon />} />
-                        <Tab icon={<MonetizationOnOutlinedIcon />} />
-                      </Tabs>
-                    </Paper>
-                  </ListSubheader>
-                  <ListItem>
-                    <ListItemText>
-                      <TabPanel value={tab} index={0}>
-                        <Box
-                          ml={{ xs: 0, sm: 0, md: 8 }}
-                          mr={{ xs: 0, sm: 0, md: 8 }}
+                      {subscriptionPlans?.price > 0 ? (
+                        <SubscribeUser
+                          price={subscriptionPlans?.price}
+                          handleFollow={handleFollow}
+                        />
+                      ) : (
+                        <NormalCaseButton
+                          startIcon={<Add />}
+                          size='small'
+                          variant='outlined'
+                          onClick={e => handleFollow(e)}
                         >
-                          <CardHeader
-                            action={
-                              <>
-                                <IconButton aria-label='sort'>
-                                  <SearchIcon />
-                                </IconButton>
-                                <IconButton aria-label='sort'>
-                                  <SortIcon />
-                                </IconButton>
-                              </>
-                            }
-                            title={`${_numberOfPosts || 0} posts`}
-                          />
-                          {userFeed && userFeed.length > 0 ? (
-                            <Grid container spacing={2}>
-                              {userFeed.map((f, ix) => (
-                                <Grid item xs={12} key={ix}>
-                                  <Post
-                                    post={f}
-                                    profileData={profileData}
-                                    altHeader={false}
-                                    me={me}
-                                    subscriptionPlans={subscriptionPlans}
-                                  />
-                                </Grid>
-                              ))}
-                            </Grid>
-                          ) : (
-                            <NothingHere me={me} />
-                          )}
+                          <span>Follow</span>
+                        </NormalCaseButton>
+                      )}
+                    </Box>
+                  ) : (
+                    !me && (
+                      <Box
+                        bgcolor='#111'
+                        display='flex'
+                        p={2}
+                        alignItems='center'
+                        my={2}
+                        border='1px solid #222'
+                      >
+                        <Box flexGrow={1}>
+                          <Typography>
+                            Unfollow to stop getting posts in your News Feed.
+                          </Typography>
                         </Box>
-                      </TabPanel>
-                      <TabPanel value={tab} index={1}>
-                        <Images imagesData={imagesData} />
-                      </TabPanel>
-                      <TabPanel value={tab} index={2}>
-                        <Videos videosData={videosData} />
-                      </TabPanel>
-                    </ListItemText>
-                  </ListItem>
-                </List>
+
+                        <NormalCaseButton
+                          size='small'
+                          variant='outlined'
+                          onClick={e => handleUnFollow(e)}
+                        >
+                          <span>Unfollow</span>
+                        </NormalCaseButton>
+                      </Box>
+                    )
+                  )}
+                </Grid>
+                <Grid item xs={12}>
+                  <List disablePadding>
+                    <ListSubheader disableGutters>
+                      <Paper>
+                        <Tabs
+                          value={tab}
+                          onChange={(e, v) => setTab(v)}
+                          variant='fullWidth'
+                          indicatorColor='primary'
+                          textColor='primary'
+                        >
+                          <Tab icon={<FeaturedPlayListOutlinedIcon />} />
+                          <Tab icon={<ImageOutlinedIcon />} />
+                          <Tab icon={<VideocamOutlinedIcon />} />
+                          <Tab icon={<MonetizationOnOutlinedIcon />} />
+                        </Tabs>
+                      </Paper>
+                    </ListSubheader>
+                    <ListItem>
+                      <ListItemText>
+                        <TabPanel value={tab} index={0}>
+                          <Box
+                            ml={{ xs: 0, sm: 0, md: 8 }}
+                            mr={{ xs: 0, sm: 0, md: 8 }}
+                          >
+                            <CardHeader
+                              action={
+                                <>
+                                  <IconButton aria-label='sort'>
+                                    <SearchIcon />
+                                  </IconButton>
+                                  <IconButton aria-label='sort'>
+                                    <SortIcon />
+                                  </IconButton>
+                                </>
+                              }
+                              title={`${_numberOfPosts || 0} posts`}
+                            />
+                            {userFeed && userFeed.length > 0 ? (
+                              <Grid container spacing={2}>
+                                {userFeed.map((f, ix) => (
+                                  <Grid item xs={12} key={ix}>
+                                    <Post
+                                      post={f}
+                                      profileData={profileData}
+                                      altHeader={false}
+                                      me={me}
+                                      subscriptionPlans={subscriptionPlans}
+                                    />
+                                  </Grid>
+                                ))}
+                              </Grid>
+                            ) : (
+                              <NothingHere me={me} />
+                            )}
+                          </Box>
+                        </TabPanel>
+                        <TabPanel value={tab} index={1}>
+                          <Images imagesData={imagesData} />
+                        </TabPanel>
+                        <TabPanel value={tab} index={2}>
+                          <Videos videosData={videosData} />
+                        </TabPanel>
+                      </ListItemText>
+                    </ListItem>
+                  </List>
+                </Grid>
               </Grid>
-            </Grid>
-          </>
-        </Container>
-      </Layout>
-    </motion.div>
+            </>
+          </Container>
+        </Layout>
+      </motion.div>
+    </LoadingOverlay>
   );
 }

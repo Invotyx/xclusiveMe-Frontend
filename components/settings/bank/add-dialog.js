@@ -8,8 +8,16 @@ import MuiDialogActions from '@material-ui/core/DialogActions';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
+import LoadingOverlay from 'react-loading-overlay';
+import BounceLoader from 'react-spinners/BounceLoader';
+import {
+  fetchingSelector,
+  postDataSelector,
+} from '../../../selectors/postSelector';
+import { useSelector } from 'react-redux';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
-const styles = (theme) => ({
+const styles = theme => ({
   root: {
     margin: 0,
     padding: theme.spacing(2),
@@ -22,8 +30,9 @@ const styles = (theme) => ({
   },
 });
 
-const DialogTitle = withStyles(styles)((props) => {
+const DialogTitle = withStyles(styles)(props => {
   const { children, classes, onClose, ...other } = props;
+
   return (
     <MuiDialogTitle disableTypography className={classes.root} {...other}>
       <Typography variant='h6'>{children}</Typography>
@@ -40,13 +49,13 @@ const DialogTitle = withStyles(styles)((props) => {
   );
 });
 
-const DialogContent = withStyles((theme) => ({
+const DialogContent = withStyles(theme => ({
   root: {
     padding: theme.spacing(2),
   },
 }))(MuiDialogContent);
 
-const DialogActions = withStyles((theme) => ({
+const DialogActions = withStyles(theme => ({
   root: {
     margin: 0,
     padding: theme.spacing(1),
@@ -68,6 +77,7 @@ export default function CustomizedDialogs() {
       <Button variant='outlined' onClick={handleClickOpen}>
         Add Bank
       </Button>
+
       <Dialog
         onClose={handleClose}
         aria-labelledby='customized-dialog-title'
@@ -78,6 +88,7 @@ export default function CustomizedDialogs() {
         <DialogTitle id='customized-dialog-title' onClose={handleClose}>
           Add a bank
         </DialogTitle>
+
         <DialogContent dividers>content here</DialogContent>
         {false && (
           <DialogActions>
