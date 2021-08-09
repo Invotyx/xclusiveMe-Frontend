@@ -13,6 +13,9 @@ import ShareIcon from '@material-ui/icons/Share';
 import styles from './profile.module.css';
 import TextField from '@material-ui/core/TextField';
 import { post as postData } from '../../actions/post';
+import LoadingOverlay from 'react-loading-overlay';
+import BounceLoader from 'react-spinners/BounceLoader';
+import { fetchingSelector } from '../../selectors/postSelector';
 
 const useStyles = makeStyles(theme => ({
   modal: {
@@ -37,6 +40,7 @@ const ReportModal = ({ openReportModal, setreportModal, post }) => {
   const paymentData = useSelector(paymentMethodDataSelector);
   const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
   const [postText, set_postText] = useState('');
+  const fetchData = useSelector(fetchingSelector);
 
   const handlePurchase = () => {
     // setPurchased(true);
@@ -81,68 +85,69 @@ const ReportModal = ({ openReportModal, setreportModal, post }) => {
       }}
     >
       <Fade in={openReportModal}>
-        <div className={classes.paper}>
-          <div>
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'center',
-              }}
-            >
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  width: '90%',
-                }}
-              >
-                <img
-                  src={post?.user?.profileImage}
-                  alt='profile image'
-                  width='60px'
-                  height='65px'
-                  style={{
-                    borderRadius: '50%',
-                    marginTop: '-20px',
-                    marginLeft: isMobile ? '40%' : '44%',
-                  }}
-                />
-                <CloseIcon
-                  onClick={handleClose}
-                  style={{
-                    marginTop: '20px',
-                    width: '30px',
-                    height: '30px',
-                    cursor: 'pointer',
-                  }}
-                />
-              </div>
-            </div>
+        <LoadingOverlay active={fetchData} spinner={<BounceLoader />}>
+          <div className={classes.paper}>
             <div>
               <div
                 style={{
                   display: 'flex',
                   justifyContent: 'center',
-                  alignItems: 'center',
                 }}
               >
-                <p style={{ fontWeight: '600', fontSize: '17px' }}>
-                  {/* Donate to {post?.user?.fullName} */}
-                  Report this Post
-                </p>
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    width: '90%',
+                  }}
+                >
+                  <img
+                    src={post?.user?.profileImage}
+                    alt='profile image'
+                    width='60px'
+                    height='65px'
+                    style={{
+                      borderRadius: '50%',
+                      marginTop: '-20px',
+                      marginLeft: isMobile ? '40%' : '44%',
+                    }}
+                  />
+                  <CloseIcon
+                    onClick={handleClose}
+                    style={{
+                      marginTop: '20px',
+                      width: '30px',
+                      height: '30px',
+                      cursor: 'pointer',
+                    }}
+                  />
+                </div>
               </div>
-            </div>
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'center',
-                marginBottom: '10px',
-                marginLeft: '10px',
-                marginRight: '10px',
-              }}
-            >
               <div>
-                {/* <p
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}
+                >
+                  <p style={{ fontWeight: '600', fontSize: '17px' }}>
+                    {/* Donate to {post?.user?.fullName} */}
+                    Report this Post
+                  </p>
+                </div>
+              </div>
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  marginBottom: '10px',
+                  marginLeft: '10px',
+                  marginRight: '10px',
+                }}
+              >
+                <div>
+                  {/* <p
                     style={{
                       fontSize: '40px',
                       fontWeight: '600',
@@ -151,35 +156,36 @@ const ReportModal = ({ openReportModal, setreportModal, post }) => {
                     ${post?.price}.00
                   </p> */}
 
-                <TextField
-                  id='outlined-basic'
-                  variant='outlined'
-                  fullWidth
-                  multiline
-                  value={postText}
-                  onChange={e => set_postText(e.target.value)}
-                  rows={3}
-                  placeholder='Write something...'
-                  style={{ width: isMobile ? '80vw' : '30vw' }}
-                />
+                  <TextField
+                    id='outlined-basic'
+                    variant='outlined'
+                    fullWidth
+                    multiline
+                    value={postText}
+                    onChange={e => set_postText(e.target.value)}
+                    rows={3}
+                    placeholder='Write something...'
+                    style={{ width: isMobile ? '80vw' : '30vw' }}
+                  />
+                </div>
               </div>
-            </div>
 
-            <Button
-              variant='contained'
-              style={{
-                backgroundColor: '#67E697',
-                color: 'white',
-                width: isMobile ? '80vw' : '30vw',
-                margin: '20px',
-                marginTop: '10px',
-              }}
-              onClick={handlePurchase}
-            >
-              SEND NOW
-            </Button>
+              <Button
+                variant='contained'
+                style={{
+                  backgroundColor: '#67E697',
+                  color: 'white',
+                  width: isMobile ? '80vw' : '30vw',
+                  margin: '20px',
+                  marginTop: '10px',
+                }}
+                onClick={handlePurchase}
+              >
+                SEND NOW
+              </Button>
+            </div>
           </div>
-        </div>
+        </LoadingOverlay>
       </Fade>
     </Modal>
   );
