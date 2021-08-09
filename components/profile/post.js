@@ -43,6 +43,7 @@ import { fetchingSelector } from '../../selectors/postSelector';
 import LoadingOverlay from 'react-loading-overlay';
 import BounceLoader from 'react-spinners/BounceLoader';
 import Notifications from '../../components/notification';
+import NotBuyedModel from './NotBuyedModel';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -102,6 +103,7 @@ export default function Post({
   const [openTip, setopenTip] = useState(false);
   const [loading, setLoading] = useState(false);
   const fetchData = useSelector(fetchingSelector);
+  const [notByedModel, setnotBuyedModel] = useState(false);
 
   const handleOpenModel = () => {
     setOpenModel(true);
@@ -246,7 +248,7 @@ export default function Post({
   };
 
   const handleNotOpen = () => {
-    console.log('Buy post');
+    setnotBuyedModel(true);
   };
 
   const handleNotOpenn = () => {
@@ -482,6 +484,11 @@ export default function Post({
           <ReportModal
             openReportModal={openReportModal}
             setreportModal={setreportModal}
+            post={post}
+          />
+          <NotBuyedModel
+            notByedModel={notByedModel}
+            setnotBuyedModel={setnotBuyedModel}
             post={post}
           />
           <TipModal openTip={openTip} setopenTip={setopenTip} post={post} />
