@@ -36,11 +36,15 @@ function* handleLogin(action) {
 
     const response = yield call(login, email, password);
     if (response.status !== 202) {
+      if (!response.data.roles.includes('user')) {
+        throw new Error('Please use Admin Dashboard.');
+      }
       localStorage.setItem('jwtToken', response.data.accessToken);
       localStorage.setItem('refreshToken', response.data.refreshToken);
       yield put(
         auth.success({
           accessToken: response.data.accessToken,
+          userRole: response.data.roles,
           loggedIn: true,
         })
       );
@@ -53,8 +57,8 @@ function* handleLogin(action) {
       yield put(
         snackbar.update({
           open: true,
-          message: response.data.message,
-          severity: 'success',
+          message: response.data.message || 'Invalid Credentials.',
+          severity: 'error',
         })
       );
       const { callback202 } = action.payload;
@@ -295,7 +299,7 @@ function* handleForgotPassword(action) {
     yield put(
       snackbar.update({
         open: true,
-        message: e.response.data.message,
+        message: 'User not found',
         severity: 'error',
       })
     );
