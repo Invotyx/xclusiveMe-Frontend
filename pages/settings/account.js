@@ -34,6 +34,7 @@ import Layout from '../../components/layouts/layout-settings';
 import { fetchingSelector } from '../../selectors/authSelector';
 import { errorSelector } from '../../selectors/authSelector';
 import { isValidHttpUrl } from '../../services/helper';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -153,9 +154,11 @@ export default function Home(props) {
   return (
     <motion.div initial='hidden' animate='visible' variants={variants}>
       <Layout>
+        {fetching && <CircularProgress />}
         <Head>
           <title>Account — Settings</title>
         </Head>
+
         <Grid container spacing={6} className={classes.root}>
           <Grid item xs={12} md={8}>
             <form onSubmit={handleUpdate}>

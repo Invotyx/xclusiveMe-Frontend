@@ -50,7 +50,7 @@ export default function Home() {
   useEffect(() => {
     dispatch(post.requestSubscribed());
     dispatch(post.requestNotifications());
-  }, []);
+  }, [post]);
 
   return (
     <motion.div initial='hidden' animate='visible' variants={variants}>

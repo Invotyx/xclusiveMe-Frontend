@@ -14,9 +14,13 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import BankAddDialog from '../../components/settings/bank/add-dialog';
 import PaymentIcon from '@material-ui/icons/Payment';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { fetchingSelector } from '../../selectors/postSelector';
+import { useSelector } from 'react-redux';
 
 export default function Home() {
   const bankData = [];
+  const fetchData = useSelector(fetchingSelector);
 
   return (
     <motion.div initial='hidden' animate='visible' variants={variants}>
@@ -32,12 +36,14 @@ export default function Home() {
               </Box>
               <BankAddDialog />
             </Box>
-            <Divider />
-
+            <Box mb={2}>
+              <Divider />
+            </Box>
+            {fetchData && <CircularProgress />}
             <Box mb={2}>
               <List>
                 {bankData.length ? (
-                  bankData.map((p) => (
+                  bankData.map(p => (
                     <>
                       <Box mb={2}>
                         <Typography variant='subtitle2'>
@@ -50,7 +56,7 @@ export default function Home() {
                       <ListItem
                         key={p.id}
                         button
-                        onClick={(e) => handleClickListItem(e, p.id)}
+                        onClick={e => handleClickListItem(e, p.id)}
                       >
                         <ListItemIcon>
                           <PaymentIcon />
