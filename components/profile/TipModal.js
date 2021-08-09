@@ -141,15 +141,15 @@ const TipModal = ({ openTip, setopenTip, post }) => {
                   </p> */}
 
                   <div style={{ display: 'flex' }}>
-                    <AttachMoneyIcon
+                    {/* <AttachMoneyIcon
                       style={{ fontSize: '60px', marginLeft: '-30px' }}
-                    />
+                    /> */}
 
                     <form>
                       <TextField
                         id='outlined-basic'
                         variant='outlined'
-                        placeholder='Enter amount'
+                        placeholder='Enter amount in USD'
                       />
                     </form>
                   </div>
