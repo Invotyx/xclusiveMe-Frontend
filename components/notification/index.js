@@ -13,6 +13,10 @@ import { notificationsCount } from '../../selectors/postSelector';
 import { post } from '../../actions/post';
 import moment from 'moment';
 import styles from './newPost.module.css';
+import NextLink from 'next/link';
+import router from 'next/router';
+import { singlepostDataSelector } from '../../selectors/postSelector';
+import CommentModel from '../profile/commentModel';
 
 const useStyles = makeStyles(theme => ({
   small: {
@@ -84,7 +88,12 @@ const notificationYesterday = [
   },
 ];
 
-export default function Notification({ onClose }) {
+export default function Notification({
+  onClose,
+  profileData,
+  currentUser,
+  altHeader,
+}) {
   const classes = useStyles();
   const listofNotifications = useSelector(notificationsData);
   const notifyCount = useSelector(notificationsCount);
@@ -92,10 +101,17 @@ export default function Notification({ onClose }) {
   const [isToday, setIsToday] = useState(false);
   const [count, setCount] = useState(0);
   const [oldCount, setOldCount] = useState(0);
+  const [open, setOpen] = useState(false);
+  const singlePost = useSelector(singlepostDataSelector);
+  const [name, setName] = useState(null);
+  const [userName, setUserName] = useState(null);
+  const [profieImg, setProfileImage] = useState(null);
 
-  const readNotification = notifyId => {
+  const readNotification = (notifyId, modalId) => {
+    setOpen(true);
+    dispatch(post?.requestOne(modalId));
     dispatch(
-      post.viewNotifications({
+      post?.viewNotifications({
         id: notifyId,
         isNotify: {
           isRead: true,
@@ -119,14 +135,14 @@ export default function Notification({ onClose }) {
 
   useEffect(() => {
     listofNotifications?.map(l => {
-      console.log('count = ', count);
+      // console.log('count = ', count);
       l.createdAt.substring(0, 10) == todayDate()
         ? setCount(count + 1)
         : setOldCount(oldCount + 1);
     });
   }, [listofNotifications]);
 
-  console.log('count', count, 'oldCount', oldCount);
+  // console.log('count', count, 'oldCount', oldCount);
 
   return (
     <>
@@ -153,7 +169,7 @@ export default function Notification({ onClose }) {
             {listofNotifications?.map((i, x) => (
               <div>
                 {i.createdAt.substring(0, 10) == todayDate() ? (
-                  <div onClick={() => readNotification(i.id)}>
+                  <div onClick={() => readNotification(i.id, i.modelId)}>
                     <MenuItem onClick={onClose} key={`notificationToday${x}`}>
                       <ListItemAvatar>
                         <Avatar
@@ -229,7 +245,7 @@ export default function Notification({ onClose }) {
             {listofNotifications?.map((i, x) => (
               <div>
                 {i.createdAt.substring(0, 10) !== todayDate() ? (
-                  <div onClick={() => readNotification(i.id)}>
+                  <div onClick={() => readNotification(i.id, i.modelId)}>
                     <MenuItem onClick={onClose} key={`notificationToday${x}`}>
                       <ListItemAvatar>
                         <Avatar
@@ -289,6 +305,14 @@ export default function Notification({ onClose }) {
               </div>
             ))}
           </div>
+          <CommentModel
+            singlePost={singlePost}
+            profileData={profileData}
+            open={open}
+            setOpen={setOpen}
+            currentUser={currentUser}
+            altHeader={altHeader}
+          />
         </div>
       )}
     </>

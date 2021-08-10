@@ -8,10 +8,13 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import { useDispatch, useSelector } from 'react-redux';
 import { settingsNotify } from '../../selectors/postSelector';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { fetchingSelector } from '../../selectors/postSelector';
 
 const notifications = () => {
   const dispatch = useDispatch();
   const ourdata = useSelector(settingsNotify);
+  const fetchData = useSelector(fetchingSelector);
   let tempArr = [];
 
   tempArr = ourdata;
@@ -140,6 +143,7 @@ const notifications = () => {
       <Box mt={2} mb={2}>
         <Divider />
       </Box>
+      {fetchData && <CircularProgress />}
       <Box>
         <Typography variant='h6'>
           Notification & Notification Settings

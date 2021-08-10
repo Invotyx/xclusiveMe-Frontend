@@ -42,6 +42,8 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { fetchingSelector } from '../../selectors/postSelector';
 import LoadingOverlay from 'react-loading-overlay';
 import BounceLoader from 'react-spinners/BounceLoader';
+import Notifications from '../../components/notification';
+import NotBuyedModel from './NotBuyedModel';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -101,6 +103,7 @@ export default function Post({
   const [openTip, setopenTip] = useState(false);
   const [loading, setLoading] = useState(false);
   const fetchData = useSelector(fetchingSelector);
+  const [notByedModel, setnotBuyedModel] = useState(false);
 
   const handleOpenModel = () => {
     setOpenModel(true);
@@ -244,6 +247,14 @@ export default function Post({
     setOpen(true);
   };
 
+  const handleNotOpen = () => {
+    setnotBuyedModel(true);
+  };
+
+  const handleNotOpenn = () => {
+    console.log('Post not buyed');
+  };
+
   const handleClose = () => {
     setOpen(false);
   };
@@ -278,7 +289,6 @@ export default function Post({
   return (
     <LoadingOverlay active={fetchData} spinner={<BounceLoader />}>
       <Card className={styles.postCard}>
-        {loading === true && <CircularProgress />}
         {altHeader ? (
           <CardHeader
             action={
@@ -317,34 +327,6 @@ export default function Post({
                   </Menu>
                 )}
               </div>
-
-              // <PopupState variant='popover' popupId='demo-popup-menu'>
-              //   {popupState => (
-              //     <>
-              //       {/* <Button
-              //         variant='contained'
-              //         color='primary'
-              //         {...bindTrigger(popupState)}
-              //       >
-              //         Open Menu
-              //       </Button> */}
-              //       <IconButton
-              //         aria-label='settings'
-              //         {...bindTrigger(popupState)}
-              //       >
-              //         <MoreVertIcon />
-              //       </IconButton>
-              //       <Menu {...bindMenu(popupState)}>
-              //         <MenuItem onClick={handleReportModal}>Report</MenuItem>
-              // <ReportModal
-              //   reportModal={reportModal}
-              //   setreportModal={setreportModal}
-              // />
-              //         {/* <MenuItem onClick={popupState.close}>Death</MenuItem> */}
-              //       </Menu>
-              //     </>
-              //   )}
-              // </PopupState>
             }
             title={
               <>
@@ -418,7 +400,9 @@ export default function Post({
                 <NormalCaseButton
                   aria-label='add to favorites'
                   startIcon={<img src='/emptyHeart.png' alt='unliked' />}
-                  onClick={handleLike}
+                  onClick={
+                    post.media.length === 0 ? handleNotOpenn : handleLike
+                  }
                 >
                   {nFormatter(post.totalLikes)}{' '}
                   <span
@@ -432,7 +416,9 @@ export default function Post({
                 <NormalCaseButton
                   aria-label='add to favorites'
                   startIcon={<img src='/filled.png' alt='liked' />}
-                  onClick={handleLike}
+                  onClick={
+                    post.media.length === 0 ? handleNotOpenn : handleLike
+                  }
                 >
                   {/* {console.log('likeeddd')} */}
                   {nFormatter(post.totalLikes)}{' '}
@@ -463,7 +449,11 @@ export default function Post({
                 <NormalCaseButton
                   aria-label='tip'
                   startIcon={<MonetizationOnOutlinedIcon />}
-                  onClick={handleOpenTopModal}
+                  onClick={
+                    post.media.length === 0
+                      ? handleNotOpenn
+                      : handleOpenTopModal
+                  }
                 >
                   <span className={styles.hideOnMobile}>Tip</span>
                 </NormalCaseButton>
@@ -496,6 +486,11 @@ export default function Post({
             setreportModal={setreportModal}
             post={post}
           />
+          <NotBuyedModel
+            notByedModel={notByedModel}
+            setnotBuyedModel={setnotBuyedModel}
+            post={post}
+          />
           <TipModal openTip={openTip} setopenTip={setopenTip} post={post} />
         </div>
 
@@ -518,7 +513,7 @@ export default function Post({
               fontWeight: '500',
               fontSize: '14px',
             }}
-            onClick={handleOpen}
+            onClick={post.media.length === 0 ? handleNotOpen : handleOpen}
           >
             View previous comments
           </p>
@@ -526,20 +521,28 @@ export default function Post({
           ''
         )}
 
-        <LoadingOverlay active={fetchData} spinner={<BounceLoader />}>
-          <CommentModel
-            post={post}
+        <CommentModel
+          post={post}
+          profileData={profileData}
+          altHeader={altHeader}
+          singlePost={singlePost}
+          open={open}
+          setOpen={setOpen}
+          replyCount={replyCount}
+          currentUser={currentUser}
+          forCommentId={forCommentId}
+          openReply={openReply}
+        />
+
+        <div style={{ display: 'none' }}>
+          <Notifications
             profileData={profileData}
-            altHeader={altHeader}
-            singlePost={singlePost}
-            open={open}
-            setOpen={setOpen}
-            replyCount={replyCount}
             currentUser={currentUser}
-            forCommentId={forCommentId}
-            openReply={openReply}
+            altHeader={altHeader}
+            post={post}
           />
-        </LoadingOverlay>
+        </div>
+
         {post.comments.map(comm => (
           <div style={{ marginBottom: '20px' }}>
             <div
@@ -555,23 +558,6 @@ export default function Post({
                 }}
               >
                 <div style={{ display: 'flex', marginLeft: '3px' }}>
-                  {/* {comm?.user?.profileImage ? (
-                  <img
-                    src={comm.user.profileImage}
-                    alt='profile=image'
-                    width='40px'
-                    height='40px'
-                    style={{ marginRight: '10px', borderRadius: '50%' }}
-                  />
-                ) : (
-                  <img
-                    src='/dp.png'
-                    alt='profile=image'
-                    width='55px'
-                    height='45px'
-                    style={{ marginRight: '10px', borderRadius: '50%' }}
-                  />
-                )} */}
                   <NextLink href={`/x/${comm?.user?.username}`} passHref>
                     <Link>
                       <ProfileImageAvatar user={comm?.user} />
@@ -630,7 +616,11 @@ export default function Post({
                   }}
                   className={styles.commMobile}
                   id={comm.id}
-                  onClick={() => handleOpen(comm.id)}
+                  onClick={
+                    post.media.length === 0
+                      ? handleNotOpenn
+                      : () => handleOpen(comm.id)
+                  }
                 />
                 {/* <ChatBubbleOutlineIcon
                 style={{ marginRight: '9px' }}
@@ -649,13 +639,13 @@ export default function Post({
                       cursor: 'pointer',
                       marginRight: '7px',
                     }}
-                    onClick={() => handleCommentLike(comm.id)}
+                    onClick={() =>
+                      handleCommentLike(
+                        post.media.length === 0 ? handleNotOpenn : comm.id
+                      )
+                    }
                   />
                 ) : (
-                  // <FavoriteIcon
-                  //   fontSize='small'
-                  //   onClick={() => handleCommentLike(comm.id)}
-                  // />
                   <img
                     src='/filled.png'
                     alt='unliked'
@@ -665,7 +655,11 @@ export default function Post({
                       cursor: 'pointer',
                       marginRight: '7px',
                     }}
-                    onClick={() => handleCommentLike(comm.id)}
+                    onClick={() =>
+                      handleCommentLike(
+                        post.media.length === 0 ? handleNotOpenn : comm.id
+                      )
+                    }
                   />
                 )}
               </div>
@@ -683,7 +677,7 @@ export default function Post({
                 }}
                 onClick={() => handleOpen(comm.id)}
               >
-                {comm.totalReplies === 0 ? (
+                {comm.totalReplies === 0 || post.media.length === 0 ? (
                   ''
                 ) : (
                   <div>
@@ -704,72 +698,15 @@ export default function Post({
                     marginLeft: '10px',
                   }}
                 >
-                  {comm.totalReplies === 0 ? '' : 'VIEW REPLIES'}
+                  {comm.totalReplies === 0 || post.media.length === 0
+                    ? ''
+                    : 'VIEW REPLIES'}
                 </span>
               </p>
             </div>
           </div>
         ))}
-        {/* {isReplyField === true ? (
-        <Box style={{ borderTop: '1px solid #444444' }}>
-          <OutlinedInput
-            value={replyText}
-            onChange={e => setReplyText(e.target.value)}
-            name='replyText'
-            multiline
-            fullWidth
-            onKeyDown={e => {
-              if (e.keyCode === 13 && !e.shiftKey) {
-                e.preventDefault();
-              }
-              // } else if (e.keyCode === 13) {
-              //   handleAddComment(e);
-              // }
-            }}
-            placeholder='Add a reply'
-            startAdornment={
-              // currentUser?.profileImage ? (
-              //   <img
-              //     src={currentUser && currentUser.profileImage}
-              //     alt='profileImage'
-              //     width='50px'
-              //     height='45px'
-              //     style={{ marginRight: '10px', borderRadius: '50%' }}
-              //   />
-              // ) : (
-              //   <img
-              //     src='/dp.png'
-              //     alt='profileImage'
-              //     width='50px'
-              //     height='45px'
-              //     style={{ marginRight: '10px', borderRadius: '50%' }}
-              //   />
-              // )
 
-              <ProfileImageAvatar
-                user={currentUser}
-                style={{ marginRight: '10px' }}
-              />
-            }
-            endAdornment={
-              <Button
-                onClick={handleAddReply}
-                style={{
-                  backgroundColor: '#111111',
-                  border: 'none',
-                  marginRight: '-20px',
-                }}
-              >
-                <img
-                  src='/send.png'
-                  alt='send button'
-                  style={{ marginRight: '10px' }}
-                />
-              </Button>
-            }
-          />
-        </Box>
-      ) : ( */}
         <form onSubmit={handleAddComment}>
           <Box style={{ borderTop: '1px solid #444444' }}>
             <OutlinedInput
@@ -777,6 +714,7 @@ export default function Post({
               onChange={e => setCommentText(e.target.value)}
               name='commentText'
               multiline
+              disabled={post.media.length === 0}
               fullWidth
               onKeyDown={e => {
                 if (e.keyCode === 13) {

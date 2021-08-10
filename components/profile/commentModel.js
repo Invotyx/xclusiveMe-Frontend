@@ -134,8 +134,8 @@ const CommentModel = ({
 
   const handleModelCommentLike = cId => {
     // console.log(cId);
-    post.comments &&
-      post.comments.map(comm =>
+    singlePost.comments &&
+      singlePost.comments.map(comm =>
         comm.likes && comm.likes.length === 0 && comm.id === cId
           ? dispatch(
               postData.saveCommentLike({
@@ -183,7 +183,7 @@ const CommentModel = ({
     }
     dispatch(
       postData.saveComment({
-        id: post.id,
+        id: singlePost.id,
         commentText: {
           comment: commentText,
           isReply: false,
@@ -237,17 +237,17 @@ const CommentModel = ({
   };
 
   return (
-    <LoadingOverlay active={fetchData} spinner={<BounceLoader />}>
-      <Modal
-        aria-labelledby='transition-modal-title'
-        aria-describedby='transition-modal-description'
-        className={classes.modal}
-        onClose={handleClose}
-        closeAfterTransition
-        BackdropComponent={Backdrop}
-        open={open}
-      >
-        <Fade in={open}>
+    <Modal
+      aria-labelledby='transition-modal-title'
+      aria-describedby='transition-modal-description'
+      className={classes.modal}
+      onClose={handleClose}
+      closeAfterTransition
+      BackdropComponent={Backdrop}
+      open={open}
+    >
+      <Fade in={open}>
+        <LoadingOverlay active={fetchData} spinner={<BounceLoader />}>
           <div
             style={{
               display: 'flex',
@@ -258,9 +258,9 @@ const CommentModel = ({
           >
             <div className={styles.hideOnMobile}>
               <SinglePostMedia
-                media={post?.media}
-                mediaCount={post?.mediaCount}
-                singlePost={post}
+                media={singlePost?.media}
+                mediaCount={singlePost?.mediaCount}
+                singlePost={singlePost}
               />
             </div>
 
@@ -291,11 +291,11 @@ const CommentModel = ({
                         <Box clone mr={1}>
                           <Typography variant='body2' component='span'>
                             <NextLink
-                              href={`/x/${profileData?.username}`}
+                              href={`/x/${singlePost?.user?.username}`}
                               passHref
                             >
                               <Link>
-                                {profileData?.fullName || '(no name)'}
+                                {singlePost?.user?.fullName || '(no name)'}
                               </Link>
                             </NextLink>
                           </Typography>
@@ -311,7 +311,7 @@ const CommentModel = ({
                     }
                     subheader={
                       <Typography variant='caption' color='textSecondary'>
-                        @{profileData?.username}
+                        @{singlePost?.user?.username}
                       </Typography>
                     }
                   />
@@ -349,7 +349,7 @@ const CommentModel = ({
                       marginTop: '10px',
                     }}
                   >
-                    <ProfileImageAvatar user={profileData} />
+                    <ProfileImageAvatar user={singlePost?.user?.profileImage} />
                     <CardContent>
                       <Typography
                         variant='body2'
@@ -594,7 +594,7 @@ const CommentModel = ({
                                 fontWeight: comm.id === commentId && 'bold',
                               }}
                             >
-                              {comm.comment.slice(0, 100)}
+                              {comm.comment.slice(0, 511)}
                             </p>
                           </div>
                           <div style={{ display: 'flex', marginRight: '14px' }}>
@@ -674,6 +674,7 @@ const CommentModel = ({
                             <RepliesData
                               comm={comm}
                               post={post}
+                              singlePost={singlePost}
                               currentUser={currentUser}
                               isReplyField={isReplyField}
                               setisReplyField={setisReplyField}
@@ -911,9 +912,9 @@ const CommentModel = ({
               </form>
             </div>
           </div>
-        </Fade>
-      </Modal>
-    </LoadingOverlay>
+        </LoadingOverlay>
+      </Fade>
+    </Modal>
   );
 };
 
