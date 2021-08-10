@@ -3,7 +3,7 @@ import axios from 'axios';
 const apiClient = axios.create();
 
 apiClient.interceptors.request.use(
-  async (request) => {
+  async request => {
     const accessToken = localStorage.getItem('jwtToken');
     const refreshToken = localStorage.getItem('refreshToken');
     if (accessToken) {
@@ -21,7 +21,7 @@ apiClient.interceptors.request.use(
     }
     return request;
   },
-  (error) => Promise.reject(error)
+  error => Promise.reject(error)
 );
 
 export default apiClient;
