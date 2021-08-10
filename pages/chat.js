@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Layout from '../components/layouts/layout-auth';
 import { makeStyles } from '@material-ui/core/styles';
-
+import Message from '../components/message/Message';
 import SearchIcon from '@material-ui/icons/Search';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import TileTextField from '../components/TileTextField';
@@ -12,12 +12,13 @@ import { currentUserSelector } from '../selectors/authSelector';
 import { useSelector } from 'react-redux';
 import SendIcon from '@material-ui/icons/Send';
 import { Button } from '@material-ui/core';
+import ImageAvatar from '../components/image-avatar';
 
 const useStyles = makeStyles(theme => ({
   root: {
     '& > *': {
       margin: theme.spacing(1),
-      width: '25ch',
+      width: '30ch',
     },
   },
 }));
@@ -70,8 +71,12 @@ const Chat = () => {
             </div>
           </div>
 
-          <div>users</div>
+          <div>
+            <Message />
+          </div>
         </div>
+
+        {/* from here */}
         <div>
           <div
             style={{
@@ -130,7 +135,21 @@ const Chat = () => {
                 <img src='/menu.png' alt='' />
               </div>
             </div>
-            <div style={{ height: '20vh' }}>Chat Things</div>
+            <div style={{ height: '3vh' }}>Chat Things</div>
+          </div>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              width: '30%',
+              marginLeft: '4vw',
+              marginTop: '10px',
+            }}
+          >
+            <img src='/camera.svg' alt='camera' />
+            <img src='/imageBtn.svg' alt='image' />
+            <img src='/videoBtn.svg' alt='video' />
+            <img src='/voiceBtn.svg' alt='voice' />
           </div>
           <div
             style={{
@@ -141,31 +160,35 @@ const Chat = () => {
               borderRadius: '6px',
             }}
           >
-            {current?.profileImage ? (
-              <img
-                src={current.profileImage}
-                alt='profile-image'
-                width='40px'
-                height='40px'
-                style={{
-                  marginLeft: '10px',
-                  marginTop: '5px',
-                  borderRadius: '4px',
-                }}
-              />
-            ) : (
-              <img
-                src='/dp.png'
-                alt='profile-image'
-                width='40px'
-                height='40px'
-                style={{
-                  marginLeft: '10px',
-                  marginTop: '5px',
-                  borderRadius: '4px',
-                }}
-              />
-            )}
+            <div style={{ marginTop: '5px', marginLeft: '10px' }}>
+              {current?.profileImage ? (
+                // <img
+                //   src={current.profileImage}
+                //   alt='profile-image'
+                //   width='40px'
+                //   height='40px'
+                //   style={{
+                //     marginLeft: '10px',
+                //     marginTop: '5px',
+                //     borderRadius: '4px',
+                //   }}
+                // />
+                <ImageAvatar />
+              ) : (
+                <ImageAvatar />
+                // <img
+                //   src='/dp.png'
+                //   alt='profile-image'
+                //   width='40px'
+                //   height='40px'
+                //   style={{
+                //     marginLeft: '10px',
+                //     marginTop: '5px',
+                //     borderRadius: '4px',
+                //   }}
+                // />
+              )}
+            </div>
 
             <InputEmoji
               value={text}
@@ -177,18 +200,15 @@ const Chat = () => {
               borderColor='#101010'
             />
 
+            {/* <textarea rows='3' cols='40' data-emojiable='true'></textarea> */}
+
             <Button
               style={{
                 backgroundColor: '#111111',
                 border: 'none',
               }}
             >
-              <SendIcon
-                style={{
-                  cursor: 'pointer',
-                  color: 'white',
-                }}
-              />
+              <img src='/send.png' alt='send' />
             </Button>
           </div>
           <br />
