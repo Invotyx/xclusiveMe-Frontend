@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Layout from '../components/layouts/layout-auth';
 import { makeStyles } from '@material-ui/core/styles';
 import Message from '../components/message/Message';
@@ -9,10 +9,18 @@ import AddCommentIcon from '@material-ui/icons/AddComment';
 import { useRouter } from 'next/router';
 import InputEmoji from 'react-input-emoji';
 import { currentUserSelector } from '../selectors/authSelector';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import SendIcon from '@material-ui/icons/Send';
-import { Button } from '@material-ui/core';
+import { Button, OutlinedInput } from '@material-ui/core';
 import ImageAvatar from '../components/image-avatar';
+import { io } from 'socket.io-client';
+import getConfig from 'next/config';
+import { chat } from '../actions/chat';
+import ProfileImageAvatar from '../components/profile/profile-image-avatar';
+import { Picker } from 'emoji-mart';
+import 'emoji-mart/css/emoji-mart.css';
+import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
+import { singleSelector } from '../selectors/userSelector';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -26,13 +34,73 @@ const useStyles = makeStyles(theme => ({
 const Chat = () => {
   const classes = useStyles();
   const router = useRouter();
-  const [text, setText] = useState('');
+  const dispatch = useDispatch();
+  const [show, setShow] = useState(false);
+  const [msgText, setMsgText] = useState('');
   const current = useSelector(currentUserSelector);
-  const { user, image } = router.query;
+  const singleUser = useSelector(singleSelector);
+  // const { user, image, userId } = router.query;
+  let socket;
+  let pageNum = 1;
+  let limit = 10;
+  const JWTToken =
+    typeof window !== 'undefined' ? localStorage.getItem('jwtToken') : null;
 
-  function handleOnEnter(text) {
-    console.log('enter', text);
+  const { publicRuntimeConfig } = getConfig();
+  const SERVER_ADDRESS = publicRuntimeConfig.backendUrl;
+
+  function handleOnEnter() {
+    if (!msgText || msgText.trim() === '') {
+      return;
+    }
+    setShow(false);
+    // socket.emit('new-message-to-server', {
+    //   conversationId: 38,
+    //   receiver: userId,
+    //   content: msgText,
+    // });
+
+    dispatch(
+      chat.sendMessage({
+        saveData: {
+          content: msgText,
+          sentTo: singleUser?.id,
+          type: 'text',
+          isPaid: false,
+        },
+        callback: () => {
+          setMsgText('');
+          dispatch(
+            chat.getConversations({
+              pageNum: pageNum,
+              limit: limit,
+            })
+          );
+        },
+      })
+    );
   }
+
+  const addEmoji = e => {
+    let sym = e.unified.split('-');
+    let codesArray = [];
+    sym.forEach(el => codesArray.push('0x' + el));
+    let emoji = String.fromCodePoint(...codesArray);
+    setMsgText(msgText + emoji);
+  };
+
+  const showEmoji = () => {
+    setShow(!show);
+  };
+
+  useEffect(() => {
+    socket = io(`${SERVER_ADDRESS}/messages`, {
+      transports: ['websocket'],
+      query: {
+        token: `${JWTToken}`,
+      },
+    });
+  }, []);
 
   return (
     <Layout>
@@ -76,7 +144,6 @@ const Chat = () => {
           </div>
         </div>
 
-        {/* from here */}
         <div>
           <div
             style={{
@@ -106,7 +173,7 @@ const Chat = () => {
                 }}
               >
                 <img
-                  src={image}
+                  src={singleUser?.profileImage}
                   alt=''
                   width='50px'
                   height='50px'
@@ -119,7 +186,7 @@ const Chat = () => {
                     fontWeight: 'bold',
                   }}
                 >
-                  {user}
+                  {singleUser?.fullName}
                 </p>
               </div>
               <div
@@ -151,66 +218,77 @@ const Chat = () => {
             <img src='/videoBtn.svg' alt='video' />
             <img src='/voiceBtn.svg' alt='voice' />
           </div>
-          <div
-            style={{
-              marginLeft: '30px',
-              marginTop: '10px',
-              backgroundColor: '#101010',
-              display: 'flex',
-              borderRadius: '6px',
+
+          <OutlinedInput
+            value={msgText}
+            onChange={e => setMsgText(e.target.value)}
+            name='msgText'
+            style={{ width: '40vw', marginLeft: '30px', marginTop: '10px' }}
+            multiline
+            // disabled={post.media.length === 0}
+            onKeyDown={e => {
+              if (e.keyCode === 13) {
+                if (!event.shiftKey) {
+                  handleOnEnter(e);
+                }
+              }
             }}
-          >
-            <div style={{ marginTop: '5px', marginLeft: '10px' }}>
-              {current?.profileImage ? (
-                // <img
-                //   src={current.profileImage}
-                //   alt='profile-image'
-                //   width='40px'
-                //   height='40px'
-                //   style={{
-                //     marginLeft: '10px',
-                //     marginTop: '5px',
-                //     borderRadius: '4px',
-                //   }}
-                // />
-                <ImageAvatar />
-              ) : (
-                <ImageAvatar />
-                // <img
-                //   src='/dp.png'
-                //   alt='profile-image'
-                //   width='40px'
-                //   height='40px'
-                //   style={{
-                //     marginLeft: '10px',
-                //     marginTop: '5px',
-                //     borderRadius: '4px',
-                //   }}
-                // />
-              )}
-            </div>
-
-            <InputEmoji
-              value={text}
-              onChange={setText}
-              cleanOnEnter
-              onEnter={handleOnEnter}
-              placeholder='Type a message'
-              borderRadius={5}
-              borderColor='#101010'
-            />
-
-            {/* <textarea rows='3' cols='40' data-emojiable='true'></textarea> */}
-
-            <Button
-              style={{
-                backgroundColor: '#111111',
-                border: 'none',
-              }}
-            >
-              <img src='/send.png' alt='send' />
-            </Button>
-          </div>
+            // inputRef={searchInput}
+            placeholder='Write a message'
+            startAdornment={
+              <ProfileImageAvatar
+                user={current}
+                style={{ marginRight: '10px' }}
+              />
+            }
+            endAdornment={
+              <>
+                <Button
+                  onClick={showEmoji}
+                  style={{
+                    backgroundColor: '#111111',
+                    border: 'none',
+                    marginRight: '-20px',
+                  }}
+                >
+                  <span role='img'>
+                    <InsertEmoticonIcon />
+                  </span>
+                </Button>
+                <Button
+                  onClick={handleOnEnter}
+                  style={{
+                    backgroundColor: '#111111',
+                    border: 'none',
+                  }}
+                >
+                  <img
+                    src='/send.png'
+                    alt='send button'
+                    style={{ marginRight: '10px' }}
+                  />
+                </Button>
+              </>
+            }
+          />
+          {show && (
+            <span>
+              <Picker
+                onSelect={addEmoji}
+                set='facebook'
+                emoji='point_up'
+                theme='dark'
+                skin='1'
+                style={{
+                  position: 'absolute',
+                  bottom: '-50px',
+                  maxWidth: '300px',
+                  with: '100%',
+                  outline: 'none',
+                }}
+              />
+            </span>
+          )}
           <br />
           <br />
         </div>
