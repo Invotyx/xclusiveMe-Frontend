@@ -41,6 +41,9 @@ import TipModal from './TipModal';
 import { fetchingSelector } from '../../selectors/postSelector';
 import LoadingOverlay from 'react-loading-overlay';
 import BounceLoader from 'react-spinners/BounceLoader';
+import { Picker } from 'emoji-mart';
+import 'emoji-mart/css/emoji-mart.css';
+import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -107,6 +110,7 @@ const CommentModel = ({
   const [pageNumber, setPageNumber] = useState(2);
   const [openTip, setopenTip] = useState(false);
   const fetchData = useSelector(fetchingSelector);
+  const [show, setShow] = useState(false);
 
   const handleOpenModel = () => {
     console.log('in model');
@@ -116,6 +120,18 @@ const CommentModel = ({
 
   const handleTipModal = () => {
     setopenTip(true);
+  };
+
+  const addEmoji = e => {
+    let sym = e.unified.split('-');
+    let codesArray = [];
+    sym.forEach(el => codesArray.push('0x' + el));
+    let emoji = String.fromCodePoint(...codesArray);
+    setCommentText(commentText + emoji);
+  };
+
+  const showEmoji = () => {
+    setShow(!show);
   };
 
   useEffect(() => {
@@ -178,6 +194,7 @@ const CommentModel = ({
 
   const handleAddComment = event => {
     event.preventDefault();
+    setShow(false);
     if (!commentText || commentText.trim() === '') {
       return;
     }
@@ -900,14 +917,47 @@ const CommentModel = ({
                       />
                     }
                     endAdornment={
-                      <Button
-                        type='submit'
-                        style={{ backgroundColor: '#111111', border: 'none' }}
-                      >
-                        <img src='/send.png' alt='send button' />
-                      </Button>
+                      <>
+                        <Button
+                          onClick={showEmoji}
+                          style={{
+                            backgroundColor: '#111111',
+                            border: 'none',
+                            marginRight: '-20px',
+                          }}
+                        >
+                          <span role='img'>
+                            <InsertEmoticonIcon />
+                          </span>
+                        </Button>
+                        <Button
+                          type='submit'
+                          style={{ backgroundColor: '#111111', border: 'none' }}
+                        >
+                          <img src='/send.png' alt='send button' />
+                        </Button>
+                      </>
                     }
                   />
+                  {show && (
+                    <span>
+                      <Picker
+                        onSelect={addEmoji}
+                        set='facebook'
+                        emoji='point_up'
+                        theme='dark'
+                        skin='1'
+                        style={{
+                          position: 'absolute',
+                          right: isMobile ? '40px' : '90px',
+                          bottom: '80px',
+                          maxWidth: '300px',
+                          with: '100%',
+                          outline: 'none',
+                        }}
+                      />
+                    </span>
+                  )}
                 </Box>
               </form>
             </div>

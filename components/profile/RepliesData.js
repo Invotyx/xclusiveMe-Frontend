@@ -10,6 +10,9 @@ import OutlinedInput from '@material-ui/core/OutlinedInput';
 import { Button } from '@material-ui/core';
 import SendIcon from '@material-ui/icons/Send';
 import { useMediaQuery } from 'react-responsive';
+import { Picker } from 'emoji-mart';
+import 'emoji-mart/css/emoji-mart.css';
+import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
 
 const RepliesData = ({
   post,
@@ -28,6 +31,19 @@ const RepliesData = ({
   const replyData = useSelector(repliesDataSelector);
   const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
   const [replyText, setReplyText] = useState('');
+  const [show, setShow] = useState(false);
+
+  const addEmoji = e => {
+    let sym = e.unified.split('-');
+    let codesArray = [];
+    sym.forEach(el => codesArray.push('0x' + el));
+    let emoji = String.fromCodePoint(...codesArray);
+    setReplyText(replyText + emoji);
+  };
+
+  const showEmoji = () => {
+    setShow(!show);
+  };
 
   const handleReplyList = commId => {
     setShowMyReply(!showMyReply);
@@ -87,6 +103,7 @@ const RepliesData = ({
 
   const handleAddReply = event => {
     event.preventDefault();
+    setShow(false);
     console.log(commentId);
 
     if (!replyText || replyText.trim() === '') {
@@ -382,7 +399,7 @@ const RepliesData = ({
       {showMyReply === true ? (
         <div
           onClick={() => hideReply(comm.id)}
-          style={{ marginLeft: isMobile ? '5px' : '-16px' }}
+          style={{ marginLeft: isMobile ? '5px' : '-5px' }}
         >
           <img
             src='/lineReply.svg'
@@ -437,17 +454,50 @@ const RepliesData = ({
                 />
               }
               endAdornment={
-                <Button
-                  type='submit'
-                  style={{
-                    backgroundColor: '#111111',
-                    border: 'none',
-                  }}
-                >
-                  <img src='/send.png' alt='send button' />
-                </Button>
+                <>
+                  <Button
+                    onClick={showEmoji}
+                    style={{
+                      backgroundColor: '#111111',
+                      border: 'none',
+                      marginRight: '-20px',
+                    }}
+                  >
+                    <span role='img'>
+                      <InsertEmoticonIcon />
+                    </span>
+                  </Button>
+                  <Button
+                    type='submit'
+                    style={{
+                      backgroundColor: '#111111',
+                      border: 'none',
+                    }}
+                  >
+                    <img src='/send.png' alt='send button' />
+                  </Button>
+                </>
               }
             />
+            {show && (
+              <span>
+                <Picker
+                  onSelect={addEmoji}
+                  set='facebook'
+                  emoji='point_up'
+                  theme='dark'
+                  skin='1'
+                  style={{
+                    position: 'absolute',
+                    right: isMobile ? '40px' : '90px',
+                    bottom: isMobile ? '250px' : '80px',
+                    maxWidth: '300px',
+                    with: '100%',
+                    outline: 'none',
+                  }}
+                />
+              </span>
+            )}
           </Box>
         </form>
       ) : (

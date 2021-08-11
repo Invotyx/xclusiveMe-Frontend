@@ -106,14 +106,14 @@ export default function Profile({
   const veryVerySmall = useMediaQuery('(max-width:310px)');
   const fetchData = useSelector(fetchingSelector);
 
-  const Link = ({ passQueryString, href, children, ...otherProps }) => (
-    <NextLink
-      href={`${href}?${queryString.stringify(passQueryString)}`}
-      {...otherProps}
-    >
-      {children}
-    </NextLink>
-  );
+  // const Link = ({ passQueryString, href, children, ...otherProps }) => (
+  //   <NextLink
+  //     href={`${href}?${queryString.stringify(passQueryString)}`}
+  //     {...otherProps}
+  //   >
+  //     {children}
+  //   </NextLink>
+  // );
 
   useEffect(() => {
     set_numberOfPosts(numberOfPosts);
@@ -301,16 +301,17 @@ export default function Profile({
                             @{profileData?.username}
                           </Typography>
                           {!me && (
-                            <Link
+                            <NextLink
                               passHref
                               href='/chat'
-                              passQueryString={{
-                                user: `${profileData?.fullName}`,
-                                image: `${profileData?.profileImage}`,
-                              }}
+                              // passQueryString={{
+                              //   user: `${profileData?.fullName}`,
+                              //   image: `${profileData?.profileImage}`,
+                              //   userId: `${user?.id}`,
+                              // }}
                             >
                               <ChatIcon style={{ marginLeft: '15px' }} />
-                            </Link>
+                            </NextLink>
                           )}
                         </Box>
                       }

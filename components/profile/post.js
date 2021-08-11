@@ -44,6 +44,10 @@ import LoadingOverlay from 'react-loading-overlay';
 import BounceLoader from 'react-spinners/BounceLoader';
 import Notifications from '../../components/notification';
 import NotBuyedModel from './NotBuyedModel';
+import { Picker } from 'emoji-mart';
+import 'emoji-mart/css/emoji-mart.css';
+import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
+import { useMediaQuery } from 'react-responsive';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -104,6 +108,8 @@ export default function Post({
   const [loading, setLoading] = useState(false);
   const fetchData = useSelector(fetchingSelector);
   const [notByedModel, setnotBuyedModel] = useState(false);
+  const [show, setShow] = useState(false);
+  const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
 
   const handleOpenModel = () => {
     setOpenModel(true);
@@ -121,9 +127,21 @@ export default function Post({
     searchInput.current.focus();
   }
 
+  const addEmoji = e => {
+    let sym = e.unified.split('-');
+    let codesArray = [];
+    sym.forEach(el => codesArray.push('0x' + el));
+    let emoji = String.fromCodePoint(...codesArray);
+    setCommentText(commentText + emoji);
+  };
+
+  const showEmoji = () => {
+    setShow(!show);
+  };
+
   const handleAddComment = event => {
     event.preventDefault();
-
+    setShow(false);
     if (!commentText || commentText.trim() === '') {
       return;
     }
@@ -732,22 +750,55 @@ export default function Post({
                 />
               }
               endAdornment={
-                <Button
-                  type='submit'
-                  style={{
-                    backgroundColor: '#111111',
-                    border: 'none',
-                    marginRight: '-20px',
-                  }}
-                >
-                  <img
-                    src='/send.png'
-                    alt='send button'
-                    style={{ marginRight: '10px' }}
-                  />
-                </Button>
+                <>
+                  <Button
+                    onClick={showEmoji}
+                    style={{
+                      backgroundColor: '#111111',
+                      border: 'none',
+                      marginRight: '-20px',
+                    }}
+                  >
+                    <span role='img'>
+                      <InsertEmoticonIcon />
+                    </span>
+                  </Button>
+                  <Button
+                    type='submit'
+                    style={{
+                      backgroundColor: '#111111',
+                      border: 'none',
+                      marginRight: '-20px',
+                    }}
+                  >
+                    <img
+                      src='/send.png'
+                      alt='send button'
+                      style={{ marginRight: '10px' }}
+                    />
+                  </Button>
+                </>
               }
             />
+            {show && (
+              <span>
+                <Picker
+                  onSelect={addEmoji}
+                  set='facebook'
+                  emoji='point_up'
+                  theme='dark'
+                  skin='1'
+                  style={{
+                    position: 'absolute',
+                    right: isMobile ? '40px' : '90px',
+                    bottom: '80px',
+                    maxWidth: '300px',
+                    with: '100%',
+                    outline: 'none',
+                  }}
+                />
+              </span>
+            )}
           </Box>
         </form>
       </Card>

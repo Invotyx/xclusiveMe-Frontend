@@ -7,6 +7,7 @@ import bottomAlertReducer from './bottomAlertReducer';
 import postReducer from './postReducer';
 import paymentMethodReducer from './paymentMethodReducer';
 import subscriptionReducer from './subscriptionReducer';
+import chatReducer from './chatReducer';
 
 const rootReducer = () =>
   combineReducers({
@@ -18,6 +19,7 @@ const rootReducer = () =>
     paymentMethodData: paymentMethodReducer,
     subscriptionData: subscriptionReducer,
     bottomAlertData: bottomAlertReducer,
+    chatData: chatReducer,
   });
 
 export default rootReducer;
