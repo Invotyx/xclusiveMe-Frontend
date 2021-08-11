@@ -36,7 +36,6 @@ export async function addComment(id, commentData) {
 }
 
 export async function getCommentsData(id, pageNum, limit) {
-  console.log(id, pageNum, limit);
   return apiClient.get(
     `${SERVER_ADDRESS}/posts/${id}/comments?page=${pageNum}&limit=${limit}`
   );
