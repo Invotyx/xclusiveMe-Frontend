@@ -101,7 +101,8 @@ export default function NewPostForm({ afterSave }) {
   };
 
   const imageHandler = source_url => {
-    set_TileData([...tileData, source_url.url]);
+    // console.log(source_url);
+    set_TileData(prev => [...prev, source_url.url]);
     setMedia([
       ...media,
       {
@@ -225,9 +226,10 @@ export default function NewPostForm({ afterSave }) {
                   <UploadImage
                     imageHandler={imageHandler}
                     set_disabled={set_disabled}
-                    onImageSelect={imgSrc =>
-                      setLoadingItems([...loadingItems, { src: imgSrc }])
-                    }
+                    onImageSelect={imgSrc => {
+                      console.log(imgSrc);
+                      setLoadingItems(prev => [...prev, { src: imgSrc }]);
+                    }}
                     onImageUploaded={() =>
                       setLoadingItems(
                         loadingItems.filter(

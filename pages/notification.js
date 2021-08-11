@@ -11,6 +11,7 @@ import { motion } from 'framer-motion';
 import { variants } from '../services/framer-variants';
 import Layout from '../components/layouts/layout-auth';
 import { useDispatch, useSelector } from 'react-redux';
+import Message from '../components/message/Message';
 
 const useStyles = makeStyles(theme => ({
   bottom: {
@@ -82,7 +83,7 @@ export default function Notification() {
             </List>
           </TabPanel>
           <TabPanel value={value} index={1}>
-            Messages
+            <Message />
           </TabPanel>
         </Container>
       </Layout>

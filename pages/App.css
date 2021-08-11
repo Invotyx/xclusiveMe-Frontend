@@ -19,3 +19,12 @@
   background-color: #101010 !important;
   border: none;
 }
+
+.MuiListItem-gutters {
+  margin-left: 5px !important;
+  margin-right: 5px !important;
+}
+
+.MuiBox-root-45 {
+  padding: 0px !important;
+}

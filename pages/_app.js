@@ -9,10 +9,10 @@ import './App.css';
 import { AppSnackbar } from '../components/AppSnackbar';
 import BottomAlert from '../components/bottom-alert';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    marginBottom: '100px',
-  },
+const useStyles = makeStyles(theme => ({
+  // root: {
+  //   marginBottom: '100px',
+  // },
 }));
 
 function MyApp({ Component, pageProps }) {
@@ -27,19 +27,31 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <div className={classes.root}>
-      <Head>
+      <head>
         <title>xclusiveme</title>
+        <link
+          href='https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css'
+          rel='stylesheet'
+        />
+        <link href='lib/css/emoji.css' rel='stylesheet' />
         <meta
           name='viewport'
           content='minimum-scale=1, initial-scale=1, width=device-width'
         />
-      </Head>
-      <ThemeProvider theme={darkTheme}>
-        <CssBaseline />
-        <Component {...pageProps} />
-        <AppSnackbar />
-        <BottomAlert />
-      </ThemeProvider>
+      </head>
+      <body>
+        <ThemeProvider theme={darkTheme}>
+          <CssBaseline />
+          <Component {...pageProps} />
+          <AppSnackbar />
+          <BottomAlert />
+        </ThemeProvider>
+
+        <script src='lib/js/config.js'></script>
+        <script src='lib/js/util.js'></script>
+        <script src='lib/js/jquery.emojiarea.js'></script>
+        <script src='lib/js/emoji-picker.js'></script>
+      </body>
     </div>
   );
 }
