@@ -260,7 +260,7 @@ const Chat = () => {
             value={msgText}
             onChange={e => setMsgText(e.target.value)}
             name='msgText'
-            style={{ width: '40vw', marginLeft: '30px', marginTop: '10px' }}
+            style={{ width: '41vw', marginLeft: '30px', marginTop: '10px' }}
             multiline
             // disabled={post.media.length === 0}
             onKeyDown={e => {
