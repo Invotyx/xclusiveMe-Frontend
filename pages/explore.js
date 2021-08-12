@@ -24,6 +24,7 @@ import NothingHere from '../components/profile/nothing-here';
 import { useMediaQuery } from 'react-responsive';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { fetchingSelector } from '../selectors/postSelector';
+import { chat } from '../actions/chat';
 
 const suggestions = [
   {
@@ -44,12 +45,19 @@ export default function Home() {
   const dispatch = useDispatch();
   const posts = useSelector(subscribedSelector);
   const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
-
   const fetching = useSelector(fetchingSelector);
+  const pageNum = 1;
+  const limit = 10;
 
   useEffect(() => {
     dispatch(post.requestSubscribed());
     dispatch(post.requestNotifications());
+    dispatch(
+      chat.getConversations({
+        pageNum: pageNum,
+        limit: limit,
+      })
+    );
   }, [post]);
 
   return (
