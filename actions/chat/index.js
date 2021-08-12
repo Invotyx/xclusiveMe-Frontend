@@ -10,6 +10,14 @@ export const chat = {
       error: null,
     }),
 
+  sendOneMessage: data =>
+    createAction(CHAT.SEND_ONE, {
+      ...data,
+      fetching: true,
+      success: false,
+      error: null,
+    }),
+
   getConversations: data =>
     createAction(CHAT.GET, {
       ...data,
@@ -25,6 +33,7 @@ export const chat = {
       success: false,
       error: null,
     }),
+
   isSeenMessage: data =>
     createAction(CHAT.IS_SEEN, {
       ...data,

@@ -8,6 +8,12 @@ export async function send(saveData) {
   return apiClient.post(`${SERVER_ADDRESS}/conversations`, data);
 }
 
+export async function sendSingleMsg(id, saveData) {
+  const data = JSON.stringify(saveData);
+  console.log('--------------', data);
+  return apiClient.post(`${SERVER_ADDRESS}/conversations/${id}/messages`, data);
+}
+
 export async function getConversations(pageNum, limit) {
   return apiClient.get(
     `${SERVER_ADDRESS}/conversations?page=${pageNum}&limit=${limit}`
