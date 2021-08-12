@@ -27,11 +27,14 @@ import styles from './layout.module.css';
 import { fetchingSelector } from '../../selectors/postSelector';
 import LoadingOverlay from 'react-loading-overlay';
 import BounceLoader from 'react-spinners/BounceLoader';
+import Message from '../message/Message';
+import MessageMenu from '../message/MessageMenu';
 
 export default function Comp({ sidebarMenu, set_sidebarMenu }) {
   const dispatch = useDispatch();
   const router = useRouter();
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [messageEl, setMessageEl] = React.useState(null);
   const listofNotifications = useSelector(getNotifications);
   const notificationCount = useSelector(notificationsCount);
   const fetchData = useSelector(fetchingSelector);
@@ -42,6 +45,14 @@ export default function Comp({ sidebarMenu, set_sidebarMenu }) {
 
   const settingsMenuClose = () => {
     setAnchorEl(null);
+  };
+
+  const messagesOpen = e => {
+    setMessageEl(e.currentTarget);
+  };
+
+  const messagesClose = () => {
+    setMessageEl(null);
   };
 
   // React.useEffect(() => {
@@ -150,9 +161,18 @@ export default function Comp({ sidebarMenu, set_sidebarMenu }) {
               </Box>
 
               <Box ml={3} display={{ xs: 'none', sm: 'none', md: 'flex' }}>
-                <IconButton color='inherit'>
+                <IconButton color='inherit' onClick={messagesOpen}>
                   <SmsIcon />
                 </IconButton>
+                <div>
+                  <MessageMenu
+                    open={Boolean(messageEl)}
+                    messageEl={messageEl}
+                    onClose={messagesClose}
+                  >
+                    <Message onClose={messagesClose} />
+                  </MessageMenu>
+                </div>
               </Box>
               <Box ml={3}>
                 <NextLink href='/settings/account' passHref>
