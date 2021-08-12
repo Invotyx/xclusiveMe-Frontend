@@ -21,12 +21,14 @@ import { Picker } from 'emoji-mart';
 import 'emoji-mart/css/emoji-mart.css';
 import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
 import { singleSelector } from '../selectors/userSelector';
-
+import { singleChatSelector } from '../selectors/chatSelector';
+import { chatDataSelector } from '../selectors/chatSelector';
+import ConvoList from '../components/message/ConvoList';
 const useStyles = makeStyles(theme => ({
   root: {
     '& > *': {
       margin: theme.spacing(1),
-      width: '30ch',
+      width: '40ch',
     },
   },
 }));
@@ -39,7 +41,12 @@ const Chat = () => {
   const [msgText, setMsgText] = useState('');
   const current = useSelector(currentUserSelector);
   const singleUser = useSelector(singleSelector);
+  const singlechat = useSelector(singleChatSelector);
+  const chatsData = useSelector(chatDataSelector);
+
   // const { user, image, userId } = router.query;
+
+  const { conId } = router.query;
   let socket;
   let pageNum = 1;
   let limit = 10;
@@ -48,6 +55,20 @@ const Chat = () => {
 
   const { publicRuntimeConfig } = getConfig();
   const SERVER_ADDRESS = publicRuntimeConfig.backendUrl;
+
+  // console.log(singlechat[0].sender.fullName);
+  // console.log(
+  //   'conversationId',
+  //   typeof singlechat[0]?.id,
+  //   'receiver',
+  //   typeof current.id,
+  //   'content',
+  //   typeof msgText,
+  //   'sentTo',
+  //   typeof chatsData
+  //     .filter(list => list.id == conId)[0]
+  //     ?.participants.filter(p => p.id !== current.id)[0].id
+  // );
 
   function handleOnEnter() {
     if (!msgText || msgText.trim() === '') {
@@ -61,17 +82,22 @@ const Chat = () => {
     // });
 
     dispatch(
-      chat.sendMessage({
+      chat.sendOneMessage({
         saveData: {
+          conversationId: singlechat[0]?.id,
+          receiver: current.id,
           content: msgText,
-          sentTo: singleUser?.id,
+          // sentTo: chatsData
+          //   .filter(list => list.id == conId)[0]
+          //   ?.participants.filter(p => p.id !== current.id)[0].id,
           type: 'text',
           isPaid: false,
         },
         callback: () => {
           setMsgText('');
           dispatch(
-            chat.getConversations({
+            chat.getOneConversation({
+              id: conId,
               pageNum: pageNum,
               limit: limit,
             })
@@ -94,12 +120,18 @@ const Chat = () => {
   };
 
   useEffect(() => {
-    socket = io(`${SERVER_ADDRESS}/messages`, {
-      transports: ['websocket'],
-      query: {
-        token: `${JWTToken}`,
-      },
-    });
+    dispatch(
+      chat.getConversations({
+        pageNum: pageNum,
+        limit: limit,
+      })
+    );
+    // socket = io(`${SERVER_ADDRESS}/messages`, {
+    //   transports: ['websocket'],
+    //   query: {
+    //     token: `${JWTToken}`,
+    //   },
+    // });
   }, []);
 
   return (
@@ -139,7 +171,7 @@ const Chat = () => {
             </div>
           </div>
 
-          <div>
+          <div className={classes.messageHeight}>
             <Message />
           </div>
         </div>
@@ -147,12 +179,12 @@ const Chat = () => {
         <div>
           <div
             style={{
-              width: '40vw',
+              width: '41vw',
               backgroundColor: '#101010',
               marginLeft: '30px',
               marginTop: '-6px',
               padding: '10px',
-              height: '200%',
+              height: '70vh',
               borderRadius: '6px',
             }}
           >
@@ -172,13 +204,7 @@ const Chat = () => {
                   marginTop: '-4px',
                 }}
               >
-                <img
-                  src={singleUser?.profileImage}
-                  alt=''
-                  width='50px'
-                  height='50px'
-                  style={{ borderRadius: '50%' }}
-                />
+                <ImageAvatar />
                 <p
                   style={{
                     marginLeft: '20px',
@@ -186,7 +212,12 @@ const Chat = () => {
                     fontWeight: 'bold',
                   }}
                 >
-                  {singleUser?.fullName}
+                  {
+                    chatsData
+                      .filter(list => list.id == conId)[0]
+                      ?.participants.filter(p => p.id !== current.id)[0]
+                      .fullName
+                  }
                 </p>
               </div>
               <div
@@ -202,7 +233,13 @@ const Chat = () => {
                 <img src='/menu.png' alt='' />
               </div>
             </div>
-            <div style={{ height: '3vh' }}>Chat Things</div>
+            <div
+              style={{
+                width: '40vw',
+              }}
+            >
+              <ConvoList singlechat={singlechat} current={current} />
+            </div>
           </div>
           <div
             style={{
@@ -223,7 +260,7 @@ const Chat = () => {
             value={msgText}
             onChange={e => setMsgText(e.target.value)}
             name='msgText'
-            style={{ width: '40vw', marginLeft: '30px', marginTop: '10px' }}
+            style={{ width: '41vw', marginLeft: '30px', marginTop: '10px' }}
             multiline
             // disabled={post.media.length === 0}
             onKeyDown={e => {

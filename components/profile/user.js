@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import NextLink from 'next/link';
 import { motion } from 'framer-motion';
 import { variants } from '../../services/framer-variants';
@@ -49,6 +49,7 @@ import queryString from 'query-string';
 import LoadingOverlay from 'react-loading-overlay';
 import BounceLoader from 'react-spinners/BounceLoader';
 import { fetchingSelector } from '../../selectors/postSelector';
+import MessageModal from '../message/MessageModal';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -105,6 +106,7 @@ export default function Profile({
   const verySmall = useMediaQuery('(max-width:350px)');
   const veryVerySmall = useMediaQuery('(max-width:310px)');
   const fetchData = useSelector(fetchingSelector);
+  const [messageModal, setMessageModal] = useState(false);
 
   // const Link = ({ passQueryString, href, children, ...otherProps }) => (
   //   <NextLink
@@ -139,6 +141,10 @@ export default function Profile({
       set_videosData(temp_videos);
     }
   }, [feed]);
+
+  const handleMessageModal = () => {
+    setMessageModal(!messageModal);
+  };
 
   const handleFollow = event => {
     event.preventDefault();
@@ -301,17 +307,25 @@ export default function Profile({
                             @{profileData?.username}
                           </Typography>
                           {!me && (
-                            <NextLink
-                              passHref
-                              href='/chat'
-                              // passQueryString={{
-                              //   user: `${profileData?.fullName}`,
-                              //   image: `${profileData?.profileImage}`,
-                              //   userId: `${user?.id}`,
-                              // }}
+                            <div
+                            // passHref
+                            // href='/chat'
+                            // passQueryString={{
+                            //   user: `${profileData?.fullName}`,
+                            //   image: `${profileData?.profileImage}`,
+                            //   userId: `${user?.id}`,
+                            // }}
                             >
-                              <ChatIcon style={{ marginLeft: '15px' }} />
-                            </NextLink>
+                              <ChatIcon
+                                style={{ marginLeft: '15px' }}
+                                onClick={handleMessageModal}
+                              />
+                              <MessageModal
+                                messageModal={messageModal}
+                                setMessageModal={setMessageModal}
+                                profileData={profileData}
+                              />
+                            </div>
                           )}
                         </Box>
                       }

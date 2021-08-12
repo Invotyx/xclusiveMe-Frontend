@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import List from '@material-ui/core/List';
@@ -12,6 +12,7 @@ import { variants } from '../services/framer-variants';
 import Layout from '../components/layouts/layout-auth';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/message/Message';
+import { chat } from '../actions/chat';
 
 const useStyles = makeStyles(theme => ({
   bottom: {
@@ -58,10 +59,21 @@ export default function Notification() {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
   const dispatch = useDispatch();
+  const limit = 10;
+  const pageNum = 1;
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
+  useEffect(() => {
+    dispatch(
+      chat.getConversations({
+        pageNum: pageNum,
+        limit: limit,
+      })
+    );
+  }, []);
 
   return (
     <motion.div initial='hidden' animate='visible' variants={variants}>
