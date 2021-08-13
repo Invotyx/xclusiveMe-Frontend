@@ -33,9 +33,9 @@ function* handleSendMessage(action) {
 }
 function* handleSendSingleMessage(action) {
   try {
-    const { id, saveData } = action.payload;
+    const { conversationId, saveData } = action.payload;
     console.log(saveData);
-    yield call(sendSingleMsg, id, saveData);
+    yield call(sendSingleMsg, conversationId, saveData);
     yield put(chat.success({}));
 
     const { callback } = action.payload;
