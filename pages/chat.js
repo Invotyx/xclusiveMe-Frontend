@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import Layout from '../components/layouts/layout-auth';
 import { makeStyles } from '@material-ui/core/styles';
 import Message from '../components/message/Message';
@@ -24,6 +24,8 @@ import { singleSelector } from '../selectors/userSelector';
 import { singleChatSelector } from '../selectors/chatSelector';
 import { chatDataSelector } from '../selectors/chatSelector';
 import ConvoList from '../components/message/ConvoList';
+import UploadImageModal from '../components/message/uploadImageModal';
+import { useId } from 'react-id-generator';
 const useStyles = makeStyles(theme => ({
   root: {
     '& > *': {
@@ -43,37 +45,28 @@ const Chat = () => {
   const singleUser = useSelector(singleSelector);
   const singlechat = useSelector(singleChatSelector);
   const chatsData = useSelector(chatDataSelector);
+  const [imageModal, setImageModal] = useState(false);
+  const myRef = useRef(null);
 
   // const { user, image, userId } = router.query;
 
   const { conId } = router.query;
   let socket;
   let pageNum = 1;
-  let limit = 10;
+  let limit = 50;
   const JWTToken =
     typeof window !== 'undefined' ? localStorage.getItem('jwtToken') : null;
 
   const { publicRuntimeConfig } = getConfig();
   const SERVER_ADDRESS = publicRuntimeConfig.backendUrl;
 
-  // console.log(singlechat[0].sender.fullName);
-  // console.log(
-  //   'conversationId',
-  //   typeof singlechat[0]?.id,
-  //   'receiver',
-  //   typeof current.id,
-  //   'content',
-  //   typeof msgText,
-  //   'sentTo',
-  //   typeof chatsData
-  //     .filter(list => list.id == conId)[0]
-  //     ?.participants.filter(p => p.id !== current.id)[0].id
-  // );
-
+  const executeScroll = () => myRef.current.scrollIntoView();
   function handleOnEnter() {
     if (!msgText || msgText.trim() === '') {
       return;
     }
+
+    // console.log(typeof singlechat[0]?.id);
     setShow(false);
     // socket.emit('new-message-to-server', {
     //   conversationId: 38,
@@ -83,9 +76,9 @@ const Chat = () => {
 
     dispatch(
       chat.sendOneMessage({
+        conversationId: Number(conId),
         saveData: {
-          conversationId: singlechat[0]?.id,
-          receiver: current.id,
+          // receiver: current.id,
           content: msgText,
           // sentTo: chatsData
           //   .filter(list => list.id == conId)[0]
@@ -95,6 +88,7 @@ const Chat = () => {
         },
         callback: () => {
           setMsgText('');
+
           dispatch(
             chat.getOneConversation({
               id: conId,
@@ -106,6 +100,13 @@ const Chat = () => {
       })
     );
   }
+
+  const handleImageModal = () => {
+    if (!msgText || msgText.trim() === '') {
+      return;
+    }
+    setImageModal(true);
+  };
 
   const addEmoji = e => {
     let sym = e.unified.split('-');
@@ -120,12 +121,22 @@ const Chat = () => {
   };
 
   useEffect(() => {
+    myRef.current.scrollIntoView();
     dispatch(
       chat.getConversations({
         pageNum: pageNum,
         limit: limit,
       })
     );
+
+    dispatch(
+      chat.getOneConversation({
+        id: conId,
+        pageNum: pageNum,
+        limit: limit,
+      })
+    );
+
     // socket = io(`${SERVER_ADDRESS}/messages`, {
     //   transports: ['websocket'],
     //   query: {
@@ -215,7 +226,7 @@ const Chat = () => {
                   {
                     chatsData
                       .filter(list => list.id == conId)[0]
-                      ?.participants.filter(p => p.id !== current.id)[0]
+                      ?.participants.filter(p => p.id !== current?.id)[0]
                       .fullName
                   }
                 </p>
@@ -238,7 +249,11 @@ const Chat = () => {
                 width: '40vw',
               }}
             >
-              <ConvoList singlechat={singlechat} current={current} />
+              <ConvoList
+                singlechat={singlechat}
+                current={current}
+                refProp={myRef}
+              />
             </div>
           </div>
           <div
@@ -251,9 +266,16 @@ const Chat = () => {
             }}
           >
             <img src='/camera.svg' alt='camera' />
-            <img src='/imageBtn.svg' alt='image' />
+            <img src='/imageBtn.svg' alt='image' onClick={handleImageModal} />
             <img src='/videoBtn.svg' alt='video' />
             <img src='/voiceBtn.svg' alt='voice' />
+            <UploadImageModal
+              imageModal={imageModal}
+              setImageModal={setImageModal}
+              msgText={msgText}
+              setMsgText={setMsgText}
+              conId={conId}
+            />
           </div>
 
           <OutlinedInput
@@ -318,7 +340,8 @@ const Chat = () => {
                 skin='1'
                 style={{
                   position: 'absolute',
-                  bottom: '-50px',
+                  bottom: '40px',
+                  right: '150px',
                   maxWidth: '300px',
                   with: '100%',
                   outline: 'none',
