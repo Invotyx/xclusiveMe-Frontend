@@ -46,7 +46,7 @@ export default function Message() {
   const chatsCount = useSelector(chatCountSelector);
   const dispatch = useDispatch();
   const pageNum = 1;
-  const limit = 10;
+  const limit = 50;
 
   const Link = ({ passQueryString, href, children, ...otherProps }) => (
     <NextLink

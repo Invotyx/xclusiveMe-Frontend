@@ -47,7 +47,7 @@ export default function Home() {
   const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
   const fetching = useSelector(fetchingSelector);
   const pageNum = 1;
-  const limit = 10;
+  const limit = 50;
 
   useEffect(() => {
     dispatch(post.requestSubscribed());

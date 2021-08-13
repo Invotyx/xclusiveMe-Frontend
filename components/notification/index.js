@@ -257,7 +257,7 @@ export default function Notification({
                       <ListItemText
                         primary={
                           <span className={styles.nameStyle}>
-                            {i.relatedUsersNames[0]}
+                            {/* {i?.relatedUsersNames[0]} */}
                           </span>
                         }
                         secondary={
