@@ -108,3 +108,8 @@ export async function reportPost(reason) {
   const data = JSON.stringify(reason);
   return apiClient.post(`${SERVER_ADDRESS}/report/post`, data);
 }
+
+export async function tipPost(saveData) {
+  const data = JSON.stringify(saveData);
+  return apiClient.post(`${SERVER_ADDRESS}/tips`, data);
+}
