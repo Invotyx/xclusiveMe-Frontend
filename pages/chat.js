@@ -30,6 +30,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import MonetizationOnOutlinedIcon from '@material-ui/icons/MonetizationOnOutlined';
+import SendIcon from '@material-ui/icons/Send';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -297,11 +298,7 @@ const Chat = () => {
                       <IconButton
                         onClick={handleOnEnter}
                       >
-                        <img
-                          src='/send.png'
-                          alt='send button'
-                          style={{ marginRight: '10px' }}
-                        />
+                        <SendIcon />
                       </IconButton>
                     </>
                   }
