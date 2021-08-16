@@ -27,7 +27,7 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <div className={classes.root}>
-      <head>
+      <Head>
         <title>xclusiveme</title>
         <link
           href='https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css'
@@ -38,7 +38,7 @@ function MyApp({ Component, pageProps }) {
           name='viewport'
           content='minimum-scale=1, initial-scale=1, width=device-width'
         />
-      </head>
+      </Head>
       <>
         <ThemeProvider theme={darkTheme}>
           <CssBaseline />
