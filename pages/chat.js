@@ -289,7 +289,7 @@ const Chat = () => {
                   }
                   endAdornment={
                     <>
-                      <Button
+                      <IconButton
                         onClick={showEmoji}
                         style={{
                           backgroundColor: '#111111',
@@ -300,8 +300,8 @@ const Chat = () => {
                         <span role='img'>
                           <InsertEmoticonIcon />
                         </span>
-                      </Button>
-                      <Button
+                      </IconButton>
+                      <IconButton
                         onClick={handleOnEnter}
                         style={{
                           backgroundColor: '#111111',
@@ -313,7 +313,7 @@ const Chat = () => {
                           alt='send button'
                           style={{ marginRight: '10px' }}
                         />
-                      </Button>
+                      </IconButton>
                     </>
                   }
                 />
