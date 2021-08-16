@@ -83,7 +83,6 @@ export default function NewPostDialog() {
         maxWidth='sm'
         fullWidth={true}
         disableEscapeKeyDown
-        disableBackdropClick
       >
         <DialogTitle id='customized-dialog-title' onClose={handleClose}>
           Create a new post

@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
+import ListSubheader from '@material-ui/core/ListSubheader';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Divider from '@material-ui/core/Divider';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
@@ -38,7 +40,8 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function Message() {
+export default function Message({ subheaderPrefix }) {
+  const SubheaderPrefix = () => subheaderPrefix || <></>;
   const classes = useStyles();
   const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
   const chatData = useSelector(chatDataSelector);
@@ -74,64 +77,57 @@ export default function Message() {
           No Data Found
         </p>
       ) : (
-        <div>
-          <p style={{ marginLeft: '20px', width: '200px' }}>All messages</p>
-          <div
-            style={{
-              overflowY: 'scroll',
-              overflowX: 'hidden',
-              maxHeight: '500px',
-            }}
-            className={styles.HideBar}
-          >
-            {chatData?.map((i, x) => (
-              <MenuItem
-                className={classes.root}
-                onClick={() => handlegetone(i.id)}
-              >
-                <Link
-                  passHref
-                  href={isMobile ? '/mChat' : '/chat'}
-                  passQueryString={{
-                    conId: `${i?.id}`,
-                  }}
-                >
-                  <ListItem>
-                    <ListItemAvatar>
-                      <ImageAvatar />
-                    </ListItemAvatar>
-                    <ListItemText
-                      primary={
-                        i.participants.filter(p => p?.id !== myData?.id)[0]
-                          .fullName
-                      }
-                      secondary={
-                        <React.Fragment>
-                          <Typography
-                            component='span'
-                            variant='body2'
-                            className={classes.inline}
-                            color='#757575'
-                          >
-                            {i.lastMessage.content.slice(0, 15)}...
-                          </Typography>
-                        </React.Fragment>
-                      }
-                    />
+        <List>
+          <ListSubheader disableGutters>
+            <>
+              <SubheaderPrefix />
+              <Typography>All messages</Typography>
+            </>
+          </ListSubheader>
+          {chatData?.map((i, x) => (
+            <Link
+              key={Math.random()}
+              passHref
+              href={isMobile ? '/mChat' : '/chat'}
+              passQueryString={{
+                conId: `${i?.id}`,
+              }}
+            >
+              <ListItem onClick={() => handlegetone(i.id)}>
+                <ListItemAvatar>
+                  <ImageAvatar />
+                </ListItemAvatar>
+                <ListItemText
+                  primary={
+                    i.participants.filter(p => p?.id !== myData?.id)[0].fullName
+                  }
+                  secondary={
+                    <React.Fragment>
+                      <Typography
+                        component='span'
+                        variant='body2'
+                        className={classes.inline}
+                        style={{ color: '#757575' }}
+                      >
+                        {i.lastMessage.content.slice(0, 15)}...
+                      </Typography>
+                    </React.Fragment>
+                  }
+                />
 
-                    <Typography
-                      component='span'
-                      variant='body2'
-                      className={classes.times}
-                    >
-                      {moment(i.createdAt).fromNow()}
-                    </Typography>
-                  </ListItem>
-                </Link>
-              </MenuItem>
-            ))}
-          </div>
-        </div>
+                <ListItemSecondaryAction>
+                  <Typography
+                    component='span'
+                    variant='caption'
+                    className={classes.times}
+                  >
+                    {moment(i.createdAt).fromNow()}
+                  </Typography>
+                </ListItemSecondaryAction>
+              </ListItem>
+            </Link>
+          ))}
+        </List>
       )}
     </>
   );

@@ -1,14 +1,12 @@
 import React from 'react';
 import styles from './message.module.css';
-import ScrollToBottom from 'react-scroll-to-bottom';
 import { css } from 'emotion';
 
 const ConvoList = ({ singlechat, current, refProp }) => {
-  // console.log('single', singlechat, 'current', current);
   return (
-    <div>
+    <>
       <div
-        style={{ overflowY: 'scroll', overflowX: 'hidden', maxHeight: '28vw' }}
+        style={{ overflowY: 'scroll', overflowX: 'hidden', maxHeight: '28vh' }}
         className={styles.mainBox}
         ref={refProp}
       >
@@ -49,7 +47,7 @@ const ConvoList = ({ singlechat, current, refProp }) => {
           </div>
         ))}
       </div>
-    </div>
+    </>
   );
 };
 

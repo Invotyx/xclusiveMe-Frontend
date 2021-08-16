@@ -21,7 +21,6 @@ const mChat = () => {
 
   function handleOnEnter(text) {
     setShow(false);
-    console.log('enter', text);
   }
   const addEmoji = e => {
     let sym = e.unified.split('-');
