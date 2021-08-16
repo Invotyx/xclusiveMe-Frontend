@@ -264,6 +264,7 @@ const Chat = () => {
                   value={msgText}
                   onChange={e => setMsgText(e.target.value)}
                   name='msgText'
+                  margin='dense'
                   style={{
                     width: '41vw',
                   }}
