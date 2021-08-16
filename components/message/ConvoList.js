@@ -11,7 +11,7 @@ const ConvoList = ({ singlechat, current, refProp }) => {
         ref={refProp}
       >
         {singlechat?.map((i, x) => (
-          <div className={styles.container}>
+          <div className={styles.container} key={`message${x}`}>
             <div className={styles.chatMessages}>
               {i.sender.id !== current.id ? (
                 <div className={styles.leftSide}>

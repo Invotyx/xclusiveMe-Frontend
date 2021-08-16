@@ -30,7 +30,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import MonetizationOnOutlinedIcon from '@material-ui/icons/MonetizationOnOutlined';
-import SendIcon from '@material-ui/icons/Send';
+import { io } from 'socket.io-client';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -125,28 +125,38 @@ const Chat = () => {
   };
 
   useEffect(() => {
-    myRef.current.scrollIntoView();
+    // myRef.current.scrollIntoView();
     dispatch(
       chat.getConversations({
         pageNum: pageNum,
         limit: limit,
       })
     );
+  }, []);
 
-    dispatch(
-      chat.getOneConversation({
-        id: conId,
-        pageNum: pageNum,
-        limit: limit,
-      })
-    );
+  useEffect(() => {
+    conId &&
+      dispatch(
+        chat.getOneConversation({
+          id: conId,
+          pageNum: pageNum,
+          limit: limit,
+        })
+      );
+  }, [conId]);
 
-    // socket = io(`${SERVER_ADDRESS}/messages`, {
-    //   transports: ['websocket'],
-    //   query: {
-    //     token: `${JWTToken}`,
-    //   },
-    // });
+  useEffect(() => {
+    socket = io(`${SERVER_ADDRESS.substring(0, SERVER_ADDRESS.length - 4)}/messages`, {
+      transports: ['websocket'],
+      query: {
+        token: `${JWTToken}`,
+      },
+    });
+
+    let socketId = null;
+    socket.on('connected', serverMessage => {
+      socketId = socket.id;
+    });
   }, []);
 
   return (
@@ -159,6 +169,7 @@ const Chat = () => {
                 <div
                   style={{
                     display: 'flex',
+                    marginBottom: '10px',
                   }}
                 >
                   <form
@@ -283,7 +294,11 @@ const Chat = () => {
                         <InsertEmoticonIcon />
                       </IconButton>
                       <IconButton onClick={handleOnEnter}>
-                        <SendIcon />
+                        <img
+                          src='/send.png'
+                          alt='send button'
+                          style={{ marginRight: '10px' }}
+                        />
                       </IconButton>
                     </>
                   }
