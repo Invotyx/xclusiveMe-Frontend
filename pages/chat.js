@@ -230,8 +230,6 @@ const Chat = () => {
                 }
               />
               <CardContent
-                style={{
-                }}
               >
                 <ConvoList
                   singlechat={singlechat}
