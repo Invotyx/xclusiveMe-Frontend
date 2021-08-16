@@ -111,7 +111,7 @@ export default function Message() {
                             component='span'
                             variant='body2'
                             className={classes.inline}
-                            color='#757575'
+                            style={{ color: '#757575' }}
                           >
                             {i.lastMessage.content.slice(0, 15)}...
                           </Typography>
