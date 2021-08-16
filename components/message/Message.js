@@ -40,7 +40,8 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function Message() {
+export default function Message({ subheaderPrefix }) {
+  const SubheaderPrefix = () => subheaderPrefix || <></>;
   const classes = useStyles();
   const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
   const chatData = useSelector(chatDataSelector);
@@ -78,7 +79,10 @@ export default function Message() {
       ) : (
         <List>
           <ListSubheader>
-            <Typography>All messages</Typography>
+            <>
+              <SubheaderPrefix />
+              <Typography>All messages</Typography>
+            </>
           </ListSubheader>
           {chatData?.map((i, x) => (
             <Link
