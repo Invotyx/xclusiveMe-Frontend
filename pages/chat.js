@@ -40,6 +40,31 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+function useSocket(url) {
+  const JWTToken =
+    typeof window !== 'undefined' ? localStorage.getItem('jwtToken') : null;
+  const [socket, setSocket] = useState(null)
+
+  useEffect(() => {
+    const socketIo = io(url, {
+      transports: ['websocket'],
+      query: {
+        token: `${JWTToken}`,
+      },
+    })
+
+    setSocket(socketIo)
+
+    function cleanup() {
+      socketIo.disconnect()
+    }
+
+    return cleanup
+  }, [])
+
+  return socket
+}
+
 const Chat = () => {
   const classes = useStyles();
   const router = useRouter();
