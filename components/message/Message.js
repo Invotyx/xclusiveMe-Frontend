@@ -78,50 +78,49 @@ export default function Message() {
       ) : (
         <List>
           <ListSubheader>All messages</ListSubheader>
-            {chatData?.map((i, x) => (
-              <Link
-                key={Math.random()}
-                passHref
-                href={isMobile ? '/mChat' : '/chat'}
-                passQueryString={{
-                  conId: `${i?.id}`,
-                }}
-              >
-                <ListItem onClick={() => handlegetone(i.id)}>
-                  <ListItemAvatar>
-                    <ImageAvatar />
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary={
-                      i.participants.filter(p => p?.id !== myData?.id)[0]
-                        .fullName
-                    }
-                    secondary={
-                      <React.Fragment>
-                        <Typography
-                          component='span'
-                          variant='body2'
-                          className={classes.inline}
-                          style={{ color: '#757575' }}
-                        >
-                          {i.lastMessage.content.slice(0, 15)}...
-                        </Typography>
-                      </React.Fragment>
-                    }
-                  />
+          {chatData?.map((i, x) => (
+            <Link
+              key={Math.random()}
+              passHref
+              href={isMobile ? '/mChat' : '/chat'}
+              passQueryString={{
+                conId: `${i?.id}`,
+              }}
+            >
+              <ListItem onClick={() => handlegetone(i.id)}>
+                <ListItemAvatar>
+                  <ImageAvatar />
+                </ListItemAvatar>
+                <ListItemText
+                  primary={
+                    i.participants.filter(p => p?.id !== myData?.id)[0].fullName
+                  }
+                  secondary={
+                    <React.Fragment>
+                      <Typography
+                        component='span'
+                        variant='body2'
+                        className={classes.inline}
+                        style={{ color: '#757575' }}
+                      >
+                        {i.lastMessage.content.slice(0, 15)}...
+                      </Typography>
+                    </React.Fragment>
+                  }
+                />
 
-                  <ListItemSecondaryAction>
-                    <Typography
-                      component='span'
-                      variant='body2'
-                      className={classes.times}
-                    >
-                      {moment(i.createdAt).fromNow()}
-                    </Typography>
-                  </ListItemSecondaryAction>
-                </ListItem>
-              </Link>
-            ))}
+                <ListItemSecondaryAction>
+                  <Typography
+                    component='span'
+                    variant='body2'
+                    className={classes.times}
+                  >
+                    {moment(i.createdAt).fromNow()}
+                  </Typography>
+                </ListItemSecondaryAction>
+              </ListItem>
+            </Link>
+          ))}
         </List>
       )}
     </>
