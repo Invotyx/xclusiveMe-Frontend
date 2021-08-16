@@ -81,6 +81,7 @@ export default function Message() {
           <>
             {chatData?.map((i, x) => (
                 <Link
+                  key={Math.random()}
                   passHref
                   href={isMobile ? '/mChat' : '/chat'}
                   passQueryString={{
