@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListSubheader from '@material-ui/core/ListSubheader';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Divider from '@material-ui/core/Divider';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
@@ -112,6 +113,7 @@ export default function Message() {
                       }
                     />
 
+                  <ListItemSecondaryAction>
                     <Typography
                       component='span'
                       variant='body2'
@@ -119,6 +121,7 @@ export default function Message() {
                     >
                       {moment(i.createdAt).fromNow()}
                     </Typography>
+                  </ListItemSecondaryAction>
                 </Link>
               </MenuItem>
             ))}
