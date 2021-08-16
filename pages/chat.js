@@ -189,7 +189,7 @@ const Chat = () => {
             />
           </Grid>
 
-          <Grid item>
+          <Grid item style={{ flexGrow: 1 }}>
             <Card
               style={{
                 width: '41vw',
