@@ -149,207 +149,209 @@ const Chat = () => {
           justifyContent: 'center',
         }}
       >
-        <div>
-          <Message
-            subheaderPrefix={
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}
-              >
-                <form className={classes.root} noValidate autoComplete='off'>
-                  <TileTextField
-                    id='outlined-basic'
-                    placeholder='Search'
-                    variant='outlined'
-                    InputProps={{
-                      startAdornment: (
-                        <SearchIcon style={{ color: '#7c8080' }} />
-                      ),
-                    }}
-                  />
-                </form>
-                <IconButton
+        <>
+          <div>
+            <Message
+              subheaderPrefix={
+                <div
                   style={{
-                    backgroundColor: '#111111',
-                    padding: '16px',
-                    borderRadius: '3px',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
                   }}
                 >
-                  <AddCommentIcon />
-                </IconButton>
-              </div>
-            }
-          />
-        </div>
+                  <form className={classes.root} noValidate autoComplete='off'>
+                    <TileTextField
+                      id='outlined-basic'
+                      placeholder='Search'
+                      variant='outlined'
+                      InputProps={{
+                        startAdornment: (
+                          <SearchIcon style={{ color: '#7c8080' }} />
+                        ),
+                      }}
+                    />
+                  </form>
+                  <IconButton
+                    style={{
+                      backgroundColor: '#111111',
+                      padding: '16px',
+                      borderRadius: '3px',
+                    }}
+                  >
+                    <AddCommentIcon />
+                  </IconButton>
+                </div>
+              }
+            />
+          </div>
 
-        <div>
-          <div
-            style={{
-              width: '41vw',
-              backgroundColor: '#101010',
-              marginLeft: '30px',
-              marginTop: '-6px',
-              padding: '10px',
-              height: '70vh',
-              borderRadius: '6px',
-            }}
-          >
+          <div>
             <div
               style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
+                width: '41vw',
+                backgroundColor: '#101010',
+                marginLeft: '30px',
+                marginTop: '-6px',
+                padding: '10px',
+                height: '70vh',
+                borderRadius: '6px',
               }}
             >
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  marginLeft: '10px',
-                  marginTop: '-4px',
-                }}
-              >
-                <ImageAvatar />
-                <p
-                  style={{
-                    marginLeft: '20px',
-                    fontSize: '20px',
-                    fontWeight: 'bold',
-                  }}
-                >
-                  {
-                    chatsData
-                      .filter(list => list.id == conId)[0]
-                      ?.participants.filter(p => p.id !== current?.id)[0]
-                      .fullName
-                  }
-                </p>
-              </div>
               <div
                 style={{
                   display: 'flex',
                   justifyContent: 'space-between',
-                  width: '10%',
-                  marginTop: '-10px',
-                  marginRight: '10px',
+                  alignItems: 'center',
                 }}
               >
-                <img src='/money.png' alt='' />
-                <img src='/menu.png' alt='' />
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    marginLeft: '10px',
+                    marginTop: '-4px',
+                  }}
+                >
+                  <ImageAvatar />
+                  <p
+                    style={{
+                      marginLeft: '20px',
+                      fontSize: '20px',
+                      fontWeight: 'bold',
+                    }}
+                  >
+                    {
+                      chatsData
+                        .filter(list => list.id == conId)[0]
+                        ?.participants.filter(p => p.id !== current?.id)[0]
+                        .fullName
+                    }
+                  </p>
+                </div>
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    width: '10%',
+                    marginTop: '-10px',
+                    marginRight: '10px',
+                  }}
+                >
+                  <img src='/money.png' alt='' />
+                  <img src='/menu.png' alt='' />
+                </div>
+              </div>
+              <div
+                style={{
+                  width: '40vw',
+                }}
+              >
+                <ConvoList
+                  singlechat={singlechat}
+                  current={current}
+                  refProp={myRef}
+                />
               </div>
             </div>
             <div
               style={{
-                width: '40vw',
+                display: 'flex',
+                justifyContent: 'space-between',
+                width: '30%',
+                marginLeft: '4vw',
+                marginTop: '10px',
               }}
             >
-              <ConvoList
-                singlechat={singlechat}
-                current={current}
-                refProp={myRef}
+              <img src='/camera.svg' alt='camera' />
+              <img src='/imageBtn.svg' alt='image' onClick={handleImageModal} />
+              <img src='/videoBtn.svg' alt='video' />
+              <img src='/voiceBtn.svg' alt='voice' />
+              <UploadImageModal
+                imageModal={imageModal}
+                setImageModal={setImageModal}
+                msgText={msgText}
+                setMsgText={setMsgText}
+                conId={conId}
               />
             </div>
-          </div>
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              width: '30%',
-              marginLeft: '4vw',
-              marginTop: '10px',
-            }}
-          >
-            <img src='/camera.svg' alt='camera' />
-            <img src='/imageBtn.svg' alt='image' onClick={handleImageModal} />
-            <img src='/videoBtn.svg' alt='video' />
-            <img src='/voiceBtn.svg' alt='voice' />
-            <UploadImageModal
-              imageModal={imageModal}
-              setImageModal={setImageModal}
-              msgText={msgText}
-              setMsgText={setMsgText}
-              conId={conId}
-            />
-          </div>
 
-          <OutlinedInput
-            value={msgText}
-            onChange={e => setMsgText(e.target.value)}
-            name='msgText'
-            style={{ width: '41vw', marginLeft: '30px', marginTop: '10px' }}
-            multiline
-            // disabled={post.media.length === 0}
-            onKeyDown={e => {
-              if (e.keyCode === 13) {
-                if (!event.shiftKey) {
-                  handleOnEnter(e);
+            <OutlinedInput
+              value={msgText}
+              onChange={e => setMsgText(e.target.value)}
+              name='msgText'
+              style={{ width: '41vw', marginLeft: '30px', marginTop: '10px' }}
+              multiline
+              // disabled={post.media.length === 0}
+              onKeyDown={e => {
+                if (e.keyCode === 13) {
+                  if (!event.shiftKey) {
+                    handleOnEnter(e);
+                  }
                 }
+              }}
+              // inputRef={searchInput}
+              placeholder='Write a message'
+              startAdornment={
+                <ProfileImageAvatar
+                  user={current}
+                  style={{ marginRight: '10px' }}
+                />
               }
-            }}
-            // inputRef={searchInput}
-            placeholder='Write a message'
-            startAdornment={
-              <ProfileImageAvatar
-                user={current}
-                style={{ marginRight: '10px' }}
-              />
-            }
-            endAdornment={
-              <>
-                <Button
-                  onClick={showEmoji}
+              endAdornment={
+                <>
+                  <Button
+                    onClick={showEmoji}
+                    style={{
+                      backgroundColor: '#111111',
+                      border: 'none',
+                      marginRight: '-20px',
+                    }}
+                  >
+                    <span role='img'>
+                      <InsertEmoticonIcon />
+                    </span>
+                  </Button>
+                  <Button
+                    onClick={handleOnEnter}
+                    style={{
+                      backgroundColor: '#111111',
+                      border: 'none',
+                    }}
+                  >
+                    <img
+                      src='/send.png'
+                      alt='send button'
+                      style={{ marginRight: '10px' }}
+                    />
+                  </Button>
+                </>
+              }
+            />
+            {show && (
+              <span>
+                <Picker
+                  onSelect={addEmoji}
+                  set='facebook'
+                  emoji='point_up'
+                  theme='dark'
+                  skin='1'
                   style={{
-                    backgroundColor: '#111111',
-                    border: 'none',
-                    marginRight: '-20px',
+                    position: 'absolute',
+                    bottom: '40px',
+                    right: '150px',
+                    maxWidth: '300px',
+                    with: '100%',
+                    outline: 'none',
                   }}
-                >
-                  <span role='img'>
-                    <InsertEmoticonIcon />
-                  </span>
-                </Button>
-                <Button
-                  onClick={handleOnEnter}
-                  style={{
-                    backgroundColor: '#111111',
-                    border: 'none',
-                  }}
-                >
-                  <img
-                    src='/send.png'
-                    alt='send button'
-                    style={{ marginRight: '10px' }}
-                  />
-                </Button>
-              </>
-            }
-          />
-          {show && (
-            <span>
-              <Picker
-                onSelect={addEmoji}
-                set='facebook'
-                emoji='point_up'
-                theme='dark'
-                skin='1'
-                style={{
-                  position: 'absolute',
-                  bottom: '40px',
-                  right: '150px',
-                  maxWidth: '300px',
-                  with: '100%',
-                  outline: 'none',
-                }}
-              />
-            </span>
-          )}
-          <br />
-          <br />
-        </div>
+                />
+              </span>
+            )}
+            <br />
+            <br />
+          </div>
+        </>
       </div>
     </Layout>
   );
