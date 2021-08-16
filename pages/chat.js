@@ -268,6 +268,7 @@ const Chat = () => {
                   style={{
                     width: '41vw',
                   }}
+                  fullWidth
                   multiline
                   // disabled={post.media.length === 0}
                   onKeyDown={e => {
