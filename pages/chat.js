@@ -156,33 +156,35 @@ const Chat = () => {
         <div>
           <Message
             subheaderPrefix={
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
-            <form className={classes.root} noValidate autoComplete='off'>
-              <TileTextField
-                id='outlined-basic'
-                placeholder='Search'
-                variant='outlined'
-                InputProps={{
-                  startAdornment: <SearchIcon style={{ color: '#7c8080' }} />,
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
                 }}
-              />
-            </form>
-            <div
-              style={{
-                backgroundColor: '#111111',
-                padding: '12px',
-                borderRadius: '3px',
-              }}
-            >
-              <AddCommentIcon style={{ marginTop: '5px' }} />
-            </div>
-          </div>
+              >
+                <form className={classes.root} noValidate autoComplete='off'>
+                  <TileTextField
+                    id='outlined-basic'
+                    placeholder='Search'
+                    variant='outlined'
+                    InputProps={{
+                      startAdornment: (
+                        <SearchIcon style={{ color: '#7c8080' }} />
+                      ),
+                    }}
+                  />
+                </form>
+                <div
+                  style={{
+                    backgroundColor: '#111111',
+                    padding: '12px',
+                    borderRadius: '3px',
+                  }}
+                >
+                  <AddCommentIcon style={{ marginTop: '5px' }} />
+                </div>
+              </div>
             }
           />
 
