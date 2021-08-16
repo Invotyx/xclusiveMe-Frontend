@@ -231,7 +231,6 @@ const Chat = () => {
               />
               <CardContent
                 style={{
-                  width: '40vw',
                 }}
               >
                 <ConvoList
