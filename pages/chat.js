@@ -63,7 +63,6 @@ const Chat = () => {
       return;
     }
 
-    // console.log(typeof singlechat[0]?.id);
     setShow(false);
     // socket.emit('new-message-to-server', {
     //   conversationId: 38,
