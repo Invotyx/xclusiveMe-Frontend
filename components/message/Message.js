@@ -76,14 +76,7 @@ export default function Message() {
       ) : (
         <List>
           <p style={{ marginLeft: '20px', width: '200px' }}>All messages</p>
-          <div
-            style={{
-              overflowY: 'scroll',
-              overflowX: 'hidden',
-              maxHeight: '500px',
-            }}
-            className={styles.HideBar}
-          >
+          <>
             {chatData?.map((i, x) => (
               <MenuItem
                 className={classes.root}
@@ -130,7 +123,7 @@ export default function Message() {
                 </Link>
               </MenuItem>
             ))}
-          </div>
+          </>
         </List>
       )}
     </>
