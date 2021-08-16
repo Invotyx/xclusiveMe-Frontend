@@ -291,11 +291,6 @@ const Chat = () => {
                     <>
                       <IconButton
                         onClick={showEmoji}
-                        style={{
-                          backgroundColor: '#111111',
-                          border: 'none',
-                          marginRight: '-20px',
-                        }}
                       >
                           <InsertEmoticonIcon />
                       </IconButton>
