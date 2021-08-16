@@ -29,6 +29,7 @@ import LoadingOverlay from 'react-loading-overlay';
 import BounceLoader from 'react-spinners/BounceLoader';
 import Message from '../message/Message';
 import MessageMenu from '../message/MessageMenu';
+import { currentUserSelector } from '../../selectors/authSelector';
 
 export default function Comp({ sidebarMenu, set_sidebarMenu }) {
   const dispatch = useDispatch();
@@ -38,6 +39,7 @@ export default function Comp({ sidebarMenu, set_sidebarMenu }) {
   const listofNotifications = useSelector(getNotifications);
   const notificationCount = useSelector(notificationsCount);
   const fetchData = useSelector(fetchingSelector);
+  const me = useSelector(currentUserSelector);
 
   const settingsMenuOpen = event => {
     setAnchorEl(event.currentTarget);
@@ -119,7 +121,7 @@ export default function Comp({ sidebarMenu, set_sidebarMenu }) {
                 <Box mr={1} display='flex'>
                   <NewPostDialog />
                 </Box>
-                <NextLink passHref href='/profile'>
+                <NextLink passHref href={`/x/${me?.username}`}>
                   <IconButton component='a' color='inherit'>
                     <CurrentUserProfileImageAvatar />
                   </IconButton>
