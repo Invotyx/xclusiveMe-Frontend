@@ -93,7 +93,7 @@ export default function Message({ subheaderPrefix }) {
                 conId: `${i?.id}`,
               }}
             >
-              <ListItem onClick={() => handlegetone(i.id)}>
+              <ListItem onClick={() => handlegetone(i.id)} disableGutters>
                 <ListItemAvatar>
                   <ImageAvatar />
                 </ListItemAvatar>
