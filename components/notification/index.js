@@ -17,6 +17,7 @@ import NextLink from 'next/link';
 import router from 'next/router';
 import { singlepostDataSelector } from '../../selectors/postSelector';
 import CommentModel from '../profile/commentModel';
+import ProfileImageAvatar from '../profile/profile-image-avatar';
 
 const useStyles = makeStyles(theme => ({
   small: {
@@ -128,7 +129,6 @@ export default function Notification({
       '0' +
       (today.getMonth() + 1) +
       '-' +
-      '0' +
       today.getDate();
     return date;
   }
@@ -172,20 +172,44 @@ export default function Notification({
                   <div onClick={() => readNotification(i.id, i.modelId)}>
                     <MenuItem onClick={onClose} key={`notificationToday${x}`}>
                       <ListItemAvatar>
-                        <Avatar
-                          alt='Cindy Baker'
-                          src={i.relatedUserProfileImage}
-                          className={classes.small}
-                        />
+                        <div>
+                          {i.relatedUsers[0].user.profileImage === null ? (
+                            <img
+                              src='./dp.png'
+                              alt='image'
+                              style={{
+                                width: '40px',
+                                height: '40px',
+                                borderRadius: '50%',
+                              }}
+                            />
+                          ) : (
+                            <img
+                              src={i.relatedUsers[0].user.profileImage}
+                              alt='image'
+                              style={{
+                                width: '40px',
+                                height: '40px',
+                                borderRadius: '50%',
+                              }}
+                            />
+                          )}
+                        </div>
                       </ListItemAvatar>
                       <ListItemText
                         primary={
-                          <span className={styles.nameStyle}>
-                            {i.relatedUsersNames[0]}
+                          <span className={styles.nameStyleTwo}>
+                            {i.relatedUsers[0]?.user.fullName}
                           </span>
                         }
                         secondary={
                           <div className={styles.dataAndTitle}>
+                            {i.type === 'comment' ? (
+                              <span className={styles.tag}>commented </span>
+                            ) : (
+                              <span>Liked</span>
+                            )}
+
                             <span className={styles.timeStyle}>
                               {moment(i.createdAt).fromNow()}
                             </span>
@@ -198,8 +222,26 @@ export default function Notification({
                               {i.type === 'comment' ? (
                                 <>
                                   {' '}
-                                  <img src='/noticomm.svg' alt='comment' />{' '}
-                                  {i.title}
+                                  <img
+                                    src='/noticomm.svg'
+                                    alt='comment'
+                                    style={{
+                                      width: '20px',
+                                      height: '12px',
+                                      marginRight: '5px',
+                                    }}
+                                  />{' '}
+                                  <span
+                                    style={{
+                                      textOverflow: 'clip',
+                                      whiteSpace: 'normal',
+                                      height: 'auto',
+                                      width: '20vw',
+                                    }}
+                                    className={styles.tag}
+                                  >
+                                    {i.content.slice(0, 100)}
+                                  </span>
                                 </>
                               ) : i.type === 'like' ? (
                                 <>
@@ -248,16 +290,32 @@ export default function Notification({
                   <div onClick={() => readNotification(i.id, i.modelId)}>
                     <MenuItem onClick={onClose} key={`notificationToday${x}`}>
                       <ListItemAvatar>
-                        <Avatar
-                          alt='Cindy Baker'
-                          src={i.relatedUserProfileImage}
-                          className={classes.small}
-                        />
+                        {i.relatedUsers[0]?.user.profileImage === null ? (
+                          <img
+                            src='./dp.png'
+                            alt='image'
+                            style={{
+                              width: '40px',
+                              height: '40px',
+                              borderRadius: '50%',
+                            }}
+                          />
+                        ) : (
+                          <img
+                            src={i.relatedUsers[0]?.user.profileImage}
+                            alt='image'
+                            style={{
+                              width: '40px',
+                              height: '40px',
+                              borderRadius: '50%',
+                            }}
+                          />
+                        )}
                       </ListItemAvatar>
                       <ListItemText
                         primary={
-                          <span className={styles.nameStyle}>
-                            {/* {i?.relatedUsersNames[0]} */}
+                          <span className={styles.nameStyleTwo}>
+                            {i.relatedUsers[0]?.user.fullName}
                           </span>
                         }
                         secondary={
@@ -274,8 +332,26 @@ export default function Notification({
                               {i.type === 'comment' ? (
                                 <>
                                   {' '}
-                                  <img src='/noticomm.svg' alt='comment' />{' '}
-                                  {i.title}
+                                  <img
+                                    src='/noticomm.svg'
+                                    alt='comment'
+                                    style={{
+                                      width: '20px',
+                                      height: '12px',
+                                      marginRight: '5px',
+                                    }}
+                                  />{' '}
+                                  <span
+                                    style={{
+                                      textOverflow: 'clip',
+                                      whiteSpace: 'normal',
+                                      height: 'auto',
+                                      width: '20vw',
+                                    }}
+                                    className={styles.tag}
+                                  >
+                                    {i.content.slice(0, 100)}
+                                  </span>
                                 </>
                               ) : i.type === 'like' ? (
                                 <>
@@ -284,7 +360,16 @@ export default function Notification({
                                   {i.title}
                                 </>
                               ) : (
-                                <>{i.title}</>
+                                <span
+                                  style={{
+                                    textOverflow: 'clip',
+                                    whiteSpace: 'normal',
+                                    height: 'auto',
+                                    width: '20vw',
+                                  }}
+                                >
+                                  {i.content.slice(0, 100)}
+                                </span>
                               )}
                             </Typography>
                           </div>
