@@ -182,9 +182,7 @@ const Chat = () => {
             </div>
           </div>
 
-          <div className={classes.messageHeight}>
             <Message />
-          </div>
         </div>
 
         <div>
