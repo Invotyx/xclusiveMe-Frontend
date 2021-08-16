@@ -43,7 +43,7 @@ const useStyles = makeStyles(theme => ({
 function useSocket(url) {
   const JWTToken =
     typeof window !== 'undefined' ? localStorage.getItem('jwtToken') : null;
-  const [socket, setSocket] = useState(null)
+  const [socket, setSocket] = useState(null);
 
   useEffect(() => {
     const socketIo = io(url, {
@@ -51,22 +51,24 @@ function useSocket(url) {
       query: {
         token: `${JWTToken}`,
       },
-    })
+    });
 
-    setSocket(socketIo)
+    setSocket(socketIo);
 
     function cleanup() {
-      socketIo.disconnect()
+      socketIo.disconnect();
     }
 
-    return cleanup
-  }, [])
+    return cleanup;
+  }, []);
 
-  return socket
+  return socket;
 }
 
 const Chat = () => {
-  const socket = useSocket(`${SERVER_ADDRESS.substring(0, SERVER_ADDRESS.length - 4)}/messages`)
+  const socket = useSocket(
+    `${SERVER_ADDRESS.substring(0, SERVER_ADDRESS.length - 4)}/messages`
+  );
   useEffect(() => {
     if (socket) {
       socket.on('connected', data => {
