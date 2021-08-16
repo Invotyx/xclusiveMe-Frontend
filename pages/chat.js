@@ -131,7 +131,10 @@ const Chat = () => {
         limit: limit,
       })
     );
+  }, []);
 
+  useEffect(() => {
+    conId &&
     dispatch(
       chat.getOneConversation({
         id: conId,
@@ -139,6 +142,7 @@ const Chat = () => {
         limit: limit,
       })
     );
+  }, [conId]);
 
     // socket = io(`${SERVER_ADDRESS}/messages`, {
     //   transports: ['websocket'],
