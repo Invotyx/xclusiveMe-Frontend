@@ -67,6 +67,18 @@ function useSocket(url) {
 
 const Chat = () => {
   const socket = useSocket(`${SERVER_ADDRESS.substring(0, SERVER_ADDRESS.length - 4)}/messages`)
+  useEffect(() => {
+    socket.on('connected', data => {
+      console.log(data)
+    });
+    socket.on('exception', (data) => {
+      console.log(data)
+    });
+    socket.on('disconnect', () => {
+      console.log('disconnected')
+    });
+  }, [socket]);
+
   const classes = useStyles();
   const router = useRouter();
   const dispatch = useDispatch();
