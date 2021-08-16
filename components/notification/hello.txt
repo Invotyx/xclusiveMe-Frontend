@@ -7,3 +7,13 @@
 -- cannot see followers, following
 -- suggestions
 -- Request URL: https://api.dev.xclusiveme.ga/api/users/posts/harisjamil -- no users data
+
+
+
+-----------------------------
+
+-- view previosu commnet is reached end()
+
+-- my own profile
+
+--
