@@ -196,7 +196,6 @@ const Chat = () => {
                 backgroundColor: '#101010',
                 marginLeft: '30px',
                 marginTop: '-6px',
-                padding: '10px',
                 height: '70vh',
                 borderRadius: '6px',
               }}
