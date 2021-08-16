@@ -238,8 +238,6 @@ const Chat = () => {
                     display: 'flex',
                     justifyContent: 'space-between',
                     width: '30%',
-                    marginLeft: '4vw',
-                    marginTop: '10px',
                   }}
                 >
                   <img src='/camera.svg' alt='camera' />
