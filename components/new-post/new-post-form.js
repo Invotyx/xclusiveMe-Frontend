@@ -227,7 +227,6 @@ export default function NewPostForm({ afterSave }) {
                     imageHandler={imageHandler}
                     set_disabled={set_disabled}
                     onImageSelect={imgSrc => {
-                      console.log(imgSrc);
                       setLoadingItems(prev => [...prev, { src: imgSrc }]);
                     }}
                     onImageUploaded={() =>
