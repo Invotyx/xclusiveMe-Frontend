@@ -297,9 +297,7 @@ const Chat = () => {
                           marginRight: '-20px',
                         }}
                       >
-                        <span role='img'>
                           <InsertEmoticonIcon />
-                        </span>
                       </IconButton>
                       <IconButton
                         onClick={handleOnEnter}
