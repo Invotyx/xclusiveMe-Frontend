@@ -13,6 +13,7 @@ import ShareIcon from '@material-ui/icons/Share';
 import styles from './profile.module.css';
 import TextField from '@material-ui/core/TextField';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
+import { post as postData } from '../../actions/post';
 
 const useStyles = makeStyles(theme => ({
   modal: {
@@ -36,19 +37,25 @@ const TipModal = ({ openTip, setopenTip, post }) => {
   const [purchased, setPurchased] = useState(false);
   const paymentData = useSelector(paymentMethodDataSelector);
   const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
+  const [addPrice, setAddPrice] = useState(0);
 
   const handlePurchase = () => {
     setPurchased(true);
-    // dispatch(
-    //   postData?.purchasePost({
-    //     id: post.id,
-    //     callback: () => {
-    //       setPurchased(true);
-    //       dispatch(postData.request());
-    //       dispatch(postData.requestSubscribed());
-    //     },
-    //   })
-    // );
+    dispatch(
+      postData?.addTip({
+        saveData: {
+          itemTipped: post.id,
+          itemTippedType: 'post',
+          amount: addPrice,
+        },
+
+        callback: () => {
+          setPurchased(true);
+          dispatch(postData.request());
+          dispatch(postData.requestSubscribed());
+        },
+      })
+    );
   };
 
   const handleClose = () => {
@@ -150,6 +157,9 @@ const TipModal = ({ openTip, setopenTip, post }) => {
                         id='outlined-basic'
                         variant='outlined'
                         placeholder='Enter amount in USD'
+                        value={addPrice}
+                        onChange={e => setAddPrice(e.target.value)}
+                        name='addPrice'
                       />
                     </form>
                   </div>
@@ -287,7 +297,7 @@ const TipModal = ({ openTip, setopenTip, post }) => {
                       marginTop: '-1vh',
                     }}
                   >
-                    ${post?.price}.00
+                    {addPrice}.00
                   </p>
                 </div>
                 <div
