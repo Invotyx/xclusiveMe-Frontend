@@ -162,9 +162,9 @@ export default function Comp({ sidebarMenu, set_sidebarMenu }) {
 
               <Box ml={3} display={{ xs: 'none', sm: 'none', md: 'flex' }}>
                 <NextLink href='/chat' passHref>
-                <IconButton color='inherit' onClick={messagesOpen}>
-                  <SmsIcon />
-                </IconButton>
+                  <IconButton color='inherit' onClick={messagesOpen}>
+                    <SmsIcon />
+                  </IconButton>
                 </NextLink>
                 <div>
                   <MessageMenu
