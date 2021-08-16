@@ -10,7 +10,6 @@ export async function send(saveData) {
 
 export async function sendSingleMsg(id, saveData) {
   const data = JSON.stringify(saveData);
-  console.log('--------------', data);
   return apiClient.post(`${SERVER_ADDRESS}/conversations/${id}/messages`, data);
 }
 
