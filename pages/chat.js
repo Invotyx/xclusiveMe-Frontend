@@ -144,6 +144,7 @@ const Chat = () => {
       );
   }, [conId]);
 
+  useEffect(() => {
     // socket = io(`${SERVER_ADDRESS}/messages`, {
     //   transports: ['websocket'],
     //   query: {
