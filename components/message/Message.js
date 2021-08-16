@@ -90,7 +90,6 @@ export default function Message() {
                     conId: `${i?.id}`,
                   }}
                 >
-                  <ListItem>
                     <ListItemAvatar>
                       <ImageAvatar />
                     </ListItemAvatar>
@@ -120,7 +119,6 @@ export default function Message() {
                     >
                       {moment(i.createdAt).fromNow()}
                     </Typography>
-                  </ListItem>
                 </Link>
               </MenuItem>
             ))}
