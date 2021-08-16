@@ -166,6 +166,7 @@ const Chat = () => {
                 >
                   <form className={classes.root} noValidate autoComplete='off'>
                     <TileTextField
+                      fullWidth
                       id='outlined-basic'
                       placeholder='Search'
                       variant='outlined'
