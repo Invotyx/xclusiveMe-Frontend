@@ -2,10 +2,24 @@
     display: flex;
 }
 
+.tag {
+    font-weight: 900;
+    font-style: normal;
+    font-size: 12px;
+}
+
 .timeStyle {
     font-weight: 900;
     font-style: normal;
     font-size: 12px;
+    margin-left: 3px;
+}
+
+.timeStyleTwo {
+    font-weight: 500;
+    font-style: normal;
+    font-size: 14px;
+    margin-left: 3px;
 }
 
 .nameStyle {
