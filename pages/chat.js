@@ -207,14 +207,11 @@ const Chat = () => {
                   justifyContent: 'space-between',
                   alignItems: 'center',
                 }}
-                avatar={
-                  <ImageAvatar />
-                }
+                avatar={<ImageAvatar />}
                 title={
-                      chatsData
-                        .filter(list => list.id == conId)[0]
-                        ?.participants.filter(p => p.id !== current?.id)[0]
-                        .fullName
+                  chatsData
+                    .filter(list => list.id == conId)[0]
+                    ?.participants.filter(p => p.id !== current?.id)[0].fullName
                 }
                 action={
                   <>
