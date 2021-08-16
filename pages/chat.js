@@ -22,6 +22,12 @@ import { chatDataSelector } from '../selectors/chatSelector';
 import ConvoList from '../components/message/ConvoList';
 import UploadImageModal from '../components/message/uploadImageModal';
 import IconButton from '@material-ui/core/IconButton';
+import Container from '@material-ui/core/Container';
+import Grid from '@material-ui/core/Grid';
+import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -143,14 +149,9 @@ const Chat = () => {
 
   return (
     <Layout>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-        }}
-      >
-        <>
-          <div>
+      <Container maxWidth='md'>
+        <Grid container>
+          <Grid item>
             <Message
               subheaderPrefix={
                 <div
@@ -184,10 +185,10 @@ const Chat = () => {
                 </div>
               }
             />
-          </div>
+          </Grid>
 
-          <div>
-            <div
+          <Grid item>
+            <Card
               style={{
                 width: '41vw',
                 backgroundColor: '#101010',
@@ -198,52 +199,29 @@ const Chat = () => {
                 borderRadius: '6px',
               }}
             >
-              <div
+              <CardHeader
                 style={{
                   display: 'flex',
                   justifyContent: 'space-between',
                   alignItems: 'center',
                 }}
-              >
-                <div
-                  style={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    marginLeft: '10px',
-                    marginTop: '-4px',
-                  }}
-                >
+                avatar={
                   <ImageAvatar />
-                  <p
-                    style={{
-                      marginLeft: '20px',
-                      fontSize: '20px',
-                      fontWeight: 'bold',
-                    }}
-                  >
-                    {
+                }
+                title={
                       chatsData
                         .filter(list => list.id == conId)[0]
                         ?.participants.filter(p => p.id !== current?.id)[0]
                         .fullName
-                    }
-                  </p>
-                </div>
-                <div
-                  style={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    width: '10%',
-                    marginTop: '-10px',
-                    marginRight: '10px',
-                  }}
-                >
+                }
+                action={
+                  <>
                   <img src='/money.png' alt='' />
                   <img src='/menu.png' alt='' />
-                </div>
-              </div>
-              <div
+                  </>
+                }
+              />
+              <CardContent
                 style={{
                   width: '40vw',
                 }}
@@ -253,9 +231,9 @@ const Chat = () => {
                   current={current}
                   refProp={myRef}
                 />
-              </div>
-            </div>
-            <div
+              </CardContent>
+            </Card>
+            <CardActions
               style={{
                 display: 'flex',
                 justifyContent: 'space-between',
@@ -275,7 +253,7 @@ const Chat = () => {
                 setMsgText={setMsgText}
                 conId={conId}
               />
-            </div>
+            </CardActions>
 
             <OutlinedInput
               value={msgText}
@@ -348,9 +326,9 @@ const Chat = () => {
                 />
               </span>
             )}
-          </div>
-        </>
-      </div>
+          </Grid>
+        </Grid>
+      </Container>
     </Layout>
   );
 };
