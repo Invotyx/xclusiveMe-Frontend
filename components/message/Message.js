@@ -89,27 +89,27 @@ export default function Message() {
                 }}
               >
                 <ListItem onClick={() => handlegetone(i.id)}>
-                    <ListItemAvatar>
-                      <ImageAvatar />
-                    </ListItemAvatar>
-                    <ListItemText
-                      primary={
-                        i.participants.filter(p => p?.id !== myData?.id)[0]
-                          .fullName
-                      }
-                      secondary={
-                        <React.Fragment>
-                          <Typography
-                            component='span'
-                            variant='body2'
-                            className={classes.inline}
-                            style={{ color: '#757575' }}
-                          >
-                            {i.lastMessage.content.slice(0, 15)}...
-                          </Typography>
-                        </React.Fragment>
-                      }
-                    />
+                  <ListItemAvatar>
+                    <ImageAvatar />
+                  </ListItemAvatar>
+                  <ListItemText
+                    primary={
+                      i.participants.filter(p => p?.id !== myData?.id)[0]
+                        .fullName
+                    }
+                    secondary={
+                      <React.Fragment>
+                        <Typography
+                          component='span'
+                          variant='body2'
+                          className={classes.inline}
+                          style={{ color: '#757575' }}
+                        >
+                          {i.lastMessage.content.slice(0, 15)}...
+                        </Typography>
+                      </React.Fragment>
+                    }
+                  />
 
                   <ListItemSecondaryAction>
                     <Typography
