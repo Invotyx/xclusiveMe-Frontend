@@ -1,6 +1,5 @@
 import React from 'react';
 import styles from './message.module.css';
-import ScrollToBottom from 'react-scroll-to-bottom';
 import { css } from 'emotion';
 
 const ConvoList = ({ singlechat, current, refProp }) => {
