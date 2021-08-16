@@ -4,7 +4,6 @@ import ScrollToBottom from 'react-scroll-to-bottom';
 import { css } from 'emotion';
 
 const ConvoList = ({ singlechat, current, refProp }) => {
-  // console.log('single', singlechat, 'current', current);
   return (
     <div>
       <div
