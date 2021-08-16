@@ -80,10 +80,6 @@ export default function Message() {
           <ListSubheader>All messages</ListSubheader>
           <>
             {chatData?.map((i, x) => (
-              <MenuItem
-                className={classes.root}
-                onClick={() => handlegetone(i.id)}
-              >
                 <Link
                   passHref
                   href={isMobile ? '/mChat' : '/chat'}
@@ -91,6 +87,7 @@ export default function Message() {
                     conId: `${i?.id}`,
                   }}
                 >
+                <ListItem onClick={() => handlegetone(i.id)}>
                     <ListItemAvatar>
                       <ImageAvatar />
                     </ListItemAvatar>
@@ -122,8 +119,8 @@ export default function Message() {
                       {moment(i.createdAt).fromNow()}
                     </Typography>
                   </ListItemSecondaryAction>
+                </ListItem>
                 </Link>
-              </MenuItem>
             ))}
           </>
         </List>
