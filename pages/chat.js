@@ -183,7 +183,7 @@ const Chat = () => {
                     borderRadius: '3px',
                   }}
                 >
-                  <AddCommentIcon style={{ marginTop: '5px' }} />
+                  <AddCommentIcon />
                 </IconButton>
               </div>
             }
