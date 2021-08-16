@@ -229,8 +229,7 @@ const Chat = () => {
                   </>
                 }
               />
-              <CardContent
-              >
+              <CardContent>
                 <ConvoList
                   singlechat={singlechat}
                   current={current}
