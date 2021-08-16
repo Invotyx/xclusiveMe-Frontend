@@ -78,7 +78,7 @@ export default function Message({ subheaderPrefix }) {
         </p>
       ) : (
         <List>
-          <ListSubheader>
+          <ListSubheader disableGutters>
             <>
               <SubheaderPrefix />
               <Typography>All messages</Typography>
