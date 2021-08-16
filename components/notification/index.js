@@ -166,7 +166,7 @@ export default function Notification({
             </p>
           )}
           <div>
-            {listofNotifications?.map((i, x) => (
+            {listofNotifications?.reverse().map((i, x) => (
               <div>
                 {i.createdAt.substring(0, 10) == todayDate() ? (
                   <div onClick={() => readNotification(i.id, i.modelId)}>
@@ -284,13 +284,13 @@ export default function Notification({
             </p>
           )}
           <div>
-            {listofNotifications?.map((i, x) => (
+            {listofNotifications?.reverse().map((i, x) => (
               <div>
-                {i.createdAt.substring(0, 10) !== todayDate() ? (
+                {i.createdAt?.substring(0, 10) !== todayDate() ? (
                   <div onClick={() => readNotification(i.id, i.modelId)}>
                     <MenuItem onClick={onClose} key={`notificationToday${x}`}>
                       <ListItemAvatar>
-                        {i.relatedUsers[0]?.user.profileImage === null ? (
+                        {i.relatedUsers[0]?.user?.profileImage === null ? (
                           <img
                             src='./dp.png'
                             alt='image'
@@ -302,7 +302,7 @@ export default function Notification({
                           />
                         ) : (
                           <img
-                            src={i.relatedUsers[0]?.user.profileImage}
+                            src={i.relatedUsers[0]?.user?.profileImage}
                             alt='image'
                             style={{
                               width: '40px',
@@ -315,7 +315,7 @@ export default function Notification({
                       <ListItemText
                         primary={
                           <span className={styles.nameStyleTwo}>
-                            {i.relatedUsers[0]?.user.fullName}
+                            {i.relatedUsers[0]?.user?.fullName}
                           </span>
                         }
                         secondary={
