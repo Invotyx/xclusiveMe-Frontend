@@ -196,8 +196,7 @@ const Chat = () => {
           </Grid>
 
           <Grid item style={{ flexGrow: 1 }}>
-            <Card
-            >
+            <Card>
               <CardHeader
                 avatar={<ImageAvatar />}
                 title={
