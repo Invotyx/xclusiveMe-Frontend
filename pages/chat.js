@@ -229,6 +229,8 @@ const Chat = () => {
                 />
               </CardContent>
             <CardActions
+            >
+            <div
               style={{
                 display: 'flex',
                 justifyContent: 'space-between',
@@ -248,6 +250,7 @@ const Chat = () => {
                 setMsgText={setMsgText}
                 conId={conId}
               />
+            </div>
             </CardActions>
 
             <CardActions>
