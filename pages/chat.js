@@ -152,7 +152,7 @@ const Chat = () => {
   return (
     <Layout>
       <Container maxWidth='md'>
-        <Grid container>
+        <Grid container spacing={2}>
           <Grid item>
             <Message
               subheaderPrefix={
