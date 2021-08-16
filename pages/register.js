@@ -253,7 +253,7 @@ export default function SignInSide() {
               fullWidth
               variant='contained'
               color='primary'
-              disabled={fetching}
+              // disabled={fetching}
             >
               Register
             </TileButton>
