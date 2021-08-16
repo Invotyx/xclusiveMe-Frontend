@@ -98,7 +98,6 @@ const Chat = () => {
   // const { user, image, userId } = router.query;
 
   const { conId } = router.query;
-  let socket;
   let pageNum = 1;
   let limit = 50;
 
