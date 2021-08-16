@@ -95,11 +95,6 @@ const Chat = () => {
     }
 
     setShow(false);
-    // socket.emit('new-message-to-server', {
-    //   conversationId: 38,
-    //   receiver: userId,
-    //   content: msgText,
-    // });
 
     dispatch(
       chat.sendOneMessage({
