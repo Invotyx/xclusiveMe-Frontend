@@ -7,7 +7,7 @@ const ConvoList = ({ singlechat, current, refProp }) => {
   return (
     <>
       <div
-        style={{ overflowY: 'scroll', overflowX: 'hidden', maxHeight: '28vw' }}
+        style={{ overflowY: 'scroll', overflowX: 'hidden', maxHeight: '28vh' }}
         className={styles.mainBox}
         ref={refProp}
       >
