@@ -50,6 +50,8 @@ import LoadingOverlay from 'react-loading-overlay';
 import BounceLoader from 'react-spinners/BounceLoader';
 import { fetchingSelector } from '../../selectors/postSelector';
 import MessageModal from '../message/MessageModal';
+import { useRouter } from 'next/router';
+import { currentUserSelector } from '../../selectors/authSelector';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -107,6 +109,10 @@ export default function Profile({
   const veryVerySmall = useMediaQuery('(max-width:310px)');
   const fetchData = useSelector(fetchingSelector);
   const [messageModal, setMessageModal] = useState(false);
+  const myCurrentUser = useSelector(currentUserSelector);
+  const router = useRouter();
+
+  const { username } = router.query;
 
   // const Link = ({ passQueryString, href, children, ...otherProps }) => (
   //   <NextLink
@@ -117,6 +123,9 @@ export default function Profile({
   //   </NextLink>
   // );
 
+  console.log(myCurrentUser?.username, username);
+
+  console.log(myCurrentUser?.username === username);
   useEffect(() => {
     set_numberOfPosts(numberOfPosts);
   }, [numberOfPosts]);
@@ -180,12 +189,13 @@ export default function Profile({
                     </Typography>
                   </Box>
 
-                  {me && (
-                    <>
-                      <UpdateProfile />
-                      <UpdateCoverImage2 />
-                    </>
-                  )}
+                  {me ||
+                    (myCurrentUser?.username == username && (
+                      <>
+                        <UpdateProfile />
+                        <UpdateCoverImage2 />
+                      </>
+                    ))}
                 </Toolbar>
               </Box>
             </AppBar>
@@ -204,12 +214,13 @@ export default function Profile({
                         className={classes.header}
                         action={
                           <Box display={{ xs: 'none', sm: 'none', md: 'flex' }}>
-                            {me && (
-                              <>
-                                <UpdateProfile />
-                                <UpdateCoverImage2 />
-                              </>
-                            )}
+                            {me ||
+                              (myCurrentUser?.username == username && (
+                                <>
+                                  <UpdateProfile />
+                                  <UpdateCoverImage2 />
+                                </>
+                              ))}
                           </Box>
                         }
                       />
@@ -217,7 +228,7 @@ export default function Profile({
                     <CardHeader
                       className={classes.header2}
                       avatar={
-                        me && me ? (
+                        (me && me) || myCurrentUser?.username == username ? (
                           <ProfileImage>
                             <ProfileImageAvatar
                               className={classes.userAvatar}
@@ -306,27 +317,28 @@ export default function Profile({
                           <Typography variant='body2' className='textSecondary'>
                             @{profileData?.username}
                           </Typography>
-                          {!me && (
-                            <div
-                            // passHref
-                            // href='/chat'
-                            // passQueryString={{
-                            //   user: `${profileData?.fullName}`,
-                            //   image: `${profileData?.profileImage}`,
-                            //   userId: `${user?.id}`,
-                            // }}
-                            >
-                              <ChatIcon
-                                style={{ marginLeft: '15px' }}
-                                onClick={handleMessageModal}
-                              />
-                              <MessageModal
-                                messageModal={messageModal}
-                                setMessageModal={setMessageModal}
-                                profileData={profileData}
-                              />
-                            </div>
-                          )}
+                          {!me ||
+                            (!(myCurrentUser?.username == username) && (
+                              <div
+                              // passHref
+                              // href='/chat'
+                              // passQueryString={{
+                              //   user: `${profileData?.fullName}`,
+                              //   image: `${profileData?.profileImage}`,
+                              //   userId: `${user?.id}`,
+                              // }}
+                              >
+                                <ChatIcon
+                                  style={{ marginLeft: '15px' }}
+                                  onClick={handleMessageModal}
+                                />
+                                <MessageModal
+                                  messageModal={messageModal}
+                                  setMessageModal={setMessageModal}
+                                  profileData={profileData}
+                                />
+                              </div>
+                            ))}
                         </Box>
                       }
                     />
@@ -343,40 +355,10 @@ export default function Profile({
                     </CardContent>
                   </Card>
                 </Grid>
-                <Grid item xs={12}>
-                  {subscriptionPlans && !me ? (
-                    <Box
-                      bgcolor='#111'
-                      display='flex'
-                      p={2}
-                      alignItems='center'
-                      my={2}
-                      border='1px solid #222'
-                    >
-                      <Box flexGrow={1}>
-                        <Typography>
-                          Follow to get posts in your News Feed.
-                        </Typography>
-                      </Box>
-
-                      {subscriptionPlans?.price > 0 ? (
-                        <SubscribeUser
-                          price={subscriptionPlans?.price}
-                          handleFollow={handleFollow}
-                        />
-                      ) : (
-                        <NormalCaseButton
-                          startIcon={<Add />}
-                          size='small'
-                          variant='outlined'
-                          onClick={e => handleFollow(e)}
-                        >
-                          <span>Follow</span>
-                        </NormalCaseButton>
-                      )}
-                    </Box>
-                  ) : (
-                    !me && (
+                {!(myCurrentUser?.username == username) && (
+                  <Grid item xs={12}>
+                    {(subscriptionPlans && !me) ||
+                    !(myCurrentUser?.username == username) ? (
                       <Box
                         bgcolor='#111'
                         display='flex'
@@ -387,21 +369,55 @@ export default function Profile({
                       >
                         <Box flexGrow={1}>
                           <Typography>
-                            Unfollow to stop getting posts in your News Feed.
+                            Follow to get posts in your News Feed.
                           </Typography>
                         </Box>
 
-                        <NormalCaseButton
-                          size='small'
-                          variant='outlined'
-                          onClick={e => handleUnFollow(e)}
-                        >
-                          <span>Unfollow</span>
-                        </NormalCaseButton>
+                        {subscriptionPlans?.price > 0 ? (
+                          <SubscribeUser
+                            price={subscriptionPlans?.price}
+                            handleFollow={handleFollow}
+                          />
+                        ) : (
+                          <NormalCaseButton
+                            startIcon={<Add />}
+                            size='small'
+                            variant='outlined'
+                            onClick={e => handleFollow(e)}
+                          >
+                            <span>Follow</span>
+                          </NormalCaseButton>
+                        )}
                       </Box>
-                    )
-                  )}
-                </Grid>
+                    ) : (
+                      !me ||
+                      !(myCurrentUser?.username == username)(
+                        <Box
+                          bgcolor='#111'
+                          display='flex'
+                          p={2}
+                          alignItems='center'
+                          my={2}
+                          border='1px solid #222'
+                        >
+                          <Box flexGrow={1}>
+                            <Typography>
+                              Unfollow to stop getting posts in your News Feed.
+                            </Typography>
+                          </Box>
+
+                          <NormalCaseButton
+                            size='small'
+                            variant='outlined'
+                            onClick={e => handleUnFollow(e)}
+                          >
+                            <span>Unfollow</span>
+                          </NormalCaseButton>
+                        </Box>
+                      )
+                    )}
+                  </Grid>
+                )}
                 <Grid item xs={12}>
                   <List disablePadding>
                     <ListSubheader disableGutters>
