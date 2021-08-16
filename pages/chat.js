@@ -167,6 +167,9 @@ const Chat = () => {
                   <form
                     noValidate
                     autoComplete='off'
+                    style={{
+                      flexGrow: 1,
+                    }}
                   >
                     <TileTextField
                       fullWidth
