@@ -80,14 +80,14 @@ export default function Message() {
           <ListSubheader>All messages</ListSubheader>
           <>
             {chatData?.map((i, x) => (
-                <Link
-                  key={Math.random()}
-                  passHref
-                  href={isMobile ? '/mChat' : '/chat'}
-                  passQueryString={{
-                    conId: `${i?.id}`,
-                  }}
-                >
+              <Link
+                key={Math.random()}
+                passHref
+                href={isMobile ? '/mChat' : '/chat'}
+                passQueryString={{
+                  conId: `${i?.id}`,
+                }}
+              >
                 <ListItem onClick={() => handlegetone(i.id)}>
                     <ListItemAvatar>
                       <ImageAvatar />
@@ -121,7 +121,7 @@ export default function Message() {
                     </Typography>
                   </ListItemSecondaryAction>
                 </ListItem>
-                </Link>
+              </Link>
             ))}
           </>
         </List>
