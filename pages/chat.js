@@ -200,7 +200,6 @@ const Chat = () => {
             <Card
               style={{
                 backgroundColor: '#101010',
-                height: '70vh',
                 borderRadius: '6px',
               }}
             >
