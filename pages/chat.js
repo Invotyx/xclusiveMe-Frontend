@@ -26,6 +26,7 @@ import { chatDataSelector } from '../selectors/chatSelector';
 import ConvoList from '../components/message/ConvoList';
 import UploadImageModal from '../components/message/uploadImageModal';
 import { useId } from 'react-id-generator';
+import IconButton from '@material-ui/core/IconButton';
 const useStyles = makeStyles(theme => ({
   root: {
     '& > *': {
@@ -175,7 +176,7 @@ const Chat = () => {
                     }}
                   />
                 </form>
-                <div
+                <IconButton
                   style={{
                     backgroundColor: '#111111',
                     padding: '12px',
@@ -183,7 +184,7 @@ const Chat = () => {
                   }}
                 >
                   <AddCommentIcon style={{ marginTop: '5px' }} />
-                </div>
+                </IconButton>
               </div>
             }
           />
