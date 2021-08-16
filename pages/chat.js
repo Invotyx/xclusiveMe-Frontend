@@ -167,6 +167,7 @@ const Chat = () => {
                     autoComplete='off'
                     style={{
                       flexGrow: 1,
+                      marginRight: '5px',
                     }}
                   >
                     <TileTextField
