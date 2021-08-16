@@ -84,8 +84,6 @@ const Chat = () => {
   let socket;
   let pageNum = 1;
   let limit = 50;
-  const JWTToken =
-    typeof window !== 'undefined' ? localStorage.getItem('jwtToken') : null;
 
   const { publicRuntimeConfig } = getConfig();
   const SERVER_ADDRESS = publicRuntimeConfig.backendUrl;
