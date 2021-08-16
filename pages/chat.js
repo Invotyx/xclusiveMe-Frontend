@@ -124,7 +124,7 @@ const Chat = () => {
   };
 
   useEffect(() => {
-    myRef.current.scrollIntoView();
+    // myRef.current.scrollIntoView();
     dispatch(
       chat.getConversations({
         pageNum: pageNum,
