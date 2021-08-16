@@ -176,24 +176,6 @@ const Chat = () => {
       );
   }, [conId]);
 
-  useEffect(() => {
-    socket = io(`${SERVER_ADDRESS.substring(0, SERVER_ADDRESS.length - 4)}/messages`, {
-      transports: ['websocket'],
-      query: {
-        token: `${JWTToken}`,
-      },
-    });
-
-    let socketId = null;
-    socket.on('connected', serverMessage => {
-      socketId = socket.id;
-    });
-    socket.on('exception', function(data) {
-    });
-    socket.on('disconnect', function() {
-    });
-  }, []);
-
   return (
     <Layout>
       <Container maxWidth='md'>
