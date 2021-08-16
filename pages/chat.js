@@ -251,7 +251,9 @@ const Chat = () => {
                 setMsgText={setMsgText}
                 conId={conId}
               />
+            </CardActions>
 
+            <CardActions>
             <OutlinedInput
               value={msgText}
               onChange={e => setMsgText(e.target.value)}
