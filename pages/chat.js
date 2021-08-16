@@ -68,6 +68,7 @@ function useSocket(url) {
 const Chat = () => {
   const socket = useSocket(`${SERVER_ADDRESS.substring(0, SERVER_ADDRESS.length - 4)}/messages`)
   useEffect(() => {
+    if (socket) {
     socket.on('connected', data => {
       console.log(data)
     });
@@ -77,6 +78,7 @@ const Chat = () => {
     socket.on('disconnect', () => {
       console.log('disconnected')
     });
+    }
   }, [socket]);
 
   const classes = useStyles();
