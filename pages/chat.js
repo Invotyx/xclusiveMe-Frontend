@@ -231,7 +231,6 @@ const Chat = () => {
                   refProp={myRef}
                 />
               </CardContent>
-            </Card>
             <CardActions
               style={{
                 display: 'flex',
@@ -252,7 +251,6 @@ const Chat = () => {
                 setMsgText={setMsgText}
                 conId={conId}
               />
-            </CardActions>
 
             <OutlinedInput
               value={msgText}
@@ -325,6 +323,8 @@ const Chat = () => {
                 />
               </span>
             )}
+            </CardActions>
+            </Card>
           </Grid>
         </Grid>
       </Container>
