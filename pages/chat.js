@@ -1,19 +1,15 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Layout from '../components/layouts/layout-auth';
 import { makeStyles } from '@material-ui/core/styles';
 import Message from '../components/message/Message';
 import SearchIcon from '@material-ui/icons/Search';
-import InputAdornment from '@material-ui/core/InputAdornment';
 import TileTextField from '../components/TileTextField';
 import AddCommentIcon from '@material-ui/icons/AddComment';
 import { useRouter } from 'next/router';
-import InputEmoji from 'react-input-emoji';
 import { currentUserSelector } from '../selectors/authSelector';
 import { useDispatch, useSelector } from 'react-redux';
-import SendIcon from '@material-ui/icons/Send';
 import { Button, OutlinedInput } from '@material-ui/core';
 import ImageAvatar from '../components/image-avatar';
-import { io } from 'socket.io-client';
 import getConfig from 'next/config';
 import { chat } from '../actions/chat';
 import ProfileImageAvatar from '../components/profile/profile-image-avatar';
@@ -25,7 +21,6 @@ import { singleChatSelector } from '../selectors/chatSelector';
 import { chatDataSelector } from '../selectors/chatSelector';
 import ConvoList from '../components/message/ConvoList';
 import UploadImageModal from '../components/message/uploadImageModal';
-import { useId } from 'react-id-generator';
 import IconButton from '@material-ui/core/IconButton';
 
 const useStyles = makeStyles(theme => ({
