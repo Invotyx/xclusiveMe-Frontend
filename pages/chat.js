@@ -199,11 +199,6 @@ const Chat = () => {
             <Card
             >
               <CardHeader
-                style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                }}
                 avatar={<ImageAvatar />}
                 title={
                   chatsData
