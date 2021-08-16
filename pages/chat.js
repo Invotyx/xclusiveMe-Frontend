@@ -154,6 +154,8 @@ const Chat = () => {
         }}
       >
         <div>
+          <Message
+            subheaderPrefix={
           <div
             style={{
               display: 'flex',
@@ -181,8 +183,9 @@ const Chat = () => {
               <AddCommentIcon style={{ marginTop: '5px' }} />
             </div>
           </div>
+            }
+          />
 
-            <Message />
         </div>
 
         <div>
