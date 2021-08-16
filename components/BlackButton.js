@@ -1,11 +1,11 @@
 import Button from '@material-ui/core/Button';
 import {
   MuiThemeProvider,
-  createMuiTheme,
+  createTheme,
   withStyles,
 } from '@material-ui/core/styles';
 
-const theme = createMuiTheme({
+const theme = createTheme({
   palette: {
     type: 'dark',
     primary: {
