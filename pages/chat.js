@@ -135,13 +135,13 @@ const Chat = () => {
 
   useEffect(() => {
     conId &&
-    dispatch(
-      chat.getOneConversation({
-        id: conId,
-        pageNum: pageNum,
-        limit: limit,
-      })
-    );
+      dispatch(
+        chat.getOneConversation({
+          id: conId,
+          pageNum: pageNum,
+          limit: limit,
+        })
+      );
   }, [conId]);
 
     // socket = io(`${SERVER_ADDRESS}/messages`, {
