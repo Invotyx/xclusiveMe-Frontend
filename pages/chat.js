@@ -197,10 +197,6 @@ const Chat = () => {
 
           <Grid item style={{ flexGrow: 1 }}>
             <Card
-              style={{
-                backgroundColor: '#101010',
-                borderRadius: '6px',
-              }}
             >
               <CardHeader
                 style={{
