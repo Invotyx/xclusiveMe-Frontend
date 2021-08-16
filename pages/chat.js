@@ -30,6 +30,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import MonetizationOnOutlinedIcon from '@material-ui/icons/MonetizationOnOutlined';
+import { io } from 'socket.io-client';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -145,12 +146,17 @@ const Chat = () => {
   }, [conId]);
 
   useEffect(() => {
-    // socket = io(`${SERVER_ADDRESS}/messages`, {
-    //   transports: ['websocket'],
-    //   query: {
-    //     token: `${JWTToken}`,
-    //   },
-    // });
+    socket = io(`${SERVER_ADDRESS.substring(0, SERVER_ADDRESS.length - 4)}/messages`, {
+      transports: ['websocket'],
+      query: {
+        token: `${JWTToken}`,
+      },
+    });
+
+    let socketId = null;
+    socket.on('connected', serverMessage => {
+      socketId = socket.id;
+    });
   }, []);
 
   return (
