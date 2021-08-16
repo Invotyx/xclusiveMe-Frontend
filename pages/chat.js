@@ -348,8 +348,6 @@ const Chat = () => {
                 />
               </span>
             )}
-            <br />
-            <br />
           </div>
         </>
       </div>
