@@ -266,8 +266,6 @@ const Chat = () => {
                   name='msgText'
                   style={{
                     width: '41vw',
-                    marginLeft: '30px',
-                    marginTop: '10px',
                   }}
                   multiline
                   // disabled={post.media.length === 0}
