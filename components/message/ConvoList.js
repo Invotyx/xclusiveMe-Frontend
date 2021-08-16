@@ -5,7 +5,7 @@ import { css } from 'emotion';
 
 const ConvoList = ({ singlechat, current, refProp }) => {
   return (
-    <div>
+    <>
       <div
         style={{ overflowY: 'scroll', overflowX: 'hidden', maxHeight: '28vw' }}
         className={styles.mainBox}
@@ -48,7 +48,7 @@ const ConvoList = ({ singlechat, current, refProp }) => {
           </div>
         ))}
       </div>
-    </div>
+    </>
   );
 };
 
