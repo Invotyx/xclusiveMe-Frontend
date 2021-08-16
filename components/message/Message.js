@@ -78,7 +78,6 @@ export default function Message() {
       ) : (
         <List>
           <ListSubheader>All messages</ListSubheader>
-          <>
             {chatData?.map((i, x) => (
               <Link
                 key={Math.random()}
@@ -123,7 +122,6 @@ export default function Message() {
                 </ListItem>
               </Link>
             ))}
-          </>
         </List>
       )}
     </>
