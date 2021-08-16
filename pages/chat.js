@@ -28,6 +28,8 @@ import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+import MonetizationOnOutlinedIcon from '@material-ui/icons/MonetizationOnOutlined';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -216,8 +218,8 @@ const Chat = () => {
                 }
                 action={
                   <>
-                  <img src='/money.png' alt='' />
-                  <img src='/menu.png' alt='' />
+                    <MonetizationOnOutlinedIcon />
+                    <MoreVertIcon />
                   </>
                 }
               />
