@@ -213,8 +213,12 @@ const Chat = () => {
                 subheader='click here for contact info'
                 action={
                   <>
-                    <MonetizationOnOutlinedIcon />
-                    <MoreVertIcon />
+                    <IconButton>
+                      <MonetizationOnOutlinedIcon />
+                    </IconButton>
+                    <IconButton>
+                      <MoreVertIcon />
+                    </IconButton>
                   </>
                 }
               />
