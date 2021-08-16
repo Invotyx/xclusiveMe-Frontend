@@ -293,7 +293,7 @@ const Chat = () => {
                       <IconButton
                         onClick={showEmoji}
                       >
-                          <InsertEmoticonIcon />
+                        <InsertEmoticonIcon />
                       </IconButton>
                       <IconButton
                         onClick={handleOnEnter}
