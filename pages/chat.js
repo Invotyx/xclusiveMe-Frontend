@@ -158,6 +158,7 @@ const Chat = () => {
                 <div
                   style={{
                     display: 'flex',
+                    marginBottom: '10px',
                   }}
                 >
                   <form
