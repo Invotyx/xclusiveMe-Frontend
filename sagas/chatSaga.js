@@ -34,7 +34,6 @@ function* handleSendMessage(action) {
 function* handleSendSingleMessage(action) {
   try {
     const { conversationId, saveData } = action.payload;
-    console.log(saveData);
     yield call(sendSingleMsg, conversationId, saveData);
     yield put(chat.success({}));
 
@@ -59,7 +58,6 @@ function* handlegetConversations(action) {
   try {
     const { pageNum, limit } = action.payload;
     const { data } = yield call(getConversations, pageNum, limit);
-    console.log(data.results);
     yield put(
       chat.success({ chats: data.results, chatCount: data.totalCount })
     );
