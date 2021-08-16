@@ -290,14 +290,10 @@ const Chat = () => {
                   }
                   endAdornment={
                     <>
-                      <IconButton
-                        onClick={showEmoji}
-                      >
+                      <IconButton onClick={showEmoji}>
                         <InsertEmoticonIcon />
                       </IconButton>
-                      <IconButton
-                        onClick={handleOnEnter}
-                      >
+                      <IconButton onClick={handleOnEnter}>
                         <SendIcon />
                       </IconButton>
                     </>
