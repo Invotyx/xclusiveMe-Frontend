@@ -228,105 +228,112 @@ const Chat = () => {
                   refProp={myRef}
                 />
               </CardContent>
-            <CardActions
-            >
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                width: '30%',
-                marginLeft: '4vw',
-                marginTop: '10px',
-              }}
-            >
-              <img src='/camera.svg' alt='camera' />
-              <img src='/imageBtn.svg' alt='image' onClick={handleImageModal} />
-              <img src='/videoBtn.svg' alt='video' />
-              <img src='/voiceBtn.svg' alt='voice' />
-              <UploadImageModal
-                imageModal={imageModal}
-                setImageModal={setImageModal}
-                msgText={msgText}
-                setMsgText={setMsgText}
-                conId={conId}
-              />
-            </div>
-            </CardActions>
+              <CardActions>
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    width: '30%',
+                    marginLeft: '4vw',
+                    marginTop: '10px',
+                  }}
+                >
+                  <img src='/camera.svg' alt='camera' />
+                  <img
+                    src='/imageBtn.svg'
+                    alt='image'
+                    onClick={handleImageModal}
+                  />
+                  <img src='/videoBtn.svg' alt='video' />
+                  <img src='/voiceBtn.svg' alt='voice' />
+                  <UploadImageModal
+                    imageModal={imageModal}
+                    setImageModal={setImageModal}
+                    msgText={msgText}
+                    setMsgText={setMsgText}
+                    conId={conId}
+                  />
+                </div>
+              </CardActions>
 
-            <CardActions>
-            <OutlinedInput
-              value={msgText}
-              onChange={e => setMsgText(e.target.value)}
-              name='msgText'
-              style={{ width: '41vw', marginLeft: '30px', marginTop: '10px' }}
-              multiline
-              // disabled={post.media.length === 0}
-              onKeyDown={e => {
-                if (e.keyCode === 13) {
-                  if (!event.shiftKey) {
-                    handleOnEnter(e);
-                  }
-                }
-              }}
-              // inputRef={searchInput}
-              placeholder='Write a message'
-              startAdornment={
-                <ProfileImageAvatar
-                  user={current}
-                  style={{ marginRight: '10px' }}
-                />
-              }
-              endAdornment={
-                <>
-                  <Button
-                    onClick={showEmoji}
-                    style={{
-                      backgroundColor: '#111111',
-                      border: 'none',
-                      marginRight: '-20px',
-                    }}
-                  >
-                    <span role='img'>
-                      <InsertEmoticonIcon />
-                    </span>
-                  </Button>
-                  <Button
-                    onClick={handleOnEnter}
-                    style={{
-                      backgroundColor: '#111111',
-                      border: 'none',
-                    }}
-                  >
-                    <img
-                      src='/send.png'
-                      alt='send button'
+              <CardActions>
+                <OutlinedInput
+                  value={msgText}
+                  onChange={e => setMsgText(e.target.value)}
+                  name='msgText'
+                  style={{
+                    width: '41vw',
+                    marginLeft: '30px',
+                    marginTop: '10px',
+                  }}
+                  multiline
+                  // disabled={post.media.length === 0}
+                  onKeyDown={e => {
+                    if (e.keyCode === 13) {
+                      if (!event.shiftKey) {
+                        handleOnEnter(e);
+                      }
+                    }
+                  }}
+                  // inputRef={searchInput}
+                  placeholder='Write a message'
+                  startAdornment={
+                    <ProfileImageAvatar
+                      user={current}
                       style={{ marginRight: '10px' }}
                     />
-                  </Button>
-                </>
-              }
-            />
-            </CardActions>
-
-            {show && (
-              <span>
-                <Picker
-                  onSelect={addEmoji}
-                  set='facebook'
-                  emoji='point_up'
-                  theme='dark'
-                  skin='1'
-                  style={{
-                    position: 'absolute',
-                    bottom: '40px',
-                    right: '150px',
-                    maxWidth: '300px',
-                    with: '100%',
-                    outline: 'none',
-                  }}
+                  }
+                  endAdornment={
+                    <>
+                      <Button
+                        onClick={showEmoji}
+                        style={{
+                          backgroundColor: '#111111',
+                          border: 'none',
+                          marginRight: '-20px',
+                        }}
+                      >
+                        <span role='img'>
+                          <InsertEmoticonIcon />
+                        </span>
+                      </Button>
+                      <Button
+                        onClick={handleOnEnter}
+                        style={{
+                          backgroundColor: '#111111',
+                          border: 'none',
+                        }}
+                      >
+                        <img
+                          src='/send.png'
+                          alt='send button'
+                          style={{ marginRight: '10px' }}
+                        />
+                      </Button>
+                    </>
+                  }
                 />
-              </span>
-            )}
+              </CardActions>
+
+              {show && (
+                <span>
+                  <Picker
+                    onSelect={addEmoji}
+                    set='facebook'
+                    emoji='point_up'
+                    theme='dark'
+                    skin='1'
+                    style={{
+                      position: 'absolute',
+                      bottom: '40px',
+                      right: '150px',
+                      maxWidth: '300px',
+                      with: '100%',
+                      outline: 'none',
+                    }}
+                  />
+                </span>
+              )}
             </Card>
           </Grid>
         </Grid>
