@@ -265,9 +265,6 @@ const Chat = () => {
                   onChange={e => setMsgText(e.target.value)}
                   name='msgText'
                   margin='dense'
-                  style={{
-                    width: '41vw',
-                  }}
                   fullWidth
                   multiline
                   // disabled={post.media.length === 0}
