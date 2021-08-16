@@ -303,6 +303,8 @@ const Chat = () => {
                 </>
               }
             />
+            </CardActions>
+
             {show && (
               <span>
                 <Picker
@@ -322,7 +324,6 @@ const Chat = () => {
                 />
               </span>
             )}
-            </CardActions>
             </Card>
           </Grid>
         </Grid>
