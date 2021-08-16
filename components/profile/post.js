@@ -341,7 +341,15 @@ export default function Post({
                     open={Boolean(anchorEl)}
                     onClose={handleCloseMenu}
                   >
-                    <MenuItem onClick={handleOpenReportModal}>Report</MenuItem>
+                    <MenuItem
+                      onClick={
+                        post.media.length === 0
+                          ? handleNotOpen
+                          : handleOpenReportModal
+                      }
+                    >
+                      Report
+                    </MenuItem>
                   </Menu>
                 )}
               </div>
@@ -752,7 +760,9 @@ export default function Post({
               endAdornment={
                 <>
                   <Button
-                    onClick={showEmoji}
+                    onClick={
+                      post.media.length === 0 ? handleNotOpenn : showEmoji
+                    }
                     style={{
                       backgroundColor: '#111111',
                       border: 'none',
