@@ -74,7 +74,7 @@ export default function Message() {
           No Data Found
         </p>
       ) : (
-        <div>
+        <List>
           <p style={{ marginLeft: '20px', width: '200px' }}>All messages</p>
           <div
             style={{
@@ -131,7 +131,7 @@ export default function Message() {
               </MenuItem>
             ))}
           </div>
-        </div>
+        </List>
       )}
     </>
   );
