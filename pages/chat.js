@@ -160,8 +160,6 @@ const Chat = () => {
                 <div
                   style={{
                     display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
                   }}
                 >
                   <form
