@@ -39,7 +39,7 @@ function MyApp({ Component, pageProps }) {
           content='minimum-scale=1, initial-scale=1, width=device-width'
         />
       </head>
-      <body>
+      <>
         <ThemeProvider theme={darkTheme}>
           <CssBaseline />
           <Component {...pageProps} />
@@ -51,7 +51,7 @@ function MyApp({ Component, pageProps }) {
         <script src='lib/js/util.js'></script>
         <script src='lib/js/jquery.emojiarea.js'></script>
         <script src='lib/js/emoji-picker.js'></script>
-      </body>
+      </>
     </div>
   );
 }
