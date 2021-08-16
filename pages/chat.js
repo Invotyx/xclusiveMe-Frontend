@@ -301,10 +301,6 @@ const Chat = () => {
                       </IconButton>
                       <IconButton
                         onClick={handleOnEnter}
-                        style={{
-                          backgroundColor: '#111111',
-                          border: 'none',
-                        }}
                       >
                         <img
                           src='/send.png'
