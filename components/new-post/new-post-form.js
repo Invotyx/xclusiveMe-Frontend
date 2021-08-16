@@ -101,7 +101,6 @@ export default function NewPostForm({ afterSave }) {
   };
 
   const imageHandler = source_url => {
-    // console.log(source_url);
     set_TileData(prev => [...prev, source_url.url]);
     setMedia([
       ...media,
