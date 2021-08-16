@@ -66,6 +66,7 @@ function useSocket(url) {
 }
 
 const Chat = () => {
+  const socket = useSocket(`${SERVER_ADDRESS.substring(0, SERVER_ADDRESS.length - 4)}/messages`)
   const classes = useStyles();
   const router = useRouter();
   const dispatch = useDispatch();
