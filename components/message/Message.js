@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
+import ListSubheader from '@material-ui/core/ListSubheader';
 import Divider from '@material-ui/core/Divider';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
@@ -75,7 +76,7 @@ export default function Message() {
         </p>
       ) : (
         <List>
-          <p style={{ marginLeft: '20px', width: '200px' }}>All messages</p>
+          <ListSubheader>All messages</ListSubheader>
           <>
             {chatData?.map((i, x) => (
               <MenuItem
