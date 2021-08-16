@@ -179,7 +179,7 @@ const Chat = () => {
                 <IconButton
                   style={{
                     backgroundColor: '#111111',
-                    padding: '12px',
+                    padding: '16px',
                     borderRadius: '3px',
                   }}
                 >
