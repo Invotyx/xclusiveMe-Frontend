@@ -118,7 +118,7 @@ export default function Message({ subheaderPrefix }) {
                 <ListItemSecondaryAction>
                   <Typography
                     component='span'
-                    variant='body2'
+                    variant='caption'
                     className={classes.times}
                   >
                     {moment(i.createdAt).fromNow()}
