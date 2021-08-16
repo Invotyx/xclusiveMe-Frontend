@@ -58,7 +58,7 @@ export default function Home() {
         limit: limit,
       })
     );
-  }, [post]);
+  }, [dispatch]);
 
   return (
     <motion.div initial='hidden' animate='visible' variants={variants}>
