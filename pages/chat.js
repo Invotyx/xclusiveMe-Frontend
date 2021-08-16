@@ -210,6 +210,7 @@ const Chat = () => {
                     .filter(list => list.id == conId)[0]
                     ?.participants.filter(p => p.id !== current?.id)[0].fullName
                 }
+                subheader='click here for contact info'
                 action={
                   <>
                     <MonetizationOnOutlinedIcon />
