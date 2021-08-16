@@ -228,7 +228,11 @@ const Chat = () => {
                   refProp={myRef}
                 />
               </CardContent>
-              <CardActions>
+              <CardActions
+                style={{
+                  backgroundColor: 'black',
+                }}
+              >
                 <div
                   style={{
                     display: 'flex',
