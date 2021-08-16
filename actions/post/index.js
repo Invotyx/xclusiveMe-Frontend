@@ -189,4 +189,12 @@ export const post = {
       success: false,
       error: null,
     }),
+
+  addTip: data =>
+    createAction(POST.TIP, {
+      ...data,
+      fetching: true,
+      success: false,
+      error: null,
+    }),
 };
