@@ -164,7 +164,7 @@ const Chat = () => {
                     alignItems: 'center',
                   }}
                 >
-                  <form className={classes.root} noValidate autoComplete='off'>
+                  <form noValidate autoComplete='off'>
                     <TileTextField
                       fullWidth
                       id='outlined-basic'
