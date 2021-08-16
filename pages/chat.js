@@ -157,6 +157,10 @@ const Chat = () => {
     socket.on('connected', serverMessage => {
       socketId = socket.id;
     });
+    socket.on('exception', function(data) {
+    });
+    socket.on('disconnect', function() {
+    });
   }, []);
 
   return (
