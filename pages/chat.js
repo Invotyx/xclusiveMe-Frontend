@@ -67,7 +67,9 @@ function useSocket(url) {
   return socket;
 }
 
+export const ActiveConversationContext = React.createContext([[], () => {}]);
 const Chat = () => {
+  const [activeConversationId, setActiveConversationId] = React.useState(null);
   const socket = useSocket(
     `${SERVER_ADDRESS.substring(0, SERVER_ADDRESS.length - 4)}/messages`
   );
@@ -185,6 +187,9 @@ const Chat = () => {
       <Container maxWidth='md'>
         <Grid container spacing={2}>
           <Grid item xs={12} md={4}>
+            <ActiveConversationContext.Provider
+              value={[activeConversationId, setActiveConversationId]}
+            >
             <Message
               subheaderPrefix={
                 <div
@@ -225,6 +230,7 @@ const Chat = () => {
                 </div>
               }
             />
+            </ActiveConversationContext.Provider>
           </Grid>
 
           <Grid item xs={12} md={8} style={{ flexGrow: 1 }}>

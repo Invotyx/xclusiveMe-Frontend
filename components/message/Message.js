@@ -20,6 +20,7 @@ import moment from 'moment';
 import { chat as chatdata } from '../../actions/chat';
 import queryString from 'query-string';
 import { withStyles } from '@material-ui/core';
+import { ActiveConversationContext } from '../../pages/chat';
 
 const ListItem = withStyles({
   root: {
@@ -72,6 +73,9 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function Message({ subheaderPrefix }) {
+  const [activeConversationId, setActiveConversationId] = React.useContext(
+    ActiveConversationContext
+  );
   const SubheaderPrefix = () => subheaderPrefix || <></>;
   const classes = useStyles();
   const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
@@ -91,7 +95,6 @@ export default function Message({ subheaderPrefix }) {
     </NextLink>
   );
 
-  const [activeConversationId, setActiveConversationId] = React.useState(null);
   const handlegetone = conId => {
     setActiveConversationId(conId);
     dispatch(
