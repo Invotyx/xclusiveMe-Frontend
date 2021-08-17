@@ -150,14 +150,6 @@ const Chat = () => {
         callback: () => {
           setLastMessageReceived(+new Date());
           setMsgText('');
-
-          dispatch(
-            chat.getOneConversation({
-              id: conId,
-              pageNum: pageNum,
-              limit: limit,
-            })
-          );
         },
       })
     );
