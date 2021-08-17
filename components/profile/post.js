@@ -48,6 +48,8 @@ import { Picker } from 'emoji-mart';
 import 'emoji-mart/css/emoji-mart.css';
 import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
 import { useMediaQuery } from 'react-responsive';
+import queryString from 'query-string';
+import { useRouter } from 'next/router';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -110,6 +112,17 @@ export default function Post({
   const [notByedModel, setnotBuyedModel] = useState(false);
   const [show, setShow] = useState(false);
   const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
+  const router = useRouter();
+  const { postId } = router.query;
+
+  const Link = ({ passQueryString, href, children, ...otherProps }) => (
+    <NextLink
+      href={`${href}?${queryString.stringify(passQueryString)}`}
+      {...otherProps}
+    >
+      {children}
+    </NextLink>
+  );
 
   const handleOpenModel = () => {
     setOpenModel(true);
@@ -256,7 +269,7 @@ export default function Post({
 
   const handleOpen = forReplyId => {
     // console.log('commentid', forReplyId);
-    dispatch(postData.requestOne(post.id));
+    // dispatch(postData.requestOne(postId));
     // dispatch(postData.requestReplies(forReplyId, post.id));
 
     setForCommentId(forReplyId);
@@ -264,6 +277,11 @@ export default function Post({
     setOpenReply(true);
     setOpen(true);
   };
+
+  useEffect(() => {
+    console.log(postId);
+    postId && (dispatch(postData.requestOne(postId)), setOpen(true));
+  }, [postId]);
 
   const handleNotOpen = () => {
     setnotBuyedModel(true);
@@ -530,19 +548,32 @@ export default function Post({
         )}
 
         {post.comments.length >= 3 ? (
-          <p
-            style={{
-              cursor: 'pointer',
-              marginLeft: '21px',
-              marginTop: '0px',
-              marginBottom: '12px',
-              fontWeight: '500',
-              fontSize: '14px',
+          <Link
+            key={Math.random()}
+            passHref
+            href='/explore'
+            passQueryString={{
+              postId: `${post?.id}`,
             }}
-            onClick={post.media.length === 0 ? handleNotOpen : handleOpen}
           >
-            View previous comments
-          </p>
+            {post?.media.length === 0 ? (
+              ''
+            ) : (
+              <p
+                style={{
+                  cursor: 'pointer',
+                  marginLeft: '21px',
+                  marginTop: '0px',
+                  marginBottom: '12px',
+                  fontWeight: '500',
+                  fontSize: '14px',
+                }}
+                onClick={post?.media.length === 0 ? handleNotOpen : handleOpen}
+              >
+                View previous comments
+              </p>
+            )}
+          </Link>
         ) : (
           ''
         )}
@@ -558,16 +589,17 @@ export default function Post({
           currentUser={currentUser}
           forCommentId={forCommentId}
           openReply={openReply}
+          postId={postId}
         />
 
-        <div style={{ display: 'none' }}>
+        {/* <div style={{ display: 'none' }}>
           <Notifications
             profileData={profileData}
             currentUser={currentUser}
             altHeader={altHeader}
             post={post}
           />
-        </div>
+        </div> */}
 
         {post.comments.map(comm => (
           <div style={{ marginBottom: '20px' }}>
