@@ -82,7 +82,7 @@ export default function Message({ subheaderPrefix }) {
   const router = useRouter();
   const handlegetone = conId => {
     setActiveConversationId(conId);
-    router.push(`/chat?conId=${conId}`)
+    router.push(`/chat?conId=${conId}`);
   };
 
   return (
