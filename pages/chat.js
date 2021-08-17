@@ -257,7 +257,9 @@ const Chat = () => {
           >
             <Card>
               <CardHeader
-                avatar={<ImageAvatar />}
+                avatar={
+                    <ImageAvatar />
+                }
                 title={
                   chatsData
                     .filter(list => list.id == conId)[0]
