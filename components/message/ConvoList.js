@@ -29,8 +29,8 @@ const ConvoList = ({ activeConversationId, lastMessageReceived }) => {
   const pageNum = 1;
   const limit = 50;
 
-  const getOneConversation = () => {
-    dispatch(chat.success({ singleChat: [] }));
+  const getOneConversation = clear => {
+    clear && dispatch(chat.success({ singleChat: [] }));
     dispatch(
       chat.getOneConversation({
         id: activeConversationId,
@@ -48,7 +48,7 @@ const ConvoList = ({ activeConversationId, lastMessageReceived }) => {
   }, [activeConversationId]);
 
   React.useEffect(() => {
-    getOneConversation();
+    getOneConversation(true);
   }, [lastMessageReceived]);
 
   const classes = useStyles();
