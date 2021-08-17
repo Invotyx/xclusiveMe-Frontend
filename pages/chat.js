@@ -353,7 +353,6 @@ const Chat = () => {
                   placeholder='Write a message'
                   startAdornment={
                     <ProfileImageAvatar
-                      variant='square'
                       user={current}
                       style={{ marginRight: '10px' }}
                     />
