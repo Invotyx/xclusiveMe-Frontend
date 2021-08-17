@@ -8,7 +8,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Typography from '@material-ui/core/Typography';
 import ImageAvatar from '../image-avatar';
-import { useMediaQuery } from 'react-responsive';
 import NextLink from 'next/link';
 import {
   chatDataSelector,
@@ -78,7 +77,6 @@ export default function Message({ subheaderPrefix }) {
   );
   const SubheaderPrefix = () => subheaderPrefix || <></>;
   const classes = useStyles();
-  const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
   const chatData = useSelector(chatDataSelector);
   const myData = useSelector(currentUserSelector);
   const chatsCount = useSelector(chatCountSelector);
