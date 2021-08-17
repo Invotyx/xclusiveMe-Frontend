@@ -19,8 +19,10 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const ConvoList = ({ current, refProp }) => {
+const ConvoList = ({ activeConversationId, current, refProp }) => {
   const singlechat = useSelector(singleChatSelector);
+  React.useEffect(() => {
+  }, [activeConversationId]);
   const classes = useStyles();
   return (
     <>
