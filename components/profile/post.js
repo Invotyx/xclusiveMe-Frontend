@@ -523,7 +523,7 @@ export default function Post({
                   <span className={styles.hideOnMobile}>Tip</span>
                 </NormalCaseButton>
               ) : (
-                <TipModal post={post} />
+                <TipModal user={post.user} postId={post.id} />
               )}
             </div>
 

@@ -33,7 +33,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const TipModal = ({ post }) => {
+const TipModal = ({ user, postId }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const [openTip, setopenTip] = useState(false);
@@ -46,7 +46,7 @@ const TipModal = ({ post }) => {
     dispatch(
       postData?.addTip({
         saveData: {
-          itemTipped: post.id,
+          itemTipped: postId,
           itemTippedType: 'post',
           amount: addPrice,
         },
@@ -107,7 +107,7 @@ const TipModal = ({ post }) => {
                     }}
                   >
                     <img
-                      src={post?.user?.profileImage}
+                      src={user?.profileImage}
                       alt='profile image'
                       width='60px'
                       height='65px'
@@ -137,7 +137,7 @@ const TipModal = ({ post }) => {
                     }}
                   >
                     <p style={{ fontWeight: '600', fontSize: '17px' }}>
-                      Donate to {post?.user?.fullName}
+                      Donate to {user?.fullName}
                     </p>
                   </div>
                 </div>
@@ -283,7 +283,7 @@ const TipModal = ({ post }) => {
                 <div>
                   <div style={{ display: 'flex', justifyContent: 'center' }}>
                     <img
-                      src={post?.user?.profileImage}
+                      src={user?.profileImage}
                       alt='profile image'
                       width='70px'
                       height='75px'
@@ -323,7 +323,7 @@ const TipModal = ({ post }) => {
                         color: '#444444',
                       }}
                     >
-                      sent to {post?.user?.fullName}
+                      sent to {user?.fullName}
                     </p>
                   </div>
 
