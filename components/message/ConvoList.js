@@ -22,6 +22,7 @@ const useStyles = makeStyles(theme => ({
 
 const ConvoList = ({
   activeConversationId,
+  lastMessageReceived,
   current,
   refProp,
 }) => {
@@ -41,6 +42,9 @@ const ConvoList = ({
   React.useEffect(() => {
     getOneConversation();
   }, [activeConversationId]);
+  React.useEffect(() => {
+    getOneConversation();
+  }, [lastMessageReceived]);
   const classes = useStyles();
   return (
     <>
