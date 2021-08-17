@@ -236,6 +236,7 @@ const Chat = () => {
                       />
                     </form>
                     <IconButton
+                      size='small'
                       style={{
                         backgroundColor: '#111111',
                         padding: '16px',
