@@ -77,6 +77,7 @@ const Chat = () => {
         console.log(data);
       });
       socket.on('new-message', data => {
+        console.log('New message sent to client: ', data);
       });
       socket.on('exception', data => {
         console.log(data);
