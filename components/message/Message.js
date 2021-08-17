@@ -82,7 +82,9 @@ export default function Message({ subheaderPrefix }) {
     </NextLink>
   );
 
+  const [activeConversationId, setActiveConversationId] = React.useState(null);
   const handlegetone = conId => {
+    setActiveConversationId(conId);
     dispatch(
       chatdata.getOneConversation({
         id: conId,
@@ -119,6 +121,7 @@ export default function Message({ subheaderPrefix }) {
                 button
                 onClick={() => handlegetone(i.id)}
                 disableGutters
+                selected={activeConversationId === i.id}
               >
                 <ListItemAvatar>
                   <ImageAvatar />
