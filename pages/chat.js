@@ -121,7 +121,6 @@ const Chat = () => {
   const singleUser = useSelector(singleSelector);
   const chatsData = useSelector(chatDataSelector);
   const [imageModal, setImageModal] = useState(false);
-  const myRef = useRef(null);
 
   // const { user, image, userId } = router.query;
 
@@ -183,7 +182,6 @@ const Chat = () => {
   };
 
   useEffect(() => {
-    // myRef.current.scrollIntoView();
     dispatch(
       chat.getConversations({
         pageNum: pageNum,
