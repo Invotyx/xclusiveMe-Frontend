@@ -8,7 +8,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Typography from '@material-ui/core/Typography';
 import ImageAvatar from '../image-avatar';
-import NextLink from 'next/link';
 import {
   chatDataSelector,
   chatCountSelector,
@@ -16,9 +15,9 @@ import {
 import { useSelector } from 'react-redux';
 import { currentUserSelector } from '../../selectors/authSelector';
 import moment from 'moment';
-import queryString from 'query-string';
 import { withStyles } from '@material-ui/core';
 import { ActiveConversationContext } from '../../pages/chat';
+import { useRouter } from 'next/router';
 
 const ListItem = withStyles({
   root: {
@@ -80,17 +79,10 @@ export default function Message({ subheaderPrefix }) {
   const myData = useSelector(currentUserSelector);
   const chatsCount = useSelector(chatCountSelector);
 
-  const Link = ({ passQueryString, href, children, ...otherProps }) => (
-    <NextLink
-      href={`${href}?${queryString.stringify(passQueryString)}`}
-      {...otherProps}
-    >
-      {children}
-    </NextLink>
-  );
-
+  const router = useRouter();
   const handlegetone = conId => {
     setActiveConversationId(conId);
+    router.push(`/chat?conId=${conId}`);
   };
 
   return (
@@ -111,47 +103,39 @@ export default function Message({ subheaderPrefix }) {
             </>
           </ListSubheader>
           {chatData?.map((i, x) => (
-            <Link
-              key={Math.random()}
-              passHref
-              href='/chat'
-              passQueryString={{
-                conId: `${i?.id}`,
-              }}
+            <ListItem
+              key={`chatData${x}`}
+              button
+              onClick={() => handlegetone(i.id)}
+              disableGutters
+              selected={+activeConversationId === i.id}
             >
-              <ListItem
-                button
-                onClick={() => handlegetone(i.id)}
-                disableGutters
-                selected={+activeConversationId === i.id}
-              >
-                <ListItemAvatar>
-                  <ImageAvatar />
-                </ListItemAvatar>
-                <ListItemText
-                  primary={
-                    i.participants.filter(p => p?.id !== myData?.id)[0].fullName
-                  }
-                  secondary={
-                    <React.Fragment>
-                      <Typography
-                        component='span'
-                        variant='body2'
-                        style={{ color: '#757575' }}
-                      >
-                        {i.lastMessage.content.slice(0, 15)}...
-                      </Typography>
-                    </React.Fragment>
-                  }
-                />
+              <ListItemAvatar>
+                <ImageAvatar />
+              </ListItemAvatar>
+              <ListItemText
+                primary={
+                  i.participants.filter(p => p?.id !== myData?.id)[0].fullName
+                }
+                secondary={
+                  <React.Fragment>
+                    <Typography
+                      component='span'
+                      variant='body2'
+                      style={{ color: '#757575' }}
+                    >
+                      {i.lastMessage.content.slice(0, 15)}...
+                    </Typography>
+                  </React.Fragment>
+                }
+              />
 
-                <ListItemSecondaryAction>
-                  <Typography component='span' variant='caption'>
-                    {moment(i.createdAt).fromNow()}
-                  </Typography>
-                </ListItemSecondaryAction>
-              </ListItem>
-            </Link>
+              <ListItemSecondaryAction>
+                <Typography component='span' variant='caption'>
+                  {moment(i.createdAt).fromNow()}
+                </Typography>
+              </ListItemSecondaryAction>
+            </ListItem>
           ))}
         </List>
       )}
