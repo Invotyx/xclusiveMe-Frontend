@@ -325,7 +325,7 @@ const Chat = () => {
                 </div>
               </CardActions>
 
-              <CardActions>
+              <CardActions style={{ padding: 0 }}>
                 <OutlinedInput
                   style={{ padding: 0 }}
                   value={msgText}
