@@ -44,6 +44,7 @@ import BounceLoader from 'react-spinners/BounceLoader';
 import { Picker } from 'emoji-mart';
 import 'emoji-mart/css/emoji-mart.css';
 import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
+import { useRouter } from 'next/router';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -111,6 +112,10 @@ const CommentModel = ({
   const [openTip, setopenTip] = useState(false);
   const fetchData = useSelector(fetchingSelector);
   const [show, setShow] = useState(false);
+  const [countClick, setCountClick] = useState(null);
+  const [commLength, setcommLength] = useState(10);
+  const router = useRouter();
+  const { postId } = router.query;
 
   const handleOpenModel = () => {
     console.log('in model');
@@ -136,10 +141,15 @@ const CommentModel = ({
 
   useEffect(() => {
     setCommentsData(commentsData => commentsData?.concat(forComments));
+
     return () => {
       setCommentsData([]);
     };
   }, [forComments]);
+
+  useEffect(() => {
+    !postId && setOpen(false);
+  }, [postId]);
 
   useEffect(() => {
     if (forCommentId) {
@@ -178,7 +188,8 @@ const CommentModel = ({
   };
 
   const handleClose = () => {
-    setOpen(false);
+    // setOpen(false);
+    router.push('/explore');
     setisReplyField(false);
     setissubReplyField(false);
   };
@@ -215,6 +226,8 @@ const CommentModel = ({
 
   const handlleGetComments = () => {
     setPageNumber(pageNumber + 1);
+    setcommLength(commLength + 10);
+    console.log('comm length', commLength);
     dispatch(
       postData.getCommentsVal({
         id: singlePost?.id,
@@ -297,7 +310,11 @@ const CommentModel = ({
               ) : (
                 !isMobile && (
                   <CardHeader
-                    avatar={<ProfileImageAvatar user={profileData} />}
+                    avatar={
+                      <ProfileImageAvatar
+                        user={singlePost?.user?.profileImage}
+                      />
+                    }
                     action={
                       <IconButton aria-label='settings'>
                         {!isMobile && <CloseIcon onClick={handleClose} />}
@@ -498,7 +515,8 @@ const CommentModel = ({
               <div>
                 <img src='/border.png' alt='bar' style={{ width: '100%' }} />
 
-                {singlePost?.totalComments < 10 ? (
+                {singlePost?.totalComments < 10 ||
+                commLength >= singlePost?.totalComments ? (
                   ''
                 ) : (
                   <p
