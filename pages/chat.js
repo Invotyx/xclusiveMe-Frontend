@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Layout from '../components/layouts/layout-auth';
 import { makeStyles } from '@material-ui/core/styles';
 import Message from '../components/message/Message';
@@ -10,7 +10,7 @@ import { useRouter } from 'next/router';
 import { currentUserSelector } from '../selectors/authSelector';
 import { useDispatch, useSelector } from 'react-redux';
 import Typography from '@material-ui/core/Typography';
-import { Button, OutlinedInput } from '@material-ui/core';
+import { OutlinedInput } from '@material-ui/core';
 import ImageAvatar from '../components/image-avatar';
 import getConfig from 'next/config';
 import { chat } from '../actions/chat';
