@@ -39,13 +39,17 @@ const ConvoList = ({
         limit: limit,
       })
     );
+
   React.useEffect(() => {
     getOneConversation();
   }, [activeConversationId]);
+
   React.useEffect(() => {
     getOneConversation();
   }, [lastMessageReceived]);
+
   const classes = useStyles();
+
   return (
     <>
       <div className={classes.mainBox} ref={refProp}>
