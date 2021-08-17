@@ -26,6 +26,9 @@ import { withStyles } from '@material-ui/core';
 const ListItem = withStyles({
   root: {
     fontFamily: 'Poppins',
+    '& .MuiListItemAvatar-root': {
+      minWidth: `50px`,
+    },
     '& .MuiListItemText-root': {
       '& .MuiListItemText-primary': {
         width: '18ch',
