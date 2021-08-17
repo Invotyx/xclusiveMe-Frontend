@@ -19,6 +19,7 @@ import moment from 'moment';
 import queryString from 'query-string';
 import { withStyles } from '@material-ui/core';
 import { ActiveConversationContext } from '../../pages/chat';
+import { useRouter } from 'next/router';
 
 const ListItem = withStyles({
   root: {
@@ -89,8 +90,10 @@ export default function Message({ subheaderPrefix }) {
     </NextLink>
   );
 
+  const router = useRouter();
   const handlegetone = conId => {
     setActiveConversationId(conId);
+    router.push(`/chat?conId=${conId}`)
   };
 
   return (
