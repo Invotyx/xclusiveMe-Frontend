@@ -30,7 +30,7 @@ const ConvoList = ({
   const pageNum = 1;
   const limit = 50;
 
-  React.useEffect(() => {
+  const getOneConversation = () =>
     dispatch(
       chat.getOneConversation({
         id: activeConversationId,
@@ -38,6 +38,8 @@ const ConvoList = ({
         limit: limit,
       })
     );
+  React.useEffect(() => {
+    getOneConversation();
   }, [activeConversationId]);
   const classes = useStyles();
   return (
