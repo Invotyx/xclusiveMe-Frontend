@@ -36,7 +36,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
 import ReportModal from './ReportModal';
 import TipModal from './TipModal';
-import { TramRounded } from '@material-ui/icons';
+import { Check, TramRounded } from '@material-ui/icons';
 import { getCommentsDataSelector } from '../../selectors/postSelector';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { fetchingSelector } from '../../selectors/postSelector';
@@ -50,6 +50,7 @@ import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
 import { useMediaQuery } from 'react-responsive';
 import queryString from 'query-string';
 import { useRouter } from 'next/router';
+import ManuButton from '../menuButton';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -111,12 +112,16 @@ export default function Post({
   const [loading, setLoading] = useState(false);
   const fetchData = useSelector(fetchingSelector);
   const [notByedModel, setnotBuyedModel] = useState(false);
+  const [openforComment, setOpenforComment] = useState({
+    id: '',
+    check: false,
+  });
   const [show, setShow] = useState(false);
   const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
   const router = useRouter();
   const { postId } = router.query;
 
-  const Link = ({ passQueryString, href, children, ...otherProps }) => (
+  const Links = ({ passQueryString, href, children, ...otherProps }) => (
     <NextLink
       href={`${href}?${queryString.stringify(passQueryString)}`}
       {...otherProps}
@@ -269,14 +274,14 @@ export default function Post({
   };
 
   const handleOpen = forReplyId => {
-    // console.log('commentid', forReplyId);
+    console.log('commentid', forReplyId);
     // dispatch(postData.requestOne(postId));
     setReplyId(forReplyId);
-
+    // console.log(replyid);
     setForCommentId(forReplyId);
     searchInput.current.focus();
-    setOpenReply(true);
-    setOpen(true);
+    // setOpenReply(true);
+    // setOpen(true);
   };
 
   useEffect(() => {
@@ -287,7 +292,11 @@ export default function Post({
   useEffect(() => {
     replyid !== null &&
       postId &&
-      (dispatch(postData.requestReplies(forReplyId, postId)), setOpen(true));
+      (dispatch(postData.requestReplies(replyid, postId)),
+      setOpen(true),
+      setOpenforComment({ id: replyid, Check: true }));
+    // console.log('replyid', replyid);
+    // console.log('forcomm', openforComment.id, '999');
   }, [replyid, postId]);
 
   const handleNotOpen = () => {
@@ -349,35 +358,37 @@ export default function Post({
               //   <MoreVertIcon />
               // </IconButton>
 
-              <div>
-                <IconButton
-                  aria-label='more'
-                  aria-controls='simple-menu'
-                  aria-haspopup='true'
-                  onClick={handleOpenmenu}
-                >
-                  <MoreVertIcon />
-                </IconButton>
-                {!subscriptionPlans && !me && (
-                  <Menu
-                    id='simple-menu'
-                    anchorEl={anchorEl}
-                    keepMounted
-                    open={Boolean(anchorEl)}
-                    onClose={handleCloseMenu}
-                  >
-                    <MenuItem
-                      onClick={
-                        post.media.length === 0
-                          ? handleNotOpen
-                          : handleOpenReportModal
-                      }
-                    >
-                      Report
-                    </MenuItem>
-                  </Menu>
-                )}
-              </div>
+              <ManuButton post={post} />
+
+              // <div>
+              //   <IconButton
+              //     aria-label='more'
+              //     aria-controls='simple-menu'
+              //     aria-haspopup='true'
+              //     onClick={handleOpenmenu}
+              //   >
+              //     <MoreVertIcon />
+              //   </IconButton>
+              //   {!subscriptionPlans && !me && (
+              //     <Menu
+              //       id='simple-menu'
+              //       anchorEl={anchorEl}
+              //       keepMounted
+              //       open={Boolean(anchorEl)}
+              //       onClose={handleCloseMenu}
+              //     >
+              //       <MenuItem
+              //         onClick={
+              //           post.media.length === 0
+              //             ? handleNotOpen
+              //             : handleOpenReportModal
+              //         }
+              //       >
+              //         Report
+              //       </MenuItem>
+              //     </Menu>
+              //   )}
+              // </div>
             }
             title={
               <>
@@ -532,11 +543,11 @@ export default function Post({
             openModel={openModel}
             setOpenModel={setOpenModel}
           />
-          <ReportModal
+          {/* <ReportModal
             openReportModal={openReportModal}
             setreportModal={setreportModal}
             post={post}
-          />
+          /> */}
           <NotBuyedModel
             notByedModel={notByedModel}
             setnotBuyedModel={setnotBuyedModel}
@@ -555,7 +566,7 @@ export default function Post({
         )}
 
         {post.comments.length >= 3 ? (
-          <Link
+          <Links
             key={Math.random()}
             passHref
             href='/explore'
@@ -580,7 +591,7 @@ export default function Post({
                 View previous comments
               </p>
             )}
-          </Link>
+          </Links>
         ) : (
           ''
         )}
@@ -597,6 +608,8 @@ export default function Post({
           forCommentId={forCommentId}
           openReply={openReply}
           postId={postId}
+          openforComment={openforComment}
+          setOpenforComment={setOpenforComment}
         />
 
         {/* <div style={{ display: 'none' }}>
@@ -670,7 +683,7 @@ export default function Post({
                   marginTop: '5px',
                 }}
               >
-                <Link
+                <Links
                   key={Math.random()}
                   passHref
                   href='/explore'
@@ -695,7 +708,7 @@ export default function Post({
                         : () => handleOpen(comm.id)
                     }
                   />
-                </Link>
+                </Links>
 
                 {/* <ChatBubbleOutlineIcon
                 style={{ marginRight: '9px' }}

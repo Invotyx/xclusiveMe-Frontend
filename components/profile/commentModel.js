@@ -87,6 +87,8 @@ const CommentModel = ({
   currentUser,
   forCommentId,
   openReply,
+  openforComment,
+  setOpenforComment,
 }) => {
   const classes = useStyles();
   const [commentText, setCommentText] = useState('');
@@ -192,11 +194,12 @@ const CommentModel = ({
     router.push('/explore');
     setisReplyField(false);
     setissubReplyField(false);
+    setOpen(false);
   };
 
   const handleReplyField = id => {
     setCommentId(id);
-
+    console.log('---', openforComment.id, id);
     console.log('reply id', id);
 
     setisReplyField({ check: true, id });
@@ -717,6 +720,7 @@ const CommentModel = ({
                               setissubReplyField={setissubReplyField}
                               commentId={commentId}
                               setCommentId={setCommentId}
+                              openReply={openReply}
                             />
 
                             {/* {comm.totalReplies > 0  ? (
