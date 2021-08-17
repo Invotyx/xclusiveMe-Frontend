@@ -30,10 +30,6 @@ const useStyles = makeStyles(theme => ({
     marginTop: '20px',
     cursor: 'pointer',
   },
-  inline: {
-    display: 'inline',
-    fontFamily: 'Poppins',
-  },
   times: {
     fontFamily: 'Poppins',
     color: '#757575',
@@ -106,7 +102,6 @@ export default function Message({ subheaderPrefix }) {
                       <Typography
                         component='span'
                         variant='body2'
-                        className={classes.inline}
                         style={{ color: '#757575' }}
                       >
                         {i.lastMessage.content.slice(0, 15)}...
