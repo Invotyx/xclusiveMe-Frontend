@@ -28,6 +28,8 @@ import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
+import { useTheme } from '@material-ui/core/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import MonetizationOnOutlinedIcon from '@material-ui/icons/MonetizationOnOutlined';
 import io from 'socket.io-client';
@@ -69,6 +71,8 @@ function useSocket(url) {
 
 export const ActiveConversationContext = React.createContext([[], () => {}]);
 const Chat = () => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [activeConversationId, setActiveConversationId] = React.useState(null);
   const socket = useSocket(
     `${SERVER_ADDRESS.substring(0, SERVER_ADDRESS.length - 4)}/messages`
@@ -186,7 +190,11 @@ const Chat = () => {
     <Layout>
       <Container maxWidth='md'>
         <Grid container spacing={2}>
-          <Grid item xs={12} md={4}>
+          <Grid
+            item
+            xs={12}
+            md={4}
+          >
             <ActiveConversationContext.Provider
               value={[activeConversationId, setActiveConversationId]}
             >
@@ -233,7 +241,14 @@ const Chat = () => {
             </ActiveConversationContext.Provider>
           </Grid>
 
-          <Grid item xs={12} md={8} style={{ flexGrow: 1 }}>
+          <Grid
+            item
+            xs={12}
+            md={8}
+            style={{
+              flexGrow: 1,
+            }}
+          >
             <Card>
               <CardHeader
                 avatar={<ImageAvatar />}
