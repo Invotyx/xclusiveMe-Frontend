@@ -4,8 +4,12 @@ const apiClient = axios.create();
 
 apiClient.interceptors.request.use(
   async request => {
-    const accessToken = localStorage.getItem('jwtToken');
-    const refreshToken = localStorage.getItem('refreshToken');
+    const accessToken =
+      typeof window !== 'undefined' ? localStorage.getItem('jwtToken') : null;
+    const refreshToken =
+      typeof window !== 'undefined'
+        ? localStorage.getItem('refreshToken')
+        : null;
     if (accessToken) {
       request.headers = {
         Authorization: `Bearer ${accessToken}`,
