@@ -10,6 +10,7 @@ const ConvoList = ({ singlechat, current, refProp }) => {
           overflowY: 'scroll',
           overflowX: 'hidden',
           maxHeight: `28vh`,
+          minHeight: `130px`,
         }}
         className={styles.mainBox}
         ref={refProp}
