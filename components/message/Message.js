@@ -127,7 +127,7 @@ export default function Message({ subheaderPrefix }) {
             <Link
               key={Math.random()}
               passHref
-              href={isMobile ? '/mChat' : '/chat'}
+              href='/chat'
               passQueryString={{
                 conId: `${i?.id}`,
               }}
