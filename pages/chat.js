@@ -240,6 +240,9 @@ const Chat = () => {
                         backgroundColor: '#111111',
                         padding: '16px',
                         borderRadius: '3px',
+                        width: '42px',
+                        height: '42px',
+                        marginTop: '7px',
                       }}
                     >
                       <AddCommentIcon />
