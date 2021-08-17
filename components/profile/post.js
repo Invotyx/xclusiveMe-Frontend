@@ -353,7 +353,15 @@ export default function Post({
               //   <MoreVertIcon />
               // </IconButton>
 
-              <ManuButton post={post} />
+              <div>
+                {post.media.length === 0 ? (
+                  <IconButton aria-label='settings'>
+                    <MoreVertIcon />
+                  </IconButton>
+                ) : (
+                  <ManuButton post={post} />
+                )}
+              </div>
 
               // <div>
               //   <IconButton
