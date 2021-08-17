@@ -227,7 +227,9 @@ const Chat = () => {
                         margin='dense'
                         InputProps={{
                           startAdornment: (
-                            <SearchIcon style={{ color: '#7c8080' }} />
+                            <SearchIcon
+                              style={{ color: '#7c8080' }}
+                            />
                           ),
                         }}
                       />
