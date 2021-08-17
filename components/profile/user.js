@@ -116,15 +116,6 @@ export default function Profile({
 
   console.log(myCurrentUser?.username, username);
 
-  // const Link = ({ passQueryString, href, children, ...otherProps }) => (
-  //   <NextLink
-  //     href={`${href}?${queryString.stringify(passQueryString)}`}
-  //     {...otherProps}
-  //   >
-  //     {children}
-  //   </NextLink>
-  // );
-
   useEffect(() => {
     set_numberOfPosts(numberOfPosts);
   }, [numberOfPosts]);
