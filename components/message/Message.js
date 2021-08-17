@@ -8,7 +8,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Typography from '@material-ui/core/Typography';
 import ImageAvatar from '../image-avatar';
-import NextLink from 'next/link';
 import {
   chatDataSelector,
   chatCountSelector,
@@ -16,7 +15,6 @@ import {
 import { useSelector } from 'react-redux';
 import { currentUserSelector } from '../../selectors/authSelector';
 import moment from 'moment';
-import queryString from 'query-string';
 import { withStyles } from '@material-ui/core';
 import { ActiveConversationContext } from '../../pages/chat';
 import { useRouter } from 'next/router';
@@ -80,15 +78,6 @@ export default function Message({ subheaderPrefix }) {
   const chatData = useSelector(chatDataSelector);
   const myData = useSelector(currentUserSelector);
   const chatsCount = useSelector(chatCountSelector);
-
-  const Link = ({ passQueryString, href, children, ...otherProps }) => (
-    <NextLink
-      href={`${href}?${queryString.stringify(passQueryString)}`}
-      {...otherProps}
-    >
-      {children}
-    </NextLink>
-  );
 
   const router = useRouter();
   const handlegetone = conId => {
