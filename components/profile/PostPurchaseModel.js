@@ -42,6 +42,7 @@ const PostPurchaseModel = ({ post, openModel, setOpenModel }) => {
 
   const handlePurchase = () => {
     // setPurchased(true);
+    dispatch(paymentMethod.request());
     dispatch(
       postData?.purchasePost({
         id: post.id,
@@ -58,9 +59,6 @@ const PostPurchaseModel = ({ post, openModel, setOpenModel }) => {
     setOpenModel(false);
   };
 
-  useEffect(() => {
-    dispatch(paymentMethod.request());
-  }, []);
   return (
     <Modal
       aria-labelledby='transition-modal-title'
