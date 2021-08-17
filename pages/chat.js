@@ -194,6 +194,10 @@ const Chat = () => {
             item
             xs={12}
             md={4}
+            style={{
+              display:
+                activeConversationId !== null && isMobile ? 'none' : 'block',
+            }}
           >
             <ActiveConversationContext.Provider
               value={[activeConversationId, setActiveConversationId]}
@@ -247,6 +251,8 @@ const Chat = () => {
             md={8}
             style={{
               flexGrow: 1,
+              display:
+                activeConversationId === null && isMobile ? 'none' : 'block',
             }}
           >
             <Card>
