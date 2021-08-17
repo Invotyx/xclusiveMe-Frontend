@@ -114,6 +114,8 @@ export default function Profile({
 
   const { username } = router.query;
 
+  console.log(myCurrentUser.username, username);
+
   // const Link = ({ passQueryString, href, children, ...otherProps }) => (
   //   <NextLink
   //     href={`${href}?${queryString.stringify(passQueryString)}`}
@@ -187,7 +189,7 @@ export default function Profile({
                   </Box>
 
                   {me ||
-                    (myCurrentUser?.username == username && (
+                    (myCurrentUser?.username === username && (
                       <>
                         <UpdateProfile />
                         <UpdateCoverImage2 />
@@ -212,7 +214,7 @@ export default function Profile({
                         action={
                           <Box display={{ xs: 'none', sm: 'none', md: 'flex' }}>
                             {me ||
-                              (myCurrentUser?.username == username && (
+                              (myCurrentUser?.username === username && (
                                 <>
                                   <UpdateProfile />
                                   <UpdateCoverImage2 />
@@ -225,7 +227,7 @@ export default function Profile({
                     <CardHeader
                       className={classes.header2}
                       avatar={
-                        (me && me) || myCurrentUser?.username == username ? (
+                        (me && me) || myCurrentUser?.username === username ? (
                           <ProfileImage>
                             <ProfileImageAvatar
                               className={classes.userAvatar}
@@ -314,8 +316,10 @@ export default function Profile({
                           <Typography variant='body2' className='textSecondary'>
                             @{profileData?.username}
                           </Typography>
-                          {!me ||
-                            (!(myCurrentUser?.username == username) && (
+                          {me ||
+                            (myCurrentUser?.username === username ? (
+                              ''
+                            ) : (
                               <div
                               // passHref
                               // href='/chat'
