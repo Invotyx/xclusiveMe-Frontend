@@ -105,7 +105,6 @@ const Chat = () => {
   let pageNum = 1;
   let limit = 50;
 
-  const executeScroll = () => myRef.current.scrollIntoView();
   function handleOnEnter() {
     if (!msgText || msgText.trim() === '') {
       return;
