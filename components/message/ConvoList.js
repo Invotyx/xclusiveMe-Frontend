@@ -21,7 +21,6 @@ const ConvoList = ({ singlechat, current, refProp }) => {
   return (
     <>
       <div
-        }}
         className={classes.mainBox}
         ref={refProp}
       >
