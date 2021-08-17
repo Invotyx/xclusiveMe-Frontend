@@ -3,6 +3,7 @@ import Layout from '../components/layouts/layout-auth';
 import { makeStyles } from '@material-ui/core/styles';
 import Message from '../components/message/Message';
 import SearchIcon from '@material-ui/icons/Search';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import TileTextField from '../components/TileTextField';
 import AddCommentIcon from '@material-ui/icons/AddComment';
 import { useRouter } from 'next/router';
@@ -258,7 +259,17 @@ const Chat = () => {
             <Card>
               <CardHeader
                 avatar={
+                  isMobile ? (
+                    <IconButton
+                      onClick={() => {
+                        setActiveConversationId(null);
+                      }}
+                    >
+                      <ArrowBackIcon />
+                    </IconButton>
+                  ) : (
                     <ImageAvatar />
+                  )
                 }
                 title={
                   chatsData
