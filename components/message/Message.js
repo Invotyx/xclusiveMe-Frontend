@@ -101,7 +101,8 @@ export default function Message({ subheaderPrefix }) {
           No Data Found
         </p>
       ) : (
-        <List>
+        <List
+        >
           <ListSubheader disableGutters>
             <>
               <SubheaderPrefix />
