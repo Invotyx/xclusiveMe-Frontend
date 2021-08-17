@@ -7,6 +7,12 @@ const useStyles = makeStyles(theme => ({
     '&::-webkit-scrollbar': {
       display: 'none',
     },
+    overflowY: 'scroll',
+    overflowX: 'hidden',
+    [theme.breakpoints.up('md')]: {
+      height: `calc(100vh - 420px)`,
+      minHeight: `130px`,
+    },
   },
 }));
 
@@ -15,11 +21,6 @@ const ConvoList = ({ singlechat, current, refProp }) => {
   return (
     <>
       <div
-        style={{
-          overflowY: 'scroll',
-          overflowX: 'hidden',
-          height: `calc(100vh - 420px)`,
-          minHeight: `130px`,
         }}
         className={classes.mainBox}
         ref={refProp}
