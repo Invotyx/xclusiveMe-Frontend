@@ -9,6 +9,7 @@ import AddCommentIcon from '@material-ui/icons/AddComment';
 import { useRouter } from 'next/router';
 import { currentUserSelector } from '../selectors/authSelector';
 import { useDispatch, useSelector } from 'react-redux';
+import Typography from '@material-ui/core/Typography';
 import { Button, OutlinedInput } from '@material-ui/core';
 import ImageAvatar from '../components/image-avatar';
 import getConfig from 'next/config';
@@ -88,7 +89,14 @@ const Chat = () => {
         dispatch(
           snackbar.update({
             open: true,
-            message: 'New message received: ' + data.message,
+            message: (
+              <>
+                <Typography variant='subtitle2'>
+                  New message received:
+                </Typography>
+                <Typography variant='caption'>{data.message}</Typography>
+              </>
+            ),
             severity: 'success',
           })
         );
