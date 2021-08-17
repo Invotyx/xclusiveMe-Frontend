@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
+import MuiListItem from '@material-ui/core/ListItem';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Divider from '@material-ui/core/Divider';
@@ -21,22 +21,46 @@ import { currentUserSelector } from '../../selectors/authSelector';
 import moment from 'moment';
 import { chat as chatdata } from '../../actions/chat';
 import queryString from 'query-string';
-import { MenuItem } from '@material-ui/core';
-import styles from './message.module.css';
+import { withStyles } from '@material-ui/core';
+
+const ListItem = withStyles({
+  root: {
+    fontFamily: 'Poppins',
+    '& .MuiListItemAvatar-root': {
+      minWidth: `50px`,
+    },
+    '& .MuiListItemText-root': {
+      '& .MuiListItemText-primary': {
+        width: '18ch',
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+      },
+      '& .MuiTypography-body1': {
+        fontFamily: 'Poppins',
+        fontSize: '0.8rem',
+      },
+    },
+    '& .MuiListItemText-secondary': {
+      '& .MuiTypography-body2': {
+        fontFamily: 'Poppins',
+        fontSize: '0.7rem',
+      },
+    },
+    '& + .MuiListItemSecondaryAction-root': {
+      '& .MuiTypography-caption': {
+        fontFamily: 'Poppins',
+        fontSize: '0.6rem',
+      },
+    },
+  },
+})(MuiListItem);
 
 const useStyles = makeStyles(theme => ({
   root: {
     width: '100%',
     marginTop: '20px',
     cursor: 'pointer',
-  },
-  inline: {
-    display: 'inline',
-    fontFamily: 'Poppins',
-  },
-  times: {
-    fontFamily: 'Poppins',
-    color: '#757575',
   },
 }));
 
@@ -106,7 +130,6 @@ export default function Message({ subheaderPrefix }) {
                       <Typography
                         component='span'
                         variant='body2'
-                        className={classes.inline}
                         style={{ color: '#757575' }}
                       >
                         {i.lastMessage.content.slice(0, 15)}...
@@ -116,11 +139,7 @@ export default function Message({ subheaderPrefix }) {
                 />
 
                 <ListItemSecondaryAction>
-                  <Typography
-                    component='span'
-                    variant='caption'
-                    className={classes.times}
-                  >
+                  <Typography component='span' variant='caption'>
                     {moment(i.createdAt).fromNow()}
                   </Typography>
                 </ListItemSecondaryAction>

@@ -30,7 +30,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import MonetizationOnOutlinedIcon from '@material-ui/icons/MonetizationOnOutlined';
-import { io } from 'socket.io-client';
+import io from 'socket.io-client';
 const { publicRuntimeConfig } = getConfig();
 const SERVER_ADDRESS = publicRuntimeConfig.backendUrl;
 
@@ -76,6 +76,8 @@ const Chat = () => {
       socket.on('connected', data => {
         console.log(data);
       });
+      socket.on('new-message', data => {
+      });
       socket.on('exception', data => {
         console.log(data);
       });
@@ -103,7 +105,6 @@ const Chat = () => {
   let pageNum = 1;
   let limit = 50;
 
-  const executeScroll = () => myRef.current.scrollIntoView();
   function handleOnEnter() {
     if (!msgText || msgText.trim() === '') {
       return;
@@ -182,7 +183,7 @@ const Chat = () => {
     <Layout>
       <Container maxWidth='md'>
         <Grid container spacing={2}>
-          <Grid item>
+          <Grid item xs={12} md={4}>
             <Message
               subheaderPrefix={
                 <div
@@ -225,7 +226,7 @@ const Chat = () => {
             />
           </Grid>
 
-          <Grid item style={{ flexGrow: 1 }}>
+          <Grid item xs={12} md={8} style={{ flexGrow: 1 }}>
             <Card>
               <CardHeader
                 avatar={<ImageAvatar />}
