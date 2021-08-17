@@ -109,7 +109,7 @@ export default function Message({ subheaderPrefix }) {
           No Data Found
         </p>
       ) : (
-        <List className={classes.list}>
+        <List className={classes.list} disablePadding>
           <ListSubheader disableGutters style={{ backgroundColor: '#000' }}>
             <>
               <SubheaderPrefix />
