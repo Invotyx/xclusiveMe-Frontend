@@ -44,11 +44,11 @@ const ConvoList = ({ activeConversationId, lastMessageReceived }) => {
   };
 
   React.useEffect(() => {
-    getOneConversation();
+    getOneConversation(true);
   }, [activeConversationId]);
 
   React.useEffect(() => {
-    getOneConversation(true);
+    getOneConversation();
   }, [lastMessageReceived]);
 
   const classes = useStyles();
