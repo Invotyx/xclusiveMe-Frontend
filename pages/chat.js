@@ -203,46 +203,46 @@ const Chat = () => {
             <ActiveConversationContext.Provider
               value={[activeConversationId, setActiveConversationId]}
             >
-            <Message
-              subheaderPrefix={
-                <div
-                  style={{
-                    display: 'flex',
-                    marginBottom: '10px',
-                  }}
-                >
-                  <form
-                    noValidate
-                    autoComplete='off'
+              <Message
+                subheaderPrefix={
+                  <div
                     style={{
-                      flexGrow: 1,
-                      marginRight: '5px',
+                      display: 'flex',
+                      marginBottom: '10px',
                     }}
                   >
-                    <TileTextField
-                      fullWidth
-                      id='outlined-basic'
-                      placeholder='Search'
-                      variant='outlined'
-                      InputProps={{
-                        startAdornment: (
-                          <SearchIcon style={{ color: '#7c8080' }} />
-                        ),
+                    <form
+                      noValidate
+                      autoComplete='off'
+                      style={{
+                        flexGrow: 1,
+                        marginRight: '5px',
                       }}
-                    />
-                  </form>
-                  <IconButton
-                    style={{
-                      backgroundColor: '#111111',
-                      padding: '16px',
-                      borderRadius: '3px',
-                    }}
-                  >
-                    <AddCommentIcon />
-                  </IconButton>
-                </div>
-              }
-            />
+                    >
+                      <TileTextField
+                        fullWidth
+                        id='outlined-basic'
+                        placeholder='Search'
+                        variant='outlined'
+                        InputProps={{
+                          startAdornment: (
+                            <SearchIcon style={{ color: '#7c8080' }} />
+                          ),
+                        }}
+                      />
+                    </form>
+                    <IconButton
+                      style={{
+                        backgroundColor: '#111111',
+                        padding: '16px',
+                        borderRadius: '3px',
+                      }}
+                    >
+                      <AddCommentIcon />
+                    </IconButton>
+                  </div>
+                }
+              />
             </ActiveConversationContext.Provider>
           </Grid>
 
