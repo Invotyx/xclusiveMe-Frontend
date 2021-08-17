@@ -194,6 +194,7 @@ const Chat = () => {
 
   useEffect(() => {
     if (conId) {
+      setActiveConversationId(conId);
       dispatch(
         chat.getOneConversation({
           id: conId,
