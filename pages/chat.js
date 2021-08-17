@@ -193,7 +193,7 @@ const Chat = () => {
   }, []);
 
   useEffect(() => {
-    conId &&
+    if (conId) {
       dispatch(
         chat.getOneConversation({
           id: conId,
@@ -201,6 +201,7 @@ const Chat = () => {
           limit: limit,
         })
       );
+    }
   }, [conId]);
 
   return (
