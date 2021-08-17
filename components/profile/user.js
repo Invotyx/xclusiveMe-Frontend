@@ -123,9 +123,6 @@ export default function Profile({
   //   </NextLink>
   // );
 
-  console.log(myCurrentUser?.username, username);
-
-  console.log(myCurrentUser?.username === username);
   useEffect(() => {
     set_numberOfPosts(numberOfPosts);
   }, [numberOfPosts]);
@@ -357,7 +354,8 @@ export default function Profile({
                 </Grid>
                 {!(myCurrentUser?.username == username) && (
                   <Grid item xs={12}>
-                    {(subscriptionPlans && !me) ||
+                    {subscriptionPlans &&
+                    !me &&
                     !(myCurrentUser?.username == username) ? (
                       <Box
                         bgcolor='#111'
