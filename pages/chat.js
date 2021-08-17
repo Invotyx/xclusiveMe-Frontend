@@ -148,6 +148,7 @@ const Chat = () => {
           isPaid: false,
         },
         callback: () => {
+          setLastMessageReceived(+new Date());
           setMsgText('');
 
           dispatch(
