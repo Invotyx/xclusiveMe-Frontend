@@ -21,7 +21,6 @@ import { currentUserSelector } from '../../selectors/authSelector';
 import moment from 'moment';
 import { chat as chatdata } from '../../actions/chat';
 import queryString from 'query-string';
-import { MenuItem } from '@material-ui/core';
 import styles from './message.module.css';
 
 const useStyles = makeStyles(theme => ({
