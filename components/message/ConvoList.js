@@ -30,6 +30,7 @@ const ConvoList = ({ activeConversationId, lastMessageReceived }) => {
   const limit = 50;
 
   const getOneConversation = () => {
+    dispatch(chat.success({ singleChat: [] }));
     dispatch(
       chat.getOneConversation({
         id: activeConversationId,
