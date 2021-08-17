@@ -102,6 +102,12 @@ export default function Message({ subheaderPrefix }) {
         </p>
       ) : (
         <List
+          style={{
+            overflowY: 'scroll',
+            overflowX: 'hidden',
+            height: `calc(100vh - 192px)`,
+            minHeight: `356px`,
+          }}
         >
           <ListSubheader disableGutters>
             <>
