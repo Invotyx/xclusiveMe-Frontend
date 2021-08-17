@@ -110,7 +110,10 @@ export default function Message({ subheaderPrefix }) {
         </p>
       ) : (
         <List className={classes.list} disablePadding>
-          <ListSubheader disableGutters style={{ backgroundColor: '#000' }}>
+          <ListSubheader
+            disableGutters
+            style={{ backgroundColor: '#000', paddingTop: '8px' }}
+          >
             <>
               <SubheaderPrefix />
               <Typography>All messages</Typography>
