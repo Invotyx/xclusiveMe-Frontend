@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
+import MuiListItem from '@material-ui/core/ListItem';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Divider from '@material-ui/core/Divider';
@@ -21,6 +21,37 @@ import { currentUserSelector } from '../../selectors/authSelector';
 import moment from 'moment';
 import { chat as chatdata } from '../../actions/chat';
 import queryString from 'query-string';
+import { withStyles } from '@material-ui/core';
+
+const ListItem = withStyles({
+  root: {
+    fontFamily: 'Poppins',
+    '& .MuiListItemText-root': {
+      '& .MuiListItemText-primary': {
+        width: '18ch',
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+      },
+      '& .MuiTypography-body1': {
+        fontFamily: 'Poppins',
+        fontSize: '0.8rem',
+      },
+    },
+    '& .MuiListItemText-secondary': {
+      '& .MuiTypography-body2': {
+        fontFamily: 'Poppins',
+        fontSize: '0.7rem',
+      },
+    },
+    '& + .MuiListItemSecondaryAction-root': {
+      '& .MuiTypography-caption': {
+        fontFamily: 'Poppins',
+        fontSize: '0.6rem',
+      },
+    },
+  },
+})(MuiListItem);
 
 const useStyles = makeStyles(theme => ({
   root: {
