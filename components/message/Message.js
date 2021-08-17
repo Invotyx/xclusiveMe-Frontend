@@ -107,10 +107,7 @@ export default function Message({ subheaderPrefix }) {
                 />
 
                 <ListItemSecondaryAction>
-                  <Typography
-                    component='span'
-                    variant='caption'
-                  >
+                  <Typography component='span' variant='caption'>
                     {moment(i.createdAt).fromNow()}
                   </Typography>
                 </ListItemSecondaryAction>
