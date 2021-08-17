@@ -45,7 +45,6 @@ import { SubscribeUser } from './subscribe-button';
 import { useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import ChatIcon from '@material-ui/icons/Chat';
-import queryString from 'query-string';
 import LoadingOverlay from 'react-loading-overlay';
 import BounceLoader from 'react-spinners/BounceLoader';
 import { fetchingSelector } from '../../selectors/postSelector';
