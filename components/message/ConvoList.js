@@ -1,7 +1,11 @@
+import { makeStyles } from '@material-ui/core';
 import React from 'react';
 import styles from './message.module.css';
 
+const useStyles = makeStyles(theme => ({
+}));
 const ConvoList = ({ singlechat, current, refProp }) => {
+  const classes = useStyles();
   return (
     <>
       <div
