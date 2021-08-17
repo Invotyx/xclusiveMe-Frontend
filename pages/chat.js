@@ -84,6 +84,13 @@ const Chat = () => {
         console.log(data);
       });
       socket.on('new-message', data => {
+        dispatch(
+          snackbar.update({
+            open: true,
+            message: 'New message sent to Received: ' + data.message,
+            severity: 'success',
+          })
+        );
         console.log('New message sent to client: ', data);
       });
       socket.on('exception', data => {
