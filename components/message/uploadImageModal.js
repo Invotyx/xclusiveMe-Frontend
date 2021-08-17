@@ -75,10 +75,7 @@ export default function UploadImageModal({
     setImageModal(false);
   };
 
-  // console.log(sUrl);
-
   const imageHandler = source_url => {
-    // console.log(source_url);
     setSUrl(source_url);
     set_TileData(prev => [...prev, source_url.url]);
     setMedia([
@@ -89,8 +86,6 @@ export default function UploadImageModal({
       },
     ]);
   };
-
-  // console.log('ssss', `${sUrl.resource_type}/${sUrl.format}`, 'url', sUrl.url);
 
   const removeImageHandler = tile => {
     set_TileData(tileData.filter(t => t !== tile));
@@ -225,7 +220,6 @@ export default function UploadImageModal({
           imageHandler={imageHandler}
           set_disabled={set_disabled}
           onImageSelect={imgSrc => {
-            // console.log(imgSrc);
             setLoadingItems(prev => [...prev, { src: imgSrc }]);
           }}
           onImageUploaded={() =>
