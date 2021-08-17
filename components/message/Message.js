@@ -104,7 +104,7 @@ export default function Message({ subheaderPrefix }) {
           </ListSubheader>
           {chatData?.map((i, x) => (
               <ListItem
-                key={Math.random()}
+                key={`chatData${x}`}
                 button
                 onClick={() => handlegetone(i.id)}
                 disableGutters
