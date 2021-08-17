@@ -334,7 +334,6 @@ const Chat = () => {
 
               <CardActions style={{ padding: 0 }}>
                 <OutlinedInput
-                  style={{ padding: 0 }}
                   value={msgText}
                   onChange={e => setMsgText(e.target.value)}
                   name='msgText'
