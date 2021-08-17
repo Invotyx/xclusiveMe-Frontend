@@ -13,7 +13,7 @@ const ConvoList = ({ singlechat, current, refProp }) => {
         {singlechat?.map((i, x) => (
           <div className={styles.container} key={`message${x}`}>
             <div className={styles.chatMessages}>
-              {i.sender.id !== current.id ? (
+              {i.sender.id !== current?.id ? (
                 <div className={styles.leftSide}>
                   <span className={styles.leftMessage}>{i.content}</span>
                   <div>{i.mediaLink && i.mediaLink}</div>

@@ -49,10 +49,6 @@ export default function Comp({ sidebarMenu, set_sidebarMenu }) {
     setAnchorEl(null);
   };
 
-  const messagesOpen = e => {
-    setMessageEl(e.currentTarget);
-  };
-
   const messagesClose = () => {
     setMessageEl(null);
   };
@@ -163,9 +159,11 @@ export default function Comp({ sidebarMenu, set_sidebarMenu }) {
               </Box>
 
               <Box ml={3} display={{ xs: 'none', sm: 'none', md: 'flex' }}>
-                <IconButton color='inherit' onClick={messagesOpen}>
-                  <SmsIcon />
-                </IconButton>
+                <NextLink href='/chat' passHref>
+                  <IconButton color='inherit'>
+                    <SmsIcon />
+                  </IconButton>
+                </NextLink>
                 <div>
                   <MessageMenu
                     open={Boolean(messageEl)}

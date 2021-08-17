@@ -31,6 +31,8 @@ import CardContent from '@material-ui/core/CardContent';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import MonetizationOnOutlinedIcon from '@material-ui/icons/MonetizationOnOutlined';
 import { io } from 'socket.io-client';
+const { publicRuntimeConfig } = getConfig();
+const SERVER_ADDRESS = publicRuntimeConfig.backendUrl;
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -40,7 +42,49 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+function useSocket(url) {
+  const JWTToken =
+    typeof window !== 'undefined' ? localStorage.getItem('jwtToken') : null;
+  const [socket, setSocket] = useState(null);
+
+  useEffect(() => {
+    const socketIo = io(url, {
+      transports: ['websocket'],
+      query: {
+        token: `${JWTToken}`,
+      },
+    });
+
+    setSocket(socketIo);
+
+    function cleanup() {
+      socketIo.disconnect();
+    }
+
+    return cleanup;
+  }, []);
+
+  return socket;
+}
+
 const Chat = () => {
+  const socket = useSocket(
+    `${SERVER_ADDRESS.substring(0, SERVER_ADDRESS.length - 4)}/messages`
+  );
+  useEffect(() => {
+    if (socket) {
+      socket.on('connected', data => {
+        console.log(data);
+      });
+      socket.on('exception', data => {
+        console.log(data);
+      });
+      socket.on('disconnect', () => {
+        console.log('disconnected');
+      });
+    }
+  }, [socket]);
+
   const classes = useStyles();
   const router = useRouter();
   const dispatch = useDispatch();
@@ -56,14 +100,8 @@ const Chat = () => {
   // const { user, image, userId } = router.query;
 
   const { conId } = router.query;
-  let socket;
   let pageNum = 1;
   let limit = 50;
-  const JWTToken =
-    typeof window !== 'undefined' ? localStorage.getItem('jwtToken') : null;
-
-  const { publicRuntimeConfig } = getConfig();
-  const SERVER_ADDRESS = publicRuntimeConfig.backendUrl;
 
   const executeScroll = () => myRef.current.scrollIntoView();
   function handleOnEnter() {
@@ -72,11 +110,6 @@ const Chat = () => {
     }
 
     setShow(false);
-    // socket.emit('new-message-to-server', {
-    //   conversationId: 38,
-    //   receiver: userId,
-    //   content: msgText,
-    // });
 
     dispatch(
       chat.sendOneMessage({
@@ -144,20 +177,6 @@ const Chat = () => {
         })
       );
   }, [conId]);
-
-  useEffect(() => {
-    socket = io(`${SERVER_ADDRESS.substring(0, SERVER_ADDRESS.length - 4)}/messages`, {
-      transports: ['websocket'],
-      query: {
-        token: `${JWTToken}`,
-      },
-    });
-
-    let socketId = null;
-    socket.on('connected', serverMessage => {
-      socketId = socket.id;
-    });
-  }, []);
 
   return (
     <Layout>
