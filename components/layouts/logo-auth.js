@@ -42,6 +42,7 @@ export default function Comp({ sidebarMenu, set_sidebarMenu }) {
   const me = useSelector(currentUserSelector);
 
   const settingsMenuOpen = event => {
+    dispatch(post.requestNotifications());
     setAnchorEl(event.currentTarget);
   };
 

@@ -51,14 +51,14 @@ export default function Home() {
 
   useEffect(() => {
     dispatch(post.requestSubscribed());
-    dispatch(post.requestNotifications());
-    dispatch(
-      chat.getConversations({
-        pageNum: pageNum,
-        limit: limit,
-      })
-    );
-  }, [dispatch]);
+    // dispatch(post.requestNotifications());
+    // dispatch(
+    //   chat.getConversations({
+    //     pageNum: pageNum,
+    //     limit: limit,
+    //   })
+    // );
+  }, []);
 
   return (
     <motion.div initial='hidden' animate='visible' variants={variants}>

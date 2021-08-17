@@ -140,7 +140,7 @@ export default function Notification({
         ? setCount(count + 1)
         : setOldCount(oldCount + 1);
     });
-  }, [listofNotifications]);
+  }, []);
 
   // console.log('count', count, 'oldCount', oldCount);
 

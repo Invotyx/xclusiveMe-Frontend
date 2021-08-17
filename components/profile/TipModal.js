@@ -41,6 +41,7 @@ const TipModal = ({ openTip, setopenTip, post }) => {
 
   const handlePurchase = () => {
     setPurchased(true);
+    dispatch(paymentMethod.request());
     dispatch(
       postData?.addTip({
         saveData: {
