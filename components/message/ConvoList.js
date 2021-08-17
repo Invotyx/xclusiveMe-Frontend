@@ -9,7 +9,7 @@ const ConvoList = ({ singlechat, current, refProp }) => {
         style={{
           overflowY: 'scroll',
           overflowX: 'hidden',
-          maxHeight: `calc(100vh - 420px)`,
+          height: `calc(100vh - 420px)`,
           minHeight: `130px`,
         }}
         className={styles.mainBox}
