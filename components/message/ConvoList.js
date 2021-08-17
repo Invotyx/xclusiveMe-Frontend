@@ -9,6 +9,7 @@ const useStyles = makeStyles(theme => ({
     },
     overflowY: 'scroll',
     overflowX: 'hidden',
+    height: `calc(100vh - 430px)`,
     [theme.breakpoints.up('md')]: {
       height: `calc(100vh - 420px)`,
       minHeight: `130px`,
