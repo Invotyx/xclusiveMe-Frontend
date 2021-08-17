@@ -43,8 +43,6 @@ const TipModal = ({ post }) => {
   const [addPrice, setAddPrice] = useState(0);
 
   const handlePurchase = () => {
-    setPurchased(true);
-    dispatch(paymentMethod.request());
     dispatch(
       postData?.addTip({
         saveData: {
@@ -71,9 +69,9 @@ const TipModal = ({ post }) => {
     setPurchased(false);
   };
 
-  //   useEffect(() => {
-  //     dispatch(paymentMethod.request());
-  //   }, []);
+  useEffect(() => {
+    dispatch(paymentMethod.request());
+  }, []);
   return (
     <>
       <IconButton onClick={handleOpenTopModal}>
