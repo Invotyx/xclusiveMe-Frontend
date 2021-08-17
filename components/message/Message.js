@@ -60,6 +60,14 @@ const useStyles = makeStyles(theme => ({
     marginTop: '20px',
     cursor: 'pointer',
   },
+  list: {
+    overflowY: 'scroll',
+    overflowX: 'hidden',
+    [theme.breakpoints.up('md')]: {
+      height: `calc(100vh - 192px)`,
+      minHeight: `356px`,
+    },
+  },
 }));
 
 export default function Message({ subheaderPrefix }) {
@@ -101,14 +109,7 @@ export default function Message({ subheaderPrefix }) {
           No Data Found
         </p>
       ) : (
-        <List
-          style={{
-            overflowY: 'scroll',
-            overflowX: 'hidden',
-            height: `calc(100vh - 192px)`,
-            minHeight: `356px`,
-          }}
-        >
+        <List className={classes.list}>
           <ListSubheader disableGutters style={{ backgroundColor: '#000' }}>
             <>
               <SubheaderPrefix />
