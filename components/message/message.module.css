@@ -1,7 +1,3 @@
-.mainBox::-webkit-scrollbar {
-    display: none;
-}
-
 .HideBar::-webkit-scrollbar {
     display: none;
 }

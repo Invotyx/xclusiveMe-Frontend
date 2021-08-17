@@ -3,6 +3,11 @@ import React from 'react';
 import styles from './message.module.css';
 
 const useStyles = makeStyles(theme => ({
+  mainBox: {
+    '&::-webkit-scrollbar': {
+      display: 'none',
+    },
+  },
 }));
 
 const ConvoList = ({ singlechat, current, refProp }) => {
@@ -16,7 +21,7 @@ const ConvoList = ({ singlechat, current, refProp }) => {
           height: `calc(100vh - 420px)`,
           minHeight: `130px`,
         }}
-        className={styles.mainBox}
+        className={classes.mainBox}
         ref={refProp}
       >
         {singlechat?.map((i, x) => (
