@@ -114,7 +114,7 @@ export default function Profile({
 
   const { username } = router.query;
 
-  console.log(myCurrentUser.username, username);
+  console.log(myCurrentUser?.username, username);
 
   // const Link = ({ passQueryString, href, children, ...otherProps }) => (
   //   <NextLink
@@ -317,29 +317,28 @@ export default function Profile({
                             @{profileData?.username}
                           </Typography>
                           {me ||
-                            (myCurrentUser?.username === username ? (
-                              ''
-                            ) : (
-                              <div
-                              // passHref
-                              // href='/chat'
-                              // passQueryString={{
-                              //   user: `${profileData?.fullName}`,
-                              //   image: `${profileData?.profileImage}`,
-                              //   userId: `${user?.id}`,
-                              // }}
-                              >
-                                <ChatIcon
-                                  style={{ marginLeft: '15px' }}
-                                  onClick={handleMessageModal}
-                                />
-                                <MessageModal
-                                  messageModal={messageModal}
-                                  setMessageModal={setMessageModal}
-                                  profileData={profileData}
-                                />
-                              </div>
-                            ))}
+                            (myCurrentUser?.username === username
+                              ? ''
+                              : !subscriptionPlans && (
+                                  <div
+                                  // passHref
+                                  // href='/chat'
+                                  // passQueryString={{
+                                  //   user: `${profileData?.fullName}`,
+                                  //   image: `${profileData?.profileImage}`,
+                                  // }}
+                                  >
+                                    <ChatIcon
+                                      style={{ marginLeft: '15px' }}
+                                      onClick={handleMessageModal}
+                                    />
+                                    <MessageModal
+                                      messageModal={messageModal}
+                                      setMessageModal={setMessageModal}
+                                      profileData={profileData}
+                                    />
+                                  </div>
+                                ))}
                         </Box>
                       }
                     />
@@ -356,11 +355,11 @@ export default function Profile({
                     </CardContent>
                   </Card>
                 </Grid>
-                {!(myCurrentUser?.username == username) && (
+                {myCurrentUser?.username === username ? (
+                  ''
+                ) : (
                   <Grid item xs={12}>
-                    {subscriptionPlans &&
-                    !me &&
-                    !(myCurrentUser?.username == username) ? (
+                    {subscriptionPlans ? (
                       <Box
                         bgcolor='#111'
                         display='flex'
@@ -392,31 +391,28 @@ export default function Profile({
                         )}
                       </Box>
                     ) : (
-                      !me ||
-                      !(myCurrentUser?.username == username)(
-                        <Box
-                          bgcolor='#111'
-                          display='flex'
-                          p={2}
-                          alignItems='center'
-                          my={2}
-                          border='1px solid #222'
-                        >
-                          <Box flexGrow={1}>
-                            <Typography>
-                              Unfollow to stop getting posts in your News Feed.
-                            </Typography>
-                          </Box>
-
-                          <NormalCaseButton
-                            size='small'
-                            variant='outlined'
-                            onClick={e => handleUnFollow(e)}
-                          >
-                            <span>Unfollow</span>
-                          </NormalCaseButton>
+                      <Box
+                        bgcolor='#111'
+                        display='flex'
+                        p={2}
+                        alignItems='center'
+                        my={2}
+                        border='1px solid #222'
+                      >
+                        <Box flexGrow={1}>
+                          <Typography>
+                            Unfollow to stop getting posts in your News Feed.
+                          </Typography>
                         </Box>
-                      )
+
+                        <NormalCaseButton
+                          size='small'
+                          variant='outlined'
+                          onClick={e => handleUnFollow(e)}
+                        >
+                          <span>Unfollow</span>
+                        </NormalCaseButton>
+                      </Box>
                     )}
                   </Grid>
                 )}
