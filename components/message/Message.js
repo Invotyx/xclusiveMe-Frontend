@@ -30,10 +30,6 @@ const useStyles = makeStyles(theme => ({
     marginTop: '20px',
     cursor: 'pointer',
   },
-  times: {
-    fontFamily: 'Poppins',
-    color: '#757575',
-  },
 }));
 
 export default function Message({ subheaderPrefix }) {
@@ -114,7 +110,6 @@ export default function Message({ subheaderPrefix }) {
                   <Typography
                     component='span'
                     variant='caption'
-                    className={classes.times}
                   >
                     {moment(i.createdAt).fromNow()}
                   </Typography>
