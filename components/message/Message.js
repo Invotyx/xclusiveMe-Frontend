@@ -1,16 +1,13 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import MuiListItem from '@material-ui/core/ListItem';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import Divider from '@material-ui/core/Divider';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import ImageAvatar from '../image-avatar';
-import { useMediaQuery } from 'react-responsive';
 import NextLink from 'next/link';
 import {
   chatDataSelector,
@@ -22,6 +19,7 @@ import moment from 'moment';
 import { chat as chatdata } from '../../actions/chat';
 import queryString from 'query-string';
 import { withStyles } from '@material-ui/core';
+import { ActiveConversationContext } from '../../pages/chat';
 
 const ListItem = withStyles({
   root: {
@@ -62,12 +60,23 @@ const useStyles = makeStyles(theme => ({
     marginTop: '20px',
     cursor: 'pointer',
   },
+  list: {
+    overflowY: 'scroll',
+    overflowX: 'hidden',
+    height: `calc(100vh - 208px)`,
+    [theme.breakpoints.up('md')]: {
+      height: `calc(100vh - 192px)`,
+      minHeight: `356px`,
+    },
+  },
 }));
 
 export default function Message({ subheaderPrefix }) {
+  const [activeConversationId, setActiveConversationId] = React.useContext(
+    ActiveConversationContext
+  );
   const SubheaderPrefix = () => subheaderPrefix || <></>;
   const classes = useStyles();
-  const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
   const chatData = useSelector(chatDataSelector);
   const myData = useSelector(currentUserSelector);
   const chatsCount = useSelector(chatCountSelector);
@@ -85,6 +94,7 @@ export default function Message({ subheaderPrefix }) {
   );
 
   const handlegetone = conId => {
+    setActiveConversationId(conId);
     dispatch(
       chatdata.getOneConversation({
         id: conId,
@@ -101,8 +111,11 @@ export default function Message({ subheaderPrefix }) {
           No Data Found
         </p>
       ) : (
-        <List>
-          <ListSubheader disableGutters>
+        <List className={classes.list} disablePadding>
+          <ListSubheader
+            disableGutters
+            style={{ backgroundColor: '#000', paddingTop: '8px' }}
+          >
             <>
               <SubheaderPrefix />
               <Typography>All messages</Typography>
@@ -112,12 +125,17 @@ export default function Message({ subheaderPrefix }) {
             <Link
               key={Math.random()}
               passHref
-              href={isMobile ? '/mChat' : '/chat'}
+              href='/chat'
               passQueryString={{
                 conId: `${i?.id}`,
               }}
             >
-              <ListItem onClick={() => handlegetone(i.id)} disableGutters>
+              <ListItem
+                button
+                onClick={() => handlegetone(i.id)}
+                disableGutters
+                selected={activeConversationId === i.id}
+              >
                 <ListItemAvatar>
                   <ImageAvatar />
                 </ListItemAvatar>

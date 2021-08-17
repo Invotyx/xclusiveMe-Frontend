@@ -3,6 +3,7 @@ import Layout from '../components/layouts/layout-auth';
 import { makeStyles } from '@material-ui/core/styles';
 import Message from '../components/message/Message';
 import SearchIcon from '@material-ui/icons/Search';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import TileTextField from '../components/TileTextField';
 import AddCommentIcon from '@material-ui/icons/AddComment';
 import { useRouter } from 'next/router';
@@ -28,6 +29,8 @@ import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
+import { useTheme } from '@material-ui/core/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import MonetizationOnOutlinedIcon from '@material-ui/icons/MonetizationOnOutlined';
 import io from 'socket.io-client';
@@ -67,7 +70,11 @@ function useSocket(url) {
   return socket;
 }
 
+export const ActiveConversationContext = React.createContext([[], () => {}]);
 const Chat = () => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const [activeConversationId, setActiveConversationId] = React.useState(null);
   const socket = useSocket(
     `${SERVER_ADDRESS.substring(0, SERVER_ADDRESS.length - 4)}/messages`
   );
@@ -77,6 +84,7 @@ const Chat = () => {
         console.log(data);
       });
       socket.on('new-message', data => {
+        console.log('New message sent to client: ', data);
       });
       socket.on('exception', data => {
         console.log(data);
@@ -183,7 +191,18 @@ const Chat = () => {
     <Layout>
       <Container maxWidth='md'>
         <Grid container spacing={2}>
-          <Grid item xs={12} md={4}>
+          <Grid
+            item
+            xs={12}
+            md={4}
+            style={{
+              display:
+                activeConversationId !== null && isMobile ? 'none' : 'block',
+            }}
+          >
+            <ActiveConversationContext.Provider
+              value={[activeConversationId, setActiveConversationId]}
+            >
             <Message
               subheaderPrefix={
                 <div
@@ -224,12 +243,34 @@ const Chat = () => {
                 </div>
               }
             />
+            </ActiveConversationContext.Provider>
           </Grid>
 
-          <Grid item xs={12} md={8} style={{ flexGrow: 1 }}>
+          <Grid
+            item
+            xs={12}
+            md={8}
+            style={{
+              flexGrow: 1,
+              display:
+                activeConversationId === null && isMobile ? 'none' : 'block',
+            }}
+          >
             <Card>
               <CardHeader
-                avatar={<ImageAvatar />}
+                avatar={
+                  isMobile ? (
+                    <IconButton
+                      onClick={() => {
+                        setActiveConversationId(null);
+                      }}
+                    >
+                      <ArrowBackIcon />
+                    </IconButton>
+                  ) : (
+                    <ImageAvatar />
+                  )
+                }
                 title={
                   chatsData
                     .filter(list => list.id == conId)[0]

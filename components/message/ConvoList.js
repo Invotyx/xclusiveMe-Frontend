@@ -1,20 +1,27 @@
+import { makeStyles } from '@material-ui/core';
 import React from 'react';
 import styles from './message.module.css';
-import { css } from 'emotion';
+
+const useStyles = makeStyles(theme => ({
+  mainBox: {
+    '&::-webkit-scrollbar': {
+      display: 'none',
+    },
+    overflowY: 'scroll',
+    overflowX: 'hidden',
+    height: `calc(100vh - 435px)`,
+    [theme.breakpoints.up('md')]: {
+      height: `calc(100vh - 420px)`,
+      minHeight: `130px`,
+    },
+  },
+}));
 
 const ConvoList = ({ singlechat, current, refProp }) => {
+  const classes = useStyles();
   return (
     <>
-      <div
-        style={{
-          overflowY: 'scroll',
-          overflowX: 'hidden',
-          height: `calc(100vh - 420px)`,
-          minHeight: `130px`,
-        }}
-        className={styles.mainBox}
-        ref={refProp}
-      >
+      <div className={classes.mainBox} ref={refProp}>
         {singlechat?.map((i, x) => (
           <div className={styles.container} key={`message${x}`}>
             <div className={styles.chatMessages}>
