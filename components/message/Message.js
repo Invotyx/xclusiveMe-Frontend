@@ -109,7 +109,7 @@ export default function Message({ subheaderPrefix }) {
             minHeight: `356px`,
           }}
         >
-          <ListSubheader disableGutters>
+          <ListSubheader disableGutters style={{ backgroundColor: '#000' }}>
             <>
               <SubheaderPrefix />
               <Typography>All messages</Typography>
