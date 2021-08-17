@@ -2,6 +2,7 @@ import { makeStyles } from '@material-ui/core';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { chat } from '../../actions/chat';
+import { currentUserSelector } from '../../selectors/authSelector';
 import { singleChatSelector } from '../../selectors/chatSelector';
 import styles from './message.module.css';
 
@@ -23,9 +24,9 @@ const useStyles = makeStyles(theme => ({
 const ConvoList = ({
   activeConversationId,
   lastMessageReceived,
-  current,
 }) => {
   const myRef = React.useRef(null);
+  const current = useSelector(currentUserSelector);
   const singlechat = useSelector(singleChatSelector);
   const dispatch = useDispatch();
   const pageNum = 1;
