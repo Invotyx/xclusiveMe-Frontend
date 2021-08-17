@@ -34,6 +34,7 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import MonetizationOnOutlinedIcon from '@material-ui/icons/MonetizationOnOutlined';
 import io from 'socket.io-client';
 import { snackbar } from '../actions/snackbar';
+import TipModal from '../components/profile/TipModal';
 const { publicRuntimeConfig } = getConfig();
 const SERVER_ADDRESS = publicRuntimeConfig.backendUrl;
 
@@ -287,9 +288,7 @@ const Chat = () => {
                 subheader='click here for contact info'
                 action={
                   <>
-                    <IconButton>
-                      <MonetizationOnOutlinedIcon />
-                    </IconButton>
+                    <TipModal />
                     <IconButton>
                       <MoreVertIcon />
                     </IconButton>
