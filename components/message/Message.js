@@ -123,7 +123,7 @@ export default function Message({ subheaderPrefix }) {
                 button
                 onClick={() => handlegetone(i.id)}
                 disableGutters
-                selected={activeConversationId === i.id}
+                selected={+activeConversationId === i.id}
               >
                 <ListItemAvatar>
                   <ImageAvatar />
