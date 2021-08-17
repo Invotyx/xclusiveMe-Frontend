@@ -88,7 +88,7 @@ const Chat = () => {
         dispatch(
           snackbar.update({
             open: true,
-            message: 'New message sent to Received: ' + data.message,
+            message: 'New message received: ' + data.message,
             severity: 'success',
           })
         );
