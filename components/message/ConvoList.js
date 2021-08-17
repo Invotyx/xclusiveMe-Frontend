@@ -1,6 +1,7 @@
 import { makeStyles } from '@material-ui/core';
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { chat } from '../../actions/chat';
 import { singleChatSelector } from '../../selectors/chatSelector';
 import styles from './message.module.css';
 
@@ -21,7 +22,18 @@ const useStyles = makeStyles(theme => ({
 
 const ConvoList = ({ activeConversationId, current, refProp }) => {
   const singlechat = useSelector(singleChatSelector);
+  const dispatch = useDispatch();
+  const pageNum = 1;
+  const limit = 50;
+
   React.useEffect(() => {
+    dispatch(
+      chat.getOneConversation({
+        id: activeConversationId,
+        pageNum: pageNum,
+        limit: limit,
+      })
+    );
   }, [activeConversationId]);
   const classes = useStyles();
   return (
