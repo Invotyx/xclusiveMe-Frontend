@@ -24,7 +24,6 @@ const ConvoList = ({
   activeConversationId,
   lastMessageReceived,
   current,
-  refProp,
 }) => {
   const singlechat = useSelector(singleChatSelector);
   const dispatch = useDispatch();
@@ -52,7 +51,7 @@ const ConvoList = ({
 
   return (
     <>
-      <div className={classes.mainBox} ref={refProp}>
+      <div className={classes.mainBox}>
         {singlechat?.map((i, x) => (
           <div className={styles.container} key={`message${x}`}>
             <div className={styles.chatMessages}>
