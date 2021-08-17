@@ -108,7 +108,6 @@ export default function Post({
   const [focused, setFocused] = useState(false);
   const searchInput = useRef(null);
   const [openReportModal, setreportModal] = useState(false);
-  const [openTip, setopenTip] = useState(false);
   const [loading, setLoading] = useState(false);
   const fetchData = useSelector(fetchingSelector);
   const [notByedModel, setnotBuyedModel] = useState(false);
@@ -132,10 +131,6 @@ export default function Post({
 
   const handleOpenModel = () => {
     setOpenModel(true);
-  };
-
-  const handleOpenTopModal = () => {
-    setopenTip(true);
   };
 
   const handleReportModal = () => {
@@ -507,7 +502,7 @@ export default function Post({
                   Comments
                 </span>
               </NormalCaseButton>
-              {!me && (
+              {!me && post.media.length === 0 ? (
                 <NormalCaseButton
                   aria-label='tip'
                   startIcon={<MonetizationOnOutlinedIcon />}
@@ -519,6 +514,8 @@ export default function Post({
                 >
                   <span className={styles.hideOnMobile}>Tip</span>
                 </NormalCaseButton>
+              ) : (
+                <TipModal post={post} />
               )}
             </div>
 
@@ -553,7 +550,6 @@ export default function Post({
             setnotBuyedModel={setnotBuyedModel}
             post={post}
           />
-          <TipModal openTip={openTip} setopenTip={setopenTip} post={post} />
         </div>
 
         {false && (
