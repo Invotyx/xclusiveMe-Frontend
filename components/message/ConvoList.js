@@ -25,6 +25,7 @@ const ConvoList = ({
   lastMessageReceived,
   current,
 }) => {
+  const myRef = React.useRef(null);
   const singlechat = useSelector(singleChatSelector);
   const dispatch = useDispatch();
   const pageNum = 1;
@@ -36,6 +37,9 @@ const ConvoList = ({
         id: activeConversationId,
         pageNum: pageNum,
         limit: limit,
+        callback: () => {
+          myRef.current.scrollIntoView();
+        },
       })
     );
 
@@ -88,6 +92,7 @@ const ConvoList = ({
             </div>
           </div>
         ))}
+        <span ref={myRef}>..</span>
       </div>
     </>
   );
