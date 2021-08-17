@@ -224,6 +224,7 @@ const Chat = () => {
                         id='outlined-basic'
                         placeholder='Search'
                         variant='outlined'
+                        margin='dense'
                         InputProps={{
                           startAdornment: (
                             <SearchIcon style={{ color: '#7c8080' }} />
