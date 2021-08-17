@@ -90,7 +90,9 @@ const ConvoList = ({ activeConversationId, lastMessageReceived }) => {
             </div>
           </div>
         ))}
-        <span ref={myRef}>..</span>
+        <div ref={myRef} style={{ textIndent: '-9999px' }}>
+          ..
+        </div>
       </div>
     </>
   );
