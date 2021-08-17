@@ -29,7 +29,7 @@ const ConvoList = ({ activeConversationId, lastMessageReceived }) => {
   const pageNum = 1;
   const limit = 50;
 
-  const getOneConversation = () =>
+  const getOneConversation = () => {
     dispatch(
       chat.getOneConversation({
         id: activeConversationId,
@@ -40,6 +40,7 @@ const ConvoList = ({ activeConversationId, lastMessageReceived }) => {
         },
       })
     );
+  };
 
   React.useEffect(() => {
     getOneConversation();
