@@ -9,6 +9,7 @@ import AddCommentIcon from '@material-ui/icons/AddComment';
 import { useRouter } from 'next/router';
 import { currentUserSelector } from '../selectors/authSelector';
 import { useDispatch, useSelector } from 'react-redux';
+import Typography from '@material-ui/core/Typography';
 import { Button, OutlinedInput } from '@material-ui/core';
 import ImageAvatar from '../components/image-avatar';
 import getConfig from 'next/config';
@@ -18,7 +19,6 @@ import { Picker } from 'emoji-mart';
 import 'emoji-mart/css/emoji-mart.css';
 import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
 import { singleSelector } from '../selectors/userSelector';
-import { singleChatSelector } from '../selectors/chatSelector';
 import { chatDataSelector } from '../selectors/chatSelector';
 import ConvoList from '../components/message/ConvoList';
 import UploadImageModal from '../components/message/uploadImageModal';
@@ -34,6 +34,7 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import MonetizationOnOutlinedIcon from '@material-ui/icons/MonetizationOnOutlined';
 import io from 'socket.io-client';
+import { snackbar } from '../actions/snackbar';
 const { publicRuntimeConfig } = getConfig();
 const SERVER_ADDRESS = publicRuntimeConfig.backendUrl;
 
@@ -75,6 +76,7 @@ const Chat = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [activeConversationId, setActiveConversationId] = React.useState(null);
+  const [lastMessageReceived, setLastMessageReceived] = React.useState(null);
   const socket = useSocket(
     `${SERVER_ADDRESS.substring(0, SERVER_ADDRESS.length - 4)}/messages`
   );
@@ -84,6 +86,21 @@ const Chat = () => {
         console.log(data);
       });
       socket.on('new-message', data => {
+        setLastMessageReceived(+new Date());
+        dispatch(
+          snackbar.update({
+            open: true,
+            message: (
+              <>
+                <Typography variant='subtitle2'>
+                  New message received:
+                </Typography>
+                <Typography variant='caption'>{data.message}</Typography>
+              </>
+            ),
+            severity: 'success',
+          })
+        );
         console.log('New message sent to client: ', data);
       });
       socket.on('exception', data => {
@@ -102,10 +119,8 @@ const Chat = () => {
   const [msgText, setMsgText] = useState('');
   const current = useSelector(currentUserSelector);
   const singleUser = useSelector(singleSelector);
-  const singlechat = useSelector(singleChatSelector);
   const chatsData = useSelector(chatDataSelector);
   const [imageModal, setImageModal] = useState(false);
-  const myRef = useRef(null);
 
   // const { user, image, userId } = router.query;
 
@@ -133,15 +148,8 @@ const Chat = () => {
           isPaid: false,
         },
         callback: () => {
+          setLastMessageReceived(+new Date());
           setMsgText('');
-
-          dispatch(
-            chat.getOneConversation({
-              id: conId,
-              pageNum: pageNum,
-              limit: limit,
-            })
-          );
         },
       })
     );
@@ -167,7 +175,6 @@ const Chat = () => {
   };
 
   useEffect(() => {
-    // myRef.current.scrollIntoView();
     dispatch(
       chat.getConversations({
         pageNum: pageNum,
@@ -177,14 +184,9 @@ const Chat = () => {
   }, []);
 
   useEffect(() => {
-    conId &&
-      dispatch(
-        chat.getOneConversation({
-          id: conId,
-          pageNum: pageNum,
-          limit: limit,
-        })
-      );
+    if (conId) {
+      setActiveConversationId(conId);
+    }
   }, [conId]);
 
   return (
@@ -203,46 +205,54 @@ const Chat = () => {
             <ActiveConversationContext.Provider
               value={[activeConversationId, setActiveConversationId]}
             >
-            <Message
-              subheaderPrefix={
-                <div
-                  style={{
-                    display: 'flex',
-                    marginBottom: '10px',
-                  }}
-                >
-                  <form
-                    noValidate
-                    autoComplete='off'
+              <Message
+                subheaderPrefix={
+                  <div
                     style={{
-                      flexGrow: 1,
-                      marginRight: '5px',
+                      display: 'flex',
+                      marginBottom: '10px',
                     }}
                   >
-                    <TileTextField
-                      fullWidth
-                      id='outlined-basic'
-                      placeholder='Search'
-                      variant='outlined'
-                      InputProps={{
-                        startAdornment: (
-                          <SearchIcon style={{ color: '#7c8080' }} />
-                        ),
+                    <form
+                      noValidate
+                      autoComplete='off'
+                      style={{
+                        flexGrow: 1,
+                        marginRight: '5px',
                       }}
-                    />
-                  </form>
-                  <IconButton
-                    style={{
-                      backgroundColor: '#111111',
-                      padding: '16px',
-                      borderRadius: '3px',
-                    }}
-                  >
-                    <AddCommentIcon />
-                  </IconButton>
-                </div>
-              }
-            />
+                    >
+                      <TileTextField
+                        fullWidth
+                        id='outlined-basic'
+                        placeholder='Search'
+                        variant='outlined'
+                        margin='dense'
+                        InputProps={{
+                          startAdornment: (
+                            <SearchIcon
+                              fontSize='small'
+                              style={{ color: '#7c8080' }}
+                            />
+                          ),
+                        }}
+                      />
+                    </form>
+                    <IconButton
+                      size='small'
+                      style={{
+                        backgroundColor: '#111111',
+                        padding: '16px',
+                        borderRadius: '3px',
+                        width: '42px',
+                        height: '42px',
+                        marginTop: '7px',
+                      }}
+                    >
+                      <AddCommentIcon />
+                    </IconButton>
+                  </div>
+                }
+              />
             </ActiveConversationContext.Provider>
           </Grid>
 
@@ -290,9 +300,8 @@ const Chat = () => {
               />
               <CardContent>
                 <ConvoList
-                  singlechat={singlechat}
-                  current={current}
-                  refProp={myRef}
+                  activeConversationId={activeConversationId}
+                  lastMessageReceived={lastMessageReceived}
                 />
               </CardContent>
               <CardActions
@@ -325,8 +334,9 @@ const Chat = () => {
                 </div>
               </CardActions>
 
-              <CardActions>
+              <CardActions style={{ padding: 0 }}>
                 <OutlinedInput
+                  style={{ padding: 0 }}
                   value={msgText}
                   onChange={e => setMsgText(e.target.value)}
                   name='msgText'
@@ -345,6 +355,7 @@ const Chat = () => {
                   placeholder='Write a message'
                   startAdornment={
                     <ProfileImageAvatar
+                      variant='square'
                       user={current}
                       style={{ marginRight: '10px' }}
                     />

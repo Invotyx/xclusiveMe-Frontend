@@ -13,10 +13,9 @@ import {
   chatDataSelector,
   chatCountSelector,
 } from '../../selectors/chatSelector';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { currentUserSelector } from '../../selectors/authSelector';
 import moment from 'moment';
-import { chat as chatdata } from '../../actions/chat';
 import queryString from 'query-string';
 import { withStyles } from '@material-ui/core';
 import { ActiveConversationContext } from '../../pages/chat';
@@ -80,9 +79,6 @@ export default function Message({ subheaderPrefix }) {
   const chatData = useSelector(chatDataSelector);
   const myData = useSelector(currentUserSelector);
   const chatsCount = useSelector(chatCountSelector);
-  const dispatch = useDispatch();
-  const pageNum = 1;
-  const limit = 50;
 
   const Link = ({ passQueryString, href, children, ...otherProps }) => (
     <NextLink
@@ -95,13 +91,6 @@ export default function Message({ subheaderPrefix }) {
 
   const handlegetone = conId => {
     setActiveConversationId(conId);
-    dispatch(
-      chatdata.getOneConversation({
-        id: conId,
-        pageNum: pageNum,
-        limit: limit,
-      })
-    );
   };
 
   return (
@@ -134,7 +123,7 @@ export default function Message({ subheaderPrefix }) {
                 button
                 onClick={() => handlegetone(i.id)}
                 disableGutters
-                selected={activeConversationId === i.id}
+                selected={+activeConversationId === i.id}
               >
                 <ListItemAvatar>
                   <ImageAvatar />

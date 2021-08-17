@@ -1,5 +1,9 @@
 import { makeStyles } from '@material-ui/core';
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { chat } from '../../actions/chat';
+import { currentUserSelector } from '../../selectors/authSelector';
+import { singleChatSelector } from '../../selectors/chatSelector';
 import styles from './message.module.css';
 
 const useStyles = makeStyles(theme => ({
@@ -17,11 +21,41 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const ConvoList = ({ singlechat, current, refProp }) => {
+const ConvoList = ({ activeConversationId, lastMessageReceived }) => {
+  const myRef = React.useRef(null);
+  const current = useSelector(currentUserSelector);
+  const singlechat = useSelector(singleChatSelector);
+  const dispatch = useDispatch();
+  const pageNum = 1;
+  const limit = 50;
+
+  const getOneConversation = clear => {
+    clear && dispatch(chat.success({ singleChat: [] }));
+    dispatch(
+      chat.getOneConversation({
+        id: activeConversationId,
+        pageNum: pageNum,
+        limit: limit,
+        callback: () => {
+          myRef.current.scrollIntoView();
+        },
+      })
+    );
+  };
+
+  React.useEffect(() => {
+    getOneConversation(true);
+  }, [activeConversationId]);
+
+  React.useEffect(() => {
+    getOneConversation();
+  }, [lastMessageReceived]);
+
   const classes = useStyles();
+
   return (
     <>
-      <div className={classes.mainBox} ref={refProp}>
+      <div className={classes.mainBox}>
         {singlechat?.map((i, x) => (
           <div className={styles.container} key={`message${x}`}>
             <div className={styles.chatMessages}>
@@ -58,6 +92,9 @@ const ConvoList = ({ singlechat, current, refProp }) => {
             </div>
           </div>
         ))}
+        <div ref={myRef} style={{ textIndent: '-9999px' }}>
+          ..
+        </div>
       </div>
     </>
   );
