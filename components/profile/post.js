@@ -99,6 +99,7 @@ export default function Post({
   const currentUser = useSelector(currentUserSelector);
   const [commentId, setCommentId] = useState(null);
   const [openReply, setOpenReply] = useState(false);
+  const [replyid, setReplyId] = useState(null);
   const [isReplyField, setisReplyField] = useState(false);
   const singlePost = useSelector(singlepostDataSelector);
   const replyCount = useSelector(totalreplies);
@@ -270,7 +271,7 @@ export default function Post({
   const handleOpen = forReplyId => {
     // console.log('commentid', forReplyId);
     // dispatch(postData.requestOne(postId));
-    // dispatch(postData.requestReplies(forReplyId, post.id));
+    setReplyId(forReplyId);
 
     setForCommentId(forReplyId);
     searchInput.current.focus();
@@ -282,6 +283,12 @@ export default function Post({
     console.log(postId);
     postId && (dispatch(postData.requestOne(postId)), setOpen(true));
   }, [postId]);
+
+  useEffect(() => {
+    replyid !== null &&
+      postId &&
+      (dispatch(postData.requestReplies(forReplyId, postId)), setOpen(true));
+  }, [replyid, postId]);
 
   const handleNotOpen = () => {
     setnotBuyedModel(true);
@@ -663,23 +670,33 @@ export default function Post({
                   marginTop: '5px',
                 }}
               >
-                <img
-                  src='/comment.png'
-                  alt='reply button'
-                  style={{
-                    width: '20px',
-                    height: '20px',
-                    marginRight: '9px',
-                    cursor: 'pointer',
+                <Link
+                  key={Math.random()}
+                  passHref
+                  href='/explore'
+                  passQueryString={{
+                    postId: `${post?.id}`,
                   }}
-                  className={styles.commMobile}
-                  id={comm.id}
-                  onClick={
-                    post.media.length === 0
-                      ? handleNotOpenn
-                      : () => handleOpen(comm.id)
-                  }
-                />
+                >
+                  <img
+                    src='/comment.png'
+                    alt='reply button'
+                    style={{
+                      width: '20px',
+                      height: '20px',
+                      marginRight: '9px',
+                      cursor: 'pointer',
+                    }}
+                    className={styles.commMobile}
+                    id={comm.id}
+                    onClick={
+                      post.media.length === 0
+                        ? handleNotOpenn
+                        : () => handleOpen(comm.id)
+                    }
+                  />
+                </Link>
+
                 {/* <ChatBubbleOutlineIcon
                 style={{ marginRight: '9px' }}
                 id={comm.id}
