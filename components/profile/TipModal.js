@@ -31,9 +31,10 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const TipModal = ({ openTip, setopenTip, post }) => {
+const TipModal = ({ post }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const [openTip, setopenTip] = useState(false);
   const [purchased, setPurchased] = useState(false);
   const paymentData = useSelector(paymentMethodDataSelector);
   const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
@@ -59,6 +60,10 @@ const TipModal = ({ openTip, setopenTip, post }) => {
     );
   };
 
+  const handleOpenTopModal = () => {
+    setopenTip(true);
+  };
+
   const handleClose = () => {
     setopenTip(false);
     setPurchased(false);
@@ -68,6 +73,10 @@ const TipModal = ({ openTip, setopenTip, post }) => {
   //     dispatch(paymentMethod.request());
   //   }, []);
   return (
+    <>
+      <IconButton onClick={handleOpenTopModal}>
+        <MonetizationOnOutlinedIcon />
+      </IconButton>
     <Modal
       aria-labelledby='transition-modal-title'
       aria-describedby='transition-modal-description'
@@ -382,6 +391,7 @@ const TipModal = ({ openTip, setopenTip, post }) => {
         </div>
       </Fade>
     </Modal>
+    </>
   );
 };
 
