@@ -311,7 +311,10 @@ const Chat = () => {
                 }
               />
               <CardContent>
-                <ConvoList current={current} refProp={myRef} />
+                <ConvoList
+                  current={current}
+                  refProp={myRef}
+                />
               </CardContent>
               <CardActions
                 style={{
