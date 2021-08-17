@@ -18,7 +18,6 @@ import ProfileImageAvatar from '../components/profile/profile-image-avatar';
 import { Picker } from 'emoji-mart';
 import 'emoji-mart/css/emoji-mart.css';
 import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
-import { singleSelector } from '../selectors/userSelector';
 import { chatDataSelector } from '../selectors/chatSelector';
 import ConvoList from '../components/message/ConvoList';
 import UploadImageModal from '../components/message/uploadImageModal';
@@ -118,7 +117,6 @@ const Chat = () => {
   const [show, setShow] = useState(false);
   const [msgText, setMsgText] = useState('');
   const current = useSelector(currentUserSelector);
-  const singleUser = useSelector(singleSelector);
   const chatsData = useSelector(chatDataSelector);
   const [imageModal, setImageModal] = useState(false);
 
