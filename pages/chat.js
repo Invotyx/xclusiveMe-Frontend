@@ -183,7 +183,7 @@ const Chat = () => {
     <Layout>
       <Container maxWidth='md'>
         <Grid container spacing={2}>
-          <Grid item>
+          <Grid item xs={12} md={4}>
             <Message
               subheaderPrefix={
                 <div
@@ -226,7 +226,7 @@ const Chat = () => {
             />
           </Grid>
 
-          <Grid item style={{ flexGrow: 1 }}>
+          <Grid item xs={12} md={8} style={{ flexGrow: 1 }}>
             <Card>
               <CardHeader
                 avatar={<ImageAvatar />}
