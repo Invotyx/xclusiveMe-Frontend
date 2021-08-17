@@ -20,7 +20,11 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const ConvoList = ({ activeConversationId, current, refProp }) => {
+const ConvoList = ({
+  activeConversationId,
+  current,
+  refProp,
+}) => {
   const singlechat = useSelector(singleChatSelector);
   const dispatch = useDispatch();
   const pageNum = 1;
