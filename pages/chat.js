@@ -76,6 +76,7 @@ const Chat = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [activeConversationId, setActiveConversationId] = React.useState(null);
+  const [lastMessageReceived, setLastMessageReceived] = React.useState(null);
   const socket = useSocket(
     `${SERVER_ADDRESS.substring(0, SERVER_ADDRESS.length - 4)}/messages`
   );
@@ -85,6 +86,7 @@ const Chat = () => {
         console.log(data);
       });
       socket.on('new-message', data => {
+        setLastMessageReceived(+new Date());
         dispatch(
           snackbar.update({
             open: true,
@@ -315,6 +317,7 @@ const Chat = () => {
                   current={current}
                   refProp={myRef}
                   activeConversationId={activeConversationId}
+                  lastMessageReceived={lastMessageReceived}
                 />
               </CardContent>
               <CardActions
