@@ -20,10 +20,7 @@ const ConvoList = ({ singlechat, current, refProp }) => {
   const classes = useStyles();
   return (
     <>
-      <div
-        className={classes.mainBox}
-        ref={refProp}
-      >
+      <div className={classes.mainBox} ref={refProp}>
         {singlechat?.map((i, x) => (
           <div className={styles.container} key={`message${x}`}>
             <div className={styles.chatMessages}>
