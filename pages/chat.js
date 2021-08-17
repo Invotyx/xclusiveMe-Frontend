@@ -19,7 +19,6 @@ import { Picker } from 'emoji-mart';
 import 'emoji-mart/css/emoji-mart.css';
 import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
 import { singleSelector } from '../selectors/userSelector';
-import { singleChatSelector } from '../selectors/chatSelector';
 import { chatDataSelector } from '../selectors/chatSelector';
 import ConvoList from '../components/message/ConvoList';
 import UploadImageModal from '../components/message/uploadImageModal';
@@ -118,7 +117,6 @@ const Chat = () => {
   const [msgText, setMsgText] = useState('');
   const current = useSelector(currentUserSelector);
   const singleUser = useSelector(singleSelector);
-  const singlechat = useSelector(singleChatSelector);
   const chatsData = useSelector(chatDataSelector);
   const [imageModal, setImageModal] = useState(false);
   const myRef = useRef(null);
@@ -313,11 +311,7 @@ const Chat = () => {
                 }
               />
               <CardContent>
-                <ConvoList
-                  singlechat={singlechat}
-                  current={current}
-                  refProp={myRef}
-                />
+                <ConvoList current={current} refProp={myRef} />
               </CardContent>
               <CardActions
                 style={{

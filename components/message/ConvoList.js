@@ -1,5 +1,7 @@
 import { makeStyles } from '@material-ui/core';
 import React from 'react';
+import { useSelector } from 'react-redux';
+import { singleChatSelector } from '../../selectors/chatSelector';
 import styles from './message.module.css';
 
 const useStyles = makeStyles(theme => ({
@@ -17,7 +19,8 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const ConvoList = ({ singlechat, current, refProp }) => {
+const ConvoList = ({ current, refProp }) => {
+  const singlechat = useSelector(singleChatSelector);
   const classes = useStyles();
   return (
     <>
