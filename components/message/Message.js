@@ -114,14 +114,6 @@ export default function Message({ subheaderPrefix }) {
             </>
           </ListSubheader>
           {chatData?.map((i, x) => (
-            <Link
-              key={Math.random()}
-              passHref
-              href='/chat'
-              passQueryString={{
-                conId: `${i?.id}`,
-              }}
-            >
               <ListItem
                 button
                 onClick={() => handlegetone(i.id)}
@@ -154,7 +146,6 @@ export default function Message({ subheaderPrefix }) {
                   </Typography>
                 </ListItemSecondaryAction>
               </ListItem>
-            </Link>
           ))}
         </List>
       )}
