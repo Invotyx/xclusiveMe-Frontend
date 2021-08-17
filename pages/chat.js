@@ -314,7 +314,6 @@ const Chat = () => {
               />
               <CardContent>
                 <ConvoList
-                  current={current}
                   activeConversationId={activeConversationId}
                   lastMessageReceived={lastMessageReceived}
                 />
