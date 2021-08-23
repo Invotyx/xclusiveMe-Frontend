@@ -20,3 +20,13 @@ yarn dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+## Run in Docker
+
+```bash
+# To build docker image
+docker build -t xclusiveme-frontend $(cat .env | sed 's@^@--build-arg @g' | paste -s -d " ") .
+
+# To run docker container
+docker run -it --rm -p <port>:<port> xclusiveme-frontend
+```
