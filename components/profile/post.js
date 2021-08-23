@@ -361,12 +361,12 @@ export default function Post({
                 ) : (
                   <ManuButton
                     profileImage={post?.user?.profileImage}
-                    onConfirm={postText =>
+                    onConfirm={reason =>
                       dispatch(
                         postData.postReport({
                           reportData: {
                             itemId: post?.id,
-                            reason: postText,
+                            reason,
                           },
                           callback: () => {
                             setreportModal(false);
