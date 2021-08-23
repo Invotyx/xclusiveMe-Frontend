@@ -227,7 +227,14 @@ const Chat = () => {
                       <ArrowBackIcon />
                     </IconButton>
                   ) : (
-                    <ImageAvatar />
+                    <ImageAvatar
+                      src={
+                        chatsData
+                          .find(list => list.id == conId)
+                          ?.participants.find(p => p?.id !== myData?.id)
+                          ?.profileImage
+                      }
+                    />
                   )
                 }
                 title={
