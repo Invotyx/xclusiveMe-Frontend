@@ -60,9 +60,6 @@ const ReportModal = ({ openReportModal, setreportModal, entity }) => {
     setreportModal(false);
   };
 
-  //   useEffect(() => {
-  //     dispatch(paymentMethod.request());
-  //   }, []);
   return (
     <Modal
       aria-labelledby='transition-modal-title'
