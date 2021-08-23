@@ -111,9 +111,7 @@ const ReportModal = ({
                     alignItems: 'center',
                   }}
                 >
-                  <p style={{ fontWeight: '600', fontSize: '17px' }}>
-                    {title}
-                  </p>
+                  <p style={{ fontWeight: '600', fontSize: '17px' }}>{title}</p>
                 </div>
               </div>
               <div
