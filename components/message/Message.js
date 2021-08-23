@@ -113,7 +113,7 @@ export default function Message({ subheaderPrefix }) {
               <ListItemAvatar>
                 <ImageAvatar
                   src={
-                    i.participants.find(p => p?.id !== myData?.id)?.profileImage
+                    i.participants.find(p => p.id !== myData?.id)?.profileImage
                   }
                 />
               </ListItemAvatar>

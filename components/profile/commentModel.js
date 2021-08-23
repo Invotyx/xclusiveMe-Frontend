@@ -44,7 +44,6 @@ import BounceLoader from 'react-spinners/BounceLoader';
 import { Picker } from 'emoji-mart';
 import 'emoji-mart/css/emoji-mart.css';
 import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
-import { useRouter } from 'next/router';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -87,8 +86,6 @@ const CommentModel = ({
   currentUser,
   forCommentId,
   openReply,
-  openforComment,
-  setOpenforComment,
 }) => {
   const classes = useStyles();
   const [commentText, setCommentText] = useState('');
@@ -114,10 +111,7 @@ const CommentModel = ({
   const [openTip, setopenTip] = useState(false);
   const fetchData = useSelector(fetchingSelector);
   const [show, setShow] = useState(false);
-  const [countClick, setCountClick] = useState(null);
   const [commLength, setcommLength] = useState(10);
-  const router = useRouter();
-  const { postId } = router.query;
 
   const handleOpenModel = () => {
     console.log('in model');
@@ -143,15 +137,10 @@ const CommentModel = ({
 
   useEffect(() => {
     setCommentsData(commentsData => commentsData?.concat(forComments));
-
     return () => {
       setCommentsData([]);
     };
   }, [forComments]);
-
-  useEffect(() => {
-    !postId && setOpen(false);
-  }, [postId]);
 
   useEffect(() => {
     if (forCommentId) {
@@ -190,16 +179,14 @@ const CommentModel = ({
   };
 
   const handleClose = () => {
-    // setOpen(false);
-    router.push('/explore');
+    setOpen(false);
     setisReplyField(false);
     setissubReplyField(false);
-    setOpen(false);
   };
 
   const handleReplyField = id => {
     setCommentId(id);
-    console.log('---', openforComment.id, id);
+
     console.log('reply id', id);
 
     setisReplyField({ check: true, id });
@@ -230,7 +217,6 @@ const CommentModel = ({
   const handlleGetComments = () => {
     setPageNumber(pageNumber + 1);
     setcommLength(commLength + 10);
-    console.log('comm length', commLength);
     dispatch(
       postData.getCommentsVal({
         id: singlePost?.id,
@@ -313,11 +299,7 @@ const CommentModel = ({
               ) : (
                 !isMobile && (
                   <CardHeader
-                    avatar={
-                      <ProfileImageAvatar
-                        user={singlePost?.user?.profileImage}
-                      />
-                    }
+                    avatar={<ProfileImageAvatar user={profileData} />}
                     action={
                       <IconButton aria-label='settings'>
                         {!isMobile && <CloseIcon onClick={handleClose} />}
@@ -483,13 +465,29 @@ const CommentModel = ({
                           Comments
                         </span>
                       </NormalCaseButton>
-                      <NormalCaseButton
-                        aria-label='tip'
-                        startIcon={<MonetizationOnOutlinedIcon />}
-                        onClick={handleTipModal}
-                      >
-                        <span className={styles.hideOnMobile}>Tip</span>
-                      </NormalCaseButton>
+                      {
+                        <NormalCaseButton
+                          aria-label='tip'
+                          style={{
+                            marginLeft: '-10px',
+                          }}
+                        >
+                          {sPost?.media.length === 0 ? (
+                            <MonetizationOnOutlinedIcon
+                              style={{ marginRight: '5px', marginLeft: '5px' }}
+                            />
+                          ) : (
+                            <TipModal user={sPost?.user} postId={sPost?.id} />
+                          )}
+
+                          <span
+                            className={styles.hideOnMobile}
+                            style={{ marginLeft: '0px' }}
+                          >
+                            Tip
+                          </span>
+                        </NormalCaseButton>
+                      }
                     </Box>
                   </div>
                   <div style={{ marginRight: '6px' }}>
@@ -507,11 +505,6 @@ const CommentModel = ({
                     post={post}
                     openModel={openModel}
                     setOpenModel={setOpenModel}
-                  />
-                  <TipModal
-                    openTip={openTip}
-                    setopenTip={setopenTip}
-                    post={post}
                   />
                 </div>
               )}
@@ -720,6 +713,7 @@ const CommentModel = ({
                               setissubReplyField={setissubReplyField}
                               commentId={commentId}
                               setCommentId={setCommentId}
+                              forCommentId={forCommentId}
                               openReply={openReply}
                             />
 

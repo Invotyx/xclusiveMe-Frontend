@@ -20,7 +20,6 @@ import Notification from '../notification';
 import NewPostDialog from '../new-post';
 import CurrentUserProfileImageAvatar from '../profile/current-user-profile-image-avatar';
 import NotificationMenu from '../notification/menu';
-import { getNotifications } from '../../services/post.service';
 import { post } from '../../actions/post';
 import { notificationsCount } from '../../selectors/postSelector';
 import styles from './layout.module.css';
@@ -36,7 +35,6 @@ export default function Comp({ sidebarMenu, set_sidebarMenu }) {
   const router = useRouter();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [messageEl, setMessageEl] = React.useState(null);
-  const listofNotifications = useSelector(getNotifications);
   const notificationCount = useSelector(notificationsCount);
   const fetchData = useSelector(fetchingSelector);
   const me = useSelector(currentUserSelector);

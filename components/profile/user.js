@@ -449,6 +449,7 @@ export default function Profile({
                                       profileData={profileData}
                                       altHeader={false}
                                       me={me}
+                                      username={username}
                                       subscriptionPlans={subscriptionPlans}
                                     />
                                   </Grid>

@@ -68,12 +68,12 @@ export async function destory(id) {
 export async function uploadImage(fileObject) {
   const data = new FormData();
   data.append('images', fileObject);
-  return apiClient.post(`${SERVER_ADDRESS}/posts/images`, data);
+  return apiClient.post(`${SERVER_ADDRESS}/uploads/images`, data);
 }
 
 export async function uploadVideoReq1(fileObject) {
   const data = { totalVideos: fileObject };
-  return apiClient.post(`${SERVER_ADDRESS}/posts/videos`, data);
+  return apiClient.post(`${SERVER_ADDRESS}/uploads/videos`, data);
 }
 
 export async function uploadVideoFinalReq(fileObject, url) {
