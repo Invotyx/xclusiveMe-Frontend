@@ -4,18 +4,30 @@ import IconButton from '@material-ui/core/IconButton';
 import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
 import { Picker } from 'emoji-mart';
 import 'emoji-mart/css/emoji-mart.css';
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { chat } from '../../actions/chat';
 import { currentUserSelector } from '../../selectors/authSelector';
 import ProfileImageAvatar from '../profile/profile-image-avatar';
 import UploadImageModal from './/uploadImageModal';
+import useMediaRecorder from '@wmik/use-media-recorder';
+import { snackbar } from '../../actions/snackbar';
+import AudioSend from './audioSend';
 
 export default function MessageSend({ conId, setLastMessageReceived }) {
+  let { status, mediaBlob, stopRecording, startRecording } = useMediaRecorder({
+    recordScreen: false,
+    mediaStreamConstraints: { audio: true, video: false },
+  });
+  const [seconds, setSeconds] = useState(0);
+const countRef = useRef(null);
   const current = useSelector(currentUserSelector);
   const [show, setShow] = useState(false);
   const [msgText, setMsgText] = useState('');
   const [imageModal, setImageModal] = useState(false);
+  const [addVoice, setAddVoice] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const progressRef = useRef(null);
   const dispatch = useDispatch();
 
   function handleOnEnter() {
@@ -45,6 +57,25 @@ export default function MessageSend({ conId, setLastMessageReceived }) {
     );
   }
 
+  useEffect(() => {
+    if (status === 'recording') {
+      timer();
+    } else if (status === 'stopped') {
+      clearInterval(countRef.current);
+      setSeconds(0);
+    } else if (status === 'failed') {
+      dispatch(
+        snackbar.update({
+          open: true,
+          message: `MicroPhone Permission Denied `,
+          severity: 'error',
+        })
+      );
+      setProgress(0)
+      setAddVoice(false)
+    }
+  }, [status]);
+
   const handleImageModal = () => {
     if (!msgText || msgText.trim() === '') {
       return;
@@ -62,6 +93,28 @@ export default function MessageSend({ conId, setLastMessageReceived }) {
 
   const showEmoji = () => {
     setShow(!show);
+  };
+  const progressHandler = () => {
+    progressRef.current = setInterval(() => {
+      setProgress(oldProgress => {
+        if (oldProgress === 100) {
+          return 0;
+        }
+        return oldProgress + 0.3;
+      });
+    }, 300);
+  };
+
+  const startRecordingHandler = () => {
+    setAddVoice(true);
+              progressHandler();
+              startRecording();
+  }
+
+  const timer = () => {
+    countRef.current = setInterval(() => {
+      setSeconds(seconds => seconds + 1);
+    }, 1000);
   };
 
   return (
@@ -81,7 +134,13 @@ export default function MessageSend({ conId, setLastMessageReceived }) {
           <img src='/camera.svg' alt='camera' />
           <img src='/imageBtn.svg' alt='image' onClick={handleImageModal} />
           <img src='/videoBtn.svg' alt='video' />
-          <img src='/voiceBtn.svg' alt='voice' />
+          <img
+            src='/voiceBtn.svg'
+            alt='voice'
+            onClick={
+              startRecordingHandler
+            }
+          />
           <UploadImageModal
             imageModal={imageModal}
             setImageModal={setImageModal}
@@ -93,44 +152,48 @@ export default function MessageSend({ conId, setLastMessageReceived }) {
       </CardActions>
 
       <CardActions style={{ padding: 0 }}>
-        <OutlinedInput
-          value={msgText}
-          onChange={e => setMsgText(e.target.value)}
-          name='msgText'
-          margin='dense'
-          fullWidth
-          multiline
-          // disabled={post.media.length === 0}
-          onKeyDown={e => {
-            if (e.keyCode === 13) {
-              if (!event.shiftKey) {
-                handleOnEnter(e);
+        {!addVoice ? (
+          <OutlinedInput
+            value={msgText}
+            onChange={e => setMsgText(e.target.value)}
+            name='msgText'
+            margin='dense'
+            fullWidth
+            multiline
+            // disabled={post.media.length === 0}
+            onKeyDown={e => {
+              if (e.keyCode === 13) {
+                if (!event.shiftKey) {
+                  handleOnEnter(e);
+                }
               }
+            }}
+            // inputRef={searchInput}
+            placeholder='Write a message'
+            startAdornment={
+              <ProfileImageAvatar
+                user={current}
+                style={{ marginRight: '10px' }}
+              />
             }
-          }}
-          // inputRef={searchInput}
-          placeholder='Write a message'
-          startAdornment={
-            <ProfileImageAvatar
-              user={current}
-              style={{ marginRight: '10px' }}
-            />
-          }
-          endAdornment={
-            <>
-              <IconButton onClick={showEmoji}>
-                <InsertEmoticonIcon />
-              </IconButton>
-              <IconButton onClick={handleOnEnter}>
-                <img
-                  src='/send.png'
-                  alt='send button'
-                  style={{ marginRight: '10px' }}
-                />
-              </IconButton>
-            </>
-          }
-        />
+            endAdornment={
+              <>
+                <IconButton onClick={showEmoji}>
+                  <InsertEmoticonIcon />
+                </IconButton>
+                <IconButton onClick={handleOnEnter}>
+                  <img
+                    src='/send.png'
+                    alt='send button'
+                    style={{ marginRight: '10px' }}
+                  />
+                </IconButton>
+              </>
+            }
+          />
+        ) : (
+          <AudioSend stopRecording={stopRecording} mediaBlob={mediaBlob} progress={progress} progressRef={progressRef.current} seconds={seconds} setProgress={setProgress} setAddVoice={setAddVoice} />
+        )}
       </CardActions>
 
       {show && (
