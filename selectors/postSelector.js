@@ -17,7 +17,7 @@ const profileDataSelector = createSelector(postState, state => {
   return data;
 });
 
-const totalreplies = createSelector(postState, state => {
+const totalrepliesSelector = createSelector(postState, state => {
   const data = state.get('repliesCount');
   return data;
 });
@@ -83,7 +83,7 @@ export {
   fetchingSelector,
   errorSelector,
   repliesDataSelector,
-  totalreplies,
+  totalrepliesSelector,
   notificationsData,
   settingsNotify,
 };
