@@ -11,7 +11,7 @@ import { currentUserSelector } from '../../selectors/authSelector';
 import ProfileImageAvatar from '../profile/profile-image-avatar';
 import UploadImageModal from './/uploadImageModal';
 
-export default function MessageSend({ conId }) {
+export default function MessageSend({ conId, setLastMessageReceived }) {
   const current = useSelector(currentUserSelector);
   const [show, setShow] = useState(false);
   const [msgText, setMsgText] = useState('');
