@@ -36,14 +36,12 @@ const useStyles = makeStyles(theme => ({
 const ReportModal = ({ openReportModal, setreportModal, post }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const [purchased, setPurchased] = useState(false);
   const paymentData = useSelector(paymentMethodDataSelector);
   const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
   const [postText, set_postText] = useState('');
   const fetchData = useSelector(fetchingSelector);
 
   const handlePurchase = () => {
-    // setPurchased(true);
     if (!postText || postText.trim() === '') {
       return;
     }
@@ -65,7 +63,6 @@ const ReportModal = ({ openReportModal, setreportModal, post }) => {
 
   const handleClose = () => {
     setreportModal(false);
-    setPurchased(false);
   };
 
   //   useEffect(() => {
