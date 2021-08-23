@@ -149,7 +149,7 @@ const ReportModal = ({
                 }}
                 onClick={handlePurchase}
               >
-                SEND NOW
+                Report
               </Button>
             </div>
           </div>
