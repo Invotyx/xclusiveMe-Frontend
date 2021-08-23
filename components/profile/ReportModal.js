@@ -124,7 +124,6 @@ const ReportModal = ({ openReportModal, setreportModal, post }) => {
                   }}
                 >
                   <p style={{ fontWeight: '600', fontSize: '17px' }}>
-                    {/* Donate to {post?.user?.fullName} */}
                     Report this Post
                   </p>
                 </div>
