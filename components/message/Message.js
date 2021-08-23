@@ -111,7 +111,11 @@ export default function Message({ subheaderPrefix }) {
               selected={+activeConversationId === i.id}
             >
               <ListItemAvatar>
-                <ImageAvatar />
+                <ImageAvatar
+                  src={
+                    i.participants.find(p => p?.id !== myData?.id)?.profileImage
+                  }
+                />
               </ListItemAvatar>
               <ListItemText
                 primary={
