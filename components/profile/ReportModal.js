@@ -28,7 +28,11 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const ReportModal = ({ openReportModal, setreportModal, entity }) => {
+const ReportModal = ({
+  openReportModal,
+  setreportModal,
+  entity,
+}) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
