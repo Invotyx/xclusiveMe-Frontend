@@ -363,15 +363,15 @@ export default function Post({
                     profileImage={post?.user?.profileImage}
                     onConfirm={() =>
                       dispatch(
-                        post?.postReport({
+                        postData.postReport({
                           reportData: {
                             itemId: entity.id,
                             reason: postText,
                           },
                           callback: () => {
                             setreportModal(false);
-                            dispatch(post.request());
-                            dispatch(post.requestSubscribed());
+                            dispatch(postData.request());
+                            dispatch(postData.requestSubscribed());
                           },
                         })
                       )
