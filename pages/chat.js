@@ -232,8 +232,8 @@ const Chat = () => {
                 }
                 title={
                   chatsData
-                    .filter(list => list.id == conId)[0]
-                    ?.participants.filter(p => p.id !== current?.id)[0].fullName
+                    .find(list => list.id == conId)
+                    ?.participants.find(p => p.id !== current?.id)?.fullName
                 }
                 subheader='click here for contact info'
                 action={
