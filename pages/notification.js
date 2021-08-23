@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import React, { useEffect } from 'react';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
@@ -78,6 +79,9 @@ export default function Notification() {
   return (
     <motion.div initial='hidden' animate='visible' variants={variants}>
       <Layout>
+        <Head>
+          <title>Notfications - xclusiveme</title>
+        </Head>
         <Container maxWidth='sm'>
           <Tabs
             value={value}
