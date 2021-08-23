@@ -24,7 +24,7 @@ import { post as postData } from '../../actions/post/index';
 import styles from './profile.module.css';
 import { currentUserSelector } from '../../selectors/authSelector';
 import { singlepostDataSelector } from '../../selectors/postSelector';
-import { totalreplies } from '../../selectors/postSelector';
+import { totalrepliesSelector } from '../../selectors/postSelector';
 import RemoveIcon from '@material-ui/icons/Remove';
 import CommentModel from './commentModel';
 import { Button } from '@material-ui/core';
@@ -36,7 +36,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
 import ReportModal from './ReportModal';
 import TipModal from './TipModal';
-import { Check, TramRounded } from '@material-ui/icons';
+import { TramRounded } from '@material-ui/icons';
 import { getCommentsDataSelector } from '../../selectors/postSelector';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { fetchingSelector } from '../../selectors/postSelector';
@@ -49,8 +49,8 @@ import 'emoji-mart/css/emoji-mart.css';
 import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
 import { useMediaQuery } from 'react-responsive';
 import queryString from 'query-string';
-import { useRouter } from 'next/router';
-import ManuButton from '../menuButton';
+import SinglePost from '../../pages/singlePost';
+import ManuButton from '../../components/menuButton';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -88,6 +88,7 @@ export default function Post({
   altHeader,
   me,
   subscriptionPlans,
+  username,
 }) {
   const classes = useStyles();
   const [commentText, setCommentText] = useState('');
@@ -100,37 +101,26 @@ export default function Post({
   const currentUser = useSelector(currentUserSelector);
   const [commentId, setCommentId] = useState(null);
   const [openReply, setOpenReply] = useState(false);
-  const [replyid, setReplyId] = useState(null);
   const [isReplyField, setisReplyField] = useState(false);
   const singlePost = useSelector(singlepostDataSelector);
-  const replyCount = useSelector(totalreplies);
+  const replyCount = useSelector(totalrepliesSelector);
   const [openModel, setOpenModel] = useState(false);
   const [focused, setFocused] = useState(false);
   const searchInput = useRef(null);
   const [openReportModal, setreportModal] = useState(false);
+  const [openTip, setopenTip] = useState(false);
   const [loading, setLoading] = useState(false);
   const fetchData = useSelector(fetchingSelector);
   const [notByedModel, setnotBuyedModel] = useState(false);
-  const [openforComment, setOpenforComment] = useState({
-    id: '',
-    check: false,
-  });
   const [show, setShow] = useState(false);
   const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
-  const router = useRouter();
-  const { postId } = router.query;
-
-  const Links = ({ passQueryString, href, children, ...otherProps }) => (
-    <NextLink
-      href={`${href}?${queryString.stringify(passQueryString)}`}
-      {...otherProps}
-    >
-      {children}
-    </NextLink>
-  );
 
   const handleOpenModel = () => {
     setOpenModel(true);
+  };
+
+  const handleOpenTopModal = () => {
+    setopenTip(true);
   };
 
   const handleReportModal = () => {
@@ -148,6 +138,15 @@ export default function Post({
     let emoji = String.fromCodePoint(...codesArray);
     setCommentText(commentText + emoji);
   };
+
+  const Links = ({ passQueryString, href, children, ...otherProps }) => (
+    <NextLink
+      href={`${href}?${queryString.stringify(passQueryString)}`}
+      {...otherProps}
+    >
+      {children}
+    </NextLink>
+  );
 
   const showEmoji = () => {
     setShow(!show);
@@ -269,30 +268,19 @@ export default function Post({
   };
 
   const handleOpen = forReplyId => {
-    console.log('commentid', forReplyId);
-    // dispatch(postData.requestOne(postId));
-    setReplyId(forReplyId);
-    // console.log(replyid);
+    // console.log('commentid', forReplyId);
+    dispatch(postData.requestOne(post.id));
+    // dispatch(postData.requestReplies(forReplyId, post.id));
+
     setForCommentId(forReplyId);
     searchInput.current.focus();
-    // setOpenReply(true);
-    // setOpen(true);
+    setOpenReply(true);
+    setOpen(true);
   };
 
-  useEffect(() => {
-    console.log(postId);
-    postId && (dispatch(postData.requestOne(postId)), setOpen(true));
-  }, [postId]);
-
-  useEffect(() => {
-    replyid !== null &&
-      postId &&
-      (dispatch(postData.requestReplies(replyid, postId)),
-      setOpen(true),
-      setOpenforComment({ id: replyid, Check: true }));
-    // console.log('replyid', replyid);
-    // console.log('forcomm', openforComment.id, '999');
-  }, [replyid, postId]);
+  const handleGetSinglePostData = () => {
+    dispatch(postData.requestOne(post.id));
+  };
 
   const handleNotOpen = () => {
     setnotBuyedModel(true);
@@ -306,23 +294,8 @@ export default function Post({
     setOpen(false);
   };
 
-  const options = ['Report'];
-  const ITEM_HEIGHT = 48;
-
-  const [anchorEl, setAnchorEl] = useState(null);
-  // const openM = Boolean(anchorEl);
-
   const handleOpenmenu = event => {
     setAnchorEl(event.currentTarget);
-  };
-
-  const handleOpenReportModal = () => {
-    setAnchorEl(null);
-    setreportModal(true);
-  };
-
-  const handleCloseMenu = () => {
-    setAnchorEl(null);
   };
 
   const nFormatter = n => {
@@ -354,62 +327,41 @@ export default function Post({
               // </IconButton>
 
               <div>
-                {post.media.length === 0 ? (
-                  <IconButton aria-label='settings'>
+                {post.media.length === 0 || post?.user.username == username ? (
+                  <IconButton
+                    aria-label='more'
+                    aria-controls='simple-menu'
+                    aria-haspopup='true'
+                    // onClick={
+                    //   post.media.length === 0 ? handleNotOpen : handleOpenmenu
+                    // }
+                  >
                     <MoreVertIcon />
                   </IconButton>
                 ) : (
-                  <ManuButton
-                    title='Report this Post'
-                    profileImage={post?.user?.profileImage}
-                    onConfirm={(reason, callback) =>
-                      dispatch(
-                        postData.postReport({
-                          reportData: {
-                            itemId: post?.id,
-                            reason,
-                          },
-                          callback: () => {
-                            callback && callback();
-                            dispatch(postData.request());
-                            dispatch(postData.requestSubscribed());
-                          },
-                        })
-                      )
-                    }
-                  />
+                  !subscriptionPlans && (
+                    <ManuButton
+                      title='Report this Post'
+                      profileImage={post?.user?.profileImage}
+                      onConfirm={(reason, callback) =>
+                        dispatch(
+                          postData.postReport({
+                            reportData: {
+                              itemId: post?.id,
+                              reason,
+                            },
+                            callback: () => {
+                              callback && callback();
+                              dispatch(postData.request());
+                              dispatch(postData.requestSubscribed());
+                            },
+                          })
+                        )
+                      }
+                    />
+                  )
                 )}
               </div>
-
-              // <div>
-              //   <IconButton
-              //     aria-label='more'
-              //     aria-controls='simple-menu'
-              //     aria-haspopup='true'
-              //     onClick={handleOpenmenu}
-              //   >
-              //     <MoreVertIcon />
-              //   </IconButton>
-              //   {!subscriptionPlans && !me && (
-              //     <Menu
-              //       id='simple-menu'
-              //       anchorEl={anchorEl}
-              //       keepMounted
-              //       open={Boolean(anchorEl)}
-              //       onClose={handleCloseMenu}
-              //     >
-              //       <MenuItem
-              //         onClick={
-              //           post.media.length === 0
-              //             ? handleNotOpen
-              //             : handleOpenReportModal
-              //         }
-              //       >
-              //         Report
-              //       </MenuItem>
-              //     </Menu>
-              //   )}
-              // </div>
             }
             title={
               <>
@@ -528,20 +480,30 @@ export default function Post({
                   Comments
                 </span>
               </NormalCaseButton>
-              {!me && post.media.length === 0 ? (
+
+              {!me && (
                 <NormalCaseButton
                   aria-label='tip'
-                  startIcon={<MonetizationOnOutlinedIcon />}
-                  onClick={
-                    post.media.length === 0
-                      ? handleNotOpenn
-                      : handleOpenTopModal
-                  }
+                  style={{
+                    marginLeft: '-10px',
+                  }}
                 >
-                  <span className={styles.hideOnMobile}>Tip</span>
+                  {post.media.length === 0 ||
+                  post?.user.username == username ? (
+                    <MonetizationOnOutlinedIcon
+                      style={{ marginRight: '5px', marginLeft: '5px' }}
+                    />
+                  ) : (
+                    <TipModal user={post.user} postId={post.id} />
+                  )}
+
+                  <span
+                    className={styles.hideOnMobile}
+                    style={{ marginLeft: '0px' }}
+                  >
+                    Tip
+                  </span>
                 </NormalCaseButton>
-              ) : (
-                <TipModal user={post.user} postId={post.id} />
               )}
             </div>
 
@@ -566,11 +528,11 @@ export default function Post({
             openModel={openModel}
             setOpenModel={setOpenModel}
           />
-          {/* <ReportModal
+          <ReportModal
             openReportModal={openReportModal}
             setreportModal={setreportModal}
             post={post}
-          /> */}
+          />
           <NotBuyedModel
             notByedModel={notByedModel}
             setnotBuyedModel={setnotBuyedModel}
@@ -589,30 +551,25 @@ export default function Post({
 
         {post.comments.length >= 3 ? (
           <Links
-            key={Math.random()}
             passHref
-            href='/explore'
+            href='/singlePost'
             passQueryString={{
-              postId: `${post?.id}`,
+              postId: `${post.id}`,
             }}
           >
-            {post?.media.length === 0 ? (
-              ''
-            ) : (
-              <p
-                style={{
-                  cursor: 'pointer',
-                  marginLeft: '21px',
-                  marginTop: '0px',
-                  marginBottom: '12px',
-                  fontWeight: '500',
-                  fontSize: '14px',
-                }}
-                onClick={post?.media.length === 0 ? handleNotOpen : handleOpen}
-              >
-                View previous comments
-              </p>
-            )}
+            <p
+              style={{
+                cursor: 'pointer',
+                marginLeft: '21px',
+                marginTop: '0px',
+                marginBottom: '12px',
+                fontWeight: '500',
+                fontSize: '14px',
+              }}
+              onClick={handleGetSinglePostData}
+            >
+              {post.media.length === 0 ? '' : 'View previous comments'}
+            </p>
           </Links>
         ) : (
           ''
@@ -629,9 +586,6 @@ export default function Post({
           currentUser={currentUser}
           forCommentId={forCommentId}
           openReply={openReply}
-          postId={postId}
-          openforComment={openforComment}
-          setOpenforComment={setOpenforComment}
         />
 
         {/* <div style={{ display: 'none' }}>
@@ -705,32 +659,23 @@ export default function Post({
                   marginTop: '5px',
                 }}
               >
-                <Links
-                  key={Math.random()}
-                  passHref
-                  href='/explore'
-                  passQueryString={{
-                    postId: `${post?.id}`,
+                <img
+                  src='/comment.png'
+                  alt='reply button'
+                  style={{
+                    width: '20px',
+                    height: '20px',
+                    marginRight: '9px',
+                    cursor: 'pointer',
                   }}
-                >
-                  <img
-                    src='/comment.png'
-                    alt='reply button'
-                    style={{
-                      width: '20px',
-                      height: '20px',
-                      marginRight: '9px',
-                      cursor: 'pointer',
-                    }}
-                    className={styles.commMobile}
-                    id={comm.id}
-                    onClick={
-                      post.media.length === 0
-                        ? handleNotOpenn
-                        : () => handleOpen(comm.id)
-                    }
-                  />
-                </Links>
+                  className={styles.commMobile}
+                  id={comm.id}
+                  onClick={
+                    post.media.length === 0
+                      ? handleNotOpenn
+                      : () => handleOpen(comm.id)
+                  }
+                />
 
                 {/* <ChatBubbleOutlineIcon
                 style={{ marginRight: '9px' }}
@@ -844,9 +789,7 @@ export default function Post({
               endAdornment={
                 <>
                   <Button
-                    onClick={
-                      post.media.length === 0 ? handleNotOpenn : showEmoji
-                    }
+                    onClick={showEmoji}
                     style={{
                       backgroundColor: '#111111',
                       border: 'none',
