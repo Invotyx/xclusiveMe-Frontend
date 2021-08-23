@@ -360,7 +360,7 @@ export default function Post({
                   </IconButton>
                 ) : (
                   <ManuButton
-                    entity={post}
+                    profileImage={post?.user?.profileImage}
                     onConfirm={() =>
                       dispatch(
                         post?.postReport({

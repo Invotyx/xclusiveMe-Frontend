@@ -31,7 +31,7 @@ const useStyles = makeStyles(theme => ({
 const ReportModal = ({
   openReportModal,
   setreportModal,
-  entity,
+  profileImage,
   onConfirm,
 }) => {
   const classes = useStyles();
@@ -81,7 +81,7 @@ const ReportModal = ({
                   }}
                 >
                   <img
-                    src={entity?.user?.profileImage}
+                    src={profileImage}
                     alt='profile image'
                     width='60px'
                     height='65px'
