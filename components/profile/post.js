@@ -365,7 +365,7 @@ export default function Post({
                       dispatch(
                         postData.postReport({
                           reportData: {
-                            itemId: entity.id,
+                            itemId: post?.id,
                             reason: postText,
                           },
                           callback: () => {
