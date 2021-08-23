@@ -141,7 +141,7 @@ const Chat = () => {
         );
       }
     }
-  }, [conId]);
+  }, [conId, chatsData, current]);
 
   return (
     <Layout>
