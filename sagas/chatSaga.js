@@ -7,7 +7,7 @@ import {
   getConversations,
   getSingleChat,
   sendSingleMsg,
-  addVoicemail
+  addVoicemail,
 } from '../services/chat.service';
 
 function* handleSendMessage(action) {
