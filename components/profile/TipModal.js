@@ -40,7 +40,7 @@ const TipModal = ({ profileImage, name, onConfirm }) => {
   const [addPrice, setAddPrice] = useState(0);
 
   const handlePurchase = () => {
-    onConfirm(addPrice, () => {
+    onConfirm(+addPrice, () => {
       setPurchased(true);
     });
   };
