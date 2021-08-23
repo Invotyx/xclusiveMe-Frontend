@@ -8,7 +8,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
 import TextField from '@material-ui/core/TextField';
-import { post as postData } from '../../actions/post';
+import { post } from '../../actions/post';
 import LoadingOverlay from 'react-loading-overlay';
 import BounceLoader from 'react-spinners/BounceLoader';
 import { fetchingSelector } from '../../selectors/postSelector';
@@ -42,15 +42,15 @@ const ReportModal = ({ openReportModal, setreportModal, entity }) => {
     }
 
     dispatch(
-      postData?.postReport({
+      post?.postReport({
         reportData: {
           itemId: entity.id,
           reason: postText,
         },
         callback: () => {
           setreportModal(false);
-          dispatch(postData.request());
-          dispatch(postData.requestSubscribed());
+          dispatch(post.request());
+          dispatch(post.requestSubscribed());
         },
       })
     );
