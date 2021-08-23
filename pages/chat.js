@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import React, { useEffect, useState } from 'react';
 import Layout from '../components/layouts/layout-auth';
 import { makeStyles } from '@material-ui/core/styles';
@@ -190,6 +191,9 @@ const Chat = () => {
 
   return (
     <Layout>
+      <Head>
+        <title>Chat - xclusiveme</title>
+      </Head>
       <Container maxWidth='md'>
         <Grid container spacing={2}>
           <Grid
