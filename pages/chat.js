@@ -16,7 +16,6 @@ import Typography from '@material-ui/core/Typography';
 import ImageAvatar from '../components/image-avatar';
 import getConfig from 'next/config';
 import { chat } from '../actions/chat';
-import 'emoji-mart/css/emoji-mart.css';
 import { chatDataSelector } from '../selectors/chatSelector';
 import ConvoList from '../components/message/ConvoList';
 import IconButton from '@material-ui/core/IconButton';
@@ -34,6 +33,7 @@ import ManuButton from '../components/menuButton';
 import { user } from '../actions/user';
 import MessageSend from '../components/message/MessageSend';
 import { post } from '../actions/post';
+import { currencySymbol } from '../services/currencySymbol';
 const { publicRuntimeConfig } = getConfig();
 const SERVER_ADDRESS = publicRuntimeConfig.backendUrl;
 
@@ -268,6 +268,19 @@ const Chat = () => {
                             },
 
                             callback: () => {
+                              dispatch(
+                                chat.sendOneMessage({
+                                  conversationId: Number(conId),
+                                  saveData: {
+                                    content: `${activeParticipant?.fullName} sent you a ${currencySymbol}${amount} tip`,
+                                    type: 'text',
+                                    isPaid: false,
+                                  },
+                                  callback: () => {
+                                    setLastMessageReceived(+new Date());
+                                  },
+                                })
+                              );
                               callback && callback();
                             },
                           })
@@ -301,7 +314,10 @@ const Chat = () => {
                   lastMessageReceived={lastMessageReceived}
                 />
               </CardContent>
-              <MessageSend conId={conId} />
+              <MessageSend
+                conId={conId}
+                setLastMessageReceived={setLastMessageReceived}
+              />
             </Card>
           </Grid>
         </Grid>

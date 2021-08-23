@@ -11,6 +11,7 @@ import TextField from '@material-ui/core/TextField';
 import LoadingOverlay from 'react-loading-overlay';
 import BounceLoader from 'react-spinners/BounceLoader';
 import { fetchingSelector } from '../../selectors/postSelector';
+import ImageAvatar from '../image-avatar';
 
 const useStyles = makeStyles(theme => ({
   modal: {
@@ -82,7 +83,7 @@ const ReportModal = ({
                     width: '90%',
                   }}
                 >
-                  <img
+                  <ImageAvatar
                     src={profileImage}
                     alt='profile image'
                     width='60px'

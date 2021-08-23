@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
 import styles from './profile.module.css';
 import TextField from '@material-ui/core/TextField';
+import ImageAvatar from '../image-avatar';
 
 const useStyles = makeStyles(theme => ({
   modal: {
@@ -40,7 +41,7 @@ const TipModal = ({ profileImage, name, onConfirm }) => {
   const [addPrice, setAddPrice] = useState(0);
 
   const handlePurchase = () => {
-    onConfirm(addPrice, () => {
+    onConfirm(+addPrice, () => {
       setPurchased(true);
     });
   };
@@ -91,7 +92,7 @@ const TipModal = ({ profileImage, name, onConfirm }) => {
                       width: '90%',
                     }}
                   >
-                    <img
+                    <ImageAvatar
                       src={profileImage}
                       alt='profile image'
                       width='60px'

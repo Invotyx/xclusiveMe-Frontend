@@ -2,14 +2,12 @@ import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import UploadImage from './uploadImage';
-import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import GridList from '@material-ui/core/GridList';
-import MuiGridListTile from '@material-ui/core/GridListTile';
-import MuiGridListTileBar from '@material-ui/core/GridListTileBar';
-import GridListTileBar from '@material-ui/core/GridListTileBar';
+import ImageList from '@material-ui/core/ImageList';
+import MuiImageListItem from '@material-ui/core/ImageListItem';
+import ImageListItemBar from '@material-ui/core/ImageListItemBar';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import GridListTile from '@material-ui/core/GridListTile';
+import ImageListItem from '@material-ui/core/ImageListItem';
 import { Button } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import { chat } from '../../actions/chat';
@@ -168,11 +166,11 @@ export default function UploadImageModal({
         <div>Upload Your Image</div>
         <div>
           <CardContent>
-            <GridList cellHeight={100} cols={4}>
+            <ImageList rowHeight={100} cols={4}>
               {tileData.map((tile, i) => (
-                <GridListTile key={`tile${i}`}>
+                <ImageListItem key={`tile${i}`}>
                   <img src={tile} alt={'no Image'} />
-                  <GridListTileBar
+                  <ImageListItemBar
                     titlePosition='top'
                     actionPosition='left'
                     actionIcon={
@@ -185,12 +183,12 @@ export default function UploadImageModal({
                       </Button>
                     }
                   />
-                </GridListTile>
+                </ImageListItem>
               ))}
               {loadingItems.map((item, i) => (
-                <MuiGridListTile key={`loadingItems${i}`}>
+                <MuiImageListItem key={`loadingItems${i}`}>
                   <img src={item.src} alt={'no Image'} />
-                  <GridListTileBar
+                  <ImageListItemBar
                     titlePosition='top'
                     actionPosition='left'
                     actionIcon={
@@ -200,20 +198,20 @@ export default function UploadImageModal({
                       />
                     }
                   />
-                </MuiGridListTile>
+                </MuiImageListItem>
               ))}
               {/* {tileData && tileData.length > 0 && (
-              <MuiGridListTile>
-                <GridListTileBar
+              <MuiImageListItem>
+                <ImageListItemBar
                   actionIcon={
                     <IconButton size='small' variant='text'>
                       <AddIcon />
                     </IconButton>
                   }
                 />
-              </MuiGridListTile>
+              </MuiImageListItem>
             )} */}
-            </GridList>
+            </ImageList>
           </CardContent>
         </div>
         <UploadImage
