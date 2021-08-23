@@ -6,7 +6,6 @@ import CloseIcon from '@material-ui/icons/Close';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import { paymentMethod } from '../../actions/payment-method';
-import { paymentMethodDataSelector } from '../../selectors/paymentMethodSelector';
 import { useDispatch, useSelector } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
 import ShareIcon from '@material-ui/icons/Share';
@@ -36,7 +35,6 @@ const useStyles = makeStyles(theme => ({
 const ReportModal = ({ openReportModal, setreportModal, post }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const paymentData = useSelector(paymentMethodDataSelector);
   const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
   const [postText, set_postText] = useState('');
   const fetchData = useSelector(fetchingSelector);
