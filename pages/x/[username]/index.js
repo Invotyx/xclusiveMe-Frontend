@@ -26,19 +26,19 @@ export default function Profile() {
       <Head>
         <title>{username} - xclusiveme</title>
       </Head>
-    <User
-      user={u}
-      profileData={u && u.creator ? u.creator : u}
-      feed={_feed}
-      subscriptionPlans={u?.subscriptionPlans}
-      numberOfPosts={u?.totalPosts}
-      afterFollow={() => {
-        dispatch(user.requestOne(username));
-        dispatch(post.requestX({ username }));
-      }}
-      followers={u?.totalFollowers}
-      followings={u?.totalFollowings}
-    />
+      <User
+        user={u}
+        profileData={u && u.creator ? u.creator : u}
+        feed={_feed}
+        subscriptionPlans={u?.subscriptionPlans}
+        numberOfPosts={u?.totalPosts}
+        afterFollow={() => {
+          dispatch(user.requestOne(username));
+          dispatch(post.requestX({ username }));
+        }}
+        followers={u?.totalFollowers}
+        followings={u?.totalFollowings}
+      />
     </>
   );
 }
