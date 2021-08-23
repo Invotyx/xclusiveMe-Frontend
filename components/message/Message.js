@@ -115,7 +115,7 @@ export default function Message({ subheaderPrefix }) {
               </ListItemAvatar>
               <ListItemText
                 primary={
-                  i.participants.filter(p => p?.id !== myData?.id)[0].fullName
+                  i.participants.find(p => p?.id !== myData?.id)?.fullName
                 }
                 secondary={
                   <React.Fragment>
