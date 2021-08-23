@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import NextLink from 'next/link';
 import { motion } from 'framer-motion';
 import { variants } from '../../services/framer-variants';
-import Head from 'next/head';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
