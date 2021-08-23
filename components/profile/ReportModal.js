@@ -44,7 +44,7 @@ const ReportModal = ({
     if (!postText || postText.trim() === '') {
       return;
     }
-    onConfirm && onConfirm(postText);
+    onConfirm && onConfirm(postText, () => setreportModal(false));
   };
 
   const handleClose = () => {

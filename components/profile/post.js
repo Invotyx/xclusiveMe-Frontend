@@ -362,7 +362,7 @@ export default function Post({
                   <ManuButton
                     title='Report this Post'
                     profileImage={post?.user?.profileImage}
-                    onConfirm={reason =>
+                    onConfirm={(reason, callback) =>
                       dispatch(
                         postData.postReport({
                           reportData: {
@@ -370,7 +370,7 @@ export default function Post({
                             reason,
                           },
                           callback: () => {
-                            setreportModal(false);
+                            callback && callback();
                             dispatch(postData.request());
                             dispatch(postData.requestSubscribed());
                           },
