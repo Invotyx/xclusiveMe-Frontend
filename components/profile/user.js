@@ -190,9 +190,6 @@ export default function Profile({
             </AppBar>
           }
         >
-          <Head>
-            <title>xclusiveme</title>
-          </Head>
           <Container maxWidth='md' disableGutters>
             <>
               <Grid container className={classes.root}>
