@@ -327,7 +327,7 @@ export default function Post({
               // </IconButton>
 
               <div>
-                {post.media.length === 0 || post?.user.username == username ? (
+                {post.media.length === 0 || post?.user?.username == username ? (
                   <IconButton
                     aria-label='more'
                     aria-controls='simple-menu'
@@ -481,15 +481,16 @@ export default function Post({
                 </span>
               </NormalCaseButton>
 
-              {!me && (
+              {post?.user?.username == username ? (
+                ''
+              ) : (
                 <NormalCaseButton
                   aria-label='tip'
                   style={{
                     marginLeft: '-10px',
                   }}
                 >
-                  {post.media.length === 0 ||
-                  post?.user.username == username ? (
+                  {post.media.length === 0 ? (
                     <MonetizationOnOutlinedIcon
                       style={{ marginRight: '5px', marginLeft: '5px' }}
                     />

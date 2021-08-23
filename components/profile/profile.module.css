@@ -35,6 +35,10 @@
     border: 1px solid #444444;
 }
 
+.hScrollBar::-webkit-scrollbar {
+    display: none;
+}
+
 @media only screen and (max-width: 600px) {
     .postCard {
         width: 100%;
