@@ -44,6 +44,8 @@ export default function audioSend({
   };
 
   const voiceMailSend = audioFile => {
+    clearInterval(progressRef);
+    stopRecording();
     dispatch(
       chat.sendVoicemail({
         audioFile,
