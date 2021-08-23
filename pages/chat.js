@@ -72,6 +72,7 @@ const Chat = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [activeConversationId, setActiveConversationId] = React.useState(null);
+  const [activeParticipant, setActiveParticipant] = React.useState(null);
   const [lastMessageReceived, setLastMessageReceived] = React.useState(null);
   const socket = useSocket(
     `${SERVER_ADDRESS.substring(0, SERVER_ADDRESS.length - 4)}/messages`
@@ -132,6 +133,13 @@ const Chat = () => {
   useEffect(() => {
     if (conId) {
       setActiveConversationId(conId);
+      if (chatsData && current) {
+        setActiveParticipant(
+          chatsData
+            .find(c => c.id === +conId)
+            ?.participants.find(p => p.id !== current.id)
+        );
+      }
     }
   }, [conId]);
 
@@ -227,37 +235,19 @@ const Chat = () => {
                       <ArrowBackIcon />
                     </IconButton>
                   ) : (
-                    <ImageAvatar
-                      src={
-                        chatsData
-                          .find(list => list.id == conId)
-                          ?.participants.find(p => p.id !== current?.id)
-                          ?.profileImage
-                      }
-                    />
+                    <ImageAvatar src={activeParticipant?.profileImage} />
                   )
                 }
-                title={
-                  chatsData
-                    .find(list => list.id == conId)
-                    ?.participants.find(p => p.id !== current?.id)?.fullName
-                }
+                title={activeParticipant?.fullName}
                 subheader='click here for contact info'
                 action={
                   <>
                     <TipModal />
                     <ManuButton
                       title='Report this User'
-                      profileImage={
-                        chatsData
-                          .find(c => +activeConversationId === c.id)
-                          ?.participants.find(p => p.id !== current?.id)
-                          ?.profileImage
-                      }
+                      profileImage={activeParticipant?.profileImage}
                       onConfirm={(reason, callback) => {
-                        const itemId = chatsData
-                          .find(c => +activeConversationId === c.id)
-                          ?.participants.find(p => p.id !== current?.id)?.id;
+                        const itemId = activeParticipant?.id;
                         dispatch(
                           user.report({
                             reportData: {
