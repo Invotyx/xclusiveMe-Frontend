@@ -65,7 +65,7 @@ export default function Home() {
       {fetching === true && <LinearProgress />}
       <Layout>
         <Head>
-          <title>xclusiveme</title>
+          <title>Explore - xclusiveme</title>
         </Head>
         <Container maxWidth='md' disableGutters>
           <Grid container className={classes.root} spacing={2}>
