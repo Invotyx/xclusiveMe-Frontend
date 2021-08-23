@@ -20,7 +20,7 @@ export default function MessageSend({ conId, setLastMessageReceived }) {
     mediaStreamConstraints: { audio: true, video: false },
   });
   const [seconds, setSeconds] = useState(0);
-const countRef = useRef(null);
+  const countRef = useRef(null);
   const current = useSelector(currentUserSelector);
   const [show, setShow] = useState(false);
   const [msgText, setMsgText] = useState('');
@@ -71,8 +71,8 @@ const countRef = useRef(null);
           severity: 'error',
         })
       );
-      setProgress(0)
-      setAddVoice(false)
+      setProgress(0);
+      setAddVoice(false);
     }
   }, [status]);
 
@@ -107,9 +107,9 @@ const countRef = useRef(null);
 
   const startRecordingHandler = () => {
     setAddVoice(true);
-              progressHandler();
-              startRecording();
-  }
+    progressHandler();
+    startRecording();
+  };
 
   const timer = () => {
     countRef.current = setInterval(() => {
@@ -137,9 +137,7 @@ const countRef = useRef(null);
           <img
             src='/voiceBtn.svg'
             alt='voice'
-            onClick={
-              startRecordingHandler
-            }
+            onClick={startRecordingHandler}
           />
           <UploadImageModal
             imageModal={imageModal}
@@ -192,7 +190,15 @@ const countRef = useRef(null);
             }
           />
         ) : (
-          <AudioSend stopRecording={stopRecording} mediaBlob={mediaBlob} progress={progress} progressRef={progressRef.current} seconds={seconds} setProgress={setProgress} setAddVoice={setAddVoice} />
+          <AudioSend
+            stopRecording={stopRecording}
+            mediaBlob={mediaBlob}
+            progress={progress}
+            progressRef={progressRef.current}
+            seconds={seconds}
+            setProgress={setProgress}
+            setAddVoice={setAddVoice}
+          />
         )}
       </CardActions>
 
