@@ -157,7 +157,7 @@ export default function NewPostForm({ afterSave }) {
         />
         <Card>
           <CardContent>
-            <ImageList cellHeight={100} cols={4}>
+            <ImageList rowHeight={100} cols={4}>
               {tileData.map((tile, i) => (
                 <ImageListItem key={`tile${i}`}>
                   <img src={tile} alt={'no Image'} />
