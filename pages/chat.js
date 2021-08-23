@@ -1,3 +1,5 @@
+import NextLink from 'next/link';
+import Link from '@material-ui/core/Link';
 import Head from 'next/head';
 import React, { useEffect, useState } from 'react';
 import Layout from '../components/layouts/layout-auth';
@@ -240,6 +242,16 @@ const Chat = () => {
                   )
                 }
                 title={activeParticipant?.fullName}
+                title={
+                  <Typography variant='body2'>
+                    <NextLink
+                      href={`/x/${activeParticipant?.username}`}
+                      passHref
+                    >
+                      <Link>{activeParticipant?.fullName}</Link>
+                    </NextLink>
+                  </Typography>
+                }
                 subheader='click here for contact info'
                 action={
                   <>
