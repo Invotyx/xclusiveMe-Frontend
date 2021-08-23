@@ -16,7 +16,6 @@ import Typography from '@material-ui/core/Typography';
 import ImageAvatar from '../components/image-avatar';
 import getConfig from 'next/config';
 import { chat } from '../actions/chat';
-import 'emoji-mart/css/emoji-mart.css';
 import { chatDataSelector } from '../selectors/chatSelector';
 import ConvoList from '../components/message/ConvoList';
 import IconButton from '@material-ui/core/IconButton';
