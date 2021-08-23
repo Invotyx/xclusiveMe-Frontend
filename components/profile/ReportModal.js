@@ -48,6 +48,7 @@ const ReportModal = ({
   };
 
   const handleClose = () => {
+    set_postText('');
     setreportModal(false);
   };
 
