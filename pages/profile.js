@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import User from '../components/profile/user';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -28,6 +29,10 @@ export default function Profile() {
   }, [u]);
 
   return (
+    <>
+    <Head>
+      <title>Profile - xclusiveme</title>
+    </Head>
     <User
       user={u}
       profileData={u}
@@ -37,5 +42,6 @@ export default function Profile() {
       followers={followers?.totalCount}
       followings={followings?.totalCount}
     />
+    </>
   );
 }
