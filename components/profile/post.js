@@ -361,7 +361,7 @@ export default function Post({
                 ) : (
                   <ManuButton
                     profileImage={post?.user?.profileImage}
-                    onConfirm={() =>
+                    onConfirm={postText =>
                       dispatch(
                         postData.postReport({
                           reportData: {
