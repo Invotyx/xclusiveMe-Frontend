@@ -128,3 +128,8 @@ export async function uploadCover(fileObject) {
   data.append('image', fileObject);
   return apiClient.post(`${SERVER_ADDRESS}/users/upload-cover`, data);
 }
+
+export async function reportUser(reason) {
+  const data = JSON.stringify(reason);
+  return apiClient.post(`${SERVER_ADDRESS}/report/user`, data);
+}

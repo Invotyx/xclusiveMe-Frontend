@@ -8,6 +8,7 @@ import { USER } from '../actions/user/types';
 import { user } from '../actions/user';
 import { snackbar } from '../actions/snackbar';
 import { post } from '../actions/post';
+import { reportUser } from '../services/user.service';
 
 const { publicRuntimeConfig } = getConfig();
 const SERVER_ADDRESS = publicRuntimeConfig.backendUrl;
@@ -150,6 +151,36 @@ function* handleDelete(action) {
   }
 }
 
+function* usersReport(action) {
+  try {
+    const { reportData } = action.payload;
+    yield call(reportUser, reportData);
+    yield put(post.success({}));
+    yield call(post.request);
+    yield put(
+      snackbar.update({
+        open: true,
+        message: ' Reported',
+        severity: 'success',
+      })
+    );
+    const { callback } = action.payload;
+    if (callback) {
+      yield call(callback);
+    }
+  } catch (e) {
+    console.log(e);
+    yield put(post.failure({ error: { ...e } }));
+    yield put(
+      snackbar.update({
+        open: true,
+        message: e.response.data.message,
+        severity: 'error',
+      })
+    );
+  }
+}
+
 function* watchPresetSagas() {
   yield all([
     takeLatest(USER.GET, handleGet),
@@ -159,6 +190,7 @@ function* watchPresetSagas() {
     takeLatest(USER.PUT, handlePut),
     takeLatest(USER.PATCH, handlePatch),
     takeLatest(USER.DELETE, handleDelete),
+    takeLatest(USER.REPORT_USER, usersReport),
   ]);
 }
 
