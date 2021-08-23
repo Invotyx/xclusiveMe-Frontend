@@ -490,6 +490,11 @@
   resolved "https://registry.yarnpkg.com/@types/zen-observable/-/zen-observable-0.8.3.tgz#781d360c282436494b32fe7d9f7f8e64b3118aa3"
   integrity sha512-fbF6oTd4sGGy0xjHPKAt+eS2CrxJ3+6gQ3FGcBoIJR2TLAyCkCyI8JqZNy+FeON0AhVgNJoUumVoZQjBFUqHkw==
 
+"@wmik/use-media-recorder@^1.2.1-beta.0":
+  version "1.2.1-beta.0"
+  resolved "https://registry.yarnpkg.com/@wmik/use-media-recorder/-/use-media-recorder-1.2.1-beta.0.tgz#970cd5af731ecf2b7d6a7f65ae3fa0b182155373"
+  integrity sha512-RXOIZw8pDry5Bt9AYSDm2BBYrm5YoUm95fuOpWxUMaeqQ1qYbYk6Q3bNghsDZFTNUIU/Rbl0mQBiPMsp7Ev0gg==
+
 after@0.8.2:
   version "0.8.2"
   resolved "https://registry.yarnpkg.com/after/-/after-0.8.2.tgz#fedb394f9f0e02aa9768e702bda23b505fae7e1f"
