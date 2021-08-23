@@ -31,7 +31,6 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import { useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
 import io from 'socket.io-client';
 import { snackbar } from '../actions/snackbar';
 import TipModal from '../components/profile/TipModal';
@@ -292,9 +291,6 @@ const Chat = () => {
                 action={
                   <>
                     <TipModal />
-                    <IconButton>
-                      <MoreVertIcon />
-                    </IconButton>
                   </>
                 }
               />
