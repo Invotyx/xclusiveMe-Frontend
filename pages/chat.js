@@ -34,6 +34,9 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import io from 'socket.io-client';
 import { snackbar } from '../actions/snackbar';
 import TipModal from '../components/profile/TipModal';
+import ManuButton from '../components/menuButton';
+import { post } from '../actions/post';
+import { user } from '../actions/user';
 const { publicRuntimeConfig } = getConfig();
 const SERVER_ADDRESS = publicRuntimeConfig.backendUrl;
 
@@ -291,6 +294,31 @@ const Chat = () => {
                 action={
                   <>
                     <TipModal />
+                    <ManuButton
+                      title='Report this User'
+                      profileImage={
+                        chatsData
+                          .find(c => +activeConversationId === c.id)
+                          ?.participants.find(p => p.id !== current?.id)
+                          ?.profileImage
+                      }
+                      onConfirm={(reason, callback) => {
+                        const itemId = chatsData
+                          .find(c => +activeConversationId === c.id)
+                          ?.participants.find(p => p.id !== current?.id)?.id;
+                        dispatch(
+                          user.report({
+                            reportData: {
+                              itemId,
+                              reason,
+                            },
+                            callback: () => {
+                              callback && callback();
+                            },
+                          })
+                        );
+                      }}
+                    />
                   </>
                 }
               />
