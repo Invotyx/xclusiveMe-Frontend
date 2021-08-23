@@ -494,7 +494,27 @@ export default function Post({
                       style={{ marginRight: '5px', marginLeft: '5px' }}
                     />
                   ) : (
-                    <TipModal user={post.user} postId={post.id} />
+                    <TipModal
+                      profileImage={post?.user?.profileImage}
+                      name={post?.user?.fullName}
+                      onConfirm={(amount, callback) =>
+                        dispatch(
+                          postData.addTip({
+                            saveData: {
+                              itemTipped: post.id,
+                              itemTippedType: 'post',
+                              amount,
+                            },
+
+                            callback: () => {
+                              callback && callback();
+                              dispatch(postData.request());
+                              dispatch(postData.requestSubscribed());
+                            },
+                          })
+                        )
+                      }
+                    />
                   )}
 
                   <span

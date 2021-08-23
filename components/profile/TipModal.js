@@ -11,11 +11,8 @@ import { paymentMethod } from '../../actions/payment-method';
 import { paymentMethodDataSelector } from '../../selectors/paymentMethodSelector';
 import { useDispatch, useSelector } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
-import ShareIcon from '@material-ui/icons/Share';
 import styles from './profile.module.css';
 import TextField from '@material-ui/core/TextField';
-import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
-import { post as postData } from '../../actions/post';
 
 const useStyles = makeStyles(theme => ({
   modal: {
@@ -33,7 +30,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const TipModal = ({ user, postId }) => {
+const TipModal = ({ profileImage, name, onConfirm }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const [openTip, setopenTip] = useState(false);
@@ -43,21 +40,9 @@ const TipModal = ({ user, postId }) => {
   const [addPrice, setAddPrice] = useState(0);
 
   const handlePurchase = () => {
-    dispatch(
-      postData?.addTip({
-        saveData: {
-          itemTipped: postId,
-          itemTippedType: 'post',
-          amount: addPrice,
-        },
-
-        callback: () => {
-          setPurchased(true);
-          dispatch(postData.request());
-          dispatch(postData.requestSubscribed());
-        },
-      })
-    );
+    onConfirm(addPrice, () => {
+      setPurchased(true);
+    });
   };
 
   const handleOpenTopModal = () => {
@@ -107,7 +92,7 @@ const TipModal = ({ user, postId }) => {
                     }}
                   >
                     <img
-                      src={user?.profileImage}
+                      src={profileImage}
                       alt='profile image'
                       width='60px'
                       height='65px'
@@ -137,7 +122,7 @@ const TipModal = ({ user, postId }) => {
                     }}
                   >
                     <p style={{ fontWeight: '600', fontSize: '17px' }}>
-                      Donate to {user?.fullName}
+                      Donate to {name}
                     </p>
                   </div>
                 </div>
@@ -283,7 +268,7 @@ const TipModal = ({ user, postId }) => {
                 <div>
                   <div style={{ display: 'flex', justifyContent: 'center' }}>
                     <img
-                      src={user?.profileImage}
+                      src={profileImage}
                       alt='profile image'
                       width='70px'
                       height='75px'
@@ -323,7 +308,7 @@ const TipModal = ({ user, postId }) => {
                         color: '#444444',
                       }}
                     >
-                      sent to {user?.fullName}
+                      sent to {name}
                     </p>
                   </div>
 
