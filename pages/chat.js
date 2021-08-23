@@ -231,7 +231,7 @@ const Chat = () => {
                       src={
                         chatsData
                           .find(list => list.id == conId)
-                          ?.participants.find(p => p?.id !== myData?.id)
+                          ?.participants.find(p => p.id !== current?.id)
                           ?.profileImage
                       }
                     />
