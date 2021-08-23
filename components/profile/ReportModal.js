@@ -1,15 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import CloseIcon from '@material-ui/icons/Close';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
-import { paymentMethod } from '../../actions/payment-method';
 import { useDispatch, useSelector } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
-import ShareIcon from '@material-ui/icons/Share';
-import styles from './profile.module.css';
 import TextField from '@material-ui/core/TextField';
 import { post as postData } from '../../actions/post';
 import LoadingOverlay from 'react-loading-overlay';
