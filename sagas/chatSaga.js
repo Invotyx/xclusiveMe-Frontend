@@ -7,6 +7,7 @@ import {
   getConversations,
   getSingleChat,
   sendSingleMsg,
+  addVoicemail
 } from '../services/chat.service';
 
 function* handleSendMessage(action) {
@@ -82,12 +83,38 @@ function* handleGetOneCon(action) {
   }
 }
 
+function* handleAddVoicemail(action) {
+  try {
+    const { audioFile, callback } = action.payload;
+    yield call(addVoicemail, audioFile);
+    yield put(chat.success({}));
+    yield put(
+      snackbar.update({
+        open: true,
+        message: 'Audio send successfully',
+        severity: 'success',
+      })
+    );
+    if (callback) {
+      yield call(callback);
+    }
+    // yield put(chat.success({}));
+  } catch (e) {
+    console.log(e);
+    yield put(chat.failure({ error: { ...e } }));
+    if (callback) {
+      yield call(callback);
+    }
+  }
+}
+
 function* watchChatSagas() {
   yield all([
     takeLatest(CHAT.SEND, handleSendMessage),
     takeLatest(CHAT.GET, handlegetConversations),
     takeLatest(CHAT.GET_ONE, handleGetOneCon),
     takeLatest(CHAT.SEND_ONE, handleSendSingleMessage),
+    takeLatest(CHAT.SEND_VOICEMAIL, handleAddVoicemail),
   ]);
 }
 

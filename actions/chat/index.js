@@ -10,6 +10,14 @@ export const chat = {
       error: null,
     }),
 
+  sendVoicemail: data =>
+    createAction(CHAT.SEND_VOICEMAIL, {
+      ...data,
+      fetching: true,
+      success: false,
+      error: null,
+    }),
+
   sendOneMessage: data =>
     createAction(CHAT.SEND_ONE, {
       ...data,

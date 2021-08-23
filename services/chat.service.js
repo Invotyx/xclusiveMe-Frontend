@@ -28,3 +28,9 @@ export async function getSingleChat(id, pageNum, limit) {
 export async function isSeen(id) {
   return apiClient.patch(`${SERVER_ADDRESS}/conversations/${id}/messages/seen`);
 }
+
+export async function addVoicemail(file) {
+  const data = new FormData();
+  data.append('audio', file);
+  return apiClient.post(`${SERVER_ADDRESS}/uploads/audio`, data);
+}
