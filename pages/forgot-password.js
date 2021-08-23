@@ -37,7 +37,7 @@ export default function SignInSide() {
   return (
     <LayoutGuest>
       <Head>
-        <title>Login</title>
+        <title>Forgot Password</title>
       </Head>
       <form onSubmit={handleSubmit}>
         <TileTextField
