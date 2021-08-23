@@ -8,9 +8,9 @@ import CardContent from '@material-ui/core/CardContent';
 import IconButton from '@material-ui/core/IconButton';
 import SendIcon from '@material-ui/icons/Send';
 import Typography from '@material-ui/core/Typography';
-import GridList from '@material-ui/core/GridList';
-import MuiGridListTile from '@material-ui/core/GridListTile';
-import MuiGridListTileBar from '@material-ui/core/GridListTileBar';
+import ImageList from '@material-ui/core/ImageList';
+import MuiImageListItem from '@material-ui/core/ImageListItem';
+import MuiImageListItemBar from '@material-ui/core/ImageListItemBar';
 import TextField from '@material-ui/core/TextField';
 import MuiOutlinedInput from '@material-ui/core/OutlinedInput';
 import CameraAltOutlinedIcon from '@material-ui/icons/CameraAltOutlined';
@@ -44,7 +44,7 @@ const OutlinedInput = withStyles(() => ({
   },
 }))(MuiOutlinedInput);
 
-const GridListTile = withStyles(() => ({
+const ImageListItem = withStyles(() => ({
   tile: {
     borderRadius: 6,
     '& > div': {
@@ -54,9 +54,9 @@ const GridListTile = withStyles(() => ({
       display: 'flex',
     },
   },
-}))(MuiGridListTile);
+}))(MuiImageListItem);
 
-const GridListTileBar = withStyles(() => ({
+const ImageListItemBar = withStyles(() => ({
   root: {
     height: `100%`,
     justifyContent: 'center',
@@ -64,7 +64,7 @@ const GridListTileBar = withStyles(() => ({
   titleWrap: {
     display: 'none',
   },
-}))(MuiGridListTileBar);
+}))(MuiImageListItemBar);
 
 export default function NewPostForm({ afterSave }) {
   const dispatch = useDispatch();
@@ -157,11 +157,11 @@ export default function NewPostForm({ afterSave }) {
         />
         <Card>
           <CardContent>
-            <GridList cellHeight={100} cols={4}>
+            <ImageList cellHeight={100} cols={4}>
               {tileData.map((tile, i) => (
-                <GridListTile key={`tile${i}`}>
+                <ImageListItem key={`tile${i}`}>
                   <img src={tile} alt={'no Image'} />
-                  <GridListTileBar
+                  <ImageListItemBar
                     titlePosition='top'
                     actionPosition='left'
                     actionIcon={
@@ -174,12 +174,12 @@ export default function NewPostForm({ afterSave }) {
                       </Button>
                     }
                   />
-                </GridListTile>
+                </ImageListItem>
               ))}
               {loadingItems.map((item, i) => (
-                <MuiGridListTile key={`loadingItems${i}`}>
+                <MuiImageListItem key={`loadingItems${i}`}>
                   <img src={item.src} alt={'no Image'} />
-                  <GridListTileBar
+                  <ImageListItemBar
                     titlePosition='top'
                     actionPosition='left'
                     actionIcon={
@@ -189,20 +189,20 @@ export default function NewPostForm({ afterSave }) {
                       />
                     }
                   />
-                </MuiGridListTile>
+                </MuiImageListItem>
               ))}
               {tileData && tileData.length > 0 && (
-                <MuiGridListTile>
-                  <GridListTileBar
+                <MuiImageListItem>
+                  <ImageListItemBar
                     actionIcon={
                       <IconButton size='small' variant='text'>
                         <AddIcon />
                       </IconButton>
                     }
                   />
-                </MuiGridListTile>
+                </MuiImageListItem>
               )}
-            </GridList>
+            </ImageList>
           </CardContent>
         </Card>
       </Box>
