@@ -361,6 +361,21 @@ export default function Post({
                 ) : (
                   <ManuButton
                     entity={post}
+                    onConfirm={() =>
+                      dispatch(
+                        post?.postReport({
+                          reportData: {
+                            itemId: entity.id,
+                            reason: postText,
+                          },
+                          callback: () => {
+                            setreportModal(false);
+                            dispatch(post.request());
+                            dispatch(post.requestSubscribed());
+                          },
+                        })
+                      )
+                    }
                   />
                 )}
               </div>
