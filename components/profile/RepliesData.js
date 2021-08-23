@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { post as postData } from '../../actions/post/index';
 import { repliesDataSelector } from '../../selectors/postSelector';
@@ -13,6 +13,7 @@ import { useMediaQuery } from 'react-responsive';
 import { Picker } from 'emoji-mart';
 import 'emoji-mart/css/emoji-mart.css';
 import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
+import { totalrepliesSelector } from '../../selectors/postSelector';
 
 const RepliesData = ({
   post,
@@ -25,6 +26,8 @@ const RepliesData = ({
   setissubReplyField,
   commentId,
   setCommentId,
+  forCommentId,
+  openReply,
 }) => {
   const [showMyReply, setShowMyReply] = useState(false);
   const dispatch = useDispatch();
@@ -32,6 +35,7 @@ const RepliesData = ({
   const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
   const [replyText, setReplyText] = useState('');
   const [show, setShow] = useState(false);
+  const totalRepliesCount = useSelector(totalrepliesSelector);
 
   const addEmoji = e => {
     let sym = e.unified.split('-');
@@ -54,6 +58,10 @@ const RepliesData = ({
       })
     );
   };
+
+  useEffect(() => {
+    forCommentId && handleReplyList(forCommentId);
+  }, [forCommentId]);
 
   const hideReply = commId => {
     setShowMyReply(!showMyReply);
@@ -113,7 +121,7 @@ const RepliesData = ({
     }
     dispatch(
       postData.saveComment({
-        id: singlePost.id,
+        id: singlePost?.id,
         commentText: {
           comment: replyText,
           isReply: true,
@@ -133,7 +141,7 @@ const RepliesData = ({
     );
   };
   return (
-    <>
+    <div>
       <div style={{ display: 'flex' }}>
         <div style={{ marginRight: '10px' }}>
           {comm.totalLikes === 0 ? (
@@ -185,7 +193,7 @@ const RepliesData = ({
                     fontWeight: '500',
                   }}
                 >
-                  VIEW REPLIES
+                  {comm.totalReplies > 0 ? ' VIEW REPLIES' : ' '}
                 </span>
               </div>
             ) : (
@@ -195,157 +203,168 @@ const RepliesData = ({
         )}
       </div>
 
-      {showMyReply === true &&
-        replyData?.map(
-          reply =>
-            reply.parentCommentId === comm.id && (
-              <div style={{ width: '90%' }}>
+      <div
+      // style={{
+      //   overflowY: showMyReply === true ? 'scroll' : 'hidden',
+      //   overflowX: 'hidden',
+      //   height: isMobile ? '30vh' : '100px',
+      // }}
+      >
+        {showMyReply === true &&
+          replyData?.map(
+            reply =>
+              reply.parentCommentId === comm.id && (
                 <div
                   style={{
-                    display: 'flex',
-                    justifyContent: 'space-around',
+                    width: '90%',
                   }}
                 >
-                  <div style={{ display: 'flex' }}>
-                    <img
-                      src='/horizentolLine.svg'
-                      alt='reply line'
-                      style={{
-                        height: '14vh',
-                        marginBottom: '-1vh',
-                        marginLeft: '-4vw',
-                      }}
-                    />
-                    <div
-                      style={{
-                        display: 'flex',
-                        marginLeft: '15px',
-                      }}
-                    >
+                  <div
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-around',
+                    }}
+                  >
+                    <div style={{ display: 'flex' }}>
+                      <img
+                        src='/horizentolLine.svg'
+                        alt='reply line'
+                        style={{
+                          height: '14vh',
+                          marginBottom: '-1vh',
+                          marginLeft: '-4vw',
+                        }}
+                      />
                       <div
                         style={{
                           display: 'flex',
-                          marginBottom: '10px',
-                          marginTop: '5px',
+                          marginLeft: '15px',
                         }}
                       >
-                        {<ProfileImageAvatar user={reply?.user} />}
-                      </div>
-                      <div
-                        style={{
-                          marginTop: '-9px',
-                          marginLeft: '10px',
-                        }}
-                      >
-                        <p
+                        <div
                           style={{
-                            fontWeight: 'bold',
-                            marginRight: '5px',
-                            fontSize: '14px',
+                            display: 'flex',
+                            marginBottom: '10px',
+                            marginTop: '5px',
                           }}
                         >
-                          {reply?.user?.fullName}
-                        </p>
-                        <p
+                          {<ProfileImageAvatar user={reply?.user} />}
+                        </div>
+                        <div
                           style={{
-                            color: '#ACACAC',
-
-                            overflowWrap: 'break-word',
-                            // overflow: 'hidden',
-                            // textOverflow: 'ellipsis',
-                            width: isMobile ? '100px' : '260px',
-                            marginTop: '-10px',
-                            fontSize: '14px',
+                            marginTop: '-9px',
+                            marginLeft: '10px',
                           }}
                         >
-                          {reply.comment.slice(0, 511)}
-                        </p>
-                        <div style={{}}>
                           <p
                             style={{
-                              marginBottom: '0px',
-                              cursor: 'pointer',
-                              fontSize: '13px',
-                              display: 'flex',
+                              fontWeight: 'bold',
+                              marginRight: '5px',
+                              fontSize: '14px',
                             }}
                           >
-                            <div
+                            {reply?.user?.fullName}
+                          </p>
+                          <p
+                            style={{
+                              color: '#ACACAC',
+
+                              overflowWrap: 'break-word',
+                              // overflow: 'hidden',
+                              // textOverflow: 'ellipsis',
+                              width: isMobile ? '100px' : '260px',
+                              marginTop: '-10px',
+                              fontSize: '14px',
+                            }}
+                          >
+                            {reply.comment.slice(0, 511)}
+                          </p>
+                          <div style={{}}>
+                            <p
                               style={{
-                                marginTop: '-10px',
+                                marginBottom: '0px',
+                                cursor: 'pointer',
+                                fontSize: '13px',
+                                display: 'flex',
                               }}
                             >
-                              {reply.totalLikes === 0 ? (
-                                <div
-                                  style={{
-                                    display: 'flex',
-                                  }}
-                                >
-                                  <p
+                              <div
+                                style={{
+                                  marginTop: '-10px',
+                                }}
+                              >
+                                {reply.totalLikes === 0 ? (
+                                  <div
                                     style={{
-                                      marginTop: '0px',
-                                      marginRight: '5px',
+                                      display: 'flex',
                                     }}
                                   >
-                                    0
-                                  </p>
-                                  <FavoriteIcon
+                                    <p
+                                      style={{
+                                        marginTop: '0px',
+                                        marginRight: '5px',
+                                      }}
+                                    >
+                                      0
+                                    </p>
+                                    <FavoriteIcon
+                                      style={{
+                                        color: 'red',
+                                        fontSize: '15px',
+                                      }}
+                                    />
+                                  </div>
+                                ) : (
+                                  <div
                                     style={{
-                                      color: 'red',
-                                      fontSize: '15px',
-                                    }}
-                                  />
-                                </div>
-                              ) : (
-                                <div
-                                  style={{
-                                    display: 'flex',
-                                    marginLeft: '-3.3vw',
-                                    marginTop: '-5px',
-                                  }}
-                                >
-                                  <p
-                                    style={{
-                                      marginTop: '0px',
-                                      marginRight: '5px',
-                                      fontSize: '12px',
+                                      display: 'flex',
+                                      marginLeft: '-3.3vw',
+                                      marginTop: '-5px',
                                     }}
                                   >
-                                    {reply.totalLikes}{' '}
-                                  </p>
-                                  <FavoriteIcon
-                                    style={{
-                                      color: 'red',
-                                      fontSize: '15px',
-                                    }}
-                                  />
-                                </div>
-                              )}
-                            </div>
-                          </p>
+                                    <p
+                                      style={{
+                                        marginTop: '0px',
+                                        marginRight: '5px',
+                                        fontSize: '12px',
+                                      }}
+                                    >
+                                      {reply.totalLikes}{' '}
+                                    </p>
+                                    <FavoriteIcon
+                                      style={{
+                                        color: 'red',
+                                        fontSize: '15px',
+                                      }}
+                                    />
+                                  </div>
+                                )}
+                              </div>
+                            </p>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
 
-                  <div
-                    style={{
-                      marginTop: '10px',
-                    }}
-                  >
-                    <img
-                      src='/comment.png'
-                      alt='reply button'
+                    <div
                       style={{
-                        width: '20px',
-                        height: '20px',
-                        marginRight: '9px',
-                        cursor: 'pointer',
+                        marginTop: '10px',
                       }}
-                      className={styles.commMobile}
-                      id={comm.id}
-                      onClick={() => handleSubReplyField(comm.id)}
-                    />
-                    {/* <ChatBubbleOutlineIcon
+                    >
+                      <img
+                        src='/comment.png'
+                        alt='reply button'
+                        style={{
+                          width: '20px',
+                          height: '20px',
+                          marginRight: '9px',
+                          cursor: 'pointer',
+                        }}
+                        className={styles.commMobile}
+                        id={comm.id}
+                        onClick={() => handleSubReplyField(comm.id)}
+                      />
+                      {/* <ChatBubbleOutlineIcon
                                         style={{ marginRight: '9px' }}
                                         id={comm.id}
                                         fontSize='small'
@@ -353,50 +372,52 @@ const RepliesData = ({
                                           handleSubReplyField(comm.id)
                                         }
                                       /> */}
-                    {reply.likes && reply.likes.length === 0 ? (
-                      // <FavoriteIcon
-                      //   fontSize='small'
-                      //   onClick={() =>
-                      //     handleReplyLike(reply.id)
-                      //   }
-                      // />
-                      <img
-                        src='/emptyHeart.png'
-                        alt='unliked'
-                        style={{
-                          width: '20px',
-                          height: '20px',
-                          cursor: 'pointer',
-                        }}
-                        onClick={() => handleReplyLike(reply.id)}
-                      />
-                    ) : (
-                      // <FavoriteIcon
-                      //   fontSize='small'
-                      //   style={{
-                      //     color: 'red',
-                      //   }}
-                      //   onClick={() =>
-                      //     handleReplyLike(reply.id)
-                      //   }
-                      // />
-                      <img
-                        src='/filled.png'
-                        alt='unliked'
-                        style={{
-                          width: '20px',
-                          height: '20px',
-                          cursor: 'pointer',
-                        }}
-                        onClick={() => handleReplyLike(reply.id)}
-                      />
-                    )}
+                      {reply.likes && reply.likes.length === 0 ? (
+                        // <FavoriteIcon
+                        //   fontSize='small'
+                        //   onClick={() =>
+                        //     handleReplyLike(reply.id)
+                        //   }
+                        // />
+                        <img
+                          src='/emptyHeart.png'
+                          alt='unliked'
+                          style={{
+                            width: '20px',
+                            height: '20px',
+                            cursor: 'pointer',
+                          }}
+                          onClick={() => handleReplyLike(reply.id)}
+                        />
+                      ) : (
+                        // <FavoriteIcon
+                        //   fontSize='small'
+                        //   style={{
+                        //     color: 'red',
+                        //   }}
+                        //   onClick={() =>
+                        //     handleReplyLike(reply.id)
+                        //   }
+                        // />
+                        <img
+                          src='/filled.png'
+                          alt='unliked'
+                          style={{
+                            width: '20px',
+                            height: '20px',
+                            cursor: 'pointer',
+                          }}
+                          onClick={() => handleReplyLike(reply.id)}
+                        />
+                      )}
+                    </div>
                   </div>
                 </div>
-              </div>
-            )
-        )}
-      {showMyReply === true ? (
+              )
+          )}
+      </div>
+
+      {showMyReply === true && comm.totalReplies > 0 ? (
         <div
           onClick={() => hideReply(comm.id)}
           style={{ marginLeft: isMobile ? '5px' : '-5px' }}
@@ -503,7 +524,7 @@ const RepliesData = ({
       ) : (
         ''
       )}
-    </>
+    </div>
   );
 };
 
