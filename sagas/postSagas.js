@@ -147,22 +147,6 @@ function* handleViewNotify(action) {
   }
 }
 
-function* handleGetReplies(action) {
-  try {
-    const { postId, parentCommentId } = action.payload;
-    const { data } = yield call(getReplies, postId, parentCommentId);
-    yield put(
-      post.success({
-        repliesData: data.results,
-        repliesCount: data.totalCount,
-      })
-    );
-  } catch (e) {
-    console.log(e);
-    yield put(post.success({ error: true }));
-  }
-}
-
 function* handleGetSubscribed() {
   try {
     const { data } = yield call(getAllSubscribed);
@@ -225,6 +209,28 @@ function* handleGetComment(action) {
     console.log(id, page, limit);
     const { data } = yield call(getCommentsData, id, page, limit);
     yield put(post.success({ Commdata: data }));
+  } catch (e) {
+    console.log(e);
+    yield put(post.success({ error: true }));
+  }
+}
+
+function* handleGetReplies(action) {
+  try {
+    const { postId, parentCommentId, page, limit } = action.payload;
+    const { data } = yield call(
+      getReplies,
+      postId,
+      parentCommentId,
+      page,
+      limit
+    );
+    yield put(
+      post.success({
+        repliesData: data.results,
+        repliesCount: data.totalCount,
+      })
+    );
   } catch (e) {
     console.log(e);
     yield put(post.success({ error: true }));
