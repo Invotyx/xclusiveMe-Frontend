@@ -26,7 +26,7 @@ const ManuButton = ({ post }) => {
   };
 
   return (
-    <div>
+    <>
       <IconButton
         aria-label='more'
         aria-controls='simple-menu'
@@ -51,7 +51,7 @@ const ManuButton = ({ post }) => {
         setreportModal={setreportModal}
         post={post}
       />
-    </div>
+    </>
   );
 };
 
