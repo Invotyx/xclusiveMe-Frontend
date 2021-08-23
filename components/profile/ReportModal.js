@@ -32,6 +32,7 @@ const ReportModal = ({
   openReportModal,
   setreportModal,
   entity,
+  onConfirm,
 }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -43,20 +44,7 @@ const ReportModal = ({
     if (!postText || postText.trim() === '') {
       return;
     }
-
-    dispatch(
-      post?.postReport({
-        reportData: {
-          itemId: entity.id,
-          reason: postText,
-        },
-        callback: () => {
-          setreportModal(false);
-          dispatch(post.request());
-          dispatch(post.requestSubscribed());
-        },
-      })
-    );
+    onConfirm && onConfirm();
   };
 
   const handleClose = () => {
