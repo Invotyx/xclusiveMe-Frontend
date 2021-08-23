@@ -17,23 +17,23 @@ export default function FormDialog({
   const onChangeFile = event => {
     event.stopPropagation();
     event.preventDefault();
-    var image = event.target.files[0];
-    if (image) {
-      var temp = URL.createObjectURL(image);
-      onImageSelect && onImageSelect(temp);
-      set_disabled(true);
-      dispatch(
-        post.uploadImage({
-          fileObject: image,
-          callback: source_url => {
-            imageHandler(source_url);
-            set_disabled(false);
-            event.target.value = null;
-            onImageUploaded && onImageUploaded();
-          },
-        })
-      );
-    }
+    var temp = URL.createObjectURL(event.target.files[0]);
+    onImageSelect && onImageSelect(temp);
+    var images = event.target.files;
+    // if (image) {
+    set_disabled(true);
+    dispatch(
+      post.uploadImage({
+        fileObject: images,
+        callback: source_url => {
+          imageHandler(source_url);
+          set_disabled(false);
+          event.target.value = null;
+          onImageUploaded && onImageUploaded();
+        },
+      })
+    );
+    // }
   };
 
   return (

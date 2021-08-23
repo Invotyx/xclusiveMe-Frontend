@@ -11,12 +11,6 @@ export async function getOnePost(id) {
   return apiClient.get(`${SERVER_ADDRESS}/posts/${id}`);
 }
 
-export async function getReplies(postId, commentId) {
-  return apiClient.get(
-    `${SERVER_ADDRESS}/posts/${postId}/comments/${commentId}/replies`
-  );
-}
-
 export async function getAllSubscribed() {
   return apiClient.get(`${SERVER_ADDRESS}/posts/subscribed`);
 }
@@ -38,6 +32,12 @@ export async function addComment(id, commentData) {
 export async function getCommentsData(id, pageNum, limit) {
   return apiClient.get(
     `${SERVER_ADDRESS}/posts/${id}/comments?page=${pageNum}&limit=${limit}`
+  );
+}
+
+export async function getReplies(postId, commentId, pageNum, limit) {
+  return apiClient.get(
+    `${SERVER_ADDRESS}/posts/${postId}/comments/${commentId}/replies?page=${pageNum}&limit=${limit}`
   );
 }
 
@@ -65,9 +65,14 @@ export async function destory(id) {
   return apiClient.delete(`${SERVER_ADDRESS}/posts/${id}/remove`);
 }
 
-export async function uploadImage(fileObject) {
+export async function uploadImage(fileObjects) {
+  console.log(fileObjects);
   const data = new FormData();
-  data.append('images', fileObject);
+  for (let i = 0; i < fileObjects.length; i++) {
+    data.append('images', fileObjects[i]);
+  }
+
+  // data.append('images', fileObjects);
   return apiClient.post(`${SERVER_ADDRESS}/posts/images`, data);
 }
 
