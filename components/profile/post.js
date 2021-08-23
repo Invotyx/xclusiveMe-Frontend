@@ -360,6 +360,7 @@ export default function Post({
                   </IconButton>
                 ) : (
                   <ManuButton
+                    title='Report this Post'
                     profileImage={post?.user?.profileImage}
                     onConfirm={reason =>
                       dispatch(
