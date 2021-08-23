@@ -190,14 +190,6 @@ export const post = {
       error: null,
     }),
 
-  userReport: data =>
-    createAction(POST.REPORT_USER, {
-      ...data,
-      fetching: true,
-      success: false,
-      error: null,
-    }),
-
   addTip: data =>
     createAction(POST.TIP, {
       ...data,

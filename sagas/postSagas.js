@@ -28,7 +28,6 @@ import {
   reportPost,
   getCommentsData,
   tipPost,
-  reportUser,
 } from '../services/post.service';
 import { bottomalert } from '../actions/bottom-alert';
 
@@ -580,36 +579,6 @@ function* postsReport(action) {
   }
 }
 
-function* usersReport(action) {
-  try {
-    const { reportData } = action.payload;
-    yield call(reportUser, reportData);
-    yield put(post.success({}));
-    yield call(post.request);
-    yield put(
-      snackbar.update({
-        open: true,
-        message: ' Reported',
-        severity: 'success',
-      })
-    );
-    const { callback } = action.payload;
-    if (callback) {
-      yield call(callback);
-    }
-  } catch (e) {
-    console.log(e);
-    yield put(post.failure({ error: { ...e } }));
-    yield put(
-      snackbar.update({
-        open: true,
-        message: e.response.data.message,
-        severity: 'error',
-      })
-    );
-  }
-}
-
 function* handleAddTip(action) {
   try {
     const { saveData } = action.payload;
@@ -666,7 +635,6 @@ function* watchPostSagas() {
     takeLatest(POST.UPLOAD_VIDEO_REQ, handleUploadVideoReq),
     takeLatest(POST.UPLOAD_VIDEO_FINAL_REQ, handleUploadVideoFinalReq),
     takeLatest(POST.REPORT_POST, postsReport),
-    takeLatest(POST.REPORT_USER, usersReport),
     takeLatest(POST.TIP, handleAddTip),
   ]);
 }

@@ -9,6 +9,7 @@ export const USER = createActionTypes('USER', [
   'PUT',
   'PATCH',
   'DELETE',
+  'REPORT_USER',
   'SUCCESS',
   'FAILURE',
 ]);

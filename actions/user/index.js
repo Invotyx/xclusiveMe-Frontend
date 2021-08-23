@@ -60,6 +60,13 @@ export const user = {
       success: false,
       error: null,
     }),
+  report: data =>
+    createAction(USER.REPORT_USER, {
+      ...data,
+      fetching: true,
+      success: false,
+      error: null,
+    }),
   success: data =>
     createAction(USER.SUCCESS, {
       ...data,
