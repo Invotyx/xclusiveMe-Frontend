@@ -32,7 +32,6 @@ import CardContent from '@material-ui/core/CardContent';
 import { useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import MonetizationOnOutlinedIcon from '@material-ui/icons/MonetizationOnOutlined';
 import io from 'socket.io-client';
 import { snackbar } from '../actions/snackbar';
 import TipModal from '../components/profile/TipModal';
