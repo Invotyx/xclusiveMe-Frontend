@@ -139,15 +139,6 @@ const ReportModal = ({ openReportModal, setreportModal, post }) => {
                 }}
               >
                 <div>
-                  {/* <p
-                    style={{
-                      fontSize: '40px',
-                      fontWeight: '600',
-                    }}
-                  >
-                    ${post?.price}.00
-                  </p> */}
-
                   <TextField
                     id='outlined-basic'
                     variant='outlined'
