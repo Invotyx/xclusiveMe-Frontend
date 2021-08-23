@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -21,6 +22,10 @@ export default function Profile() {
   const _feed = useSelector(xfeedSelector);
 
   return (
+    <>
+      <Head>
+        <title>{username} - xclusiveme</title>
+      </Head>
     <User
       user={u}
       profileData={u && u.creator ? u.creator : u}
@@ -34,5 +39,6 @@ export default function Profile() {
       followers={u?.totalFollowers}
       followings={u?.totalFollowings}
     />
+    </>
   );
 }
