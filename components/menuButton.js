@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import Menu from '@material-ui/core/Menu';
 import ReportModal from './profile/ReportModal';
 
-const ManuButton = ({ post }) => {
+const ManuButton = ({ entity }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [openReportModal, setreportModal] = useState(false);
 
@@ -49,7 +49,7 @@ const ManuButton = ({ post }) => {
       <ReportModal
         openReportModal={openReportModal}
         setreportModal={setreportModal}
-        post={post}
+        entity={entity}
       />
     </>
   );

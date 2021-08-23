@@ -29,7 +29,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const ReportModal = ({ openReportModal, setreportModal, post }) => {
+const ReportModal = ({ openReportModal, setreportModal, entity }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
@@ -44,7 +44,7 @@ const ReportModal = ({ openReportModal, setreportModal, post }) => {
     dispatch(
       postData?.postReport({
         reportData: {
-          itemId: post.id,
+          itemId: entity.id,
           reason: postText,
         },
         callback: () => {
@@ -94,7 +94,7 @@ const ReportModal = ({ openReportModal, setreportModal, post }) => {
                   }}
                 >
                   <img
-                    src={post?.user?.profileImage}
+                    src={entity?.user?.profileImage}
                     alt='profile image'
                     width='60px'
                     height='65px'

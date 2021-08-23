@@ -359,7 +359,7 @@ export default function Post({
                     <MoreVertIcon />
                   </IconButton>
                 ) : (
-                  <ManuButton post={post} />
+                  <ManuButton entity={post} />
                 )}
               </div>
 
