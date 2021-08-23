@@ -5,7 +5,7 @@ import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
 import { Picker } from 'emoji-mart';
 import 'emoji-mart/css/emoji-mart.css';
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { chat } from '../../actions/chat';
 import { currentUserSelector } from '../../selectors/authSelector';
 import ProfileImageAvatar from '../profile/profile-image-avatar';
@@ -16,6 +16,7 @@ export default function MessageSend({ conId, setLastMessageReceived }) {
   const [show, setShow] = useState(false);
   const [msgText, setMsgText] = useState('');
   const [imageModal, setImageModal] = useState(false);
+  const dispatch = useDispatch();
 
   function handleOnEnter() {
     if (!msgText || msgText.trim() === '') {
