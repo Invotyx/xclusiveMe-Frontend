@@ -31,6 +31,7 @@ const useStyles = makeStyles(theme => ({
 const ReportModal = ({
   openReportModal,
   setreportModal,
+  title,
   profileImage,
   onConfirm,
 }) => {
@@ -111,7 +112,7 @@ const ReportModal = ({
                   }}
                 >
                   <p style={{ fontWeight: '600', fontSize: '17px' }}>
-                    Report this Post
+                    {title}
                   </p>
                 </div>
               </div>
