@@ -45,6 +45,7 @@ import { Picker } from 'emoji-mart';
 import 'emoji-mart/css/emoji-mart.css';
 import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
 import { useRouter } from 'next/router';
+import { currentUserSelector } from '../selectors/authSelector';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -115,7 +116,7 @@ const SinglePost = ({
   const [commLength, setcommLength] = useState(10);
   const [show, setShow] = useState(false);
   const router = useRouter();
-
+  const currUser = useSelector(currentUserSelector);
   const { postId, forCommentId } = router.query;
 
   const handleOpenModel = () => {
@@ -306,7 +307,7 @@ const SinglePost = ({
             ) : (
               !isMobile && (
                 <CardHeader
-                  avatar={<ProfileImageAvatar user={profileData} />}
+                  avatar={<ProfileImageAvatar user={sPost?.user} />}
                   action={
                     <IconButton aria-label='settings'>
                       {!isMobile && <CloseIcon onClick={handleClose} />}
@@ -476,7 +477,27 @@ const SinglePost = ({
                             style={{ marginRight: '5px', marginLeft: '5px' }}
                           />
                         ) : (
-                          <TipModal user={sPost?.user} postId={sPost?.id} />
+                          <TipModal
+                            profileImage={post?.user?.profileImage}
+                            name={post?.user?.fullName}
+                            onConfirm={(amount, callback) =>
+                              dispatch(
+                                postData.addTip({
+                                  saveData: {
+                                    itemTipped: post.id,
+                                    itemTippedType: 'post',
+                                    amount,
+                                  },
+
+                                  callback: () => {
+                                    callback && callback();
+                                    dispatch(postData.request());
+                                    dispatch(postData.requestSubscribed());
+                                  },
+                                })
+                              )
+                            }
+                          />
                         )}
 
                         <span
@@ -711,6 +732,7 @@ const SinglePost = ({
                             setissubReplyField={setissubReplyField}
                             commentId={commentId}
                             setCommentId={setCommentId}
+                            currUser={currUser}
                           />
 
                           {/* {comm.totalReplies > 0  ? (
@@ -918,7 +940,7 @@ const SinglePost = ({
                   placeholder='Add Comment'
                   startAdornment={
                     <ProfileImageAvatar
-                      user={currentUser}
+                      user={currUser}
                       style={{ marginLeft: '2px', marginRight: '5px' }}
                     />
                   }
