@@ -14,7 +14,7 @@ import useMediaRecorder from '@wmik/use-media-recorder';
 import { snackbar } from '../../actions/snackbar';
 import AudioSend from './audioSend';
 
-export default function MessageSend({ conId }) {
+export default function MessageSend({ conId, handleSendMessage }) {
   let { status, mediaBlob, stopRecording, startRecording } = useMediaRecorder({
     recordScreen: false,
     mediaStreamConstraints: { audio: true, video: false },
@@ -37,23 +37,9 @@ export default function MessageSend({ conId }) {
 
     setShow(false);
 
-    dispatch(
-      chat.sendOneMessage({
-        conversationId: Number(conId),
-        saveData: {
-          // receiver: current.id,
-          content: msgText,
-          // sentTo: chatsData
-          //   .filter(list => list.id == conId)[0]
-          //   ?.participants.filter(p => p.id !== current.id)[0].id,
-          type: 'text',
-          isPaid: false,
-        },
-        callback: () => {
-          setMsgText('');
-        },
-      })
-    );
+    handleSendMessage(msgText, () => {
+      setMsgText('');
+    });
   }
 
   useEffect(() => {
