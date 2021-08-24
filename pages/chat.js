@@ -32,6 +32,7 @@ import TipModal from '../components/profile/TipModal';
 import ManuButton from '../components/menuButton';
 import { user } from '../actions/user';
 import MessageSend from '../components/message/MessageSend';
+import SearchConversations from '../components/message/SearchConversations';
 import { post } from '../actions/post';
 import { currencySymbol } from '../services/currencySymbol';
 const { publicRuntimeConfig } = getConfig();
@@ -173,30 +174,7 @@ const Chat = () => {
                       marginBottom: '10px',
                     }}
                   >
-                    <form
-                      noValidate
-                      autoComplete='off'
-                      style={{
-                        flexGrow: 1,
-                        marginRight: '5px',
-                      }}
-                    >
-                      <TileTextField
-                        fullWidth
-                        id='outlined-basic'
-                        placeholder='Search'
-                        variant='outlined'
-                        margin='dense'
-                        InputProps={{
-                          startAdornment: (
-                            <SearchIcon
-                              fontSize='small'
-                              style={{ color: '#7c8080' }}
-                            />
-                          ),
-                        }}
-                      />
-                    </form>
+                    <SearchConversations />
                     <IconButton
                       size='small'
                       style={{
