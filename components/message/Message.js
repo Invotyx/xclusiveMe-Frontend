@@ -156,7 +156,7 @@ export default function Message({ subheaderPrefix }) {
 
                 <ListItemSecondaryAction>
                   <Typography component='span' variant='caption'>
-                    {moment(i.createdAt).fromNow()}
+                    {moment(i.updatedAt).fromNow()}
                   </Typography>
                 </ListItemSecondaryAction>
               </ListItem>
