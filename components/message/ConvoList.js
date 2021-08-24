@@ -21,7 +21,10 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const ConvoList = ({ activeConversationId, lastMessageReceived }) => {
+const ConvoList = ({
+  activeConversationId,
+  lastMessageReceived,
+}) => {
   const myRef = React.useRef(null);
   const current = useSelector(currentUserSelector);
   const singlechat = useSelector(singleChatSelector);
