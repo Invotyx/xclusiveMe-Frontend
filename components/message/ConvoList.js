@@ -24,6 +24,7 @@ const useStyles = makeStyles(theme => ({
 const ConvoList = ({
   activeConversationId,
   lastMessageReceived,
+  scrollIntoViewPointer,
 }) => {
   const myRef = React.useRef(null);
   const current = useSelector(currentUserSelector);
@@ -56,6 +57,10 @@ const ConvoList = ({
   React.useEffect(() => {
     getOneConversation();
   }, [lastMessageReceived]);
+
+  React.useEffect(() => {
+    scrollIntoView();
+  }, [scrollIntoViewPointer]);
 
   const classes = useStyles();
 

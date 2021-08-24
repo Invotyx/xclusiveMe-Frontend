@@ -52,6 +52,8 @@ const Chat = () => {
   const [activeConversationId, setActiveConversationId] = React.useState(null);
   const [activeParticipant, setActiveParticipant] = React.useState(null);
   const [lastMessageReceived, setLastMessageReceived] = React.useState(null);
+  const [scrollIntoViewPointer, setScrollIntoViewPointer] =
+    React.useState(null);
 
   const router = useRouter();
   const { conId } = router.query;
@@ -129,13 +131,14 @@ const Chat = () => {
     };
     if (typeof content === 'string') {
       newMessageData.content = content;
+      setScrollIntoViewPointer(+new Date());
     } else if (typeof content === 'object') {
       newMessageData = { ...newMessageData, ...content };
     }
     socketIo.emit('new-message-to-server', newMessageData, data => {
       console.log(data);
     });
-    setLastMessageReceived(+new Date());
+    // setLastMessageReceived(+new Date());
     callback && callback();
   };
 
@@ -289,6 +292,7 @@ const Chat = () => {
                 <ConvoList
                   activeConversationId={activeConversationId}
                   lastMessageReceived={lastMessageReceived}
+                  scrollIntoViewPointer={scrollIntoViewPointer}
                 />
               </CardContent>
               <MessageSend
