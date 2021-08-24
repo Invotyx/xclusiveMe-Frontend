@@ -125,13 +125,15 @@ const Chat = () => {
   let pageNum = 1;
   let limit = 50;
 
-  useEffect(() => {
+  const getConversations = () =>
     dispatch(
       chat.getConversations({
         pageNum: pageNum,
         limit: limit,
       })
     );
+  useEffect(() => {
+    getConversations();
   }, []);
 
   useEffect(() => {
