@@ -66,13 +66,10 @@ export async function destory(id) {
 }
 
 export async function uploadImage(fileObjects) {
-  console.log(fileObjects);
   const data = new FormData();
   for (let i = 0; i < fileObjects.length; i++) {
     data.append('images', fileObjects[i]);
   }
-
-  // data.append('images', fileObjects);
   return apiClient.post(`${SERVER_ADDRESS}/posts/images`, data);
 }
 
