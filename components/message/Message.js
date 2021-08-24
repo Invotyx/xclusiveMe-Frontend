@@ -80,9 +80,10 @@ export default function Message({ subheaderPrefix }) {
   const chatsCount = useSelector(chatCountSelector);
 
   const router = useRouter();
+  const { pathname, query } = router;
   const handlegetone = conId => {
     setActiveConversationId(conId);
-    router.push(`/chat?conId=${conId}`);
+    router.push({ pathname, query: { ...query, conId } });
   };
 
   return (
