@@ -47,11 +47,10 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function useSocket(url) {
-  const JWTToken =
-    typeof window !== 'undefined' ? localStorage.getItem('jwtToken') : null;
   const [socket, setSocket] = useState(null);
 
   useEffect(() => {
+    const JWTToken = localStorage.getItem('jwtToken');
     const socketIo = io(url, {
       transports: ['websocket'],
       query: {
