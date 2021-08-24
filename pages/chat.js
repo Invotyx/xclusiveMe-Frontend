@@ -14,7 +14,9 @@ import Typography from '@material-ui/core/Typography';
 import ImageAvatar from '../components/image-avatar';
 import getConfig from 'next/config';
 import { chat } from '../actions/chat';
-import { chatDataSelector } from '../selectors/chatSelector';
+import {
+  chatDataSelector,
+} from '../selectors/chatSelector';
 import ConvoList from '../components/message/ConvoList';
 import IconButton from '@material-ui/core/IconButton';
 import Container from '@material-ui/core/Container';
