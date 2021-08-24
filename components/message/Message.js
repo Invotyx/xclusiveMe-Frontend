@@ -122,44 +122,45 @@ export default function Message({ subheaderPrefix }) {
               return true;
             })
             .map((i, x) => (
-            <ListItem
-              key={`chatData${x}`}
-              button
-              onClick={() => handlegetone(i.id)}
-              disableGutters
-              selected={+activeConversationId === i.id}
-            >
-              <ListItemAvatar>
-                <ImageAvatar
-                  src={
-                    i.participants.find(p => p.id !== myData?.id)?.profileImage
+              <ListItem
+                key={`chatData${x}`}
+                button
+                onClick={() => handlegetone(i.id)}
+                disableGutters
+                selected={+activeConversationId === i.id}
+              >
+                <ListItemAvatar>
+                  <ImageAvatar
+                    src={
+                      i.participants.find(p => p.id !== myData?.id)
+                        ?.profileImage
+                    }
+                  />
+                </ListItemAvatar>
+                <ListItemText
+                  primary={
+                    i.participants.find(p => p?.id !== myData?.id)?.fullName
+                  }
+                  secondary={
+                    <React.Fragment>
+                      <Typography
+                        component='span'
+                        variant='body2'
+                        style={{ color: '#757575' }}
+                      >
+                        {i.lastMessage.content.slice(0, 15)}...
+                      </Typography>
+                    </React.Fragment>
                   }
                 />
-              </ListItemAvatar>
-              <ListItemText
-                primary={
-                  i.participants.find(p => p?.id !== myData?.id)?.fullName
-                }
-                secondary={
-                  <React.Fragment>
-                    <Typography
-                      component='span'
-                      variant='body2'
-                      style={{ color: '#757575' }}
-                    >
-                      {i.lastMessage.content.slice(0, 15)}...
-                    </Typography>
-                  </React.Fragment>
-                }
-              />
 
-              <ListItemSecondaryAction>
-                <Typography component='span' variant='caption'>
-                  {moment(i.createdAt).fromNow()}
-                </Typography>
-              </ListItemSecondaryAction>
-            </ListItem>
-          ))}
+                <ListItemSecondaryAction>
+                  <Typography component='span' variant='caption'>
+                    {moment(i.createdAt).fromNow()}
+                  </Typography>
+                </ListItemSecondaryAction>
+              </ListItem>
+            ))}
         </List>
       )}
     </>
