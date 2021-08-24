@@ -26,10 +26,8 @@ export default function audioSend({
   };
 
   const Clear = () => {
-    clearInterval(progressRef);
     setProgress(0);
     setAddVoice(false);
-    stopRecording();
   };
 
   const onStop = audioData => {
