@@ -101,7 +101,12 @@ const Chat = () => {
       socket.on('disconnect', () => {
         console.log('disconnected');
       });
+
+    function cleanup() {
+      socket.disconnect();
     }
+
+    return cleanup;
   }, [conId]);
 
   const classes = useStyles();
