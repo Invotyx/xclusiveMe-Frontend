@@ -271,20 +271,10 @@ const Chat = () => {
                             },
 
                             callback: () => {
-                              dispatch(
-                                chat.sendOneMessage({
-                                  conversationId: Number(conId),
-                                  saveData: {
-                                    content: `${activeParticipant?.fullName} sent you a ${currencySymbol}${amount} tip`,
-                                    type: 'text',
-                                    isPaid: false,
-                                  },
-                                  callback: () => {
-                                    setLastMessageReceived(+new Date());
-                                  },
-                                })
+                              handleSendMessage(
+                                `${activeParticipant?.fullName} sent you a ${currencySymbol}${amount} tip`,
+                                callback
                               );
-                              callback && callback();
                             },
                           })
                         )
