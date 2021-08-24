@@ -67,8 +67,10 @@ const Chat = () => {
       })
     );
 
-  const url =
-    `${SERVER_ADDRESS.substring(0, SERVER_ADDRESS.length - 4)}/messages`
+  const url = `${SERVER_ADDRESS.substring(
+    0,
+    SERVER_ADDRESS.length - 4
+  )}/messages`;
   useEffect(() => {
     const JWTToken = localStorage.getItem('jwtToken');
     const socket = io(url, {
@@ -78,37 +80,35 @@ const Chat = () => {
       },
     });
     setSocketIo(socket);
-      socket.on('connected', data => {
-        console.log(data);
-      });
-      socket.on('new-message', data => {
-        if (activeConversationId === data.conversationId) {
-          setLastMessageReceived(+new Date());
-        } else {
-          getConversations();
-        }
-        dispatch(
-          snackbar.update({
-            open: true,
-            message: (
-              <>
-                <Typography variant='subtitle2'>
-                  New message received:
-                </Typography>
-                <Typography variant='caption'>{data.message}</Typography>
-              </>
-            ),
-            severity: 'success',
-          })
-        );
-        console.log('New message sent to client: ', data);
-      });
-      socket.on('exception', data => {
-        console.log(data);
-      });
-      socket.on('disconnect', () => {
-        console.log('disconnected');
-      });
+    socket.on('connected', data => {
+      console.log(data);
+    });
+    socket.on('new-message', data => {
+      if (activeConversationId === data.conversationId) {
+        setLastMessageReceived(+new Date());
+      } else {
+        getConversations();
+      }
+      dispatch(
+        snackbar.update({
+          open: true,
+          message: (
+            <>
+              <Typography variant='subtitle2'>New message received:</Typography>
+              <Typography variant='caption'>{data.message}</Typography>
+            </>
+          ),
+          severity: 'success',
+        })
+      );
+      console.log('New message sent to client: ', data);
+    });
+    socket.on('exception', data => {
+      console.log(data);
+    });
+    socket.on('disconnect', () => {
+      console.log('disconnected');
+    });
 
     function cleanup() {
       socket.disconnect();
@@ -121,7 +121,6 @@ const Chat = () => {
   const dispatch = useDispatch();
   const current = useSelector(currentUserSelector);
   const chatsData = useSelector(chatDataSelector);
-
 
   const handleSendMessage = (content, callback) => {
     let newMessageData = {
