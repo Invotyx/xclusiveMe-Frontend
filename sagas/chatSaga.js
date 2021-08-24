@@ -86,7 +86,7 @@ function* handleGetOneCon(action) {
 function* handleAddVoicemail(action) {
   try {
     const { audioFile, callback } = action.payload;
-    yield call(addVoicemail, audioFile);
+    const { data } = yield call(addVoicemail, audioFile);
     yield put(chat.success({}));
     yield put(
       snackbar.update({
@@ -96,7 +96,7 @@ function* handleAddVoicemail(action) {
       })
     );
     if (callback) {
-      yield call(callback);
+      yield call(callback, data);
     }
     // yield put(chat.success({}));
   } catch (e) {
