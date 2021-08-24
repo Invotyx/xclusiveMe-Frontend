@@ -99,11 +99,8 @@ const Chat = () => {
         console.log(data);
       });
       socket.on('new-message', data => {
-        if (activeConversationId === data.conversationId) {
           setLastMessageReceived(+new Date());
-        } else {
           getConversations();
-        }
         dispatch(
           snackbar.update({
             open: true,
