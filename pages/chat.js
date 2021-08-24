@@ -100,7 +100,7 @@ const Chat = () => {
       });
       socket.on('new-message', data => {
         if (activeConversationId === data.conversationId) {
-        setLastMessageReceived(+new Date());
+          setLastMessageReceived(+new Date());
         } else {
           getConversations();
         }
