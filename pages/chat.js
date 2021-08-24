@@ -44,30 +44,6 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function useSocket(url) {
-  const [socket, setSocket] = useState(null);
-
-  useEffect(() => {
-    const JWTToken = localStorage.getItem('jwtToken');
-    const socketIo = io(url, {
-      transports: ['websocket'],
-      query: {
-        token: `${JWTToken}`,
-      },
-    });
-
-    setSocket(socketIo);
-
-    function cleanup() {
-      socketIo.disconnect();
-    }
-
-    return cleanup;
-  }, []);
-
-  return socket;
-}
-
 export const ActiveConversationContext = React.createContext([[], () => {}]);
 const Chat = () => {
   const theme = useTheme();
@@ -87,11 +63,16 @@ const Chat = () => {
       })
     );
 
-  const socket = useSocket(
+  const url =
     `${SERVER_ADDRESS.substring(0, SERVER_ADDRESS.length - 4)}/messages`
-  );
   useEffect(() => {
-    if (socket) {
+    const JWTToken = localStorage.getItem('jwtToken');
+    const socket = io(url, {
+      transports: ['websocket'],
+      query: {
+        token: `${JWTToken}`,
+      },
+    });
       socket.on('connected', data => {
         console.log(data);
       });
@@ -121,7 +102,7 @@ const Chat = () => {
         console.log('disconnected');
       });
     }
-  }, [socket]);
+  }, [conId]);
 
   const classes = useStyles();
   const router = useRouter();
