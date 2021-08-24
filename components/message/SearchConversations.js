@@ -20,6 +20,10 @@ export default function SearchConversations() {
       }, 1500)
     );
   };
+  const handleSubmit = e => {
+    e.preventDefault()
+    handleSearch(searchQuery)
+};
   const handleSearch = search => {
     router.push({
       pathname,
@@ -36,6 +40,7 @@ export default function SearchConversations() {
           flexGrow: 1,
           marginRight: '5px',
         }}
+        onSubmit={handleSubmit}
       >
         <TileTextField
           fullWidth
