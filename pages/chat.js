@@ -16,6 +16,7 @@ import getConfig from 'next/config';
 import { chat } from '../actions/chat';
 import {
   chatDataSelector,
+  singleChatSelector,
 } from '../selectors/chatSelector';
 import ConvoList from '../components/message/ConvoList';
 import IconButton from '@material-ui/core/IconButton';
@@ -125,6 +126,7 @@ const Chat = () => {
   const dispatch = useDispatch();
   const current = useSelector(currentUserSelector);
   const chatsData = useSelector(chatDataSelector);
+  const singlechat = useSelector(singleChatSelector);
 
   const handleSendMessage = (content, callback) => {
     let newMessageData = {
@@ -133,6 +135,17 @@ const Chat = () => {
     };
     if (typeof content === 'string') {
       newMessageData.content = content;
+      dispatch(
+        chat.success({
+          singleChat: [
+            ...singlechat,
+            {
+              content,
+              sender: current,
+            },
+          ],
+        })
+      );
       setScrollIntoViewPointer(+new Date());
     } else if (typeof content === 'object') {
       newMessageData = { ...newMessageData, ...content };
