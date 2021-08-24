@@ -32,6 +32,9 @@ const ConvoList = ({
   const pageNum = 1;
   const limit = 50;
 
+  const scrollIntoView = () => {
+    myRef.current.scrollIntoView();
+  };
   const getOneConversation = clear => {
     clear && dispatch(chat.success({ singleChat: [] }));
     dispatch(
@@ -40,7 +43,7 @@ const ConvoList = ({
         pageNum: pageNum,
         limit: limit,
         callback: () => {
-          myRef.current.scrollIntoView();
+          scrollIntoView();
         },
       })
     );
