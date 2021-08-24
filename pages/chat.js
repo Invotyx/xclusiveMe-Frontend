@@ -46,6 +46,7 @@ const useStyles = makeStyles(theme => ({
 
 export const ActiveConversationContext = React.createContext([[], () => {}]);
 const Chat = () => {
+  const [socketIo, setSocketIo] = useState(null);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [activeConversationId, setActiveConversationId] = React.useState(null);
@@ -76,6 +77,7 @@ const Chat = () => {
         token: `${JWTToken}`,
       },
     });
+    setSocketIo(socket);
       socket.on('connected', data => {
         console.log(data);
       });
@@ -131,7 +133,7 @@ const Chat = () => {
     } else if (typeof content === 'object') {
       newMessageData = { ...newMessageData, ...content };
     }
-    socket.emit('new-message-to-server', newMessageData, data => {
+    socketIo.emit('new-message-to-server', newMessageData, data => {
       console.log(data);
     });
     setLastMessageReceived(+new Date());
