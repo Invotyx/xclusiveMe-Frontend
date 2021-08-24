@@ -141,7 +141,7 @@ const Chat = () => {
 
   const handleSendMessage = (content, callback) => {
     let newMessageData = {
-      conversationId: conId,
+      conversationId: +conId,
       receiver: activeParticipant?.id,
     };
     if (typeof content === 'string') {
