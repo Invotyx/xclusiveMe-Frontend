@@ -129,6 +129,7 @@ export default function MessageSend({ conId, setLastMessageReceived }) {
             display: 'flex',
             justifyContent: 'space-between',
             width: '30%',
+            opacity: addVoice ? 0 : 1,
           }}
         >
           <img src='/camera.svg' alt='camera' />
