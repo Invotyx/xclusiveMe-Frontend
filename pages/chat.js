@@ -52,6 +52,9 @@ const Chat = () => {
   const [activeParticipant, setActiveParticipant] = React.useState(null);
   const [lastMessageReceived, setLastMessageReceived] = React.useState(null);
 
+  const router = useRouter();
+  const { conId } = router.query;
+
   let pageNum = 1;
   let limit = 50;
 
@@ -113,12 +116,10 @@ const Chat = () => {
   }, [conId]);
 
   const classes = useStyles();
-  const router = useRouter();
   const dispatch = useDispatch();
   const current = useSelector(currentUserSelector);
   const chatsData = useSelector(chatDataSelector);
 
-  const { conId } = router.query;
 
   const handleSendMessage = (content, callback) => {
     let newMessageData = {
