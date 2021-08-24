@@ -103,7 +103,8 @@ export default function Message({ subheaderPrefix }) {
               <Typography>All messages</Typography>
             </>
           </ListSubheader>
-          {chatData?.map((i, x) => (
+          {chatData
+            .map((i, x) => (
             <ListItem
               key={`chatData${x}`}
               button
