@@ -140,17 +140,16 @@ const Chat = () => {
   const { conId } = router.query;
 
   const handleSendMessage = (content, callback) => {
-    socket.emit(
-      'new-message-to-server',
-      {
-        conversationId: conId,
-        receiver: activeParticipant?.id,
-        content,
-      },
-      data => {
-        console.log(data);
-      }
-    );
+    let newMessageData = {
+      conversationId: conId,
+      receiver: activeParticipant?.id,
+    };
+    if (typeof content === 'string') {
+      newMessageData.content = content;
+    }
+    socket.emit('new-message-to-server', newMessageData, data => {
+      console.log(data);
+    });
     setLastMessageReceived(+new Date());
     callback && callback();
   };
