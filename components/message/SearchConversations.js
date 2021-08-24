@@ -16,13 +16,16 @@ export default function SearchConversations() {
     }
     setTypingTimeout(
       setTimeout(() => {
-        router.push({
-          pathname,
-          query: { ...query, search: e.target.value },
-        });
+        handleSearch(e.target.value);
       }, 1500)
     );
   };
+  const handleSearch = search => {
+    router.push({
+      pathname,
+      query: { ...query, search },
+    });
+};
 
   return (
     <>
