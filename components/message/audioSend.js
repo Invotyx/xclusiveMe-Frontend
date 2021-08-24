@@ -18,6 +18,7 @@ export default function audioSend({
   progressRef,
   setProgress,
   setAddVoice,
+  onAudioUploaded,
 }) {
   const dispatch = useDispatch();
 
@@ -47,7 +48,12 @@ export default function audioSend({
     dispatch(
       chat.sendVoicemail({
         audioFile,
-        callback: () => {
+        callback: data => {
+          onAudioUploaded({
+            type: 'media',
+            messageMediaType: 'audio',
+            media: data,
+          });
           Clear();
         },
       })

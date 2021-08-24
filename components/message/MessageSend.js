@@ -184,6 +184,9 @@ export default function MessageSend({ conId, handleSendMessage }) {
             seconds={seconds}
             setProgress={setProgress}
             setAddVoice={setAddVoice}
+            onAudioUploaded={data => {
+              handleSendMessage(data);
+            }}
           />
         )}
       </CardActions>
