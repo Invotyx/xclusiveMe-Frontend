@@ -78,6 +78,18 @@ const Chat = () => {
   const [activeConversationId, setActiveConversationId] = React.useState(null);
   const [activeParticipant, setActiveParticipant] = React.useState(null);
   const [lastMessageReceived, setLastMessageReceived] = React.useState(null);
+
+  let pageNum = 1;
+  let limit = 50;
+
+  const getConversations = () =>
+    dispatch(
+      chat.getConversations({
+        pageNum: pageNum,
+        limit: limit,
+      })
+    );
+
   const socket = useSocket(
     `${SERVER_ADDRESS.substring(0, SERVER_ADDRESS.length - 4)}/messages`
   );
@@ -122,16 +134,7 @@ const Chat = () => {
   // const { user, image, userId } = router.query;
 
   const { conId } = router.query;
-  let pageNum = 1;
-  let limit = 50;
 
-  const getConversations = () =>
-    dispatch(
-      chat.getConversations({
-        pageNum: pageNum,
-        limit: limit,
-      })
-    );
   useEffect(() => {
     getConversations();
   }, []);
