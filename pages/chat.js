@@ -146,6 +146,8 @@ const Chat = () => {
     };
     if (typeof content === 'string') {
       newMessageData.content = content;
+    } else if (typeof content === 'object') {
+      newMessageData = { ...newMessageData, ...content };
     }
     socket.emit('new-message-to-server', newMessageData, data => {
       console.log(data);
