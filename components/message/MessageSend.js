@@ -14,7 +14,7 @@ import useMediaRecorder from '@wmik/use-media-recorder';
 import { snackbar } from '../../actions/snackbar';
 import AudioSend from './audioSend';
 
-export default function MessageSend({ conId, setLastMessageReceived }) {
+export default function MessageSend({ conId }) {
   let { status, mediaBlob, stopRecording, startRecording } = useMediaRecorder({
     recordScreen: false,
     mediaStreamConstraints: { audio: true, video: false },
@@ -50,7 +50,6 @@ export default function MessageSend({ conId, setLastMessageReceived }) {
           isPaid: false,
         },
         callback: () => {
-          setLastMessageReceived(+new Date());
           setMsgText('');
         },
       })

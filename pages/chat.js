@@ -303,7 +303,6 @@ const Chat = () => {
               </CardContent>
               <MessageSend
                 conId={conId}
-                setLastMessageReceived={setLastMessageReceived}
               />
             </Card>
           </Grid>
