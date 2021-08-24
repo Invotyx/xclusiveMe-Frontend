@@ -135,8 +135,6 @@ const Chat = () => {
   const current = useSelector(currentUserSelector);
   const chatsData = useSelector(chatDataSelector);
 
-  // const { user, image, userId } = router.query;
-
   const { conId } = router.query;
 
   const handleSendMessage = (content, callback) => {
