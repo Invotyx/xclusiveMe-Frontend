@@ -139,6 +139,22 @@ const Chat = () => {
 
   const { conId } = router.query;
 
+  const handleSendMessage = (content, callback) => {
+    socket.emit(
+      'new-message-to-server',
+      {
+        conversationId: conId,
+        receiver: activeParticipant?.id,
+        content,
+      },
+      data => {
+        console.log(data);
+      }
+    );
+    setLastMessageReceived(+new Date());
+    callback && callback();
+  };
+
   useEffect(() => {
     getConversations();
   }, []);
@@ -303,21 +319,7 @@ const Chat = () => {
               </CardContent>
               <MessageSend
                 conId={conId}
-                handleSendMessage={(content, callback) => {
-                  socket.emit(
-                    'new-message-to-server',
-                    {
-                      conversationId: conId,
-                      receiver: activeParticipant?.id,
-                      content,
-                    },
-                    data => {
-                      console.log(data);
-                    }
-                  );
-                  setLastMessageReceived(+new Date());
-                  callback && callback();
-                }}
+                handleSendMessage={handleSendMessage}
               />
             </Card>
           </Grid>
