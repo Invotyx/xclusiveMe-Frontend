@@ -86,6 +86,8 @@ export default function Message({ subheaderPrefix }) {
     router.push({ pathname, query: { ...query, conId } });
   };
 
+  const { search } = query;
+
   return (
     <>
       {chatsCount === 0 ? (
@@ -104,6 +106,21 @@ export default function Message({ subheaderPrefix }) {
             </>
           </ListSubheader>
           {chatData
+            ?.filter(c => {
+              if (search) {
+                const participant = c.participants.find(
+                  p => p.id !== myData?.id
+                );
+                if (participant) {
+                  return participant.fullName
+                    .toLowerCase()
+                    .indexOf(search.toLowerCase()) > -1
+                    ? true
+                    : false;
+                }
+              }
+              return true;
+            })
             .map((i, x) => (
             <ListItem
               key={`chatData${x}`}
