@@ -57,7 +57,7 @@ const RepliesLists = ({
       style={{
         overflowY: showMyReply === true ? 'scroll' : 'hidden',
         overflowX: 'hidden',
-        height: isMobile ? '30vh' : '200px',
+        maxHeight: isMobile ? '30vh' : '200px',
       }}
       className={styles.hScrollBar}
     >
@@ -68,7 +68,7 @@ const RepliesLists = ({
               <div
                 style={{
                   width: '100%',
-                  marginLeft: '20px',
+                  marginLeft: isMobile ? '-10px' : '20px',
                 }}
               >
                 <div
