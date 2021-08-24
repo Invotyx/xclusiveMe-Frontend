@@ -162,7 +162,7 @@ const Chat = () => {
 
   useEffect(() => {
     if (conId) {
-      setActiveConversationId(conId);
+      setActiveConversationId(+conId);
       if (chatsData && current) {
         setActiveParticipant(
           chatsData
