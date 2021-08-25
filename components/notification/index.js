@@ -144,7 +144,7 @@ export default function Notification({
   }, [listofNotifications]);
 
   // console.log('count', count, 'oldCount', oldCount);
-  console.log(todayDate());
+  // console.log(todayDate());
 
   return (
     <>
