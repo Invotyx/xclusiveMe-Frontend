@@ -139,10 +139,12 @@ export default function Notification({
       l.createdAt.substring(0, 10) == todayDate()
         ? setCount(count + 1)
         : setOldCount(oldCount + 1);
+      console.log(l.createdAt.substring(0, 10));
     });
-  }, []);
+  }, [listofNotifications]);
 
-  // console.log('count', count, 'oldCount', oldCount);
+  console.log('count', count, 'oldCount', oldCount);
+  console.log(todayDate());
 
   return (
     <>
@@ -166,7 +168,7 @@ export default function Notification({
             </p>
           )}
           <div>
-            {listofNotifications?.reverse().map((i, x) => (
+            {listofNotifications?.map((i, x) => (
               <div>
                 {i.createdAt.substring(0, 10) == todayDate() ? (
                   <div onClick={() => readNotification(i.id, i.modelId)}>
@@ -206,8 +208,10 @@ export default function Notification({
                           <div className={styles.dataAndTitle}>
                             {i.type === 'comment' ? (
                               <span className={styles.tag}>commented </span>
+                            ) : i.type === 'like' ? (
+                              <span className={styles.tag}>Liked </span>
                             ) : (
-                              <span>Liked</span>
+                              <span className={styles.tag}>Purchased </span>
                             )}
 
                             <span className={styles.timeStyle}>
@@ -284,7 +288,7 @@ export default function Notification({
             </p>
           )}
           <div>
-            {listofNotifications?.reverse().map((i, x) => (
+            {listofNotifications?.map((i, x) => (
               <div>
                 {i.createdAt?.substring(0, 10) !== todayDate() ? (
                   <div onClick={() => readNotification(i.id, i.modelId)}>
@@ -320,11 +324,19 @@ export default function Notification({
                         }
                         secondary={
                           <div className={styles.dataAndTitle}>
+                            {i.type === 'comment' ? (
+                              <span className={styles.tag}>commented </span>
+                            ) : i.type === 'like' ? (
+                              <span className={styles.tag}>Liked </span>
+                            ) : (
+                              <span className={styles.tag}>Purchased </span>
+                            )}
+
                             <span className={styles.timeStyle}>
                               {moment(i.createdAt).fromNow()}
                             </span>
                             <Typography
-                              component='p'
+                              component='span'
                               variant='body2'
                               className={classes.inline}
                               color='textPrimary'
@@ -360,16 +372,7 @@ export default function Notification({
                                   {i.title}
                                 </>
                               ) : (
-                                <span
-                                  style={{
-                                    textOverflow: 'clip',
-                                    whiteSpace: 'normal',
-                                    height: 'auto',
-                                    width: '20vw',
-                                  }}
-                                >
-                                  {i.content.slice(0, 100)}
-                                </span>
+                                <>{i.title}</>
                               )}
                             </Typography>
                           </div>

@@ -274,7 +274,7 @@ export default function Post({
 
     setForCommentId(forReplyId);
     searchInput.current.focus();
-    setOpenReply(true);
+    // setOpenReply(true);
     setOpen(true);
   };
 
@@ -741,7 +741,7 @@ export default function Post({
               </div>
             </div>
 
-            <div>
+            <div onClick={() => setOpenReply(true)}>
               <p
                 style={{
                   marginLeft: '72px',

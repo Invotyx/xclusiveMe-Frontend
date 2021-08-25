@@ -44,6 +44,7 @@ import BounceLoader from 'react-spinners/BounceLoader';
 import { Picker } from 'emoji-mart';
 import 'emoji-mart/css/emoji-mart.css';
 import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
+import { currentUserSelector } from '../../selectors/authSelector';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -112,6 +113,9 @@ const CommentModel = ({
   const fetchData = useSelector(fetchingSelector);
   const [show, setShow] = useState(false);
   const [commLength, setcommLength] = useState(10);
+  const currUser = useSelector(currentUserSelector);
+
+  const [checkRefs, setCheckRefs] = useState(false);
 
   const handleOpenModel = () => {
     console.log('in model');
@@ -134,6 +138,9 @@ const CommentModel = ({
   const showEmoji = () => {
     setShow(!show);
   };
+  function refreshPage() {
+    window.location.reload(false);
+  }
 
   useEffect(() => {
     setCommentsData(commentsData => commentsData?.concat(forComments));
@@ -145,6 +152,7 @@ const CommentModel = ({
   useEffect(() => {
     if (forCommentId) {
       handleReplyField(forCommentId);
+      // console.log('cm', forCommentId);
     }
     // console.log('check', data);
   }, [forCommentId]);
@@ -182,11 +190,12 @@ const CommentModel = ({
     setOpen(false);
     setisReplyField(false);
     setissubReplyField(false);
+    refreshPage();
   };
 
   const handleReplyField = id => {
     setCommentId(id);
-
+    // setCheckRefs(true);
     console.log('reply id', id);
 
     setisReplyField({ check: true, id });
@@ -726,7 +735,7 @@ const CommentModel = ({
                               comm={comm}
                               post={post}
                               singlePost={singlePost}
-                              currentUser={currentUser}
+                              currUser={currUser}
                               isReplyField={isReplyField}
                               setisReplyField={setisReplyField}
                               issubReplyField={issubReplyField}
@@ -735,6 +744,7 @@ const CommentModel = ({
                               setCommentId={setCommentId}
                               forCommentId={forCommentId}
                               openReply={openReply}
+                              checkRefs={checkRefs}
                             />
 
                             {/* {comm.totalReplies > 0  ? (
@@ -986,7 +996,7 @@ const CommentModel = ({
                         style={{
                           position: 'absolute',
                           right: isMobile ? '40px' : '90px',
-                          bottom: '80px',
+                          bottom: '100px',
                           maxWidth: '300px',
                           with: '100%',
                           outline: 'none',

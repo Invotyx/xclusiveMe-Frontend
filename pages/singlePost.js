@@ -48,9 +48,7 @@ import { useRouter } from 'next/router';
 import { currentUserSelector } from '../selectors/authSelector';
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    marginTop: 0,
-  },
+  root: {},
   modal: {
     display: 'flex',
     alignItems: 'center',
@@ -128,7 +126,9 @@ const SinglePost = ({
   const handleTipModal = () => {
     setopenTip(true);
   };
-
+  function refreshPage() {
+    window.location.reload(false);
+  }
   const addEmoji = e => {
     let sym = e.unified.split('-');
     let codesArray = [];
@@ -978,7 +978,7 @@ const SinglePost = ({
                       style={{
                         position: 'absolute',
                         right: isMobile ? '40px' : '90px',
-                        bottom: '80px',
+                        bottom: '100px',
                         maxWidth: '300px',
                         with: '100%',
                         outline: 'none',
