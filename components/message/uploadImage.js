@@ -49,7 +49,6 @@ export default function FormDialog({
 
       <Box clone color='#666'>
         <IconButton
-          style={{ width: '100px' }}
           onClick={() => {
             inputFile.current.click();
           }}
