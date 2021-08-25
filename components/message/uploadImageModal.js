@@ -32,7 +32,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function UploadImageModal({ conId, onMediaUploaded }) {
+export default function UploadImageModal({ onMediaUploaded }) {
   const classes = useStyles();
   const [tileData, set_TileData] = useState([]);
   const [mediaa, setMedia] = useState([]);
