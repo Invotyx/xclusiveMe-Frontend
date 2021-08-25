@@ -101,6 +101,8 @@ export default function UploadImageModal({ type, onMediaUploaded, children }) {
         </div>
       </DialogTitle>
       <DialogContent className={classes.content}>
+        {type === 'photo' && (
+          <>
         <Typography>Upload Your Image</Typography>
         <ImageList rowHeight={100} cols={4}>
           {tileData.map((tile, i) => (
@@ -144,6 +146,8 @@ export default function UploadImageModal({ type, onMediaUploaded, children }) {
             )
           }
         />
+          </>
+        )}
       </DialogContent>
 
       <DialogActions disableSpacing>
