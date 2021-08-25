@@ -98,7 +98,6 @@ function* handleAddVoicemail(action) {
     if (callback) {
       yield call(callback, data);
     }
-    // yield put(chat.success({}));
   } catch (e) {
     console.log(e);
     yield put(chat.failure({ error: { ...e } }));
