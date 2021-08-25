@@ -33,7 +33,6 @@ function MyApp({ Component, pageProps }) {
           href='https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css'
           rel='stylesheet'
         />
-        <link href='lib/css/emoji.css' rel='stylesheet' />
         <meta
           name='viewport'
           content='minimum-scale=1, initial-scale=1, width=device-width'
@@ -46,11 +45,6 @@ function MyApp({ Component, pageProps }) {
           <AppSnackbar />
           <BottomAlert />
         </ThemeProvider>
-
-        <script src='lib/js/config.js'></script>
-        <script src='lib/js/util.js'></script>
-        <script src='lib/js/jquery.emojiarea.js'></script>
-        <script src='lib/js/emoji-picker.js'></script>
       </>
     </div>
   );
