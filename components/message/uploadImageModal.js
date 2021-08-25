@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import UploadImage from './uploadImage';
-import CardContent from '@material-ui/core/CardContent';
 import ImageList from '@material-ui/core/ImageList';
 import MuiImageListItem from '@material-ui/core/ImageListItem';
 import ImageListItemBar from '@material-ui/core/ImageListItemBar';
@@ -156,7 +155,6 @@ export default function UploadImageModal({ conId }) {
       <div className={classes.content}>
         <div>Upload Your Image</div>
         <div>
-          <CardContent>
             <ImageList rowHeight={100} cols={4}>
               {tileData.map((tile, i) => (
                 <ImageListItem key={`tile${i}`}>
@@ -198,7 +196,6 @@ export default function UploadImageModal({ conId }) {
               </MuiImageListItem>
             )} */}
             </ImageList>
-          </CardContent>
         </div>
         <UploadImage
           imageHandler={imageHandler}
