@@ -116,7 +116,7 @@ const Chat = () => {
     });
 
     function cleanup() {
-      socket.disconnect();
+      socket.connected && socket.disconnect();
     }
 
     return cleanup;
