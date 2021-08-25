@@ -107,6 +107,12 @@ export default function Notification({
   const [name, setName] = useState(null);
   const [userName, setUserName] = useState(null);
   const [profieImg, setProfileImage] = useState(null);
+  const readNotification = (notifyId, modalId, type, user) => {
+    type === 'like' || type === 'comment' || type === 'post' || type === 'reply'
+      ? (setOpen(true), dispatch(post?.requestOne(modalId)))
+      : type === 'subscribe' || type === 'postPurchase'
+      ? router.push(`/x/${user?.username}`)
+      : console.log('ok');
 
   const readNotification = (notifyId, modalId) => {
     setOpen(true);
@@ -172,6 +178,16 @@ export default function Notification({
               <div>
                 {i.createdAt.substring(0, 10) == todayDate() ? (
                   <div onClick={() => readNotification(i.id, i.modelId)}>
+                  <div
+                    onClick={() =>
+                      readNotification(
+                        i.id,
+                        i.modelId,
+                        i.type,
+                        i.relatedUsers[0].user
+                      )
+                    }
+                  >
                     <MenuItem onClick={onClose} key={`notificationToday${x}`}>
                       <ListItemAvatar>
                         <div>
