@@ -118,7 +118,6 @@ export default function MessageSend({ conId, handleSendMessage }) {
             onMediaUploaded={data => {
               handleSendMessage(data);
             }}
-            conId={conId}
           >
             <img src='/imageBtn.svg' alt='image' />
           </UploadImageModal>
