@@ -52,11 +52,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function UploadImageModal({
-  msgText,
-  setMsgText,
-  conId,
-}) {
+export default function UploadImageModal({ msgText, setMsgText, conId }) {
   const classes = useStyles();
   const [modalStyle] = useState(getModalStyle);
   const [tileData, set_TileData] = useState([]);
