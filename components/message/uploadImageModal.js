@@ -18,25 +18,7 @@ function rand() {
   return Math.round(Math.random() * 20) - 10;
 }
 
-function getModalStyle() {
-  const top = 50 + rand();
-  const left = 50 + rand();
-
-  return {
-    top: `${top}%`,
-    left: `${left}%`,
-    transform: `translate(-${top}%, -${left}%)`,
-  };
-}
-
 const useStyles = makeStyles(theme => ({
-  paper: {
-    position: 'absolute',
-    width: '30vw',
-    backgroundColor: 'black',
-
-    boxShadow: theme.shadows[5],
-  },
   content: {
     display: 'flex',
     flexDirection: 'column',
@@ -53,7 +35,6 @@ const useStyles = makeStyles(theme => ({
 
 export default function UploadImageModal({ conId }) {
   const classes = useStyles();
-  const [modalStyle] = useState(getModalStyle);
   const [tileData, set_TileData] = useState([]);
   const [mediaa, setMedia] = useState([]);
   const [disabled, set_disabled] = useState(false);
@@ -112,7 +93,7 @@ export default function UploadImageModal({ conId }) {
   };
 
   const body = (
-    <div style={modalStyle} className={classes.paper}>
+    <>
       <div
         style={{
           display: 'flex',
@@ -219,7 +200,7 @@ export default function UploadImageModal({ conId }) {
       >
         Send Now
       </GreenButton>
-    </div>
+    </>
   );
 
   const [imageModal, setImageModal] = useState(false);
