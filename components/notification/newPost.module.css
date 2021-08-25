@@ -1,5 +1,6 @@
 .dataAndTitle {
     display: flex;
+    width: 30vw;
 }
 
 .tag {
