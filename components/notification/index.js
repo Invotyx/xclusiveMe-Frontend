@@ -143,9 +143,6 @@ export default function Notification({
     });
   }, [listofNotifications]);
 
-  console.log('count', count, 'oldCount', oldCount);
-  console.log(todayDate());
-
   return (
     <>
       {/* <ListSubheader>Today</ListSubheader> */}
