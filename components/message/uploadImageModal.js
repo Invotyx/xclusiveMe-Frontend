@@ -107,17 +107,6 @@ export default function UploadImageModal({ conId }) {
             width: '90%',
           }}
         >
-          {/* <img
-                    src='./'
-                    alt='profile image'
-                    width='60px'
-                    height='65px'
-                    style={{
-                      borderRadius: '50%',
-                      marginTop: '-20px',
-                      marginLeft: isMobile ? '40%' : '44%',
-                    }}
-                  /> */}
           <div style={{ marginTop: '-20px', marginLeft: '44%' }}>
             <ProfileImageAvatar />
           </div>
