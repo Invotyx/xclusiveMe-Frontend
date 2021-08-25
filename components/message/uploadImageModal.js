@@ -24,11 +24,6 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
     padding: '10px',
   },
-  btnStyle: {
-    width: '100%',
-    backgroundColor: '#67E697',
-    color: 'white',
-  },
 }));
 
 export default function UploadImageModal({ onMediaUploaded, children }) {
@@ -156,7 +151,7 @@ export default function UploadImageModal({ onMediaUploaded, children }) {
         <GreenButton
           variant='contained'
           color='primary'
-          className={classes.btnStyle}
+          fullWidth
           onClick={handleMsgSend}
         >
           Send Now
