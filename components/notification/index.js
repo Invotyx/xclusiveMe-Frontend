@@ -139,11 +139,11 @@ export default function Notification({
       l.createdAt.substring(0, 10) == todayDate()
         ? setCount(count + 1)
         : setOldCount(oldCount + 1);
-      console.log(l.createdAt.substring(0, 10));
+      // console.log(l.createdAt.substring(0, 10));
     });
   }, [listofNotifications]);
 
-  console.log('count', count, 'oldCount', oldCount);
+  // console.log('count', count, 'oldCount', oldCount);
   console.log(todayDate());
 
   return (
@@ -205,26 +205,15 @@ export default function Notification({
                           </span>
                         }
                         secondary={
-                          <div className={styles.dataAndTitle}>
-                            {i.type === 'comment' ? (
-                              <span className={styles.tag}>commented </span>
-                            ) : i.type === 'like' ? (
-                              <span className={styles.tag}>Liked </span>
-                            ) : (
-                              <span className={styles.tag}>Purchased </span>
-                            )}
-
-                            <span className={styles.timeStyle}>
-                              {moment(i.createdAt).fromNow()}
-                            </span>
-                            <Typography
-                              component='span'
-                              variant='body2'
-                              className={classes.inline}
-                              color='textPrimary'
-                            >
+                          <div
+                            style={{
+                              display: 'flex',
+                              justifyContent: 'space-between',
+                            }}
+                          >
+                            <div className={styles.dataAndTitle}>
                               {i.type === 'comment' ? (
-                                <>
+                                <span className={styles.tag}>
                                   {' '}
                                   <img
                                     src='/noticomm.svg'
@@ -232,31 +221,68 @@ export default function Notification({
                                     style={{
                                       width: '20px',
                                       height: '12px',
-                                      marginRight: '5px',
+                                      marginRight: '0px',
                                     }}
-                                  />{' '}
-                                  <span
-                                    style={{
-                                      textOverflow: 'clip',
-                                      whiteSpace: 'normal',
-                                      height: 'auto',
-                                      width: '20vw',
-                                    }}
-                                    className={styles.tag}
-                                  >
-                                    {i.content.slice(0, 100)}
-                                  </span>
-                                </>
+                                  />
+                                  commented{' '}
+                                </span>
                               ) : i.type === 'like' ? (
-                                <>
-                                  {' '}
-                                  <img src='/notilike.svg' alt='comment' />{' '}
-                                  {i.title}
-                                </>
+                                <span className={styles.tag}>❤️️Liked </span>
                               ) : (
-                                <>{i.title}</>
+                                <span className={styles.tag}>
+                                  {' '}
+                                  <img
+                                    src='/purchased.svg'
+                                    alt='comment'
+                                    style={{
+                                      width: '20px',
+                                      height: '12px',
+                                      marginRight: '0px',
+                                    }}
+                                  />
+                                  Purchased{' '}
+                                </span>
                               )}
-                            </Typography>
+
+                              <span className={styles.timeStyle}>
+                                {moment(i.createdAt).fromNow()}
+                              </span>
+                              <Typography
+                                component='span'
+                                variant='body2'
+                                className={classes.inline}
+                                color='textPrimary'
+                              >
+                                {i.type === 'comment' ? (
+                                  <>
+                                    {' '}
+                                    <span
+                                      style={{
+                                        textOverflow: 'clip',
+                                        whiteSpace: 'normal',
+                                        height: 'auto',
+                                        width: '15vw',
+                                      }}
+                                      className={styles.tag}
+                                    >
+                                      {i.content.slice(0, 50)}
+                                    </span>
+                                  </>
+                                ) : i.type === 'like' ? (
+                                  ''
+                                ) : (
+                                  ''
+                                )}
+                              </Typography>
+                            </div>
+                            <div>
+                              <img
+                                src={i.relatedMediaLink}
+                                alt='related post'
+                                width='30px'
+                                height='30px'
+                              />
+                            </div>
                           </div>
                         }
                       />
@@ -323,58 +349,86 @@ export default function Notification({
                           </span>
                         }
                         secondary={
-                          <div className={styles.dataAndTitle}>
-                            {i.type === 'comment' ? (
-                              <span className={styles.tag}>commented </span>
-                            ) : i.type === 'like' ? (
-                              <span className={styles.tag}>Liked </span>
-                            ) : (
-                              <span className={styles.tag}>Purchased </span>
-                            )}
-
-                            <span className={styles.timeStyle}>
-                              {moment(i.createdAt).fromNow()}
-                            </span>
-                            <Typography
-                              component='span'
-                              variant='body2'
-                              className={classes.inline}
-                              color='textPrimary'
-                            >
+                          <div
+                            style={{
+                              display: 'flex',
+                              justifyContent: 'space-between',
+                            }}
+                          >
+                            <div className={styles.dataAndTitle}>
                               {i.type === 'comment' ? (
-                                <>
-                                  {' '}
+                                <span className={styles.tag}>
                                   <img
                                     src='/noticomm.svg'
                                     alt='comment'
                                     style={{
                                       width: '20px',
                                       height: '12px',
-                                      marginRight: '5px',
+                                      marginRight: '0px',
                                     }}
-                                  />{' '}
-                                  <span
-                                    style={{
-                                      textOverflow: 'clip',
-                                      whiteSpace: 'normal',
-                                      height: 'auto',
-                                      width: '20vw',
-                                    }}
-                                    className={styles.tag}
-                                  >
-                                    {i.content.slice(0, 100)}
-                                  </span>
-                                </>
+                                  />
+                                  commented{' '}
+                                </span>
                               ) : i.type === 'like' ? (
-                                <>
-                                  {' '}
-                                  <img src='/notilike.svg' alt='comment' />{' '}
-                                  {i.title}
-                                </>
+                                <span className={styles.tag}>❤️️Liked </span>
                               ) : (
-                                <>{i.title}</>
+                                <span className={styles.tag}>
+                                  {' '}
+                                  <img
+                                    src='/purchased.svg'
+                                    alt='comment'
+                                    style={{
+                                      width: '20px',
+                                      height: '12px',
+                                      marginRight: '0px',
+                                    }}
+                                  />
+                                  Purchased{' '}
+                                </span>
                               )}
-                            </Typography>
+
+                              <span className={styles.timeStyle}>
+                                {moment(i.createdAt).fromNow()}
+                              </span>
+                              <Typography
+                                component='span'
+                                variant='body2'
+                                className={classes.inline}
+                                color='textPrimary'
+                              >
+                                {i.type === 'comment' ? (
+                                  <>
+                                    <span
+                                      style={{
+                                        textOverflow: 'clip',
+                                        whiteSpace: 'normal',
+                                        height: 'auto',
+                                        width: '15vw',
+                                      }}
+                                      className={styles.tag}
+                                    >
+                                      {i.content.slice(0, 100)}
+                                    </span>
+                                  </>
+                                ) : i.type === 'like' ? (
+                                  ''
+                                ) : (
+                                  ''
+                                )}
+                              </Typography>
+                            </div>
+                            {i.relatedMediaLink ? (
+                              <div>
+                                <img
+                                  src={i.relatedMediaLink}
+                                  alt='related post'
+                                  width='30px'
+                                  height='30px'
+                                />
+                              </div>
+                            ) : (
+                              ''
+                            )}
                           </div>
                         }
                       />
