@@ -32,7 +32,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function UploadImageModal({ conId }) {
+export default function UploadImageModal({ conId, onMediaUploaded }) {
   const classes = useStyles();
   const [tileData, set_TileData] = useState([]);
   const [mediaa, setMedia] = useState([]);
@@ -66,32 +66,13 @@ export default function UploadImageModal({ conId }) {
   };
 
   const handleMsgSend = () => {
-    dispatch(
-      chat.sendOneMessage({
-        conversationId: Number(conId),
-        saveData: {
-          content: '',
-          type: 'media',
-          messageMediaType: 'photo',
-          isPaid: false,
-
-          media: {
-            type: 'photo',
-            url: sUrl.url,
-          },
-        },
-        callback: () => {
-          setImageModal(false);
-          dispatch(
-            chat.getOneConversation({
-              id: conId,
-              pageNum: pageNum,
-              limit: limit,
-            })
-          );
-        },
-      })
-    );
+    onMediaUploaded({
+      type: 'media',
+      messageMediaType: 'image',
+      media: sUrl,
+      content: '',
+      isPaid: false,
+    });
   };
 
   const body = (
