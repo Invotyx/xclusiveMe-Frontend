@@ -214,7 +214,6 @@ export default function UploadImageModal({ conId }) {
         />
       </div>
 
-      <UploadImageModal />
       <GreenButton
         variant='contained'
         color='primary'
