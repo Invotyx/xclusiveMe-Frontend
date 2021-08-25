@@ -119,7 +119,9 @@ export default function MessageSend({ conId, handleSendMessage }) {
               handleSendMessage(data);
             }}
             conId={conId}
-          />
+          >
+            <img src='/imageBtn.svg' alt='image' />
+          </UploadImageModal>
           <img src='/videoBtn.svg' alt='video' />
           <img
             src='/voiceBtn.svg'

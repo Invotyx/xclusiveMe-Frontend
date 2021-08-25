@@ -32,7 +32,8 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function UploadImageModal({ onMediaUploaded }) {
+export default function UploadImageModal({ onMediaUploaded, children }) {
+  const Children = props => children(props);
   const classes = useStyles();
   const [tileData, set_TileData] = useState([]);
   const [mediaa, setMedia] = useState([]);
@@ -177,7 +178,7 @@ export default function UploadImageModal({ onMediaUploaded }) {
 
   return (
     <>
-      <img src='/imageBtn.svg' alt='image' onClick={handleImageModal} />
+      <Children onClick={handleImageModal} />
       <Dialog
         open={imageModal}
         onClose={handleClose}
