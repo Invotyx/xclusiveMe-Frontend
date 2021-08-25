@@ -88,13 +88,6 @@ function* handleAddVoicemail(action) {
     const { audioFile, callback } = action.payload;
     const { data } = yield call(addVoicemail, audioFile);
     yield put(chat.success({}));
-    yield put(
-      snackbar.update({
-        open: true,
-        message: 'Audio send successfully',
-        severity: 'success',
-      })
-    );
     if (callback) {
       yield call(callback, data);
     }
