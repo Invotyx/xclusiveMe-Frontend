@@ -221,7 +221,7 @@ const RepliesData = ({
 
         {comm.totalReplies > 0 && (
           <div onClick={() => handleReplyList(comm.id)}>
-            {checkId !== comm.id ? (
+            {checkId !== comm.id && openReply === true ? (
               <div>
                 <img
                   src='/lineReply.svg'
