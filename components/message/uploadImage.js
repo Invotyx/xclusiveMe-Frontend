@@ -24,7 +24,7 @@ export default function FormDialog({
       set_disabled(true);
       dispatch(
         post.uploadImage({
-          fileObject: image,
+          fileObject: event.target.files,
           callback: source_url => {
             imageHandler(source_url);
             set_disabled(false);
