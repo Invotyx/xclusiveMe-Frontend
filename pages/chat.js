@@ -322,7 +322,13 @@ const Chat = () => {
               </Card>
             ) : (
               <Card>
-                <CardContent>select a chat or send a new one</CardContent>
+                <CardContent>
+                  <MessagesList
+                    activeConversationId={activeConversationId}
+                    lastMessageReceived={lastMessageReceived}
+                    scrollIntoViewPointer={scrollIntoViewPointer}
+                  />
+                </CardContent>
               </Card>
             )}
           </Grid>
