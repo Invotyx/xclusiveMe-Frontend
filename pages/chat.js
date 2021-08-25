@@ -172,7 +172,7 @@ const Chat = () => {
         );
       }
     }
-  }, [conId, chatsData, current]);
+  }, [conId, chatsData, current, singlechat]);
 
   return (
     <Layout>
