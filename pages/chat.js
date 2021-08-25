@@ -171,6 +171,8 @@ const Chat = () => {
             ?.participants.find(p => p.id !== current.id)
         );
       }
+    } else {
+      setActiveConversationId(null);
     }
   }, [conId, chatsData, current, singlechat]);
 
