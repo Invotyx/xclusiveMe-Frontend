@@ -93,40 +93,40 @@ export default function UploadImageModal({ conId }) {
 
   const body = (
     <>
-    <DialogTitle>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-        }}
-      >
+      <DialogTitle>
         <div
           style={{
             display: 'flex',
-            justifyContent: 'space-between',
-            width: '90%',
+            justifyContent: 'center',
           }}
         >
-          <div style={{ marginTop: '-20px', marginLeft: '44%' }}>
-            <ProfileImageAvatar />
-          </div>
-
-          <CloseIcon
-            onClick={handleClose}
+          <div
             style={{
-              marginTop: '20px',
-              width: '30px',
-              height: '30px',
-              cursor: 'pointer',
+              display: 'flex',
+              justifyContent: 'space-between',
+              width: '90%',
             }}
-          />
+          >
+            <div style={{ marginTop: '-20px', marginLeft: '44%' }}>
+              <ProfileImageAvatar />
+            </div>
+
+            <CloseIcon
+              onClick={handleClose}
+              style={{
+                marginTop: '20px',
+                width: '30px',
+                height: '30px',
+                cursor: 'pointer',
+              }}
+            />
+          </div>
         </div>
-      </div>
-    </DialogTitle>
-    <DialogContent>
-      <div className={classes.content}>
-        <div>Upload Your Image</div>
-        <div>
+      </DialogTitle>
+      <DialogContent>
+        <div className={classes.content}>
+          <div>Upload Your Image</div>
+          <div>
             <ImageList rowHeight={100} cols={4}>
               {tileData.map((tile, i) => (
                 <ImageListItem key={`tile${i}`}>
@@ -157,32 +157,32 @@ export default function UploadImageModal({ conId }) {
                 </MuiImageListItem>
               ))}
             </ImageList>
+          </div>
+          <UploadImage
+            imageHandler={imageHandler}
+            set_disabled={set_disabled}
+            onImageSelect={imgSrc => {
+              setLoadingItems(prev => [...prev, { src: imgSrc }]);
+            }}
+            onImageUploaded={() =>
+              setLoadingItems(
+                loadingItems.filter((a, i) => i !== loadingItems.length - 1)
+              )
+            }
+          />
         </div>
-        <UploadImage
-          imageHandler={imageHandler}
-          set_disabled={set_disabled}
-          onImageSelect={imgSrc => {
-            setLoadingItems(prev => [...prev, { src: imgSrc }]);
-          }}
-          onImageUploaded={() =>
-            setLoadingItems(
-              loadingItems.filter((a, i) => i !== loadingItems.length - 1)
-            )
-          }
-        />
-      </div>
-    </DialogContent>
+      </DialogContent>
 
-    <DialogActions disableSpacing>
-      <GreenButton
-        variant='contained'
-        color='primary'
-        className={classes.btnStyle}
-        onClick={handleMsgSend}
-      >
-        Send Now
-      </GreenButton>
-    </DialogActions>
+      <DialogActions disableSpacing>
+        <GreenButton
+          variant='contained'
+          color='primary'
+          className={classes.btnStyle}
+          onClick={handleMsgSend}
+        >
+          Send Now
+        </GreenButton>
+      </DialogActions>
     </>
   );
 
