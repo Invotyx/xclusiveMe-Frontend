@@ -53,8 +53,6 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function UploadImageModal({
-  imageModal,
-  setImageModal,
   msgText,
   setMsgText,
   conId,
@@ -234,8 +232,18 @@ export default function UploadImageModal({
     </div>
   );
 
+  const [imageModal, setImageModal] = useState(false);
+  const handleImageModal = () => {
+    if (!msgText || msgText.trim() === '') {
+      return;
+    }
+
+    setImageModal(true);
+  };
+
   return (
     <>
+      <img src='/imageBtn.svg' alt='image' onClick={handleImageModal} />
       <Modal
         open={imageModal}
         onClose={handleClose}

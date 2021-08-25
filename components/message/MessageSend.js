@@ -23,7 +23,6 @@ export default function MessageSend({ conId, handleSendMessage }) {
   const current = useSelector(currentUserSelector);
   const [show, setShow] = useState(false);
   const [msgText, setMsgText] = useState('');
-  const [imageModal, setImageModal] = useState(false);
   const [addVoice, setAddVoice] = useState(false);
   const [progress, setProgress] = useState(0);
   const [countInterval, setCountInterval] = React.useState(null);
@@ -60,13 +59,6 @@ export default function MessageSend({ conId, handleSendMessage }) {
       setAddVoice(false);
     }
   }, [status]);
-
-  const handleImageModal = () => {
-    if (!msgText || msgText.trim() === '') {
-      return;
-    }
-    setImageModal(true);
-  };
 
   const addEmoji = e => {
     let sym = e.unified.split('-');
@@ -122,7 +114,6 @@ export default function MessageSend({ conId, handleSendMessage }) {
           }}
         >
           <img src='/camera.svg' alt='camera' />
-          <img src='/imageBtn.svg' alt='image' onClick={handleImageModal} />
           <img src='/videoBtn.svg' alt='video' />
           <img
             src='/voiceBtn.svg'
@@ -130,8 +121,6 @@ export default function MessageSend({ conId, handleSendMessage }) {
             onClick={startRecordingHandler}
           />
           <UploadImageModal
-            imageModal={imageModal}
-            setImageModal={setImageModal}
             msgText={msgText}
             setMsgText={setMsgText}
             conId={conId}
