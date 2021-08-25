@@ -12,7 +12,7 @@ import { motion } from 'framer-motion';
 import { variants } from '../services/framer-variants';
 import Layout from '../components/layouts/layout-auth';
 import { useDispatch, useSelector } from 'react-redux';
-import Message from '../components/message/Message';
+import ConversationsList from '../components/message/ConversationsList';
 import { chat } from '../actions/chat';
 
 const useStyles = makeStyles(theme => ({
@@ -99,7 +99,7 @@ export default function Notification() {
             </List>
           </TabPanel>
           <TabPanel value={value} index={1}>
-            <Message />
+            <ConversationsList />
           </TabPanel>
         </Container>
       </Layout>
