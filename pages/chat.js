@@ -309,7 +309,11 @@ const Chat = () => {
                   }
                 />
                 <CardContent>
-                  <p>select a chat or send a new one</p>
+                  <MessagesList
+                    activeConversationId={activeConversationId}
+                    lastMessageReceived={lastMessageReceived}
+                    scrollIntoViewPointer={scrollIntoViewPointer}
+                  />
                 </CardContent>
                 <MessageSend
                   conId={conId}
@@ -319,11 +323,7 @@ const Chat = () => {
             ) : (
               <Card>
                 <CardContent>
-                  <MessagesList
-                    activeConversationId={activeConversationId}
-                    lastMessageReceived={lastMessageReceived}
-                    scrollIntoViewPointer={scrollIntoViewPointer}
-                  />
+                  <p>select a chat or send a new one</p>
                 </CardContent>
               </Card>
             )}
