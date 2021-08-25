@@ -235,7 +235,7 @@ export default function UploadImageModal({
   );
 
   return (
-    <div>
+    <>
       <Modal
         open={imageModal}
         onClose={handleClose}
@@ -244,6 +244,6 @@ export default function UploadImageModal({
       >
         {body}
       </Modal>
-    </div>
+    </>
   );
 }
