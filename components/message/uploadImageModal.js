@@ -188,6 +188,8 @@ export default function UploadImageModal({ conId }) {
       <Dialog
         open={imageModal}
         onClose={handleClose}
+        maxWidth='sm'
+        fullWidth
         aria-labelledby='simple-modal-title'
         aria-describedby='simple-modal-description'
       >
