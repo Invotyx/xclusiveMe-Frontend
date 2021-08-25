@@ -65,7 +65,6 @@ export default function UploadImageModal({
   const [mediaa, setMedia] = useState([]);
   const [disabled, set_disabled] = useState(false);
   const [loadingItems, setLoadingItems] = useState([]);
-  const [progressVideo, setProgressVideo] = useState({ val: 0 });
   const dispatch = useDispatch();
   const [sUrl, setSUrl] = useState('');
 
@@ -191,12 +190,7 @@ export default function UploadImageModal({
                   <ImageListItemBar
                     titlePosition='top'
                     actionPosition='left'
-                    actionIcon={
-                      <CircularProgress
-                        {...item.progressProps}
-                        value={progressVideo.val}
-                      />
-                    }
+                    actionIcon={<CircularProgress variant='indeterminate' />}
                   />
                 </MuiImageListItem>
               ))}
