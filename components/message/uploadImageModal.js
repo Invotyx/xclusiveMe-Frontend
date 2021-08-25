@@ -68,7 +68,7 @@ export default function UploadImageModal({ conId, onMediaUploaded }) {
   const handleMsgSend = () => {
     onMediaUploaded({
       type: 'media',
-      messageMediaType: 'image',
+      messageMediaType: 'photo',
       media: sUrl,
       content: '',
       isPaid: false,
