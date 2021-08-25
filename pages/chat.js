@@ -253,7 +253,7 @@ const Chat = () => {
                       href={`/x/${activeParticipant?.username}`}
                       passHref
                     >
-                      <Link>{activeParticipant?.fullName}</Link>
+                      <Link>{activeParticipant?.fullName || 'loading...'}</Link>
                     </NextLink>
                   </Typography>
                 }
