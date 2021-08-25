@@ -1,72 +1,37 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Modal from '@material-ui/core/Modal';
+import Typography from '@material-ui/core/Typography';
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogActions from '@material-ui/core/DialogActions';
 import UploadImage from './uploadImage';
-import CardContent from '@material-ui/core/CardContent';
 import ImageList from '@material-ui/core/ImageList';
 import MuiImageListItem from '@material-ui/core/ImageListItem';
 import ImageListItemBar from '@material-ui/core/ImageListItemBar';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import ImageListItem from '@material-ui/core/ImageListItem';
 import { Button } from '@material-ui/core';
-import { useDispatch } from 'react-redux';
-import { chat } from '../../actions/chat';
 import ProfileImageAvatar from '../profile/profile-image-avatar';
 import CloseIcon from '@material-ui/icons/Close';
 import GreenButton from '../GreenButton';
 
-function rand() {
-  return Math.round(Math.random() * 20) - 10;
-}
-
-function getModalStyle() {
-  const top = 50 + rand();
-  const left = 50 + rand();
-
-  return {
-    top: `${top}%`,
-    left: `${left}%`,
-    transform: `translate(-${top}%, -${left}%)`,
-  };
-}
-
 const useStyles = makeStyles(theme => ({
-  paper: {
-    position: 'absolute',
-    width: '30vw',
-    backgroundColor: 'black',
-
-    boxShadow: theme.shadows[5],
-  },
   content: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: '10px',
-  },
-  btnStyle: {
-    width: '100%',
-    backgroundColor: '#67E697',
-    color: 'white',
   },
 }));
 
-export default function UploadImageModal({
-  imageModal,
-  setImageModal,
-  msgText,
-  setMsgText,
-  conId,
-}) {
+export default function UploadImageModal({ type, onMediaUploaded, children }) {
+  const Children = props => React.cloneElement(children, props);
   const classes = useStyles();
-  const [modalStyle] = useState(getModalStyle);
   const [tileData, set_TileData] = useState([]);
   const [mediaa, setMedia] = useState([]);
   const [disabled, set_disabled] = useState(false);
   const [loadingItems, setLoadingItems] = useState([]);
-  const [progressVideo, setProgressVideo] = useState({ val: 0 });
-  const dispatch = useDispatch();
   const [sUrl, setSUrl] = useState('');
 
   const handleClose = () => {
@@ -74,6 +39,9 @@ export default function UploadImageModal({
   };
 
   const imageHandler = source_url => {
+    if (Array.isArray(source_url)) {
+      source_url = source_url[0];
+    }
     setSUrl(source_url);
     set_TileData(prev => [...prev, source_url.url]);
     setMedia([
@@ -91,87 +59,57 @@ export default function UploadImageModal({
   };
 
   const handleMsgSend = () => {
-    dispatch(
-      chat.sendOneMessage({
-        conversationId: Number(conId),
-        saveData: {
-          content: msgText,
-          type: 'media',
-          messageMediaType: 'photo',
-          isPaid: false,
-
-          media: {
-            type: 'photo',
-            url: sUrl.url,
-          },
-        },
-        callback: () => {
-          setMsgText('');
-          setImageModal(false);
-          dispatch(
-            chat.getOneConversation({
-              id: conId,
-              pageNum: pageNum,
-              limit: limit,
-            })
-          );
-        },
-      })
-    );
+    onMediaUploaded({
+      type: 'media',
+      messageMediaType: 'photo',
+      media: sUrl,
+      content: '',
+      isPaid: false,
+    });
   };
 
   const body = (
-    <div style={modalStyle} className={classes.paper}>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-        }}
-      >
+    <>
+      <DialogTitle>
         <div
           style={{
             display: 'flex',
-            justifyContent: 'space-between',
-            width: '90%',
+            justifyContent: 'center',
           }}
         >
-          {/* <img
-                    src='./'
-                    alt='profile image'
-                    width='60px'
-                    height='65px'
-                    style={{
-                      borderRadius: '50%',
-                      marginTop: '-20px',
-                      marginLeft: isMobile ? '40%' : '44%',
-                    }}
-                  /> */}
-          <div style={{ marginTop: '-20px', marginLeft: '44%' }}>
-            <ProfileImageAvatar />
-          </div>
-
-          <CloseIcon
-            onClick={handleClose}
+          <div
             style={{
-              marginTop: '20px',
-              width: '30px',
-              height: '30px',
-              cursor: 'pointer',
+              display: 'flex',
+              justifyContent: 'space-between',
+              width: '90%',
             }}
-          />
+          >
+            <div style={{ marginTop: '-20px', marginLeft: '44%' }}>
+              <ProfileImageAvatar />
+            </div>
+
+            <CloseIcon
+              onClick={handleClose}
+              style={{
+                marginTop: '20px',
+                width: '30px',
+                height: '30px',
+                cursor: 'pointer',
+              }}
+            />
+          </div>
         </div>
-      </div>
-      <div className={classes.content}>
-        <h3>{msgText}</h3>
-        <div>Upload Your Image</div>
-        <div>
-          <CardContent>
+      </DialogTitle>
+      <DialogContent className={classes.content}>
+        {type === 'photo' && (
+          <>
+            <Typography>Upload Your Image</Typography>
             <ImageList rowHeight={100} cols={4}>
               {tileData.map((tile, i) => (
                 <ImageListItem key={`tile${i}`}>
                   <img src={tile} alt={'no Image'} />
                   <ImageListItemBar
-                    titlePosition='top'
+                    position='top'
                     actionPosition='left'
                     actionIcon={
                       <Button
@@ -189,67 +127,60 @@ export default function UploadImageModal({
                 <MuiImageListItem key={`loadingItems${i}`}>
                   <img src={item.src} alt={'no Image'} />
                   <ImageListItemBar
-                    titlePosition='top'
+                    position='top'
                     actionPosition='left'
-                    actionIcon={
-                      <CircularProgress
-                        {...item.progressProps}
-                        value={progressVideo.val}
-                      />
-                    }
+                    actionIcon={<CircularProgress variant='indeterminate' />}
                   />
                 </MuiImageListItem>
               ))}
-              {/* {tileData && tileData.length > 0 && (
-              <MuiImageListItem>
-                <ImageListItemBar
-                  actionIcon={
-                    <IconButton size='small' variant='text'>
-                      <AddIcon />
-                    </IconButton>
-                  }
-                />
-              </MuiImageListItem>
-            )} */}
             </ImageList>
-          </CardContent>
-        </div>
-        <UploadImage
-          imageHandler={imageHandler}
-          set_disabled={set_disabled}
-          onImageSelect={imgSrc => {
-            setLoadingItems(prev => [...prev, { src: imgSrc }]);
-          }}
-          onImageUploaded={() =>
-            setLoadingItems(
-              loadingItems.filter((a, i) => i !== loadingItems.length - 1)
-            )
-          }
-        />
-      </div>
+            <UploadImage
+              imageHandler={imageHandler}
+              set_disabled={set_disabled}
+              onImageSelect={imgSrc => {
+                setLoadingItems(prev => [...prev, { src: imgSrc }]);
+              }}
+              onImageUploaded={() =>
+                setLoadingItems(
+                  loadingItems.filter((a, i) => i !== loadingItems.length - 1)
+                )
+              }
+            />
+          </>
+        )}
+      </DialogContent>
 
-      <UploadImageModal />
-      <GreenButton
-        variant='contained'
-        color='primary'
-        className={classes.btnStyle}
-        onClick={handleMsgSend}
-      >
-        Send Now
-      </GreenButton>
-    </div>
+      <DialogActions disableSpacing>
+        <GreenButton
+          variant='contained'
+          color='primary'
+          fullWidth
+          onClick={handleMsgSend}
+        >
+          Send Now
+        </GreenButton>
+      </DialogActions>
+    </>
   );
 
+  const [imageModal, setImageModal] = useState(false);
+  const handleImageModal = () => {
+    setImageModal(true);
+  };
+
   return (
-    <div>
-      <Modal
+    <>
+      <Children onClick={handleImageModal} />
+      <Dialog
         open={imageModal}
         onClose={handleClose}
+        maxWidth='sm'
+        fullWidth
         aria-labelledby='simple-modal-title'
         aria-describedby='simple-modal-description'
       >
         {body}
-      </Modal>
-    </div>
+      </Dialog>
+    </>
   );
 }

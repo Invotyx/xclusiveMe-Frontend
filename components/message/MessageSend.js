@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { chat } from '../../actions/chat';
 import { currentUserSelector } from '../../selectors/authSelector';
 import ProfileImageAvatar from '../profile/profile-image-avatar';
-import UploadImageModal from './/uploadImageModal';
+import UploadImageModal from './uploadImageModal';
 import useMediaRecorder from '@wmik/use-media-recorder';
 import { snackbar } from '../../actions/snackbar';
 import AudioSend from './audioSend';
@@ -23,7 +23,6 @@ export default function MessageSend({ conId, handleSendMessage }) {
   const current = useSelector(currentUserSelector);
   const [show, setShow] = useState(false);
   const [msgText, setMsgText] = useState('');
-  const [imageModal, setImageModal] = useState(false);
   const [addVoice, setAddVoice] = useState(false);
   const [progress, setProgress] = useState(0);
   const [countInterval, setCountInterval] = React.useState(null);
@@ -60,13 +59,6 @@ export default function MessageSend({ conId, handleSendMessage }) {
       setAddVoice(false);
     }
   }, [status]);
-
-  const handleImageModal = () => {
-    if (!msgText || msgText.trim() === '') {
-      return;
-    }
-    setImageModal(true);
-  };
 
   const addEmoji = e => {
     let sym = e.unified.split('-');
@@ -121,20 +113,34 @@ export default function MessageSend({ conId, handleSendMessage }) {
             opacity: addVoice ? 0 : 1,
           }}
         >
-          <img src='/camera.svg' alt='camera' />
-          <img src='/imageBtn.svg' alt='image' onClick={handleImageModal} />
-          <img src='/videoBtn.svg' alt='video' />
+          <UploadImageModal
+            type='camera'
+            onMediaUploaded={data => {
+              handleSendMessage(data);
+            }}
+          >
+            <img src='/camera.svg' alt='camera' />
+          </UploadImageModal>
+          <UploadImageModal
+            type='photo'
+            onMediaUploaded={data => {
+              handleSendMessage(data);
+            }}
+          >
+            <img src='/imageBtn.svg' alt='image' />
+          </UploadImageModal>
+          <UploadImageModal
+            type='video'
+            onMediaUploaded={data => {
+              handleSendMessage(data);
+            }}
+          >
+            <img src='/videoBtn.svg' alt='video' />
+          </UploadImageModal>
           <img
             src='/voiceBtn.svg'
             alt='voice'
             onClick={startRecordingHandler}
-          />
-          <UploadImageModal
-            imageModal={imageModal}
-            setImageModal={setImageModal}
-            msgText={msgText}
-            setMsgText={setMsgText}
-            conId={conId}
           />
         </div>
       </CardActions>

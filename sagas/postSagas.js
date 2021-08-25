@@ -488,10 +488,8 @@ function* handleUpdate(action) {
 
 function* handleUploadImage({ payload }) {
   try {
-    console.log(payload);
     const { fileObject } = payload;
-    const response = yield call(uploadImage, fileObject);
-    console.log(response);
+    const { data } = yield call(uploadImage, fileObject);
     yield put(
       bottomalert.update({
         open: true,
@@ -501,7 +499,7 @@ function* handleUploadImage({ payload }) {
     );
     const { callback } = payload;
     if (callback) {
-      yield call(callback, response.data[0]);
+      yield call(callback, data);
     }
   } catch (e) {
     console.log(e);

@@ -116,7 +116,7 @@ const Chat = () => {
     });
 
     function cleanup() {
-      socket.disconnect();
+      socket.connected && socket.disconnect();
     }
 
     return cleanup;
@@ -171,8 +171,10 @@ const Chat = () => {
             ?.participants.find(p => p.id !== current.id)
         );
       }
+    } else {
+      setActiveConversationId(null);
     }
-  }, [conId, chatsData, current]);
+  }, [conId, chatsData, current, singlechat]);
 
   return (
     <Layout>
@@ -231,90 +233,100 @@ const Chat = () => {
                 activeConversationId === null && isMobile ? 'none' : 'block',
             }}
           >
-            <Card>
-              <CardHeader
-                avatar={
-                  isMobile ? (
-                    <IconButton
-                      onClick={() => {
-                        setActiveConversationId(null);
-                      }}
-                    >
-                      <ArrowBackIcon />
-                    </IconButton>
-                  ) : (
-                    <ImageAvatar src={activeParticipant?.profileImage} />
-                  )
-                }
-                title={activeParticipant?.fullName}
-                title={
-                  <Typography variant='body2'>
-                    <NextLink
-                      href={`/x/${activeParticipant?.username}`}
-                      passHref
-                    >
-                      <Link>{activeParticipant?.fullName || 'loading...'}</Link>
-                    </NextLink>
-                  </Typography>
-                }
-                subheader='click here for contact info'
-                action={
-                  <>
-                    <TipModal
-                      profileImage={activeParticipant?.profileImage}
-                      name={activeParticipant?.fullName}
-                      onConfirm={(amount, callback) =>
-                        dispatch(
-                          post.addTip({
-                            saveData: {
-                              itemTipped: conId,
-                              itemTippedType: 'conversation',
-                              amount,
-                            },
+            {conId ? (
+              <Card>
+                <CardHeader
+                  avatar={
+                    isMobile ? (
+                      <IconButton
+                        onClick={() => {
+                          setActiveConversationId(null);
+                        }}
+                      >
+                        <ArrowBackIcon />
+                      </IconButton>
+                    ) : (
+                      <ImageAvatar src={activeParticipant?.profileImage} />
+                    )
+                  }
+                  title={activeParticipant?.fullName}
+                  title={
+                    <Typography variant='body2'>
+                      <NextLink
+                        href={`/x/${activeParticipant?.username}`}
+                        passHref
+                      >
+                        <Link>
+                          {activeParticipant?.fullName || 'loading...'}
+                        </Link>
+                      </NextLink>
+                    </Typography>
+                  }
+                  subheader='click here for contact info'
+                  action={
+                    <>
+                      <TipModal
+                        profileImage={activeParticipant?.profileImage}
+                        name={activeParticipant?.fullName}
+                        onConfirm={(amount, callback) =>
+                          dispatch(
+                            post.addTip({
+                              saveData: {
+                                itemTipped: conId,
+                                itemTippedType: 'conversation',
+                                amount,
+                              },
 
-                            callback: () => {
-                              handleSendMessage(
-                                `${activeParticipant?.fullName} sent you a ${currencySymbol}${amount} tip`,
-                                callback
-                              );
-                            },
-                          })
-                        )
-                      }
-                    />
-                    <ManuButton
-                      title='Report this User'
-                      profileImage={activeParticipant?.profileImage}
-                      onConfirm={(reason, callback) => {
-                        const itemId = activeParticipant?.id;
-                        dispatch(
-                          user.report({
-                            reportData: {
-                              itemId,
-                              reason,
-                            },
-                            callback: () => {
-                              callback && callback();
-                            },
-                          })
-                        );
-                      }}
-                    />
-                  </>
-                }
-              />
-              <CardContent>
-                <MessagesList
-                  activeConversationId={activeConversationId}
-                  lastMessageReceived={lastMessageReceived}
-                  scrollIntoViewPointer={scrollIntoViewPointer}
+                              callback: () => {
+                                handleSendMessage(
+                                  `${activeParticipant?.fullName} sent you a ${currencySymbol}${amount} tip`,
+                                  callback
+                                );
+                              },
+                            })
+                          )
+                        }
+                      />
+                      <ManuButton
+                        title='Report this User'
+                        profileImage={activeParticipant?.profileImage}
+                        onConfirm={(reason, callback) => {
+                          const itemId = activeParticipant?.id;
+                          dispatch(
+                            user.report({
+                              reportData: {
+                                itemId,
+                                reason,
+                              },
+                              callback: () => {
+                                callback && callback();
+                              },
+                            })
+                          );
+                        }}
+                      />
+                    </>
+                  }
                 />
-              </CardContent>
-              <MessageSend
-                conId={conId}
-                handleSendMessage={handleSendMessage}
-              />
-            </Card>
+                <CardContent>
+                  <MessagesList
+                    activeConversationId={activeConversationId}
+                    lastMessageReceived={lastMessageReceived}
+                    scrollIntoViewPointer={scrollIntoViewPointer}
+                  />
+                </CardContent>
+                <MessageSend
+                  conId={conId}
+                  handleSendMessage={handleSendMessage}
+                />
+              </Card>
+            ) : (
+              <Card>
+                <CardContent>
+                  <p>select a conversation or start a new one</p>
+                </CardContent>
+              </Card>
+            )}
           </Grid>
         </Grid>
       </Container>
