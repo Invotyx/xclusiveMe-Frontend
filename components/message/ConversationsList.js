@@ -69,7 +69,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function Message({ subheaderPrefix }) {
+export default function ConversationsList({ subheaderPrefix }) {
   const [activeConversationId, setActiveConversationId] = React.useContext(
     ActiveConversationContext
   );

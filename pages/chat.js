@@ -4,7 +4,7 @@ import Head from 'next/head';
 import React, { useEffect, useState } from 'react';
 import Layout from '../components/layouts/layout-auth';
 import { makeStyles } from '@material-ui/core/styles';
-import Message from '../components/message/Message';
+import ConversationsList from '../components/message/ConversationsList';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import AddCommentIcon from '@material-ui/icons/AddComment';
 import { useRouter } from 'next/router';
@@ -193,7 +193,7 @@ const Chat = () => {
             <ActiveConversationContext.Provider
               value={[activeConversationId, setActiveConversationId]}
             >
-              <Message
+              <ConversationsList
                 subheaderPrefix={
                   <div
                     style={{

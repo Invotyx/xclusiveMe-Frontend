@@ -26,7 +26,7 @@ import styles from './layout.module.css';
 import { fetchingSelector } from '../../selectors/postSelector';
 import LoadingOverlay from 'react-loading-overlay';
 import BounceLoader from 'react-spinners/BounceLoader';
-import Message from '../message/Message';
+import ConversationsList from '../message/ConversationsList';
 import MessageMenu from '../message/MessageMenu';
 import { currentUserSelector } from '../../selectors/authSelector';
 
@@ -169,7 +169,7 @@ export default function Comp({ sidebarMenu, set_sidebarMenu }) {
                     messageEl={messageEl}
                     onClose={messagesClose}
                   >
-                    <Message onClose={messagesClose} />
+                    <ConversationsList onClose={messagesClose} />
                   </MessageMenu>
                 </div>
               </Box>
