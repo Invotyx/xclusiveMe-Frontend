@@ -106,9 +106,7 @@ export default function UploadImageModal({ onMediaUploaded, children }) {
         </div>
       </DialogTitle>
       <DialogContent>
-        <div className={classes.content}>
           <div>Upload Your Image</div>
-          <div>
             <ImageList rowHeight={100} cols={4}>
               {tileData.map((tile, i) => (
                 <ImageListItem key={`tile${i}`}>
@@ -139,7 +137,6 @@ export default function UploadImageModal({ onMediaUploaded, children }) {
                 </MuiImageListItem>
               ))}
             </ImageList>
-          </div>
           <UploadImage
             imageHandler={imageHandler}
             set_disabled={set_disabled}
@@ -152,7 +149,6 @@ export default function UploadImageModal({ onMediaUploaded, children }) {
               )
             }
           />
-        </div>
       </DialogContent>
 
       <DialogActions disableSpacing>
