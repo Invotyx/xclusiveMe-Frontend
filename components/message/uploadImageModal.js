@@ -106,7 +106,7 @@ export default function UploadImageModal({ onMediaUploaded, children }) {
         </div>
       </DialogTitle>
       <DialogContent>
-          <div>Upload Your Image</div>
+          <Typography>Upload Your Image</Typography>
             <ImageList rowHeight={100} cols={4}>
               {tileData.map((tile, i) => (
                 <ImageListItem key={`tile${i}`}>
