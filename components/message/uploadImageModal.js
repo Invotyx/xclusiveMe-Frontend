@@ -46,6 +46,9 @@ export default function UploadImageModal({ conId }) {
   };
 
   const imageHandler = source_url => {
+    if (Array.isArray(source_url)) {
+      source_url = source_url[0];
+    }
     setSUrl(source_url);
     set_TileData(prev => [...prev, source_url.url]);
     setMedia([
