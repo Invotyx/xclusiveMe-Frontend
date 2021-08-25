@@ -89,7 +89,7 @@ const Chat = () => {
       console.log(data);
     });
     socket.on('new-message', data => {
-      if (activeConversationId === data.conversationId) {
+      if (+conId === data.conversationId) {
         setLastMessageReceived(+new Date());
       } else {
         getConversations();
