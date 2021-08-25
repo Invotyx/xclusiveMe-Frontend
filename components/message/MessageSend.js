@@ -27,7 +27,7 @@ export default function MessageSend({ conId, handleSendMessage }) {
   const [imageModal, setImageModal] = useState(false);
   const [addVoice, setAddVoice] = useState(false);
   const [progress, setProgress] = useState(0);
-  const progressRef = useRef(null);
+  const [progressInterval, setProgressInterval] = React.useState(null);
   const dispatch = useDispatch();
 
   function handleOnEnter() {
@@ -80,14 +80,16 @@ export default function MessageSend({ conId, handleSendMessage }) {
     setShow(!show);
   };
   const progressHandler = () => {
-    progressRef.current = setInterval(() => {
+    setProgressInterval(
+      setInterval(() => {
       setProgress(oldProgress => {
         if (oldProgress === 100) {
           return 0;
         }
         return oldProgress + 0.3;
       });
-    }, 300);
+      }, 300)
+    );
   };
 
   const startRecordingHandler = () => {
@@ -180,7 +182,7 @@ export default function MessageSend({ conId, handleSendMessage }) {
             stopRecording={stopRecording}
             mediaBlob={mediaBlob}
             progress={progress}
-            progressRef={progressRef.current}
+            progressRef={progressInterval}
             seconds={seconds}
             setProgress={setProgress}
             setAddVoice={setAddVoice}
