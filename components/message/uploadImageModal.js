@@ -150,17 +150,6 @@ export default function UploadImageModal({ conId }) {
                   />
                 </MuiImageListItem>
               ))}
-              {/* {tileData && tileData.length > 0 && (
-              <MuiImageListItem>
-                <ImageListItemBar
-                  actionIcon={
-                    <IconButton size='small' variant='text'>
-                      <AddIcon />
-                    </IconButton>
-                  }
-                />
-              </MuiImageListItem>
-            )} */}
             </ImageList>
         </div>
         <UploadImage
