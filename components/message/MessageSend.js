@@ -113,7 +113,14 @@ export default function MessageSend({ conId, handleSendMessage }) {
             opacity: addVoice ? 0 : 1,
           }}
         >
-          <img src='/camera.svg' alt='camera' />
+          <UploadImageModal
+            type='camera'
+            onMediaUploaded={data => {
+              handleSendMessage(data);
+            }}
+          >
+            <img src='/camera.svg' alt='camera' />
+          </UploadImageModal>
           <UploadImageModal
             type='photo'
             onMediaUploaded={data => {
