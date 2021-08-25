@@ -327,7 +327,8 @@ export default function Post({
               // </IconButton>
 
               <div>
-                {post.media.length === 0 || post?.user?.username == username ? (
+                {post.media.length === 0 ||
+                post?.user?.username == currentUser.username ? (
                   <IconButton
                     aria-label='more'
                     aria-controls='simple-menu'
@@ -481,7 +482,7 @@ export default function Post({
                 </span>
               </NormalCaseButton>
 
-              {post?.user?.username == username ? (
+              {post?.user?.username == currentUser.username ? (
                 ''
               ) : (
                 <NormalCaseButton
@@ -491,39 +492,48 @@ export default function Post({
                   }}
                 >
                   {post.media.length === 0 ? (
-                    <MonetizationOnOutlinedIcon
-                      style={{ marginRight: '5px', marginLeft: '5px' }}
-                    />
+                    <>
+                      <MonetizationOnOutlinedIcon
+                        style={{ marginLeft: '5px', marginRight: '5px' }}
+                      />
+                      <span
+                        className={styles.hideOnMobile}
+                        style={{ marginLeft: '0px' }}
+                      >
+                        Tip
+                      </span>
+                    </>
                   ) : (
-                    <TipModal
-                      profileImage={post?.user?.profileImage}
-                      name={post?.user?.fullName}
-                      onConfirm={(amount, callback) =>
-                        dispatch(
-                          postData.addTip({
-                            saveData: {
-                              itemTipped: post.id,
-                              itemTippedType: 'post',
-                              amount,
-                            },
+                    <>
+                      <TipModal
+                        profileImage={post?.user?.profileImage}
+                        name={post?.user?.fullName}
+                        onConfirm={(amount, callback) =>
+                          dispatch(
+                            postData.addTip({
+                              saveData: {
+                                itemTipped: post.id,
+                                itemTippedType: 'post',
+                                amount,
+                              },
 
-                            callback: () => {
-                              callback && callback();
-                              dispatch(postData.request());
-                              dispatch(postData.requestSubscribed());
-                            },
-                          })
-                        )
-                      }
-                    />
+                              callback: () => {
+                                callback && callback();
+                                dispatch(postData.request());
+                                dispatch(postData.requestSubscribed());
+                              },
+                            })
+                          )
+                        }
+                      />
+                      <span
+                        className={styles.hideOnMobile}
+                        style={{ marginLeft: '-6px' }}
+                      >
+                        Tip
+                      </span>
+                    </>
                   )}
-
-                  <span
-                    className={styles.hideOnMobile}
-                    style={{ marginLeft: '0px' }}
-                  >
-                    Tip
-                  </span>
                 </NormalCaseButton>
               )}
             </div>
