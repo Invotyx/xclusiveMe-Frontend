@@ -473,39 +473,48 @@ const SinglePost = ({
                         }}
                       >
                         {sPost?.media.length === 0 ? (
-                          <MonetizationOnOutlinedIcon
-                            style={{ marginRight: '5px', marginLeft: '5px' }}
-                          />
+                          <>
+                            <MonetizationOnOutlinedIcon
+                              style={{ marginRight: '5px', marginLeft: '5px' }}
+                            />
+                            <span
+                              className={styles.hideOnMobile}
+                              style={{ marginLeft: '0px' }}
+                            >
+                              Tip
+                            </span>
+                          </>
                         ) : (
-                          <TipModal
-                            profileImage={post?.user?.profileImage}
-                            name={post?.user?.fullName}
-                            onConfirm={(amount, callback) =>
-                              dispatch(
-                                postData.addTip({
-                                  saveData: {
-                                    itemTipped: post.id,
-                                    itemTippedType: 'post',
-                                    amount,
-                                  },
+                          <>
+                            <TipModal
+                              profileImage={sPost?.user?.profileImage}
+                              name={sPost?.user?.fullName}
+                              onConfirm={(amount, callback) =>
+                                dispatch(
+                                  postData.addTip({
+                                    saveData: {
+                                      itemTipped: post.id,
+                                      itemTippedType: 'post',
+                                      amount,
+                                    },
 
-                                  callback: () => {
-                                    callback && callback();
-                                    dispatch(postData.request());
-                                    dispatch(postData.requestSubscribed());
-                                  },
-                                })
-                              )
-                            }
-                          />
+                                    callback: () => {
+                                      callback && callback();
+                                      dispatch(postData.request());
+                                      dispatch(postData.requestSubscribed());
+                                    },
+                                  })
+                                )
+                              }
+                            />
+                            <span
+                              className={styles.hideOnMobile}
+                              style={{ marginLeft: '-6px' }}
+                            >
+                              Tip
+                            </span>
+                          </>
                         )}
-
-                        <span
-                          className={styles.hideOnMobile}
-                          style={{ marginLeft: '0px' }}
-                        >
-                          Tip
-                        </span>
                       </NormalCaseButton>
                     }
                   </Box>
