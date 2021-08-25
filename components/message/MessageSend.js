@@ -114,16 +114,16 @@ export default function MessageSend({ conId, handleSendMessage }) {
           }}
         >
           <img src='/camera.svg' alt='camera' />
+          <UploadImageModal
+            msgText={msgText}
+            setMsgText={setMsgText}
+            conId={conId}
+          />
           <img src='/videoBtn.svg' alt='video' />
           <img
             src='/voiceBtn.svg'
             alt='voice'
             onClick={startRecordingHandler}
-          />
-          <UploadImageModal
-            msgText={msgText}
-            setMsgText={setMsgText}
-            conId={conId}
           />
         </div>
       </CardActions>
