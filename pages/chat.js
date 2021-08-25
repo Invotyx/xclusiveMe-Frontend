@@ -18,7 +18,7 @@ import {
   chatDataSelector,
   singleChatSelector,
 } from '../selectors/chatSelector';
-import ConvoList from '../components/message/ConvoList';
+import MessagesList from '../components/message/MessagesList';
 import IconButton from '@material-ui/core/IconButton';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
@@ -304,7 +304,7 @@ const Chat = () => {
                 }
               />
               <CardContent>
-                <ConvoList
+                <MessagesList
                   activeConversationId={activeConversationId}
                   lastMessageReceived={lastMessageReceived}
                   scrollIntoViewPointer={scrollIntoViewPointer}

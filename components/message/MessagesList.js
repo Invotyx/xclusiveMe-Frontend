@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const ConvoList = ({
+const MessagesList = ({
   activeConversationId,
   lastMessageReceived,
   scrollIntoViewPointer,
@@ -112,4 +112,4 @@ const ConvoList = ({
   );
 };
 
-export default ConvoList;
+export default MessagesList;
