@@ -47,7 +47,7 @@ export default function SignInSide() {
           email,
           password,
           callback: () => {
-            router.push('/explore');
+            router.replace('/explore');
           },
           callback202: sid => {
             set_registrationState(2);
@@ -62,7 +62,7 @@ export default function SignInSide() {
           sessionId,
           code,
           callback: () => {
-            router.push('/explore');
+            router.replace('/explore');
           },
         })
       );

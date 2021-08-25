@@ -76,7 +76,7 @@ export default function SignInSide() {
           sessionId,
           code,
           callback: () => {
-            router.push('/explore');
+            router.replace('/explore');
           },
         })
       );
