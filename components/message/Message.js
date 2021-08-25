@@ -86,6 +86,19 @@ export default function Message({ subheaderPrefix }) {
     router.push({ pathname, query: { ...query, conId } });
   };
 
+  const [key, setKey] = React.useState(0);
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      setKey(k => k + 1);
+    }, 5000);
+
+    function cleanup() {
+      clearInterval(interval);
+    }
+
+    return cleanup;
+  }, []);
+
   const { search } = query;
 
   return (
@@ -158,6 +171,7 @@ export default function Message({ subheaderPrefix }) {
                   <Typography
                     component='span'
                     variant='caption'
+                    key={`${x}${key}`}
                   >
                     {moment(i.updatedAt).fromNow()}
                   </Typography>
