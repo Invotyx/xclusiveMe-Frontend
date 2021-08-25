@@ -309,7 +309,7 @@ const Chat = () => {
                   }
                 />
                 <CardContent>
-                  <MessagesList />
+                  <p>select a chat or send a new one</p>
                 </CardContent>
                 <MessageSend
                   conId={conId}
