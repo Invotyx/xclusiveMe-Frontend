@@ -14,10 +14,6 @@ import ProfileImageAvatar from '../profile/profile-image-avatar';
 import CloseIcon from '@material-ui/icons/Close';
 import GreenButton from '../GreenButton';
 
-function rand() {
-  return Math.round(Math.random() * 20) - 10;
-}
-
 const useStyles = makeStyles(theme => ({
   content: {
     display: 'flex',
