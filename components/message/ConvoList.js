@@ -51,7 +51,7 @@ const ConvoList = ({
   };
 
   React.useEffect(() => {
-    getOneConversation(true);
+    activeConversationId && getOneConversation(true);
   }, [activeConversationId]);
 
   React.useEffect(() => {
