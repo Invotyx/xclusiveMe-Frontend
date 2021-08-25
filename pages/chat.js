@@ -231,7 +231,7 @@ const Chat = () => {
                 activeConversationId === null && isMobile ? 'none' : 'block',
             }}
           >
-            {condId && (
+            {conId && (
               <Card>
                 <CardHeader
                   avatar={
