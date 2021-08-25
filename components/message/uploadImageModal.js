@@ -52,7 +52,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function UploadImageModal({ msgText, setMsgText, conId }) {
+export default function UploadImageModal({ conId }) {
   const classes = useStyles();
   const [modalStyle] = useState(getModalStyle);
   const [tileData, set_TileData] = useState([]);
@@ -88,7 +88,7 @@ export default function UploadImageModal({ msgText, setMsgText, conId }) {
       chat.sendOneMessage({
         conversationId: Number(conId),
         saveData: {
-          content: msgText,
+          content: '',
           type: 'media',
           messageMediaType: 'photo',
           isPaid: false,
@@ -99,7 +99,6 @@ export default function UploadImageModal({ msgText, setMsgText, conId }) {
           },
         },
         callback: () => {
-          setMsgText('');
           setImageModal(false);
           dispatch(
             chat.getOneConversation({
@@ -155,7 +154,6 @@ export default function UploadImageModal({ msgText, setMsgText, conId }) {
         </div>
       </div>
       <div className={classes.content}>
-        <h3>{msgText}</h3>
         <div>Upload Your Image</div>
         <div>
           <CardContent>
@@ -230,10 +228,6 @@ export default function UploadImageModal({ msgText, setMsgText, conId }) {
 
   const [imageModal, setImageModal] = useState(false);
   const handleImageModal = () => {
-    if (!msgText || msgText.trim() === '') {
-      return;
-    }
-
     setImageModal(true);
   };
 
