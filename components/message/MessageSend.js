@@ -122,7 +122,14 @@ export default function MessageSend({ conId, handleSendMessage }) {
           >
             <img src='/imageBtn.svg' alt='image' />
           </UploadImageModal>
-          <img src='/videoBtn.svg' alt='video' />
+          <UploadImageModal
+            type='video'
+            onMediaUploaded={data => {
+              handleSendMessage(data);
+            }}
+          >
+            <img src='/videoBtn.svg' alt='video' />
+          </UploadImageModal>
           <img
             src='/voiceBtn.svg'
             alt='voice'
