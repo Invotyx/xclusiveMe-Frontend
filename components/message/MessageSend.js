@@ -82,12 +82,12 @@ export default function MessageSend({ conId, handleSendMessage }) {
   const progressHandler = () => {
     setProgressInterval(
       setInterval(() => {
-      setProgress(oldProgress => {
-        if (oldProgress === 100) {
-          return 0;
-        }
-        return oldProgress + 0.3;
-      });
+        setProgress(oldProgress => {
+          if (oldProgress === 100) {
+            return 0;
+          }
+          return oldProgress + 0.3;
+        });
       }, 300)
     );
   };
@@ -101,7 +101,7 @@ export default function MessageSend({ conId, handleSendMessage }) {
   const timer = () => {
     setCountInterval(
       setInterval(() => {
-      setSeconds(seconds => seconds + 1);
+        setSeconds(seconds => seconds + 1);
       }, 1000)
     );
   };
