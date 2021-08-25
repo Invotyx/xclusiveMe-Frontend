@@ -919,13 +919,17 @@ const CommentModel = ({
                               <RepliesData
                                 comm={comm}
                                 post={post}
-                                currentUser={currentUser}
+                                singlePost={singlePost}
+                                currUser={currUser}
                                 isReplyField={isReplyField}
                                 setisReplyField={setisReplyField}
                                 issubReplyField={issubReplyField}
                                 setissubReplyField={setissubReplyField}
                                 commentId={commentId}
                                 setCommentId={setCommentId}
+                                forCommentId={forCommentId}
+                                openReply={openReply}
+                                checkRefs={checkRefs}
                               />
 
                               {/* {comm.totalReplies > 0  ? (

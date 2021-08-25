@@ -14,7 +14,7 @@ import { post } from '../../actions/post';
 import moment from 'moment';
 import styles from './newPost.module.css';
 import NextLink from 'next/link';
-import router from 'next/router';
+import router, { useRouter } from 'next/router';
 import { singlepostDataSelector } from '../../selectors/postSelector';
 import CommentModel from '../profile/commentModel';
 import ProfileImageAvatar from '../profile/profile-image-avatar';
@@ -107,10 +107,15 @@ export default function Notification({
   const [name, setName] = useState(null);
   const [userName, setUserName] = useState(null);
   const [profieImg, setProfileImage] = useState(null);
+  const router = useRouter();
 
-  const readNotification = (notifyId, modalId) => {
-    setOpen(true);
-    dispatch(post?.requestOne(modalId));
+  const readNotification = (notifyId, modalId, type, user) => {
+    type === 'like' || type === 'comment' || type === 'post' || type === 'reply'
+      ? (setOpen(true), dispatch(post?.requestOne(modalId)))
+      : type === 'subscribe' || type === 'postPurchase'
+      ? router.push(`/x/${user?.username}`)
+      : console.log('ok');
+
     dispatch(
       post?.viewNotifications({
         id: notifyId,
@@ -167,11 +172,20 @@ export default function Notification({
               Today
             </p>
           )}
-          <div>
+          <div className={styles.makeScroll}>
             {listofNotifications?.map((i, x) => (
               <div>
                 {i.createdAt.substring(0, 10) == todayDate() ? (
-                  <div onClick={() => readNotification(i.id, i.modelId)}>
+                  <div
+                    onClick={() =>
+                      readNotification(
+                        i.id,
+                        i.modelId,
+                        i.type,
+                        i.relatedUsers[0].user
+                      )
+                    }
+                  >
                     <MenuItem onClick={onClose} key={`notificationToday${x}`}>
                       <ListItemAvatar>
                         <div>
@@ -228,20 +242,28 @@ export default function Notification({
                                 </span>
                               ) : i.type === 'like' ? (
                                 <span className={styles.tag}>❤️️Liked </span>
-                              ) : (
+                              ) : i.type === 'postPurchase' ? (
                                 <span className={styles.tag}>
                                   {' '}
                                   <img
                                     src='/purchased.svg'
-                                    alt='comment'
+                                    alt='purchased'
                                     style={{
                                       width: '20px',
                                       height: '12px',
                                       marginRight: '0px',
                                     }}
                                   />
-                                  Purchased{' '}
+                                  Purchased your post{' '}
                                 </span>
+                              ) : i.type === 'planUpdate' ? (
+                                <span className={styles.tag}>Updated Plan</span>
+                              ) : i.type === 'subscribe' ? (
+                                <span className={styles.tag}>Followed you</span>
+                              ) : i.type === 'reply' ? (
+                                <span className={styles.tag}>Replied</span>
+                              ) : (
+                                ''
                               )}
 
                               <span className={styles.timeStyle}>
@@ -268,21 +290,36 @@ export default function Notification({
                                       {i.content.slice(0, 50)}
                                     </span>
                                   </>
-                                ) : i.type === 'like' ? (
-                                  ''
+                                ) : i.type === 'reply' ? (
+                                  <>
+                                    {' '}
+                                    <span
+                                      style={{
+                                        textOverflow: 'clip',
+                                        whiteSpace: 'normal',
+                                        height: 'auto',
+                                        width: '15vw',
+                                      }}
+                                      className={styles.tag}
+                                    >
+                                      {i.content.slice(0, 50)}
+                                    </span>
+                                  </>
                                 ) : (
                                   ''
                                 )}
                               </Typography>
                             </div>
-                            <div>
-                              <img
-                                src={i.relatedMediaLink}
-                                alt='related post'
-                                width='30px'
-                                height='30px'
-                              />
-                            </div>
+                            {i.relatedMediaLink && (
+                              <div>
+                                <img
+                                  src={i.relatedMediaLink}
+                                  alt='related post'
+                                  width='30px'
+                                  height='30px'
+                                />
+                              </div>
+                            )}
                           </div>
                         }
                       />
@@ -313,7 +350,7 @@ export default function Notification({
               Older
             </p>
           )}
-          <div>
+          <div className={styles.makeScroll}>
             {listofNotifications?.map((i, x) => (
               <div>
                 {i.createdAt?.substring(0, 10) !== todayDate() ? (
@@ -371,7 +408,7 @@ export default function Notification({
                                 </span>
                               ) : i.type === 'like' ? (
                                 <span className={styles.tag}>❤️️Liked </span>
-                              ) : (
+                              ) : i.type === 'postPurchase' ? (
                                 <span className={styles.tag}>
                                   {' '}
                                   <img
@@ -383,8 +420,16 @@ export default function Notification({
                                       marginRight: '0px',
                                     }}
                                   />
-                                  Purchased{' '}
+                                  Purchased your post{' '}
                                 </span>
+                              ) : i.type === 'planUpdate' ? (
+                                <span className={styles.tag}>Updated Plan</span>
+                              ) : i.type === 'subscribe' ? (
+                                <span className={styles.tag}>Followed you</span>
+                              ) : i.type === 'reply' ? (
+                                <span className={styles.tag}>Replied</span>
+                              ) : (
+                                ''
                               )}
 
                               <span className={styles.timeStyle}>
@@ -410,8 +455,21 @@ export default function Notification({
                                       {i.content.slice(0, 100)}
                                     </span>
                                   </>
-                                ) : i.type === 'like' ? (
-                                  ''
+                                ) : i.type === 'reply' ? (
+                                  <>
+                                    {' '}
+                                    <span
+                                      style={{
+                                        textOverflow: 'clip',
+                                        whiteSpace: 'normal',
+                                        height: 'auto',
+                                        width: '15vw',
+                                      }}
+                                      className={styles.tag}
+                                    >
+                                      {i.content.slice(0, 50)}
+                                    </span>
+                                  </>
                                 ) : (
                                   ''
                                 )}

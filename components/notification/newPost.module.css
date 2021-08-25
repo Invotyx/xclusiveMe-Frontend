@@ -3,6 +3,24 @@
     width: 30vw;
 }
 
+.makeScroll {
+    overflow-x: hidden;
+    overflow-y: scroll;
+    max-height: 30vh;
+}
+
+.makeScroll::-webkit-scrollbar {
+    width: 5px;
+}
+
+/* .makeScroll::-webkit-scrollbar-track {
+    background: black;
+} */
+
+.makeScroll::-webkit-scrollbar-thumb {
+    background: #4f4f4f;
+}
+
 .tag {
     font-weight: 900;
     font-style: normal;
