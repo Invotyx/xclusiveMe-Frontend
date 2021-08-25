@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { chat } from '../../actions/chat';
 import { currentUserSelector } from '../../selectors/authSelector';
 import ProfileImageAvatar from '../profile/profile-image-avatar';
-import UploadImageModal from './/uploadImageModal';
+import UploadImageModal from './uploadImageModal';
 import useMediaRecorder from '@wmik/use-media-recorder';
 import { snackbar } from '../../actions/snackbar';
 import AudioSend from './audioSend';
