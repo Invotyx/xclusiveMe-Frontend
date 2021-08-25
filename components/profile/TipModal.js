@@ -14,6 +14,7 @@ import { useMediaQuery } from 'react-responsive';
 import styles from './profile.module.css';
 import TextField from '@material-ui/core/TextField';
 import ImageAvatar from '../image-avatar';
+import ProfileImageAvatar from './profile-image-avatar';
 
 const useStyles = makeStyles(theme => ({
   modal: {
@@ -92,15 +93,15 @@ const TipModal = ({ profileImage, name, onConfirm }) => {
                       width: '90%',
                     }}
                   >
-                    <ImageAvatar
+                    <img
                       src={profileImage}
                       alt='profile image'
-                      width='60px'
-                      height='65px'
                       style={{
                         borderRadius: '50%',
                         marginTop: '-20px',
                         marginLeft: isMobile ? '40%' : '44%',
+                        width: '60px',
+                        height: '60px',
                       }}
                     />
                     <CloseIcon
