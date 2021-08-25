@@ -39,16 +39,16 @@ const ConvoList = ({
   const getOneConversation = clear => {
     clear && dispatch(chat.success({ singleChat: [] }));
     activeConversationId &&
-    dispatch(
-      chat.getOneConversation({
-        id: activeConversationId,
-        pageNum: pageNum,
-        limit: limit,
-        callback: () => {
-          scrollIntoView();
-        },
-      })
-    );
+      dispatch(
+        chat.getOneConversation({
+          id: activeConversationId,
+          pageNum: pageNum,
+          limit: limit,
+          callback: () => {
+            scrollIntoView();
+          },
+        })
+      );
   };
 
   React.useEffect(() => {
