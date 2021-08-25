@@ -168,7 +168,7 @@ export default function UploadImageModal({
                 <ImageListItem key={`tile${i}`}>
                   <img src={tile} alt={'no Image'} />
                   <ImageListItemBar
-                    titlePosition='top'
+                    position='top'
                     actionPosition='left'
                     actionIcon={
                       <Button
@@ -186,7 +186,7 @@ export default function UploadImageModal({
                 <MuiImageListItem key={`loadingItems${i}`}>
                   <img src={item.src} alt={'no Image'} />
                   <ImageListItemBar
-                    titlePosition='top'
+                    position='top'
                     actionPosition='left'
                     actionIcon={<CircularProgress variant='indeterminate' />}
                   />

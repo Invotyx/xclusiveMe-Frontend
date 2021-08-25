@@ -163,7 +163,7 @@ export default function NewPostForm({ afterSave }) {
                 <ImageListItem key={`tile${i}`}>
                   <img src={tile} alt={'no Image'} />
                   <ImageListItemBar
-                    titlePosition='top'
+                    position='top'
                     actionPosition='left'
                     actionIcon={
                       <Button
@@ -181,7 +181,7 @@ export default function NewPostForm({ afterSave }) {
                 <MuiImageListItem key={`loadingItems${i}`}>
                   <img src={item.src} alt={'no Image'} />
                   <ImageListItemBar
-                    titlePosition='top'
+                    position='top'
                     actionPosition='left'
                     actionIcon={
                       <CircularProgress
