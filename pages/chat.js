@@ -231,6 +231,7 @@ const Chat = () => {
                 activeConversationId === null && isMobile ? 'none' : 'block',
             }}
           >
+            {condId && (
             <Card>
               <CardHeader
                 avatar={
@@ -315,6 +316,7 @@ const Chat = () => {
                 handleSendMessage={handleSendMessage}
               />
             </Card>
+            )}
           </Grid>
         </Grid>
       </Container>
