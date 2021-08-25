@@ -101,6 +101,13 @@ function* handleAddVoicemail(action) {
   } catch (e) {
     console.log(e);
     yield put(chat.failure({ error: { ...e } }));
+    yield put(
+      snackbar.update({
+        open: true,
+        message: e.response.data.message,
+        severity: 'error',
+      })
+    );
   }
 }
 
