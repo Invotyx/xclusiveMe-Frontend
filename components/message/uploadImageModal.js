@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogActions from '@material-ui/core/DialogActions';
 import UploadImage from './uploadImage';
 import ImageList from '@material-ui/core/ImageList';
 import MuiImageListItem from '@material-ui/core/ImageListItem';
@@ -90,6 +93,7 @@ export default function UploadImageModal({ conId }) {
 
   const body = (
     <>
+    <DialogTitle>
       <div
         style={{
           display: 'flex',
@@ -118,6 +122,8 @@ export default function UploadImageModal({ conId }) {
           />
         </div>
       </div>
+    </DialogTitle>
+    <DialogContent>
       <div className={classes.content}>
         <div>Upload Your Image</div>
         <div>
@@ -165,7 +171,9 @@ export default function UploadImageModal({ conId }) {
           }
         />
       </div>
+    </DialogContent>
 
+    <DialogActions disableSpacing>
       <GreenButton
         variant='contained'
         color='primary'
@@ -174,6 +182,7 @@ export default function UploadImageModal({ conId }) {
       >
         Send Now
       </GreenButton>
+    </DialogActions>
     </>
   );
 
