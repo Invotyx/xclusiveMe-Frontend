@@ -11,8 +11,6 @@ import ImageListItemBar from '@material-ui/core/ImageListItemBar';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import ImageListItem from '@material-ui/core/ImageListItem';
 import { Button } from '@material-ui/core';
-import { useDispatch } from 'react-redux';
-import { chat } from '../../actions/chat';
 import ProfileImageAvatar from '../profile/profile-image-avatar';
 import CloseIcon from '@material-ui/icons/Close';
 import GreenButton from '../GreenButton';
@@ -39,7 +37,6 @@ export default function UploadImageModal({ onMediaUploaded, children }) {
   const [mediaa, setMedia] = useState([]);
   const [disabled, set_disabled] = useState(false);
   const [loadingItems, setLoadingItems] = useState([]);
-  const dispatch = useDispatch();
   const [sUrl, setSUrl] = useState('');
 
   const handleClose = () => {
