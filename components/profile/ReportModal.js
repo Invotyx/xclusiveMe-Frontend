@@ -83,11 +83,11 @@ const ReportModal = ({
                     width: '90%',
                   }}
                 >
-                  <ImageAvatar
+                  <img
                     src={profileImage}
                     alt='profile image'
                     width='60px'
-                    height='65px'
+                    height='60px'
                     style={{
                       borderRadius: '50%',
                       marginTop: '-20px',
