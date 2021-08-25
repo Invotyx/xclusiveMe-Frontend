@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Modal from '@material-ui/core/Modal';
+import Dialog from '@material-ui/core/Dialog';
 import UploadImage from './uploadImage';
 import ImageList from '@material-ui/core/ImageList';
 import MuiImageListItem from '@material-ui/core/ImageListItem';
@@ -185,14 +185,14 @@ export default function UploadImageModal({ conId }) {
   return (
     <>
       <img src='/imageBtn.svg' alt='image' onClick={handleImageModal} />
-      <Modal
+      <Dialog
         open={imageModal}
         onClose={handleClose}
         aria-labelledby='simple-modal-title'
         aria-describedby='simple-modal-description'
       >
         {body}
-      </Modal>
+      </Dialog>
     </>
   );
 }
