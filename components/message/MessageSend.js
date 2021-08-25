@@ -20,13 +20,13 @@ export default function MessageSend({ conId, handleSendMessage }) {
     mediaStreamConstraints: { audio: true, video: false },
   });
   const [seconds, setSeconds] = useState(0);
-  const countRef = useRef(null);
   const current = useSelector(currentUserSelector);
   const [show, setShow] = useState(false);
   const [msgText, setMsgText] = useState('');
   const [imageModal, setImageModal] = useState(false);
   const [addVoice, setAddVoice] = useState(false);
   const [progress, setProgress] = useState(0);
+  const [countInterval, setCountInterval] = React.useState(null);
   const [progressInterval, setProgressInterval] = React.useState(null);
   const dispatch = useDispatch();
 
@@ -46,7 +46,7 @@ export default function MessageSend({ conId, handleSendMessage }) {
     if (status === 'recording') {
       timer();
     } else if (status === 'stopped') {
-      clearInterval(countRef.current);
+      clearInterval(countInterval);
       setSeconds(0);
     } else if (status === 'failed') {
       dispatch(
@@ -99,9 +99,11 @@ export default function MessageSend({ conId, handleSendMessage }) {
   };
 
   const timer = () => {
-    countRef.current = setInterval(() => {
+    setCountInterval(
+      setInterval(() => {
       setSeconds(seconds => seconds + 1);
-    }, 1000);
+      }, 1000)
+    );
   };
 
   return (
