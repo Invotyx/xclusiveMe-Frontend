@@ -8,13 +8,13 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default function MessageMenu({ messageEl, onClose, children }) {
+export default function MessageMenu({ anchorEl, onClose, children }) {
   const classes = useStyles();
 
   return (
     <Menu
       id='simple-menu'
-      anchorEl={messageEl}
+      anchorEl={anchorEl}
       open={Boolean(anchorEl)}
       onClose={onClose}
       className={classes.root}
