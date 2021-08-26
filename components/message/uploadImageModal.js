@@ -28,7 +28,7 @@ export default function UploadImageModal({ type, onMediaUploaded, children }) {
   const Children = props => React.cloneElement(children, props);
   const classes = useStyles();
   const [tileData, setTileData] = useState([]);
-  const [mediaa, setMedia] = useState([]);
+  const [media, setMedia] = useState([]);
   const [disabled, set_disabled] = useState(false);
   const [loadingItems, setLoadingItems] = useState([]);
   const [sUrl, setSUrl] = useState('');
@@ -53,7 +53,7 @@ export default function UploadImageModal({ type, onMediaUploaded, children }) {
     setSUrl(source_url);
     setTileData(prev => [...prev, source_url.url]);
     setMedia([
-      ...mediaa,
+      ...media,
       {
         type: `${source_url.resource_ytpe}/${source_url.format}`,
         url: source_url.url,
@@ -63,7 +63,7 @@ export default function UploadImageModal({ type, onMediaUploaded, children }) {
 
   const removeImageHandler = tile => {
     setTileData(tileData.filter(t => t !== tile));
-    setMedia(mediaa.filter(f => f.url !== tile));
+    setMedia(media.filter(f => f.url !== tile));
   };
 
   const handleMsgSend = () => {
