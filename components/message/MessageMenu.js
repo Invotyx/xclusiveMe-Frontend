@@ -8,7 +8,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default function MessageMenu({ messageEl, onClose, open, children }) {
+export default function MessageMenu({ messageEl, onClose, children }) {
   const classes = useStyles();
 
   return (
