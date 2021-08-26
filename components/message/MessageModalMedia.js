@@ -34,6 +34,11 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
   const [loadingItems, setLoadingItems] = useState([]);
   const [sUrl, setSUrl] = useState('');
 
+  const [imageModal, setImageModal] = useState(false);
+  const handleImageModal = () => {
+    setImageModal(true);
+  };
+
   React.useEffect(() => {
     if (!imageModal) {
       setTileData([]);
@@ -185,11 +190,6 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
       </DialogActions>
     </>
   );
-
-  const [imageModal, setImageModal] = useState(false);
-  const handleImageModal = () => {
-    setImageModal(true);
-  };
 
   return (
     <>
