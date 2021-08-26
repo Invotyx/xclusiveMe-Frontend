@@ -165,7 +165,6 @@ export default function Comp({ sidebarMenu, set_sidebarMenu }) {
                 </NextLink>
                 <div>
                   <MessageMenu
-                    open={Boolean(messageEl)}
                     messageEl={messageEl}
                     onClose={messagesClose}
                   >
