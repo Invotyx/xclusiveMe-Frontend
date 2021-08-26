@@ -181,11 +181,13 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
             }}
             onVideoError={() => set_disabled(false)}
             onVideoUploadProgress={val => {
+              console.log(val);
             }}
             onVideoSelect={() => {
               set_disabled(true);
             }}
             onVideoUploaded={() => {
+              console.log('uploaded');
             }}
           />
         )}
