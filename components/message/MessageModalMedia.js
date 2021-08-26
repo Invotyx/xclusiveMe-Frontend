@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function UploadImageModal({ type, onMediaUploaded, children }) {
+export default function MessageModalMedia({ type, onMediaUploaded, children }) {
   const Children = props => React.cloneElement(children, props);
   const classes = useStyles();
   const [tileData, setTileData] = useState([]);
