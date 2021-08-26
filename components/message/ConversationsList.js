@@ -102,7 +102,6 @@ export default function ConversationsList({ subheaderPrefix }) {
   const { search } = query;
 
   return (
-    <>
       {chatsCount === 0 ? (
         <p style={{ marginLeft: '20px', padding: '20px', width: '200px' }}>
           No Data Found
@@ -180,6 +179,5 @@ export default function ConversationsList({ subheaderPrefix }) {
             ))}
         </List>
       )}
-    </>
   );
 }
