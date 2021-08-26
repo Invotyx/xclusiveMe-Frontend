@@ -212,19 +212,19 @@ const Chat = () => {
                         handleSendMessage(data);
                       }}
                     >
-                    <IconButton
-                      size='small'
-                      style={{
-                        backgroundColor: '#111111',
-                        padding: '16px',
-                        borderRadius: '3px',
-                        width: '42px',
-                        height: '42px',
-                        marginTop: '7px',
-                      }}
-                    >
-                      <AddCommentIcon />
-                    </IconButton>
+                      <IconButton
+                        size='small'
+                        style={{
+                          backgroundColor: '#111111',
+                          padding: '16px',
+                          borderRadius: '3px',
+                          width: '42px',
+                          height: '42px',
+                          marginTop: '7px',
+                        }}
+                      >
+                        <AddCommentIcon />
+                      </IconButton>
                     </MessageModalMedia>
                   </div>
                 }
