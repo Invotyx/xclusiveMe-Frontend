@@ -17,7 +17,7 @@ export default function MessageMenu({ messageEl, onClose, open, children }) {
     <Menu
       id='simple-menu'
       anchorEl={messageEl}
-      open={open}
+      open={Boolean(anchorEl)}
       onClose={onClose}
       className={classes.root}
     >
