@@ -3,10 +3,17 @@
     width: 30vw;
 }
 
+@media only screen and (max-width: 768px) {
+    .dataAndTitle {
+        display: block;
+        width: 100vw;
+    }
+}
+
 .makeScroll {
     overflow-x: hidden;
     overflow-y: scroll;
-    max-height: 30vh;
+    max-height: 40vh;
 }
 
 .makeScroll::-webkit-scrollbar {
