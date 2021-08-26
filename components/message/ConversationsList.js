@@ -102,11 +102,6 @@ export default function ConversationsList({ subheaderPrefix }) {
   const { search } = query;
 
   return (
-      {chatsCount === 0 ? (
-        <p style={{ marginLeft: '20px', padding: '20px', width: '200px' }}>
-          No Data Found
-        </p>
-      ) : (
         <List className={classes.list} disablePadding>
           <ListSubheader
             disableGutters
@@ -117,6 +112,11 @@ export default function ConversationsList({ subheaderPrefix }) {
               <Typography>All messages</Typography>
             </>
           </ListSubheader>
+          {chatsCount === 0 && (
+            <ListItem>
+              <ListItemText secondary='No Data Found' />
+            </ListItem>
+          )}
           {chatData
             ?.filter(c => {
               if (search) {
@@ -178,6 +178,5 @@ export default function ConversationsList({ subheaderPrefix }) {
               </ListItem>
             ))}
         </List>
-      )}
   );
 }
