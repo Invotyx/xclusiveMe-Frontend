@@ -194,7 +194,11 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
                 onVideoUploaded={() => {
                   console.log('uploaded');
                 }}
-              />
+              >
+                <Button variant='outlined' size='small'>
+                  Select File
+                </Button>
+              </UploadVideo>
             )}
           </Box>
         )}
