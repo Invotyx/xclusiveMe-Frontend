@@ -4,7 +4,7 @@ import { post } from '../actions/post';
 import * as UpChunk from '@mux/upchunk';
 
 export default function UploadVideo({
-  onUploadVideo,
+  onUploadVideoComplete,
   onVideoSelect,
   onVideoUploaded,
   onVideoUploadProgress,
@@ -49,7 +49,7 @@ export default function UploadVideo({
 
             // subscribe to events
             upload.on('success', err => {
-              onUploadVideo(res.id, video.type);
+              onUploadVideoComplete(res.id, video.type);
               onVideoUploaded && onVideoUploaded();
               event.target.value = null;
               console.log("Wrap it up, we're done here.");
