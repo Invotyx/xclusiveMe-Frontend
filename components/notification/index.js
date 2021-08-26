@@ -18,6 +18,7 @@ import router, { useRouter } from 'next/router';
 import { singlepostDataSelector } from '../../selectors/postSelector';
 import CommentModel from '../profile/commentModel';
 import ProfileImageAvatar from '../profile/profile-image-avatar';
+import { useMediaQuery } from 'react-responsive';
 
 const useStyles = makeStyles(theme => ({
   small: {
@@ -53,6 +54,7 @@ export default function Notification({
   const [userName, setUserName] = useState(null);
   const [profieImg, setProfileImage] = useState(null);
   const router = useRouter();
+  const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
 
   const readNotification = (notifyId, modalId, type, user) => {
     type === 'like' || type === 'comment' || type === 'post' || type === 'reply'
@@ -117,7 +119,10 @@ export default function Notification({
               Today
             </p>
           )}
-          <div className={styles.makeScroll}>
+          <div
+            className={styles.makeScroll}
+            style={{ maxHeight: count > 0 && oldCount === 0 ? '55vh' : '35vh' }}
+          >
             {listofNotifications?.map((i, x) => (
               <div>
                 {i.createdAt.substring(0, 10) == todayDate() ? (
@@ -191,7 +196,7 @@ export default function Notification({
                                 <span className={styles.tag}>
                                   {' '}
                                   <img
-                                    src='/purchased.svg'
+                                    src='/tipicon.svg'
                                     alt='purchased'
                                     style={{
                                       width: '20px',
@@ -199,7 +204,7 @@ export default function Notification({
                                       marginRight: '0px',
                                     }}
                                   />
-                                  Purchased your post{' '}
+                                  Purchased{' '}
                                 </span>
                               ) : i.type === 'planUpdate' ? (
                                 <span className={styles.tag}>Updated Plan</span>
@@ -228,13 +233,25 @@ export default function Notification({
                                         textOverflow: 'clip',
                                         whiteSpace: 'normal',
                                         height: 'auto',
-                                        width: '15vw',
+                                        width: isMobile ? '40vw' : '15vw',
                                       }}
                                       className={styles.tag}
                                     >
                                       {i.content.slice(0, 50)}
                                     </span>
                                   </>
+                                ) : i.type === 'postPurchase' ? (
+                                  <span
+                                    style={{
+                                      textOverflow: 'clip',
+                                      whiteSpace: 'normal',
+                                      height: 'auto',
+                                      width: isMobile ? '40vw' : '15vw',
+                                    }}
+                                    className={styles.tag}
+                                  >
+                                    {i.content}
+                                  </span>
                                 ) : i.type === 'reply' ? (
                                   <>
                                     {' '}
@@ -243,7 +260,7 @@ export default function Notification({
                                         textOverflow: 'clip',
                                         whiteSpace: 'normal',
                                         height: 'auto',
-                                        width: '15vw',
+                                        width: isMobile ? '40vw' : '15vw',
                                       }}
                                       className={styles.tag}
                                     >
@@ -295,11 +312,23 @@ export default function Notification({
               Older
             </p>
           )}
-          <div className={styles.makeScroll}>
+          <div
+            className={styles.makeScroll}
+            style={{ maxHeight: oldCount > 0 && count === 0 ? '55vh' : '30vh' }}
+          >
             {listofNotifications?.map((i, x) => (
               <div>
                 {i.createdAt?.substring(0, 10) !== todayDate() ? (
-                  <div onClick={() => readNotification(i.id, i.modelId)}>
+                  <div
+                    onClick={() =>
+                      readNotification(
+                        i.id,
+                        i.modelId,
+                        i.type,
+                        i.relatedUsers[0].user
+                      )
+                    }
+                  >
                     <MenuItem onClick={onClose} key={`notificationToday${x}`}>
                       <ListItemAvatar>
                         {i.relatedUsers[0]?.user?.profileImage === null ? (
@@ -357,7 +386,24 @@ export default function Notification({
                                 <span className={styles.tag}>
                                   {' '}
                                   <img
-                                    src='/purchased.svg'
+                                    src='/tipicon.svg'
+                                    alt='comment'
+                                    style={{
+                                      width: isMobile ? '10px' : '20px',
+                                      height: '12px',
+                                      marginRight: '0px',
+                                    }}
+                                  />
+                                  Purchased{' '}
+                                </span>
+                              ) : i.type === 'planUpdate' ? (
+                                <span className={styles.tag}>Updated Plan</span>
+                              ) : i.type === 'subscribe' ? (
+                                <span className={styles.tag}>Followed you</span>
+                              ) : i.type === 'reply' ? (
+                                <span className={styles.tag}>
+                                  <img
+                                    src='/noticomm.svg'
                                     alt='comment'
                                     style={{
                                       width: '20px',
@@ -365,14 +411,8 @@ export default function Notification({
                                       marginRight: '0px',
                                     }}
                                   />
-                                  Purchased your post{' '}
+                                  Replied
                                 </span>
-                              ) : i.type === 'planUpdate' ? (
-                                <span className={styles.tag}>Updated Plan</span>
-                              ) : i.type === 'subscribe' ? (
-                                <span className={styles.tag}>Followed you</span>
-                              ) : i.type === 'reply' ? (
-                                <span className={styles.tag}>Replied</span>
                               ) : (
                                 ''
                               )}
@@ -393,13 +433,25 @@ export default function Notification({
                                         textOverflow: 'clip',
                                         whiteSpace: 'normal',
                                         height: 'auto',
-                                        width: '15vw',
+                                        width: isMobile ? '40vw' : '15vw',
                                       }}
                                       className={styles.tag}
                                     >
                                       {i.content.slice(0, 100)}
                                     </span>
                                   </>
+                                ) : i.type === 'postPurchase' ? (
+                                  <span
+                                    style={{
+                                      textOverflow: 'clip',
+                                      whiteSpace: 'normal',
+                                      height: 'auto',
+                                      width: isMobile ? '40vw' : '15vw',
+                                    }}
+                                    className={styles.tag}
+                                  >
+                                    {i.content}
+                                  </span>
                                 ) : i.type === 'reply' ? (
                                   <>
                                     {' '}
@@ -408,7 +460,7 @@ export default function Notification({
                                         textOverflow: 'clip',
                                         whiteSpace: 'normal',
                                         height: 'auto',
-                                        width: '15vw',
+                                        width: isMobile ? '40vw' : '15vw',
                                       }}
                                       className={styles.tag}
                                     >
