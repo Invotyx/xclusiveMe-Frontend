@@ -10,7 +10,9 @@ export default function FormDialog({
   set_disabled,
   onImageSelect,
   onImageUploaded,
+  children,
 }) {
+  const Children = props => React.cloneElement(children, props);
   const dispatch = useDispatch();
   const inputFile = React.useRef(null);
 
@@ -47,6 +49,13 @@ export default function FormDialog({
         multiple
       />
 
+      {children ? (
+        <Children
+          onClick={() => {
+            inputFile.current.click();
+          }}
+        />
+      ) : (
       <Box clone color='#666'>
         <IconButton
           onClick={() => {
@@ -56,6 +65,7 @@ export default function FormDialog({
           <WallpaperOutlinedIcon />
         </IconButton>
       </Box>
+      )}
     </>
   );
 }
