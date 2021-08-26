@@ -126,69 +126,73 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
         {(type === 'photo' || type === 'video') && (
           <Box display='flex'>
             <Typography>Add media</Typography>
-        {type === 'photo' && (
-          <>
-            <ImageList rowHeight={100} cols={4}>
-              {tileData.map((tile, i) => (
-                <ImageListItem key={`tile${i}`}>
-                  <img src={tile} alt={'no Image'} />
-                  <ImageListItemBar
-                    position='top'
-                    actionPosition='left'
-                    actionIcon={
-                      <Button
-                        size='small'
-                        variant='outlined'
-                        onClick={() => removeImageHandler(tile)}
-                      >
-                        Remove
-                      </Button>
-                    }
-                  />
-                </ImageListItem>
-              ))}
-              {loadingItems.map((item, i) => (
-                <MuiImageListItem key={`loadingItems${i}`}>
-                  <img src={item.src} alt={'no Image'} />
-                  <ImageListItemBar
-                    position='top'
-                    actionPosition='left'
-                    actionIcon={<CircularProgress variant='indeterminate' />}
-                  />
-                </MuiImageListItem>
-              ))}
-            </ImageList>
-            <UploadImage
-              imageHandler={imageHandler}
-              set_disabled={set_disabled}
-              onImageSelect={imgSrc => {
-                setLoadingItems(prev => [...prev, { src: imgSrc }]);
-              }}
-              onImageUploaded={() =>
-                setLoadingItems(
-                  loadingItems.filter((a, i) => i !== loadingItems.length - 1)
-                )
-              }
-            />
-          </>
-        )}
-        {type === 'video' && (
-          <UploadVideo
-            onUploadVideoComplete={(muxId, mediaType) => {
-              set_disabled(false);
-            }}
-            onVideoError={() => set_disabled(false)}
-            onVideoUploadProgress={val => {
-              console.log(val);
-            }}
-            onVideoSelect={() => {
-              set_disabled(true);
-            }}
-            onVideoUploaded={() => {
-              console.log('uploaded');
-            }}
-          />
-        )}
+            {type === 'photo' && (
+              <>
+                <ImageList rowHeight={100} cols={4}>
+                  {tileData.map((tile, i) => (
+                    <ImageListItem key={`tile${i}`}>
+                      <img src={tile} alt={'no Image'} />
+                      <ImageListItemBar
+                        position='top'
+                        actionPosition='left'
+                        actionIcon={
+                          <Button
+                            size='small'
+                            variant='outlined'
+                            onClick={() => removeImageHandler(tile)}
+                          >
+                            Remove
+                          </Button>
+                        }
+                      />
+                    </ImageListItem>
+                  ))}
+                  {loadingItems.map((item, i) => (
+                    <MuiImageListItem key={`loadingItems${i}`}>
+                      <img src={item.src} alt={'no Image'} />
+                      <ImageListItemBar
+                        position='top'
+                        actionPosition='left'
+                        actionIcon={
+                          <CircularProgress variant='indeterminate' />
+                        }
+                      />
+                    </MuiImageListItem>
+                  ))}
+                </ImageList>
+                <UploadImage
+                  imageHandler={imageHandler}
+                  set_disabled={set_disabled}
+                  onImageSelect={imgSrc => {
+                    setLoadingItems(prev => [...prev, { src: imgSrc }]);
+                  }}
+                  onImageUploaded={() =>
+                    setLoadingItems(
+                      loadingItems.filter(
+                        (a, i) => i !== loadingItems.length - 1
+                      )
+                    )
+                  }
+                />
+              </>
+            )}
+            {type === 'video' && (
+              <UploadVideo
+                onUploadVideoComplete={(muxId, mediaType) => {
+                  set_disabled(false);
+                }}
+                onVideoError={() => set_disabled(false)}
+                onVideoUploadProgress={val => {
+                  console.log(val);
+                }}
+                onVideoSelect={() => {
+                  set_disabled(true);
+                }}
+                onVideoUploaded={() => {
+                  console.log('uploaded');
+                }}
+              />
+            )}
           </Box>
         )}
       </DialogContent>
