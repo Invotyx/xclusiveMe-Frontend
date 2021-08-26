@@ -34,61 +34,6 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const notificationToday = [
-  {
-    avatar: 'https://material-ui.com/static/images/avatar/3.jpg',
-    title: 'Ariana Green',
-    image: 'https://material-ui.com/static/images/avatar/3.jpg',
-    secondary1: 'commented two hours ago',
-    secondary2: ' This is beautiful one of my favourite',
-  },
-  {
-    avatar: 'https://material-ui.com/static/images/avatar/3.jpg',
-    title: 'Ariana Green',
-    image: 'https://material-ui.com/static/images/avatar/3.jpg',
-    secondary1: 'liked 2h ago',
-    secondary2: '',
-  },
-  {
-    avatar: 'https://material-ui.com/static/images/avatar/3.jpg',
-    title: 'Ariana Green',
-    image: 'https://material-ui.com/static/images/avatar/3.jpg',
-    secondary1: 'liked 2h ago',
-    secondary2: '',
-  },
-  {
-    avatar: 'https://material-ui.com/static/images/avatar/3.jpg',
-    title: 'Ariana Green',
-    image: 'https://material-ui.com/static/images/avatar/3.jpg',
-    secondary1: 'tipped 2h ago',
-    secondary2: '',
-  },
-];
-
-const notificationYesterday = [
-  {
-    avatar: 'https://material-ui.com/static/images/avatar/3.jpg',
-    title: 'Ariana Green',
-    image: 'https://material-ui.com/static/images/avatar/3.jpg',
-    secondary1: 'commented two hours ago',
-    secondary2: ' This is beautiful one of my favourite',
-  },
-  {
-    avatar: 'https://material-ui.com/static/images/avatar/3.jpg',
-    title: 'Ariana Green',
-    image: 'https://material-ui.com/static/images/avatar/3.jpg',
-    secondary1: 'liked 2h ago',
-    secondary2: '',
-  },
-  {
-    avatar: 'https://material-ui.com/static/images/avatar/3.jpg',
-    title: 'Holly Molly',
-    image: 'https://material-ui.com/static/images/avatar/3.jpg',
-    secondary1: 'liked 2h ago',
-    secondary2: '',
-  },
-];
-
 export default function Notification({
   onClose,
   profileData,
