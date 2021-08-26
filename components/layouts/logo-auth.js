@@ -161,11 +161,11 @@ export default function Comp({ sidebarMenu, set_sidebarMenu }) {
 
               <Box ml={3} display={{ xs: 'none', sm: 'none', md: 'flex' }}>
                 {chatMenu === 'link' ? (
-                <NextLink href='/chat' passHref>
-                  <IconButton color='inherit'>
-                    <SmsIcon />
-                  </IconButton>
-                </NextLink>
+                  <NextLink href='/chat' passHref>
+                    <IconButton color='inherit'>
+                      <SmsIcon />
+                    </IconButton>
+                  </NextLink>
                 ) : (
                   <>
                     <IconButton
@@ -174,14 +174,11 @@ export default function Comp({ sidebarMenu, set_sidebarMenu }) {
                     >
                       <SmsIcon />
                     </IconButton>
-                <div>
-                  <MessageMenu
-                    anchorEl={messageEl}
-                    onClose={messagesClose}
-                  >
-                    <ConversationsList />
-                  </MessageMenu>
-                </div>
+                    <div>
+                      <MessageMenu anchorEl={messageEl} onClose={messagesClose}>
+                        <ConversationsList />
+                      </MessageMenu>
+                    </div>
                   </>
                 )}
               </Box>
