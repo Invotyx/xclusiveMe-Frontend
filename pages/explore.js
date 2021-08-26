@@ -25,6 +25,8 @@ import { useMediaQuery } from 'react-responsive';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { fetchingSelector } from '../selectors/postSelector';
 import { chat } from '../actions/chat';
+import { user } from '../actions/user';
+import { allUsersSelector } from '../selectors/userSelector';
 
 const suggestions = [
   {
@@ -46,8 +48,13 @@ export default function Home() {
   const posts = useSelector(subscribedSelector);
   const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
   const fetching = useSelector(fetchingSelector);
-  const pageNum = 1;
-  const limit = 50;
+  const suggestion = useSelector(allUsersSelector);
+  const pageNum = Math.floor(Math.random() * 3 + 1);
+  const limit = Math.floor(Math.random() * 5 + 1);
+
+  useEffect(() => {
+    dispatch(user.requestAll({ limit: limit, pageNumber: pageNum }));
+  }, []);
 
   useEffect(() => {
     dispatch(post.requestSubscribed());
@@ -85,35 +92,43 @@ export default function Home() {
               <Grid item xs={12} md={3}>
                 <Typography>Suggestions For You</Typography>
                 <List>
-                  {suggestions.map((s, i) => (
-                    <ListItem key={`suggestions${i}`}>
-                      <ListItemAvatar>
-                        <Avatar src={s.profileImage} />
-                      </ListItemAvatar>
-                      <ListItemText
-                        primary={
-                          <Typography variant='body2'>{s.fullName}</Typography>
-                        }
-                        secondary={
-                          <Typography variant='caption' color='textSecondary'>
-                            Suggested for you
-                          </Typography>
-                        }
-                      />
-
-                      <ListItemSecondaryAction>
-                        <NextLink href={`/x/${s.username}`} passHref>
-                          <Link>
-                            <div style={{ marginRight: '-10vw' }}>
-                              <Typography variant='caption'>
-                                See Profile
+                  {suggestion?.map(
+                    (s, i) =>
+                      s.fullName && (
+                        <ListItem key={`suggestions${i}`}>
+                          <ListItemAvatar>
+                            <Avatar src={s.profileImage} />
+                          </ListItemAvatar>
+                          <ListItemText
+                            primary={
+                              <Typography variant='body2'>
+                                {s.fullName}
                               </Typography>
-                            </div>
-                          </Link>
-                        </NextLink>
-                      </ListItemSecondaryAction>
-                    </ListItem>
-                  ))}
+                            }
+                            secondary={
+                              <Typography
+                                variant='caption'
+                                color='textSecondary'
+                              >
+                                Suggested for you
+                              </Typography>
+                            }
+                          />
+
+                          <ListItemSecondaryAction>
+                            <NextLink href={`/x/${s.username}`} passHref>
+                              <Link>
+                                <div style={{ marginRight: '-10vw' }}>
+                                  <Typography variant='caption'>
+                                    See Profile
+                                  </Typography>
+                                </div>
+                              </Link>
+                            </NextLink>
+                          </ListItemSecondaryAction>
+                        </ListItem>
+                      )
+                  )}
                 </List>
               </Grid>
             )}
