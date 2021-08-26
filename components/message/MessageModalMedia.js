@@ -11,7 +11,6 @@ import ImageListItemBar from '@material-ui/core/ImageListItemBar';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import ImageListItem from '@material-ui/core/ImageListItem';
 import { Button } from '@material-ui/core';
-import ProfileImageAvatar from '../profile/profile-image-avatar';
 import CloseIcon from '@material-ui/icons/Close';
 import GreenButton from '../GreenButton';
 import UploadVideo from '../new-post/uploadVideo';
@@ -99,7 +98,6 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
             }}
           >
             <div style={{ marginTop: '-20px', marginLeft: '44%' }}>
-              <ProfileImageAvatar />
             </div>
 
             <CloseIcon
