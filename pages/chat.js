@@ -60,7 +60,7 @@ const Chat = () => {
 
   const router = useRouter();
   const { pathname, query } = router;
-  const { conId } = router.query;
+  const { conId } = query;
 
   let pageNum = 1;
   let limit = 50;
