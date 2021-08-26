@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogTitle from '../DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import UploadImage from './uploadImage';
@@ -83,24 +83,7 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
   const body = (
     <>
       <DialogTitle>
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-          }}
-        >
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              width: '90%',
-            }}
-          >
-            <div style={{ marginTop: '-20px', marginLeft: '44%' }}>
-            </div>
-
-          </div>
-        </div>
+        New Message
       </DialogTitle>
       <DialogContent className={classes.content}>
         {type === 'photo' && (
