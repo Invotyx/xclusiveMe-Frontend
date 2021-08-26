@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
+import MenuItem from '@material-ui/core/MenuItem';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '../DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -101,7 +102,9 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
               fullWidth
               margin='dense'
               label='To'
-            />
+            >
+              <MenuItem>Select</MenuItem>
+            </TextField>
           </>
         )}
         {(type === 'photo' || type === 'text') && (
