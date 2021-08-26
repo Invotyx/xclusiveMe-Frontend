@@ -27,7 +27,7 @@ const useStyles = makeStyles(theme => ({
 export default function UploadImageModal({ type, onMediaUploaded, children }) {
   const Children = props => React.cloneElement(children, props);
   const classes = useStyles();
-  const [tileData, set_TileData] = useState([]);
+  const [tileData, setTileData] = useState([]);
   const [mediaa, setMedia] = useState([]);
   const [disabled, set_disabled] = useState(false);
   const [loadingItems, setLoadingItems] = useState([]);
@@ -42,7 +42,7 @@ export default function UploadImageModal({ type, onMediaUploaded, children }) {
       source_url = source_url[0];
     }
     setSUrl(source_url);
-    set_TileData(prev => [...prev, source_url.url]);
+    setTileData(prev => [...prev, source_url.url]);
     setMedia([
       ...mediaa,
       {
@@ -53,7 +53,7 @@ export default function UploadImageModal({ type, onMediaUploaded, children }) {
   };
 
   const removeImageHandler = tile => {
-    set_TileData(tileData.filter(t => t !== tile));
+    setTileData(tileData.filter(t => t !== tile));
     setMedia(mediaa.filter(f => f.url !== tile));
   };
 
