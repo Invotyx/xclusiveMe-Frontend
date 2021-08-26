@@ -20,10 +20,6 @@ export default function MessageMenu({ messageEl, onClose, open, children }) {
       open={open}
       keepMounted
       onClose={onClose}
-      anchorOrigin={{
-        vertical: 'bottom',
-        horizontal: 'middle',
-      }}
       className={classes.root}
     >
       {children}
