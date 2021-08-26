@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import Box from '@material-ui/core/Box';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import Dialog from '@material-ui/core/Dialog';
@@ -123,6 +124,7 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
             rows={3}
           />
         )}
+        <Box display='flex'>
         {type === 'photo' && (
           <>
             <ImageList rowHeight={100} cols={4}>
@@ -184,6 +186,7 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
             }}
           />
         )}
+        </Box>
       </DialogContent>
 
       <DialogActions disableSpacing>
