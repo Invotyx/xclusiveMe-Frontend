@@ -24,8 +24,6 @@ import { post } from '../../actions/post';
 import { notificationsCount } from '../../selectors/postSelector';
 import styles from './layout.module.css';
 import { fetchingSelector } from '../../selectors/postSelector';
-import LoadingOverlay from 'react-loading-overlay';
-import BounceLoader from 'react-spinners/BounceLoader';
 import ConversationsList from '../message/ConversationsList';
 import MessageMenu from '../message/MessageMenu';
 import { currentUserSelector } from '../../selectors/authSelector';
