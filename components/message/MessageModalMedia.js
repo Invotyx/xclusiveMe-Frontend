@@ -87,6 +87,12 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
         New Message
       </DialogTitle>
       <DialogContent className={classes.content}>
+        {type === 'camera' && (
+          <>
+            <TextField variant='outlined' fullWidth multiline rows={3} />
+            <Button variant='outlined'>Capture</Button>
+          </>
+        )}
         {type === 'text' && (
           <>
             <TextField
