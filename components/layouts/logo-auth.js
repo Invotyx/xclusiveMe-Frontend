@@ -165,7 +165,7 @@ export default function Comp({ sidebarMenu, set_sidebarMenu }) {
                 </NextLink>
                 <div>
                   <MessageMenu
-                    messageEl={messageEl}
+                    anchorEl={messageEl}
                     onClose={messagesClose}
                   >
                     <ConversationsList />
