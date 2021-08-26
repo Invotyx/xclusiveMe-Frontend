@@ -168,6 +168,9 @@ export default function UploadImageModal({ type, onMediaUploaded, children }) {
               set_disabled(true);
             }}
             onVideoUploaded={() => {
+            }}
+          />
+        )}
       </DialogContent>
 
       <DialogActions disableSpacing>
