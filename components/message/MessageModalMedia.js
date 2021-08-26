@@ -11,7 +11,6 @@ import ImageListItemBar from '@material-ui/core/ImageListItemBar';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import ImageListItem from '@material-ui/core/ImageListItem';
 import { Button } from '@material-ui/core';
-import CloseIcon from '@material-ui/icons/Close';
 import GreenButton from '../GreenButton';
 import UploadVideo from '../new-post/uploadVideo';
 
@@ -100,15 +99,6 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
             <div style={{ marginTop: '-20px', marginLeft: '44%' }}>
             </div>
 
-            <CloseIcon
-              onClick={handleClose}
-              style={{
-                marginTop: '20px',
-                width: '30px',
-                height: '30px',
-                cursor: 'pointer',
-              }}
-            />
           </div>
         </div>
       </DialogTitle>
