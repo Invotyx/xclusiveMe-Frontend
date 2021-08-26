@@ -94,7 +94,7 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
               variant='outlined'
               fullWidth
               multiline
-              rows={3}
+              rows={5}
               disabled
             />
             <Button variant='outlined'>Capture</Button>
