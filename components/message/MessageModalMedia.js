@@ -204,6 +204,7 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
               <Typography>Price</Typography>
             </Box>
             <TextField
+              value={'0.00'}
               variant='outlined'
               margin='dense'
               InputProps={{
