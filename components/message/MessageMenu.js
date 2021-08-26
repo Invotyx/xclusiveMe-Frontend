@@ -20,7 +20,6 @@ export default function MessageMenu({ messageEl, onClose, open, children }) {
       open={open}
       keepMounted
       onClose={onClose}
-      getContentAnchorEl={null}
       anchorOrigin={{
         vertical: 'bottom',
         horizontal: 'middle',
