@@ -86,19 +86,6 @@ export default function ConversationsList({ subheaderPrefix }) {
     router.push({ pathname, query: { ...query, conId } });
   };
 
-  const [key, setKey] = React.useState(0);
-  React.useEffect(() => {
-    const interval = setInterval(() => {
-      setKey(k => k + 1);
-    }, 5000);
-
-    function cleanup() {
-      clearInterval(interval);
-    }
-
-    return cleanup;
-  }, []);
-
   const { search } = query;
 
   return (
@@ -162,7 +149,7 @@ export default function ConversationsList({ subheaderPrefix }) {
             />
 
             <ListItemSecondaryAction>
-              <Typography component='span' variant='caption' key={`${x}${key}`}>
+              <Typography component='span' variant='caption'>
                   {i.updatedAt}
               </Typography>
             </ListItemSecondaryAction>
