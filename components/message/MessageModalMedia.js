@@ -113,7 +113,7 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
             </TextField>
           </>
         )}
-        {(type === 'photo' || type === 'text') && (
+        {(type === 'photo' || type === 'video' || type === 'text') && (
           <TextField
             variant='outlined'
             fullWidth
