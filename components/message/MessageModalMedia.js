@@ -125,10 +125,9 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
             rows={3}
           />
         )}
-        <Box display='flex'>
-          {(type === 'photo' || type === 'video') && (
+        {(type === 'photo' || type === 'video') && (
+          <Box display='flex'>
             <Typography>Add media</Typography>
-          )}
         {type === 'photo' && (
           <>
             <ImageList rowHeight={100} cols={4}>
@@ -190,7 +189,8 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
             }}
           />
         )}
-        </Box>
+          </Box>
+        )}
       </DialogContent>
 
       <DialogActions disableSpacing>
