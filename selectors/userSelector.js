@@ -10,6 +10,10 @@ const userDataSelector = createSelector(userState, state => {
 
 const singleSelector = createSelector(userState, state => state.get('single'));
 
+const allUsersSelector = createSelector(userState, state =>
+  state.get('allData')
+);
+
 const fetchingSelector = createSelector(userState, state =>
   state.get('fetching')
 );
@@ -25,6 +29,7 @@ const errorSelector = createSelector(userState, state => {
 });
 export {
   userDataSelector,
+  allUsersSelector,
   singleSelector,
   fetchingSelector,
   searchedSelector,
