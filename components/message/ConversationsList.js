@@ -18,6 +18,7 @@ import moment from 'moment';
 import { withStyles } from '@material-ui/core';
 import { ActiveConversationContext } from '../../pages/chat';
 import { useRouter } from 'next/router';
+import Moment from 'react-moment';
 
 const ListItem = withStyles({
   root: {
@@ -150,7 +151,9 @@ export default function ConversationsList({ subheaderPrefix }) {
 
             <ListItemSecondaryAction>
               <Typography component='span' variant='caption'>
+                <Moment fromNow inteval={10000}>
                   {i.updatedAt}
+                </Moment>
               </Typography>
             </ListItemSecondaryAction>
           </ListItem>
