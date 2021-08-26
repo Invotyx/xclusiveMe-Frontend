@@ -125,7 +125,9 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
         )}
         {(type === 'photo' || type === 'video') && (
           <Box display='flex'>
+            <Box display='flex' flexGrow={1}>
             <Typography>Add media</Typography>
+            </Box>
             {type === 'photo' && (
               <>
                 <ImageList rowHeight={100} cols={4}>
