@@ -18,7 +18,6 @@ export default function MessageMenu({ messageEl, onClose, open, children }) {
       id='simple-menu'
       anchorEl={messageEl}
       open={open}
-      keepMounted
       onClose={onClose}
       className={classes.root}
     >
