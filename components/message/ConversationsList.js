@@ -102,81 +102,72 @@ export default function ConversationsList({ subheaderPrefix }) {
   const { search } = query;
 
   return (
-        <List className={classes.list} disablePadding>
-          <ListSubheader
+    <List className={classes.list} disablePadding>
+      <ListSubheader
+        disableGutters
+        style={{ backgroundColor: '#000', paddingTop: '8px' }}
+      >
+        <>
+          <SubheaderPrefix />
+          <Typography>All messages</Typography>
+        </>
+      </ListSubheader>
+      {chatsCount === 0 && (
+        <ListItem>
+          <ListItemText secondary='No Data Found' />
+        </ListItem>
+      )}
+      {chatData
+        ?.filter(c => {
+          if (search) {
+            const participant = c.participants.find(p => p.id !== myData?.id);
+            if (participant) {
+              return participant.fullName
+                .toLowerCase()
+                .indexOf(search.toLowerCase()) > -1
+                ? true
+                : false;
+            }
+          }
+          return true;
+        })
+        .map((i, x) => (
+          <ListItem
+            key={`chatData${x}`}
+            button
+            onClick={() => handlegetone(i.id)}
             disableGutters
-            style={{ backgroundColor: '#000', paddingTop: '8px' }}
+            selected={+activeConversationId === i.id}
           >
-            <>
-              <SubheaderPrefix />
-              <Typography>All messages</Typography>
-            </>
-          </ListSubheader>
-          {chatsCount === 0 && (
-            <ListItem>
-              <ListItemText secondary='No Data Found' />
-            </ListItem>
-          )}
-          {chatData
-            ?.filter(c => {
-              if (search) {
-                const participant = c.participants.find(
-                  p => p.id !== myData?.id
-                );
-                if (participant) {
-                  return participant.fullName
-                    .toLowerCase()
-                    .indexOf(search.toLowerCase()) > -1
-                    ? true
-                    : false;
+            <ListItemAvatar>
+              <ImageAvatar
+                src={
+                  i.participants.find(p => p.id !== myData?.id)?.profileImage
                 }
-              }
-              return true;
-            })
-            .map((i, x) => (
-              <ListItem
-                key={`chatData${x}`}
-                button
-                onClick={() => handlegetone(i.id)}
-                disableGutters
-                selected={+activeConversationId === i.id}
-              >
-                <ListItemAvatar>
-                  <ImageAvatar
-                    src={
-                      i.participants.find(p => p.id !== myData?.id)
-                        ?.profileImage
-                    }
-                  />
-                </ListItemAvatar>
-                <ListItemText
-                  primary={
-                    i.participants.find(p => p?.id !== myData?.id)?.fullName
-                  }
-                  secondary={
-                    <React.Fragment>
-                      <Typography
-                        component='span'
-                        variant='body2'
-                        style={{ color: '#757575' }}
-                      >
-                        {i.lastMessage.content.slice(0, 15)}...
-                      </Typography>
-                    </React.Fragment>
-                  }
-                />
-
-                <ListItemSecondaryAction>
+              />
+            </ListItemAvatar>
+            <ListItemText
+              primary={i.participants.find(p => p?.id !== myData?.id)?.fullName}
+              secondary={
+                <React.Fragment>
                   <Typography
                     component='span'
-                    variant='caption'
-                    key={`${x}${key}`}
+                    variant='body2'
+                    style={{ color: '#757575' }}
                   >
-                    {moment(i.updatedAt).fromNow()}
+                    {i.lastMessage.content.slice(0, 15)}...
                   </Typography>
-                </ListItemSecondaryAction>
-              </ListItem>
-            ))}
-        </List>
+                </React.Fragment>
+              }
+            />
+
+            <ListItemSecondaryAction>
+              <Typography component='span' variant='caption' key={`${x}${key}`}>
+                {moment(i.updatedAt).fromNow()}
+              </Typography>
+            </ListItemSecondaryAction>
+          </ListItem>
+        ))}
+    </List>
   );
 }
