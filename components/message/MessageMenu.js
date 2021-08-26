@@ -5,8 +5,6 @@ import Menu from '@material-ui/core/Menu';
 const useStyles = makeStyles(() => ({
   root: {
     width: 'auto',
-    marginLeft: '70vw',
-    marginTop: '-44vh',
   },
 }));
 
