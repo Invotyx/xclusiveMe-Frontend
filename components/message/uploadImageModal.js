@@ -33,6 +33,15 @@ export default function UploadImageModal({ type, onMediaUploaded, children }) {
   const [loadingItems, setLoadingItems] = useState([]);
   const [sUrl, setSUrl] = useState('');
 
+  React.useEffect(() => {
+    if (!imageModal) {
+      setTileData([]);
+      setMedia([]);
+      setLoadingItems([]);
+      setSUrl('');
+    }
+  }, [imageModal]);
+
   const handleClose = () => {
     setImageModal(false);
   };
