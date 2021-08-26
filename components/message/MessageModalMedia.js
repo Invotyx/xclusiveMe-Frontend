@@ -17,6 +17,7 @@ import ImageListItem from '@material-ui/core/ImageListItem';
 import Button from '@material-ui/core/Button';
 import GreenButton from '../GreenButton';
 import UploadVideo from '../new-post/uploadVideo';
+import { currencySymbol } from '../../services/currencySymbol';
 
 const useStyles = makeStyles(theme => ({
   content: {
@@ -195,6 +196,20 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
                 }}
               />
             )}
+          </Box>
+        )}
+        {(type === 'photo' || type === 'video') && (
+          <Box display='flex' width='100%' alignItems='center'>
+            <Box display='flex' flexGrow={1}>
+              <Typography>Price</Typography>
+            </Box>
+            <TextField
+              variant='outlined'
+              margin='dense'
+              InputProps={{
+                endAdornment: currencySymbol,
+              }}
+            />
           </Box>
         )}
       </DialogContent>
