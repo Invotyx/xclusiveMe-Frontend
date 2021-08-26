@@ -36,6 +36,7 @@ import MessageSend from '../components/message/MessageSend';
 import SearchConversations from '../components/message/SearchConversations';
 import { post } from '../actions/post';
 import { currencySymbol } from '../services/currencySymbol';
+import MessageModalMedia from '../components/message/MessageModalMedia';
 const { publicRuntimeConfig } = getConfig();
 const SERVER_ADDRESS = publicRuntimeConfig.backendUrl;
 
@@ -59,7 +60,8 @@ const Chat = () => {
     React.useState(null);
 
   const router = useRouter();
-  const { conId } = router.query;
+  const { pathname, query } = router;
+  const { conId } = query;
 
   let pageNum = 1;
   let limit = 50;
@@ -204,19 +206,26 @@ const Chat = () => {
                     }}
                   >
                     <SearchConversations />
-                    <IconButton
-                      size='small'
-                      style={{
-                        backgroundColor: '#111111',
-                        padding: '16px',
-                        borderRadius: '3px',
-                        width: '42px',
-                        height: '42px',
-                        marginTop: '7px',
+                    <MessageModalMedia
+                      type='text'
+                      onMediaUploaded={data => {
+                        handleSendMessage(data);
                       }}
                     >
-                      <AddCommentIcon />
-                    </IconButton>
+                      <IconButton
+                        size='small'
+                        style={{
+                          backgroundColor: '#111111',
+                          padding: '16px',
+                          borderRadius: '3px',
+                          width: '42px',
+                          height: '42px',
+                          marginTop: '7px',
+                        }}
+                      >
+                        <AddCommentIcon />
+                      </IconButton>
+                    </MessageModalMedia>
                   </div>
                 }
               />
@@ -240,7 +249,10 @@ const Chat = () => {
                     isMobile ? (
                       <IconButton
                         onClick={() => {
-                          setActiveConversationId(null);
+                          router.push({
+                            pathname,
+                            query: { ...query, conId: '' },
+                          });
                         }}
                       >
                         <ArrowBackIcon />

@@ -120,7 +120,8 @@ export default function NewPostForm({ afterSave }) {
     ]);
   };
 
-  const onUploadVideo = (muxId, mediaType) => {
+  const onUploadVideoComplete = (muxId, mediaType) => {
+    set_disabled(false);
     set_TileData([...tileData, '/no-media.jpg']);
     setMedia([
       ...media,
@@ -246,10 +247,11 @@ export default function NewPostForm({ afterSave }) {
               <Box mx={1}>
                 <Box clone color='#666'>
                   <UploadVideo
-                    onUploadVideo={onUploadVideo}
-                    set_disabled={set_disabled}
+                    onUploadVideoComplete={onUploadVideoComplete}
+                    onVideoError={() => set_disabled(false)}
                     onVideoUploadProgress={val => setProgressVideo({ val })}
                     onVideoSelect={() => {
+                      set_disabled(true);
                       setProgressVideo({ val: 0 });
                       setLoadingItems([
                         ...loadingItems,

@@ -16,8 +16,6 @@ import { auth } from '../actions/auth';
 import { fetchingSelector } from '../selectors/authSelector';
 import LayoutGuest from '../components/layouts/layout-guest-auth';
 import { currentUserSelector } from '../selectors/authSelector';
-import LoadingOverlay from 'react-loading-overlay';
-import BounceLoader from 'react-spinners/BounceLoader';
 import { userRoleSelector } from '../selectors/authSelector';
 
 const useStyles = makeStyles(theme => ({

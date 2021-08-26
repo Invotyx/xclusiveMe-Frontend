@@ -4,12 +4,11 @@ import IconButton from '@material-ui/core/IconButton';
 import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
 import { Picker } from 'emoji-mart';
 import 'emoji-mart/css/emoji-mart.css';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { chat } from '../../actions/chat';
 import { currentUserSelector } from '../../selectors/authSelector';
 import ProfileImageAvatar from '../profile/profile-image-avatar';
-import UploadImageModal from './uploadImageModal';
+import MessageModalMedia from './MessageModalMedia';
 import useMediaRecorder from '@wmik/use-media-recorder';
 import { snackbar } from '../../actions/snackbar';
 import AudioSend from './audioSend';
@@ -113,30 +112,30 @@ export default function MessageSend({ conId, handleSendMessage }) {
             opacity: addVoice ? 0 : 1,
           }}
         >
-          <UploadImageModal
+          <MessageModalMedia
             type='camera'
             onMediaUploaded={data => {
               handleSendMessage(data);
             }}
           >
             <img src='/camera.svg' alt='camera' />
-          </UploadImageModal>
-          <UploadImageModal
+          </MessageModalMedia>
+          <MessageModalMedia
             type='photo'
             onMediaUploaded={data => {
               handleSendMessage(data);
             }}
           >
             <img src='/imageBtn.svg' alt='image' />
-          </UploadImageModal>
-          <UploadImageModal
+          </MessageModalMedia>
+          <MessageModalMedia
             type='video'
             onMediaUploaded={data => {
               handleSendMessage(data);
             }}
           >
             <img src='/videoBtn.svg' alt='video' />
-          </UploadImageModal>
+          </MessageModalMedia>
           <img
             src='/voiceBtn.svg'
             alt='voice'

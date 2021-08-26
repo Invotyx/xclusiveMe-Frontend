@@ -24,11 +24,11 @@ import { post } from '../../actions/post';
 import { notificationsCount } from '../../selectors/postSelector';
 import styles from './layout.module.css';
 import { fetchingSelector } from '../../selectors/postSelector';
-import LoadingOverlay from 'react-loading-overlay';
-import BounceLoader from 'react-spinners/BounceLoader';
 import ConversationsList from '../message/ConversationsList';
 import MessageMenu from '../message/MessageMenu';
 import { currentUserSelector } from '../../selectors/authSelector';
+
+const chatMenu = 'link';
 
 export default function Comp({ sidebarMenu, set_sidebarMenu }) {
   const dispatch = useDispatch();
@@ -158,20 +158,27 @@ export default function Comp({ sidebarMenu, set_sidebarMenu }) {
               </Box>
 
               <Box ml={3} display={{ xs: 'none', sm: 'none', md: 'flex' }}>
-                <NextLink href='/chat' passHref>
-                  <IconButton color='inherit'>
-                    <SmsIcon />
-                  </IconButton>
-                </NextLink>
-                <div>
-                  <MessageMenu
-                    open={Boolean(messageEl)}
-                    messageEl={messageEl}
-                    onClose={messagesClose}
-                  >
-                    <ConversationsList onClose={messagesClose} />
-                  </MessageMenu>
-                </div>
+                {chatMenu === 'link' ? (
+                  <NextLink href='/chat' passHref>
+                    <IconButton color='inherit'>
+                      <SmsIcon />
+                    </IconButton>
+                  </NextLink>
+                ) : (
+                  <>
+                    <IconButton
+                      color='inherit'
+                      onClick={e => setMessageEl(e.currentTarget)}
+                    >
+                      <SmsIcon />
+                    </IconButton>
+                    <div>
+                      <MessageMenu anchorEl={messageEl} onClose={messagesClose}>
+                        <ConversationsList />
+                      </MessageMenu>
+                    </div>
+                  </>
+                )}
               </Box>
               <Box ml={3}>
                 <NextLink href='/settings/account' passHref>

@@ -5,26 +5,18 @@ import Menu from '@material-ui/core/Menu';
 const useStyles = makeStyles(() => ({
   root: {
     width: 'auto',
-    marginLeft: '70vw',
-    marginTop: '-44vh',
   },
 }));
 
-export default function MessageMenu({ messageEl, onClose, open, children }) {
+export default function MessageMenu({ anchorEl, onClose, children }) {
   const classes = useStyles();
 
   return (
     <Menu
       id='simple-menu'
-      anchorEl={messageEl}
-      open={open}
-      keepMounted
+      anchorEl={anchorEl}
+      open={Boolean(anchorEl)}
       onClose={onClose}
-      getContentAnchorEl={null}
-      anchorOrigin={{
-        vertical: 'bottom',
-        horizontal: 'middle',
-      }}
       className={classes.root}
     >
       {children}
