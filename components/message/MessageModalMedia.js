@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '../DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -86,6 +87,17 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
         New Message
       </DialogTitle>
       <DialogContent className={classes.content}>
+        {type === 'text' && (
+          <>
+            <TextField
+              select
+              variant='outlined'
+              fullWidth
+              margin='dense'
+              label='To'
+            />
+          </>
+        )}
         {type === 'photo' && (
           <>
             <ImageList rowHeight={100} cols={4}>
