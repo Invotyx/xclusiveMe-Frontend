@@ -14,6 +14,7 @@ import { Button } from '@material-ui/core';
 import ProfileImageAvatar from '../profile/profile-image-avatar';
 import CloseIcon from '@material-ui/icons/Close';
 import GreenButton from '../GreenButton';
+import UploadVideo from '../new-post/uploadVideo';
 
 const useStyles = makeStyles(theme => ({
   content: {
@@ -155,6 +156,18 @@ export default function UploadImageModal({ type, onMediaUploaded, children }) {
             />
           </>
         )}
+        {type === 'video' && (
+          <UploadVideo
+            onUploadVideoComplete={(muxId, mediaType) => {
+              set_disabled(false);
+            }}
+            onVideoError={() => set_disabled(false)}
+            onVideoUploadProgress={val => {
+            }}
+            onVideoSelect={() => {
+              set_disabled(true);
+            }}
+            onVideoUploaded={() => {
       </DialogContent>
 
       <DialogActions disableSpacing>
