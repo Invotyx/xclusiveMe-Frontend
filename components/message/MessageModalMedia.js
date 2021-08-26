@@ -162,20 +162,18 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
               <Typography>Add media</Typography>
             </Box>
             {type === 'photo' && (
-                <UploadImage
-                  imageHandler={imageHandler}
-                  set_disabled={set_disabled}
-                  onImageSelect={imgSrc => {
-                    setLoadingItems(prev => [...prev, { src: imgSrc }]);
-                  }}
-                  onImageUploaded={() =>
-                    setLoadingItems(
-                      loadingItems.filter(
-                        (a, i) => i !== loadingItems.length - 1
-                      )
-                    )
-                  }
-                />
+              <UploadImage
+                imageHandler={imageHandler}
+                set_disabled={set_disabled}
+                onImageSelect={imgSrc => {
+                  setLoadingItems(prev => [...prev, { src: imgSrc }]);
+                }}
+                onImageUploaded={() =>
+                  setLoadingItems(
+                    loadingItems.filter((a, i) => i !== loadingItems.length - 1)
+                  )
+                }
+              />
             )}
             {type === 'video' && (
               <UploadVideo
