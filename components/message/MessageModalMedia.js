@@ -82,7 +82,7 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
 
   const body = (
     <>
-      <DialogTitle>
+      <DialogTitle onClose={handleClose}>
         New Message
       </DialogTitle>
       <DialogContent className={classes.content}>
