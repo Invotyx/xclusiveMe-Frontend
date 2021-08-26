@@ -377,7 +377,7 @@ const CommentModel = ({
                       marginTop: '10px',
                     }}
                   >
-                    <ProfileImageAvatar user={singlePost?.user?.profileImage} />
+                    <ProfileImageAvatar user={singlePost?.user} />
                     <CardContent>
                       <Typography
                         variant='body2'

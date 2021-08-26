@@ -328,7 +328,7 @@ export default function Post({
 
               <div>
                 {post.media.length === 0 ||
-                post?.user?.username == currentUser.username ? (
+                post?.user?.username == currentUser?.username ? (
                   <IconButton
                     aria-label='more'
                     aria-controls='simple-menu'
@@ -482,7 +482,7 @@ export default function Post({
                 </span>
               </NormalCaseButton>
 
-              {post?.user?.username == currentUser.username ? (
+              {post?.user?.username == currentUser?.username ? (
                 ''
               ) : (
                 <NormalCaseButton
@@ -618,15 +618,6 @@ export default function Post({
           forCommentId={forCommentId}
           openReply={openReply}
         />
-
-        {/* <div style={{ display: 'none' }}>
-          <Notifications
-            profileData={profileData}
-            currentUser={currentUser}
-            altHeader={altHeader}
-            post={post}
-          />
-        </div> */}
 
         {post.comments.map(comm => (
           <div style={{ marginBottom: '20px' }}>

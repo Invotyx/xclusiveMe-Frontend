@@ -133,3 +133,7 @@ export async function reportUser(reason) {
   const data = JSON.stringify(reason);
   return apiClient.post(`${SERVER_ADDRESS}/report/user`, data);
 }
+
+export async function getAllUsers() {
+  return apiClient.get(`${SERVER_ADDRESS}/users?limit=${4}&page=${1}`);
+}

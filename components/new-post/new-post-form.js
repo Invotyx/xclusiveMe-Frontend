@@ -101,6 +101,10 @@ export default function NewPostForm({ afterSave }) {
   };
 
   const imageHandler = source_url => {
+    if (Array.isArray(source_url)) {
+      source_url = source_url[0];
+    }
+
     set_TileData(prev => [...prev, source_url.url]);
     setMedia([
       ...media,
