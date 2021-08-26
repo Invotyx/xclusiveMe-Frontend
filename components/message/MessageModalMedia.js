@@ -16,7 +16,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import ImageListItem from '@material-ui/core/ImageListItem';
 import Button from '@material-ui/core/Button';
 import GreenButton from '../GreenButton';
-import UploadVideo from '../new-post/uploadVideo';
+import UploadVideo from '../uploadVideo';
 import { currencySymbol } from '../../services/currencySymbol';
 
 const useStyles = makeStyles(theme => ({
