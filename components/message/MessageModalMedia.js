@@ -209,6 +209,7 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
               InputProps={{
                 endAdornment: currencySymbol,
               }}
+              style={{ width: '100px' }}
             />
           </Box>
         )}
