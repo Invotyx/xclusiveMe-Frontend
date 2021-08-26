@@ -102,7 +102,7 @@ const Chat = () => {
           message: (
             <>
               <Typography variant='subtitle2'>New message received:</Typography>
-              <Typography variant='caption'>{data.message}</Typography>
+              <Typography variant='caption'>{data.message?.content}</Typography>
             </>
           ),
           severity: 'success',
