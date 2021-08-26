@@ -86,9 +86,7 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
 
   const body = (
     <>
-      <DialogTitle onClose={handleClose}>
-        New Message
-      </DialogTitle>
+      <DialogTitle onClose={handleClose}>New Message</DialogTitle>
       <DialogContent className={classes.content}>
         {type === 'camera' && (
           <>
