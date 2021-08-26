@@ -59,6 +59,7 @@ const Chat = () => {
     React.useState(null);
 
   const router = useRouter();
+  const { pathname, query } = router;
   const { conId } = router.query;
 
   let pageNum = 1;
@@ -241,6 +242,10 @@ const Chat = () => {
                       <IconButton
                         onClick={() => {
                           setActiveConversationId(null);
+                          router.push({
+                            pathname,
+                            query: { ...query, conId: '' },
+                          });
                         }}
                       >
                         <ArrowBackIcon />
