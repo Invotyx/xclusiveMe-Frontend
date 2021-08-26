@@ -38,7 +38,7 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
   const [sUrl, setSUrl] = useState('');
 
   const [imageModal, setImageModal] = useState(false);
-  const handleImageModal = () => {
+  const handleClickOpen = () => {
     setImageModal(true);
   };
 
@@ -235,7 +235,7 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
 
   return (
     <>
-      <Children onClick={handleImageModal} />
+      <Children onClick={handleClickOpen} />
       <Dialog
         open={imageModal}
         onClose={handleClose}
