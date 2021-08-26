@@ -173,7 +173,11 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
                     loadingItems.filter((a, i) => i !== loadingItems.length - 1)
                   )
                 }
-              />
+              >
+                <Button variant='outlined' size='small'>
+                  Select File
+                </Button>
+              </UploadImage>
             )}
             {type === 'video' && (
               <UploadVideo
