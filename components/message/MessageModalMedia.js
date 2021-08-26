@@ -12,7 +12,7 @@ import MuiImageListItem from '@material-ui/core/ImageListItem';
 import ImageListItemBar from '@material-ui/core/ImageListItemBar';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import ImageListItem from '@material-ui/core/ImageListItem';
-import { Button } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
 import GreenButton from '../GreenButton';
 import UploadVideo from '../new-post/uploadVideo';
 
