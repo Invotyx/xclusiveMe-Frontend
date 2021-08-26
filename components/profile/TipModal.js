@@ -58,7 +58,7 @@ const TipModal = ({ profileImage, name, onConfirm }) => {
 
   useEffect(() => {
     dispatch(paymentMethod.request());
-  }, []);
+  }, [paymentMethod]);
   return (
     <>
       <IconButton onClick={handleOpenTopModal}>
