@@ -6,7 +6,7 @@ import VideocamOutlinedIcon from '@material-ui/icons/VideocamOutlined';
 import * as UpChunk from '@mux/upchunk';
 import Box from '@material-ui/core/Box';
 
-export default function FormDialog({
+export default function uploadVideo({
   onUploadVideo,
   onVideoSelect,
   onVideoUploaded,
