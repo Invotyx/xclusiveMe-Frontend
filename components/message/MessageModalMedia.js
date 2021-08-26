@@ -162,7 +162,6 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
               <Typography>Add media</Typography>
             </Box>
             {type === 'photo' && (
-              <>
                 <UploadImage
                   imageHandler={imageHandler}
                   set_disabled={set_disabled}
@@ -177,7 +176,6 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
                     )
                   }
                 />
-              </>
             )}
             {type === 'video' && (
               <UploadVideo
