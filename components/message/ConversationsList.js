@@ -163,7 +163,7 @@ export default function ConversationsList({ subheaderPrefix }) {
 
             <ListItemSecondaryAction>
               <Typography component='span' variant='caption' key={`${x}${key}`}>
-                {moment(i.updatedAt).fromNow()}
+                  {i.updatedAt}
               </Typography>
             </ListItemSecondaryAction>
           </ListItem>
