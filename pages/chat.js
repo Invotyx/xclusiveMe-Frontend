@@ -241,7 +241,6 @@ const Chat = () => {
                     isMobile ? (
                       <IconButton
                         onClick={() => {
-                          setActiveConversationId(null);
                           router.push({
                             pathname,
                             query: { ...query, conId: '' },
