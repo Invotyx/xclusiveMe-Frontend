@@ -11,7 +11,7 @@ export default function UploadVideo({
   onVideoSelect,
   onVideoUploaded,
   onVideoUploadProgress,
-  set_disabled,
+  onVideoError,
 }) {
   const dispatch = useDispatch();
   const inputFile = React.useRef(null);
@@ -21,7 +21,6 @@ export default function UploadVideo({
     event.preventDefault();
     var video = event.target.files[0];
     if (video) {
-      set_disabled(true);
       onVideoSelect && onVideoSelect();
 
       dispatch(
@@ -40,7 +39,7 @@ export default function UploadVideo({
             // subscribe to events
             upload.on('error', err => {
               console.error('', err.detail);
-              set_disabled(false);
+              onVideoError(err);
             });
 
             upload.on('progress', progress => {
@@ -50,7 +49,6 @@ export default function UploadVideo({
 
             // subscribe to events
             upload.on('success', err => {
-              set_disabled(false);
               onUploadVideo(res.id, video.type);
               onVideoUploaded && onVideoUploaded();
               event.target.value = null;
