@@ -36,6 +36,7 @@ import MessageSend from '../components/message/MessageSend';
 import SearchConversations from '../components/message/SearchConversations';
 import { post } from '../actions/post';
 import { currencySymbol } from '../services/currencySymbol';
+import MessageModalMedia from '../components/message/MessageModalMedia';
 const { publicRuntimeConfig } = getConfig();
 const SERVER_ADDRESS = publicRuntimeConfig.backendUrl;
 
@@ -205,6 +206,12 @@ const Chat = () => {
                     }}
                   >
                     <SearchConversations />
+                    <MessageModalMedia
+                      type='text'
+                      onMediaUploaded={data => {
+                        handleSendMessage(data);
+                      }}
+                    >
                     <IconButton
                       size='small'
                       style={{
@@ -218,6 +225,7 @@ const Chat = () => {
                     >
                       <AddCommentIcon />
                     </IconButton>
+                    </MessageModalMedia>
                   </div>
                 }
               />
