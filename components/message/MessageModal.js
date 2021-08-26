@@ -10,8 +10,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
 import ShareIcon from '@material-ui/icons/Share';
 import TextField from '@material-ui/core/TextField';
-import LoadingOverlay from 'react-loading-overlay';
-import BounceLoader from 'react-spinners/BounceLoader';
 import { chat as chatData } from '../../actions/chat';
 
 const useStyles = makeStyles(theme => ({
