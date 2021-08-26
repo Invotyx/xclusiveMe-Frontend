@@ -98,6 +98,16 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
             />
           </>
         )}
+        {(type === 'photo' || type === 'text') && (
+          <TextField
+            variant='outlined'
+            fullWidth
+            margin='dense'
+            label='Content'
+            multiline
+            rows={3}
+          />
+        )}
         {type === 'photo' && (
           <>
             <ImageList rowHeight={100} cols={4}>
