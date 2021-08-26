@@ -372,7 +372,7 @@ const SinglePost = ({
                     marginTop: '10px',
                   }}
                 >
-                  <ProfileImageAvatar user={sPost} />
+                  <ProfileImageAvatar user={sPost?.user} />
                   <CardContent>
                     <Typography
                       variant='body2'
