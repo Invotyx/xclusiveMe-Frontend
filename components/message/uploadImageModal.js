@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -103,7 +102,6 @@ export default function UploadImageModal({ type, onMediaUploaded, children }) {
       <DialogContent className={classes.content}>
         {type === 'photo' && (
           <>
-            <Typography>Upload Your Image</Typography>
             <ImageList rowHeight={100} cols={4}>
               {tileData.map((tile, i) => (
                 <ImageListItem key={`tile${i}`}>
