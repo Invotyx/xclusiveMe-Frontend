@@ -169,7 +169,7 @@ export default function Comp({ sidebarMenu, set_sidebarMenu }) {
                     messageEl={messageEl}
                     onClose={messagesClose}
                   >
-                    <ConversationsList onClose={messagesClose} />
+                    <ConversationsList />
                   </MessageMenu>
                 </div>
               </Box>
