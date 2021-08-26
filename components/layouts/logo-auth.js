@@ -30,6 +30,8 @@ import ConversationsList from '../message/ConversationsList';
 import MessageMenu from '../message/MessageMenu';
 import { currentUserSelector } from '../../selectors/authSelector';
 
+const chatMenu = 'link'
+
 export default function Comp({ sidebarMenu, set_sidebarMenu }) {
   const dispatch = useDispatch();
   const router = useRouter();
@@ -158,11 +160,20 @@ export default function Comp({ sidebarMenu, set_sidebarMenu }) {
               </Box>
 
               <Box ml={3} display={{ xs: 'none', sm: 'none', md: 'flex' }}>
+                {chatMenu === 'link' ? (
                 <NextLink href='/chat' passHref>
                   <IconButton color='inherit'>
                     <SmsIcon />
                   </IconButton>
                 </NextLink>
+                ) : (
+                  <>
+                    <IconButton
+                      color='inherit'
+                      onClick={e => setMessageEl(e.currentTarget)}
+                    >
+                      <SmsIcon />
+                    </IconButton>
                 <div>
                   <MessageMenu
                     anchorEl={messageEl}
@@ -171,6 +182,8 @@ export default function Comp({ sidebarMenu, set_sidebarMenu }) {
                     <ConversationsList />
                   </MessageMenu>
                 </div>
+                  </>
+                )}
               </Box>
               <Box ml={3}>
                 <NextLink href='/settings/account' passHref>
