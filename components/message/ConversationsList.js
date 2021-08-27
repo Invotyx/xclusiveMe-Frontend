@@ -14,7 +14,6 @@ import {
 } from '../../selectors/chatSelector';
 import { useSelector } from 'react-redux';
 import { currentUserSelector } from '../../selectors/authSelector';
-import moment from 'moment';
 import { withStyles } from '@material-ui/core';
 import { ActiveConversationContext } from '../../pages/chat';
 import { useRouter } from 'next/router';
