@@ -216,7 +216,6 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
                 }}
                 onVideoError={() => set_disabled(false)}
                 onVideoUploadProgress={val => {
-                  console.log(val);
                   setProgressVideo({ val });
                 }}
                 onVideoSelect={() => {
@@ -234,7 +233,6 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
                   ]);
                 }}
                 onVideoUploaded={() => {
-                  console.log('uploaded');
                   setProgressVideo({ val: 100 });
                   setLoadingItems(
                     loadingItems.filter((a, i) => i !== loadingItems.length - 1)
