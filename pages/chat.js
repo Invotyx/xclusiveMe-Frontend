@@ -186,9 +186,7 @@ const Chat = () => {
                 activeConversationId !== null && isMobile ? 'none' : 'block',
             }}
           >
-              <ConversationsList
-                subheaderPrefix={<ConversationsListPrefix />}
-              />
+            <ConversationsList subheaderPrefix={<ConversationsListPrefix />} />
           </Grid>
 
           <Grid
