@@ -210,7 +210,10 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
               <UploadVideo
                 onUploadVideoComplete={(muxId, mediaType) => {
                   set_disabled(false);
-                  setTileData([...tileData, '/no-media.jpg']);
+                  setTileData([
+                    ...tileData,
+                    'https://place-hold.it/400x400/#ccc&text=placeholder',
+                  ]);
                   setMedia([
                     ...media,
                     {
@@ -229,7 +232,7 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
                   setLoadingItems([
                     ...loadingItems,
                     {
-                      src: '/no-media.jpg',
+                      src: 'https://place-hold.it/400x400/#ccc&text=placeholder',
                       progressProps: {
                         variant: 'determinate',
                         // value: progressVideo.val,
