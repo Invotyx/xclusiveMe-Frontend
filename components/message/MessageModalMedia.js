@@ -167,7 +167,7 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
               </ImageListItem>
             ))}
             {loadingItems.map((item, i) => (
-              <ImageListItem key={`loadingItems${i}`}>
+              <MuiImageListItem key={`loadingItems${i}`}>
                 <img src={item.src} alt={'no Image'} />
                 <ImageListItemBar
                   position='top'
@@ -179,7 +179,7 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
                     />
                   }
                 />
-              </ImageListItem>
+              </MuiImageListItem>
             ))}
           </ImageList>
         )}
