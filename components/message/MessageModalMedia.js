@@ -137,7 +137,6 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
           />
         )}
         {(type === 'photo' || type === 'video') && (
-          <Box display='flex' width='100%'>
           <ImageList rowHeight={100} cols={4}>
             {tileData.map((tile, i) => (
               <ImageListItem key={`tile${i}`}>
@@ -173,7 +172,6 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
               </MuiImageListItem>
             ))}
           </ImageList>
-          </Box>
         )}
         {(type === 'photo' || type === 'video') && (
           <Box display='flex' width='100%' alignItems='center'>
