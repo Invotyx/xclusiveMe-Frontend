@@ -29,6 +29,7 @@ const RepliesData = ({
   forCommentId,
   openReply,
   currUser,
+  replyRef,
   checkRefs,
 }) => {
   const [showMyReply, setShowMyReply] = useState(false);
@@ -78,9 +79,11 @@ const RepliesData = ({
     );
   };
 
-  // useEffect(() => {
-  //   checkRefs === true && inputField.current.focus();
-  // }, [checkRefs]);
+  useEffect(() => {
+    checkRefs === true && inputField.current?.focus();
+    console.log('on replied data', checkRefs);
+    console.log('actual ref', inputField);
+  }, [checkRefs, inputField, isReplyField, issubReplyField]);
 
   useEffect(() => {
     openReply === true &&
@@ -154,7 +157,7 @@ const RepliesData = ({
 
   return (
     <div>
-      <div style={{ display: 'flex' }}>
+      <div style={{ display: 'flex' }} onClick={() => setShow(false)}>
         <div style={{ marginRight: '10px' }}>
           {comm.totalLikes === 0 ? (
             <div style={{ display: 'flex' }}>
