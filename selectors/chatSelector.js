@@ -17,4 +17,13 @@ const singleChatSelector = createSelector(chatState, state => {
   return data;
 });
 
-export { chatDataSelector, chatCountSelector, singleChatSelector };
+const activeConversationIdSelector = createSelector(chatState, state =>
+  state.get('activeConversationId')
+);
+
+export {
+  chatDataSelector,
+  chatCountSelector,
+  singleChatSelector,
+  activeConversationIdSelector,
+};

@@ -63,4 +63,8 @@ export const chat = {
       fetching: false,
       success: false,
     }),
+  updateActiveConversationId: activeConversationId =>
+    createAction(CHAT.UPDATE_ACTIVE_CONVERSATION_ID, {
+      activeConversationId,
+    }),
 };

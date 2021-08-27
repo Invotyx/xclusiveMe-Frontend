@@ -9,6 +9,7 @@ export const CHAT = createActionTypes('CHAT', [
   'IS_SEEN',
   'SUCCESS',
   'FAIL',
+  'UPDATE_ACTIVE_CONVERSATION_ID',
 ]);
 
 export default CHAT;

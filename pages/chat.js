@@ -6,15 +6,14 @@ import Layout from '../components/layouts/layout-auth';
 import { makeStyles } from '@material-ui/core/styles';
 import ConversationsList from '../components/message/ConversationsList';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import AddCommentIcon from '@material-ui/icons/AddComment';
 import { useRouter } from 'next/router';
 import { currentUserSelector } from '../selectors/authSelector';
 import { useDispatch, useSelector } from 'react-redux';
 import Typography from '@material-ui/core/Typography';
 import ImageAvatar from '../components/image-avatar';
-import getConfig from 'next/config';
 import { chat } from '../actions/chat';
 import {
+  activeConversationIdSelector,
   chatDataSelector,
   singleChatSelector,
 } from '../selectors/chatSelector';
@@ -33,12 +32,10 @@ import TipModal from '../components/profile/TipModal';
 import ManuButton from '../components/menuButton';
 import { user } from '../actions/user';
 import MessageSend from '../components/message/MessageSend';
-import SearchConversations from '../components/message/SearchConversations';
 import { post } from '../actions/post';
 import { currencySymbol } from '../services/currencySymbol';
-import MessageModalMedia from '../components/message/MessageModalMedia';
-const { publicRuntimeConfig } = getConfig();
-const SERVER_ADDRESS = publicRuntimeConfig.backendUrl;
+import { socketUrl } from '../services/socketUrl';
+import ConversationsListPrefix from '../components/message/ConversationsListPrefix';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -48,12 +45,12 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export const ActiveConversationContext = React.createContext([[], () => {}]);
 const Chat = () => {
+  const dispatch = useDispatch();
   const [socketIo, setSocketIo] = useState(null);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  const [activeConversationId, setActiveConversationId] = React.useState(null);
+  const activeConversationId = useSelector(activeConversationIdSelector);
   const [activeParticipant, setActiveParticipant] = React.useState(null);
   const [lastMessageReceived, setLastMessageReceived] = React.useState(null);
   const [scrollIntoViewPointer, setScrollIntoViewPointer] =
@@ -74,13 +71,9 @@ const Chat = () => {
       })
     );
 
-  const url = `${SERVER_ADDRESS.substring(
-    0,
-    SERVER_ADDRESS.length - 4
-  )}/messages`;
   useEffect(() => {
     const JWTToken = localStorage.getItem('jwtToken');
-    const socket = io(url, {
+    const socket = io(socketUrl, {
       transports: ['websocket'],
       query: {
         token: `${JWTToken}`,
@@ -125,7 +118,6 @@ const Chat = () => {
   }, [conId]);
 
   const classes = useStyles();
-  const dispatch = useDispatch();
   const current = useSelector(currentUserSelector);
   const chatsData = useSelector(chatDataSelector);
   const singlechat = useSelector(singleChatSelector);
@@ -165,7 +157,7 @@ const Chat = () => {
 
   useEffect(() => {
     if (conId) {
-      setActiveConversationId(+conId);
+      dispatch(chat.updateActiveConversationId(conId));
       if (chatsData && current) {
         setActiveParticipant(
           chatsData
@@ -174,7 +166,7 @@ const Chat = () => {
         );
       }
     } else {
-      setActiveConversationId(null);
+      dispatch(chat.updateActiveConversationId(null));
     }
   }, [conId, chatsData, current, singlechat]);
 
@@ -194,42 +186,7 @@ const Chat = () => {
                 activeConversationId !== null && isMobile ? 'none' : 'block',
             }}
           >
-            <ActiveConversationContext.Provider
-              value={[activeConversationId, setActiveConversationId]}
-            >
-              <ConversationsList
-                subheaderPrefix={
-                  <div
-                    style={{
-                      display: 'flex',
-                      marginBottom: '10px',
-                    }}
-                  >
-                    <SearchConversations />
-                    <MessageModalMedia
-                      type='text'
-                      onMediaUploaded={data => {
-                        handleSendMessage(data);
-                      }}
-                    >
-                      <IconButton
-                        size='small'
-                        style={{
-                          backgroundColor: '#111111',
-                          padding: '16px',
-                          borderRadius: '3px',
-                          width: '42px',
-                          height: '42px',
-                          marginTop: '7px',
-                        }}
-                      >
-                        <AddCommentIcon />
-                      </IconButton>
-                    </MessageModalMedia>
-                  </div>
-                }
-              />
-            </ActiveConversationContext.Provider>
+            <ConversationsList subheaderPrefix={<ConversationsListPrefix />} />
           </Grid>
 
           <Grid
@@ -322,7 +279,6 @@ const Chat = () => {
                 />
                 <CardContent>
                   <MessagesList
-                    activeConversationId={activeConversationId}
                     lastMessageReceived={lastMessageReceived}
                     scrollIntoViewPointer={scrollIntoViewPointer}
                   />

@@ -9,11 +9,8 @@ import DialogTitle from '../DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import UploadImage from './uploadImage';
-import ImageList from '@material-ui/core/ImageList';
-import MuiImageListItem from '@material-ui/core/ImageListItem';
-import ImageListItemBar from '@material-ui/core/ImageListItemBar';
+import ImageListItem from './ImageListItem';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import ImageListItem from '@material-ui/core/ImageListItem';
 import Button from '@material-ui/core/Button';
 import GreenButton from '../GreenButton';
 import UploadVideo from '../UploadVideo';
@@ -32,9 +29,9 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
   const Children = props => React.cloneElement(children, props);
   const classes = useStyles();
   const [tileData, setTileData] = useState([]);
-  const [media, setMedia] = useState([]);
   const [disabled, set_disabled] = useState(false);
   const [loadingItems, setLoadingItems] = useState([]);
+  const [progressVideo, setProgressVideo] = React.useState({ val: 0 });
   const [sUrl, setSUrl] = useState('');
 
   const [imageModal, setImageModal] = useState(false);
@@ -45,7 +42,6 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
   React.useEffect(() => {
     if (!imageModal) {
       setTileData([]);
-      setMedia([]);
       setLoadingItems([]);
       setSUrl('');
     }
@@ -61,18 +57,10 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
     }
     setSUrl(source_url);
     setTileData(prev => [...prev, source_url.url]);
-    setMedia([
-      ...media,
-      {
-        type: `${source_url.resource_ytpe}/${source_url.format}`,
-        url: source_url.url,
-      },
-    ]);
   };
 
   const removeImageHandler = tile => {
     setTileData(tileData.filter(t => t !== tile));
-    setMedia(media.filter(f => f.url !== tile));
   };
 
   const handleMsgSend = () => {
@@ -125,36 +113,27 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
           />
         )}
         {(type === 'photo' || type === 'video') && (
-          <ImageList rowHeight={100} cols={4}>
+          <Box display='flex' width='100%'>
             {tileData.map((tile, i) => (
-              <ImageListItem key={`tile${i}`}>
-                <img src={tile} alt={'no Image'} />
-                <ImageListItemBar
-                  position='top'
-                  actionPosition='left'
-                  actionIcon={
-                    <Button
-                      size='small'
-                      variant='outlined'
-                      onClick={() => removeImageHandler(tile)}
-                    >
-                      Remove
-                    </Button>
-                  }
-                />
+              <ImageListItem key={`tile${i}`} src={tile}>
+                <Button
+                  size='small'
+                  variant='outlined'
+                  onClick={() => removeImageHandler(tile)}
+                >
+                  Remove
+                </Button>
               </ImageListItem>
             ))}
             {loadingItems.map((item, i) => (
-              <MuiImageListItem key={`loadingItems${i}`}>
-                <img src={item.src} alt={'no Image'} />
-                <ImageListItemBar
-                  position='top'
-                  actionPosition='left'
-                  actionIcon={<CircularProgress variant='indeterminate' />}
+              <ImageListItem key={`tile${i}`} src={item.src}>
+                <CircularProgress
+                  {...item.progressProps}
+                  value={progressVideo.val}
                 />
-              </MuiImageListItem>
+              </ImageListItem>
             ))}
-          </ImageList>
+          </Box>
         )}
         {(type === 'photo' || type === 'video') && (
           <Box display='flex' width='100%' alignItems='center'>
@@ -183,16 +162,31 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
               <UploadVideo
                 onUploadVideoComplete={(muxId, mediaType) => {
                   set_disabled(false);
+                  setTileData([...tileData, '/no-media.jpg']);
                 }}
                 onVideoError={() => set_disabled(false)}
                 onVideoUploadProgress={val => {
-                  console.log(val);
+                  setProgressVideo({ val });
                 }}
                 onVideoSelect={() => {
                   set_disabled(true);
+                  setProgressVideo({ val: 0 });
+                  setLoadingItems([
+                    ...loadingItems,
+                    {
+                      src: '/no-media.jpg',
+                      progressProps: {
+                        variant: 'determinate',
+                        // value: progressVideo.val,
+                      },
+                    },
+                  ]);
                 }}
                 onVideoUploaded={() => {
-                  console.log('uploaded');
+                  setProgressVideo({ val: 100 });
+                  setLoadingItems(
+                    loadingItems.filter((a, i) => i !== loadingItems.length - 1)
+                  );
                 }}
               >
                 <Button variant='outlined' size='small'>

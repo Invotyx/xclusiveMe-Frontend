@@ -11,14 +11,14 @@ import ImageAvatar from '../image-avatar';
 import {
   chatDataSelector,
   chatCountSelector,
+  activeConversationIdSelector,
 } from '../../selectors/chatSelector';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { currentUserSelector } from '../../selectors/authSelector';
-import moment from 'moment';
 import { withStyles } from '@material-ui/core';
-import { ActiveConversationContext } from '../../pages/chat';
 import { useRouter } from 'next/router';
 import Moment from 'react-moment';
+import { chat } from '../../actions/chat';
 
 const ListItem = withStyles({
   root: {
@@ -71,9 +71,8 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function ConversationsList({ subheaderPrefix }) {
-  const [activeConversationId, setActiveConversationId] = React.useContext(
-    ActiveConversationContext
-  );
+  const dispatch = useDispatch();
+  const activeConversationId = useSelector(activeConversationIdSelector);
   const SubheaderPrefix = () => subheaderPrefix || <></>;
   const classes = useStyles();
   const chatData = useSelector(chatDataSelector);
@@ -82,8 +81,8 @@ export default function ConversationsList({ subheaderPrefix }) {
 
   const router = useRouter();
   const { pathname, query } = router;
-  const handlegetone = conId => {
-    setActiveConversationId(conId);
+  const handleOpenChat = conId => {
+    dispatch(chat.updateActiveConversationId(conId));
     router.push({ pathname, query: { ...query, conId } });
   };
 
@@ -123,7 +122,7 @@ export default function ConversationsList({ subheaderPrefix }) {
           <ListItem
             key={`chatData${x}`}
             button
-            onClick={() => handlegetone(i.id)}
+            onClick={() => handleOpenChat(i.id)}
             disableGutters
             selected={+activeConversationId === i.id}
           >
