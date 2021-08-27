@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
@@ -11,13 +11,34 @@ import DialogActions from '@material-ui/core/DialogActions';
 import UploadImage from './uploadImage';
 import ImageList from '@material-ui/core/ImageList';
 import MuiImageListItem from '@material-ui/core/ImageListItem';
-import ImageListItemBar from '@material-ui/core/ImageListItemBar';
+import MuiImageListItemBar from '@material-ui/core/ImageListItemBar';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import ImageListItem from '@material-ui/core/ImageListItem';
 import Button from '@material-ui/core/Button';
 import GreenButton from '../GreenButton';
 import UploadVideo from '../UploadVideo';
 import { currencySymbol } from '../../services/currencySymbol';
+
+const ImageListItem = withStyles(() => ({
+  tile: {
+    borderRadius: 6,
+    '& > div': {
+      display: 'none',
+    },
+    '&:hover > div': {
+      display: 'flex',
+    },
+  },
+}))(MuiImageListItem);
+
+const ImageListItemBar = withStyles(() => ({
+  root: {
+    height: `100%`,
+    justifyContent: 'center',
+  },
+  titleWrap: {
+    display: 'none',
+  },
+}))(MuiImageListItemBar);
 
 const useStyles = makeStyles(theme => ({
   content: {
@@ -145,14 +166,14 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
               </ImageListItem>
             ))}
             {loadingItems.map((item, i) => (
-              <MuiImageListItem key={`loadingItems${i}`}>
+              <ImageListItem key={`loadingItems${i}`}>
                 <img src={item.src} alt={'no Image'} />
                 <ImageListItemBar
                   position='top'
                   actionPosition='left'
                   actionIcon={<CircularProgress variant='indeterminate' />}
                 />
-              </MuiImageListItem>
+              </ImageListItem>
             ))}
           </ImageList>
         )}
