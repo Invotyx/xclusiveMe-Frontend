@@ -172,7 +172,12 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
                 <ImageListItemBar
                   position='top'
                   actionPosition='left'
-                  actionIcon={<CircularProgress variant='indeterminate' />}
+                  actionIcon={
+                    <CircularProgress
+                      {...item.progressProps}
+                      value={progressVideo.val}
+                    />
+                  }
                 />
               </ImageListItem>
             ))}
