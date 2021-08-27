@@ -204,6 +204,13 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
               <UploadVideo
                 onUploadVideoComplete={(muxId, mediaType) => {
                   set_disabled(false);
+                  setMedia([
+                    ...media,
+                    {
+                      muxId: muxId,
+                      type: mediaType,
+                    },
+                  ]);
                 }}
                 onVideoError={() => set_disabled(false)}
                 onVideoUploadProgress={val => {
