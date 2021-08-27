@@ -53,7 +53,6 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
   const Children = props => React.cloneElement(children, props);
   const classes = useStyles();
   const [tileData, setTileData] = useState([]);
-  const [media, setMedia] = useState([]);
   const [disabled, set_disabled] = useState(false);
   const [loadingItems, setLoadingItems] = useState([]);
   const [progressVideo, setProgressVideo] = React.useState({ val: 0 });
@@ -67,7 +66,6 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
   React.useEffect(() => {
     if (!imageModal) {
       setTileData([]);
-      setMedia([]);
       setLoadingItems([]);
       setSUrl('');
     }
@@ -83,18 +81,10 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
     }
     setSUrl(source_url);
     setTileData(prev => [...prev, source_url.url]);
-    setMedia([
-      ...media,
-      {
-        type: `${source_url.resource_ytpe}/${source_url.format}`,
-        url: source_url.url,
-      },
-    ]);
   };
 
   const removeImageHandler = tile => {
     setTileData(tileData.filter(t => t !== tile));
-    setMedia(media.filter(f => f.url !== tile));
   };
 
   const handleMsgSend = () => {
@@ -213,13 +203,6 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
                   setTileData([
                     ...tileData,
                     'https://place-hold.it/400x400/#ccc&text=placeholder',
-                  ]);
-                  setMedia([
-                    ...media,
-                    {
-                      muxId: muxId,
-                      type: mediaType,
-                    },
                   ]);
                 }}
                 onVideoError={() => set_disabled(false)}
