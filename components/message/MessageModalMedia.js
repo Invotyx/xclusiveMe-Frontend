@@ -219,9 +219,22 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
                 }}
                 onVideoSelect={() => {
                   set_disabled(true);
+                  setLoadingItems([
+                    ...loadingItems,
+                    {
+                      src: '/no-media.jpg',
+                      progressProps: {
+                        variant: 'determinate',
+                        // value: progressVideo.val,
+                      },
+                    },
+                  ]);
                 }}
                 onVideoUploaded={() => {
                   console.log('uploaded');
+                  setLoadingItems(
+                    loadingItems.filter((a, i) => i !== loadingItems.length - 1)
+                  );
                 }}
               >
                 <Button variant='outlined' size='small'>
