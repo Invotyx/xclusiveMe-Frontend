@@ -13,6 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import ImageAvatar from '../components/image-avatar';
 import { chat } from '../actions/chat';
 import {
+  activeConversationIdSelector,
   chatDataSelector,
   singleChatSelector,
 } from '../selectors/chatSelector';
@@ -49,7 +50,7 @@ const Chat = () => {
   const [socketIo, setSocketIo] = useState(null);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  const [activeConversationId, setActiveConversationId] = React.useState(null);
+  const activeConversationId = useSelector(activeConversationIdSelector);
   const [activeParticipant, setActiveParticipant] = React.useState(null);
   const [lastMessageReceived, setLastMessageReceived] = React.useState(null);
   const [scrollIntoViewPointer, setScrollIntoViewPointer] =
@@ -156,7 +157,7 @@ const Chat = () => {
 
   useEffect(() => {
     if (conId) {
-      setActiveConversationId(+conId);
+      dispatch(chat.updateActiveConversationId(conId));
       if (chatsData && current) {
         setActiveParticipant(
           chatsData
@@ -165,7 +166,7 @@ const Chat = () => {
         );
       }
     } else {
-      setActiveConversationId(null);
+      dispatch(chat.updateActiveConversationId(null));
     }
   }, [conId, chatsData, current, singlechat]);
 
