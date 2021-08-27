@@ -12,7 +12,7 @@ import {
   chatDataSelector,
   chatCountSelector,
 } from '../../selectors/chatSelector';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { currentUserSelector } from '../../selectors/authSelector';
 import { withStyles } from '@material-ui/core';
 import { ActiveConversationContext } from '../../pages/chat';
@@ -73,6 +73,7 @@ export default function ConversationsList({ subheaderPrefix }) {
   const [activeConversationId, setActiveConversationId] = React.useContext(
     ActiveConversationContext
   );
+  const dispatch = useDispatch();
   const SubheaderPrefix = () => subheaderPrefix || <></>;
   const classes = useStyles();
   const chatData = useSelector(chatDataSelector);
