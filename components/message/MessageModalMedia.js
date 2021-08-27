@@ -138,41 +138,41 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
         )}
         {(type === 'photo' || type === 'video') && (
           <Box display='flex' width='100%'>
-            <ImageList rowHeight={100} cols={4}>
-              {tileData.map((tile, i) => (
-                <ImageListItem key={`tile${i}`}>
-                  <img src={tile} alt={'no Image'} />
-                  <ImageListItemBar
-                    position='top'
-                    actionPosition='left'
-                    actionIcon={
-                      <Button
-                        size='small'
-                        variant='outlined'
-                        onClick={() => removeImageHandler(tile)}
-                      >
-                        Remove
-                      </Button>
-                    }
-                  />
-                </ImageListItem>
-              ))}
-              {loadingItems.map((item, i) => (
-                <MuiImageListItem key={`loadingItems${i}`}>
-                  <img src={item.src} alt={'no Image'} />
-                  <ImageListItemBar
-                    position='top'
-                    actionPosition='left'
-                    actionIcon={
-                      <CircularProgress
-                        {...item.progressProps}
-                        value={progressVideo.val}
-                      />
-                    }
-                  />
-                </MuiImageListItem>
-              ))}
-            </ImageList>
+          <ImageList rowHeight={100} cols={4}>
+            {tileData.map((tile, i) => (
+              <ImageListItem key={`tile${i}`}>
+                <img src={tile} alt={'no Image'} />
+                <ImageListItemBar
+                  position='top'
+                  actionPosition='left'
+                  actionIcon={
+                    <Button
+                      size='small'
+                      variant='outlined'
+                      onClick={() => removeImageHandler(tile)}
+                    >
+                      Remove
+                    </Button>
+                  }
+                />
+              </ImageListItem>
+            ))}
+            {loadingItems.map((item, i) => (
+              <MuiImageListItem key={`loadingItems${i}`}>
+                <img src={item.src} alt={'no Image'} />
+                <ImageListItemBar
+                  position='top'
+                  actionPosition='left'
+                  actionIcon={
+                    <CircularProgress
+                      {...item.progressProps}
+                      value={progressVideo.val}
+                    />
+                  }
+                />
+              </MuiImageListItem>
+            ))}
+          </ImageList>
           </Box>
         )}
         {(type === 'photo' || type === 'video') && (
