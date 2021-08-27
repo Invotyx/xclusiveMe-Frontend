@@ -1,22 +1,14 @@
 import NextLink from 'next/link';
-import BookmarkBorderOutlinedIcon from '@material-ui/icons/BookmarkBorderOutlined';
 import Box from '@material-ui/core/Box';
 import Link from '@material-ui/core/Link';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
-import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import IconButton from '@material-ui/core/IconButton';
-import MonetizationOnOutlinedIcon from '@material-ui/icons/MonetizationOnOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import moment from 'moment';
 import ProfileImageAvatar from './profile-image-avatar';
 import NormalCaseButton from '../NormalCaseButton';
-import PostMedia from './post-media';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
-import SendIcon from '@material-ui/icons/Send';
 import { createRef, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { post as postData } from '../../actions/post/index';
@@ -24,12 +16,9 @@ import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import CloseIcon from '@material-ui/icons/Close';
-import TurnedInNotIcon from '@material-ui/icons/TurnedInNot';
 import { singlepostDataSelector } from '../../selectors/postSelector';
 import { repliesDataSelector } from '../../selectors/postSelector';
-import { postDataSelector } from '../../selectors/postSelector';
-import TextField from '@material-ui/core/TextField';
-import { Button } from '@material-ui/core';
+import { Button, IconButton } from '@material-ui/core';
 import SinglePostMedia from './SinglePostMedia';
 import styles from './profile.module.css';
 import RepliesData from './RepliesData';
@@ -83,10 +72,11 @@ const CommentModel = ({
   singlePost,
   setOpen,
   open,
-  replyCount,
   currentUser,
   forCommentId,
   openReply,
+  checkRefs,
+  setCheckRefs,
 }) => {
   const classes = useStyles();
   const [commentText, setCommentText] = useState('');
@@ -98,7 +88,6 @@ const CommentModel = ({
     id: '',
     check: false,
   });
-  const [isCommentField, setIsCommentField] = useState(false);
   const sPost = useSelector(singlepostDataSelector);
   const replyData = useSelector(repliesDataSelector);
   const paginatedComments = useSelector(getCommentsDataSelector);
@@ -109,22 +98,15 @@ const CommentModel = ({
   const [openModel, setOpenModel] = useState(false);
   const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
   const [pageNumber, setPageNumber] = useState(2);
-  const [openTip, setopenTip] = useState(false);
   const fetchData = useSelector(fetchingSelector);
   const [show, setShow] = useState(false);
   const [commLength, setcommLength] = useState(10);
   const currUser = useSelector(currentUserSelector);
 
-  const [checkRefs, setCheckRefs] = useState(false);
-
   const handleOpenModel = () => {
     console.log('in model');
     setOpenModel(true);
     console.log(openModel);
-  };
-
-  const handleTipModal = () => {
-    setopenTip(true);
   };
 
   const addEmoji = e => {
@@ -195,7 +177,8 @@ const CommentModel = ({
 
   const handleReplyField = id => {
     setCommentId(id);
-    // setCheckRefs(true);
+    setCheckRefs(true);
+    console.log('refs', checkRefs);
     console.log('reply id', id);
 
     setisReplyField({ check: true, id });
@@ -558,17 +541,6 @@ const CommentModel = ({
                 )}
               </div>
 
-              {/* <div
-              style={{
-                marginLeft: '10px',
-                marginBottom: '5px',
-                cursor: 'pointer',
-              }}
-              onClick={increasePage}
-            >
-              View more comments
-            </div> */}
-
               <div
                 // className={styles.commentBox}
                 style={{
@@ -595,23 +567,9 @@ const CommentModel = ({
                               display: 'flex',
                               justifyContent: 'space-between',
                             }}
+                            onClick={() => setShow(false)}
                           >
                             <div style={{ display: 'flex' }}>
-                              {/* {comm?.user?.profileImage ? (
-                                <img
-                                  src={comm.user.profileImage}
-                                  alt='profile=image'
-                                  width='30px'
-                                  height='30px'
-                                />
-                              ) : (
-                                <img
-                                  src='/dp.png'
-                                  alt='profile=image'
-                                  width='35px'
-                                  height='35px'
-                                />
-                              )} */}
                               <NextLink
                                 href={`/x/${comm?.user?.username}`}
                                 passHref
@@ -658,19 +616,7 @@ const CommentModel = ({
                             </p>
                           </div>
                           <div style={{ display: 'flex', marginRight: '14px' }}>
-                            {/* <ChatBubbleOutlineIcon
-                              style={{ marginRight: '9px' }}
-                              id={comm.id}
-                              fontSize='small'
-                              onClick={() => handleReplyField(comm.id)}
-                            /> */}
-
-                            <div
-                              key={index}
-                              // onClick={() =>
-                              //   handleFocusReply(replyInput.current[index])
-                              // }
-                            >
+                            <div key={index}>
                               <img
                                 src='/comment.png'
                                 alt='reply button'
@@ -687,10 +633,6 @@ const CommentModel = ({
                             </div>
 
                             {comm.likes && comm.likes.length === 0 ? (
-                              // <FavoriteIcon
-                              //   fontSize='small'
-                              //   onClick={() => handleModelCommentLike(comm.id)}
-                              // />
                               <img
                                 src='/emptyHeart.png'
                                 alt='unliked'
@@ -702,11 +644,6 @@ const CommentModel = ({
                                 onClick={() => handleModelCommentLike(comm.id)}
                               />
                             ) : (
-                              // <FavoriteIcon
-                              //   fontSize='small'
-                              //   style={{ color: 'red' }}
-                              //   onClick={() => handleModelCommentLike(comm.id)}
-                              // />
                               <img
                                 src='/filled.png'
                                 alt='unliked'
@@ -746,12 +683,6 @@ const CommentModel = ({
                               openReply={openReply}
                               checkRefs={checkRefs}
                             />
-
-                            {/* {comm.totalReplies > 0  ? (
-                              <ViewReplies />
-                            ) : (
-                              ' '
-                            )} */}
                           </div>
                         </div>
                       </div>
@@ -776,21 +707,6 @@ const CommentModel = ({
                               }}
                             >
                               <div style={{ display: 'flex' }}>
-                                {/* {comm?.user?.profileImage ? (
-                                <img
-                                  src={comm.user.profileImage}
-                                  alt='profile=image'
-                                  width='30px'
-                                  height='30px'
-                                />
-                              ) : (
-                                <img
-                                  src='/dp.png'
-                                  alt='profile=image'
-                                  width='35px'
-                                  height='35px'
-                                />
-                              )} */}
                                 <NextLink
                                   href={`/x/${comm?.user?.username}`}
                                   passHref
@@ -839,19 +755,7 @@ const CommentModel = ({
                             <div
                               style={{ display: 'flex', marginRight: '14px' }}
                             >
-                              {/* <ChatBubbleOutlineIcon
-                              style={{ marginRight: '9px' }}
-                              id={comm.id}
-                              fontSize='small'
-                              onClick={() => handleReplyField(comm.id)}
-                            /> */}
-
-                              <div
-                                key={index}
-                                // onClick={() =>
-                                //   handleFocusReply(replyInput.current[index])
-                                // }
-                              >
+                              <div key={index}>
                                 <img
                                   src='/comment.png'
                                   alt='reply button'
@@ -868,10 +772,6 @@ const CommentModel = ({
                               </div>
 
                               {comm.likes && comm.likes.length === 0 ? (
-                                // <FavoriteIcon
-                                //   fontSize='small'
-                                //   onClick={() => handleModelCommentLike(comm.id)}
-                                // />
                                 <img
                                   src='/emptyHeart.png'
                                   alt='unliked'
@@ -885,11 +785,6 @@ const CommentModel = ({
                                   }
                                 />
                               ) : (
-                                // <FavoriteIcon
-                                //   fontSize='small'
-                                //   style={{ color: 'red' }}
-                                //   onClick={() => handleModelCommentLike(comm.id)}
-                                // />
                                 <img
                                   src='/filled.png'
                                   alt='unliked'
@@ -931,12 +826,6 @@ const CommentModel = ({
                                 openReply={openReply}
                                 checkRefs={checkRefs}
                               />
-
-                              {/* {comm.totalReplies > 0  ? (
-                              <ViewReplies />
-                            ) : (
-                              ' '
-                            )} */}
                             </div>
                           </div>
                         </div>
