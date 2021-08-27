@@ -204,6 +204,7 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
               <UploadVideo
                 onUploadVideoComplete={(muxId, mediaType) => {
                   set_disabled(false);
+                  setTileData([...tileData, '/no-media.jpg']);
                   setMedia([
                     ...media,
                     {
