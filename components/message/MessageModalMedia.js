@@ -9,7 +9,6 @@ import DialogTitle from '../DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import UploadImage from './uploadImage';
-import ImageList from '@material-ui/core/ImageList';
 import ImageListItem from './ImageListItem';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Button from '@material-ui/core/Button';
