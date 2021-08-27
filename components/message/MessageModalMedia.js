@@ -56,6 +56,7 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
   const [media, setMedia] = useState([]);
   const [disabled, set_disabled] = useState(false);
   const [loadingItems, setLoadingItems] = useState([]);
+  const [progressVideo, setProgressVideo] = React.useState({ val: 0 });
   const [sUrl, setSUrl] = useState('');
 
   const [imageModal, setImageModal] = useState(false);
@@ -216,9 +217,11 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
                 onVideoError={() => set_disabled(false)}
                 onVideoUploadProgress={val => {
                   console.log(val);
+                  setProgressVideo({ val });
                 }}
                 onVideoSelect={() => {
                   set_disabled(true);
+                  setProgressVideo({ val: 0 });
                   setLoadingItems([
                     ...loadingItems,
                     {
@@ -232,6 +235,7 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
                 }}
                 onVideoUploaded={() => {
                   console.log('uploaded');
+                  setProgressVideo({ val: 100 });
                   setLoadingItems(
                     loadingItems.filter((a, i) => i !== loadingItems.length - 1)
                   );
