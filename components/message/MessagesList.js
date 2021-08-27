@@ -24,10 +24,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const MessagesList = ({
-  lastMessageReceived,
-  scrollIntoViewPointer,
-}) => {
+const MessagesList = ({ lastMessageReceived, scrollIntoViewPointer }) => {
   const myRef = React.useRef(null);
   const activeConversationId = useSelector(activeConversationIdSelector);
   const current = useSelector(currentUserSelector);
