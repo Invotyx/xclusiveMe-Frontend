@@ -83,7 +83,6 @@ export default function ConversationsList({ subheaderPrefix }) {
   const { pathname, query } = router;
   const handleOpenChat = conId => {
     dispatch(chat.updateActiveConversationId(conId));
-    setActiveConversationId(conId);
     router.push({ pathname, query: { ...query, conId } });
   };
 
