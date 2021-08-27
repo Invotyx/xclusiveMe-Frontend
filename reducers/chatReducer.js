@@ -7,6 +7,7 @@ const initialState = fromJS({
   fetching: false,
   success: false,
   error: null,
+  activeConversationId: null,
 });
 
 export default function chatReducer(state = initialState, action) {
@@ -17,6 +18,7 @@ export default function chatReducer(state = initialState, action) {
     case CHAT.GET_ONE:
     case CHAT.SUCCESS:
     case CHAT.FAIL:
+    case CHAT.UPDATE_ACTIVE_CONVERSATION_ID:
       return state.merge(action.payload);
     default:
       return state;
