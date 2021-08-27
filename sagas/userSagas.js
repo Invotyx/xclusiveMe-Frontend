@@ -23,6 +23,20 @@ function* handleGet() {
   }
 }
 
+function* handleGetAll(action) {
+  try {
+    const { limit, pageNumber } = action.payload;
+    const { data } = yield call(
+      apiClient.get,
+      `${SERVER_ADDRESS}/users?limit=${limit}&page=${pageNumber}`
+    );
+    yield put(user.success({ allData: new List(data.users) }));
+  } catch (e) {
+    console.log(e);
+    yield put(user.failure({ error: { ...e } }));
+  }
+}
+
 function* handleGetOne(action) {
   try {
     const { id } = action.payload;
@@ -184,6 +198,7 @@ function* usersReport(action) {
 function* watchPresetSagas() {
   yield all([
     takeLatest(USER.GET, handleGet),
+    takeLatest(USER.GET_ALL, handleGetAll),
     takeLatest(USER.GET_ONE, handleGetOne),
     takeLatest(USER.SEARCH, handleSearch),
     takeLatest(USER.SAVE, handlePost),

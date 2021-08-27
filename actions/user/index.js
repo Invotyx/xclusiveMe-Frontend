@@ -8,6 +8,13 @@ export const user = {
       success: false,
       error: null,
     }),
+  requestAll: data =>
+    createAction(USER.GET_ALL, {
+      ...data,
+      fetching: true,
+      success: false,
+      error: null,
+    }),
   requestOne: id =>
     createAction(USER.GET_ONE, {
       id,

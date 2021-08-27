@@ -39,7 +39,7 @@ const TipModal = ({ profileImage, name, onConfirm }) => {
   const [purchased, setPurchased] = useState(false);
   const paymentData = useSelector(paymentMethodDataSelector);
   const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
-  const [addPrice, setAddPrice] = useState(0);
+  const [addPrice, setAddPrice] = useState('');
 
   const handlePurchase = () => {
     onConfirm(+addPrice, () => {
@@ -58,7 +58,7 @@ const TipModal = ({ profileImage, name, onConfirm }) => {
 
   useEffect(() => {
     dispatch(paymentMethod.request());
-  }, []);
+  }, [paymentMethod]);
   return (
     <>
       <IconButton onClick={handleOpenTopModal}>
