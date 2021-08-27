@@ -11,7 +11,6 @@ import { currentUserSelector } from '../selectors/authSelector';
 import { useDispatch, useSelector } from 'react-redux';
 import Typography from '@material-ui/core/Typography';
 import ImageAvatar from '../components/image-avatar';
-import getConfig from 'next/config';
 import { chat } from '../actions/chat';
 import {
   chatDataSelector,
@@ -34,9 +33,8 @@ import { user } from '../actions/user';
 import MessageSend from '../components/message/MessageSend';
 import { post } from '../actions/post';
 import { currencySymbol } from '../services/currencySymbol';
+import { socketUrl } from '../services/socketUrl';
 import ConversationsListPrefix from '../components/message/ConversationsListPrefix';
-const { publicRuntimeConfig } = getConfig();
-const SERVER_ADDRESS = publicRuntimeConfig.backendUrl;
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -72,13 +70,9 @@ const Chat = () => {
       })
     );
 
-  const url = `${SERVER_ADDRESS.substring(
-    0,
-    SERVER_ADDRESS.length - 4
-  )}/messages`;
   useEffect(() => {
     const JWTToken = localStorage.getItem('jwtToken');
-    const socket = io(url, {
+    const socket = io(socketUrl, {
       transports: ['websocket'],
       query: {
         token: `${JWTToken}`,
