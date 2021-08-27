@@ -82,7 +82,7 @@ export default function ConversationsList({ subheaderPrefix }) {
 
   const router = useRouter();
   const { pathname, query } = router;
-  const handlegetone = conId => {
+  const handleOpenChat = conId => {
     setActiveConversationId(conId);
     router.push({ pathname, query: { ...query, conId } });
   };
@@ -123,7 +123,7 @@ export default function ConversationsList({ subheaderPrefix }) {
           <ListItem
             key={`chatData${x}`}
             button
-            onClick={() => handlegetone(i.id)}
+            onClick={() => handleOpenChat(i.id)}
             disableGutters
             selected={+activeConversationId === i.id}
           >
