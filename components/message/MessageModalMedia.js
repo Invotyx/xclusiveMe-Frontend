@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
@@ -10,35 +10,12 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import UploadImage from './uploadImage';
 import ImageList from '@material-ui/core/ImageList';
-import MuiImageListItem from '@material-ui/core/ImageListItem';
-import MuiImageListItemBar from '@material-ui/core/ImageListItemBar';
+import ImageListItem from './ImageListItem';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Button from '@material-ui/core/Button';
 import GreenButton from '../GreenButton';
 import UploadVideo from '../UploadVideo';
 import { currencySymbol } from '../../services/currencySymbol';
-
-const ImageListItem = withStyles(() => ({
-  tile: {
-    borderRadius: 6,
-    '& > div': {
-      display: 'none',
-    },
-    '&:hover > div': {
-      display: 'flex',
-    },
-  },
-}))(MuiImageListItem);
-
-const ImageListItemBar = withStyles(() => ({
-  root: {
-    height: `100%`,
-    justifyContent: 'center',
-  },
-  titleWrap: {
-    display: 'none',
-  },
-}))(MuiImageListItemBar);
 
 const useStyles = makeStyles(theme => ({
   content: {
@@ -137,41 +114,27 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
           />
         )}
         {(type === 'photo' || type === 'video') && (
-          <ImageList rowHeight={100} cols={4}>
+          <Box display='flex' width='100%'>
             {tileData.map((tile, i) => (
-              <ImageListItem key={`tile${i}`}>
-                <img src={tile} alt={'no Image'} />
-                <ImageListItemBar
-                  position='top'
-                  actionPosition='left'
-                  actionIcon={
-                    <Button
-                      size='small'
-                      variant='outlined'
-                      onClick={() => removeImageHandler(tile)}
-                    >
-                      Remove
-                    </Button>
-                  }
-                />
+              <ImageListItem key={`tile${i}`} src={tile}>
+                <Button
+                  size='small'
+                  variant='outlined'
+                  onClick={() => removeImageHandler(tile)}
+                >
+                  Remove
+                </Button>
               </ImageListItem>
             ))}
             {loadingItems.map((item, i) => (
-              <MuiImageListItem key={`loadingItems${i}`}>
-                <img src={item.src} alt={'no Image'} />
-                <ImageListItemBar
-                  position='top'
-                  actionPosition='left'
-                  actionIcon={
-                    <CircularProgress
-                      {...item.progressProps}
-                      value={progressVideo.val}
-                    />
-                  }
+              <ImageListItem key={`tile${i}`} src={item.src}>
+                <CircularProgress
+                  {...item.progressProps}
+                  value={progressVideo.val}
                 />
-              </MuiImageListItem>
+              </ImageListItem>
             ))}
-          </ImageList>
+          </Box>
         )}
         {(type === 'photo' || type === 'video') && (
           <Box display='flex' width='100%' alignItems='center'>
