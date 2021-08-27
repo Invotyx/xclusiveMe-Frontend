@@ -44,7 +44,6 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export const ActiveConversationContext = React.createContext([[], () => {}]);
 const Chat = () => {
   const dispatch = useDispatch();
   const [socketIo, setSocketIo] = useState(null);
@@ -186,13 +185,9 @@ const Chat = () => {
                 activeConversationId !== null && isMobile ? 'none' : 'block',
             }}
           >
-            <ActiveConversationContext.Provider
-              value={[activeConversationId, setActiveConversationId]}
-            >
               <ConversationsList
                 subheaderPrefix={<ConversationsListPrefix />}
               />
-            </ActiveConversationContext.Provider>
           </Grid>
 
           <Grid
