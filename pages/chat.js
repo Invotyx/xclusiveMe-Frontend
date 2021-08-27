@@ -6,7 +6,6 @@ import Layout from '../components/layouts/layout-auth';
 import { makeStyles } from '@material-ui/core/styles';
 import ConversationsList from '../components/message/ConversationsList';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import AddCommentIcon from '@material-ui/icons/AddComment';
 import { useRouter } from 'next/router';
 import { currentUserSelector } from '../selectors/authSelector';
 import { useDispatch, useSelector } from 'react-redux';
@@ -33,10 +32,9 @@ import TipModal from '../components/profile/TipModal';
 import ManuButton from '../components/menuButton';
 import { user } from '../actions/user';
 import MessageSend from '../components/message/MessageSend';
-import SearchConversations from '../components/message/SearchConversations';
 import { post } from '../actions/post';
 import { currencySymbol } from '../services/currencySymbol';
-import MessageModalMedia from '../components/message/MessageModalMedia';
+import ConversationsListPrefix from '../components/message/ConversationsListPrefix';
 const { publicRuntimeConfig } = getConfig();
 const SERVER_ADDRESS = publicRuntimeConfig.backendUrl;
 
@@ -198,36 +196,7 @@ const Chat = () => {
               value={[activeConversationId, setActiveConversationId]}
             >
               <ConversationsList
-                subheaderPrefix={
-                  <div
-                    style={{
-                      display: 'flex',
-                      marginBottom: '10px',
-                    }}
-                  >
-                    <SearchConversations />
-                    <MessageModalMedia
-                      type='text'
-                      onMediaUploaded={data => {
-                        handleSendMessage(data);
-                      }}
-                    >
-                      <IconButton
-                        size='small'
-                        style={{
-                          backgroundColor: '#111111',
-                          padding: '16px',
-                          borderRadius: '3px',
-                          width: '42px',
-                          height: '42px',
-                          marginTop: '7px',
-                        }}
-                      >
-                        <AddCommentIcon />
-                      </IconButton>
-                    </MessageModalMedia>
-                  </div>
-                }
+                subheaderPrefix={<ConversationsListPrefix />}
               />
             </ActiveConversationContext.Provider>
           </Grid>
