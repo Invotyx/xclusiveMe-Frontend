@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { chat } from '../../actions/chat';
 import { currentUserSelector } from '../../selectors/authSelector';
 import {
+  activeConversationIdSelector,
   singleChatSelector,
 } from '../../selectors/chatSelector';
 import styles from './message.module.css';
@@ -24,11 +25,11 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const MessagesList = ({
-  activeConversationId,
   lastMessageReceived,
   scrollIntoViewPointer,
 }) => {
   const myRef = React.useRef(null);
+  const activeConversationId = useSelector(activeConversationIdSelector);
   const current = useSelector(currentUserSelector);
   const singlechat = useSelector(singleChatSelector);
   const dispatch = useDispatch();
