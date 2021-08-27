@@ -46,6 +46,7 @@ const useStyles = makeStyles(theme => ({
 
 export const ActiveConversationContext = React.createContext([[], () => {}]);
 const Chat = () => {
+  const dispatch = useDispatch();
   const [socketIo, setSocketIo] = useState(null);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
@@ -117,7 +118,6 @@ const Chat = () => {
   }, [conId]);
 
   const classes = useStyles();
-  const dispatch = useDispatch();
   const current = useSelector(currentUserSelector);
   const chatsData = useSelector(chatDataSelector);
   const singlechat = useSelector(singleChatSelector);
