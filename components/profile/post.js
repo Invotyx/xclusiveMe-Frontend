@@ -114,6 +114,7 @@ export default function Post({
   const [notByedModel, setnotBuyedModel] = useState(false);
   const [show, setShow] = useState(false);
   const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
+  const [checkRefs, setCheckRefs] = useState(false);
 
   const handleOpenModel = () => {
     setOpenModel(true);
@@ -232,6 +233,7 @@ export default function Post({
 
     setForCommentId(forReplyId);
     searchInput.current.focus();
+    setCheckRefs(true);
     // setOpenReply(true);
     setOpen(true);
   };
@@ -560,6 +562,8 @@ export default function Post({
           currentUser={currentUser}
           forCommentId={forCommentId}
           openReply={openReply}
+          checkRefs={checkRefs}
+          setCheckRefs={setCheckRefs}
         />
 
         {post.comments.map(comm => (
