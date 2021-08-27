@@ -114,17 +114,10 @@ export default function Post({
   const [notByedModel, setnotBuyedModel] = useState(false);
   const [show, setShow] = useState(false);
   const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
+  const [checkRefs, setCheckRefs] = useState(false);
 
   const handleOpenModel = () => {
     setOpenModel(true);
-  };
-
-  const handleOpenTopModal = () => {
-    setopenTip(true);
-  };
-
-  const handleReportModal = () => {
-    setreportModal(true);
   };
 
   function handleFocus() {
@@ -169,40 +162,6 @@ export default function Post({
         callback: () => {
           setCommentText('');
 
-          dispatch(
-            postData.requestSubscribed()
-            // postData.getComment({
-            //   id: post.id,
-            // })
-          );
-        },
-      })
-    );
-  };
-
-  const handleReplyField = id => {
-    setCommentId(id);
-    setisReplyField(true);
-  };
-
-  const handleAddReply = () => {
-    setisReplyField(false);
-    // console.log(commentId);
-
-    if (!replyText || replyText.trim() === '') {
-      return;
-    }
-    dispatch(
-      postData.saveComment({
-        id: post.id,
-        commentText: {
-          comment: replyText,
-          isReply: true,
-          parentCommentId: commentId,
-        },
-
-        callback: () => {
-          setReplyText('');
           dispatch(
             postData.requestSubscribed()
             // postData.getComment({
@@ -274,6 +233,7 @@ export default function Post({
 
     setForCommentId(forReplyId);
     searchInput.current.focus();
+    setCheckRefs(true);
     // setOpenReply(true);
     setOpen(true);
   };
@@ -288,14 +248,6 @@ export default function Post({
 
   const handleNotOpenn = () => {
     console.log('Post not buyed');
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handleOpenmenu = event => {
-    setAnchorEl(event.currentTarget);
   };
 
   const nFormatter = n => {
@@ -322,10 +274,6 @@ export default function Post({
           <CardHeader
             avatar={<ProfileImageAvatar user={profileData} />}
             action={
-              // <IconButton aria-label='settings'>
-              //   <MoreVertIcon />
-              // </IconButton>
-
               <div>
                 {post.media.length === 0 ||
                 post?.user?.username == currentUser?.username ? (
@@ -333,9 +281,6 @@ export default function Post({
                     aria-label='more'
                     aria-controls='simple-menu'
                     aria-haspopup='true'
-                    // onClick={
-                    //   post.media.length === 0 ? handleNotOpen : handleOpenmenu
-                    // }
                   >
                     <MoreVertIcon />
                   </IconButton>
@@ -617,6 +562,8 @@ export default function Post({
           currentUser={currentUser}
           forCommentId={forCommentId}
           openReply={openReply}
+          checkRefs={checkRefs}
+          setCheckRefs={setCheckRefs}
         />
 
         {post.comments.map(comm => (

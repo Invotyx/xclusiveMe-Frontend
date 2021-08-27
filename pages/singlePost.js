@@ -116,6 +116,7 @@ const SinglePost = ({
   const router = useRouter();
   const currUser = useSelector(currentUserSelector);
   const { postId, forCommentId } = router.query;
+  const [checkRefs, setCheckRefs] = useState(false);
 
   const handleOpenModel = () => {
     console.log('in model');
@@ -123,12 +124,6 @@ const SinglePost = ({
     console.log(openModel);
   };
 
-  const handleTipModal = () => {
-    setopenTip(true);
-  };
-  function refreshPage() {
-    window.location.reload(false);
-  }
   const addEmoji = e => {
     let sym = e.unified.split('-');
     let codesArray = [];
@@ -156,13 +151,6 @@ const SinglePost = ({
     postId && forCommentId && dispatch(postData.requestOne(postId));
     forCommentId && handleReplyField(forCommentId);
   }, [postId, forCommentId]);
-
-  // useEffect(() => {
-
-  //   console.log('forCommentId', forCommentId);
-
-  //   // console.log('check', data);
-  // }, [forCommentId]);
 
   const handleModelCommentLike = cId => {
     // console.log(cId);
@@ -201,12 +189,14 @@ const SinglePost = ({
 
   const handleReplyField = id => {
     setCommentId(id);
-    console.log('setted', commentId);
-    console.log('reply id', id, 'commid', forCommentId);
+    setCheckRefs(true);
+    console.log('refs', checkRefs);
+    // console.log('setted', commentId);
+    // console.log('reply id', id, 'commid', forCommentId);
 
     setisReplyField({ check: true, id });
     setissubReplyField({ check: false });
-    console.log('isreplyfield', isReplyField.id, isReplyField.check);
+    // console.log('isreplyfield', isReplyField.id, isReplyField.check);
   };
 
   const handleAddComment = event => {
@@ -742,6 +732,8 @@ const SinglePost = ({
                             commentId={commentId}
                             setCommentId={setCommentId}
                             currUser={currUser}
+                            checkRefs={checkRefs}
+                            setCheckRefs={setCheckRefs}
                           />
 
                           {/* {comm.totalReplies > 0  ? (
@@ -910,6 +902,7 @@ const SinglePost = ({
                             <RepliesData
                               comm={comm}
                               post={post}
+                              singlePost={sPost}
                               currentUser={currentUser}
                               isReplyField={isReplyField}
                               setisReplyField={setisReplyField}
@@ -917,6 +910,9 @@ const SinglePost = ({
                               setissubReplyField={setissubReplyField}
                               commentId={commentId}
                               setCommentId={setCommentId}
+                              currUser={currUser}
+                              checkRefs={checkRefs}
+                              setCheckRefs={setCheckRefs}
                             />
 
                             {/* {comm.totalReplies > 0  ? (
