@@ -15,6 +15,7 @@ const useStyles = makeStyles(theme => ({
     left: 0,
     right: 0,
     backgroundColor: '#00000080',
+    textAlign: 'center',
   },
 }));
 
