@@ -3,7 +3,9 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { chat } from '../../actions/chat';
 import { currentUserSelector } from '../../selectors/authSelector';
-import { singleChatSelector } from '../../selectors/chatSelector';
+import {
+  singleChatSelector,
+} from '../../selectors/chatSelector';
 import styles from './message.module.css';
 
 const useStyles = makeStyles(theme => ({
