@@ -204,7 +204,7 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
                   set_disabled(false);
                   setTileData([
                     ...tileData,
-                    'https://place-hold.it/400x400/#ccc&text=placeholder',
+                    'https://place-hold.it/600x200/#ccc&text=placeholder',
                   ]);
                 }}
                 onVideoError={() => set_disabled(false)}
@@ -217,7 +217,7 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
                   setLoadingItems([
                     ...loadingItems,
                     {
-                      src: 'https://place-hold.it/400x400/#ccc&text=placeholder',
+                      src: 'https://place-hold.it/600x200/#ccc&text=placeholder',
                       progressProps: {
                         variant: 'determinate',
                         // value: progressVideo.val,
