@@ -66,6 +66,19 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
   };
 
   const handleMsgSend = () => {
+    if (type === 'text') {
+      onMediaUploaded(
+        {
+          type: 'text',
+          isPaid: false,
+          sentTo,
+          content,
+        },
+        () => {
+          handleClose();
+        }
+      );
+    } else {
     onMediaUploaded(
       {
         type: 'media',
@@ -78,6 +91,7 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
         handleClose();
       }
     );
+    }
   };
 
   const body = (
