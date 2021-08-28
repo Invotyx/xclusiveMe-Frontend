@@ -138,29 +138,7 @@ export default function Notification({
                   >
                     <MenuItem onClick={onClose} key={`notificationToday${x}`}>
                       <ListItemAvatar>
-                        <div>
-                          {i.relatedUsers[0].user.profileImage === null ? (
-                            <img
-                              src='./dp.png'
-                              alt='image'
-                              style={{
-                                width: '40px',
-                                height: '40px',
-                                borderRadius: '50%',
-                              }}
-                            />
-                          ) : (
-                            <img
-                              src={i.relatedUsers[0].user.profileImage}
-                              alt='image'
-                              style={{
-                                width: '40px',
-                                height: '40px',
-                                borderRadius: '50%',
-                              }}
-                            />
-                          )}
-                        </div>
+                        <ProfileImageAvatar user={i?.relatedUsers[0]?.user} />
                       </ListItemAvatar>
                       <ListItemText
                         primary={
@@ -331,27 +309,7 @@ export default function Notification({
                   >
                     <MenuItem onClick={onClose} key={`notificationToday${x}`}>
                       <ListItemAvatar>
-                        {i.relatedUsers[0]?.user?.profileImage === null ? (
-                          <img
-                            src='./dp.png'
-                            alt='image'
-                            style={{
-                              width: '40px',
-                              height: '40px',
-                              borderRadius: '50%',
-                            }}
-                          />
-                        ) : (
-                          <img
-                            src={i.relatedUsers[0]?.user?.profileImage}
-                            alt='image'
-                            style={{
-                              width: '40px',
-                              height: '40px',
-                              borderRadius: '50%',
-                            }}
-                          />
-                        )}
+                        <ProfileImageAvatar user={i.relatedUsers[0]?.user} />
                       </ListItemAvatar>
                       <ListItemText
                         primary={
