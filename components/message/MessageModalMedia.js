@@ -92,7 +92,8 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
         )}
         {type === 'text' && (
           <>
-            <MessageModalMediaFollowingsSelect />
+            <MessageModalMediaFollowingsSelect
+            />
           </>
         )}
         {(type === 'photo' || type === 'video' || type === 'text') && (
