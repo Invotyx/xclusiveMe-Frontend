@@ -72,6 +72,9 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
       media: sUrl,
       content,
       isPaid: false,
+    },
+    () => {
+      handleClose();
     });
   };
 
