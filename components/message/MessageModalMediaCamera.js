@@ -38,7 +38,10 @@ export default function MessageModalMediaCamera({ imageHandler }) {
         </>
       ) : (
         <>
-          <Webcam ref={webcamRef} screenshotFormat='image/jpeg' />
+          <Webcam
+            ref={webcamRef}
+            screenshotFormat='image/jpeg'
+          />
           <Button variant='outlined' size='small' onClick={capture}>
             Capture
           </Button>
