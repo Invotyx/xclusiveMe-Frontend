@@ -4,7 +4,7 @@ import IconButton from '@material-ui/core/IconButton';
 import SearchConversations from './SearchConversations';
 import MessageModalMedia from './MessageModalMedia';
 
-export default function ConversationsListPrefix(onMediaUploaded) {
+export default function ConversationsListPrefix({ onMediaUploaded }) {
   return (
     <div
       style={{
