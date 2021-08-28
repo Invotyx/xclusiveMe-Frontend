@@ -93,9 +93,8 @@ const TipModal = ({ profileImage, name, onConfirm }) => {
                       width: '90%',
                     }}
                   >
-                    <img
-                      src={profileImage}
-                      alt='profile image'
+                    <ProfileImageAvatar
+                      user={profileImage}
                       style={{
                         borderRadius: '50%',
                         marginTop: '-20px',
@@ -269,14 +268,13 @@ const TipModal = ({ profileImage, name, onConfirm }) => {
                 </div>
                 <div>
                   <div style={{ display: 'flex', justifyContent: 'center' }}>
-                    <img
-                      src={profileImage}
-                      alt='profile image'
-                      width='70px'
-                      height='75px'
+                    <ProfileImageAvatar
+                      user={profileImage}
                       style={{
                         borderRadius: '50%',
                         marginTop: '20px',
+                        width: '70px',
+                        height: '70px',
                       }}
                     />
                   </div>
