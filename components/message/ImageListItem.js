@@ -17,10 +17,10 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: '#00000080',
     textAlign: 'center',
     '& > div': {
-      // opacity: 0,
+      opacity: 0.5,
     },
     '&:hover > div': {
-      // opacity: 1,
+      opacity: 1,
     },
   },
 }));
