@@ -157,6 +157,17 @@ const Chat = () => {
     callback && callback();
   };
 
+  const handleSendNewMessage = saveData => {
+    dispatch(
+      chat.sendMessage({
+        saveData,
+        callback: () => {
+          getConversations();
+        },
+      })
+    );
+  };
+
   useEffect(() => {
     getConversations();
   }, []);
@@ -196,7 +207,7 @@ const Chat = () => {
               subheaderPrefix={
                 <ConversationsListPrefix
                   onMediaUploaded={data => {
-                    handleSendMessage(data);
+                    handleSendNewMessage(data);
                   }}
                 />
               }
