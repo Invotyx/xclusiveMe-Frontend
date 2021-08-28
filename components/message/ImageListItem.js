@@ -16,6 +16,12 @@ const useStyles = makeStyles(theme => ({
     right: 0,
     backgroundColor: '#00000080',
     textAlign: 'center',
+    '& > div': {
+      // opacity: 0,
+    },
+    '&:hover > div': {
+      // opacity: 1,
+    },
   },
 }));
 
