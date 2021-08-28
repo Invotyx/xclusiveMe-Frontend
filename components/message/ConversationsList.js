@@ -134,7 +134,15 @@ export default function ConversationsList({ subheaderPrefix }) {
               />
             </ListItemAvatar>
             <ListItemText
-              primary={i.participants.find(p => p?.id !== myData?.id)?.fullName}
+              primary={
+                <Typography
+                  variant='body2'
+                  display='block'
+                  color='primary'
+                >
+                  {i.participants.find(p => p?.id !== myData?.id)?.fullName}
+                </Typography>
+              }
               secondary={
                 <React.Fragment>
                   <Typography
