@@ -25,7 +25,16 @@ export default function ImageListItem({ src, children, ...rest }) {
   return (
     <Box position='relative' marginRight={1} {...rest}>
       <Avatar variant='square' src={src} className={classes.avatar} />
-      <Box className={classes.children}>{children}</Box>
+      <Box className={classes.children}>
+        <Box
+          display='flex'
+          justifyContent='center'
+          alignItems='center'
+          height='100%'
+        >
+          {children}
+        </Box>
+      </Box>
     </Box>
   );
 }
