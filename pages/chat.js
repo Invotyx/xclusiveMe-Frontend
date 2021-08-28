@@ -104,6 +104,13 @@ const Chat = () => {
       console.log('New message sent to client: ', data);
     });
     socket.on('exception', data => {
+      dispatch(
+        snackbar.update({
+          open: true,
+          message: JSON.stringify(data),
+          severity: 'error',
+        })
+      );
       console.log(data);
     });
     socket.on('disconnect', () => {
