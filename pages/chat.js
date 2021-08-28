@@ -268,7 +268,7 @@ const Chat = () => {
                   action={
                     <>
                       <TipModal
-                        profileImage={activeParticipant?.profileImage}
+                        profileImage={activeParticipant}
                         name={activeParticipant?.fullName}
                         onConfirm={(amount, callback) =>
                           dispatch(
@@ -291,7 +291,7 @@ const Chat = () => {
                       />
                       <ManuButton
                         title='Report this User'
-                        profileImage={activeParticipant?.profileImage}
+                        profileImage={activeParticipant}
                         onConfirm={(reason, callback) => {
                           const itemId = activeParticipant?.id;
                           dispatch(
