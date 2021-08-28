@@ -48,6 +48,9 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
       setTileData([]);
       setLoadingItems([]);
       setSUrl('');
+      setContent('');
+      setSentTo('');
+      setPrice('');
     }
   }, [imageModal]);
 
