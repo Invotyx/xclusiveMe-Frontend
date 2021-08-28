@@ -3,7 +3,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
-import MenuItem from '@material-ui/core/MenuItem';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '../DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -15,6 +14,7 @@ import Button from '@material-ui/core/Button';
 import GreenButton from '../GreenButton';
 import UploadVideo from '../UploadVideo';
 import { currencySymbol } from '../../services/currencySymbol';
+import MessageModalMediaFollowingsSelect from './MessageModalMediaFollowingsSelect';
 
 const useStyles = makeStyles(theme => ({
   content: {
@@ -91,15 +91,7 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
         )}
         {type === 'text' && (
           <>
-            <TextField
-              select
-              variant='outlined'
-              fullWidth
-              margin='dense'
-              label='To'
-            >
-              <MenuItem>Select</MenuItem>
-            </TextField>
+            <MessageModalMediaFollowingsSelect />
           </>
         )}
         {(type === 'photo' || type === 'video' || type === 'text') && (
