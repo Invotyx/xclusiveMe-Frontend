@@ -221,6 +221,7 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
             <TextField
               value={price}
               onChange={e => setPrice(e.target.value)}
+              placeholder='0.00'
               variant='outlined'
               margin='dense'
               InputProps={{
