@@ -123,6 +123,12 @@ const Chat = () => {
   const singlechat = useSelector(singleChatSelector);
 
   const handleSendMessage = (content, callback, type) => {
+    if (!type || type === 'socket') {
+      handleSendMessageSocket(content, callback);
+    }
+  };
+
+  const handleSendMessageSocket = (content, callback) => {
     let newMessageData = {
       conversationId: +conId,
       receiver: activeParticipant?.id,
