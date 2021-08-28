@@ -23,7 +23,7 @@ export default function MessageModalMediaFollowingsSelect(props) {
     >
       <MenuItem>Select</MenuItem>
       {followings?.results?.map((f, i) => (
-        <MenuItem value={f.id} key={`followings${i}`}>
+        <MenuItem value={f.user?.id} key={`followings${i}`}>
           {f.user?.fullName || 'name'}
         </MenuItem>
       ))}
