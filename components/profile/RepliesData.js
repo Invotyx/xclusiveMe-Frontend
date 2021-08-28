@@ -147,6 +147,7 @@ const RepliesData = ({
           setisReplyField(false);
           setissubReplyField(false);
           dispatch(postData.requestOne(singlePost.id));
+
           // postData.getComment({
           //   id: post.id,
           // })
