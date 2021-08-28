@@ -139,6 +139,7 @@ export default function ConversationsList({ subheaderPrefix }) {
                   variant='body2'
                   display='block'
                   color='primary'
+                  style={{ fontWeight: !i.lastMessage.isSeen ? 700 : 400 }}
                 >
                   {i.participants.find(p => p?.id !== myData?.id)?.fullName}
                 </Typography>
@@ -150,6 +151,9 @@ export default function ConversationsList({ subheaderPrefix }) {
                     variant='body2'
                     style={{ color: '#757575' }}
                   >
+                    {!i.lastMessage.isSeen && (
+                      <span style={{ marginRight: '10px' }}>•</span>
+                    )}
                     {i.lastMessage.content.slice(0, 15)}...
                   </Typography>
                 </React.Fragment>
