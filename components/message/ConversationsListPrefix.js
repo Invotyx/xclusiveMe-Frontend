@@ -4,7 +4,7 @@ import IconButton from '@material-ui/core/IconButton';
 import SearchConversations from './SearchConversations';
 import MessageModalMedia from './MessageModalMedia';
 
-export default function ConversationsListPrefix() {
+export default function ConversationsListPrefix(onMediaUploaded) {
   return (
     <div
       style={{
@@ -15,9 +15,7 @@ export default function ConversationsListPrefix() {
       <SearchConversations />
       <MessageModalMedia
         type='text'
-        onMediaUploaded={data => {
-          handleSendMessage(data);
-        }}
+        onMediaUploaded={onMediaUploaded}
       >
         <IconButton
           size='small'
