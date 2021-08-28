@@ -187,10 +187,13 @@ const Chat = () => {
             }}
           >
             <ConversationsList
-              subheaderPrefix={<ConversationsListPrefix />}
-              onMediaUploaded={data => {
-                handleSendMessage(data);
-              }}
+              subheaderPrefix={
+                <ConversationsListPrefix
+                  onMediaUploaded={data => {
+                    handleSendMessage(data);
+                  }}
+                />
+              }
             />
           </Grid>
 
