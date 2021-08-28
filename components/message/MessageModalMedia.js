@@ -124,7 +124,7 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
             margin='dense'
             label='Content'
             multiline
-            rows={3}
+            rows={5}
             value={content}
             onChange={e => setContent(e.target.value)}
           />
