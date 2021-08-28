@@ -69,7 +69,7 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
       type: 'media',
       messageMediaType: 'photo',
       media: sUrl,
-      content: '',
+      content,
       isPaid: false,
     });
   };
