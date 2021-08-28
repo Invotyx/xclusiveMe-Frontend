@@ -58,7 +58,7 @@ function* handleLogin(action) {
         snackbar.update({
           open: true,
           message: response.data.message || 'Invalid Credentials.',
-          severity: 'error',
+          severity: 'success',
         })
       );
       const { callback202 } = action.payload;

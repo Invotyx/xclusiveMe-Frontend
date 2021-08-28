@@ -14,6 +14,7 @@ import CurrentUserProfileImageAvatar from '../profile/current-user-profile-image
 import { useDispatch, useSelector } from 'react-redux';
 import { post } from '../../actions/post';
 import { notificationsCount } from '../../selectors/postSelector';
+import { currentUserSelector } from '../../selectors/authSelector';
 
 const useStyles = makeStyles(theme => ({
   bottom: {
@@ -29,6 +30,7 @@ export default function Comp() {
   const classes = useStyles();
   const dispatch = useDispatch();
   const notiCount = useSelector(notificationsCount);
+  const currentUser = useSelector(currentUserSelector);
 
   const handleGetNotifications = () => {
     dispatch(post.requestNotifications());
@@ -79,7 +81,7 @@ export default function Comp() {
               </NextLink>
             </div>
 
-            <NextLink passHref href='/profile'>
+            <NextLink passHref href={`/x/${currentUser?.username}`}>
               <IconButton color='inherit'>
                 <CurrentUserProfileImageAvatar />
               </IconButton>

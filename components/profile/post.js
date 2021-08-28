@@ -162,12 +162,15 @@ export default function Post({
         callback: () => {
           setCommentText('');
 
-          dispatch(
-            postData.requestSubscribed()
-            // postData.getComment({
-            //   id: post.id,
-            // })
-          );
+          !username &&
+            dispatch(
+              postData.requestSubscribed()
+
+              // postData.getComment({
+              //   id: post.id,
+              // })
+            );
+          username && dispatch(postData.requestX({ username }));
         },
       })
     );
@@ -288,7 +291,7 @@ export default function Post({
                   !subscriptionPlans && (
                     <ManuButton
                       title='Report this Post'
-                      profileImage={post?.user?.profileImage}
+                      profileImage={post?.user}
                       onConfirm={(reason, callback) =>
                         dispatch(
                           postData.postReport({
@@ -451,7 +454,7 @@ export default function Post({
                   ) : (
                     <>
                       <TipModal
-                        profileImage={post?.user?.profileImage}
+                        profileImage={post?.user}
                         name={post?.user?.fullName}
                         onConfirm={(amount, callback) =>
                           dispatch(

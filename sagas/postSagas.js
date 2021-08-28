@@ -130,13 +130,7 @@ function* handleViewNotify(action) {
     const { id, isNotify } = action.payload;
     yield call(viewNotification, id, isNotify);
     yield put(post.success({}));
-    yield put(
-      snackbar.update({
-        open: true,
-        message: 'Viewed successfully!',
-        severity: 'success',
-      })
-    );
+
     const { callback } = action.payload;
     if (callback) {
       yield call(callback);
@@ -322,7 +316,7 @@ function* handlePostPurchase(action) {
     yield put(
       snackbar.update({
         open: true,
-        message: 'Sended successfully!',
+        message: 'Send successfully!',
         severity: 'success',
       })
     );

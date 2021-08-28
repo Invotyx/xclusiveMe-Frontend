@@ -97,7 +97,11 @@ export default function Home() {
                       s.fullName && (
                         <ListItem key={`suggestions${i}`}>
                           <ListItemAvatar>
-                            <Avatar src={s.profileImage} />
+                            <Avatar
+                              src={
+                                s?.profileImage ? s?.profileImage : '/avtar.jpg'
+                              }
+                            />
                           </ListItemAvatar>
                           <ListItemText
                             primary={

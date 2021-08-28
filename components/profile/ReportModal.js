@@ -12,6 +12,7 @@ import LoadingOverlay from 'react-loading-overlay';
 import BounceLoader from 'react-spinners/BounceLoader';
 import { fetchingSelector } from '../../selectors/postSelector';
 import ImageAvatar from '../image-avatar';
+import ProfileImageAvatar from './profile-image-avatar';
 
 const useStyles = makeStyles(theme => ({
   modal: {
@@ -83,15 +84,14 @@ const ReportModal = ({
                     width: '90%',
                   }}
                 >
-                  <img
-                    src={profileImage}
-                    alt='profile image'
-                    width='60px'
-                    height='60px'
+                  <ProfileImageAvatar
+                    user={profileImage}
                     style={{
                       borderRadius: '50%',
                       marginTop: '-20px',
                       marginLeft: isMobile ? '40%' : '44%',
+                      width: '60px',
+                      height: '60px',
                     }}
                   />
                   <CloseIcon
