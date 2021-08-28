@@ -79,18 +79,18 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
         }
       );
     } else {
-    onMediaUploaded(
-      {
-        type: 'media',
-        messageMediaType: 'photo',
-        media: sUrl,
-        content,
-        isPaid: false,
-      },
-      () => {
-        handleClose();
-      }
-    );
+      onMediaUploaded(
+        {
+          type: 'media',
+          messageMediaType: 'photo',
+          media: sUrl,
+          content,
+          isPaid: false,
+        },
+        () => {
+          handleClose();
+        }
+      );
     }
   };
 
