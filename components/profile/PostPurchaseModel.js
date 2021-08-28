@@ -15,6 +15,7 @@ import { post as postData } from '../../actions/post';
 import { fetchingSelector } from '../../selectors/postSelector';
 import BounceLoader from 'react-spinners/BounceLoader';
 import LoadingOverlay from 'react-loading-overlay';
+import ProfileImageAvatar from './profile-image-avatar';
 
 const useStyles = makeStyles(theme => ({
   modal: {
@@ -90,17 +91,22 @@ const PostPurchaseModel = ({ post, openModel, setOpenModel }) => {
                       width: '90%',
                     }}
                   >
-                    <img
-                      src={post?.user?.profileImage}
-                      alt='profile image'
-                      width='60px'
-                      height='65px'
+                    <ProfileImageAvatar
+                      user={post?.user}
                       style={{
                         borderRadius: '50%',
                         marginTop: '-20px',
                         marginLeft: isMobile ? '40%' : '44%',
+                        width: '60px',
+                        height: '60px',
                       }}
                     />
+                    {/* <img
+                      src={post?.user?.profileImage}
+                      alt='profile image'
+                      width='60px'
+                      height='65px'
+                    /> */}
                     <CloseIcon
                       onClick={handleClose}
                       style={{
@@ -249,14 +255,13 @@ const PostPurchaseModel = ({ post, openModel, setOpenModel }) => {
                 </div>
                 <div>
                   <div style={{ display: 'flex', justifyContent: 'center' }}>
-                    <img
-                      src={post?.user?.profileImage}
-                      alt='profile image'
-                      width='70px'
-                      height='75px'
+                    <ProfileImageAvatar
+                      user={post?.user}
                       style={{
                         borderRadius: '50%',
                         marginTop: '20px',
+                        width: '70px',
+                        height: '70px',
                       }}
                     />
                   </div>
