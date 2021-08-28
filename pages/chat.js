@@ -122,7 +122,7 @@ const Chat = () => {
   const chatsData = useSelector(chatDataSelector);
   const singlechat = useSelector(singleChatSelector);
 
-  const handleSendMessage = (content, callback) => {
+  const handleSendMessage = (content, callback, type) => {
     let newMessageData = {
       conversationId: +conId,
       receiver: activeParticipant?.id,
