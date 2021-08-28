@@ -216,7 +216,9 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
         {(type === 'photo' || type === 'video') && (
           <Box display='flex' width='100%' alignItems='center'>
             <Box display='flex' flexGrow={1}>
-              <Typography>Price</Typography>
+              <Typography>
+                Price <small>(optional)</small>
+              </Typography>
             </Box>
             <TextField
               value={price}
