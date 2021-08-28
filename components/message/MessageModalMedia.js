@@ -15,6 +15,7 @@ import GreenButton from '../GreenButton';
 import UploadVideo from '../UploadVideo';
 import { currencySymbol } from '../../services/currencySymbol';
 import MessageModalMediaFollowingsSelect from './MessageModalMediaFollowingsSelect';
+import MessageModalMediaCamera from './MessageModalMediaCamera';
 
 const useStyles = makeStyles(theme => ({
   content: {
@@ -100,14 +101,7 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
       <DialogContent className={classes.content}>
         {type === 'camera' && (
           <>
-            <TextField
-              variant='outlined'
-              fullWidth
-              multiline
-              rows={5}
-              disabled
-            />
-            <Button variant='outlined'>Capture</Button>
+            <MessageModalMediaCamera imageHandler={imageHandler} />
           </>
         )}
         {type === 'text' && (
@@ -237,6 +231,7 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
           variant='contained'
           color='primary'
           fullWidth
+          disabled={disabled}
           onClick={handleMsgSend}
         >
           Send Now
