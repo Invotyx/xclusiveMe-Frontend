@@ -2,13 +2,23 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { currentUserSelector } from '../../selectors/authSelector';
 import styles from './message.module.css';
+import { useInView } from 'react-intersection-observer';
 
 const MessagesListItem = ({ i, ...props }) => {
+  const { ref, inView } = useInView({
+    threshold: 0,
+  });
   const current = useSelector(currentUserSelector);
   const dispatch = useDispatch();
 
+  React.useEffect(() => {
+    if (!i.isSeen && inView) {
+    }
+  }, [inView]);
+
   return (
     <div
+      ref={ref}
       className={styles.container}
       {...props}
     >
