@@ -5,7 +5,7 @@ import styles from './message.module.css';
 import { chat } from '../../actions/chat';
 import { useInView } from 'react-intersection-observer';
 
-const MessagesListItem = ({ i, ...props }) => {
+const MessagesListItem = ({ activeConversationId, i, ...props }) => {
   const { ref, inView } = useInView({
     threshold: 0,
   });
@@ -14,7 +14,7 @@ const MessagesListItem = ({ i, ...props }) => {
 
   React.useEffect(() => {
     if (!i.isSeen && inView) {
-      dispatch(chat.isSeenMessage({ id: i.id }));
+      dispatch(chat.isSeenMessage({ id: activeConversationId }));
     }
   }, [inView]);
 

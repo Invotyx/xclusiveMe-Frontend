@@ -70,6 +70,7 @@ const MessagesList = ({ lastMessageReceived, scrollIntoViewPointer }) => {
           <MessagesListItem
             key={`message${x}`}
             i={i}
+            activeConversationId={activeConversationId}
           />
         ))}
         <div ref={myRef} style={{ textIndent: '-9999px' }}>
