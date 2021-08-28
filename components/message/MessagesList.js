@@ -67,7 +67,10 @@ const MessagesList = ({ lastMessageReceived, scrollIntoViewPointer }) => {
     <>
       <div className={classes.mainBox}>
         {singlechat?.map((i, x) => (
-          <MessagesListItem key={`message${x}`} i={i} />
+          <MessagesListItem
+            key={`message${x}`}
+            i={i}
+          />
         ))}
         <div ref={myRef} style={{ textIndent: '-9999px' }}>
           ..
