@@ -28,6 +28,7 @@ const useStyles = makeStyles(theme => ({
 export default function MessageModalMedia({ type, onMediaUploaded, children }) {
   const Children = props => React.cloneElement(children, props);
   const classes = useStyles();
+  const [content, setContent] = useState('');
   const [tileData, setTileData] = useState([]);
   const [disabled, set_disabled] = useState(false);
   const [loadingItems, setLoadingItems] = useState([]);
@@ -102,6 +103,8 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
             label='Content'
             multiline
             rows={3}
+            value={content}
+            onChange={e => setContent(e.target.value)}
           />
         )}
         {(type === 'photo' || type === 'video') && (
