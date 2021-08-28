@@ -188,6 +188,9 @@ const Chat = () => {
           >
             <ConversationsList
               subheaderPrefix={<ConversationsListPrefix />}
+              onMediaUploaded={data => {
+                handleSendMessage(data);
+              }}
             />
           </Grid>
 
