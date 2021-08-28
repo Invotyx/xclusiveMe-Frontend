@@ -31,6 +31,7 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
   const classes = useStyles();
   const [content, setContent] = useState('');
   const [sentTo, setSentTo] = useState('');
+  const [price, setPrice] = useState(0);
   const [tileData, setTileData] = useState([]);
   const [disabled, set_disabled] = useState(false);
   const [loadingItems, setLoadingItems] = useState([]);
@@ -214,7 +215,8 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
               <Typography>Price</Typography>
             </Box>
             <TextField
-              value={'0.00'}
+              value={price}
+              onChange={e => setPrice(e.target.value)}
               variant='outlined'
               margin='dense'
               InputProps={{
