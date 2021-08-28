@@ -80,10 +80,10 @@ export default function ConversationsList({ subheaderPrefix }) {
   const chatsCount = useSelector(chatCountSelector);
 
   const router = useRouter();
-  const { pathname, query } = router;
+  const { query } = router;
   const handleOpenChat = conId => {
     dispatch(chat.updateActiveConversationId(conId));
-    router.push({ pathname, query: { ...query, conId } });
+    router.push({ pathname: '/chat', query: { ...query, conId } });
   };
 
   const { search } = query;
