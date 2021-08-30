@@ -453,12 +453,14 @@ function* handleUpdateTwoFactorAuthentication(action) {
 function* handleRedirectToLoginPage(action) {
   try {
     const { asPath } = action.payload;
-    yield call(Router.push, {
-      pathname: '/login',
-      query: {
-        redirectTo: Boolean(asPath) ? encodeURI(asPath) : '',
-      },
-    });
+    if (Router.router.pathname !== '/login') {
+      yield call(Router.push, {
+        pathname: '/login',
+        query: {
+          redirectTo: Boolean(asPath) ? encodeURI(asPath) : '',
+        },
+      });
+    }
   } catch (e) {
     console.log(e);
     yield put(auth.failure({ error: { ...e } }));
