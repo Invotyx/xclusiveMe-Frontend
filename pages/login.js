@@ -16,7 +16,6 @@ import { auth } from '../actions/auth';
 import { fetchingSelector } from '../selectors/authSelector';
 import LayoutGuest from '../components/layouts/layout-guest-auth';
 import { currentUserSelector } from '../selectors/authSelector';
-import { userRoleSelector } from '../selectors/authSelector';
 
 const useStyles = makeStyles(theme => ({
   grey: {
@@ -35,7 +34,6 @@ export default function SignInSide() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [code, setCode] = useState('');
-  const userRoless = useSelector(userRoleSelector);
 
   const handleSuccessfulLogin = () => {
     router.replace('/explore');
