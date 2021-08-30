@@ -157,6 +157,7 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
             <Box display='flex' flexGrow={1}>
               <Typography>Add media</Typography>
             </Box>
+            <Box mx={1}>
             <UploadImage
               imageHandler={imageHandler}
               set_disabled={set_disabled}
@@ -171,6 +172,8 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
             >
               <img src='/imageBtn.svg' alt='image' />
             </UploadImage>
+            </Box>
+            <Box mx={1}>
             <UploadVideo
               onUploadVideoComplete={(muxId, mediaType) => {
                 set_disabled(false);
@@ -203,6 +206,7 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
             >
               <img src='/videoBtn.svg' alt='video' />
             </UploadVideo>
+            </Box>
           </Box>
         )}
         {(type === 'photo' || type === 'video') && (
