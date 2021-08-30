@@ -17,7 +17,7 @@ export default function MessageModalMediaCamera({
     const imageSrc = webcamRef.current.getScreenshot();
     setImgSrc(imageSrc);
 
-    onImageSelect && onImageSelect();
+    onImageSelect && onImageSelect(imageSrc);
     dispatch(
       post.uploadImage({
         fileObject: [dataURItoBlob(imageSrc)],
