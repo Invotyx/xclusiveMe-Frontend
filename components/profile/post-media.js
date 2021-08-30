@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react';
 
 import { post as postData } from '../../actions/post/index';
 import { useDispatch, useSelector } from 'react-redux';
+import PostMediaAudio from './post-media-audio';
 
 const useStyles = makeStyles(theme => ({
   media: {
@@ -41,6 +42,8 @@ function MediaElement({ m }) {
 
   return m.type && m.type.indexOf('video') !== -1 ? (
     <PostMediaVideo src={m.url} />
+  ) : m.type === 'upload' ? (
+    <PostMediaAudio src={m.url} />
   ) : (
     <CardMedia className={classes.media} image={m.url} title='post media' />
   );
