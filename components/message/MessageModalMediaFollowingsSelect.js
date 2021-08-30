@@ -13,7 +13,7 @@ export default function MessageModalMediaFollowingsSelect(props) {
   const followings = useSelector(currentUserFollowingsSelector);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(auth.requestFollowings(currentUser?.id));
+    dispatch(auth.requestFollowings({ currentUserId: currentUser?.id }));
   }, []);
 
   return (
