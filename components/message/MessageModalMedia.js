@@ -157,7 +157,6 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
             <Box display='flex' flexGrow={1}>
               <Typography>Add media</Typography>
             </Box>
-            {type === 'photo' && (
               <UploadImage
                 imageHandler={imageHandler}
                 set_disabled={set_disabled}
@@ -174,8 +173,6 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
                   Select File
                 </Button>
               </UploadImage>
-            )}
-            {type === 'video' && (
               <UploadVideo
                 onUploadVideoComplete={(muxId, mediaType) => {
                   set_disabled(false);
@@ -210,7 +207,6 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
                   Select File
                 </Button>
               </UploadVideo>
-            )}
           </Box>
         )}
         {(type === 'photo' || type === 'video') && (
