@@ -36,7 +36,8 @@ export default function SignInSide() {
   const [code, setCode] = useState('');
 
   const handleSuccessfulLogin = () => {
-    router.replace('/explore');
+    const { redirectTo } = router.query;
+    router.replace(Boolean(redirectTo) ? encodeURI(redirectTo) : '/explore');
   };
 
   const handleSubmit = event => {
