@@ -62,7 +62,7 @@ export default function Comp({ sidebarMenu, set_sidebarMenu }) {
     if (authorizationToken) {
       dispatch(auth.me());
     } else {
-      router.push('/login');
+      dispatch(auth.redirectToLoginPage(router.asPath));
     }
   }, []);
 
@@ -71,7 +71,7 @@ export default function Comp({ sidebarMenu, set_sidebarMenu }) {
     dispatch(
       auth.logout({
         callback: () => {
-          router.push('/login');
+          dispatch(auth.redirectToLoginPage());
         },
       })
     );
