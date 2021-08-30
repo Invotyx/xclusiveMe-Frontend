@@ -3,13 +3,17 @@ import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import { useDispatch, useSelector } from 'react-redux';
 import { auth } from '../../actions/auth';
-import { currentUserFollowingsSelector } from '../../selectors/authSelector';
+import {
+  currentUserFollowingsSelector,
+  currentUserSelector,
+} from '../../selectors/authSelector';
 
 export default function MessageModalMediaFollowingsSelect(props) {
+  const currentUser = useSelector(currentUserSelector);
   const followings = useSelector(currentUserFollowingsSelector);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(auth.requestFollowings());
+    dispatch(auth.requestFollowings(currentUser?.id));
   }, []);
 
   return (
