@@ -4,29 +4,18 @@ import IconButton from '@material-ui/core/IconButton';
 import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
 import { Picker } from 'emoji-mart';
 import 'emoji-mart/css/emoji-mart.css';
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { currentUserSelector } from '../../selectors/authSelector';
 import ProfileImageAvatar from '../profile/profile-image-avatar';
 import MessageModalMedia from './MessageModalMedia';
-import useMediaRecorder from '@wmik/use-media-recorder';
-import { snackbar } from '../../actions/snackbar';
-import AudioSend from './audioSend';
+import useAudioSend from './useAudioSend';
 
 export default function MessageSend({ conId, handleSendMessage }) {
-  let { status, mediaBlob, stopRecording, startRecording } = useMediaRecorder({
-    recordScreen: false,
-    mediaStreamConstraints: { audio: true, video: false },
-  });
-  const [seconds, setSeconds] = useState(0);
   const current = useSelector(currentUserSelector);
+  const { AudioSend, addVoice, startRecordingHandler } = useAudioSend();
   const [show, setShow] = useState(false);
   const [msgText, setMsgText] = useState('');
-  const [addVoice, setAddVoice] = useState(false);
-  const [progress, setProgress] = useState(0);
-  const [countInterval, setCountInterval] = React.useState(null);
-  const [progressInterval, setProgressInterval] = React.useState(null);
-  const dispatch = useDispatch();
 
   function handleOnEnter() {
     if (!msgText || msgText.trim() === '') {
@@ -40,25 +29,6 @@ export default function MessageSend({ conId, handleSendMessage }) {
     });
   }
 
-  useEffect(() => {
-    if (status === 'recording') {
-      timer();
-    } else if (status === 'stopped') {
-      clearInterval(countInterval);
-      setSeconds(0);
-    } else if (status === 'failed') {
-      dispatch(
-        snackbar.update({
-          open: true,
-          message: `MicroPhone Permission Denied `,
-          severity: 'error',
-        })
-      );
-      setProgress(0);
-      setAddVoice(false);
-    }
-  }, [status]);
-
   const addEmoji = e => {
     let sym = e.unified.split('-');
     let codesArray = [];
@@ -69,32 +39,6 @@ export default function MessageSend({ conId, handleSendMessage }) {
 
   const showEmoji = () => {
     setShow(!show);
-  };
-  const progressHandler = () => {
-    setProgressInterval(
-      setInterval(() => {
-        setProgress(oldProgress => {
-          if (oldProgress === 100) {
-            return 0;
-          }
-          return oldProgress + 0.3;
-        });
-      }, 300)
-    );
-  };
-
-  const startRecordingHandler = () => {
-    setAddVoice(true);
-    progressHandler();
-    startRecording();
-  };
-
-  const timer = () => {
-    setCountInterval(
-      setInterval(() => {
-        setSeconds(seconds => seconds + 1);
-      }, 1000)
-    );
   };
 
   return (
@@ -186,13 +130,6 @@ export default function MessageSend({ conId, handleSendMessage }) {
           />
         ) : (
           <AudioSend
-            stopRecording={stopRecording}
-            mediaBlob={mediaBlob}
-            progress={progress}
-            progressRef={progressInterval}
-            seconds={seconds}
-            setProgress={setProgress}
-            setAddVoice={setAddVoice}
             onAudioUploaded={data => {
               handleSendMessage(data);
             }}
