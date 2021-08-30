@@ -17,7 +17,7 @@ export default function audioSend({
   seconds,
   progressRef,
   setProgress,
-  setAddVoice,
+  setIsRecording,
   onAudioUploaded,
 }) {
   const dispatch = useDispatch();
@@ -29,7 +29,7 @@ export default function audioSend({
   const Clear = () => {
     clearInterval(progressRef);
     setProgress(0);
-    setAddVoice(false);
+    setIsRecording(false);
     stopRecording();
   };
 

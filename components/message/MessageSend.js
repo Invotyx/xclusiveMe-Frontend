@@ -13,7 +13,7 @@ import useAudioSend from './useAudioSend';
 
 export default function MessageSend({ conId, handleSendMessage }) {
   const current = useSelector(currentUserSelector);
-  const { AudioSend, addVoice, startRecordingHandler } = useAudioSend();
+  const { AudioSend, isRecording, startRecordingHandler } = useAudioSend();
   const [show, setShow] = useState(false);
   const [msgText, setMsgText] = useState('');
 
@@ -53,7 +53,7 @@ export default function MessageSend({ conId, handleSendMessage }) {
             display: 'flex',
             justifyContent: 'space-between',
             width: '30%',
-            opacity: addVoice ? 0 : 1,
+            opacity: isRecording ? 0 : 1,
           }}
         >
           <MessageModalMedia
@@ -89,7 +89,7 @@ export default function MessageSend({ conId, handleSendMessage }) {
       </CardActions>
 
       <CardActions style={{ padding: 0 }}>
-        {!addVoice ? (
+        {!isRecording ? (
           <OutlinedInput
             value={msgText}
             onChange={e => setMsgText(e.target.value)}

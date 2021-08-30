@@ -13,7 +13,7 @@ export default function useAudioSend() {
   const [progress, setProgress] = useState(0);
   const [countInterval, setCountInterval] = React.useState(null);
   const [progressInterval, setProgressInterval] = React.useState(null);
-  const [addVoice, setAddVoice] = useState(false);
+  const [isRecording, setIsRecording] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -35,7 +35,7 @@ export default function useAudioSend() {
         })
       );
       setProgress(0);
-      setAddVoice(false);
+      setIsRecording(false);
     }
   }, [status]);
 
@@ -53,7 +53,7 @@ export default function useAudioSend() {
   };
 
   const startRecordingHandler = () => {
-    setAddVoice(true);
+    setIsRecording(true);
     progressHandler();
     startRecording();
   };
@@ -67,11 +67,11 @@ export default function useAudioSend() {
         progressRef={progressInterval}
         seconds={seconds}
         setProgress={setProgress}
-        setAddVoice={setAddVoice}
+        setIsRecording={setIsRecording}
         {...props}
       />
     ),
     startRecordingHandler,
-    addVoice,
+    isRecording,
   };
 }
