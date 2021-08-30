@@ -10,7 +10,7 @@ const interceptor = (dispatch) => {
       try {
         const { status } = error.response;
         if (status === UNAUTHORIZED) {
-          Router.push('/login');
+          dispatch(auth.redirectToLoginPage(Router.router.asPath));
           // dispatch(
           //   auth.refreshToken({
           // // callback: () => apiClient.request(error.config),
