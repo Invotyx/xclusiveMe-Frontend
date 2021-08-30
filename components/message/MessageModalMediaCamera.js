@@ -4,7 +4,9 @@ import Button from '@material-ui/core/Button';
 import { useDispatch } from 'react-redux';
 import { post } from '../../actions/post';
 
-export default function MessageModalMediaCamera({ imageHandler }) {
+export default function MessageModalMediaCamera({
+  imageHandler,
+}) {
   const dispatch = useDispatch();
   const webcamRef = React.useRef(null);
   const [imgSrc, setImgSrc] = React.useState(null);
