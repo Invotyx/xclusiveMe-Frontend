@@ -158,54 +158,54 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
               <Typography>Add media</Typography>
             </Box>
             <Box mx={1}>
-            <UploadImage
-              imageHandler={imageHandler}
-              set_disabled={set_disabled}
-              onImageSelect={imgSrc => {
-                setLoadingItems(prev => [...prev, { src: imgSrc }]);
-              }}
-              onImageUploaded={() =>
-                setLoadingItems(
-                  loadingItems.filter((a, i) => i !== loadingItems.length - 1)
-                )
-              }
-            >
-              <img src='/imageBtn.svg' alt='image' />
-            </UploadImage>
+              <UploadImage
+                imageHandler={imageHandler}
+                set_disabled={set_disabled}
+                onImageSelect={imgSrc => {
+                  setLoadingItems(prev => [...prev, { src: imgSrc }]);
+                }}
+                onImageUploaded={() =>
+                  setLoadingItems(
+                    loadingItems.filter((a, i) => i !== loadingItems.length - 1)
+                  )
+                }
+              >
+                <img src='/imageBtn.svg' alt='image' />
+              </UploadImage>
             </Box>
             <Box mx={1}>
-            <UploadVideo
-              onUploadVideoComplete={(muxId, mediaType) => {
-                set_disabled(false);
-                setTileData([...tileData, '/no-media.jpg']);
-              }}
-              onVideoError={() => set_disabled(false)}
-              onVideoUploadProgress={val => {
-                setProgressVideo({ val });
-              }}
-              onVideoSelect={() => {
-                set_disabled(true);
-                setProgressVideo({ val: 0 });
-                setLoadingItems([
-                  ...loadingItems,
-                  {
-                    src: '/no-media.jpg',
-                    progressProps: {
-                      variant: 'determinate',
-                      // value: progressVideo.val,
+              <UploadVideo
+                onUploadVideoComplete={(muxId, mediaType) => {
+                  set_disabled(false);
+                  setTileData([...tileData, '/no-media.jpg']);
+                }}
+                onVideoError={() => set_disabled(false)}
+                onVideoUploadProgress={val => {
+                  setProgressVideo({ val });
+                }}
+                onVideoSelect={() => {
+                  set_disabled(true);
+                  setProgressVideo({ val: 0 });
+                  setLoadingItems([
+                    ...loadingItems,
+                    {
+                      src: '/no-media.jpg',
+                      progressProps: {
+                        variant: 'determinate',
+                        // value: progressVideo.val,
+                      },
                     },
-                  },
-                ]);
-              }}
-              onVideoUploaded={() => {
-                setProgressVideo({ val: 100 });
-                setLoadingItems(
-                  loadingItems.filter((a, i) => i !== loadingItems.length - 1)
-                );
-              }}
-            >
-              <img src='/videoBtn.svg' alt='video' />
-            </UploadVideo>
+                  ]);
+                }}
+                onVideoUploaded={() => {
+                  setProgressVideo({ val: 100 });
+                  setLoadingItems(
+                    loadingItems.filter((a, i) => i !== loadingItems.length - 1)
+                  );
+                }}
+              >
+                <img src='/videoBtn.svg' alt='video' />
+              </UploadVideo>
             </Box>
           </Box>
         )}
