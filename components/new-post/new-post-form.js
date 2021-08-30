@@ -222,7 +222,9 @@ export default function NewPostForm({ afterSave }) {
               </Box>
               <Box mx={1}>
                 <Box clone color='#666'>
-                  <IconButton size='small'>
+                  <IconButton
+                    size='small'
+                  >
                     <CameraAltOutlinedIcon />
                   </IconButton>
                 </Box>
