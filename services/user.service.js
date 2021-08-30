@@ -52,7 +52,7 @@ export async function getFollowers() {
 }
 
 export async function getFollowings(id) {
-  return apiClient.get(`${SERVER_ADDRESS}/users/${id}/following`);
+  return apiClient.get(`${SERVER_ADDRESS}/users/${id}/followings`);
 }
 
 export async function getSessions() {
