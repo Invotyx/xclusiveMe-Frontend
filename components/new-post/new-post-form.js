@@ -68,6 +68,7 @@ const ImageListItemBar = withStyles(() => ({
 
 export default function NewPostForm({ afterSave }) {
   const dispatch = useDispatch();
+  const [activeTab, setActiveTab] = React.useState('');
   const [disabled, set_disabled] = React.useState(false);
   const [_show_price_input, set_show_price_input] = React.useState(false);
   const [price, set_price] = React.useState(false);
@@ -151,7 +152,7 @@ export default function NewPostForm({ afterSave }) {
 
   return (
     <>
-      <Box mb={3}>
+      <Box mb={3} style={{ display: activeTab === '' ? 'block' : 'none' }}>
         <OutlinedInput
           value={postText}
           onChange={e => set_postText(e.target.value)}
@@ -212,7 +213,7 @@ export default function NewPostForm({ afterSave }) {
           </CardContent>
         </Card>
       </Box>
-      <Box mb={3}>
+      <Box mb={3} style={{ display: activeTab === '' ? 'block' : 'none' }}>
         <Card>
           <CardContent>
             <Box display='flex'>
@@ -345,7 +346,7 @@ export default function NewPostForm({ afterSave }) {
           </CardContent>
         </Card>
       </Box>
-      <Box mb={3}>
+      <Box mb={3} style={{ display: activeTab === '' ? 'block' : 'none' }}>
         <GreenButton
           onClick={handleCreatePost}
           fullWidth
