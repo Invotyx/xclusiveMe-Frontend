@@ -27,6 +27,7 @@ import { Fade, Popper } from '@material-ui/core';
 import { Alert, AlertTitle } from '@material-ui/lab';
 import { makeStyles } from '@material-ui/core/styles';
 import MessageModalMediaCamera from '../message/MessageModalMediaCamera';
+import useAudioSend from '../message/useAudioSend';
 
 const useStyles = makeStyles(theme => ({
   alertIcon: {
@@ -68,6 +69,7 @@ const ImageListItemBar = withStyles(() => ({
 }))(MuiImageListItemBar);
 
 export default function NewPostForm({ afterSave }) {
+  const { AudioSend, isRecording, startRecordingHandler } = useAudioSend();
   const dispatch = useDispatch();
   const [activeTab, setActiveTab] = React.useState('');
   const [disabled, set_disabled] = React.useState(false);
@@ -132,6 +134,12 @@ export default function NewPostForm({ afterSave }) {
         type: mediaType,
       },
     ]);
+  };
+
+  const audioHandler = data => {
+    set_disabled(false);
+    set_TileData([...tileData, '/no-media.jpg']);
+    setMedia([...media, ...data.media]);
   };
 
   const removeImageHandler = tile => {
@@ -214,6 +222,11 @@ export default function NewPostForm({ afterSave }) {
           </CardContent>
         </Card>
       </Box>
+      {isRecording && (
+        <Box mb={3}>
+          <AudioSend onAudioUploaded={audioHandler} />
+        </Box>
+      )}
       <Box mb={3} style={{ display: activeTab === '' ? 'block' : 'none' }}>
         <Card>
           <CardContent>
@@ -282,7 +295,7 @@ export default function NewPostForm({ afterSave }) {
               </Box>
               <Box mx={1}>
                 <Box clone color='#666'>
-                  <IconButton size='small'>
+                  <IconButton size='small' onClick={startRecordingHandler}>
                     <GraphicEqRoundedIcon />
                   </IconButton>
                 </Box>
