@@ -50,6 +50,11 @@ import { fetchingSelector } from '../../selectors/postSelector';
 import MessageModal from '../message/MessageModal';
 import { useRouter } from 'next/router';
 import { currentUserSelector } from '../../selectors/authSelector';
+import { user as userAction } from '../../actions/user';
+import Followers from './usersFollowersFollowing/Followers';
+import Followings from './usersFollowersFollowing/Following';
+import { followersSelector } from '../../selectors/userSelector';
+import { followerCountSelector } from '../../selectors/userSelector';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -100,6 +105,8 @@ export default function Profile({
   const [_numberOfPosts, set_numberOfPosts] = React.useState(numberOfPosts);
   const [imagesData, set_imagesData] = React.useState(null);
   const [videosData, set_videosData] = React.useState(null);
+  const [openFollowers, setOpenFollowers] = React.useState(false);
+  const [openFollowing, setOpenFollowing] = React.useState(false);
   const classes = useStyles();
   const theme = useTheme();
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
@@ -109,6 +116,9 @@ export default function Profile({
   const [messageModal, setMessageModal] = useState(false);
   const myCurrentUser = useSelector(currentUserSelector);
   const router = useRouter();
+  const followsData = useSelector(followersSelector);
+
+  const followcount = useSelector(followerCountSelector);
 
   const { username } = router.query;
 
@@ -141,6 +151,25 @@ export default function Profile({
 
   const handleMessageModal = () => {
     setMessageModal(!messageModal);
+  };
+
+  const handlegetFollowers = () => {
+    !subscriptionPlans && setOpenFollowers(true);
+    myCurrentUser?.username === username && setOpenFollowers(true);
+
+    dispatch(
+      userAction.followers({
+        userId: user?.id,
+        limit: 5,
+        page: 1,
+      })
+    );
+  };
+
+  const handlegetFollowing = () => {
+    !subscriptionPlans && setOpenFollowing(true);
+    myCurrentUser?.username === username && setOpenFollowing(true);
+    dispatch(userAction.followings({ userId: user?.id }));
   };
 
   const handleFollow = event => {
@@ -261,32 +290,49 @@ export default function Profile({
                             mr={{ xs: 0, sm: 0, md: 2 }}
                             width={isSmall ? 70 : 90}
                           >
-                            <NextLink passHref href='#'>
-                              <ListItem component='a' disableGutters>
-                                <Box clone textAlign='center'>
-                                  <ListItemText
-                                    primary={followers || 0}
-                                    secondary='Followers'
-                                  />
-                                </Box>
-                              </ListItem>
-                            </NextLink>
+                            <ListItem component='a' disableGutters>
+                              <Box
+                                clone
+                                textAlign='center'
+                                onClick={handlegetFollowers}
+                              >
+                                <ListItemText
+                                  primary={followers || 0}
+                                  secondary='Followers'
+                                />
+                              </Box>
+                            </ListItem>
+                            <Followers
+                              openFollowers={openFollowers}
+                              setOpenFollowers={setOpenFollowers}
+                              user={user}
+                              subscriptionPlans={subscriptionPlans}
+                              followsData={followsData}
+                              followcount={followcount}
+                            />
                           </Box>
                           <Box
                             ml={{ xs: 0, sm: 0, md: 2 }}
                             mr={{ xs: 0, sm: 0, md: 2 }}
                             width={isSmall ? 70 : 90}
                           >
-                            <NextLink passHref href='#'>
-                              <ListItem component='a' disableGutters>
-                                <Box clone textAlign='center'>
-                                  <ListItemText
-                                    primary={followings || 0}
-                                    secondary='Following'
-                                  />
-                                </Box>
-                              </ListItem>
-                            </NextLink>
+                            <ListItem component='a' disableGutters>
+                              <Box
+                                clone
+                                textAlign='center'
+                                onClick={handlegetFollowing}
+                              >
+                                <ListItemText
+                                  primary={followings || 0}
+                                  secondary='Following'
+                                />
+                              </Box>
+                            </ListItem>
+                            <Followings
+                              openFollowing={openFollowing}
+                              setOpenFollowing={setOpenFollowing}
+                              subscriptionPlans={subscriptionPlans}
+                            />
                           </Box>
                         </Box>
                       }
