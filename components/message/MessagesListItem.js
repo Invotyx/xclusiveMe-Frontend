@@ -17,6 +17,14 @@ const MessagesListItem = ({ activeConversationId, i, ...props }) => {
       dispatch(
         chat.isSeenMessage({
           id: activeConversationId,
+          callback: () => {
+            dispatch(
+              chat.getConversations({
+                pageNum: 1,
+                limit: 50,
+              })
+            );
+          },
         })
       );
     }
