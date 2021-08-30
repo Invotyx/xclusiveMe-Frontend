@@ -14,6 +14,7 @@ export default function userReducer(state = initialState, action) {
     case USER.GET:
     case USER.GET_ALL:
     case USER.GET_ONE:
+    case USER.GET_FOLLOWERS:
     case USER.SEARCH:
     case USER.EMPTY_SEARCH_LIST:
     case USER.SAVE:

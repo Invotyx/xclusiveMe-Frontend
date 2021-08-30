@@ -4,6 +4,7 @@ export const USER = createActionTypes('USER', [
   'GET',
   'GET_ALL',
   'GET_ONE',
+  'GET_FOLLOWERS',
   'SEARCH',
   'EMPTY_SEARCH_LIST',
   'SAVE',

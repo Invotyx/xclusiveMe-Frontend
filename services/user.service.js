@@ -49,6 +49,9 @@ export async function me() {
 
 export async function getFollowers() {
   return apiClient.get(`${SERVER_ADDRESS}/subscriptions/subscribers`);
+export async function getFollowers(userId) {
+  const data = JSON.stringify(userId);
+  return apiClient.get(`${SERVER_ADDRESS}/users/followers`, data);
 }
 
 export async function getFollowings() {

@@ -52,6 +52,25 @@ function* handleGetOne(action) {
   }
 }
 
+function* handleGetFollowers(action) {
+  try {
+    const { userId, limit, page } = action.payload;
+    const { data } = yield call(
+      apiClient.get,
+      `${SERVER_ADDRESS}/users/${userId}/followers?limit=${limit}&page=${page}`
+    );
+    yield put(
+      user.success({
+        followersData: data.results,
+        followersCount: data.totalCount,
+      })
+    );
+  } catch (e) {
+    console.log(e);
+    yield put(user.failure({ error: { ...e } }));
+  }
+}
+
 function* handleSearch(action) {
   try {
     const { q } = action.payload;
