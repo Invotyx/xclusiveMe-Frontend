@@ -143,4 +143,6 @@ export const auth = {
     }),
   failure: error =>
     createAction(AUTH.FAILURE, { ...error, fetching: false, success: false }),
+  redirectToLoginPage: asPath =>
+    createAction(AUTH.REDIRECT_TO_LOGIN_PAGE, { asPath }),
 };

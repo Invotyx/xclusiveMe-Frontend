@@ -450,6 +450,21 @@ function* handleUpdateTwoFactorAuthentication(action) {
   }
 }
 
+function* handleRedirectToLoginPage(action) {
+  try {
+    const { asPath } = action.payload;
+    yield call(Router.push, {
+      pathname: '/login',
+      query: {
+        redirectTo: Boolean(asPath) ? encodeURI(asPath) : '',
+      },
+    });
+  } catch (e) {
+    console.log(e);
+    yield put(auth.failure({ error: { ...e } }));
+  }
+}
+
 function* handleUploadImage({ payload }) {
   try {
     const { fileObject } = payload;
@@ -533,6 +548,7 @@ function* watchAuthSagas() {
       AUTH.UPDATE_TWO_FACTOR_AUTHENTICATION,
       handleUpdateTwoFactorAuthentication
     ),
+    takeLatest(AUTH.REDIRECT_TO_LOGIN_PAGE, handleRedirectToLoginPage),
     takeLatest(AUTH.GET_COUNTRIES, handleGetCountries),
   ]);
 }
