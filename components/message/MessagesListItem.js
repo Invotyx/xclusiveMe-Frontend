@@ -14,7 +14,19 @@ const MessagesListItem = ({ activeConversationId, i, ...props }) => {
 
   React.useEffect(() => {
     if (!i.isSeen && inView) {
-      dispatch(chat.isSeenMessage({ id: activeConversationId }));
+      dispatch(
+        chat.isSeenMessage({
+          id: activeConversationId,
+          callback: () => {
+            dispatch(
+              chat.getConversations({
+                pageNum: 1,
+                limit: 50,
+              })
+            );
+          },
+        })
+      );
     }
   }, [inView]);
 

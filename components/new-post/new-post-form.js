@@ -26,6 +26,8 @@ import { currencySymbol } from '../../services/currencySymbol';
 import { Fade, Popper } from '@material-ui/core';
 import { Alert, AlertTitle } from '@material-ui/lab';
 import { makeStyles } from '@material-ui/core/styles';
+import MessageModalMediaCamera from '../message/MessageModalMediaCamera';
+import useAudioSend from '../message/useAudioSend';
 
 const useStyles = makeStyles(theme => ({
   alertIcon: {
@@ -67,7 +69,9 @@ const ImageListItemBar = withStyles(() => ({
 }))(MuiImageListItemBar);
 
 export default function NewPostForm({ afterSave }) {
+  const { AudioSend, isRecording, startRecordingHandler } = useAudioSend();
   const dispatch = useDispatch();
+  const [activeTab, setActiveTab] = React.useState('');
   const [disabled, set_disabled] = React.useState(false);
   const [_show_price_input, set_show_price_input] = React.useState(false);
   const [price, set_price] = React.useState(false);
@@ -129,6 +133,12 @@ export default function NewPostForm({ afterSave }) {
     ]);
   };
 
+  const audioHandler = data => {
+    set_disabled(false);
+    set_TileData([...tileData, '/no-media.jpg']);
+    setMedia([...media, ...data.media]);
+  };
+
   const removeImageHandler = tile => {
     set_TileData(tileData.filter(t => t !== tile));
     setMedia(media.filter(f => f.url !== tile));
@@ -148,7 +158,7 @@ export default function NewPostForm({ afterSave }) {
 
   return (
     <>
-      <Box mb={3}>
+      <Box mb={3} style={{ display: activeTab === '' ? 'block' : 'none' }}>
         <OutlinedInput
           value={postText}
           onChange={e => set_postText(e.target.value)}
@@ -209,7 +219,12 @@ export default function NewPostForm({ afterSave }) {
           </CardContent>
         </Card>
       </Box>
-      <Box mb={3}>
+      {isRecording && (
+        <Box mb={3}>
+          <AudioSend onAudioUploaded={audioHandler} />
+        </Box>
+      )}
+      <Box mb={3} style={{ display: activeTab === '' ? 'block' : 'none' }}>
         <Card>
           <CardContent>
             <Box display='flex'>
@@ -218,7 +233,10 @@ export default function NewPostForm({ afterSave }) {
               </Box>
               <Box mx={1}>
                 <Box clone color='#666'>
-                  <IconButton size='small'>
+                  <IconButton
+                    size='small'
+                    onClick={() => setActiveTab('camera')}
+                  >
                     <CameraAltOutlinedIcon />
                   </IconButton>
                 </Box>
@@ -274,7 +292,7 @@ export default function NewPostForm({ afterSave }) {
               </Box>
               <Box mx={1}>
                 <Box clone color='#666'>
-                  <IconButton size='small'>
+                  <IconButton size='small' onClick={startRecordingHandler}>
                     <GraphicEqRoundedIcon />
                   </IconButton>
                 </Box>
@@ -342,7 +360,7 @@ export default function NewPostForm({ afterSave }) {
           </CardContent>
         </Card>
       </Box>
-      <Box mb={3}>
+      <Box mb={3} style={{ display: activeTab === '' ? 'block' : 'none' }}>
         <GreenButton
           onClick={handleCreatePost}
           fullWidth
@@ -358,6 +376,22 @@ export default function NewPostForm({ afterSave }) {
           Post now
         </GreenButton>
       </Box>
+      {activeTab === 'camera' && (
+        <Box textAlign='center'>
+          <MessageModalMediaCamera
+            imageHandler={imageHandler}
+            onImageSelect={imgSrc => {
+              setActiveTab('');
+              setLoadingItems(prev => [...prev, { src: imgSrc }]);
+            }}
+            onImageUploaded={() =>
+              setLoadingItems(
+                loadingItems.filter((a, i) => i !== loadingItems.length - 1)
+              )
+            }
+          />
+        </Box>
+      )}
     </>
   );
 }

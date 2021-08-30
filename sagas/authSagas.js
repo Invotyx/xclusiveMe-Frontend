@@ -368,9 +368,10 @@ function* handleRequestFollowers() {
   }
 }
 
-function* handleRequestFollowings() {
+function* handleRequestFollowings(action) {
   try {
-    const { data } = yield call(getFollowings);
+    const { currentUserId } = action.payload;
+    const { data } = yield call(getFollowings, currentUserId);
     yield put(auth.success({ followings: data }));
   } catch (e) {
     console.log(e);
@@ -447,6 +448,23 @@ function* handleUpdateTwoFactorAuthentication(action) {
         severity: 'error',
       })
     );
+  }
+}
+
+function* handleRedirectToLoginPage(action) {
+  try {
+    const { asPath } = action.payload;
+    if (Router.router.pathname !== '/login') {
+      yield call(Router.push, {
+        pathname: '/login',
+        query: {
+          redirectTo: Boolean(asPath) ? encodeURI(asPath) : '',
+        },
+      });
+    }
+  } catch (e) {
+    console.log(e);
+    yield put(auth.failure({ error: { ...e } }));
   }
 }
 
@@ -533,6 +551,7 @@ function* watchAuthSagas() {
       AUTH.UPDATE_TWO_FACTOR_AUTHENTICATION,
       handleUpdateTwoFactorAuthentication
     ),
+    takeLatest(AUTH.REDIRECT_TO_LOGIN_PAGE, handleRedirectToLoginPage),
     takeLatest(AUTH.GET_COUNTRIES, handleGetCountries),
   ]);
 }

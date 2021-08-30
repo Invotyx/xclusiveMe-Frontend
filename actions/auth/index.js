@@ -121,8 +121,9 @@ export const auth = {
       success: false,
       error: null,
     }),
-  requestFollowings: () =>
+  requestFollowings: data =>
     createAction(AUTH.REQUEST_FOLLOWINGS, {
+      ...data,
       fetching: true,
       success: false,
       error: null,
@@ -143,4 +144,6 @@ export const auth = {
     }),
   failure: error =>
     createAction(AUTH.FAILURE, { ...error, fetching: false, success: false }),
+  redirectToLoginPage: asPath =>
+    createAction(AUTH.REDIRECT_TO_LOGIN_PAGE, { asPath }),
 };

@@ -86,9 +86,8 @@ const Chat = () => {
     socket.on('new-message', data => {
       if (+conId === data.conversationId) {
         setLastMessageReceived(+new Date());
-      } else {
-        getConversations();
       }
+      getConversations();
       dispatch(
         snackbar.update({
           open: true,
@@ -101,7 +100,7 @@ const Chat = () => {
           severity: 'success',
         })
       );
-      console.log('New message sent to client: ', data);
+      console.log('New message received: ', data);
     });
     socket.on('exception', data => {
       dispatch(
@@ -118,7 +117,7 @@ const Chat = () => {
     });
 
     function cleanup() {
-      socket.connected && socket.disconnect();
+      socket.disconnect();
     }
 
     return cleanup;

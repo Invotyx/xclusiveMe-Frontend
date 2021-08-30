@@ -36,7 +36,7 @@ export default function ResetPassword() {
           confirmPassword: password,
         },
         callback: () => {
-          router.push('/login');
+          dispatch(auth.redirectToLoginPage());
         },
       })
     );

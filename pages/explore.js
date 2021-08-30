@@ -27,6 +27,7 @@ import { fetchingSelector } from '../selectors/postSelector';
 import { chat } from '../actions/chat';
 import { user } from '../actions/user';
 import { allUsersSelector } from '../selectors/userSelector';
+import ImageAvatar from '../components/image-avatar';
 
 const suggestions = [
   {
@@ -97,9 +98,9 @@ export default function Home() {
                       s.fullName && (
                         <ListItem key={`suggestions${i}`}>
                           <ListItemAvatar>
-                            <Avatar
+                            <ImageAvatar
                               src={
-                                s?.profileImage ? s?.profileImage : '/avtar.jpg'
+                                s?.profileImage
                               }
                             />
                           </ListItemAvatar>
