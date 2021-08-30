@@ -586,21 +586,6 @@ const SinglePost = ({
                           }}
                         >
                           <div style={{ display: 'flex' }}>
-                            {/* {comm?.user?.profileImage ? (
-                                <img
-                                  src={comm.user.profileImage}
-                                  alt='profile=image'
-                                  width='30px'
-                                  height='30px'
-                                />
-                              ) : (
-                                <img
-                                  src='/dp.png'
-                                  alt='profile=image'
-                                  width='35px'
-                                  height='35px'
-                                />
-                              )} */}
                             <NextLink
                               href={`/x/${comm?.user?.username}`}
                               passHref
@@ -765,21 +750,6 @@ const SinglePost = ({
                             }}
                           >
                             <div style={{ display: 'flex' }}>
-                              {/* {comm?.user?.profileImage ? (
-                                <img
-                                  src={comm.user.profileImage}
-                                  alt='profile=image'
-                                  width='30px'
-                                  height='30px'
-                                />
-                              ) : (
-                                <img
-                                  src='/dp.png'
-                                  alt='profile=image'
-                                  width='35px'
-                                  height='35px'
-                                />
-                              )} */}
                               <NextLink
                                 href={`/x/${comm?.user?.username}`}
                                 passHref

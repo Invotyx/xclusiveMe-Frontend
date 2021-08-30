@@ -17,8 +17,12 @@ export default function FormDialog({
   const onChangeFile = event => {
     event.stopPropagation();
     event.preventDefault();
-    var temp = URL.createObjectURL(event.target.files[0]);
-    onImageSelect && onImageSelect(temp);
+    for (let i = 0; i < event.target.files.length; i++) {
+      const file = event.target.files[i];
+
+      var temp = URL.createObjectURL(file);
+      onImageSelect && onImageSelect(temp);
+    }
     var images = event.target.files;
     // if (image) {
     set_disabled(true);
