@@ -100,7 +100,7 @@ export default function Home() {
                           <ListItemAvatar>
                             <ImageAvatar
                               src={
-                                s?.profileImage ? s?.profileImage : '/avtar.jpg'
+                                s?.profileImage
                               }
                             />
                           </ListItemAvatar>
