@@ -28,7 +28,7 @@ export default function SignInSide() {
       auth.forgotPassword({
         email,
         callback: () => {
-          router.push('/login');
+          dispatch(auth.redirectToLoginPage());
         },
       })
     );
