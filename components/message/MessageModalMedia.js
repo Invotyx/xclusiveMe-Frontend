@@ -169,9 +169,7 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
                 )
               }
             >
-              <Button variant='outlined' size='small'>
-                Select File
-              </Button>
+              <img src='/imageBtn.svg' alt='image' />
             </UploadImage>
             <UploadVideo
               onUploadVideoComplete={(muxId, mediaType) => {
@@ -203,9 +201,7 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
                 );
               }}
             >
-              <Button variant='outlined' size='small'>
-                Select File
-              </Button>
+              <img src='/videoBtn.svg' alt='video' />
             </UploadVideo>
           </Box>
         )}
