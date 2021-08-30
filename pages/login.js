@@ -37,6 +37,10 @@ export default function SignInSide() {
   const [code, setCode] = useState('');
   const userRoless = useSelector(userRoleSelector);
 
+  const handleSuccessfulLogin = () => {
+    router.replace('/explore');
+  };
+
   const handleSubmit = event => {
     event.preventDefault();
     if (registrationState === 1) {
@@ -44,9 +48,7 @@ export default function SignInSide() {
         auth.login({
           email,
           password,
-          callback: () => {
-            router.replace('/explore');
-          },
+          callback: handleSuccessfulLogin,
           callback202: sid => {
             set_registrationState(2);
             set_sessionId(sid);
@@ -59,9 +61,7 @@ export default function SignInSide() {
         auth.verifyOtp({
           sessionId,
           code,
-          callback: () => {
-            router.replace('/explore');
-          },
+          callback: handleSuccessfulLogin,
         })
       );
     }
