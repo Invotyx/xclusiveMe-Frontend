@@ -101,7 +101,7 @@ const Chat = () => {
           severity: 'success',
         })
       );
-      console.log('New message sent to client: ', data);
+      console.log('New message received: ', data);
     });
     socket.on('exception', data => {
       dispatch(
