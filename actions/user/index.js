@@ -29,6 +29,13 @@ export const user = {
       success: false,
       error: null,
     }),
+  followings: id =>
+    createAction(USER.GET_FOLLOWINGS, {
+      ...id,
+      fetching: true,
+      success: false,
+      error: null,
+    }),
   search: data =>
     createAction(USER.SEARCH, {
       ...data,

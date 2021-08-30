@@ -18,6 +18,14 @@ const followerCountSelector = createSelector(userState, state =>
   state.get('followersCount')
 );
 
+const followingCountSelector = createSelector(userState, state =>
+  state.get('followingCount')
+);
+
+const followingSelector = createSelector(userState, state =>
+  state.get('followingData')
+);
+
 const allUsersSelector = createSelector(userState, state =>
   state.get('allData')
 );
@@ -39,6 +47,8 @@ export {
   userDataSelector,
   followersSelector,
   followerCountSelector,
+  followingSelector,
+  followingCountSelector,
   allUsersSelector,
   singleSelector,
   fetchingSelector,

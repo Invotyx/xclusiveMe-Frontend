@@ -8,7 +8,7 @@ import { USER } from '../actions/user/types';
 import { user } from '../actions/user';
 import { snackbar } from '../actions/snackbar';
 import { post } from '../actions/post';
-import { reportUser } from '../services/user.service';
+import { getFollowers, reportUser } from '../services/user.service';
 
 const { publicRuntimeConfig } = getConfig();
 const SERVER_ADDRESS = publicRuntimeConfig.backendUrl;
@@ -63,6 +63,25 @@ function* handleGetFollowers(action) {
       user.success({
         followersData: data.results,
         followersCount: data.totalCount,
+      })
+    );
+  } catch (e) {
+    console.log(e);
+    yield put(user.failure({ error: { ...e } }));
+  }
+}
+
+function* handleGetFollowings(action) {
+  try {
+    const { userId } = action.payload;
+    const { data } = yield call(
+      apiClient.get,
+      `${SERVER_ADDRESS}/users/${userId}/followings`
+    );
+    yield put(
+      user.success({
+        followingData: data.results,
+        followingCount: data.totalCount,
       })
     );
   } catch (e) {
@@ -219,6 +238,8 @@ function* watchPresetSagas() {
     takeLatest(USER.GET, handleGet),
     takeLatest(USER.GET_ALL, handleGetAll),
     takeLatest(USER.GET_ONE, handleGetOne),
+    takeLatest(USER.GET_FOLLOWERS, handleGetFollowers),
+    takeLatest(USER.GET_FOLLOWINGS, handleGetFollowings),
     takeLatest(USER.SEARCH, handleSearch),
     takeLatest(USER.SAVE, handlePost),
     takeLatest(USER.PUT, handlePut),
