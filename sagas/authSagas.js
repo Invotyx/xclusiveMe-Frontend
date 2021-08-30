@@ -368,9 +368,10 @@ function* handleRequestFollowers() {
   }
 }
 
-function* handleRequestFollowings() {
+function* handleRequestFollowings(action) {
   try {
-    const { data } = yield call(getFollowings);
+    const { currentUserId } = action.payload;
+    const { data } = yield call(getFollowings, currentUserId);
     yield put(auth.success({ followings: data }));
   } catch (e) {
     console.log(e);
