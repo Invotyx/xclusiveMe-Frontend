@@ -51,8 +51,8 @@ export async function getFollowers() {
   return apiClient.get(`${SERVER_ADDRESS}/subscriptions/subscribers`);
 }
 
-export async function getFollowings() {
-  return apiClient.get(`${SERVER_ADDRESS}/subscriptions/subscribed`);
+export async function getFollowings(id) {
+  return apiClient.get(`${SERVER_ADDRESS}/users/${id}/following`);
 }
 
 export async function getSessions() {
