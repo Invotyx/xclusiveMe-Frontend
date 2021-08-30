@@ -100,15 +100,12 @@ export default function NewPostForm({ afterSave }) {
     );
   };
 
-  const imageHandler = source_url => {
-    if (Array.isArray(source_url)) {
-      source_url = source_url[0];
-    }
-
-    set_TileData(prev => [...prev, source_url.url]);
-    setMedia([
-      ...media,
-      {
+  const imageHandler = images => {
+    console.log(images);
+    set_TileData(prev => [...prev, ...images.map(i => i.url)]);
+    setMedia(prev => [
+      ...prev,
+      ...images.map(source_url => ({
         url: source_url.url,
         assetId: source_url.asset_id,
         publicId: source_url.public_id,
@@ -116,7 +113,7 @@ export default function NewPostForm({ afterSave }) {
         signature: source_url.signature,
         thumbnail: source_url.thumbnail,
         type: `${source_url.resource_type}`,
-      },
+      })),
     ]);
   };
 
