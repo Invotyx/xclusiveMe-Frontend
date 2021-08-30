@@ -16,7 +16,9 @@
 
 -- my own profile
 
---
+-----------------
+
+ --  show message button even one have followed
 
 
 80 limit any char empty valid.
