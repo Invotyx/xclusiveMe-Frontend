@@ -8,6 +8,7 @@ import {
   getSingleChat,
   sendSingleMsg,
   addVoicemail,
+  isSeen,
 } from '../services/chat.service';
 
 function* handleSendMessage(action) {
@@ -104,6 +105,28 @@ function* handleAddVoicemail(action) {
   }
 }
 
+function* handleUpdateIsSeen(action) {
+  try {
+    const { id } = action.payload;
+    const { data } = yield call(isSeen, id);
+    yield put(chat.success({}));
+    const { callback } = action.payload;
+    if (callback) {
+      yield call(callback, data);
+    }
+  } catch (e) {
+    console.log(e);
+    yield put(chat.failure({ error: { ...e } }));
+    yield put(
+      snackbar.update({
+        open: true,
+        message: e.response.data.message,
+        severity: 'error',
+      })
+    );
+  }
+}
+
 function* watchChatSagas() {
   yield all([
     takeLatest(CHAT.SEND, handleSendMessage),
@@ -111,6 +134,7 @@ function* watchChatSagas() {
     takeLatest(CHAT.GET_ONE, handleGetOneCon),
     takeLatest(CHAT.SEND_ONE, handleSendSingleMessage),
     takeLatest(CHAT.SEND_VOICEMAIL, handleAddVoicemail),
+    takeLatest(CHAT.IS_SEEN, handleUpdateIsSeen),
   ]);
 }
 

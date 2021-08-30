@@ -26,7 +26,12 @@ export async function getSingleChat(id, pageNum, limit) {
 }
 
 export async function isSeen(id) {
-  return apiClient.patch(`${SERVER_ADDRESS}/conversations/${id}/messages/seen`);
+  return apiClient.patch(
+    `${SERVER_ADDRESS}/conversations/${id}/messages/seen`,
+    {
+      isSeen: true,
+    }
+  );
 }
 
 export async function addVoicemail(file) {

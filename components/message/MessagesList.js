@@ -2,12 +2,11 @@ import { makeStyles } from '@material-ui/core';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { chat } from '../../actions/chat';
-import { currentUserSelector } from '../../selectors/authSelector';
 import {
   activeConversationIdSelector,
   singleChatSelector,
 } from '../../selectors/chatSelector';
-import styles from './message.module.css';
+import MessagesListItem from './MessagesListItem';
 
 const useStyles = makeStyles(theme => ({
   mainBox: {
@@ -27,7 +26,6 @@ const useStyles = makeStyles(theme => ({
 const MessagesList = ({ lastMessageReceived, scrollIntoViewPointer }) => {
   const myRef = React.useRef(null);
   const activeConversationId = useSelector(activeConversationIdSelector);
-  const current = useSelector(currentUserSelector);
   const singlechat = useSelector(singleChatSelector);
   const dispatch = useDispatch();
   const pageNum = 1;
@@ -69,40 +67,11 @@ const MessagesList = ({ lastMessageReceived, scrollIntoViewPointer }) => {
     <>
       <div className={classes.mainBox}>
         {singlechat?.map((i, x) => (
-          <div className={styles.container} key={`message${x}`}>
-            <div className={styles.chatMessages}>
-              {i.sender.id !== current?.id ? (
-                <div className={styles.leftSide}>
-                  <span className={styles.leftMessage}>{i.content}</span>
-                  <div>{i.mediaLink && i.mediaLink}</div>
-                </div>
-              ) : (
-                <div className={styles.rightSide}>
-                  <span className={styles.rightMessage}>{i.content}</span>
-                  {i.mediaLink && (
-                    <div
-                      style={{
-                        marginTop: '10px',
-                        border: '1px solid #222222',
-                        borderRadius: '8px',
-                      }}
-                    >
-                      <img
-                        src={i.mediaLink}
-                        alt=''
-                        style={{
-                          width: '200px',
-                          height: '200px',
-                          padding: '20px',
-                          borderRadius: '8px',
-                        }}
-                      />
-                    </div>
-                  )}
-                </div>
-              )}
-            </div>
-          </div>
+          <MessagesListItem
+            key={`message${x}`}
+            i={i}
+            activeConversationId={activeConversationId}
+          />
         ))}
         <div ref={myRef} style={{ textIndent: '-9999px' }}>
           ..
