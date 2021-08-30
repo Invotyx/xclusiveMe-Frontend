@@ -121,8 +121,9 @@ export const auth = {
       success: false,
       error: null,
     }),
-  requestFollowings: () =>
+  requestFollowings: data =>
     createAction(AUTH.REQUEST_FOLLOWINGS, {
+      ...data,
       fetching: true,
       success: false,
       error: null,
