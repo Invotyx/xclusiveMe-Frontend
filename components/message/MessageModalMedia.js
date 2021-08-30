@@ -157,56 +157,56 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
             <Box display='flex' flexGrow={1}>
               <Typography>Add media</Typography>
             </Box>
-              <UploadImage
-                imageHandler={imageHandler}
-                set_disabled={set_disabled}
-                onImageSelect={imgSrc => {
-                  setLoadingItems(prev => [...prev, { src: imgSrc }]);
-                }}
-                onImageUploaded={() =>
-                  setLoadingItems(
-                    loadingItems.filter((a, i) => i !== loadingItems.length - 1)
-                  )
-                }
-              >
-                <Button variant='outlined' size='small'>
-                  Select File
-                </Button>
-              </UploadImage>
-              <UploadVideo
-                onUploadVideoComplete={(muxId, mediaType) => {
-                  set_disabled(false);
-                  setTileData([...tileData, '/no-media.jpg']);
-                }}
-                onVideoError={() => set_disabled(false)}
-                onVideoUploadProgress={val => {
-                  setProgressVideo({ val });
-                }}
-                onVideoSelect={() => {
-                  set_disabled(true);
-                  setProgressVideo({ val: 0 });
-                  setLoadingItems([
-                    ...loadingItems,
-                    {
-                      src: '/no-media.jpg',
-                      progressProps: {
-                        variant: 'determinate',
-                        // value: progressVideo.val,
-                      },
+            <UploadImage
+              imageHandler={imageHandler}
+              set_disabled={set_disabled}
+              onImageSelect={imgSrc => {
+                setLoadingItems(prev => [...prev, { src: imgSrc }]);
+              }}
+              onImageUploaded={() =>
+                setLoadingItems(
+                  loadingItems.filter((a, i) => i !== loadingItems.length - 1)
+                )
+              }
+            >
+              <Button variant='outlined' size='small'>
+                Select File
+              </Button>
+            </UploadImage>
+            <UploadVideo
+              onUploadVideoComplete={(muxId, mediaType) => {
+                set_disabled(false);
+                setTileData([...tileData, '/no-media.jpg']);
+              }}
+              onVideoError={() => set_disabled(false)}
+              onVideoUploadProgress={val => {
+                setProgressVideo({ val });
+              }}
+              onVideoSelect={() => {
+                set_disabled(true);
+                setProgressVideo({ val: 0 });
+                setLoadingItems([
+                  ...loadingItems,
+                  {
+                    src: '/no-media.jpg',
+                    progressProps: {
+                      variant: 'determinate',
+                      // value: progressVideo.val,
                     },
-                  ]);
-                }}
-                onVideoUploaded={() => {
-                  setProgressVideo({ val: 100 });
-                  setLoadingItems(
-                    loadingItems.filter((a, i) => i !== loadingItems.length - 1)
-                  );
-                }}
-              >
-                <Button variant='outlined' size='small'>
-                  Select File
-                </Button>
-              </UploadVideo>
+                  },
+                ]);
+              }}
+              onVideoUploaded={() => {
+                setProgressVideo({ val: 100 });
+                setLoadingItems(
+                  loadingItems.filter((a, i) => i !== loadingItems.length - 1)
+                );
+              }}
+            >
+              <Button variant='outlined' size='small'>
+                Select File
+              </Button>
+            </UploadVideo>
           </Box>
         )}
         {(type === 'photo' || type === 'video') && (
