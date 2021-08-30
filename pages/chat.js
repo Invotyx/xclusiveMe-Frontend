@@ -86,9 +86,8 @@ const Chat = () => {
     socket.on('new-message', data => {
       if (+conId === data.conversationId) {
         setLastMessageReceived(+new Date());
-      } else {
-        getConversations();
       }
+      getConversations();
       dispatch(
         snackbar.update({
           open: true,
