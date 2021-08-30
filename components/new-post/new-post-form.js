@@ -26,6 +26,7 @@ import { currencySymbol } from '../../services/currencySymbol';
 import { Fade, Popper } from '@material-ui/core';
 import { Alert, AlertTitle } from '@material-ui/lab';
 import { makeStyles } from '@material-ui/core/styles';
+import MessageModalMediaCamera from '../message/MessageModalMediaCamera';
 
 const useStyles = makeStyles(theme => ({
   alertIcon: {
@@ -224,6 +225,7 @@ export default function NewPostForm({ afterSave }) {
                 <Box clone color='#666'>
                   <IconButton
                     size='small'
+                    onClick={() => setActiveTab('camera')}
                   >
                     <CameraAltOutlinedIcon />
                   </IconButton>
@@ -364,6 +366,22 @@ export default function NewPostForm({ afterSave }) {
           Post now
         </GreenButton>
       </Box>
+      {activeTab === 'camera' && (
+        <Box textAlign='center'>
+          <MessageModalMediaCamera
+            imageHandler={imageHandler}
+            onImageSelect={imgSrc => {
+              setActiveTab('');
+              setLoadingItems(prev => [...prev, { src: imgSrc }]);
+            }}
+            onImageUploaded={() =>
+              setLoadingItems(
+                loadingItems.filter((a, i) => i !== loadingItems.length - 1)
+              )
+            }
+          />
+        </Box>
+      )}
     </>
   );
 }
