@@ -35,7 +35,7 @@ export default function MessageModalMediaCamera({
       {imgSrc ? (
         <>
           <img src={imgSrc} />
-          <Box display='flex'>
+          <Box display='flex' justifyContent='center'>
             <Button
               variant='outlined'
               size='small'
@@ -53,7 +53,7 @@ export default function MessageModalMediaCamera({
             mirrored={true}
             style={{ maxWidth: '500px', maxHeight: '500px' }}
           />
-          <Box display='flex'>
+          <Box display='flex' justifyContent='center'>
             <Button variant='outlined' size='small' onClick={capture}>
               Capture
             </Button>
