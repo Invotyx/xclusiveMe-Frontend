@@ -9,6 +9,7 @@ export default function MessageModalMediaCamera({
   imageHandler,
   onImageSelect,
   onImageUploaded,
+  handleClose,
 }) {
   const dispatch = useDispatch();
   const webcamRef = React.useRef(null);
@@ -43,6 +44,11 @@ export default function MessageModalMediaCamera({
             >
               Retake
             </Button>
+            {handleClose && (
+              <Button size='small' onClick={handleClose}>
+                Close
+              </Button>
+            )}
           </Box>
         </>
       ) : (
@@ -57,6 +63,11 @@ export default function MessageModalMediaCamera({
             <Button variant='outlined' size='small' onClick={capture}>
               Capture
             </Button>
+            {handleClose && (
+              <Button size='small' onClick={handleClose}>
+                Close
+              </Button>
+            )}
           </Box>
         </>
       )}
