@@ -9,7 +9,7 @@ import { auth } from '../actions/auth';
 import { fetchingSelector } from '../selectors/authSelector';
 import LayoutGuest from '../components/layouts/layout-guest-auth';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   grey: {
     color: '#666',
   },
@@ -22,13 +22,13 @@ export default function SignInSide() {
   const router = useRouter();
   const [email, setEmail] = useState('');
 
-  const handleSubmit = (event) => {
+  const handleSubmit = event => {
     event.preventDefault();
     dispatch(
       auth.forgotPassword({
         email,
         callback: () => {
-          router.push('/login');
+          dispatch(auth.redirectToLoginPage());
         },
       })
     );
@@ -37,12 +37,12 @@ export default function SignInSide() {
   return (
     <LayoutGuest>
       <Head>
-        <title>Login</title>
+        <title>Forgot Password</title>
       </Head>
       <form onSubmit={handleSubmit}>
         <TileTextField
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={e => setEmail(e.target.value)}
           variant='outlined'
           margin='normal'
           required

@@ -8,7 +8,7 @@ const sidebarNavItems = [
   { url: '/settings/account', text: 'Account' },
   { url: '#', text: 'Privacy' },
   { url: '/settings/subscription', text: 'Subscription' },
-  { url: '#', text: 'Notifications' },
+  { url: '/settings/notifications', text: 'Notifications' },
   { url: '#', text: 'Earnings' },
   { url: '/settings/billing', text: 'Billing Method' },
   { url: '/settings/bank', text: 'Bank' },

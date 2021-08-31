@@ -3,14 +3,14 @@ import { auth } from '../actions/auth';
 import Router from 'next/router';
 
 const UNAUTHORIZED = 401;
-const interceptor = (dispatch) => {
+const interceptor = dispatch => {
   apiClient.interceptors.response.use(
-    (response) => response,
-    (error) => {
+    response => response,
+    error => {
       try {
         const { status } = error.response;
         if (status === UNAUTHORIZED) {
-          Router.push('/login');
+          dispatch(auth.redirectToLoginPage(Router.router.asPath));
           // dispatch(
           //   auth.refreshToken({
           // // callback: () => apiClient.request(error.config),

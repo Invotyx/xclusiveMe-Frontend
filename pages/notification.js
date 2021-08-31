@@ -1,4 +1,5 @@
-import React from 'react';
+import Head from 'next/head';
+import React, { useEffect } from 'react';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import List from '@material-ui/core/List';
@@ -11,6 +12,8 @@ import { motion } from 'framer-motion';
 import { variants } from '../services/framer-variants';
 import Layout from '../components/layouts/layout-auth';
 import { useDispatch, useSelector } from 'react-redux';
+import ConversationsList from '../components/message/ConversationsList';
+import { chat } from '../actions/chat';
 
 const useStyles = makeStyles(theme => ({
   bottom: {
@@ -38,7 +41,7 @@ function TabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box p={3}>
+        <Box>
           <Typography>{children}</Typography>
         </Box>
       )}
@@ -57,14 +60,28 @@ export default function Notification() {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
   const dispatch = useDispatch();
+  const limit = 10;
+  const pageNum = 1;
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
+  useEffect(() => {
+    dispatch(
+      chat.getConversations({
+        pageNum: pageNum,
+        limit: limit,
+      })
+    );
+  }, []);
+
   return (
     <motion.div initial='hidden' animate='visible' variants={variants}>
       <Layout>
+        <Head>
+          <title>Notfications - xclusiveme</title>
+        </Head>
         <Container maxWidth='sm'>
           <Tabs
             value={value}
@@ -82,7 +99,7 @@ export default function Notification() {
             </List>
           </TabPanel>
           <TabPanel value={value} index={1}>
-            Messages
+            <ConversationsList />
           </TabPanel>
         </Container>
       </Layout>

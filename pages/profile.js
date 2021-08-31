@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import User from '../components/profile/user';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -8,7 +9,7 @@ import {
 import { useEffect } from 'react';
 import {
   numberOfPostsSelector,
-  singlepostDataSelector,
+  profileDataSelector,
 } from '../selectors/postSelector';
 import { post } from '../actions/post';
 import { auth } from '../actions/auth';
@@ -19,7 +20,7 @@ export default function Profile() {
   const followers = useSelector(currentUserFollowersSelector);
   const followings = useSelector(currentUserFollowingsSelector);
 
-  const _feed = useSelector(singlepostDataSelector);
+  const _feed = useSelector(profileDataSelector);
   const numberOfPosts = useSelector(numberOfPostsSelector);
   useEffect(() => {
     u && dispatch(post.request());
@@ -28,6 +29,10 @@ export default function Profile() {
   }, [u]);
 
   return (
+    <>
+    <Head>
+      <title>Profile - xclusiveme</title>
+    </Head>
     <User
       user={u}
       profileData={u}
@@ -37,5 +42,6 @@ export default function Profile() {
       followers={followers?.totalCount}
       followings={followings?.totalCount}
     />
+    </>
   );
 }

@@ -16,6 +16,21 @@ export const post = {
       error: null,
     }),
 
+  requestSettingsNotifications: () =>
+    createAction(POST.GET_SETTING_NOTIFICATIONS, {
+      fetching: true,
+      success: false,
+      error: null,
+    }),
+
+  addSettingNotification: data =>
+    createAction(POST.ADD_SETTING_NOTIFICATIONS, {
+      ...data,
+      fetching: true,
+      success: false,
+      error: null,
+    }),
+
   viewNotifications: data =>
     createAction(POST.VIEW_NOTIFICATION, {
       ...data,
@@ -31,6 +46,15 @@ export const post = {
       success: false,
       error: null,
     }),
+
+  purchasePost: id =>
+    createAction(POST.PURCHASE_POST, {
+      ...id,
+      fetching: true,
+      success: false,
+      error: null,
+    }),
+
   requestSubscribed: () =>
     createAction(POST.GET_SUBSCRIBED, {
       fetching: true,
@@ -61,13 +85,14 @@ export const post = {
       error: null,
     }),
 
-  getComment: data =>
+  getCommentsVal: data =>
     createAction(POST.GET_COMMENTS, {
       ...data,
       fetching: true,
       success: false,
       error: null,
     }),
+
   saveComment: data =>
     createAction(POST.ADD_COMMENT, {
       ...data,
@@ -155,5 +180,21 @@ export const post = {
       ...error,
       fetching: false,
       success: false,
+    }),
+
+  postReport: data =>
+    createAction(POST.REPORT_POST, {
+      ...data,
+      fetching: true,
+      success: false,
+      error: null,
+    }),
+
+  addTip: data =>
+    createAction(POST.TIP, {
+      ...data,
+      fetching: true,
+      success: false,
+      error: null,
     }),
 };

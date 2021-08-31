@@ -17,23 +17,27 @@ export default function FormDialog({
   const onChangeFile = event => {
     event.stopPropagation();
     event.preventDefault();
-    var image = event.target.files[0];
-    if (image) {
-      var temp = URL.createObjectURL(image);
+    for (let i = 0; i < event.target.files.length; i++) {
+      const file = event.target.files[i];
+
+      var temp = URL.createObjectURL(file);
       onImageSelect && onImageSelect(temp);
-      set_disabled(true);
-      dispatch(
-        post.uploadImage({
-          fileObject: image,
-          callback: source_url => {
-            imageHandler(source_url);
-            set_disabled(false);
-            event.target.value = null;
-            onImageUploaded && onImageUploaded();
-          },
-        })
-      );
     }
+    var images = event.target.files;
+    // if (image) {
+    set_disabled(true);
+    dispatch(
+      post.uploadImage({
+        fileObject: images,
+        callback: source_url => {
+          imageHandler(source_url);
+          set_disabled(false);
+          event.target.value = null;
+          onImageUploaded && onImageUploaded();
+        },
+      })
+    );
+    // }
   };
 
   return (
@@ -44,6 +48,7 @@ export default function FormDialog({
         ref={inputFile}
         style={{ display: 'none' }}
         onChange={onChangeFile}
+        multiple
       />
 
       <Box clone color='#666'>

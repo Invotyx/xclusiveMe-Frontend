@@ -8,9 +8,30 @@ export const user = {
       success: false,
       error: null,
     }),
+  requestAll: data =>
+    createAction(USER.GET_ALL, {
+      ...data,
+      fetching: true,
+      success: false,
+      error: null,
+    }),
   requestOne: id =>
     createAction(USER.GET_ONE, {
       id,
+      fetching: true,
+      success: false,
+      error: null,
+    }),
+  followers: id =>
+    createAction(USER.GET_FOLLOWERS, {
+      ...id,
+      fetching: true,
+      success: false,
+      error: null,
+    }),
+  followings: id =>
+    createAction(USER.GET_FOLLOWINGS, {
+      ...id,
       fetching: true,
       success: false,
       error: null,
@@ -56,6 +77,13 @@ export const user = {
   delete: id =>
     createAction(USER.DELETE, {
       id,
+      fetching: true,
+      success: false,
+      error: null,
+    }),
+  report: data =>
+    createAction(USER.REPORT_USER, {
+      ...data,
       fetching: true,
       success: false,
       error: null,

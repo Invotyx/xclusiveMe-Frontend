@@ -76,7 +76,7 @@ export default function SignInSide() {
           sessionId,
           code,
           callback: () => {
-            router.push('/explore');
+            router.replace('/explore');
           },
         })
       );
@@ -253,7 +253,7 @@ export default function SignInSide() {
               fullWidth
               variant='contained'
               color='primary'
-              disabled={fetching}
+              // disabled={fetching}
             >
               Register
             </TileButton>

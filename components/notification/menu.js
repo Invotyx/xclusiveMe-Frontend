@@ -4,8 +4,8 @@ import Menu from '@material-ui/core/Menu';
 
 const useStyles = makeStyles(() => ({
   root: {
-    width: '100%',
-    maxWidth: '46ch',
+    width: 'auto',
+    marginLeft: '-170px',
   },
 }));
 
@@ -27,7 +27,7 @@ export default function NotificationMenu({
       getContentAnchorEl={null}
       anchorOrigin={{
         vertical: 'bottom',
-        horizontal: 'right',
+        horizontal: 'middle',
       }}
       className={classes.root}
     >

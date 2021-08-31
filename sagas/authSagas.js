@@ -36,11 +36,15 @@ function* handleLogin(action) {
 
     const response = yield call(login, email, password);
     if (response.status !== 202) {
+      if (!response.data.roles.includes('user')) {
+        throw new Error('Please use Admin Dashboard.');
+      }
       localStorage.setItem('jwtToken', response.data.accessToken);
       localStorage.setItem('refreshToken', response.data.refreshToken);
       yield put(
         auth.success({
           accessToken: response.data.accessToken,
+          userRole: response.data.roles,
           loggedIn: true,
         })
       );
@@ -53,7 +57,7 @@ function* handleLogin(action) {
       yield put(
         snackbar.update({
           open: true,
-          message: response.data.message,
+          message: response.data.message || 'Invalid Credentials.',
           severity: 'success',
         })
       );
@@ -118,7 +122,7 @@ function* handleRegister(action) {
     yield put(
       snackbar.update({
         open: true,
-        message: e.response.data.message,
+        message: 'Please Check Your Details',
         severity: 'error',
       })
     );
@@ -241,12 +245,13 @@ function* handleUpdatePassword(action) {
 
 function* handleUpdateSubscriptionFee(action) {
   try {
-    const { price } = action.payload;
+    const { id, data } = action.payload;
+    yield call(updateSubscriptionFee, id, data);
 
-    yield call(updateSubscriptionFee, {
-      isActive: true,
-      price: parseInt(price),
-    });
+    // yield call(updateSubscriptionFee, {
+    //   isActive: true,
+    //   price: parseInt(price),
+    // });
     yield put(auth.success({}));
     yield put(
       bottomalert.update({
@@ -294,7 +299,7 @@ function* handleForgotPassword(action) {
     yield put(
       snackbar.update({
         open: true,
-        message: e.response.data.message,
+        message: 'User not found',
         severity: 'error',
       })
     );
@@ -363,9 +368,10 @@ function* handleRequestFollowers() {
   }
 }
 
-function* handleRequestFollowings() {
+function* handleRequestFollowings(action) {
   try {
-    const { data } = yield call(getFollowings);
+    const { currentUserId } = action.payload;
+    const { data } = yield call(getFollowings, currentUserId);
     yield put(auth.success({ followings: data }));
   } catch (e) {
     console.log(e);
@@ -442,6 +448,23 @@ function* handleUpdateTwoFactorAuthentication(action) {
         severity: 'error',
       })
     );
+  }
+}
+
+function* handleRedirectToLoginPage(action) {
+  try {
+    const { asPath } = action.payload;
+    if (Router.router.pathname !== '/login') {
+      yield call(Router.push, {
+        pathname: '/login',
+        query: {
+          redirectTo: Boolean(asPath) ? encodeURI(asPath) : '',
+        },
+      });
+    }
+  } catch (e) {
+    console.log(e);
+    yield put(auth.failure({ error: { ...e } }));
   }
 }
 
@@ -528,6 +551,7 @@ function* watchAuthSagas() {
       AUTH.UPDATE_TWO_FACTOR_AUTHENTICATION,
       handleUpdateTwoFactorAuthentication
     ),
+    takeLatest(AUTH.REDIRECT_TO_LOGIN_PAGE, handleRedirectToLoginPage),
     takeLatest(AUTH.GET_COUNTRIES, handleGetCountries),
   ]);
 }

@@ -18,6 +18,7 @@ import Layout from '../../components/layouts/layout-settings';
 import { fetchingSelector } from '../../selectors/authSelector';
 import { errorSelector } from '../../selectors/authSelector';
 import Popover from '../../components/settings/subscription/popover';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 export default function Home() {
   const fetching = useSelector(fetchingSelector);
@@ -46,9 +47,17 @@ export default function Home() {
     }
   }, [error]);
 
-  const handleUpdate = (event) => {
+  const handleUpdate = event => {
     event.preventDefault();
-    dispatch(auth.updateSubscriptionFee(price));
+    dispatch(
+      auth.updateSubscriptionFee({
+        id: currentUser?.subscriptionPlans.id,
+        data: {
+          amount: price,
+          currency: 'USD',
+        },
+      })
+    );
   };
   return (
     <motion.div initial='hidden' animate='visible' variants={variants}>
@@ -63,7 +72,10 @@ export default function Home() {
                 Set Up A Subscription Fee
               </UppercaseInputLabel>
             </Box>
-            <Divider />
+            <Box mb={2}>
+              <Divider />
+            </Box>
+            {fetching && <CircularProgress />}
             <Box my={2}>
               <Typography variant='subtitle2'>
                 Add a subscription fee
@@ -78,11 +90,11 @@ export default function Home() {
               <Box mb={4}>
                 <TileTextField
                   value={price}
-                  onChange={(e) => set_price(e.target.value)}
+                  onChange={e => set_price(e.target.value)}
                   variant='outlined'
                   margin='normal'
+                  placeholder='Add price'
                   fullWidth
-                  label='Select an amount'
                   name='price'
                   type='number'
                   InputProps={{

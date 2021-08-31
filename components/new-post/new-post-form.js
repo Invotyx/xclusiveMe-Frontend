@@ -8,13 +8,12 @@ import CardContent from '@material-ui/core/CardContent';
 import IconButton from '@material-ui/core/IconButton';
 import SendIcon from '@material-ui/icons/Send';
 import Typography from '@material-ui/core/Typography';
-import GridList from '@material-ui/core/GridList';
-import MuiGridListTile from '@material-ui/core/GridListTile';
-import MuiGridListTileBar from '@material-ui/core/GridListTileBar';
+import ImageList from '@material-ui/core/ImageList';
+import MuiImageListItem from '@material-ui/core/ImageListItem';
+import MuiImageListItemBar from '@material-ui/core/ImageListItemBar';
 import TextField from '@material-ui/core/TextField';
 import MuiOutlinedInput from '@material-ui/core/OutlinedInput';
 import CameraAltOutlinedIcon from '@material-ui/icons/CameraAltOutlined';
-import GraphicEqRoundedIcon from '@material-ui/icons/GraphicEqRounded';
 import LocalOfferOutlinedIcon from '@material-ui/icons/LocalOfferOutlined';
 import AddIcon from '@material-ui/icons/Add';
 import { useDispatch } from 'react-redux';
@@ -26,6 +25,10 @@ import { currencySymbol } from '../../services/currencySymbol';
 import { Fade, Popper } from '@material-ui/core';
 import { Alert, AlertTitle } from '@material-ui/lab';
 import { makeStyles } from '@material-ui/core/styles';
+import MessageModalMediaCamera from '../message/MessageModalMediaCamera';
+import useAudioSend from '../message/useAudioSend';
+import CheckIcon from '@material-ui/icons/Check';
+import NewPostAudioMenu from './NewPostAudioMenu';
 
 const useStyles = makeStyles(theme => ({
   alertIcon: {
@@ -44,7 +47,7 @@ const OutlinedInput = withStyles(() => ({
   },
 }))(MuiOutlinedInput);
 
-const GridListTile = withStyles(() => ({
+const ImageListItem = withStyles(() => ({
   tile: {
     borderRadius: 6,
     '& > div': {
@@ -54,9 +57,9 @@ const GridListTile = withStyles(() => ({
       display: 'flex',
     },
   },
-}))(MuiGridListTile);
+}))(MuiImageListItem);
 
-const GridListTileBar = withStyles(() => ({
+const ImageListItemBar = withStyles(() => ({
   root: {
     height: `100%`,
     justifyContent: 'center',
@@ -64,10 +67,12 @@ const GridListTileBar = withStyles(() => ({
   titleWrap: {
     display: 'none',
   },
-}))(MuiGridListTileBar);
+}))(MuiImageListItemBar);
 
 export default function NewPostForm({ afterSave }) {
+  const { AudioSend, isRecording, startRecordingHandler } = useAudioSend();
   const dispatch = useDispatch();
+  const [activeTab, setActiveTab] = React.useState('');
   const [disabled, set_disabled] = React.useState(false);
   const [_show_price_input, set_show_price_input] = React.useState(false);
   const [price, set_price] = React.useState(false);
@@ -100,22 +105,25 @@ export default function NewPostForm({ afterSave }) {
     );
   };
 
-  const imageHandler = source_url => {
-    set_TileData([...tileData, source_url.url]);
-    setMedia([
-      ...media,
-      {
+  const imageHandler = images => {
+    console.log(images);
+    set_TileData(prev => [...prev, ...images.map(i => i.url)]);
+    setMedia(prev => [
+      ...prev,
+      ...images.map(source_url => ({
         url: source_url.url,
         assetId: source_url.asset_id,
         publicId: source_url.public_id,
         versionId: source_url.version_id,
         signature: source_url.signature,
-        type: `${source_url.resource_type}/${source_url.format}`,
-      },
+        thumbnail: source_url.thumbnail,
+        type: `${source_url.resource_type}`,
+      })),
     ]);
   };
 
-  const onUploadVideo = (muxId, mediaType) => {
+  const onUploadVideoComplete = (muxId, mediaType) => {
+    set_disabled(false);
     set_TileData([...tileData, '/no-media.jpg']);
     setMedia([
       ...media,
@@ -124,6 +132,12 @@ export default function NewPostForm({ afterSave }) {
         type: mediaType,
       },
     ]);
+  };
+
+  const audioHandler = data => {
+    set_disabled(false);
+    set_TileData([...tileData, '/no-media.jpg']);
+    setMedia([...media, ...data]);
   };
 
   const removeImageHandler = tile => {
@@ -145,7 +159,7 @@ export default function NewPostForm({ afterSave }) {
 
   return (
     <>
-      <Box mb={3}>
+      <Box mb={3} style={{ display: activeTab === '' ? 'block' : 'none' }}>
         <OutlinedInput
           value={postText}
           onChange={e => set_postText(e.target.value)}
@@ -157,12 +171,12 @@ export default function NewPostForm({ afterSave }) {
         />
         <Card>
           <CardContent>
-            <GridList cellHeight={100} cols={4}>
+            <ImageList rowHeight={100} cols={4}>
               {tileData.map((tile, i) => (
-                <GridListTile key={`tile${i}`}>
+                <ImageListItem key={`tile${i}`}>
                   <img src={tile} alt={'no Image'} />
-                  <GridListTileBar
-                    titlePosition='top'
+                  <ImageListItemBar
+                    position='top'
                     actionPosition='left'
                     actionIcon={
                       <Button
@@ -174,13 +188,13 @@ export default function NewPostForm({ afterSave }) {
                       </Button>
                     }
                   />
-                </GridListTile>
+                </ImageListItem>
               ))}
               {loadingItems.map((item, i) => (
-                <MuiGridListTile key={`loadingItems${i}`}>
+                <MuiImageListItem key={`loadingItems${i}`}>
                   <img src={item.src} alt={'no Image'} />
-                  <GridListTileBar
-                    titlePosition='top'
+                  <ImageListItemBar
+                    position='top'
                     actionPosition='left'
                     actionIcon={
                       <CircularProgress
@@ -189,24 +203,32 @@ export default function NewPostForm({ afterSave }) {
                       />
                     }
                   />
-                </MuiGridListTile>
+                </MuiImageListItem>
               ))}
               {tileData && tileData.length > 0 && (
-                <MuiGridListTile>
-                  <GridListTileBar
+                <MuiImageListItem>
+                  <ImageListItemBar
                     actionIcon={
                       <IconButton size='small' variant='text'>
                         <AddIcon />
                       </IconButton>
                     }
                   />
-                </MuiGridListTile>
+                </MuiImageListItem>
               )}
-            </GridList>
+            </ImageList>
           </CardContent>
         </Card>
       </Box>
-      <Box mb={3}>
+      {isRecording && (
+        <Box mb={3}>
+          <AudioSend
+            finishIcon={<CheckIcon />}
+            onAudioUploaded={audioHandler}
+          />
+        </Box>
+      )}
+      <Box mb={3} style={{ display: activeTab === '' ? 'block' : 'none' }}>
         <Card>
           <CardContent>
             <Box display='flex'>
@@ -215,7 +237,10 @@ export default function NewPostForm({ afterSave }) {
               </Box>
               <Box mx={1}>
                 <Box clone color='#666'>
-                  <IconButton size='small'>
+                  <IconButton
+                    size='small'
+                    onClick={() => setActiveTab('camera')}
+                  >
                     <CameraAltOutlinedIcon />
                   </IconButton>
                 </Box>
@@ -225,9 +250,9 @@ export default function NewPostForm({ afterSave }) {
                   <UploadImage
                     imageHandler={imageHandler}
                     set_disabled={set_disabled}
-                    onImageSelect={imgSrc =>
-                      setLoadingItems([...loadingItems, { src: imgSrc }])
-                    }
+                    onImageSelect={imgSrc => {
+                      setLoadingItems(prev => [...prev, { src: imgSrc }]);
+                    }}
                     onImageUploaded={() =>
                       setLoadingItems(
                         loadingItems.filter(
@@ -241,10 +266,11 @@ export default function NewPostForm({ afterSave }) {
               <Box mx={1}>
                 <Box clone color='#666'>
                   <UploadVideo
-                    onUploadVideo={onUploadVideo}
-                    set_disabled={set_disabled}
+                    onUploadVideoComplete={onUploadVideoComplete}
+                    onVideoError={() => set_disabled(false)}
                     onVideoUploadProgress={val => setProgressVideo({ val })}
                     onVideoSelect={() => {
+                      set_disabled(true);
                       setProgressVideo({ val: 0 });
                       setLoadingItems([
                         ...loadingItems,
@@ -269,11 +295,23 @@ export default function NewPostForm({ afterSave }) {
                 </Box>
               </Box>
               <Box mx={1}>
-                <Box clone color='#666'>
-                  <IconButton size='small'>
-                    <GraphicEqRoundedIcon />
-                  </IconButton>
-                </Box>
+                <NewPostAudioMenu
+                  startRecordingHandler={startRecordingHandler}
+                  uploadResponseHandler={audioHandler}
+                  onFileSelection={() => {
+                    setLoadingItems([
+                      ...loadingItems,
+                      { src: '/no-media.jpg' },
+                    ]);
+                  }}
+                  onUploadComplete={() =>
+                    setLoadingItems(
+                      loadingItems.filter(
+                        (a, i) => i !== loadingItems.length - 1
+                      )
+                    )
+                  }
+                />
               </Box>
               <Box mx={1}>
                 {_show_price_input ? (
@@ -338,7 +376,7 @@ export default function NewPostForm({ afterSave }) {
           </CardContent>
         </Card>
       </Box>
-      <Box mb={3}>
+      <Box mb={3} style={{ display: activeTab === '' ? 'block' : 'none' }}>
         <GreenButton
           onClick={handleCreatePost}
           fullWidth
@@ -354,6 +392,23 @@ export default function NewPostForm({ afterSave }) {
           Post now
         </GreenButton>
       </Box>
+      {activeTab === 'camera' && (
+        <Box textAlign='center'>
+          <MessageModalMediaCamera
+            handleClose={() => setActiveTab('')}
+            imageHandler={imageHandler}
+            onImageSelect={imgSrc => {
+              setActiveTab('');
+              setLoadingItems(prev => [...prev, { src: imgSrc }]);
+            }}
+            onImageUploaded={() =>
+              setLoadingItems(
+                loadingItems.filter((a, i) => i !== loadingItems.length - 1)
+              )
+            }
+          />
+        </Box>
+      )}
     </>
   );
 }

@@ -79,7 +79,7 @@ export default function Home() {
             <Grid item xs={12}>
               {fetching ? (
                 <CircularProgress />
-              ) : users.length === 0 && searched ? (
+              ) : users?.length === 0 && searched ? (
                 'no user found'
               ) : !searched ? (
                 'type something to start'
@@ -88,8 +88,8 @@ export default function Home() {
               )}
               <List>
                 {users &&
-                  users.length > 0 &&
-                  users.map(u => (
+                  users?.length > 0 &&
+                  users?.map(u => (
                     <NextLink href={`/x/${u.username}`} key={`user${u.id}`}>
                       <Box
                         clone

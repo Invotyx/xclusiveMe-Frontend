@@ -47,12 +47,14 @@ export async function me() {
   return apiClient.get(`${SERVER_ADDRESS}/users/me`);
 }
 
-export async function getFollowers() {
-  return apiClient.get(`${SERVER_ADDRESS}/subscriptions/subscribers`);
+export async function getFollowers(userId) {
+  const data = JSON.stringify(userId);
+  return apiClient.get(`${SERVER_ADDRESS}/users/followers`, data);
 }
 
-export async function getFollowings() {
-  return apiClient.get(`${SERVER_ADDRESS}/subscriptions/subscribed`);
+export async function getFollowings(userId) {
+  const data = JSON.stringify(userId);
+  return apiClient.get(`${SERVER_ADDRESS}/users/followings`, data);
 }
 
 export async function getSessions() {
@@ -81,9 +83,9 @@ export async function updatePassword(request) {
   return apiClient.patch(`${SERVER_ADDRESS}/users/password`, data);
 }
 
-export async function updateSubscriptionFee(request) {
-  const data = JSON.stringify(request);
-  return apiClient.post(`${SERVER_ADDRESS}/subscriptions/plans`, data);
+export async function updateSubscriptionFee(id, subData) {
+  const data = JSON.stringify(subData);
+  return apiClient.patch(`${SERVER_ADDRESS}/subscriptions/${id}/price`, data);
 }
 
 export async function resetPassword(email, password, token) {
@@ -127,4 +129,13 @@ export async function uploadCover(fileObject) {
   const data = new FormData();
   data.append('image', fileObject);
   return apiClient.post(`${SERVER_ADDRESS}/users/upload-cover`, data);
+}
+
+export async function reportUser(reason) {
+  const data = JSON.stringify(reason);
+  return apiClient.post(`${SERVER_ADDRESS}/report/user`, data);
+}
+
+export async function getAllUsers() {
+  return apiClient.get(`${SERVER_ADDRESS}/users?limit=${4}&page=${1}`);
 }

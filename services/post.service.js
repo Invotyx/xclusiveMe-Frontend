@@ -11,12 +11,6 @@ export async function getOnePost(id) {
   return apiClient.get(`${SERVER_ADDRESS}/posts/${id}`);
 }
 
-export async function getReplies(postId, commentId) {
-  return apiClient.get(
-    `${SERVER_ADDRESS}/posts/${postId}/comments/${commentId}/replies`
-  );
-}
-
 export async function getAllSubscribed() {
   return apiClient.get(`${SERVER_ADDRESS}/posts/subscribed`);
 }
@@ -35,8 +29,16 @@ export async function addComment(id, commentData) {
   return apiClient.post(`${SERVER_ADDRESS}/posts/${id}/comments`, data);
 }
 
-export async function getComment(id) {
-  return apiClient.get(`${SERVER_ADDRESS}/posts/${id}/comments`, data);
+export async function getCommentsData(id, pageNum, limit) {
+  return apiClient.get(
+    `${SERVER_ADDRESS}/posts/${id}/comments?page=${pageNum}&limit=${limit}`
+  );
+}
+
+export async function getReplies(postId, commentId, pageNum, limit) {
+  return apiClient.get(
+    `${SERVER_ADDRESS}/posts/${postId}/comments/${commentId}/replies?page=${pageNum}&limit=${limit}`
+  );
 }
 
 export async function addCommentLike(id) {
@@ -63,15 +65,17 @@ export async function destory(id) {
   return apiClient.delete(`${SERVER_ADDRESS}/posts/${id}/remove`);
 }
 
-export async function uploadImage(fileObject) {
+export async function uploadImage(fileObjects) {
   const data = new FormData();
-  data.append('images', fileObject);
+  for (let i = 0; i < fileObjects.length; i++) {
+    data.append('images', fileObjects[i]);
+  }
   return apiClient.post(`${SERVER_ADDRESS}/posts/images`, data);
 }
 
 export async function uploadVideoReq1(fileObject) {
   const data = { totalVideos: fileObject };
-  return apiClient.post(`${SERVER_ADDRESS}/posts/videos`, data);
+  return apiClient.post(`${SERVER_ADDRESS}/uploads/videos`, data);
 }
 
 export async function uploadVideoFinalReq(fileObject, url) {
@@ -87,4 +91,27 @@ export async function getNotifications() {
 export async function viewNotification(id, notify) {
   const data = JSON.stringify(notify);
   return apiClient.patch(`${SERVER_ADDRESS}/notifications/${id}/read`, data);
+}
+
+export async function getSettingNotifications() {
+  return apiClient.get(`${SERVER_ADDRESS}/notifications/settings`);
+}
+
+export async function addSettingNotification(notiData) {
+  const data = JSON.stringify(notiData);
+  return apiClient.post(`${SERVER_ADDRESS}/notifications/settings`, data);
+}
+
+export async function postPurchase(id) {
+  return apiClient.post(`${SERVER_ADDRESS}/posts/purchase/${id}`);
+}
+
+export async function reportPost(reason) {
+  const data = JSON.stringify(reason);
+  return apiClient.post(`${SERVER_ADDRESS}/report/post`, data);
+}
+
+export async function tipPost(saveData) {
+  const data = JSON.stringify(saveData);
+  return apiClient.post(`${SERVER_ADDRESS}/tips`, data);
 }

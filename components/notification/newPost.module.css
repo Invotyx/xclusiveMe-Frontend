@@ -1,0 +1,55 @@
+.dataAndTitle {
+    display: flex;
+    width: 30vw;
+}
+
+@media only screen and (max-width: 768px) {
+    .dataAndTitle {
+        display: block;
+        width: 100vw;
+    }
+}
+
+.makeScroll {
+    overflow-x: hidden;
+    overflow-y: scroll;
+    max-height: 40vh;
+}
+
+.makeScroll::-webkit-scrollbar {
+    width: 5px;
+}
+
+/* .makeScroll::-webkit-scrollbar-track {
+    background: black;
+} */
+
+.makeScroll::-webkit-scrollbar-thumb {
+    background: #4f4f4f;
+}
+
+.tag {
+    font-weight: 900;
+    font-style: normal;
+    font-size: 12px;
+}
+
+.timeStyle {
+    font-weight: 900;
+    font-style: normal;
+    font-size: 12px;
+    margin-left: 3px;
+}
+
+.timeStyleTwo {
+    font-weight: 500;
+    font-style: normal;
+    font-size: 14px;
+    margin-left: 3px;
+}
+
+.nameStyle {
+    font-weight: 500;
+    font-size: 14px;
+    font-style: normal;
+}

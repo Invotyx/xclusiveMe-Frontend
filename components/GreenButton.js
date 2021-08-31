@@ -1,7 +1,7 @@
 import NormalCaseButton from './NormalCaseButton';
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { MuiThemeProvider, createTheme } from '@material-ui/core/styles';
 
-const theme = createMuiTheme({
+const theme = createTheme({
   palette: {
     primary: { main: '#2ae597', contrastText: '#fff' },
   },

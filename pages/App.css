@@ -1,6 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+* {
+  font-family: 'Poppins', sans-serif;
+}
+
 ::-webkit-calendar-picker-indicator {
   filter: invert(1);
 }
-.tempCountry > div > div {
+
+.tempCountry>div>div {
   opacity: 0;
+}
+
+.MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
+  border: none;
+}
+
+.react-input-emoji--container {
+  background-color: #101010 !important;
+  border: none;
+}
+
+.MuiListItem-gutters {
+  margin-left: 5px !important;
+  margin-right: 5px !important;
 }

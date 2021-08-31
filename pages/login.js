@@ -15,6 +15,7 @@ import TileTextField from '../components/TileTextField';
 import { auth } from '../actions/auth';
 import { fetchingSelector } from '../selectors/authSelector';
 import LayoutGuest from '../components/layouts/layout-guest-auth';
+import { currentUserSelector } from '../selectors/authSelector';
 
 const useStyles = makeStyles(theme => ({
   grey: {
@@ -24,6 +25,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function SignInSide() {
   const fetching = useSelector(fetchingSelector);
+  const currentUser = useSelector(currentUserSelector);
   const dispatch = useDispatch();
   const classes = useStyles();
   const router = useRouter();
@@ -33,6 +35,11 @@ export default function SignInSide() {
   const [password, setPassword] = useState('');
   const [code, setCode] = useState('');
 
+  const handleSuccessfulLogin = () => {
+    const { redirectTo } = router.query;
+    router.replace(Boolean(redirectTo) ? encodeURI(redirectTo) : '/explore');
+  };
+
   const handleSubmit = event => {
     event.preventDefault();
     if (registrationState === 1) {
@@ -40,9 +47,7 @@ export default function SignInSide() {
         auth.login({
           email,
           password,
-          callback: () => {
-            router.push('/explore');
-          },
+          callback: handleSuccessfulLogin,
           callback202: sid => {
             set_registrationState(2);
             set_sessionId(sid);
@@ -55,9 +60,7 @@ export default function SignInSide() {
         auth.verifyOtp({
           sessionId,
           code,
-          callback: () => {
-            router.push('/explore');
-          },
+          callback: handleSuccessfulLogin,
         })
       );
     }
@@ -127,7 +130,7 @@ export default function SignInSide() {
             fullWidth
             variant='contained'
             color='primary'
-            disabled={fetching}
+            // disabled={fetching}
           >
             Login
           </TileButton>

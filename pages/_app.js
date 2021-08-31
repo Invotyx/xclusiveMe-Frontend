@@ -9,10 +9,10 @@ import './App.css';
 import { AppSnackbar } from '../components/AppSnackbar';
 import BottomAlert from '../components/bottom-alert';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    marginBottom: '100px',
-  },
+const useStyles = makeStyles(theme => ({
+  // root: {
+  //   marginBottom: '100px',
+  // },
 }));
 
 function MyApp({ Component, pageProps }) {
@@ -29,17 +29,23 @@ function MyApp({ Component, pageProps }) {
     <div className={classes.root}>
       <Head>
         <title>xclusiveme</title>
+        <link
+          href='https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css'
+          rel='stylesheet'
+        />
         <meta
           name='viewport'
           content='minimum-scale=1, initial-scale=1, width=device-width'
         />
       </Head>
-      <ThemeProvider theme={darkTheme}>
-        <CssBaseline />
-        <Component {...pageProps} />
-        <AppSnackbar />
-        <BottomAlert />
-      </ThemeProvider>
+      <>
+        <ThemeProvider theme={darkTheme}>
+          <CssBaseline />
+          <Component {...pageProps} />
+          <AppSnackbar />
+          <BottomAlert />
+        </ThemeProvider>
+      </>
     </div>
   );
 }

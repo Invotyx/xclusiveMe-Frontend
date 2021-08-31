@@ -10,7 +10,7 @@ export default function Home() {
   return (
     <LayoutGuest>
       <Head>
-        <title>xclusiveme</title>
+        <title>Home - xclusiveme</title>
       </Head>
       <Grid item xs={12} sm={8} md={5}>
         <Box pl={6} pr={6} pt={2} mx={4}>

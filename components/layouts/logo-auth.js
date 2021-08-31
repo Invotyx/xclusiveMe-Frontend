@@ -13,21 +13,34 @@ import SearchIcon from '@material-ui/icons/Search';
 import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import axiosInterceptorResponse from '../../services/axiosInterceptorResponse';
 import { auth } from '../../actions/auth';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import SortIcon from '@material-ui/icons/Sort';
 import Logo from './logo';
 import Notification from '../notification';
 import NewPostDialog from '../new-post';
 import CurrentUserProfileImageAvatar from '../profile/current-user-profile-image-avatar';
 import NotificationMenu from '../notification/menu';
-import { getNotifications } from '../../services/post.service';
+import { post } from '../../actions/post';
+import { notificationsCount } from '../../selectors/postSelector';
+import styles from './layout.module.css';
+import { fetchingSelector } from '../../selectors/postSelector';
+import ConversationsList from '../message/ConversationsList';
+import MessageMenu from '../message/MessageMenu';
+import { currentUserSelector } from '../../selectors/authSelector';
+
+const chatMenu = 'link';
 
 export default function Comp({ sidebarMenu, set_sidebarMenu }) {
   const dispatch = useDispatch();
   const router = useRouter();
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [messageEl, setMessageEl] = React.useState(null);
+  const notificationCount = useSelector(notificationsCount);
+  const fetchData = useSelector(fetchingSelector);
+  const me = useSelector(currentUserSelector);
 
   const settingsMenuOpen = event => {
+    dispatch(post.requestNotifications());
     setAnchorEl(event.currentTarget);
   };
 
@@ -35,13 +48,21 @@ export default function Comp({ sidebarMenu, set_sidebarMenu }) {
     setAnchorEl(null);
   };
 
+  const messagesClose = () => {
+    setMessageEl(null);
+  };
+
+  // React.useEffect(() => {
+  //   dispatch(post.requestNotifications());
+  // }, []);
+
   React.useEffect(() => {
     axiosInterceptorResponse(dispatch);
     const authorizationToken = localStorage.getItem('jwtToken');
     if (authorizationToken) {
       dispatch(auth.me());
     } else {
-      router.push('/login');
+      dispatch(auth.redirectToLoginPage(router.asPath));
     }
   }, []);
 
@@ -50,14 +71,10 @@ export default function Comp({ sidebarMenu, set_sidebarMenu }) {
     dispatch(
       auth.logout({
         callback: () => {
-          router.push('/login');
+          dispatch(auth.redirectToLoginPage());
         },
       })
     );
-  };
-
-  const handleGetNotifications = () => {
-    dispatch(getNotifications());
   };
 
   return (
@@ -99,7 +116,7 @@ export default function Comp({ sidebarMenu, set_sidebarMenu }) {
                 <Box mr={1} display='flex'>
                   <NewPostDialog />
                 </Box>
-                <NextLink passHref href='/profile'>
+                <NextLink passHref href={`/x/${me?.username}`}>
                   <IconButton component='a' color='inherit'>
                     <CurrentUserProfileImageAvatar />
                   </IconButton>
@@ -116,26 +133,52 @@ export default function Comp({ sidebarMenu, set_sidebarMenu }) {
               </Box>
               <Box ml={3} display={{ xs: 'none', sm: 'none', md: 'flex' }}>
                 <IconButton color='inherit' onClick={settingsMenuOpen}>
-                  <Badge color='secondary' variant='dot'>
-                    <CheckBoxOutlineBlankIcon />
-                  </Badge>
+                  {notificationCount == 0 ? (
+                    <Badge color='secondary'>
+                      <CheckBoxOutlineBlankIcon />
+                    </Badge>
+                  ) : (
+                    <Badge color='secondary' variant='dot'>
+                      <CheckBoxOutlineBlankIcon />
+                    </Badge>
+                  )}
                 </IconButton>
-                <NotificationMenu
-                  open={Boolean(anchorEl)}
-                  anchorEl={anchorEl}
-                  onClose={settingsMenuClose}
-                >
-                  <Notification
+
+                <div>
+                  <NotificationMenu
+                    open={Boolean(anchorEl)}
+                    anchorEl={anchorEl}
                     onClose={settingsMenuClose}
-                    onClick={handleGetNotifications}
-                  />
-                </NotificationMenu>
+                  >
+                    <div className={styles.notiBox}>
+                      <Notification onClose={settingsMenuClose} />
+                    </div>
+                  </NotificationMenu>
+                </div>
               </Box>
 
               <Box ml={3} display={{ xs: 'none', sm: 'none', md: 'flex' }}>
-                <IconButton color='inherit'>
-                  <SmsIcon />
-                </IconButton>
+                {chatMenu === 'link' ? (
+                  <NextLink href='/chat' passHref>
+                    <IconButton color='inherit'>
+                      <SmsIcon />
+                    </IconButton>
+                  </NextLink>
+                ) : (
+                  <>
+                    <IconButton
+                      color='inherit'
+                      onClick={e => setMessageEl(e.currentTarget)}
+                    >
+                      <SmsIcon />
+                    </IconButton>
+                    <div>
+                      <MessageMenu anchorEl={messageEl} onClose={messagesClose}>
+                        <ConversationsList />
+                      </MessageMenu>
+                    </div>
+                  </>
+                )}
               </Box>
               <Box ml={3}>
                 <NextLink href='/settings/account' passHref>

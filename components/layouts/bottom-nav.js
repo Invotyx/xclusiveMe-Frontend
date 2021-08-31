@@ -11,8 +11,10 @@ import Image from 'next/image';
 import NextLink from 'next/link';
 import { makeStyles } from '@material-ui/core/styles';
 import CurrentUserProfileImageAvatar from '../profile/current-user-profile-image-avatar';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { post } from '../../actions/post';
+import { notificationsCount } from '../../selectors/postSelector';
+import { currentUserSelector } from '../../selectors/authSelector';
 
 const useStyles = makeStyles(theme => ({
   bottom: {
@@ -27,6 +29,8 @@ const useStyles = makeStyles(theme => ({
 export default function Comp() {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const notiCount = useSelector(notificationsCount);
+  const currentUser = useSelector(currentUserSelector);
 
   const handleGetNotifications = () => {
     dispatch(post.requestNotifications());
@@ -64,14 +68,20 @@ export default function Comp() {
             <div onClick={handleGetNotifications}>
               <NextLink passHref href='/notification'>
                 <IconButton color='inherit'>
-                  <Badge color='secondary' variant='dot'>
-                    <CheckBoxOutlineBlankIcon />
-                  </Badge>
+                  {notiCount == 0 ? (
+                    <Badge color='secondary'>
+                      <CheckBoxOutlineBlankIcon />
+                    </Badge>
+                  ) : (
+                    <Badge color='secondary' variant='dot'>
+                      <CheckBoxOutlineBlankIcon />
+                    </Badge>
+                  )}
                 </IconButton>
               </NextLink>
             </div>
 
-            <NextLink passHref href='/profile'>
+            <NextLink passHref href={`/x/${currentUser?.username}`}>
               <IconButton color='inherit'>
                 <CurrentUserProfileImageAvatar />
               </IconButton>

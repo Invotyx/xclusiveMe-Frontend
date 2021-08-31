@@ -7,7 +7,17 @@ const postDataSelector = createSelector(postState, state => {
   return data;
 });
 
-const totalreplies = createSelector(postState, state => {
+const settingsNotify = createSelector(postState, state => {
+  const data = state.get('notiData');
+  return data;
+});
+
+const profileDataSelector = createSelector(postState, state => {
+  const data = state.get('profileData');
+  return data;
+});
+
+const totalrepliesSelector = createSelector(postState, state => {
   const data = state.get('repliesCount');
   return data;
 });
@@ -17,8 +27,18 @@ const notificationsData = createSelector(postState, state => {
   return data;
 });
 
+const notificationsCount = createSelector(postState, state => {
+  const data = state.get('notiCount');
+  return data;
+});
+
 const repliesDataSelector = createSelector(postState, state => {
   const data = state.get('repliesData');
+  return data;
+});
+
+const getCommentsDataSelector = createSelector(postState, state => {
+  const data = state.get('Commdata');
   return data;
 });
 
@@ -52,14 +72,18 @@ const errorSelector = createSelector(postState, state => {
 });
 export {
   postDataSelector,
+  notificationsCount,
+  profileDataSelector,
   singlepostDataSelector,
   numberOfPostsSelector,
   subscribedSelector,
   xfeedSelector,
   xfeed_numberOfPostsSelector,
+  getCommentsDataSelector,
   fetchingSelector,
   errorSelector,
   repliesDataSelector,
-  totalreplies,
+  totalrepliesSelector,
   notificationsData,
+  settingsNotify,
 };

@@ -10,6 +10,26 @@ const userDataSelector = createSelector(userState, state => {
 
 const singleSelector = createSelector(userState, state => state.get('single'));
 
+const followersSelector = createSelector(userState, state =>
+  state.get('followersData')
+);
+
+const followerCountSelector = createSelector(userState, state =>
+  state.get('followersCount')
+);
+
+const followingCountSelector = createSelector(userState, state =>
+  state.get('followingCount')
+);
+
+const followingSelector = createSelector(userState, state =>
+  state.get('followingData')
+);
+
+const allUsersSelector = createSelector(userState, state =>
+  state.get('allData')
+);
+
 const fetchingSelector = createSelector(userState, state =>
   state.get('fetching')
 );
@@ -25,6 +45,11 @@ const errorSelector = createSelector(userState, state => {
 });
 export {
   userDataSelector,
+  followersSelector,
+  followerCountSelector,
+  followingSelector,
+  followingCountSelector,
+  allUsersSelector,
   singleSelector,
   fetchingSelector,
   searchedSelector,
