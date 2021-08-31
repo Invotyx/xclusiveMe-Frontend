@@ -8,7 +8,7 @@ LABEL org.opencontainers.image.source https://github.com/Invotyx/xclusiveme-fron
 
 ARG REACT_APP_BASE_URL
 ENV BACKEND_URL=${REACT_APP_BASE_URL}
-ENV STRIPE_KEY=pk_test_51HtIzzBV9RJUxo9gopHOJW9XVDLKXU8D99DC6nkRn7hoOqlz6096MYeLUyoR77PJL8pnIrtHYRozUlazvej389dT00a9my74EQ
+ENV STRIPE_KEY=pk_test_51JUNyLGzVSqDAZBcOWD4UtRIcUSef8AJUMntVySrltOBb8H0CP355nWJkXHVqsgQs0XGEkYI6kCQy1Nq8CdbnzxF00lT3yXnGj
 
 COPY ./package.json ./
 COPY ./yarn.lock ./
