@@ -64,6 +64,12 @@ const useStyles = makeStyles(theme => ({
     overflowY: 'scroll',
     overflowX: 'hidden',
     height: `calc(100vh - 208px)`,
+    '&::-webkit-scrollbar': {
+      width: '5px',
+    },
+    '&::-webkit-scrollbar-thumb': {
+      backgroundColor: '#4f4f4f',
+    },
     [theme.breakpoints.up('md')]: {
       height: `calc(100vh - 192px)`,
       minHeight: `356px`,
