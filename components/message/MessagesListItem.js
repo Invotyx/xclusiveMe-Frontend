@@ -37,14 +37,27 @@ const MessagesListItem = ({ activeConversationId, i, ...props }) => {
       {...props}
     >
       <div className={styles.chatMessages}>
+        <div
+          className={
+            i.sender.id !== current?.id ? styles.leftSide : styles.rightSide
+          }
+        >
+          <span
+            className={
+              i.sender.id !== current?.id
+                ? styles.leftMessage
+                : styles.rightMessage
+            }
+          >
+            {i.content}
+          </span>
+        </div>
         {i.sender.id !== current?.id ? (
           <div className={styles.leftSide}>
-            <span className={styles.leftMessage}>{i.content}</span>
             <div>{i.mediaLink && i.mediaLink}</div>
           </div>
         ) : (
           <div className={styles.rightSide}>
-            <span className={styles.rightMessage}>{i.content}</span>
             {i.mediaLink && (
               <div
                 style={{
