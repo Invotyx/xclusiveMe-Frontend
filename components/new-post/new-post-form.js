@@ -380,7 +380,8 @@ export default function NewPostForm({ afterSave }) {
         <GreenButton
           onClick={handleCreatePost}
           fullWidth
-          color='primary'
+          backgroundColor='white'
+          color='black'
           variant='contained'
           size='large'
           startIcon={<SendIcon />}
