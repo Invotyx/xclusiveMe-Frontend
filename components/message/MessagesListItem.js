@@ -44,6 +44,7 @@ const MessagesListItem = ({ activeConversationId, i, ...props }) => {
             i.sender.id !== current?.id ? styles.leftSide : styles.rightSide
           }
         >
+          {i.content && (
           <span
             className={
               i.sender.id !== current?.id
@@ -53,6 +54,7 @@ const MessagesListItem = ({ activeConversationId, i, ...props }) => {
           >
             {i.content}
           </span>
+          )}
           <Box
             display='flex'
             width='100%'
