@@ -58,25 +58,19 @@ export default function MessageSend({ handleSendMessage }) {
         >
           <MessageModalMedia
             type='camera'
-            onMediaUploaded={data => {
-              handleSendMessage(data);
-            }}
+            onMediaUploaded={handleSendMessage}
           >
             <img src='/camera.svg' alt='camera' />
           </MessageModalMedia>
           <MessageModalMedia
             type='photo'
-            onMediaUploaded={data => {
-              handleSendMessage(data);
-            }}
+            onMediaUploaded={handleSendMessage}
           >
             <img src='/imageBtn.svg' alt='image' />
           </MessageModalMedia>
           <MessageModalMedia
             type='video'
-            onMediaUploaded={data => {
-              handleSendMessage(data);
-            }}
+            onMediaUploaded={handleSendMessage}
           >
             <img src='/videoBtn.svg' alt='video' />
           </MessageModalMedia>
@@ -130,9 +124,7 @@ export default function MessageSend({ handleSendMessage }) {
           />
         ) : (
           <AudioSend
-            onAudioUploaded={data => {
-              handleSendMessage(data);
-            }}
+            onAudioUploaded={handleSendMessage}
           />
         )}
       </CardActions>
