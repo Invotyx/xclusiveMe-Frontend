@@ -163,9 +163,11 @@ const Chat = () => {
     }
     socketIo.emit('new-message-to-server', newMessageData, data => {
       console.log(data);
+      if (data.success) {
+        callback && callback();
+      }
     });
     // setLastMessageReceived(+new Date());
-    callback && callback();
   };
 
   const handleSendNewMessage = (saveData, callback) => {
