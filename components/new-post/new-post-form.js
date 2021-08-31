@@ -221,7 +221,9 @@ export default function NewPostForm({ afterSave }) {
       </Box>
       {isRecording && (
         <Box mb={3}>
-          <AudioSend onAudioUploaded={audioHandler} />
+          <AudioSend
+            onAudioUploaded={audioHandler}
+          />
         </Box>
       )}
       <Box mb={3} style={{ display: activeTab === '' ? 'block' : 'none' }}>
