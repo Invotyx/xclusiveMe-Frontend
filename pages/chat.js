@@ -165,9 +165,9 @@ const Chat = () => {
       console.log(data);
       if (data.success) {
         callback && callback();
+        setLastMessageReceived(+new Date());
       }
     });
-    // setLastMessageReceived(+new Date());
   };
 
   const handleSendNewMessage = (saveData, callback) => {
