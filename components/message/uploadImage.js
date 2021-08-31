@@ -22,8 +22,8 @@ export default function FormDialog({
     if (event.target.files) {
       for (let i = 0; i < event.target.files.length; i++) {
         const image = event.target.files[i];
-      var temp = URL.createObjectURL(image);
-      onImageSelect && onImageSelect(temp);
+        var temp = URL.createObjectURL(image);
+        onImageSelect && onImageSelect(temp);
       }
       set_disabled(true);
       dispatch(
