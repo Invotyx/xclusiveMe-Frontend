@@ -45,15 +45,15 @@ const MessagesListItem = ({ activeConversationId, i, ...props }) => {
           }
         >
           {i.content && (
-          <span
-            className={
-              i.sender.id !== current?.id
-                ? styles.leftMessage
-                : styles.rightMessage
-            }
-          >
-            {i.content}
-          </span>
+            <span
+              className={
+                i.sender.id !== current?.id
+                  ? styles.leftMessage
+                  : styles.rightMessage
+              }
+            >
+              {i.content}
+            </span>
           )}
           <Box
             display='flex'
