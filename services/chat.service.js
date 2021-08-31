@@ -34,7 +34,7 @@ export async function isSeen(id) {
   );
 }
 
-export async function addVoicemail(file) {
+export async function uploadAudio(file) {
   const data = new FormData();
   data.append('audio', file);
   return apiClient.post(`${SERVER_ADDRESS}/uploads/audio`, data);

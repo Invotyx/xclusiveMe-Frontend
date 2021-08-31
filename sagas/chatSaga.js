@@ -7,7 +7,7 @@ import {
   getConversations,
   getSingleChat,
   sendSingleMsg,
-  addVoicemail,
+  uploadAudio,
   isSeen,
 } from '../services/chat.service';
 
@@ -87,7 +87,7 @@ function* handleGetOneCon(action) {
 function* handleAddVoicemail(action) {
   try {
     const { audioFile, callback } = action.payload;
-    const { data } = yield call(addVoicemail, audioFile);
+    const { data } = yield call(uploadAudio, audioFile);
     yield put(chat.success({}));
     if (callback) {
       yield call(callback, data);
