@@ -1,5 +1,6 @@
 import React from 'react';
 import Webcam from 'react-webcam';
+import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import { useDispatch } from 'react-redux';
 import { post } from '../../actions/post';
@@ -34,6 +35,7 @@ export default function MessageModalMediaCamera({
       {imgSrc ? (
         <>
           <img src={imgSrc} />
+          <Box display='flex'>
           <Button
             variant='outlined'
             size='small'
@@ -41,6 +43,7 @@ export default function MessageModalMediaCamera({
           >
             Retake
           </Button>
+          </Box>
         </>
       ) : (
         <>
@@ -50,9 +53,11 @@ export default function MessageModalMediaCamera({
             mirrored={true}
             style={{ maxWidth: '500px', maxHeight: '500px' }}
           />
+          <Box display='flex'>
           <Button variant='outlined' size='small' onClick={capture}>
             Capture
           </Button>
+          </Box>
         </>
       )}
     </>
