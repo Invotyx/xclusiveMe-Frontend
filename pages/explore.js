@@ -95,14 +95,10 @@ export default function Home() {
                 <List>
                   {suggestion?.map(
                     (s, i) =>
-                      s.fullName && (
+                      s?.username && (
                         <ListItem key={`suggestions${i}`}>
                           <ListItemAvatar>
-                            <ImageAvatar
-                              src={
-                                s?.profileImage
-                              }
-                            />
+                            <ImageAvatar src={s?.profileImage} />
                           </ListItemAvatar>
                           <ListItemText
                             primary={

@@ -122,7 +122,7 @@ function* handleRegister(action) {
     yield put(
       snackbar.update({
         open: true,
-        message: e.response.data.message,
+        message: 'Please Check Your Details',
         severity: 'error',
       })
     );

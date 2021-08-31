@@ -122,7 +122,7 @@ export default function Profile({
 
   const { username } = router.query;
 
-  console.log(myCurrentUser?.username, username);
+  // console.log(myCurrentUser?.username, username);
 
   useEffect(() => {
     set_numberOfPosts(numberOfPosts);
@@ -136,7 +136,7 @@ export default function Profile({
     setUserFeed(feed);
     let temp_images = [];
     let temp_videos = [];
-    console.log(feed);
+    // console.log(feed);
     if (feed) {
       feed.forEach(f => {
         const images = f.media.filter(m => m.type.indexOf('image/') !== -1);
@@ -154,7 +154,7 @@ export default function Profile({
   };
 
   const handlegetFollowers = () => {
-    !subscriptionPlans && setOpenFollowers(true);
+    // !subscriptionPlans && setOpenFollowers(true);
     myCurrentUser?.username === username && setOpenFollowers(true);
 
     dispatch(
@@ -167,7 +167,7 @@ export default function Profile({
   };
 
   const handlegetFollowing = () => {
-    !subscriptionPlans && setOpenFollowing(true);
+    // !subscriptionPlans && setOpenFollowing(true);
     myCurrentUser?.username === username && setOpenFollowing(true);
     dispatch(userAction.followings({ userId: user?.id, limit: 5, page: 1 }));
   };
@@ -290,7 +290,11 @@ export default function Profile({
                             mr={{ xs: 0, sm: 0, md: 2 }}
                             width={isSmall ? 70 : 90}
                           >
-                            <ListItem component='a' disableGutters>
+                            <ListItem
+                              component='a'
+                              disableGutters
+                              style={{ cursor: 'pointer' }}
+                            >
                               <Box
                                 clone
                                 textAlign='center'
@@ -316,7 +320,11 @@ export default function Profile({
                             mr={{ xs: 0, sm: 0, md: 2 }}
                             width={isSmall ? 70 : 90}
                           >
-                            <ListItem component='a' disableGutters>
+                            <ListItem
+                              component='a'
+                              disableGutters
+                              style={{ cursor: 'pointer' }}
+                            >
                               <Box
                                 clone
                                 textAlign='center'
