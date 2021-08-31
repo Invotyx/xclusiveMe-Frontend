@@ -19,6 +19,7 @@ import { withStyles } from '@material-ui/core';
 import { useRouter } from 'next/router';
 import Moment from 'react-moment';
 import { chat } from '../../actions/chat';
+import styles from './message.module.css';
 
 const ListItem = withStyles({
   root: {
