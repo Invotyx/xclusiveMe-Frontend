@@ -14,21 +14,13 @@ import { makeStyles } from '@material-ui/core/styles';
 import moment from 'moment';
 import ProfileImageAvatar from '../components/profile/profile-image-avatar';
 import NormalCaseButton from '../components/NormalCaseButton';
-import PostMedia from '../components/profile/post-media';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
-import SendIcon from '@material-ui/icons/Send';
 import { createRef, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { post as postData } from '../actions/post';
-import Modal from '@material-ui/core/Modal';
-import Backdrop from '@material-ui/core/Backdrop';
-import Fade from '@material-ui/core/Fade';
 import CloseIcon from '@material-ui/icons/Close';
-import TurnedInNotIcon from '@material-ui/icons/TurnedInNot';
 import { singlepostDataSelector } from '../selectors/postSelector';
 import { repliesDataSelector } from '../selectors/postSelector';
-import { postDataSelector } from '../selectors/postSelector';
-import TextField from '@material-ui/core/TextField';
 import { Button } from '@material-ui/core';
 import SinglePostMedia from '../components/profile/SinglePostMedia';
 import styles from '../components/profile/profile.module.css';
@@ -54,7 +46,6 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'rgba(0, 0, 2, 0.9)',
-    marginTop: '15px',
   },
   paper: {
     backgroundColor: theme.palette.background.paper,
@@ -108,6 +99,8 @@ const SinglePost = ({
   const dispatch = useDispatch();
   const [openModel, setOpenModel] = useState(false);
   const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
+  const middleDesktop = useMediaQuery({ query: '(max-width: 1024px)' });
+  const higherDesktop = useMediaQuery({ query: '(max-width: 1440px)' });
   const [pageNumber, setPageNumber] = useState(2);
   const [openTip, setopenTip] = useState(false);
   const fetchData = useSelector(fetchingSelector);
@@ -263,7 +256,11 @@ const SinglePost = ({
   };
 
   return (
-    <div className={classes.modal} closeAfterTransition>
+    <div
+      className={classes.modal}
+      closeAfterTransition
+      style={{ marginTop: middleDesktop ? '20%' : higherDesktop ? '5%' : '3%' }}
+    >
       <LoadingOverlay active={fetchData} spinner={<BounceLoader />}>
         <div
           style={{

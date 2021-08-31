@@ -52,7 +52,7 @@ export async function getFollowers(userId) {
   return apiClient.get(`${SERVER_ADDRESS}/users/followers`, data);
 }
 
-export async function getFollowings() {
+export async function getFollowings(userId) {
   const data = JSON.stringify(userId);
   return apiClient.get(`${SERVER_ADDRESS}/users/followings`, data);
 }

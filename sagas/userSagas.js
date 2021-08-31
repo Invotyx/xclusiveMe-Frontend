@@ -73,10 +73,10 @@ function* handleGetFollowers(action) {
 
 function* handleGetFollowings(action) {
   try {
-    const { userId } = action.payload;
+    const { userId, limit, page } = action.payload;
     const { data } = yield call(
       apiClient.get,
-      `${SERVER_ADDRESS}/users/${userId}/followings`
+      `${SERVER_ADDRESS}/users/${userId}/followings?limit=${limit}&page=${page}`
     );
     yield put(
       user.success({
