@@ -19,9 +19,9 @@ export default function FormDialog({
   const onChangeFile = event => {
     event.stopPropagation();
     event.preventDefault();
-    var image = event.target.files[0];
     if (event.target.files) {
       for (let i = 0; i < event.target.files.length; i++) {
+        const image = event.target.files[i];
       var temp = URL.createObjectURL(image);
       onImageSelect && onImageSelect(temp);
       }
