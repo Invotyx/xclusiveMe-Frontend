@@ -42,7 +42,7 @@ export default function audioSend({
       type: 'audio/wav',
       lastModified: date,
     });
-    voiceMailSend(audioFile);
+    voiceMailSend([audioFile]);
   };
 
   const voiceMailSend = audioFile => {
