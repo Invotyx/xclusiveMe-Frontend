@@ -47,12 +47,14 @@ export async function me() {
   return apiClient.get(`${SERVER_ADDRESS}/users/me`);
 }
 
-export async function getFollowers() {
-  return apiClient.get(`${SERVER_ADDRESS}/subscriptions/subscribers`);
+export async function getFollowers(userId) {
+  const data = JSON.stringify(userId);
+  return apiClient.get(`${SERVER_ADDRESS}/users/followers`, data);
 }
 
-export async function getFollowings(id) {
-  return apiClient.get(`${SERVER_ADDRESS}/users/${id}/followings`);
+export async function getFollowings() {
+  const data = JSON.stringify(userId);
+  return apiClient.get(`${SERVER_ADDRESS}/users/followings`, data);
 }
 
 export async function getSessions() {
