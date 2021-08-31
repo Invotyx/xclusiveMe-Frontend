@@ -124,7 +124,13 @@ export default function MessageSend({ handleSendMessage }) {
           />
         ) : (
           <AudioSend
-            onAudioUploaded={handleSendMessage}
+            onAudioUploaded={data =>
+              handleSendMessage({
+                type: 'media',
+                messageMediaType: 'audio',
+                media: data,
+              })
+            }
           />
         )}
       </CardActions>

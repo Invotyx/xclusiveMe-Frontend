@@ -137,7 +137,7 @@ export default function NewPostForm({ afterSave }) {
   const audioHandler = data => {
     set_disabled(false);
     set_TileData([...tileData, '/no-media.jpg']);
-    setMedia([...media, ...data.media]);
+    setMedia([...media, ...data]);
   };
 
   const removeImageHandler = tile => {
