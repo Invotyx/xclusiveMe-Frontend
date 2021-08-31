@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import Radio from '@material-ui/core/Radio';
@@ -7,7 +7,12 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import Card from '@material-ui/core/Card';
-import { CardContent, CardHeader } from '@material-ui/core';
+import {
+  Button,
+  CardActions,
+  CardContent,
+  CardHeader,
+} from '@material-ui/core';
 
 const useStyles = makeStyles({
   root: {
@@ -88,21 +93,34 @@ function StyledRadio(props) {
 
 export default function PostReport() {
   const classes = useStyles();
+  const [value, setValue] = useState(['']);
+  const handleSend = () => {
+    console.log(value);
+  };
   return (
     <Card className={classes.root}>
       <CardContent>
         <FormControl component='fieldset'>
           {reasons.map(r => (
-            <RadioGroup name='customized-radios'>
+            <RadioGroup
+              name='customized-radios'
+              value={value}
+              onChange={e => setValue(e.target.value)}
+            >
               <FormControlLabel
-                value='female'
+                value={r.text}
                 control={<StyledRadio />}
-                label='Female'
+                label={r.text}
               />
             </RadioGroup>
           ))}
         </FormControl>
       </CardContent>
+
+      <CardActions style={{ display: 'flex', float: 'right' }}>
+        <Button color='primary'>Cancel</Button>
+        <Button color='primary'>Send</Button>
+      </CardActions>
     </Card>
   );
 }
