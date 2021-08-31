@@ -62,10 +62,9 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
     if (Array.isArray(source_url)) {
       setTileData(prev => [...prev, ...source_url.map(s => s.url)]);
       setUploadedMedia([...uploadedMedia, ...source_url]);
-    }
-    else {
-    setUploadedMedia(source_url);
-    setTileData(prev => [...prev, source_url.url]);
+    } else {
+      setUploadedMedia(source_url);
+      setTileData(prev => [...prev, source_url.url]);
     }
   };
 
