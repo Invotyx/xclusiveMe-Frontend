@@ -84,6 +84,9 @@ const Chat = () => {
     socket.on('connected', data => {
       console.log(data);
     });
+    socket.on('message-success', data => {
+      console.log(data);
+    });
     socket.on('new-message', data => {
       if (+conId === data.conversationId) {
         setLastMessageReceived(+new Date());
