@@ -88,7 +88,7 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
         {
           type: 'media',
           messageMediaType: 'photo',
-          media: sUrl,
+          media: [sUrl],
           content,
           isPaid: Boolean(price),
           price,
