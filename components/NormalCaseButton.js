@@ -6,8 +6,8 @@ const NormalCaseButton = withStyles({
     textTransform: 'none',
   },
   disabled: {
-    color: '#222 !important',
-    backgroundColor: '#111 !important',
+    color: '#FFFFFF !important',
+    backgroundColor: '#000000 !important',
   },
 })(Button);
 export default NormalCaseButton;
