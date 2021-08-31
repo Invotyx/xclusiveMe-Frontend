@@ -379,6 +379,7 @@ export default function NewPostForm({ afterSave }) {
       {activeTab === 'camera' && (
         <Box textAlign='center'>
           <MessageModalMediaCamera
+            handleClose={() => setActiveTab('')}
             imageHandler={imageHandler}
             onImageSelect={imgSrc => {
               setActiveTab('');
