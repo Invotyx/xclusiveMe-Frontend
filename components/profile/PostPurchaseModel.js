@@ -196,8 +196,8 @@ const PostPurchaseModel = ({ post, openModel, setOpenModel }) => {
                 <Button
                   variant='contained'
                   style={{
-                    backgroundColor: '#67E697',
-                    color: 'white',
+                    backgroundColor: 'white',
+                    color: 'black',
                     width: '92%',
                     margin: '20px',
                     marginTop: '10px',
@@ -309,6 +309,8 @@ const PostPurchaseModel = ({ post, openModel, setOpenModel }) => {
                             margin: '20px',
                             width: '90%',
                             padding: '10px',
+                            backgroundColor: 'white',
+                            color: 'black',
                           }}
                         >
                           <CloseIcon className={styles.buttonIcons} /> Close
@@ -322,6 +324,8 @@ const PostPurchaseModel = ({ post, openModel, setOpenModel }) => {
                           style={{
                             margin: '20px',
                             width: '90%',
+                            backgroundColor: 'white',
+                            color: 'black',
                           }}
                         >
                           <ShareIcon className={styles.buttonIcons} /> Share
@@ -340,6 +344,8 @@ const PostPurchaseModel = ({ post, openModel, setOpenModel }) => {
                           marginLeft: '10px',
                           marginRight: '10px',
                           padding: '10px',
+                          backgroundColor: 'white',
+                          color: 'black',
                         }}
                       >
                         <CloseIcon className={styles.buttonIcons} /> Close

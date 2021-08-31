@@ -54,6 +54,7 @@ const TipModal = ({ profileImage, name, onConfirm }) => {
   const handleClose = () => {
     setopenTip(false);
     setPurchased(false);
+    setAddPrice('');
   };
 
   useEffect(() => {
@@ -156,6 +157,11 @@ const TipModal = ({ profileImage, name, onConfirm }) => {
                           value={addPrice}
                           onChange={e => setAddPrice(e.target.value)}
                           name='addPrice'
+                          onKeyDown={e => {
+                            if (e.key === '.') {
+                              e.preventDefault();
+                            }
+                          }}
                         />
                       </form>
                     </div>
@@ -209,8 +215,8 @@ const TipModal = ({ profileImage, name, onConfirm }) => {
                 <Button
                   variant='contained'
                   style={{
-                    backgroundColor: '#67E697',
-                    color: 'white',
+                    backgroundColor: 'white',
+                    color: 'black',
                     width: '92%',
                     margin: '20px',
                     marginTop: '10px',
@@ -322,6 +328,8 @@ const TipModal = ({ profileImage, name, onConfirm }) => {
                             margin: '20px',
                             width: '90%',
                             padding: '10px',
+                            backgroundColor: 'white',
+                            color: 'black',
                           }}
                         >
                           <CloseIcon className={styles.buttonIcons} /> Close
@@ -353,6 +361,8 @@ const TipModal = ({ profileImage, name, onConfirm }) => {
                           marginLeft: '10px',
                           marginRight: '10px',
                           padding: '10px',
+                          backgroundColor: 'white',
+                          color: 'black',
                         }}
                       >
                         <CloseIcon className={styles.buttonIcons} /> Close

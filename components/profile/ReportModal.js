@@ -13,6 +13,7 @@ import BounceLoader from 'react-spinners/BounceLoader';
 import { fetchingSelector } from '../../selectors/postSelector';
 import ImageAvatar from '../image-avatar';
 import ProfileImageAvatar from './profile-image-avatar';
+import PostReport from './PostReport';
 
 const useStyles = makeStyles(theme => ({
   modal: {
@@ -36,6 +37,7 @@ const ReportModal = ({
   title,
   profileImage,
   onConfirm,
+  postid,
 }) => {
   const classes = useStyles();
   const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
@@ -116,43 +118,52 @@ const ReportModal = ({
                   <p style={{ fontWeight: '600', fontSize: '17px' }}>{title}</p>
                 </div>
               </div>
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  marginBottom: '10px',
-                  marginLeft: '10px',
-                  marginRight: '10px',
-                }}
-              >
-                <div>
-                  <TextField
-                    id='outlined-basic'
-                    variant='outlined'
-                    fullWidth
-                    multiline
-                    value={postText}
-                    onChange={e => set_postText(e.target.value)}
-                    rows={3}
-                    placeholder='Write something...'
-                    style={{ width: isMobile ? '80vw' : '30vw' }}
-                  />
-                </div>
-              </div>
 
-              <Button
-                variant='contained'
-                style={{
-                  backgroundColor: '#67E697',
-                  color: 'white',
-                  width: isMobile ? '80vw' : '30vw',
-                  margin: '20px',
-                  marginTop: '10px',
-                }}
-                onClick={handlePurchase}
-              >
-                Report
-              </Button>
+              {postid ? (
+                <PostReport />
+              ) : (
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    marginBottom: '10px',
+                    marginLeft: '10px',
+                    marginRight: '10px',
+                  }}
+                >
+                  <div>
+                    <TextField
+                      id='outlined-basic'
+                      variant='outlined'
+                      fullWidth
+                      multiline
+                      value={postText}
+                      onChange={e => set_postText(e.target.value)}
+                      rows={3}
+                      placeholder='Write something...'
+                      style={{ width: isMobile ? '80vw' : '30vw' }}
+                    />
+                  </div>
+                </div>
+              )}
+
+              {!postid && (
+                <div>
+                  <Button
+                    variant='contained'
+                    style={{
+                      backgroundColor: 'white',
+                      color: 'black',
+                      width: isMobile ? '80vw' : '30vw',
+                      margin: '20px',
+                      marginTop: '10px',
+                    }}
+                    onClick={handlePurchase}
+                  >
+                    Report
+                  </Button>
+                </div>
+              )}
             </div>
           </div>
         </LoadingOverlay>
