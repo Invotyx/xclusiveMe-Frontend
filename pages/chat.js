@@ -36,6 +36,7 @@ import { post } from '../actions/post';
 import { currencySymbol } from '../services/currencySymbol';
 import { socketUrl } from '../services/socketUrl';
 import ConversationsListPrefix from '../components/message/ConversationsListPrefix';
+import { v4 } from 'uuid';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -136,6 +137,7 @@ const Chat = () => {
 
   const handleSendMessageSocket = (content, callback) => {
     let newMessageData = {
+      ack: v4(),
       conversationId: +conId,
       receiver: activeParticipant?.id,
     };
