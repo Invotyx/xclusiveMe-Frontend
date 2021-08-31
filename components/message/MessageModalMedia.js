@@ -36,7 +36,7 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
   const [disabled, set_disabled] = useState(false);
   const [loadingItems, setLoadingItems] = useState([]);
   const [progressVideo, setProgressVideo] = React.useState({ val: 0 });
-  const [sUrl, setSUrl] = useState('');
+  const [uploadedMedia, setUploadedMedia] = useState('');
 
   const [imageModal, setImageModal] = useState(false);
   const handleClickOpen = () => {
@@ -47,7 +47,7 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
     if (!imageModal) {
       setTileData([]);
       setLoadingItems([]);
-      setSUrl('');
+      setUploadedMedia('');
       setContent('');
       setSentTo('');
       setPrice('');
@@ -60,10 +60,13 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
 
   const imageHandler = source_url => {
     if (Array.isArray(source_url)) {
-      source_url = source_url[0];
+      setTileData(prev => [...prev, ...source_url.map(s => s.url)]);
+      setUploadedMedia([...uploadedMedia, ...source_url]);
     }
-    setSUrl(source_url);
+    else {
+    setUploadedMedia(source_url);
     setTileData(prev => [...prev, source_url.url]);
+    }
   };
 
   const removeImageHandler = tile => {
@@ -88,7 +91,7 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
         {
           type: 'media',
           messageMediaType: 'photo',
-          media: sUrl,
+          media: [uploadedMedia],
           content,
           isPaid: Boolean(price),
           price,

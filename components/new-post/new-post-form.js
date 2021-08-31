@@ -28,6 +28,7 @@ import { Alert, AlertTitle } from '@material-ui/lab';
 import { makeStyles } from '@material-ui/core/styles';
 import MessageModalMediaCamera from '../message/MessageModalMediaCamera';
 import useAudioSend from '../message/useAudioSend';
+import CheckIcon from '@material-ui/icons/Check';
 
 const useStyles = makeStyles(theme => ({
   alertIcon: {
@@ -221,7 +222,10 @@ export default function NewPostForm({ afterSave }) {
       </Box>
       {isRecording && (
         <Box mb={3}>
-          <AudioSend onAudioUploaded={audioHandler} />
+          <AudioSend
+            finishIcon={<CheckIcon />}
+            onAudioUploaded={audioHandler}
+          />
         </Box>
       )}
       <Box mb={3} style={{ display: activeTab === '' ? 'block' : 'none' }}>
@@ -379,6 +383,7 @@ export default function NewPostForm({ afterSave }) {
       {activeTab === 'camera' && (
         <Box textAlign='center'>
           <MessageModalMediaCamera
+            handleClose={() => setActiveTab('')}
             imageHandler={imageHandler}
             onImageSelect={imgSrc => {
               setActiveTab('');

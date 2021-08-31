@@ -19,10 +19,12 @@ export default function FormDialog({
   const onChangeFile = event => {
     event.stopPropagation();
     event.preventDefault();
-    var image = event.target.files[0];
-    if (image) {
-      var temp = URL.createObjectURL(image);
-      onImageSelect && onImageSelect(temp);
+    if (event.target.files) {
+      for (let i = 0; i < event.target.files.length; i++) {
+        const image = event.target.files[i];
+        var temp = URL.createObjectURL(image);
+        onImageSelect && onImageSelect(temp);
+      }
       set_disabled(true);
       dispatch(
         post.uploadImage({
@@ -56,15 +58,15 @@ export default function FormDialog({
           }}
         />
       ) : (
-      <Box clone color='#666'>
-        <IconButton
-          onClick={() => {
-            inputFile.current.click();
-          }}
-        >
-          <WallpaperOutlinedIcon />
-        </IconButton>
-      </Box>
+        <Box clone color='#666'>
+          <IconButton
+            onClick={() => {
+              inputFile.current.click();
+            }}
+          >
+            <WallpaperOutlinedIcon />
+          </IconButton>
+        </Box>
       )}
     </>
   );

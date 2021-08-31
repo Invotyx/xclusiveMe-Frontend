@@ -19,6 +19,7 @@ export default function audioSend({
   setProgress,
   setIsRecording,
   onAudioUploaded,
+  finishIcon,
 }) {
   const dispatch = useDispatch();
 
@@ -91,7 +92,7 @@ export default function audioSend({
       />
       <Typography style={{ display: 'flex' }}>{formatTime()}</Typography>
       <IconButton onClickCapture={voiceSendHandler}>
-        <img src='/send.png' alt='send button' />
+        {finishIcon || <img src='/send.png' alt='send button' />}
       </IconButton>
     </Paper>
   );

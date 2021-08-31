@@ -1,5 +1,6 @@
 import React from 'react';
 import Webcam from 'react-webcam';
+import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import { useDispatch } from 'react-redux';
 import { post } from '../../actions/post';
@@ -8,6 +9,7 @@ export default function MessageModalMediaCamera({
   imageHandler,
   onImageSelect,
   onImageUploaded,
+  handleClose,
 }) {
   const dispatch = useDispatch();
   const webcamRef = React.useRef(null);
@@ -34,13 +36,20 @@ export default function MessageModalMediaCamera({
       {imgSrc ? (
         <>
           <img src={imgSrc} />
-          <Button
-            variant='outlined'
-            size='small'
-            onClick={() => setImgSrc(null)}
-          >
-            Retake
-          </Button>
+          <Box display='flex' justifyContent='center'>
+            <Button
+              variant='outlined'
+              size='small'
+              onClick={() => setImgSrc(null)}
+            >
+              Retake
+            </Button>
+            {handleClose && (
+              <Button size='small' onClick={handleClose}>
+                Close
+              </Button>
+            )}
+          </Box>
         </>
       ) : (
         <>
@@ -50,9 +59,16 @@ export default function MessageModalMediaCamera({
             mirrored={true}
             style={{ maxWidth: '500px', maxHeight: '500px' }}
           />
-          <Button variant='outlined' size='small' onClick={capture}>
-            Capture
-          </Button>
+          <Box display='flex' justifyContent='center'>
+            <Button variant='outlined' size='small' onClick={capture}>
+              Capture
+            </Button>
+            {handleClose && (
+              <Button size='small' onClick={handleClose}>
+                Close
+              </Button>
+            )}
+          </Box>
         </>
       )}
     </>
