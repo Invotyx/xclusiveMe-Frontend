@@ -17,9 +17,10 @@ import Avatar from '@material-ui/core/Avatar';
 import { makeStyles } from '@material-ui/core/styles';
 import { followingSelector } from '../../../selectors/userSelector';
 import { followingCountSelector } from '../../../selectors/userSelector';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import ProfileImageAvatar from '../profile-image-avatar';
 import NextLink from 'next/link';
+import { user as userAction } from '../../../actions/user';
 
 const styles = theme => ({
   root: {
@@ -76,9 +77,9 @@ const DialogActions = withStyles(theme => ({
   },
 }))(MuiDialogActions);
 
-export default function Followings({ openFollowing, setOpenFollowing }) {
+export default function Followings({ openFollowing, setOpenFollowing, user }) {
   const classes = useStyles();
-
+  const dispatch = useDispatch();
   const followsData = useSelector(followingSelector);
   const count = useSelector(followingCountSelector);
   var forFollowers = followsData;
@@ -101,7 +102,7 @@ export default function Followings({ openFollowing, setOpenFollowing }) {
     setFollowersPage(followersPage + 1);
     setFollowLength(followLength + 5);
     dispatch(
-      userAction.followers({
+      userAction.followings({
         userId: user?.id,
         page: followersPage,
         limit: 5,
@@ -137,15 +138,15 @@ export default function Followings({ openFollowing, setOpenFollowing }) {
                 {followerss?.map(f => (
                   <ListItem alignItems='flex-start'>
                     <ListItemAvatar>
-                      <ProfileImageAvatar user={f?.creator} />
+                      <ProfileImageAvatar user={f} />
                     </ListItemAvatar>
                     <ListItemText
-                      primary={f?.creator?.fullName}
+                      primary={f?.fullName}
                       secondary={
                         <React.Fragment onClick={() => handleClose()}>
                           <NextLink
-                            href={`/x/${f?.creator?.username}`}
-                            key={`user${f?.creator?.id}`}
+                            href={`/x/${f?.username}`}
+                            key={`user${f?.id}`}
                           >
                             <Typography
                               component='span'

@@ -169,7 +169,7 @@ export default function Profile({
   const handlegetFollowing = () => {
     !subscriptionPlans && setOpenFollowing(true);
     myCurrentUser?.username === username && setOpenFollowing(true);
-    dispatch(userAction.followings({ userId: user?.id }));
+    dispatch(userAction.followings({ userId: user?.id, limit: 5, page: 1 }));
   };
 
   const handleFollow = event => {
@@ -332,6 +332,7 @@ export default function Profile({
                               openFollowing={openFollowing}
                               setOpenFollowing={setOpenFollowing}
                               subscriptionPlans={subscriptionPlans}
+                              user={user}
                             />
                           </Box>
                         </Box>
