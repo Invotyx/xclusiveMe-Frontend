@@ -4,6 +4,7 @@ import { currentUserSelector } from '../../selectors/authSelector';
 import styles from './message.module.css';
 import { chat } from '../../actions/chat';
 import { useInView } from 'react-intersection-observer';
+import ImageListItem from './ImageListItem';
 
 const MessagesListItem = ({ activeConversationId, i, ...props }) => {
   const { ref, inView } = useInView({
@@ -51,6 +52,9 @@ const MessagesListItem = ({ activeConversationId, i, ...props }) => {
           >
             {i.content}
           </span>
+            {i.media.map((messageMedia, i) => (
+              <ImageListItem key={`messageMedia${i}`} src={messageMedia.url} />
+            ))}
         </div>
         {i.sender.id !== current?.id ? (
           <div className={styles.leftSide}>
