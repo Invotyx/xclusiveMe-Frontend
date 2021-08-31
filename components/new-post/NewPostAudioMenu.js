@@ -3,9 +3,13 @@ import IconButton from '@material-ui/core/IconButton';
 import GraphicEqRoundedIcon from '@material-ui/icons/GraphicEqRounded';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import AudioUpload from './AudioUpload';
 
 export default function NewPostAudioMenu({
   startRecordingHandler,
+  onFileSelection,
+  uploadResponseHandler,
+  onUploadComplete,
 }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -37,7 +41,13 @@ export default function NewPostAudioMenu({
         >
           Record
         </MenuItem>
-        <MenuItem onClick={handleClose}>Upload</MenuItem>
+        <AudioUpload
+          onFileSelection={onFileSelection}
+          uploadResponseHandler={uploadResponseHandler}
+          onUploadComplete={onUploadComplete}
+        >
+          <MenuItem>Upload</MenuItem>
+        </AudioUpload>
       </Menu>
     </>
   );
