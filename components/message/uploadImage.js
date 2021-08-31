@@ -20,7 +20,7 @@ export default function FormDialog({
     event.stopPropagation();
     event.preventDefault();
     var image = event.target.files[0];
-    if (image) {
+    if (event.target.files) {
       var temp = URL.createObjectURL(image);
       onImageSelect && onImageSelect(temp);
       set_disabled(true);
