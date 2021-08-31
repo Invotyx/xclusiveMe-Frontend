@@ -5,6 +5,7 @@ import styles from './message.module.css';
 import { chat } from '../../actions/chat';
 import { useInView } from 'react-intersection-observer';
 import ImageListItem from './ImageListItem';
+import Box from '@material-ui/core/Box';
 
 const MessagesListItem = ({ activeConversationId, i, ...props }) => {
   const { ref, inView } = useInView({
@@ -52,9 +53,17 @@ const MessagesListItem = ({ activeConversationId, i, ...props }) => {
           >
             {i.content}
           </span>
+          <Box
+            display='flex'
+            width='100%'
+            justifyContent={
+              i.sender.id !== current?.id ? 'flex-start' : 'flex-end'
+            }
+          >
             {i.media.map((messageMedia, i) => (
               <ImageListItem key={`messageMedia${i}`} src={messageMedia.url} />
             ))}
+          </Box>
         </div>
         {i.sender.id !== current?.id ? (
           <div className={styles.leftSide}>
