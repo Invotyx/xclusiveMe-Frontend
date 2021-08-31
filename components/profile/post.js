@@ -288,27 +288,27 @@ export default function Post({
                     <MoreVertIcon />
                   </IconButton>
                 ) : (
-                  !subscriptionPlans && (
-                    <ManuButton
-                      title='Report this Post'
-                      profileImage={post?.user}
-                      onConfirm={(reason, callback) =>
-                        dispatch(
-                          postData.postReport({
-                            reportData: {
-                              itemId: post?.id,
-                              reason,
-                            },
-                            callback: () => {
-                              callback && callback();
-                              dispatch(postData.request());
-                              dispatch(postData.requestSubscribed());
-                            },
-                          })
-                        )
-                      }
-                    />
-                  )
+                  <ManuButton
+                    postid={post?.id}
+                    subscriptionPlans={subscriptionPlans}
+                    title='Report(Under development)'
+                    profileImage={post?.user}
+                    onConfirm={(reason, callback) =>
+                      dispatch(
+                        postData.postReport({
+                          reportData: {
+                            itemId: post?.id,
+                            reason,
+                          },
+                          callback: () => {
+                            callback && callback();
+                            dispatch(postData.request());
+                            dispatch(postData.requestSubscribed());
+                          },
+                        })
+                      )
+                    }
+                  />
                 )}
               </div>
             }
