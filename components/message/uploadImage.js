@@ -58,15 +58,15 @@ export default function FormDialog({
           }}
         />
       ) : (
-      <Box clone color='#666'>
-        <IconButton
-          onClick={() => {
-            inputFile.current.click();
-          }}
-        >
-          <WallpaperOutlinedIcon />
-        </IconButton>
-      </Box>
+        <Box clone color='#666'>
+          <IconButton
+            onClick={() => {
+              inputFile.current.click();
+            }}
+          >
+            <WallpaperOutlinedIcon />
+          </IconButton>
+        </Box>
       )}
     </>
   );
