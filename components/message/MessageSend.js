@@ -11,7 +11,7 @@ import ProfileImageAvatar from '../profile/profile-image-avatar';
 import MessageModalMedia from './MessageModalMedia';
 import useAudioSend from './useAudioSend';
 
-export default function MessageSend({ conId, handleSendMessage }) {
+export default function MessageSend({ handleSendMessage }) {
   const current = useSelector(currentUserSelector);
   const { AudioSend, isRecording, startRecordingHandler } = useAudioSend();
   const [show, setShow] = useState(false);
