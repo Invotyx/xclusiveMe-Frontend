@@ -26,6 +26,7 @@ import UserListComponent from '../userListComponent';
 import { Box } from '@material-ui/core';
 import { ListItemSecondaryAction } from '@material-ui/core';
 import { getImage } from '../../../services/getImage';
+import { useInView } from 'react-intersection-observer';
 
 const styles = theme => ({
   root: {
@@ -114,6 +115,14 @@ export default function Followings({ openFollowing, setOpenFollowing, user }) {
     );
   };
 
+  const { ref, inView } = useInView({
+    threshold: 0,
+  });
+
+  useEffect(() => {
+    inView && loadmore();
+  }, [inView]);
+
   const handleClose = () => {
     setFollowers([]);
     setOpenFollowing(false);
@@ -200,6 +209,7 @@ export default function Followings({ openFollowing, setOpenFollowing, user }) {
               </List>
               {followLength < count && (
                 <p
+                  ref={ref}
                   onClick={loadmore}
                   style={{
                     cursor: 'pointer',
