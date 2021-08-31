@@ -84,7 +84,7 @@ function* handleGetOneCon(action) {
   }
 }
 
-function* handleAddVoicemail(action) {
+function* handleUploadAudio(action) {
   try {
     const { audioFile, callback } = action.payload;
     const { data } = yield call(uploadAudio, audioFile);
@@ -133,7 +133,7 @@ function* watchChatSagas() {
     takeLatest(CHAT.GET, handlegetConversations),
     takeLatest(CHAT.GET_ONE, handleGetOneCon),
     takeLatest(CHAT.SEND_ONE, handleSendSingleMessage),
-    takeLatest(CHAT.SEND_VOICEMAIL, handleAddVoicemail),
+    takeLatest(CHAT.SEND_VOICEMAIL, handleUploadAudio),
     takeLatest(CHAT.IS_SEEN, handleUpdateIsSeen),
   ]);
 }
