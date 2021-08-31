@@ -297,6 +297,20 @@ export default function NewPostForm({ afterSave }) {
               <Box mx={1}>
                 <NewPostAudioMenu
                   startRecordingHandler={startRecordingHandler}
+                  uploadResponseHandler={audioHandler}
+                  onFileSelection={() => {
+                    setLoadingItems([
+                      ...loadingItems,
+                      { src: '/no-media.jpg' },
+                    ]);
+                  }}
+                  onUploadComplete={() =>
+                    setLoadingItems(
+                      loadingItems.filter(
+                        (a, i) => i !== loadingItems.length - 1
+                      )
+                    )
+                  }
                 />
               </Box>
               <Box mx={1}>
