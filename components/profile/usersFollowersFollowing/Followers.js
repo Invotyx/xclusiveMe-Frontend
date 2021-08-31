@@ -19,6 +19,10 @@ import { user as userAction } from '../../../actions/user';
 import { useDispatch, useSelector } from 'react-redux';
 import ProfileImageAvatar from '../profile-image-avatar';
 import NextLink from 'next/link';
+import { Box, CircularProgress } from '@material-ui/core';
+import { ListItemSecondaryAction } from '@material-ui/core';
+import { getImage } from '../../../services/getImage';
+import { fetchingSelector } from '../../../selectors/userSelector';
 
 const styles = theme => ({
   root: {
@@ -41,6 +45,10 @@ const useStyles = makeStyles(theme => ({
   },
   dialogeSystem: {
     minWidth: '10px',
+  },
+  large: {
+    width: theme.spacing(7),
+    height: theme.spacing(7),
   },
 }));
 
@@ -88,13 +96,8 @@ export default function Followers({
   var [followerss, setFollowers] = useState([]);
   const [followersPage, setFollowersPage] = useState(2);
   const [followLength, setFollowLength] = useState(5);
-
-  const handleClose = () => {
-    setOpenFollowers(false);
-    setFollowersPage(1);
-    setFollowLength(5);
-    setFollowers([]);
-  };
+  const [closeThis, setCloseThis] = useState(false);
+  const fetchData = useSelector(fetchingSelector);
 
   useEffect(() => {
     setFollowers(followerss => followerss?.concat(forFollowers));
@@ -112,13 +115,25 @@ export default function Followers({
     );
   };
 
+  const handleClose = () => {
+    setFollowers([]);
+    setOpenFollowers(false);
+    setFollowersPage(2);
+    setFollowLength(5);
+    setCloseThis(true);
+  };
+
+  useEffect(() => {
+    closeThis && setFollowers([]);
+  }, []);
+
   return (
     <div>
       <Dialog
         onClose={handleClose}
         aria-labelledby='customized-dialog-title'
         open={openFollowers}
-        maxWidth='xs'
+        maxWidth='sm'
         fullWidth={true}
       >
         <DialogTitle id='customized-dialog-title' onClose={handleClose}>
@@ -137,37 +152,64 @@ export default function Followers({
           ) : (
             <>
               <List>
-                {followerss?.map(f => (
-                  <ListItem alignItems='flex-start'>
-                    <ListItemAvatar>
-                      <ProfileImageAvatar user={f} />
-                    </ListItemAvatar>
-                    <ListItemText
-                      primary={f?.fullName}
-                      secondary={
-                        <React.Fragment onClick={() => handleClose()}>
-                          <NextLink
-                            href={`/x/${f?.username}`}
-                            key={`user${f?.user}`}
-                          >
-                            <Typography
-                              component='span'
-                              variant='body2'
-                              className={classes.inline}
-                              color='textPrimary'
+                {followerss?.map(
+                  f =>
+                    f?.username && (
+                      <NextLink href={`/x/${f.username}`} key={`user${f.id}`}>
+                        <Box
+                          clone
+                          pt={3}
+                          pb={3}
+                          mb={4}
+                          height={100}
+                          style={{
+                            backgroundSize: 'cover',
+                            backgroundImage: f.coverImage
+                              ? `url(${getImage(f.coverImage)})`
+                              : `url('/cover.jpg')`,
+                            boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',
+                          }}
+                          onClick={() => handleClose()}
+                        >
+                          <ListItem>
+                            <Box clone mr={2}>
+                              <ListItemAvatar>
+                                <ProfileImageAvatar
+                                  className={classes.large}
+                                  user={f}
+                                />
+                              </ListItemAvatar>
+                            </Box>
+                            <ListItemText primary={f.username} />
+                            <ListItemSecondaryAction
                               onClick={() => handleClose()}
                             >
-                              View Profile
-                            </Typography>
-                          </NextLink>
-                        </React.Fragment>
-                      }
-                    />
-                  </ListItem>
-                ))}
+                              <NextLink
+                                href={`/x/${f.username}`}
+                                key={`user${f.id}`}
+                              >
+                                <Button size='small' variant='outlined'>
+                                  view profile
+                                </Button>
+                              </NextLink>
+                            </ListItemSecondaryAction>
+                          </ListItem>
+                        </Box>
+                      </NextLink>
+                    )
+                )}
               </List>
+              {fetchData && <CircularProgress />}
               {followLength < followcount && (
-                <p onClick={loadmore} style={{ cursor: 'pointer' }}>
+                <p
+                  onClick={loadmore}
+                  style={{
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
                   Load more
                 </p>
               )}
