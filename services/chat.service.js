@@ -34,8 +34,8 @@ export async function isSeen(id) {
   );
 }
 
-export async function uploadAudio(file) {
+export async function uploadAudio(files) {
   const data = new FormData();
-  data.append('audio', file);
+  data.append('audio', files);
   return apiClient.post(`${SERVER_ADDRESS}/uploads/audio`, data);
 }
