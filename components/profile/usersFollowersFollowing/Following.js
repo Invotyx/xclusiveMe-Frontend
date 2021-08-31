@@ -22,11 +22,12 @@ import ProfileImageAvatar from '../profile-image-avatar';
 import NextLink from 'next/link';
 import { user as userAction } from '../../../actions/user';
 import UserListComponent from '../userListComponent';
-
+import { fetchingSelector } from '../../../selectors/userSelector';
 import { Box } from '@material-ui/core';
 import { ListItemSecondaryAction } from '@material-ui/core';
 import { getImage } from '../../../services/getImage';
 import { useInView } from 'react-intersection-observer';
+import { CircularProgress } from '@material-ui/core';
 
 const styles = theme => ({
   root: {
@@ -97,6 +98,7 @@ export default function Followings({ openFollowing, setOpenFollowing, user }) {
   const [followersPage, setFollowersPage] = useState(2);
   const [followLength, setFollowLength] = useState(5);
   const [closeThis, setCloseThis] = useState(false);
+  const fetchData = useSelector(fetchingSelector);
 
   useEffect(() => {
     setFollowers(followerss => followerss?.concat(forFollowers));
@@ -115,13 +117,13 @@ export default function Followings({ openFollowing, setOpenFollowing, user }) {
     );
   };
 
-  const { ref, inView } = useInView({
-    threshold: 0,
-  });
+  // const { ref, inView } = useInView({
+  //   threshold: 0,
+  // });
 
-  useEffect(() => {
-    inView && loadmore();
-  }, [inView]);
+  // useEffect(() => {
+  //   inView && loadmore();
+  // }, [inView]);
 
   const handleClose = () => {
     setFollowers([]);
@@ -207,9 +209,10 @@ export default function Followings({ openFollowing, setOpenFollowing, user }) {
                     )
                 )}
               </List>
+              {fetchData && <CircularProgress />}
+              {/* {!fetchData && <p ref={ref}>..</p>} */}
               {followLength < count && (
                 <p
-                  ref={ref}
                   onClick={loadmore}
                   style={{
                     cursor: 'pointer',
