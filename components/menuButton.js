@@ -3,10 +3,14 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import React, { useState } from 'react';
 import Menu from '@material-ui/core/Menu';
 import ReportModal from './profile/ReportModal';
+import { useDispatch } from 'react-redux';
+import { snackbar } from '../actions/snackbar';
 
 const ManuButton = props => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [openReportModal, setreportModal] = useState(false);
+  const dispatch = useDispatch();
+  const [open, setOpen] = useState(false);
 
   const handleOpenmenu = event => {
     setAnchorEl(event.currentTarget);
@@ -15,6 +19,22 @@ const ManuButton = props => {
   const handleOpenReportModal = () => {
     setAnchorEl(null);
     setreportModal(true);
+  };
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(
+      `https://dev.xclusiveme.ga/singlePost?postId=${props.postid}`
+    );
+
+    dispatch(
+      snackbar.update({
+        open: true,
+        message: 'Copied to clipboard',
+        severity: 'success',
+      })
+    );
+
+    setAnchorEl(null);
   };
 
   const handleCloseMenu = () => {
@@ -44,6 +64,9 @@ const ManuButton = props => {
         onClose={handleCloseMenu}
       >
         <MenuItem onClick={handleOpenReportModal}>Report</MenuItem>
+        {props.postid && (
+          <MenuItem onClick={handleCopy}>Copy link to post</MenuItem>
+        )}
       </Menu>
 
       <ReportModal
