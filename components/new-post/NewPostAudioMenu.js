@@ -4,7 +4,9 @@ import GraphicEqRoundedIcon from '@material-ui/icons/GraphicEqRounded';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 
-export default function NewPostAudioMenu({ startRecordingHandler }) {
+export default function NewPostAudioMenu({
+  startRecordingHandler,
+}) {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = event => {
