@@ -42,7 +42,7 @@ export default function audioSend({
       type: 'audio/wav',
       lastModified: date,
     });
-    voiceMailSend(audioFile);
+    voiceMailSend([audioFile]);
   };
 
   const voiceMailSend = audioFile => {
@@ -52,11 +52,7 @@ export default function audioSend({
       chat.sendVoicemail({
         audioFile,
         callback: data => {
-          onAudioUploaded({
-            type: 'media',
-            messageMediaType: 'audio',
-            media: data,
-          });
+          onAudioUploaded(data);
           Clear();
         },
       })

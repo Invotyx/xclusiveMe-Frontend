@@ -14,7 +14,6 @@ import MuiImageListItemBar from '@material-ui/core/ImageListItemBar';
 import TextField from '@material-ui/core/TextField';
 import MuiOutlinedInput from '@material-ui/core/OutlinedInput';
 import CameraAltOutlinedIcon from '@material-ui/icons/CameraAltOutlined';
-import GraphicEqRoundedIcon from '@material-ui/icons/GraphicEqRounded';
 import LocalOfferOutlinedIcon from '@material-ui/icons/LocalOfferOutlined';
 import AddIcon from '@material-ui/icons/Add';
 import { useDispatch } from 'react-redux';
@@ -29,6 +28,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import MessageModalMediaCamera from '../message/MessageModalMediaCamera';
 import useAudioSend from '../message/useAudioSend';
 import CheckIcon from '@material-ui/icons/Check';
+import NewPostAudioMenu from './NewPostAudioMenu';
 
 const useStyles = makeStyles(theme => ({
   alertIcon: {
@@ -137,7 +137,7 @@ export default function NewPostForm({ afterSave }) {
   const audioHandler = data => {
     set_disabled(false);
     set_TileData([...tileData, '/no-media.jpg']);
-    setMedia([...media, ...data.media]);
+    setMedia([...media, ...data]);
   };
 
   const removeImageHandler = tile => {
@@ -295,11 +295,23 @@ export default function NewPostForm({ afterSave }) {
                 </Box>
               </Box>
               <Box mx={1}>
-                <Box clone color='#666'>
-                  <IconButton size='small' onClick={startRecordingHandler}>
-                    <GraphicEqRoundedIcon />
-                  </IconButton>
-                </Box>
+                <NewPostAudioMenu
+                  startRecordingHandler={startRecordingHandler}
+                  uploadResponseHandler={audioHandler}
+                  onFileSelection={() => {
+                    setLoadingItems([
+                      ...loadingItems,
+                      { src: '/no-media.jpg' },
+                    ]);
+                  }}
+                  onUploadComplete={() =>
+                    setLoadingItems(
+                      loadingItems.filter(
+                        (a, i) => i !== loadingItems.length - 1
+                      )
+                    )
+                  }
+                />
               </Box>
               <Box mx={1}>
                 {_show_price_input ? (

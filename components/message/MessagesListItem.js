@@ -4,6 +4,8 @@ import { currentUserSelector } from '../../selectors/authSelector';
 import styles from './message.module.css';
 import { chat } from '../../actions/chat';
 import { useInView } from 'react-intersection-observer';
+import ImageListItem from './ImageListItem';
+import Box from '@material-ui/core/Box';
 
 const MessagesListItem = ({ activeConversationId, i, ...props }) => {
   const { ref, inView } = useInView({
@@ -37,14 +39,40 @@ const MessagesListItem = ({ activeConversationId, i, ...props }) => {
       {...props}
     >
       <div className={styles.chatMessages}>
+        <div
+          className={
+            i.sender.id !== current?.id ? styles.leftSide : styles.rightSide
+          }
+        >
+          {i.content && (
+            <span
+              className={
+                i.sender.id !== current?.id
+                  ? styles.leftMessage
+                  : styles.rightMessage
+              }
+            >
+              {i.content}
+            </span>
+          )}
+          <Box
+            display='flex'
+            width='100%'
+            justifyContent={
+              i.sender.id !== current?.id ? 'flex-start' : 'flex-end'
+            }
+          >
+            {i.media?.map((messageMedia, i) => (
+              <ImageListItem key={`messageMedia${i}`} src={messageMedia.url} />
+            ))}
+          </Box>
+        </div>
         {i.sender.id !== current?.id ? (
           <div className={styles.leftSide}>
-            <span className={styles.leftMessage}>{i.content}</span>
             <div>{i.mediaLink && i.mediaLink}</div>
           </div>
         ) : (
           <div className={styles.rightSide}>
-            <span className={styles.rightMessage}>{i.content}</span>
             {i.mediaLink && (
               <div
                 style={{

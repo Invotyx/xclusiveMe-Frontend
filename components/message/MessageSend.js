@@ -11,7 +11,7 @@ import ProfileImageAvatar from '../profile/profile-image-avatar';
 import MessageModalMedia from './MessageModalMedia';
 import useAudioSend from './useAudioSend';
 
-export default function MessageSend({ conId, handleSendMessage }) {
+export default function MessageSend({ handleSendMessage }) {
   const current = useSelector(currentUserSelector);
   const { AudioSend, isRecording, startRecordingHandler } = useAudioSend();
   const [show, setShow] = useState(false);
@@ -58,25 +58,19 @@ export default function MessageSend({ conId, handleSendMessage }) {
         >
           <MessageModalMedia
             type='camera'
-            onMediaUploaded={data => {
-              handleSendMessage(data);
-            }}
+            onMediaUploaded={handleSendMessage}
           >
             <img src='/camera.svg' alt='camera' />
           </MessageModalMedia>
           <MessageModalMedia
             type='photo'
-            onMediaUploaded={data => {
-              handleSendMessage(data);
-            }}
+            onMediaUploaded={handleSendMessage}
           >
             <img src='/imageBtn.svg' alt='image' />
           </MessageModalMedia>
           <MessageModalMedia
             type='video'
-            onMediaUploaded={data => {
-              handleSendMessage(data);
-            }}
+            onMediaUploaded={handleSendMessage}
           >
             <img src='/videoBtn.svg' alt='video' />
           </MessageModalMedia>
@@ -130,9 +124,13 @@ export default function MessageSend({ conId, handleSendMessage }) {
           />
         ) : (
           <AudioSend
-            onAudioUploaded={data => {
-              handleSendMessage(data);
-            }}
+            onAudioUploaded={data =>
+              handleSendMessage({
+                type: 'media',
+                messageMediaType: 'audio',
+                media: data,
+              })
+            }
           />
         )}
       </CardActions>
