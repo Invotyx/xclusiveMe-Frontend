@@ -36,7 +36,7 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
   const [disabled, set_disabled] = useState(false);
   const [loadingItems, setLoadingItems] = useState([]);
   const [progressVideo, setProgressVideo] = React.useState({ val: 0 });
-  const [uploadedMedia, setUploadedMedia] = useState('');
+  const [uploadedMedia, setUploadedMedia] = useState([]);
 
   const [imageModal, setImageModal] = useState(false);
   const handleClickOpen = () => {
@@ -47,7 +47,7 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
     if (!imageModal) {
       setTileData([]);
       setLoadingItems([]);
-      setUploadedMedia('');
+      setUploadedMedia([]);
       setContent('');
       setSentTo('');
       setPrice('');
