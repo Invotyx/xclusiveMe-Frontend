@@ -36,13 +36,13 @@ export default function MessageModalMediaCamera({
         <>
           <img src={imgSrc} />
           <Box display='flex'>
-          <Button
-            variant='outlined'
-            size='small'
-            onClick={() => setImgSrc(null)}
-          >
-            Retake
-          </Button>
+            <Button
+              variant='outlined'
+              size='small'
+              onClick={() => setImgSrc(null)}
+            >
+              Retake
+            </Button>
           </Box>
         </>
       ) : (
@@ -54,9 +54,9 @@ export default function MessageModalMediaCamera({
             style={{ maxWidth: '500px', maxHeight: '500px' }}
           />
           <Box display='flex'>
-          <Button variant='outlined' size='small' onClick={capture}>
-            Capture
-          </Button>
+            <Button variant='outlined' size='small' onClick={capture}>
+              Capture
+            </Button>
           </Box>
         </>
       )}
