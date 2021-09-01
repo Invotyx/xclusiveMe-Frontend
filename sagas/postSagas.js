@@ -252,13 +252,7 @@ function* handleComment(action) {
     const { id, commentText } = action.payload;
     yield call(addComment, id, commentText);
     yield put(post.success({}));
-    yield put(
-      snackbar.update({
-        open: true,
-        message: 'Added',
-        severity: 'success',
-      })
-    );
+
     const { callback } = action.payload;
     if (callback) {
       yield call(callback);
@@ -283,13 +277,7 @@ function* handleLike(action) {
     yield put(post.success({}));
     yield call(post.request);
     yield call(post.requestSubscribed);
-    yield put(
-      snackbar.update({
-        open: true,
-        message: 'Liked successfully!',
-        severity: 'success',
-      })
-    );
+
     const { callback } = action.payload;
     if (callback) {
       yield call(callback);
@@ -344,13 +332,7 @@ function* handleCommentLike(action) {
     yield put(post.success({}));
     yield call(post.request);
     yield call(post.requestSubscribed);
-    yield put(
-      snackbar.update({
-        open: true,
-        message: 'Liked successfully!',
-        severity: 'success',
-      })
-    );
+
     const { callback } = action.payload;
     if (callback) {
       yield call(callback);
@@ -374,13 +356,6 @@ function* handleDelCommentLike(action) {
     yield call(delCommentLike, id);
     yield put(post.success({}));
 
-    yield put(
-      snackbar.update({
-        open: true,
-        message: 'Like deleted successfully!',
-        severity: 'success',
-      })
-    );
     const { callback } = action.payload;
     if (callback) {
       yield call(callback);
@@ -404,13 +379,6 @@ function* handleDelLike(action) {
     yield call(deleteLikes, id);
     yield put(post.success({}));
 
-    yield put(
-      snackbar.update({
-        open: true,
-        message: 'Like deleted successfully!',
-        severity: 'success',
-      })
-    );
     const { callback } = action.payload;
     if (callback) {
       yield call(callback);
