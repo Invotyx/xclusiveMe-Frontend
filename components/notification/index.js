@@ -71,10 +71,10 @@ export default function Notification({
   return (
     <>
       {Boolean(notifyCount) ? (
-        <List>
+        <List disablePadding>
           {chckday.map(elm => (
             <li key={Math.random()} className={classes.listSection}>
-              <ul className={classes.ul}>
+              <ul style={{ padding: 0 }}>
                 <ListSubheader>{elm}</ListSubheader>
                 {listofNotifications
                   ?.filter(n =>
