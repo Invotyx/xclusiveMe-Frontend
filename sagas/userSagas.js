@@ -54,14 +54,14 @@ function* handleGetOne(action) {
 
 function* handleGetFollowers(action) {
   try {
-    const { userId, limit, page } = action.payload;
+    const { userId, limit, page, append } = action.payload;
     const { data } = yield call(
       apiClient.get,
       `${SERVER_ADDRESS}/users/${userId}/followers?limit=${limit}&page=${page}`
     );
     yield put(
       user.success({
-        followersData: data.results,
+        followersData: append ? [...data.results] : data.results,
         followersCount: data.totalCount,
       })
     );
@@ -73,14 +73,17 @@ function* handleGetFollowers(action) {
 
 function* handleGetFollowings(action) {
   try {
-    const { userId, limit, page } = action.payload;
+    const { userId, limit, page, append, prevfollowingData } = action.payload;
     const { data } = yield call(
       apiClient.get,
       `${SERVER_ADDRESS}/users/${userId}/followings?limit=${limit}&page=${page}`
     );
     yield put(
       user.success({
-        followingData: data.results,
+        followingData:
+          append && prevfollowingData
+            ? [...prevfollowingData, ...data.results]
+            : data.results,
         followingCount: data.totalCount,
       })
     );

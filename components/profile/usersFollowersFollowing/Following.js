@@ -104,6 +104,16 @@ export default function Followings({ openFollowing, setOpenFollowing, user }) {
     setFollowers(followerss => followerss?.concat(forFollowers));
   }, [forFollowers]);
 
+  // useEffect(() => {
+  //   openFollowing &&
+  //     dispatch(
+  //       userAction.success({
+  //         followingData: [],
+  //         followingCount: 0,
+  //       })
+  //     );
+  // }, [openFollowing]);
+
   const loadmore = () => {
     setFollowersPage(followersPage + 1);
     console.log(followersPage);

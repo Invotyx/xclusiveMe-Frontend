@@ -135,6 +135,7 @@ export default function Followers({
         open={openFollowers}
         maxWidth='sm'
         fullWidth={true}
+        // onBackdropClick='false'
       >
         <DialogTitle id='customized-dialog-title' onClose={handleClose}>
           Followers

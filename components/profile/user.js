@@ -53,7 +53,10 @@ import { currentUserSelector } from '../../selectors/authSelector';
 import { user as userAction } from '../../actions/user';
 import Followers from './usersFollowersFollowing/Followers';
 import Followings from './usersFollowersFollowing/Following';
-import { followersSelector } from '../../selectors/userSelector';
+import {
+  followersSelector,
+  followingSelector,
+} from '../../selectors/userSelector';
 import { followerCountSelector } from '../../selectors/userSelector';
 
 const useStyles = makeStyles(theme => ({
@@ -118,6 +121,7 @@ export default function Profile({
   const followsData = useSelector(followersSelector);
   const [fCount, setfCount] = useState(0);
   const followcount = useSelector(followerCountSelector);
+  const followingData = useSelector(followingSelector);
 
   const { username } = router.query;
 
@@ -152,21 +156,30 @@ export default function Profile({
     // !subscriptionPlans && setOpenFollowers(true);
     myCurrentUser?.username === username && setOpenFollowers(true);
 
-    dispatch(
-      userAction.followers({
-        userId: user?.id,
-        limit: 5,
-        page: 1,
-      })
-    );
+    myCurrentUser?.username === username &&
+      dispatch(
+        userAction.followers({
+          userId: user?.id,
+          limit: 5,
+          page: 1,
+        })
+      );
   };
 
   const handlegetFollowing = () => {
     setfCount(fCount + 1);
     // !subscriptionPlans && setOpenFollowing(true);
     myCurrentUser?.username === username && setOpenFollowing(true);
-
-    dispatch(userAction.followings({ userId: user?.id, limit: 5, page: 1 }));
+    myCurrentUser?.username === username &&
+      dispatch(
+        userAction.followings({
+          userId: user?.id,
+          limit: 5,
+          page: 1,
+          // append: true,
+          // prevfollowingData: followingData,
+        })
+      );
   };
 
   const handleFollow = event => {
