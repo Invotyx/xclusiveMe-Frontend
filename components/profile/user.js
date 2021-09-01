@@ -381,6 +381,8 @@ export default function Profile({
                       }
                     />
                     <CardContent>
+                      <Box display={'flex'}>
+                        <Box flexGrow={1}>
                       <Box px={2} maxWidth={500}>
                         <Typography
                           variant='body2'
@@ -390,10 +392,41 @@ export default function Profile({
                           {profileData?.profile?.description || '(no bio)'}
                         </Typography>
                       </Box>
+                        </Box>
+                        <Box>
+                          {subscriptionPlans ? (
+                            <>
+                              {subscriptionPlans?.price > 0 ? (
+                                <SubscribeUser
+                                  price={subscriptionPlans?.price}
+                                  handleFollow={handleFollow}
+                                />
+                              ) : (
+                                <NormalCaseButton
+                                  startIcon={<Add />}
+                                  size='small'
+                                  variant='outlined'
+                                  onClick={e => handleFollow(e)}
+                                >
+                                  <span>Follow</span>
+                                </NormalCaseButton>
+                              )}
+                            </>
+                          ) : (
+                            <NormalCaseButton
+                              size='small'
+                              variant='outlined'
+                              onClick={e => handleUnFollow(e)}
+                            >
+                              <span>Unfollow</span>
+                            </NormalCaseButton>
+                          )}
+                        </Box>
+                      </Box>
                     </CardContent>
                   </Card>
                 </Grid>
-                {myCurrentUser?.username === username ? (
+                {/* myCurrentUser?.username === username ? (
                   ''
                 ) : (
                   <Grid item xs={12}>
@@ -453,7 +486,7 @@ export default function Profile({
                       </Box>
                     )}
                   </Grid>
-                )}
+                ) */}
                 <Grid item xs={12}>
                   <List disablePadding>
                     <ListSubheader disableGutters>
