@@ -79,6 +79,7 @@ export default function Home() {
                     startAdornment={<SearchIcon />}
                     value={_search}
                     onChange={e => {
+                      doSearch(e.target.value);
                       set_search(e.target.value);
                     }}
                   />
