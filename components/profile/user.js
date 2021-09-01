@@ -386,87 +386,89 @@ export default function Profile({
                             </Typography>
                           </Box>
                         </Box>
-                        <Box display='flex'>
-                          {me ||
-                            (myCurrentUser?.username === username
-                              ? ''
-                              : !subscriptionPlans && (
-                                  <>
-                                    <NormalCaseButton
-                                      startIcon={<ChatIcon />}
-                                      size='small'
-                                      variant='outlined'
-                                      onClick={handleMessageModal}
-                                      style={{ marginRight: '10px' }}
-                                    >
-                                      <span>Message</span>
-                                    </NormalCaseButton>
-                                    <MessageModal
-                                      messageModal={messageModal}
-                                      setMessageModal={setMessageModal}
-                                      profileData={profileData}
-                                    />
-                                  </>
-                                ))}
-                          {subscriptionPlans ? (
+                        {myCurrentUser?.username !== username && (
+                          <Box display='flex'>
+                            {me ||
+                              (myCurrentUser?.username === username
+                                ? ''
+                                : !subscriptionPlans && (
+                                    <>
+                                      <NormalCaseButton
+                                        startIcon={<ChatIcon />}
+                                        size='small'
+                                        variant='outlined'
+                                        onClick={handleMessageModal}
+                                        style={{ marginRight: '10px' }}
+                                      >
+                                        <span>Message</span>
+                                      </NormalCaseButton>
+                                      <MessageModal
+                                        messageModal={messageModal}
+                                        setMessageModal={setMessageModal}
+                                        profileData={profileData}
+                                      />
+                                    </>
+                                  ))}
+                            {subscriptionPlans ? (
+                              <>
+                                {subscriptionPlans?.price > 0 ? (
+                                  <SubscribeUser
+                                    price={subscriptionPlans?.price}
+                                    handleFollow={handleFollow}
+                                  />
+                                ) : (
+                                  <NormalCaseButton
+                                    startIcon={<Add />}
+                                    size='small'
+                                    variant='outlined'
+                                    onClick={e => handleFollow(e)}
+                                  >
+                                    <span>Follow</span>
+                                  </NormalCaseButton>
+                                )}
+                              </>
+                            ) : (
+                              <NormalCaseButton
+                                size='small'
+                                variant='outlined'
+                                onClick={e => handleUnFollow(e)}
+                              >
+                                <span>Unfollow</span>
+                              </NormalCaseButton>
+                            )}
                             <>
-                              {subscriptionPlans?.price > 0 ? (
-                                <SubscribeUser
-                                  price={subscriptionPlans?.price}
-                                  handleFollow={handleFollow}
-                                />
-                              ) : (
-                                <NormalCaseButton
-                                  startIcon={<Add />}
-                                  size='small'
-                                  variant='outlined'
-                                  onClick={e => handleFollow(e)}
-                                >
-                                  <span>Follow</span>
-                                </NormalCaseButton>
-                              )}
-                            </>
-                          ) : (
-                            <NormalCaseButton
-                              size='small'
-                              variant='outlined'
-                              onClick={e => handleUnFollow(e)}
-                            >
-                              <span>Unfollow</span>
-                            </NormalCaseButton>
-                          )}
-                          <>
-                            <NormalCaseButton
-                              size='small'
-                              variant='outlined'
-                              onClick={() => setreportModal(true)}
-                              style={{ marginLeft: '10px' }}
-                            >
-                              Report
-                            </NormalCaseButton>
+                              <NormalCaseButton
+                                size='small'
+                                variant='outlined'
+                                onClick={() => setreportModal(true)}
+                                style={{ marginLeft: '10px' }}
+                              >
+                                Report
+                              </NormalCaseButton>
 
-                            <ReportModal
-                              openReportModal={openReportModal}
-                              setreportModal={setreportModal}
-                              title='Report this User'
-                              profileImage={profileData}
-                              onConfirm={(reason, callback) => {
-                                const itemId = profileData?.id;
-                                dispatch(
-                                  userAction.report({
-                                    reportData: {
-                                      itemId,
-                                      reason,
-                                    },
-                                    callback: () => {
-                                      callback && callback();
-                                    },
-                                  })
-                                );
-                              }}
-                            />
-                          </>
-                        </Box>
+                              <ReportModal
+                                openReportModal={openReportModal}
+                                setreportModal={setreportModal}
+                                title='Report this User'
+                                profileImage={profileData}
+                                onConfirm={(reason, callback) => {
+                                  const itemId = profileData?.id;
+                                  dispatch(
+                                    userAction.report({
+                                      reportData: {
+                                        itemId,
+                                        reason,
+                                      },
+                                      callback: () => {
+                                        callback && callback();
+                                      },
+                                    })
+                                  );
+                                }}
+                              />
+                            </>
+                          </Box>
+                        )}{' '}
                       </Box>
                     </CardContent>
                   </Card>
