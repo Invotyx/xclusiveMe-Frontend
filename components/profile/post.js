@@ -291,7 +291,7 @@ export default function Post({
                   <ManuButton
                     postid={post?.id}
                     subscriptionPlans={subscriptionPlans}
-                    title='Report(Under development)'
+                    title='Report'
                     profileImage={post?.user}
                     onConfirm={(reason, callback) =>
                       dispatch(
