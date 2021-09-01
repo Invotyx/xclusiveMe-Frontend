@@ -376,7 +376,10 @@ export default function Profile({
                     <CardContent>
                       <Box display={isSmall ? 'block' : 'flex'}>
                         <Box flexGrow={1}>
-                          <Box px={2} maxWidth={500}>
+                          <Box
+                            px={isSmall ? 0 : 2}
+                            maxWidth={500}
+                          >
                             <Typography
                               variant='body2'
                               color='textSecondary'
