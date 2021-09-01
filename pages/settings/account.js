@@ -44,22 +44,22 @@ const useStyles = makeStyles(theme => ({
 
 const linkedAccounts = [
   {
-    url: '#',
+    url: '@',
     title: 'Twitter',
     icon: <Image width={20} height={20} src='/twitter.svg' />,
   },
   {
-    url: '#',
+    url: '@',
     title: 'Google',
     icon: <Image width={20} height={20} src='/google.svg' />,
   },
   {
-    url: '#',
+    url: '@',
     title: 'Facebook',
     icon: <FacebookIcon />,
   },
   {
-    url: '#',
+    url: 'https://',
     title: 'Website',
     icon: <LinkIcon />,
   },
