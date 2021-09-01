@@ -101,7 +101,6 @@ export default function Notification({
 
   // console.log('count', count, 'oldCount', oldCount);
   // console.log(todayDate());
-  console.log(moment().toISOString().substring(0, 10));
 
   return (
     <>
