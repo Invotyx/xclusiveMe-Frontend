@@ -410,6 +410,33 @@ export default function Profile({
                           </Box>
                         </Box>
                         <Box display='flex'>
+                          {subscriptionPlans ? (
+                            <>
+                              {subscriptionPlans?.price > 0 ? (
+                                <SubscribeUser
+                                  price={subscriptionPlans?.price}
+                                  handleFollow={handleFollow}
+                                />
+                              ) : (
+                                <NormalCaseButton
+                                  startIcon={<Add />}
+                                  size='small'
+                                  variant='outlined'
+                                  onClick={e => handleFollow(e)}
+                                >
+                                  <span>Follow</span>
+                                </NormalCaseButton>
+                              )}
+                            </>
+                          ) : (
+                            <NormalCaseButton
+                              size='small'
+                              variant='outlined'
+                              onClick={e => handleUnFollow(e)}
+                            >
+                              <span>Unfollow</span>
+                            </NormalCaseButton>
+                          )}
                           <>
                             <NormalCaseButton
                               size='small'
@@ -441,33 +468,6 @@ export default function Profile({
                               }}
                             />
                           </>
-                          {subscriptionPlans ? (
-                            <>
-                              {subscriptionPlans?.price > 0 ? (
-                                <SubscribeUser
-                                  price={subscriptionPlans?.price}
-                                  handleFollow={handleFollow}
-                                />
-                              ) : (
-                                <NormalCaseButton
-                                  startIcon={<Add />}
-                                  size='small'
-                                  variant='outlined'
-                                  onClick={e => handleFollow(e)}
-                                >
-                                  <span>Follow</span>
-                                </NormalCaseButton>
-                              )}
-                            </>
-                          ) : (
-                            <NormalCaseButton
-                              size='small'
-                              variant='outlined'
-                              onClick={e => handleUnFollow(e)}
-                            >
-                              <span>Unfollow</span>
-                            </NormalCaseButton>
-                          )}
                         </Box>
                       </Box>
                     </CardContent>
