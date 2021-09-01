@@ -17,6 +17,7 @@ import CommentModel from '../profile/commentModel';
 import ProfileImageAvatar from '../profile/profile-image-avatar';
 import { useMediaQuery } from 'react-responsive';
 import { ListItem } from '@material-ui/core';
+import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 
 const useStyles = makeStyles(theme => ({
   small: {
@@ -34,7 +35,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function Notification({
-  onClose,
+  setAnchorEl,
   profileData,
   currentUser,
   altHeader,
@@ -64,6 +65,7 @@ export default function Notification({
         },
       })
     );
+    setAnchorEl(null);
   };
 
   return (
@@ -92,7 +94,6 @@ export default function Notification({
                           i.relatedUsers[0].user
                         )
                       }
-                      onClick={onClose}
                       key={`notificationToday${x}`}
                     >
                       <ListItemAvatar>
@@ -100,9 +101,12 @@ export default function Notification({
                       </ListItemAvatar>
                       <ListItemText
                         primary={
-                          <span className={styles.nameStyleTwo}>
-                            {i.relatedUsers[0]?.user.fullName}
-                          </span>
+                          <>
+                            <span className={styles.nameStyleTwo}>
+                              {i.relatedUsers[0]?.user.fullName}
+                            </span>
+                            <FiberManualRecordIcon />
+                          </>
                         }
                         secondary={
                           <div
