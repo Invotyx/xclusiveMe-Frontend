@@ -480,7 +480,7 @@ const SinglePost = ({
                                 dispatch(
                                   postData.addTip({
                                     saveData: {
-                                      itemTipped: post.id,
+                                      itemTipped: sPost.id,
                                       itemTippedType: 'post',
                                       amount,
                                     },
