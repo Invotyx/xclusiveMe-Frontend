@@ -184,6 +184,7 @@ export default function Followings({ openFollowing, setOpenFollowing, user }) {
                           height={100}
                           style={{
                             backgroundSize: 'cover',
+                            backgroundPosition: 'center',
                             backgroundImage: f.coverImage
                               ? `url(${getImage(f.coverImage)})`
                               : `url('/cover2.jpg')`,

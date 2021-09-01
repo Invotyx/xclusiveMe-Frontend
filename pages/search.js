@@ -109,6 +109,7 @@ export default function Home() {
                         height={100}
                         style={{
                           backgroundSize: 'cover',
+                          backgroundPosition: 'center',
                           backgroundImage: u.coverImage
                             ? `url(${getImage(u.coverImage)})`
                             : `url('/cover2.jpg')`,
