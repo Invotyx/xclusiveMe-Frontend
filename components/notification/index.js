@@ -81,6 +81,7 @@ export default function Notification({
       '0' +
       (today.getMonth() + 1) +
       '-' +
+      '0' +
       today.getDate();
     return date;
   }
