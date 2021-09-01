@@ -236,7 +236,6 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
       <DialogActions disableSpacing>
         <GreenButton
           variant='contained'
-          color='primary'
           fullWidth
           disabled={disabled}
           onClick={handleMsgSend}
