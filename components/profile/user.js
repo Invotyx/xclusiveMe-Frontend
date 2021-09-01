@@ -552,7 +552,9 @@ export default function Profile({
                           <Tab icon={<FeaturedPlayListOutlinedIcon />} />
                           <Tab icon={<ImageOutlinedIcon />} />
                           <Tab icon={<VideocamOutlinedIcon />} />
-                          <Tab icon={<MonetizationOnOutlinedIcon />} />
+                          {myCurrentUser?.username === username && (
+                            <Tab icon={<MonetizationOnOutlinedIcon />} />
+                          )}
                         </Tabs>
                       </Paper>
                     </ListSubheader>
