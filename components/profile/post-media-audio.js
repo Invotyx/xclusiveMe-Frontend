@@ -20,6 +20,9 @@ const useStyles = makeStyles(theme => ({
     '& .rhap_time': {
       color: '#eee',
     },
+    '& .rhap_button-clear': {
+      overflow: 'visible',
+    },
   },
 }));
 
