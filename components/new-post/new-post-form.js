@@ -124,8 +124,8 @@ export default function NewPostForm({ afterSave }) {
   const onUploadVideoComplete = (muxId, mediaType) => {
     set_disabled(false);
     set_TileData([...tileData, '/no-media.jpg']);
-    setMedia([
-      ...media,
+    setMedia(prev => [
+      ...prev,
       {
         muxId: muxId,
         type: mediaType,
@@ -136,12 +136,12 @@ export default function NewPostForm({ afterSave }) {
   const audioHandler = data => {
     set_disabled(false);
     set_TileData([...tileData, '/no-media.jpg']);
-    setMedia([...media, ...data]);
+    setMedia(prev => [...prev, ...data]);
   };
 
   const removeImageHandler = tile => {
     set_TileData(tileData.filter(t => t !== tile));
-    setMedia(media.filter(f => f.url !== tile));
+    setMedia(prev => prev.filter(f => f.url !== tile));
   };
 
   const [popperOpen, setPopperOpen] = React.useState(false);
