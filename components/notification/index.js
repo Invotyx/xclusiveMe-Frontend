@@ -72,7 +72,7 @@ export default function Notification({
         <List disablePadding>
           {chckday.map(elm => (
             <li key={Math.random()} className={classes.listSection}>
-              <ul className={classes.ul}>
+              <ul style={{ padding: 0 }}>
                 <ListSubheader>{elm}</ListSubheader>
                 {listofNotifications
                   ?.filter(n =>
