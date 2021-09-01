@@ -284,13 +284,7 @@ export default function Post({
               <div>
                 {post.media.length === 0 ||
                 post?.user?.username == currentUser?.username ? (
-                  <IconButton
-                    aria-label='more'
-                    aria-controls='simple-menu'
-                    aria-haspopup='true'
-                  >
-                    <MoreVertIcon />
-                  </IconButton>
+                  <></>
                 ) : (
                   <ManuButton
                     postid={post?.id}
