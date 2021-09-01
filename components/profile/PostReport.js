@@ -13,6 +13,8 @@ import {
   CardContent,
   CardHeader,
 } from '@material-ui/core';
+import { post as postData } from '../../actions/post';
+import { useDispatch } from 'react-redux';
 
 const useStyles = makeStyles({
   root: {
@@ -33,9 +35,7 @@ const useStyles = makeStyles({
       outline: '2px auto rgba(19,124,189,.6)',
       outlineOffset: 2,
     },
-    'input:hover ~ &': {
-      backgroundColor: '#ebf1f5',
-    },
+
     'input:disabled ~ &': {
       boxShadow: 'none',
       background: 'rgba(206,217,224,.5)',
@@ -51,9 +51,6 @@ const useStyles = makeStyles({
       height: 16,
       backgroundImage: 'radial-gradient(#fff,#fff 28%,transparent 32%)',
       content: '""',
-    },
-    'input:hover ~ &': {
-      backgroundColor: '#106ba3',
     },
   },
 });
@@ -91,11 +88,25 @@ function StyledRadio(props) {
   );
 }
 
-export default function PostReport() {
+export default function PostReport({ postid, handleClose }) {
   const classes = useStyles();
   const [value, setValue] = useState(['']);
-  const handleSend = () => {
-    console.log(value);
+  const dispatch = useDispatch();
+
+  const handleSendReport = () => {
+    dispatch(
+      postData.postReport({
+        reportData: {
+          itemId: postid,
+          reason: value,
+        },
+        callback: () => {
+          handleClose();
+          dispatch(postData.request());
+          dispatch(postData.requestSubscribed());
+        },
+      })
+    );
   };
   return (
     <Card className={classes.root}>
@@ -118,8 +129,12 @@ export default function PostReport() {
       </CardContent>
 
       <CardActions style={{ display: 'flex', float: 'right' }}>
-        <Button color='primary'>Cancel</Button>
-        <Button color='primary'>Send</Button>
+        <Button color='primary' onClick={handleClose}>
+          Cancel
+        </Button>
+        <Button color='primary' onClick={handleSendReport}>
+          Send
+        </Button>
       </CardActions>
     </Card>
   );
