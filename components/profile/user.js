@@ -442,7 +442,7 @@ export default function Profile({
                               size='small'
                               variant='outlined'
                               onClick={() => setreportModal(true)}
-                              style={{ marginRight: '10px' }}
+                              style={{ marginLeft: '10px' }}
                             >
                               Report
                             </NormalCaseButton>
