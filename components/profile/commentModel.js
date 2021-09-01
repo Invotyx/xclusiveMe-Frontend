@@ -877,6 +877,7 @@ const CommentModel = ({
                   {show && (
                     <span>
                       <Picker
+                        title={''}
                         onSelect={addEmoji}
                         set='facebook'
                         emoji='point_up'
