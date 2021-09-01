@@ -68,11 +68,7 @@ export default function Notification({
 
   return (
     <>
-      {notifyCount === 0 ? (
-        <p style={{ marginLeft: '20px', padding: '20px', width: '200px' }}>
-          No Data Found
-        </p>
-      ) : (
+      {Boolean(notifyCount) ? (
         <List>
           {chckday.map(elm => (
             <li key={Math.random()} className={classes.listSection}>
@@ -227,6 +223,10 @@ export default function Notification({
             </li>
           ))}
         </List>
+      ) : (
+        <p style={{ marginLeft: '20px', padding: '20px', width: '200px' }}>
+          No Data Found
+        </p>
       )}
       <CommentModel
         singlePost={singlePost}
