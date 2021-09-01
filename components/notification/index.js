@@ -43,14 +43,8 @@ export default function Notification({
   const listofNotifications = useSelector(notificationsData);
   const notifyCount = useSelector(notificationsCount);
   const dispatch = useDispatch();
-  const [isToday, setIsToday] = useState(false);
-  const [count, setCount] = useState(0);
-  const [oldCount, setOldCount] = useState(0);
   const [open, setOpen] = useState(false);
   const singlePost = useSelector(singlepostDataSelector);
-  const [name, setName] = useState(null);
-  const [userName, setUserName] = useState(null);
-  const [profieImg, setProfileImage] = useState(null);
   const router = useRouter();
   const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
   const chckday = ['Today', 'Older'];
