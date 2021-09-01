@@ -73,11 +73,11 @@ export default function NewPostForm({ afterSave }) {
   const { AudioSend, isRecording, startRecordingHandler } = useAudioSend();
   const dispatch = useDispatch();
   const [activeTab, setActiveTab] = React.useState('');
-  const [disabled, set_disabled] = React.useState(false);
-  const [_show_price_input, set_show_price_input] = React.useState(false);
-  const [price, set_price] = React.useState(false);
-  const [postText, set_postText] = React.useState('');
-  const [tileData, set_TileData] = React.useState([]);
+  const [disabled, setDisabled] = React.useState(false);
+  const [showPriceInput, setShowPriceInput] = React.useState(false);
+  const [price, setPrice] = React.useState(false);
+  const [postText, setPostText] = React.useState('');
+  const [tileData, setTileData] = React.useState([]);
   const [media, setMedia] = React.useState([]);
   const [progressVideo, setProgressVideo] = React.useState({ val: 0 });
   const [loadingItems, setLoadingItems] = React.useState([]);
@@ -96,9 +96,9 @@ export default function NewPostForm({ afterSave }) {
         },
         callback: () => {
           afterSave && afterSave();
-          set_TileData([]);
+          setTileData([]);
           setMedia([]);
-          set_postText('');
+          setPostText('');
           dispatch(post.request());
         },
       })
@@ -106,7 +106,7 @@ export default function NewPostForm({ afterSave }) {
   };
 
   const imageHandler = images => {
-    set_TileData(prev => [...prev, ...images.map(i => i.url)]);
+    setTileData(prev => [...prev, ...images.map(i => i.url)]);
     setMedia(prev => [
       ...prev,
       ...images.map(source_url => ({
@@ -122,10 +122,10 @@ export default function NewPostForm({ afterSave }) {
   };
 
   const onUploadVideoComplete = (muxId, mediaType) => {
-    set_disabled(false);
-    set_TileData([...tileData, '/no-media.jpg']);
-    setMedia([
-      ...media,
+    setDisabled(false);
+    setTileData(prev => [...prev, '/no-media.jpg']);
+    setMedia(prev => [
+      ...prev,
       {
         muxId: muxId,
         type: mediaType,
@@ -134,14 +134,14 @@ export default function NewPostForm({ afterSave }) {
   };
 
   const audioHandler = data => {
-    set_disabled(false);
-    set_TileData([...tileData, '/no-media.jpg']);
-    setMedia([...media, ...data]);
+    setDisabled(false);
+    setTileData(prev => [...prev, '/no-media.jpg']);
+    setMedia(prev => [...prev, ...data]);
   };
 
   const removeImageHandler = tile => {
-    set_TileData(tileData.filter(t => t !== tile));
-    setMedia(media.filter(f => f.url !== tile));
+    setTileData(prev => prev.filter(t => t !== tile));
+    setMedia(prev => prev.filter(f => f.url !== tile));
   };
 
   const [popperOpen, setPopperOpen] = React.useState(false);
@@ -161,7 +161,7 @@ export default function NewPostForm({ afterSave }) {
       <Box mb={3} style={{ display: activeTab === '' ? 'block' : 'none' }}>
         <OutlinedInput
           value={postText}
-          onChange={e => set_postText(e.target.value)}
+          onChange={e => setPostText(e.target.value)}
           name='postText'
           multiline
           fullWidth
@@ -248,7 +248,7 @@ export default function NewPostForm({ afterSave }) {
                 <Box clone color='#666'>
                   <UploadImage
                     imageHandler={imageHandler}
-                    set_disabled={set_disabled}
+                    set_disabled={setDisabled}
                     onImageSelect={imgSrc => {
                       setLoadingItems(prev => [...prev, { src: imgSrc }]);
                     }}
@@ -266,10 +266,10 @@ export default function NewPostForm({ afterSave }) {
                 <Box clone color='#666'>
                   <UploadVideo
                     onUploadVideoComplete={onUploadVideoComplete}
-                    onVideoError={() => set_disabled(false)}
+                    onVideoError={() => setDisabled(false)}
                     onVideoUploadProgress={val => setProgressVideo({ val })}
                     onVideoSelect={() => {
-                      set_disabled(true);
+                      setDisabled(true);
                       setProgressVideo({ val: 0 });
                       setLoadingItems([
                         ...loadingItems,
@@ -313,7 +313,7 @@ export default function NewPostForm({ afterSave }) {
                 />
               </Box>
               <Box mx={1}>
-                {_show_price_input ? (
+                {showPriceInput ? (
                   <div onMouseLeave={handlePopperClose}>
                     <TextField
                       name='price'
@@ -334,7 +334,7 @@ export default function NewPostForm({ afterSave }) {
                         marginTop: '-5px',
                       }}
                       value={price}
-                      onChange={e => set_price(e.target.value)}
+                      onChange={e => setPrice(e.target.value)}
                       onMouseUp={handlePopperMouseUp}
                     />
                     <Popper
@@ -364,7 +364,7 @@ export default function NewPostForm({ afterSave }) {
                   <Box clone color='#666'>
                     <IconButton
                       size='small'
-                      onClick={() => set_show_price_input(true)}
+                      onClick={() => setShowPriceInput(true)}
                     >
                       <LocalOfferOutlinedIcon />
                     </IconButton>
