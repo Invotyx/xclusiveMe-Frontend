@@ -393,7 +393,7 @@ export default function Profile({
                             </Typography>
                           </Box>
                         </Box>
-                        <Box>
+                        <Box display='flex'>
                           {subscriptionPlans ? (
                             <>
                               {subscriptionPlans?.price > 0 ? (
