@@ -178,9 +178,9 @@ const CommentModel = ({
 
   const handleReplyField = id => {
     setCommentId(id);
-    setCheckRefs(true);
-    console.log('refs', checkRefs);
-    console.log('reply id', id);
+    setCheckRefs && setCheckRefs(true);
+    // console.log('refs', checkRefs);
+    // console.log('reply id', id);
 
     setisReplyField({ check: true, id });
     setissubReplyField({ check: false });
