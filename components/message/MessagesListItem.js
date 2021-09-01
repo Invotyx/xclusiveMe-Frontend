@@ -65,11 +65,11 @@ const MessagesListItem = ({ activeConversationId, i, ...props }) => {
             {i.media?.map((messageMedia, i) =>
               messageMedia.type === 'upload' ? (
                 <a
+                  key={`messageMedia${i}`}
                   href={messageMedia.url}
                   target='_blank'
                 >
                   <ImageListItem
-                    key={`messageMedia${i}`}
                     src={messageMedia.url}
                   />
                 </a>
