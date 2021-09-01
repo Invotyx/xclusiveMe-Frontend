@@ -383,15 +383,15 @@ export default function Profile({
                     <CardContent>
                       <Box display={'flex'}>
                         <Box flexGrow={1}>
-                      <Box px={2} maxWidth={500}>
-                        <Typography
-                          variant='body2'
-                          color='textSecondary'
-                          component='p'
-                        >
-                          {profileData?.profile?.description || '(no bio)'}
-                        </Typography>
-                      </Box>
+                          <Box px={2} maxWidth={500}>
+                            <Typography
+                              variant='body2'
+                              color='textSecondary'
+                              component='p'
+                            >
+                              {profileData?.profile?.description || '(no bio)'}
+                            </Typography>
+                          </Box>
                         </Box>
                         <Box>
                           {subscriptionPlans ? (
