@@ -51,6 +51,7 @@ import { useMediaQuery } from 'react-responsive';
 import queryString from 'query-string';
 import SinglePost from '../../pages/singlePost';
 import ManuButton from '../../components/menuButton';
+import ShowMoreText from 'react-show-more-text';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -356,7 +357,11 @@ export default function Post({
                 marginLeft: '4px',
               }}
             >
-              {post.postText}
+              <ShowMoreText
+                lines={3}
+              >
+                {post.postText}
+              </ShowMoreText>
             </Typography>
           </CardContent>
         )}
