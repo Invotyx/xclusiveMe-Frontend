@@ -370,29 +370,6 @@ export default function Profile({
                           <Typography variant='body2' className='textSecondary'>
                             @{profileData?.username}
                           </Typography>
-                          {me ||
-                            (myCurrentUser?.username === username
-                              ? ''
-                              : !subscriptionPlans && (
-                                  <div
-                                  // passHref
-                                  // href='/chat'
-                                  // passQueryString={{
-                                  //   user: `${profileData?.fullName}`,
-                                  //   image: `${profileData?.profileImage}`,
-                                  // }}
-                                  >
-                                    <ChatIcon
-                                      style={{ marginLeft: '15px' }}
-                                      onClick={handleMessageModal}
-                                    />
-                                    <MessageModal
-                                      messageModal={messageModal}
-                                      setMessageModal={setMessageModal}
-                                      profileData={profileData}
-                                    />
-                                  </div>
-                                ))}
                         </Box>
                       }
                     />
@@ -410,6 +387,27 @@ export default function Profile({
                           </Box>
                         </Box>
                         <Box display='flex'>
+                          {me ||
+                            (myCurrentUser?.username === username
+                              ? ''
+                              : !subscriptionPlans && (
+                                  <>
+                                    <NormalCaseButton
+                                      startIcon={<ChatIcon />}
+                                      size='small'
+                                      variant='outlined'
+                                      onClick={handleMessageModal}
+                                      style={{ marginRight: '10px' }}
+                                    >
+                                      <span>Message</span>
+                                    </NormalCaseButton>
+                                    <MessageModal
+                                      messageModal={messageModal}
+                                      setMessageModal={setMessageModal}
+                                      profileData={profileData}
+                                    />
+                                  </>
+                                ))}
                           {subscriptionPlans ? (
                             <>
                               {subscriptionPlans?.price > 0 ? (
