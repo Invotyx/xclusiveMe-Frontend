@@ -117,7 +117,7 @@ export default function Profile({
   const myCurrentUser = useSelector(currentUserSelector);
   const router = useRouter();
   const followsData = useSelector(followersSelector);
-
+  const [fCount, setfCount] = useState(0);
   const followcount = useSelector(followerCountSelector);
 
   const { username } = router.query;
@@ -167,8 +167,10 @@ export default function Profile({
   };
 
   const handlegetFollowing = () => {
+    setfCount(fCount + 1);
     // !subscriptionPlans && setOpenFollowing(true);
     myCurrentUser?.username === username && setOpenFollowing(true);
+
     dispatch(userAction.followings({ userId: user?.id, limit: 5, page: 1 }));
   };
 
