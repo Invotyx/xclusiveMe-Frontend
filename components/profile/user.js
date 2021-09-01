@@ -378,6 +378,7 @@ export default function Profile({
                         <Box flexGrow={1}>
                           <Box
                             px={isSmall ? 0 : 2}
+                            mb={isSmall ? 1 : 0}
                             maxWidth={500}
                           >
                             <Typography
