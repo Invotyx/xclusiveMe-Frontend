@@ -340,20 +340,22 @@ export default function Home(props) {
                 <UppercaseInputLabel>Login Sessions</UppercaseInputLabel>
                 <List>
                   {loginSessions.length === 0 && <div>no sessions</div>}
-                  {loginSessions.map((i, j) => (
-                    <React.Fragment key={`loginSessions${j}`}>
-                      <ListItem selected={true}>
-                        <ListItemText
-                          primary={i.browser}
-                          secondary={`${i.publicIp}`}
-                        />
-                        <ListItemSecondaryAction>
-                          {i.time}
-                        </ListItemSecondaryAction>
-                      </ListItem>
-                      <Divider />
-                    </React.Fragment>
-                  ))}
+                  {loginSessions.map((i, j) => {
+                    return (
+                      <React.Fragment key={`loginSessions${j}`}>
+                        <ListItem selected={true}>
+                          <ListItemText
+                            primary={i.browser}
+                            secondary={`${i.publicIp}`}
+                          />
+                          <ListItemSecondaryAction>
+                            {i.time}
+                          </ListItemSecondaryAction>
+                        </ListItem>
+                        <Divider />
+                      </React.Fragment>
+                    );
+                  })}
                 </List>
                 <Button variant='outlined' onClick={handleLogOutAllSessions}>
                   Log out all sessions
