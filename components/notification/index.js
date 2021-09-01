@@ -19,6 +19,8 @@ import { singlepostDataSelector } from '../../selectors/postSelector';
 import CommentModel from '../profile/commentModel';
 import ProfileImageAvatar from '../profile/profile-image-avatar';
 import { useMediaQuery } from 'react-responsive';
+import { List } from 'immutable';
+import { ListItem } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   small: {
@@ -55,6 +57,7 @@ export default function Notification({
   const [profieImg, setProfileImage] = useState(null);
   const router = useRouter();
   const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
+  const [chckday, setChkDay] = useState(['Today', 'Older']);
 
   const readNotification = (notifyId, modalId, type, user) => {
     type === 'like' || type === 'comment' || type === 'post' || type === 'reply'
@@ -86,18 +89,19 @@ export default function Notification({
     return date;
   }
 
-  useEffect(() => {
-    listofNotifications?.map(l => {
-      // console.log('count = ', count);
-      l.createdAt.substring(0, 10) == todayDate()
-        ? setCount(count + 1)
-        : setOldCount(oldCount + 1);
-      // console.log(l.createdAt.substring(0, 10));
-    });
-  }, [listofNotifications]);
+  // useEffect(() => {
+  //   listofNotifications?.map(l => {
+  //     // console.log('count = ', count);
+  //     l.createdAt.substring(0, 10) == todayDate()
+  //       ? setCount(count + 1)
+  //       : setOldCount(oldCount + 1);
+  //     // console.log(l.createdAt.substring(0, 10));
+  //   });
+  // }, [listofNotifications]);
 
   // console.log('count', count, 'oldCount', oldCount);
   // console.log(todayDate());
+  console.log(moment().toISOString().substring(0, 10));
 
   return (
     <>
@@ -107,37 +111,32 @@ export default function Notification({
           No Data Found
         </p>
       ) : (
-        <div>
-          {count > 0 && (
-            <p
-              style={{
-                marginLeft: '20px',
-                fontWeight: '500',
-                fontSize: '14px',
-                fontStyle: 'normal',
-              }}
-            >
-              Today
-            </p>
-          )}
-          <div
-            className={styles.makeScroll}
-            style={{ maxHeight: count > 0 && oldCount === 0 ? '55vh' : '35vh' }}
-          >
-            {listofNotifications?.map((i, x) => (
-              <div>
-                {i.createdAt.substring(0, 10) == todayDate() ? (
-                  <div
-                    onClick={() =>
-                      readNotification(
-                        i.id,
-                        i.modelId,
-                        i.type,
-                        i.relatedUsers[0].user
-                      )
-                    }
-                  >
-                    <MenuItem onClick={onClose} key={`notificationToday${x}`}>
+        <>
+          {chckday.map(elm => (
+            <li key={Math.random()} className={classes.listSection}>
+              <ul className={classes.ul}>
+                <ListSubheader>{elm}</ListSubheader>
+                {listofNotifications
+                  ?.filter(n =>
+                    elm === 'Today'
+                      ? n.createdAt.substring(0, 10) ===
+                        moment().toISOString().substring(0, 10)
+                      : n.createdAt.substring(0, 10) !==
+                        moment().toISOString().substring(0, 10)
+                  )
+                  .map((i, x) => (
+                    <ListItem
+                      onClick={() =>
+                        readNotification(
+                          i.id,
+                          i.modelId,
+                          i.type,
+                          i.relatedUsers[0].user
+                        )
+                      }
+                      onClick={onClose}
+                      key={`notificationToday${x}`}
+                    >
                       <ListItemAvatar>
                         <ProfileImageAvatar user={i?.relatedUsers[0]?.user} />
                       </ListItemAvatar>
@@ -264,22 +263,30 @@ export default function Notification({
                           </div>
                         }
                       />
-                      {/* <ListItemSecondaryAction>
-                        <Avatar
-                          alt='Cindy Baker'
-                          src={i.image}
-                          variant='square'
-                        />
-                      </ListItemSecondaryAction> */}
-                    </MenuItem>
-                  </div>
-                ) : (
-                  ''
-                )}
-              </div>
-            ))}
-          </div>
-          {oldCount > 0 && (
+                    </ListItem>
+                  ))}
+              </ul>
+            </li>
+          ))}
+          {/* {count > 0 && (
+            <p
+              style={{
+                marginLeft: '20px',
+                fontWeight: '500',
+                fontSize: '14px',
+                fontStyle: 'normal',
+              }}
+            >
+              Today
+            </p>
+          )}
+          <div
+            className={styles.makeScroll}
+            style={{ maxHeight: count > 0 && oldCount === 0 ? '55vh' : '35vh' }}
+          >
+
+          </div> */}
+          {/* {oldCount > 0 && (
             <p
               style={{
                 marginLeft: '20px',
@@ -295,172 +302,8 @@ export default function Notification({
             className={styles.makeScroll}
             style={{ maxHeight: oldCount > 0 && count === 0 ? '55vh' : '30vh' }}
           >
-            {listofNotifications?.map((i, x) => (
-              <div>
-                {i.createdAt?.substring(0, 10) !== todayDate() ? (
-                  <div
-                    onClick={() =>
-                      readNotification(
-                        i.id,
-                        i.modelId,
-                        i.type,
-                        i.relatedUsers[0].user
-                      )
-                    }
-                  >
-                    <MenuItem onClick={onClose} key={`notificationToday${x}`}>
-                      <ListItemAvatar>
-                        <ProfileImageAvatar user={i.relatedUsers[0]?.user} />
-                      </ListItemAvatar>
-                      <ListItemText
-                        primary={
-                          <span className={styles.nameStyleTwo}>
-                            {i.relatedUsers[0]?.user?.fullName}
-                          </span>
-                        }
-                        secondary={
-                          <div
-                            style={{
-                              display: 'flex',
-                              justifyContent: 'space-between',
-                            }}
-                          >
-                            <div className={styles.dataAndTitle}>
-                              {i.type === 'comment' ? (
-                                <span className={styles.tag}>
-                                  <img
-                                    src='/noticomm.svg'
-                                    alt='comment'
-                                    style={{
-                                      width: '20px',
-                                      height: '12px',
-                                      marginRight: '0px',
-                                    }}
-                                  />
-                                  commented{' '}
-                                </span>
-                              ) : i.type === 'like' ? (
-                                <span className={styles.tag}>❤️️Liked </span>
-                              ) : i.type === 'postPurchase' ? (
-                                <span className={styles.tag}>
-                                  {' '}
-                                  <img
-                                    src='/tipicon.svg'
-                                    alt='comment'
-                                    style={{
-                                      width: isMobile ? '10px' : '20px',
-                                      height: '12px',
-                                      marginRight: '0px',
-                                    }}
-                                  />
-                                  Purchased{' '}
-                                </span>
-                              ) : i.type === 'planUpdate' ? (
-                                <span className={styles.tag}>Updated Plan</span>
-                              ) : i.type === 'subscribe' ? (
-                                <span className={styles.tag}>Followed you</span>
-                              ) : i.type === 'reply' ? (
-                                <span className={styles.tag}>
-                                  <img
-                                    src='/noticomm.svg'
-                                    alt='comment'
-                                    style={{
-                                      width: '20px',
-                                      height: '12px',
-                                      marginRight: '0px',
-                                    }}
-                                  />
-                                  Replied
-                                </span>
-                              ) : (
-                                ''
-                              )}
 
-                              <span className={styles.timeStyle}>
-                                {moment(i.createdAt).fromNow()}
-                              </span>
-                              <Typography
-                                component='span'
-                                variant='body2'
-                                className={classes.inline}
-                                color='textPrimary'
-                              >
-                                {i.type === 'comment' ? (
-                                  <>
-                                    <span
-                                      style={{
-                                        textOverflow: 'clip',
-                                        whiteSpace: 'normal',
-                                        height: 'auto',
-                                        width: isMobile ? '40vw' : '15vw',
-                                      }}
-                                      className={styles.tag}
-                                    >
-                                      {i.content.slice(0, 100)}
-                                    </span>
-                                  </>
-                                ) : i.type === 'postPurchase' ? (
-                                  <span
-                                    style={{
-                                      textOverflow: 'clip',
-                                      whiteSpace: 'normal',
-                                      height: 'auto',
-                                      width: isMobile ? '40vw' : '15vw',
-                                    }}
-                                    className={styles.tag}
-                                  >
-                                    {i.content}
-                                  </span>
-                                ) : i.type === 'reply' ? (
-                                  <>
-                                    {' '}
-                                    <span
-                                      style={{
-                                        textOverflow: 'clip',
-                                        whiteSpace: 'normal',
-                                        height: 'auto',
-                                        width: isMobile ? '40vw' : '15vw',
-                                      }}
-                                      className={styles.tag}
-                                    >
-                                      {i.content.slice(0, 50)}
-                                    </span>
-                                  </>
-                                ) : (
-                                  ''
-                                )}
-                              </Typography>
-                            </div>
-                            {i.relatedMediaLink ? (
-                              <div>
-                                <img
-                                  src={i.relatedMediaLink}
-                                  alt='related post'
-                                  width='30px'
-                                  height='30px'
-                                />
-                              </div>
-                            ) : (
-                              ''
-                            )}
-                          </div>
-                        }
-                      />
-                      {/* <ListItemSecondaryAction>
-                        <Avatar
-                          alt='Cindy Baker'
-                          src={i.image}
-                          variant='square'
-                        />
-                      </ListItemSecondaryAction> */}
-                    </MenuItem>
-                  </div>
-                ) : (
-                  ''
-                )}
-              </div>
-            ))}
-          </div>
+          </div> */}
           <CommentModel
             singlePost={singlePost}
             profileData={profileData}
@@ -469,7 +312,7 @@ export default function Notification({
             currentUser={currentUser}
             altHeader={altHeader}
           />
-        </div>
+        </>
       )}
     </>
   );
