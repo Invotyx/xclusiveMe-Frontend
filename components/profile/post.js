@@ -82,6 +82,9 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  showMore: {
+    color: theme.palette.primary.main,
+  },
 }));
 export default function Post({
   post,
@@ -359,6 +362,7 @@ export default function Post({
             >
               <ShowMoreText
                 lines={3}
+                anchorClass={classes.showMore}
               >
                 {post.postText}
               </ShowMoreText>
