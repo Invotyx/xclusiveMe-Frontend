@@ -111,7 +111,7 @@ export default function Home() {
                           backgroundSize: 'cover',
                           backgroundImage: u.coverImage
                             ? `url(${getImage(u.coverImage)})`
-                            : `url('/no-media.jpg')`,
+                            : `url('/cover2.jpg')`,
                           boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',
                         }}
                       >
