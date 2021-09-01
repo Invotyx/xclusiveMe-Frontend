@@ -120,7 +120,7 @@ const ReportModal = ({
               </div>
 
               {postid ? (
-                <PostReport />
+                <PostReport postid={postid} handleClose={handleClose} />
               ) : (
                 <div
                   style={{
