@@ -55,6 +55,7 @@ import Followers from './usersFollowersFollowing/Followers';
 import Followings from './usersFollowersFollowing/Following';
 import { followersSelector } from '../../selectors/userSelector';
 import { followerCountSelector } from '../../selectors/userSelector';
+import ReportModal from './ReportModal';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -99,6 +100,7 @@ export default function Profile({
   followings,
 }) {
   const dispatch = useDispatch();
+  const [openReportModal, setreportModal] = React.useState(false);
   const [tab, setTab] = React.useState(0);
   const [userFeed, setUserFeed] = React.useState(feed);
   const [_numberOfPosts, set_numberOfPosts] = React.useState(numberOfPosts);
@@ -399,10 +401,32 @@ export default function Profile({
                             <NormalCaseButton
                               size='small'
                               variant='outlined'
+                              onClick={() => setreportModal(true)}
                               style={{ marginRight: '10px' }}
                             >
                               Report
                             </NormalCaseButton>
+
+                            <ReportModal
+                              openReportModal={openReportModal}
+                              setreportModal={setreportModal}
+                              title='Report this User'
+                              profileImage={profileData}
+                              onConfirm={(reason, callback) => {
+                                const itemId = profileData?.id;
+                                dispatch(
+                                  userAction.report({
+                                    reportData: {
+                                      itemId,
+                                      reason,
+                                    },
+                                    callback: () => {
+                                      callback && callback();
+                                    },
+                                  })
+                                );
+                              }}
+                            />
                           </>
                           {subscriptionPlans ? (
                             <>
