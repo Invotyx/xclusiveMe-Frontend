@@ -33,11 +33,7 @@ const MessagesListItem = ({ activeConversationId, i, ...props }) => {
   }, [inView]);
 
   return (
-    <div
-      ref={ref}
-      className={styles.container}
-      {...props}
-    >
+    <div ref={ref} className={styles.container} {...props}>
       <div className={styles.chatMessages}>
         <div
           className={
@@ -74,7 +70,13 @@ const MessagesListItem = ({ activeConversationId, i, ...props }) => {
                   />
                 </a>
               ) : (
-                <p>{messageMedia.type}</p>
+                <a
+                  key={`messageMedia${i}`}
+                  href={messageMedia.url}
+                  target='_blank'
+                >
+                  <p>{messageMedia.type}</p>
+                </a>
               )
             )}
           </Box>
