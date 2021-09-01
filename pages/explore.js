@@ -59,13 +59,16 @@ export default function Home() {
 
   useEffect(() => {
     dispatch(post.requestSubscribed());
-    // dispatch(post.requestNotifications());
+
     // dispatch(
     //   chat.getConversations({
     //     pageNum: pageNum,
     //     limit: limit,
     //   })
     // );
+  }, []);
+  useEffect(() => {
+    dispatch(post.requestNotifications());
   }, []);
 
   return (
