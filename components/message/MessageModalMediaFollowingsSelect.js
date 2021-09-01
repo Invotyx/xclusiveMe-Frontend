@@ -2,19 +2,22 @@ import React, { useEffect } from 'react';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import { useDispatch, useSelector } from 'react-redux';
-import { auth } from '../../actions/auth';
+import { user as userAction } from '../../actions/user';
 import {
   currentUserFollowingsSelector,
   currentUserSelector,
 } from '../../selectors/authSelector';
+import { followingSelector } from '../../selectors/userSelector';
 
 export default function MessageModalMediaFollowingsSelect(props) {
   const currentUser = useSelector(currentUserSelector);
-  const followings = useSelector(currentUserFollowingsSelector);
+  const following = useSelector(followingSelector);
   const dispatch = useDispatch();
   useEffect(() => {
     currentUser &&
-      dispatch(auth.requestFollowings({ currentUserId: currentUser?.id }));
+      dispatch(
+        userAction.followings({ userId: currentUser?.id, limit: 5, page: 1 })
+      );
   }, [currentUser]);
 
   return (
@@ -27,7 +30,7 @@ export default function MessageModalMediaFollowingsSelect(props) {
       {...props}
     >
       <MenuItem>Select</MenuItem>
-      {followings?.results?.map((f, i) => (
+      {following?.map((f, i) => (
         <MenuItem value={f.id} key={`followings${i}`}>
           {f.fullName || 'name'}
         </MenuItem>

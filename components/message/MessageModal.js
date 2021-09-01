@@ -11,6 +11,7 @@ import { useMediaQuery } from 'react-responsive';
 import ShareIcon from '@material-ui/icons/Share';
 import TextField from '@material-ui/core/TextField';
 import { chat as chatData } from '../../actions/chat';
+import ProfileImageAvatar from '../profile/profile-image-avatar';
 
 const useStyles = makeStyles(theme => ({
   modal: {
@@ -101,17 +102,17 @@ const MessageModal = ({ messageModal, setMessageModal, profileData }) => {
                   width: '90%',
                 }}
               >
-                <img
-                  src={profileData?.profileImage}
-                  alt='profile image'
-                  width='60px'
-                  height='65px'
+                <ProfileImageAvatar
+                  user={profileData}
                   style={{
                     borderRadius: '50%',
                     marginTop: '-20px',
                     marginLeft: isMobile ? '40%' : '44%',
+                    width: '60px',
+                    height: '60px',
                   }}
                 />
+
                 <CloseIcon
                   onClick={handleClose}
                   style={{
@@ -173,8 +174,8 @@ const MessageModal = ({ messageModal, setMessageModal, profileData }) => {
             <Button
               variant='contained'
               style={{
-                backgroundColor: '#67E697',
-                color: 'white',
+                backgroundColor: 'white',
+                color: 'black',
                 width: isMobile ? '80vw' : '30vw',
                 margin: '20px',
                 marginTop: '10px',
