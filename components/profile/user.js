@@ -58,6 +58,7 @@ import {
   followingSelector,
 } from '../../selectors/userSelector';
 import { followerCountSelector } from '../../selectors/userSelector';
+import ReportModal from './ReportModal';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -102,6 +103,7 @@ export default function Profile({
   followings,
 }) {
   const dispatch = useDispatch();
+  const [openReportModal, setreportModal] = React.useState(false);
   const [tab, setTab] = React.useState(0);
   const [userFeed, setUserFeed] = React.useState(feed);
   const [_numberOfPosts, set_numberOfPosts] = React.useState(numberOfPosts);
@@ -193,6 +195,7 @@ export default function Profile({
     dispatch(
       subscription.removeSub({
         id: user?.id,
+        callback: afterFollow,
       })
     );
   };
@@ -394,19 +397,83 @@ export default function Profile({
                       }
                     />
                     <CardContent>
-                      <Box px={2} maxWidth={500}>
-                        <Typography
-                          variant='body2'
-                          color='textSecondary'
-                          component='p'
-                        >
-                          {profileData?.profile?.description || '(no bio)'}
-                        </Typography>
+                      <Box display={'flex'}>
+                        <Box flexGrow={1}>
+                          <Box px={2} maxWidth={500}>
+                            <Typography
+                              variant='body2'
+                              color='textSecondary'
+                              component='p'
+                            >
+                              {profileData?.profile?.description || '(no bio)'}
+                            </Typography>
+                          </Box>
+                        </Box>
+                        <Box display='flex'>
+                          <>
+                            <NormalCaseButton
+                              size='small'
+                              variant='outlined'
+                              onClick={() => setreportModal(true)}
+                              style={{ marginRight: '10px' }}
+                            >
+                              Report
+                            </NormalCaseButton>
+
+                            <ReportModal
+                              openReportModal={openReportModal}
+                              setreportModal={setreportModal}
+                              title='Report this User'
+                              profileImage={profileData}
+                              onConfirm={(reason, callback) => {
+                                const itemId = profileData?.id;
+                                dispatch(
+                                  userAction.report({
+                                    reportData: {
+                                      itemId,
+                                      reason,
+                                    },
+                                    callback: () => {
+                                      callback && callback();
+                                    },
+                                  })
+                                );
+                              }}
+                            />
+                          </>
+                          {subscriptionPlans ? (
+                            <>
+                              {subscriptionPlans?.price > 0 ? (
+                                <SubscribeUser
+                                  price={subscriptionPlans?.price}
+                                  handleFollow={handleFollow}
+                                />
+                              ) : (
+                                <NormalCaseButton
+                                  startIcon={<Add />}
+                                  size='small'
+                                  variant='outlined'
+                                  onClick={e => handleFollow(e)}
+                                >
+                                  <span>Follow</span>
+                                </NormalCaseButton>
+                              )}
+                            </>
+                          ) : (
+                            <NormalCaseButton
+                              size='small'
+                              variant='outlined'
+                              onClick={e => handleUnFollow(e)}
+                            >
+                              <span>Unfollow</span>
+                            </NormalCaseButton>
+                          )}
+                        </Box>
                       </Box>
                     </CardContent>
                   </Card>
                 </Grid>
-                {myCurrentUser?.username === username ? (
+                {/* myCurrentUser?.username === username ? (
                   ''
                 ) : (
                   <Grid item xs={12}>
@@ -466,7 +533,7 @@ export default function Profile({
                       </Box>
                     )}
                   </Grid>
-                )}
+                ) */}
                 <Grid item xs={12}>
                   <List disablePadding>
                     <ListSubheader disableGutters>

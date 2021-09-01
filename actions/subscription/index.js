@@ -9,9 +9,9 @@ export const subscription = {
       // error: null,
     }),
 
-  removeSub: id =>
+  removeSub: data =>
     createAction(SUBSCRIPTION.REMOVE, {
-      ...id,
+      ...data,
       fetching: true,
       success: false,
       error: null,
