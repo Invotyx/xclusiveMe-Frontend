@@ -100,7 +100,6 @@ export default function Profile({
 }) {
   const dispatch = useDispatch();
   const [tab, setTab] = React.useState(0);
-  const [currentUser, setCurrentUser] = React.useState(user);
   const [userFeed, setUserFeed] = React.useState(feed);
   const [_numberOfPosts, set_numberOfPosts] = React.useState(numberOfPosts);
   const [imagesData, set_imagesData] = React.useState(null);
@@ -127,10 +126,6 @@ export default function Profile({
   useEffect(() => {
     set_numberOfPosts(numberOfPosts);
   }, [numberOfPosts]);
-
-  useEffect(() => {
-    setCurrentUser(user);
-  }, [user]);
 
   useEffect(() => {
     setUserFeed(feed);
