@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import Alert from '@material-ui/lab/Alert';
 import { useDispatch, useSelector } from 'react-redux';
 import { motion } from 'framer-motion';
 import { variants } from '../../services/framer-variants';
@@ -30,6 +31,14 @@ import Layout from '../../components/layouts/layout-settings';
 const useStyles = makeStyles(theme => ({
   root: {
     // marginTop: '150px',
+  },
+  defaultLabel: {
+    display: 'inline-block',
+    padding: '0 16px',
+    fontSize: '0.7rem',
+    '& > .MuiAlert-icon': {
+      display: 'none',
+    },
   },
 }));
 
@@ -98,10 +107,16 @@ export default function Home(props) {
                 secondary={`Ending in ••${p.last4_card}`}
               />
               <ListItemSecondaryAction>
-                {p.default && (
-                  <Avatar className={classes.green}>
-                    <CheckIcon />
-                  </Avatar>
+                {p.default ? (
+                  <Alert
+                    severity='info'
+                    className={classes.defaultLabel}
+                    icon={<></>}
+                  >
+                    Default
+                  </Alert>
+                ) : (
+                  <></>
                 )}
               </ListItemSecondaryAction>
             </ListItem>
