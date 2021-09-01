@@ -62,9 +62,12 @@ const MessagesListItem = ({ activeConversationId, i, ...props }) => {
               i.sender.id !== current?.id ? 'flex-start' : 'flex-end'
             }
           >
-            {i.media?.map((messageMedia, i) => (
-              <ImageListItem key={`messageMedia${i}`} src={messageMedia.url} />
-            ))}
+            {i.media?.map((messageMedia, i) =>
+                <ImageListItem
+                  key={`messageMedia${i}`}
+                  src={messageMedia.url}
+                />
+            )}
           </Box>
         </div>
         {i.sender.id !== current?.id ? (
