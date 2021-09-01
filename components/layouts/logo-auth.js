@@ -159,7 +159,7 @@ export default function Comp({ sidebarMenu, set_sidebarMenu }) {
                     onClose={settingsMenuClose}
                   >
                     <div className={styles.notiBox}>
-                      <Notification onClose={settingsMenuClose} />
+                      <Notification setAnchorEl={setAnchorEl} />
                     </div>
                   </NotificationMenu>
                 </div>

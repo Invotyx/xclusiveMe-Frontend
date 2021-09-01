@@ -59,7 +59,7 @@ const reasons = [
     text: 'I dont like this post',
   },
   {
-    text: 'The content is offensive or voilates "OnlyFans" Terms of Service',
+    text: 'The content is offensive or voilates "XclusiveMe" Terms of Service',
   },
   {
     text: 'This content contains stolen materal (DMCA)',

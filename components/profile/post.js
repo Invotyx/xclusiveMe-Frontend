@@ -443,11 +443,15 @@ export default function Post({
                   {post.media.length === 0 ? (
                     <>
                       <MonetizationOnOutlinedIcon
-                        style={{ marginLeft: '5px', marginRight: '5px' }}
+                        style={{
+                          marginLeft: '5px',
+                          marginRight: '5px',
+                          marginBottom: isMobile ? '-8px' : '-9px',
+                        }}
                       />
                       <span
                         className={styles.hideOnMobile}
-                        style={{ marginLeft: '0px' }}
+                        style={{ marginLeft: '0px', cursor: 'pointer' }}
                       >
                         Tip
                       </span>

@@ -186,7 +186,7 @@ export default function Followings({ openFollowing, setOpenFollowing, user }) {
                             backgroundSize: 'cover',
                             backgroundImage: f.coverImage
                               ? `url(${getImage(f.coverImage)})`
-                              : `url('/cover.jpg')`,
+                              : `url('/cover2.jpg')`,
                             boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',
                           }}
                           onClick={() => handleClose()}
