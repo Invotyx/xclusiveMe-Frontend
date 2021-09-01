@@ -565,7 +565,7 @@ export default function Profile({
                             ml={{ xs: 0, sm: 0, md: 8 }}
                             mr={{ xs: 0, sm: 0, md: 8 }}
                           >
-                            <CardHeader
+                            {/* <CardHeader
                               action={
                                 <>
                                   <IconButton aria-label='sort'>
@@ -577,7 +577,7 @@ export default function Profile({
                                 </>
                               }
                               title={`${_numberOfPosts || 0} posts`}
-                            />
+                            /> */}
                             {userFeed && userFeed.length > 0 ? (
                               <Grid container spacing={2}>
                                 {userFeed.map((f, ix) => (
