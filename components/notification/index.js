@@ -105,7 +105,7 @@ export default function Notification({
                             <span className={styles.nameStyleTwo}>
                               {i.relatedUsers[0]?.user.fullName}
                             </span>
-                            {i.isRead === true && (
+                            {i.isRead === false && (
                               <FiberManualRecordIcon
                                 style={{
                                   fontSize: '10px',
