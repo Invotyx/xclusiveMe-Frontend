@@ -75,7 +75,9 @@ export default function Home() {
                     placeholder='Search…'
                     startAdornment={<SearchIcon />}
                     value={_search}
-                    onChange={e => set_search(e.target.value)}
+                    onChange={e => {
+                      set_search(e.target.value);
+                    }}
                   />
                 </Box>
               </form>
