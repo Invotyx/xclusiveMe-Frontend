@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { post } from '../../../actions/post';
 import { user } from '../../../actions/user';
@@ -17,9 +17,14 @@ export default function Profile() {
     dispatch(user.requestOne(username));
     dispatch(post.requestX({ username }));
   }, [username]);
-  const u = useSelector(singleSelector);
+  const single = useSelector(singleSelector);
+  const [u, setU] = useState(null);
   const numberOfPosts = useSelector(xfeed_numberOfPostsSelector);
   const _feed = useSelector(xfeedSelector);
+
+  useEffect(() => {
+    setU(single);
+  }, [single]);
 
   return (
     <>
