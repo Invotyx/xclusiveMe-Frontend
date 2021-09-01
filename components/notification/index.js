@@ -111,7 +111,7 @@ export default function Notification({
           No Data Found
         </p>
       ) : (
-        <>
+        <List>
           {chckday.map(elm => (
             <li key={Math.random()} className={classes.listSection}>
               <ul className={classes.ul}>
@@ -304,16 +304,16 @@ export default function Notification({
           >
 
           </div> */}
-          <CommentModel
-            singlePost={singlePost}
-            profileData={profileData}
-            open={open}
-            setOpen={setOpen}
-            currentUser={currentUser}
-            altHeader={altHeader}
-          />
-        </>
+        </List>
       )}
+      <CommentModel
+        singlePost={singlePost}
+        profileData={profileData}
+        open={open}
+        setOpen={setOpen}
+        currentUser={currentUser}
+        altHeader={altHeader}
+      />
     </>
   );
 }
