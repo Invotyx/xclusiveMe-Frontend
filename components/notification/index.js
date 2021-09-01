@@ -97,7 +97,18 @@ export default function Notification({
                       key={`notificationToday${x}`}
                     >
                       <ListItemAvatar>
-                        <ProfileImageAvatar user={i?.relatedUsers[0]?.user} />
+                        <span style={{ display: 'flex' }}>
+                          <ProfileImageAvatar user={i?.relatedUsers[0]?.user} />
+                          {i.isRead === true && (
+                            <FiberManualRecordIcon
+                              style={{
+                                fontSize: '10px',
+                                marginLeft: '0px',
+                                marginBottom: '10px',
+                              }}
+                            />
+                          )}
+                        </span>
                       </ListItemAvatar>
                       <ListItemText
                         primary={
@@ -105,7 +116,6 @@ export default function Notification({
                             <span className={styles.nameStyleTwo}>
                               {i.relatedUsers[0]?.user.fullName}
                             </span>
-                            <FiberManualRecordIcon />
                           </>
                         }
                         secondary={
