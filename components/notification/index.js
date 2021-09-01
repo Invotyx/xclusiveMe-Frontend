@@ -76,35 +76,8 @@ export default function Notification({
     );
   };
 
-  function todayDate() {
-    var today = new Date();
-    var date =
-      today.getFullYear() +
-      '-' +
-      '0' +
-      (today.getMonth() + 1) +
-      '-' +
-      '0' +
-      today.getDate();
-    return date;
-  }
-
-  // useEffect(() => {
-  //   listofNotifications?.map(l => {
-  //     // console.log('count = ', count);
-  //     l.createdAt.substring(0, 10) == todayDate()
-  //       ? setCount(count + 1)
-  //       : setOldCount(oldCount + 1);
-  //     // console.log(l.createdAt.substring(0, 10));
-  //   });
-  // }, [listofNotifications]);
-
-  // console.log('count', count, 'oldCount', oldCount);
-  // console.log(todayDate());
-
   return (
     <>
-      {/* <ListSubheader>Today</ListSubheader> */}
       {notifyCount === 0 ? (
         <p style={{ marginLeft: '20px', padding: '20px', width: '200px' }}>
           No Data Found
@@ -155,7 +128,6 @@ export default function Notification({
                             <div className={styles.dataAndTitle}>
                               {i.type === 'comment' ? (
                                 <span className={styles.tag}>
-                                  {' '}
                                   <img
                                     src='/noticomm.svg'
                                     alt='comment'
@@ -165,13 +137,12 @@ export default function Notification({
                                       marginRight: '0px',
                                     }}
                                   />
-                                  commented{' '}
+                                  commented
                                 </span>
                               ) : i.type === 'like' ? (
                                 <span className={styles.tag}>❤️️Liked </span>
                               ) : i.type === 'postPurchase' ? (
                                 <span className={styles.tag}>
-                                  {' '}
                                   <img
                                     src='/tipicon.svg'
                                     alt='purchased'
@@ -181,7 +152,7 @@ export default function Notification({
                                       marginRight: '0px',
                                     }}
                                   />
-                                  Purchased{' '}
+                                  Purchased
                                 </span>
                               ) : i.type === 'planUpdate' ? (
                                 <span className={styles.tag}>Updated Plan</span>
@@ -204,7 +175,6 @@ export default function Notification({
                               >
                                 {i.type === 'comment' ? (
                                   <>
-                                    {' '}
                                     <span
                                       style={{
                                         textOverflow: 'clip',
@@ -231,7 +201,6 @@ export default function Notification({
                                   </span>
                                 ) : i.type === 'reply' ? (
                                   <>
-                                    {' '}
                                     <span
                                       style={{
                                         textOverflow: 'clip',
@@ -267,42 +236,6 @@ export default function Notification({
               </ul>
             </li>
           ))}
-          {/* {count > 0 && (
-            <p
-              style={{
-                marginLeft: '20px',
-                fontWeight: '500',
-                fontSize: '14px',
-                fontStyle: 'normal',
-              }}
-            >
-              Today
-            </p>
-          )}
-          <div
-            className={styles.makeScroll}
-            style={{ maxHeight: count > 0 && oldCount === 0 ? '55vh' : '35vh' }}
-          >
-
-          </div> */}
-          {/* {oldCount > 0 && (
-            <p
-              style={{
-                marginLeft: '20px',
-                fontWeight: '500',
-                fontSize: '14px',
-                fontStyle: 'normal',
-              }}
-            >
-              Older
-            </p>
-          )}
-          <div
-            className={styles.makeScroll}
-            style={{ maxHeight: oldCount > 0 && count === 0 ? '55vh' : '30vh' }}
-          >
-
-          </div> */}
         </List>
       )}
       <CommentModel
