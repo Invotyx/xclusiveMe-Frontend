@@ -147,6 +147,7 @@ export default function FormDialog() {
               type='date'
               name='dob'
               label='Dob'
+              InputLabelProps={{ shrink: true }}
               error={validationErrors && validationErrors.dob}
               helperText={
                 validationErrors.dob
