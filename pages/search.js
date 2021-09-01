@@ -28,6 +28,7 @@ import {
 } from '@material-ui/core';
 import { getImage } from '../services/getImage';
 import ProfileImageAvatar from '../components/profile/profile-image-avatar';
+import { useRouter } from 'next/router';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -46,9 +47,12 @@ export default function Home() {
   const users = useSelector(userDataSelector);
   const classes = useStyles();
   const [_search, set_search] = useState('');
+  const router = useRouter();
+  const { pathname, query } = router;
   const handleSearch = event => {
     event.preventDefault();
     dispatch(user.search({ q: _search }));
+    router.push({ pathname, query: { ...query, q: _search } });
   };
   useEffect(() => {
     dispatch(user.emptySearchList());
