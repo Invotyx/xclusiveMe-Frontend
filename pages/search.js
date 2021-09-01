@@ -92,7 +92,7 @@ export default function Home() {
               ) : users?.length === 0 && searched ? (
                 'no user found'
               ) : !searched ? (
-                'type something to start'
+                'Type something to start'
               ) : (
                 ''
               )}
