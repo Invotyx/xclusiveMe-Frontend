@@ -51,8 +51,11 @@ export default function Home() {
   const { pathname, query } = router;
   const handleSearch = event => {
     event.preventDefault();
-    dispatch(user.search({ q: _search }));
-    router.push({ pathname, query: { ...query, q: _search } });
+    doSearch(_search);
+  };
+  const doSearch = q => {
+    dispatch(user.search({ q }));
+    router.push({ pathname, query: { ...query, q } });
   };
   useEffect(() => {
     dispatch(user.emptySearchList());
