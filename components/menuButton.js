@@ -63,10 +63,10 @@ const ManuButton = props => {
         open={Boolean(anchorEl)}
         onClose={handleCloseMenu}
       >
-        <MenuItem onClick={handleOpenReportModal}>Report</MenuItem>
         {props.postid && (
           <MenuItem onClick={handleCopy}>Copy link to post</MenuItem>
         )}
+        <MenuItem onClick={handleOpenReportModal}>Report</MenuItem>
       </Menu>
 
       <ReportModal

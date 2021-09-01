@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useState } from 'react';
 import Link from '@material-ui/core/Link';
 import NextLink from 'next/link';
 import AppBar from '@material-ui/core/AppBar';
@@ -27,6 +27,7 @@ import { fetchingSelector } from '../../selectors/postSelector';
 import ConversationsList from '../message/ConversationsList';
 import MessageMenu from '../message/MessageMenu';
 import { currentUserSelector } from '../../selectors/authSelector';
+import { notificationsData } from '../../selectors/postSelector';
 
 const chatMenu = 'link';
 
@@ -38,6 +39,8 @@ export default function Comp({ sidebarMenu, set_sidebarMenu }) {
   const notificationCount = useSelector(notificationsCount);
   const fetchData = useSelector(fetchingSelector);
   const me = useSelector(currentUserSelector);
+  const notifications = useSelector(notificationsData);
+  const [read, setRead] = useState(0);
 
   const settingsMenuOpen = event => {
     // dispatch(post.requestNotifications());
@@ -52,9 +55,14 @@ export default function Comp({ sidebarMenu, set_sidebarMenu }) {
     setMessageEl(null);
   };
 
-  // React.useEffect(() => {
-  //   dispatch(post.requestNotifications());
-  // }, []);
+  React.useEffect(() => {
+    dispatch(post.requestNotifications());
+  }, []);
+
+  React.useEffect(() => {
+    notifications?.map(n => n.isRead === false && setRead(read + 1));
+    console.log('read', read);
+  }, [notifications]);
 
   React.useEffect(() => {
     axiosInterceptorResponse(dispatch);
@@ -133,12 +141,12 @@ export default function Comp({ sidebarMenu, set_sidebarMenu }) {
               </Box>
               <Box ml={3} display={{ xs: 'none', sm: 'none', md: 'flex' }}>
                 <IconButton color='inherit' onClick={settingsMenuOpen}>
-                  {notificationCount == 0 ? (
-                    <Badge color='secondary'>
+                  {read > 0 ? (
+                    <Badge color='secondary' variant='dot'>
                       <CheckBoxOutlineBlankIcon />
                     </Badge>
                   ) : (
-                    <Badge color='secondary' variant='dot'>
+                    <Badge color='secondary'>
                       <CheckBoxOutlineBlankIcon />
                     </Badge>
                   )}

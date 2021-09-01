@@ -42,9 +42,8 @@ const useStyles = makeStyles({
     },
   },
   checkedIcon: {
-    backgroundColor: '#137cbd',
-    backgroundImage:
-      'linear-gradient(180deg,hsla(0,0%,100%,.1),hsla(0,0%,100%,0))',
+    backgroundColor: 'black',
+    backgroundImage: 'black',
     '&:before': {
       display: 'block',
       width: 16,
@@ -129,10 +128,16 @@ export default function PostReport({ postid, handleClose }) {
       </CardContent>
 
       <CardActions style={{ display: 'flex', float: 'right' }}>
-        <Button color='primary' onClick={handleClose}>
+        <Button
+          onClick={handleClose}
+          style={{ backgroundColor: 'white', color: 'black' }}
+        >
           Cancel
         </Button>
-        <Button color='primary' onClick={handleSendReport}>
+        <Button
+          onClick={handleSendReport}
+          style={{ backgroundColor: 'white', color: 'black' }}
+        >
           Send
         </Button>
       </CardActions>
