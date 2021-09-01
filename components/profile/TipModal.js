@@ -15,6 +15,7 @@ import styles from './profile.module.css';
 import TextField from '@material-ui/core/TextField';
 import ImageAvatar from '../image-avatar';
 import ProfileImageAvatar from './profile-image-avatar';
+import { currencySymbol } from '../../services/currencySymbol';
 
 const useStyles = makeStyles(theme => ({
   modal: {
@@ -158,6 +159,9 @@ const TipModal = ({ profileImage, name, onConfirm, children }) => {
                           id='outlined-basic'
                           variant='outlined'
                           placeholder='Enter amount in USD'
+                          InputProps={{
+                            startAdornment: currencySymbol,
+                          }}
                           value={addPrice}
                           onChange={e => setAddPrice(e.target.value)}
                           name='addPrice'

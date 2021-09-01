@@ -35,6 +35,7 @@ import { fetchingSelector } from '../../selectors/authSelector';
 import { errorSelector } from '../../selectors/authSelector';
 import { isValidHttpUrl } from '../../services/helper';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import * as parser from 'ua-parser-js';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -340,20 +341,22 @@ export default function Home(props) {
                 <UppercaseInputLabel>Login Sessions</UppercaseInputLabel>
                 <List>
                   {loginSessions.length === 0 && <div>no sessions</div>}
-                  {loginSessions.map((i, j) => (
-                    <React.Fragment key={`loginSessions${j}`}>
-                      <ListItem selected={true}>
-                        <ListItemText
-                          primary={i.browser}
-                          secondary={`${i.publicIp}`}
-                        />
-                        <ListItemSecondaryAction>
-                          {i.time}
-                        </ListItemSecondaryAction>
-                      </ListItem>
-                      <Divider />
-                    </React.Fragment>
-                  ))}
+                  {loginSessions.map((i, j) => {
+                    const ua = parser(i.browser);
+                    return (
+                      <React.Fragment key={`loginSessions${j}`}>
+                        <ListItem selected={true} divider>
+                          <ListItemText
+                            primary={`${ua.browser.name} | ${ua.os.name} (${ua.os.version})`}
+                            secondary={`${i.publicIp}`}
+                          />
+                          <ListItemSecondaryAction>
+                            {i.time}
+                          </ListItemSecondaryAction>
+                        </ListItem>
+                      </React.Fragment>
+                    );
+                  })}
                 </List>
                 <Button variant='outlined' onClick={handleLogOutAllSessions}>
                   Log out all sessions

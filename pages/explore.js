@@ -39,7 +39,7 @@ const suggestions = [
 
 const useStyles = makeStyles(theme => ({
   root: {
-    // marginTop: '150px',
+    marginBottom: '150px',
   },
 }));
 

@@ -374,9 +374,13 @@ export default function Profile({
                       }
                     />
                     <CardContent>
-                      <Box display={'flex'}>
+                      <Box display={isSmall ? 'block' : 'flex'}>
                         <Box flexGrow={1}>
-                          <Box px={2} maxWidth={500}>
+                          <Box
+                            px={isSmall ? 0 : 2}
+                            mb={isSmall ? 1 : 0}
+                            maxWidth={500}
+                          >
                             <Typography
                               variant='body2'
                               color='textSecondary'
@@ -387,7 +391,7 @@ export default function Profile({
                           </Box>
                         </Box>
                         {myCurrentUser?.username !== username && (
-                          <Box display='flex'>
+                          <Box display='flex' alignItems='center'>
                             {me ||
                               (myCurrentUser?.username === username
                                 ? ''
@@ -548,7 +552,9 @@ export default function Profile({
                           <Tab icon={<FeaturedPlayListOutlinedIcon />} />
                           <Tab icon={<ImageOutlinedIcon />} />
                           <Tab icon={<VideocamOutlinedIcon />} />
-                          <Tab icon={<MonetizationOnOutlinedIcon />} />
+                          {myCurrentUser?.username === username && (
+                            <Tab icon={<MonetizationOnOutlinedIcon />} />
+                          )}
                         </Tabs>
                       </Paper>
                     </ListSubheader>
@@ -559,7 +565,7 @@ export default function Profile({
                             ml={{ xs: 0, sm: 0, md: 8 }}
                             mr={{ xs: 0, sm: 0, md: 8 }}
                           >
-                            <CardHeader
+                            {/* <CardHeader
                               action={
                                 <>
                                   <IconButton aria-label='sort'>
@@ -571,7 +577,7 @@ export default function Profile({
                                 </>
                               }
                               title={`${_numberOfPosts || 0} posts`}
-                            />
+                            /> */}
                             {userFeed && userFeed.length > 0 ? (
                               <Grid container spacing={2}>
                                 {userFeed.map((f, ix) => (
