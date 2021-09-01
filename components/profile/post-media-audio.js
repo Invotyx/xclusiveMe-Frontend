@@ -33,6 +33,7 @@ export default function PostMediaAudio(props) {
       className={classes.player}
       {...props}
       onPlay={e => console.log('onPlay')}
+      customAdditionalControls={[]}
     />
   );
 }
