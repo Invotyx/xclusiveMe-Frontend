@@ -453,12 +453,7 @@ const SinglePost = ({
                       </span>
                     </NormalCaseButton>
                     {
-                      <NormalCaseButton
-                        aria-label='tip'
-                        style={{
-                          marginLeft: '-10px',
-                        }}
-                      >
+                      <span aria-label='tip'>
                         {sPost?.media.length === 0 ? (
                           <>
                             <MonetizationOnOutlinedIcon
@@ -493,16 +488,17 @@ const SinglePost = ({
                                   })
                                 )
                               }
-                            />
-                            <span
-                              className={styles.hideOnMobile}
-                              style={{ marginLeft: '-6px' }}
                             >
-                              Tip
-                            </span>
+                              <NormalCaseButton
+                                aria-label='Buy Post'
+                                startIcon={<MonetizationOnOutlinedIcon />}
+                              >
+                                Tip
+                              </NormalCaseButton>
+                            </TipModal>
                           </>
                         )}
-                      </NormalCaseButton>
+                      </span>
                     }
                   </Box>
                 </div>

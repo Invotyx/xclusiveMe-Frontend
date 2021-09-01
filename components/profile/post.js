@@ -360,10 +360,7 @@ export default function Post({
                 marginLeft: '4px',
               }}
             >
-              <ShowMoreText
-                lines={3}
-                anchorClass={classes.showMore}
-              >
+              <ShowMoreText lines={3} anchorClass={classes.showMore}>
                 {post.postText}
               </ShowMoreText>
             </Typography>
@@ -442,12 +439,7 @@ export default function Post({
               {post?.user?.username == currentUser?.username ? (
                 ''
               ) : (
-                <NormalCaseButton
-                  aria-label='tip'
-                  style={{
-                    marginLeft: '-10px',
-                  }}
-                >
+                <span aria-label='tip'>
                   {post.media.length === 0 ? (
                     <>
                       <MonetizationOnOutlinedIcon
@@ -482,16 +474,17 @@ export default function Post({
                             })
                           )
                         }
-                      />
-                      <span
-                        className={styles.hideOnMobile}
-                        style={{ marginLeft: '-6px' }}
                       >
-                        Tip
-                      </span>
+                        <NormalCaseButton
+                          aria-label='Buy Post'
+                          startIcon={<MonetizationOnOutlinedIcon />}
+                        >
+                          Tip
+                        </NormalCaseButton>
+                      </TipModal>
                     </>
                   )}
-                </NormalCaseButton>
+                </span>
               )}
             </div>
 

@@ -34,6 +34,7 @@ import { Picker } from 'emoji-mart';
 import 'emoji-mart/css/emoji-mart.css';
 import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
 import { currentUserSelector } from '../../selectors/authSelector';
+import MonetizationOnOutlinedIcon from '@material-ui/icons/MonetizationOnOutlined';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -458,12 +459,7 @@ const CommentModel = ({
                         </span>
                       </NormalCaseButton>
                       {
-                        <NormalCaseButton
-                          aria-label='tip'
-                          style={{
-                            marginLeft: '-10px',
-                          }}
-                        >
+                        <span aria-label='tip'>
                           {sPost?.media.length === 0 ? (
                             <MonetizationOnOutlinedIcon
                               style={{ marginRight: '5px', marginLeft: '5px' }}
@@ -489,16 +485,16 @@ const CommentModel = ({
                                   })
                                 )
                               }
-                            />
+                            >
+                              <NormalCaseButton
+                                aria-label='Buy Post'
+                                startIcon={<MonetizationOnOutlinedIcon />}
+                              >
+                                Tip
+                              </NormalCaseButton>
+                            </TipModal>
                           )}
-
-                          <span
-                            className={styles.hideOnMobile}
-                            style={{ marginLeft: '0px' }}
-                          >
-                            Tip
-                          </span>
-                        </NormalCaseButton>
+                        </span>
                       }
                     </Box>
                   </div>

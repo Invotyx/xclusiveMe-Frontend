@@ -32,7 +32,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const TipModal = ({ profileImage, name, onConfirm }) => {
+const TipModal = ({ profileImage, name, onConfirm, children }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const [openTip, setopenTip] = useState(false);
@@ -62,9 +62,13 @@ const TipModal = ({ profileImage, name, onConfirm }) => {
   }, [paymentMethod]);
   return (
     <>
-      <IconButton onClick={handleOpenTopModal}>
-        <MonetizationOnOutlinedIcon />
-      </IconButton>
+      {children ? (
+        <span onClick={handleOpenTopModal}>{children}</span>
+      ) : (
+        <IconButton onClick={handleOpenTopModal}>
+          <MonetizationOnOutlinedIcon />
+        </IconButton>
+      )}
       <Modal
         aria-labelledby='transition-modal-title'
         aria-describedby='transition-modal-description'
