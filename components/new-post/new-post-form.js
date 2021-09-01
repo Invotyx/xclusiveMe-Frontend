@@ -106,7 +106,6 @@ export default function NewPostForm({ afterSave }) {
   };
 
   const imageHandler = images => {
-    console.log(images);
     set_TileData(prev => [...prev, ...images.map(i => i.url)]);
     setMedia(prev => [
       ...prev,
