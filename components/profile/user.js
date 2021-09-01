@@ -387,7 +387,7 @@ export default function Profile({
                           </Box>
                         </Box>
                         {myCurrentUser?.username !== username && (
-                          <Box display='flex'>
+                          <Box display='flex' alignItems='center'>
                             {me ||
                               (myCurrentUser?.username === username
                                 ? ''
