@@ -343,7 +343,7 @@ export default function Home(props) {
                   {loginSessions.map((i, j) => {
                     return (
                       <React.Fragment key={`loginSessions${j}`}>
-                        <ListItem selected={true}>
+                        <ListItem selected={true} divider>
                           <ListItemText
                             primary={i.browser}
                             secondary={`${i.publicIp}`}
@@ -352,7 +352,6 @@ export default function Home(props) {
                             {i.time}
                           </ListItemSecondaryAction>
                         </ListItem>
-                        <Divider />
                       </React.Fragment>
                     );
                   })}
