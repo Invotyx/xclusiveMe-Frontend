@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import List from '@material-ui/core/List';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
@@ -15,7 +16,6 @@ import { singlepostDataSelector } from '../../selectors/postSelector';
 import CommentModel from '../profile/commentModel';
 import ProfileImageAvatar from '../profile/profile-image-avatar';
 import { useMediaQuery } from 'react-responsive';
-import { List } from 'immutable';
 import { ListItem } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
