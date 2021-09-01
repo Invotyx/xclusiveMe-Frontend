@@ -394,6 +394,13 @@ export default function Profile({
                           </Box>
                         </Box>
                         <Box display='flex'>
+                          <NormalCaseButton
+                            size='small'
+                            variant='outlined'
+                            style={{ marginRight: '10px' }}
+                          >
+                            Report
+                          </NormalCaseButton>
                           {subscriptionPlans ? (
                             <>
                               {subscriptionPlans?.price > 0 ? (
