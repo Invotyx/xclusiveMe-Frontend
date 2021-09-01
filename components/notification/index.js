@@ -57,7 +57,7 @@ export default function Notification({
   const [profieImg, setProfileImage] = useState(null);
   const router = useRouter();
   const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
-  const [chckday, setChkDay] = useState(['Today', 'Older']);
+  const chckday = ['Today', 'Older'];
 
   const readNotification = (notifyId, modalId, type, user) => {
     type === 'like' || type === 'comment' || type === 'post' || type === 'reply'
