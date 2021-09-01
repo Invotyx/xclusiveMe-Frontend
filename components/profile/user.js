@@ -180,6 +180,7 @@ export default function Profile({
     dispatch(
       subscription.removeSub({
         id: user?.id,
+        callback: afterFollow,
       })
     );
   };
