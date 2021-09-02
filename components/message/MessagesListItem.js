@@ -6,6 +6,7 @@ import { chat } from '../../actions/chat';
 import { useInView } from 'react-intersection-observer';
 import ImageListItem from './ImageListItem';
 import Box from '@material-ui/core/Box';
+import PostMediaVideo from '../profile/post-media-video';
 
 const MessagesListItem = ({ activeConversationId, message, ...props }) => {
   const { ref, inView } = useInView({
@@ -72,6 +73,10 @@ const MessagesListItem = ({ activeConversationId, message, ...props }) => {
                   <audio controls>
                     <source src={messageMedia.url} />
                   </audio>
+                ) : message.messageMediaType === 'video' ? (
+                  <Box maxWidth='200px'>
+                    <PostMediaVideo src={messageMedia.url} />
+                  </Box>
                 ) : (
                   <p>{message.messageMediaType || 'unknown type'}</p>
                 )}
