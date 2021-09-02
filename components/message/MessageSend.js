@@ -10,8 +10,7 @@ import useAudioSend from './useAudioSend';
 import useEmojiPicker from '../useEmojiPicker';
 
 export default function MessageSend({ handleSendMessage }) {
-  const myRef = React.useRef(null);
-  const { toggleEmojiPicker, EmojiPicker } = useEmojiPicker();
+  const { toggleEmojiPicker, EmojiPicker, emojiPickerRef } = useEmojiPicker();
   const current = useSelector(currentUserSelector);
   const { AudioSend, isRecording, startRecordingHandler } = useAudioSend();
   const [msgText, setMsgText] = useState('');
@@ -104,8 +103,8 @@ export default function MessageSend({ handleSendMessage }) {
               />
             }
             endAdornment={
-              <span ref={myRef} style={{ display: 'flex' }}>
-                <EmojiPicker onSelect={addEmoji} anchorEl={myRef.current} />
+              <span ref={emojiPickerRef} style={{ display: 'flex' }}>
+                <EmojiPicker onSelect={addEmoji} />
                 <IconButton onClick={handleOnEnter}>
                   <img
                     src='/send.png'
