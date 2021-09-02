@@ -1,20 +1,18 @@
 import { OutlinedInput } from '@material-ui/core';
 import CardActions from '@material-ui/core/CardActions';
 import IconButton from '@material-ui/core/IconButton';
-import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
-import { Picker } from 'emoji-mart';
-import 'emoji-mart/css/emoji-mart.css';
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { currentUserSelector } from '../../selectors/authSelector';
 import ProfileImageAvatar from '../profile/profile-image-avatar';
 import MessageModalMedia from './MessageModalMedia';
 import useAudioSend from './useAudioSend';
+import useEmojiPicker from '../useEmojiPicker';
 
 export default function MessageSend({ handleSendMessage }) {
+  const { toggleEmojiPicker, EmojiPicker } = useEmojiPicker();
   const current = useSelector(currentUserSelector);
   const { AudioSend, isRecording, startRecordingHandler } = useAudioSend();
-  const [show, setShow] = useState(false);
   const [msgText, setMsgText] = useState('');
 
   function handleOnEnter() {
@@ -22,7 +20,7 @@ export default function MessageSend({ handleSendMessage }) {
       return;
     }
 
-    setShow(false);
+    toggleEmojiPicker();
 
     handleSendMessage(msgText, () => {
       setMsgText('');
@@ -37,10 +35,6 @@ export default function MessageSend({ handleSendMessage }) {
     setMsgText(msgText + emoji);
   };
 
-  const showEmoji = () => {
-    setShow(!show);
-  };
-
   return (
     <>
       <CardActions
@@ -50,32 +44,33 @@ export default function MessageSend({ handleSendMessage }) {
       >
         <div
           style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            width: '30%',
             opacity: isRecording ? 0 : 1,
           }}
         >
-          <MessageModalMedia
-            type='camera'
-            onMediaUploaded={handleSendMessage}
-          >
-            <img src='/camera.svg' alt='camera' />
+          <MessageModalMedia type='camera' onMediaUploaded={handleSendMessage}>
+            <img
+              src='/camera.svg'
+              style={{ marginRight: '2rem' }}
+              alt='camera'
+            />
           </MessageModalMedia>
-          <MessageModalMedia
-            type='photo'
-            onMediaUploaded={handleSendMessage}
-          >
-            <img src='/imageBtn.svg' alt='image' />
+          <MessageModalMedia type='photo' onMediaUploaded={handleSendMessage}>
+            <img
+              src='/imageBtn.svg'
+              style={{ marginRight: '2rem' }}
+              alt='image'
+            />
           </MessageModalMedia>
-          <MessageModalMedia
-            type='video'
-            onMediaUploaded={handleSendMessage}
-          >
-            <img src='/videoBtn.svg' alt='video' />
+          <MessageModalMedia type='video' onMediaUploaded={handleSendMessage}>
+            <img
+              src='/videoBtn.svg'
+              style={{ marginRight: '2rem' }}
+              alt='video'
+            />
           </MessageModalMedia>
           <img
             src='/voiceBtn.svg'
+            style={{ marginRight: '2rem' }}
             alt='voice'
             onClick={startRecordingHandler}
           />
@@ -109,9 +104,7 @@ export default function MessageSend({ handleSendMessage }) {
             }
             endAdornment={
               <>
-                <IconButton onClick={showEmoji}>
-                  <InsertEmoticonIcon />
-                </IconButton>
+                <EmojiPicker onSelect={addEmoji} />
                 <IconButton onClick={handleOnEnter}>
                   <img
                     src='/send.png'
@@ -134,27 +127,6 @@ export default function MessageSend({ handleSendMessage }) {
           />
         )}
       </CardActions>
-
-      {show && (
-        <span>
-          <Picker
-            title={''}
-            onSelect={addEmoji}
-            set='facebook'
-            emoji='point_up'
-            theme='dark'
-            skin='1'
-            style={{
-              position: 'absolute',
-              bottom: '40px',
-              right: '150px',
-              maxWidth: '300px',
-              with: '100%',
-              outline: 'none',
-            }}
-          />
-        </span>
-      )}
     </>
   );
 }

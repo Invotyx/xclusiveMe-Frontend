@@ -36,6 +36,7 @@ import { errorSelector } from '../../selectors/authSelector';
 import { isValidHttpUrl } from '../../services/helper';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import * as parser from 'ua-parser-js';
+import NormalCaseButton from '../../components/NormalCaseButton';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -148,6 +149,16 @@ export default function Home(props) {
         },
         callback: () => {
           set_editLinkedAccount(null);
+        },
+      })
+    );
+  };
+  const logout = event => {
+    event.preventDefault();
+    dispatch(
+      auth.logout({
+        callback: () => {
+          dispatch(auth.redirectToLoginPage());
         },
       })
     );
@@ -406,6 +417,12 @@ export default function Home(props) {
                 </List>
               </Box>
             </form>
+
+            <Box textAlign='center' mb={8}>
+              <NormalCaseButton onClick={logout} style={{ color: 'red' }}>
+                Logout
+              </NormalCaseButton>
+            </Box>
           </Grid>
         </Grid>
       </Layout>
