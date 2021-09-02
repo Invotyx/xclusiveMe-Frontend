@@ -58,8 +58,8 @@ const MessagesListItem = ({ activeConversationId, i, ...props }) => {
               i.sender.id !== current?.id ? 'flex-start' : 'flex-end'
             }
           >
-            {i.media?.map((messageMedia, i) =>
-              i.messageMediaType === 'photo' ? (
+            {i.messageMediaType === 'photo'
+              ? i.media?.map((messageMedia, i) => (
                 <a
                   key={`messageMedia${i}`}
                   href={messageMedia.url}
@@ -67,7 +67,8 @@ const MessagesListItem = ({ activeConversationId, i, ...props }) => {
                 >
                   <ImageListItem src={messageMedia.url} />
                 </a>
-              ) : (
+                ))
+              : i.media?.map((messageMedia, i) => (
                 <a
                   key={`messageMedia${i}`}
                   href={messageMedia.url}
@@ -75,8 +76,7 @@ const MessagesListItem = ({ activeConversationId, i, ...props }) => {
                 >
                   <p>{i.messageMediaType}</p>
                 </a>
-              )
-            )}
+                ))}
           </Box>
         </div>
         {i.sender.id !== current?.id ? (
