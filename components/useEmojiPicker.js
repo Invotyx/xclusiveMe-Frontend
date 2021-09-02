@@ -7,15 +7,13 @@ import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Popper from '@material-ui/core/Popper';
 
 export default function useEmojiPicker() {
-  const [anchorEl, setAnchorEl] = useState(null);
-
-  const show = Boolean(anchorEl);
+  const [show, setShow] = useState(null);
 
   const toggleEmojiPicker = event => {
-    setAnchorEl(anchorEl ? null : event.currentTarget);
+    setShow(s => !s);
   };
 
-  const EmojiPicker = props => (
+  const EmojiPicker = ({ anchorEl, ...props }) => (
     <>
       <IconButton onClick={toggleEmojiPicker}>
         <InsertEmoticonIcon />
