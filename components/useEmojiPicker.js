@@ -10,6 +10,7 @@ export default function useEmojiPicker() {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const show = Boolean(anchorEl);
+  const id = show ? 'emoji-picker-popper' : undefined;
 
   const toggleEmojiPicker = event => {
     setAnchorEl(anchorEl ? null : event.currentTarget);
@@ -17,10 +18,10 @@ export default function useEmojiPicker() {
 
   const EmojiPicker = props => (
     <>
-      <IconButton onClick={toggleEmojiPicker}>
+      <IconButton aria-describedby={id} onClick={toggleEmojiPicker}>
         <InsertEmoticonIcon />
       </IconButton>
-      <Popper open={show} anchorEl={anchorEl} transition>
+      <Popper id={id} open={show} anchorEl={anchorEl} transition>
         <ClickAwayListener onClickAway={toggleEmojiPicker}>
           <Picker
             title={''}
