@@ -37,7 +37,7 @@ const ReportModal = ({
   title,
   profileImage,
   onConfirm,
-  postid,
+  post,
 }) => {
   const classes = useStyles();
   const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
@@ -119,8 +119,8 @@ const ReportModal = ({
                 </div>
               </div>
 
-              {postid ? (
-                <PostReport postid={postid} handleClose={handleClose} />
+              {post ? (
+                <PostReport postid={post?.id} handleClose={handleClose} />
               ) : (
                 <div
                   style={{
@@ -147,7 +147,7 @@ const ReportModal = ({
                 </div>
               )}
 
-              {!postid && (
+              {!post && (
                 <div>
                   <Button
                     variant='contained'
