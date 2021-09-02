@@ -124,7 +124,7 @@ export default function Home(props) {
       auth.updatePassword({
         saveData: {
           password,
-          confirmPassword: password,
+          // confirmPassword: password_old,
         },
       })
     );
@@ -314,23 +314,23 @@ export default function Home(props) {
                   }
                 />
                 {/*
-                  <TileTextField
-                    value={password_old}
-                    onChange={(e) => set_password_old(e.target.value)}
-                    variant='outlined'
-                    margin='normal'
-                    fullWidth
-                    name='password_old'
-                    label='Old Password'
-                    type='password'
-                    error={validationErrors && validationErrors.oldPassword}
-                    helperText={
-                      validationErrors.oldPassword
-                        ? Object.values(validationErrors.oldPassword).join(', ')
-                        : ''
-                    }
-                  />
-                  */}
+                <TileTextField
+                  value={password_old}
+                  onChange={e => set_password_old(e.target.value)}
+                  variant='outlined'
+                  margin='normal'
+                  fullWidth
+                  name='password_old'
+                  label='Old Password'
+                  type='password'
+                  error={'Please Check Your Old Password'}
+                  helperText={
+                    validationErrors.oldPassword
+                      ? Object.values(validationErrors.oldPassword).join(', ')
+                      : ''
+                  }
+                /> */}
+
                 <Button variant='outlined' type='submit' disabled={fetching}>
                   Update Password
                 </Button>
