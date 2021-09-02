@@ -77,6 +77,7 @@ export default function Home(props) {
   const [email, set_email] = React.useState('');
   const [phone, set_phone] = React.useState('');
   const [password, set_password] = React.useState('');
+  const [confirm_Password, setConfirmPassword] = React.useState('');
   const [password_old, set_password_old] = React.useState('');
   const [verificationViaSms, set_verificationViaSms] = React.useState(false);
   const [authenticatorApp, set_authenticatorApp] = React.useState(true);
@@ -124,8 +125,9 @@ export default function Home(props) {
     dispatch(
       auth.updatePassword({
         saveData: {
+          oldPassword: password_old,
           password,
-          // confirmPassword: password_old,
+          confirmPassword: confirm_Password,
         },
       })
     );
@@ -308,24 +310,6 @@ export default function Home(props) {
             <form onSubmit={handleUpdatePassword}>
               <Box mb={4}>
                 <TileTextField
-                  placeholder='•••••••'
-                  value={password}
-                  onChange={e => set_password(e.target.value)}
-                  variant='outlined'
-                  margin='normal'
-                  fullWidth
-                  name='password'
-                  label='Password'
-                  type='password'
-                  error={validationErrors && validationErrors.password}
-                  helperText={
-                    validationErrors.password
-                      ? Object.values(validationErrors.password).join(', ')
-                      : ''
-                  }
-                />
-                {/*
-                <TileTextField
                   value={password_old}
                   onChange={e => set_password_old(e.target.value)}
                   variant='outlined'
@@ -334,13 +318,47 @@ export default function Home(props) {
                   name='password_old'
                   label='Old Password'
                   type='password'
-                  error={'Please Check Your Old Password'}
+                  error={validationErrors && validationErrors.password}
                   helperText={
                     validationErrors.oldPassword
                       ? Object.values(validationErrors.oldPassword).join(', ')
                       : ''
                   }
-                /> */}
+                />
+
+                <TileTextField
+                  placeholder='•••••••'
+                  value={password}
+                  onChange={e => set_password(e.target.value)}
+                  variant='outlined'
+                  fullWidth
+                  name='password'
+                  label='New Password'
+                  type='password'
+                  error={validationErrors && validationErrors.password}
+                  helperText={
+                    validationErrors.password
+                      ? Object.values(validationErrors.password).join(', ')
+                      : ''
+                  }
+                />
+                <TileTextField
+                  placeholder='•••••••'
+                  value={confirm_Password}
+                  onChange={e => setConfirmPassword(e.target.value)}
+                  variant='outlined'
+                  margin='normal'
+                  fullWidth
+                  name='confirmpassword'
+                  label='Confirm New Password'
+                  type='password'
+                  error={validationErrors && validationErrors.password}
+                  helperText={
+                    validationErrors.password
+                      ? Object.values(validationErrors.password).join(', ')
+                      : ''
+                  }
+                />
 
                 <Button variant='outlined' type='submit' disabled={fetching}>
                   Update Password
