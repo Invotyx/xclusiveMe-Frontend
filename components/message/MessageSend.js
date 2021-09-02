@@ -56,23 +56,23 @@ export default function MessageSend({ handleSendMessage }) {
             opacity: isRecording ? 0 : 1,
           }}
         >
-          <MessageModalMedia
-            type='camera'
-            onMediaUploaded={handleSendMessage}
-          >
-            <img src='/camera.svg' alt='camera' />
+          <MessageModalMedia type='camera' onMediaUploaded={handleSendMessage}>
+            <img
+              src='/camera.svg'
+              alt='camera'
+            />
           </MessageModalMedia>
-          <MessageModalMedia
-            type='photo'
-            onMediaUploaded={handleSendMessage}
-          >
-            <img src='/imageBtn.svg' alt='image' />
+          <MessageModalMedia type='photo' onMediaUploaded={handleSendMessage}>
+            <img
+              src='/imageBtn.svg'
+              alt='image'
+            />
           </MessageModalMedia>
-          <MessageModalMedia
-            type='video'
-            onMediaUploaded={handleSendMessage}
-          >
-            <img src='/videoBtn.svg' alt='video' />
+          <MessageModalMedia type='video' onMediaUploaded={handleSendMessage}>
+            <img
+              src='/videoBtn.svg'
+              alt='video'
+            />
           </MessageModalMedia>
           <img
             src='/voiceBtn.svg'
