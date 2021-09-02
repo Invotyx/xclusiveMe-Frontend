@@ -28,6 +28,14 @@ export default function useEmojiPicker() {
             emoji='point_up'
             theme='dark'
             skin={1}
+            style={{
+              position: 'absolute',
+              bottom: '40px',
+              right: '150px',
+              maxWidth: '300px',
+              with: '100%',
+              outline: 'none',
+            }}
             {...props}
           />
         </ClickAwayListener>
