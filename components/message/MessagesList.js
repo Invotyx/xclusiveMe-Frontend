@@ -69,10 +69,10 @@ const MessagesList = ({ lastMessageReceived, scrollIntoViewPointer }) => {
   return (
     <>
       <div className={classes.mainBox}>
-        {singlechat?.map((i, x) => (
+        {singlechat?.map((message, x) => (
           <MessagesListItem
             key={`message${x}`}
-            i={i}
+            message={message}
             activeConversationId={activeConversationId}
           />
         ))}
