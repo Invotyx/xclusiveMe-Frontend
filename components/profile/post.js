@@ -44,9 +44,7 @@ import LoadingOverlay from 'react-loading-overlay';
 import BounceLoader from 'react-spinners/BounceLoader';
 import Notifications from '../../components/notification';
 import NotBuyedModel from './NotBuyedModel';
-import { Picker } from 'emoji-mart';
-import 'emoji-mart/css/emoji-mart.css';
-import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
+import useEmojiPicker from '../useEmojiPicker';
 import { useMediaQuery } from 'react-responsive';
 import queryString from 'query-string';
 import SinglePost from '../../pages/singlePost';
@@ -116,7 +114,7 @@ export default function Post({
   const [loading, setLoading] = useState(false);
   const fetchData = useSelector(fetchingSelector);
   const [notByedModel, setnotBuyedModel] = useState(false);
-  const [show, setShow] = useState(false);
+  const { toggleEmojiPicker, EmojiPicker } = useEmojiPicker();
   const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
   const [checkRefs, setCheckRefs] = useState(false);
 
@@ -145,13 +143,9 @@ export default function Post({
     </NextLink>
   );
 
-  const showEmoji = () => {
-    setShow(!show);
-  };
-
   const handleAddComment = event => {
     event.preventDefault();
-    setShow(false);
+    toggleEmojiPicker();
     if (!commentText || commentText.trim() === '') {
       return;
     }
@@ -760,18 +754,7 @@ export default function Post({
               }
               endAdornment={
                 <>
-                  <Button
-                    onClick={showEmoji}
-                    style={{
-                      backgroundColor: '#111111',
-                      border: 'none',
-                      marginRight: '-20px',
-                    }}
-                  >
-                    <span role='img'>
-                      <InsertEmoticonIcon />
-                    </span>
-                  </Button>
+                  <EmojiPicker onSelect={addEmoji} />
                   <Button
                     type='submit'
                     style={{
@@ -789,26 +772,6 @@ export default function Post({
                 </>
               }
             />
-            {show && (
-              <span>
-                <Picker
-                  title={''}
-                  onSelect={addEmoji}
-                  set='facebook'
-                  emoji='point_up'
-                  theme='dark'
-                  skin='1'
-                  style={{
-                    position: 'absolute',
-                    right: isMobile ? '40px' : '90px',
-                    bottom: '80px',
-                    maxWidth: '300px',
-                    with: '100%',
-                    outline: 'none',
-                  }}
-                />
-              </span>
-            )}
           </Box>
         </form>
       </Card>
