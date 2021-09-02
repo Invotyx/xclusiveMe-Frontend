@@ -7,7 +7,7 @@ import { useInView } from 'react-intersection-observer';
 import ImageListItem from './ImageListItem';
 import Box from '@material-ui/core/Box';
 
-const MessagesListItem = ({ activeConversationId, i, ...props }) => {
+const MessagesListItem = ({ activeConversationId, message, ...props }) => {
   const { ref, inView } = useInView({
     threshold: 0,
   });
@@ -15,7 +15,7 @@ const MessagesListItem = ({ activeConversationId, i, ...props }) => {
   const dispatch = useDispatch();
 
   React.useEffect(() => {
-    if (!i.isSeen && inView) {
+    if (!message.isSeen && inView) {
       dispatch(
         chat.isSeenMessage({
           id: activeConversationId,
@@ -37,49 +37,55 @@ const MessagesListItem = ({ activeConversationId, i, ...props }) => {
       <div className={styles.chatMessages}>
         <div
           className={
-            i.sender.id !== current?.id ? styles.leftSide : styles.rightSide
+            message.sender.id !== current?.id
+              ? styles.leftSide
+              : styles.rightSide
           }
         >
-          {i.content && (
+          {message.content && (
             <span
               className={
-                i.sender.id !== current?.id
+                message.sender.id !== current?.id
                   ? styles.leftMessage
                   : styles.rightMessage
               }
             >
-              {i.content}
+              {message.content}
             </span>
           )}
           <Box
             display='flex'
             width='100%'
             justifyContent={
-              i.sender.id !== current?.id ? 'flex-start' : 'flex-end'
+              message.sender.id !== current?.id ? 'flex-start' : 'flex-end'
             }
           >
-            {i.media?.map((messageMedia, i) => (
+            {message.media?.map((messageMedia, i) => (
               <a
                 key={`messageMedia${i}`}
                 href={messageMedia.url}
                 target='_blank'
               >
-                {i.messageMediaType === 'photo' ? (
+                {message.messageMediaType === 'photo' ? (
                   <ImageListItem src={messageMedia.url} />
+                ) : message.messageMediaType === 'audio' ? (
+                  <audio controls>
+                    <source src={messageMedia.url} />
+                  </audio>
                 ) : (
-                  <p>{i.messageMediaType || 'unknown type'}</p>
+                  <p>{message.messageMediaType || 'unknown type'}</p>
                 )}
               </a>
             ))}
           </Box>
         </div>
-        {i.sender.id !== current?.id ? (
+        {message.sender.id !== current?.id ? (
           <div className={styles.leftSide}>
-            <div>{i.mediaLink && i.mediaLink}</div>
+            <div>{message.mediaLink && message.mediaLink}</div>
           </div>
         ) : (
           <div className={styles.rightSide}>
-            {i.mediaLink && (
+            {message.mediaLink && (
               <div
                 style={{
                   marginTop: '10px',
@@ -88,7 +94,7 @@ const MessagesListItem = ({ activeConversationId, i, ...props }) => {
                 }}
               >
                 <img
-                  src={i.mediaLink}
+                  src={message.mediaLink}
                   alt=''
                   style={{
                     width: '200px',
