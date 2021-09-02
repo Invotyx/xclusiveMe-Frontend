@@ -3,6 +3,7 @@ import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
 import { Picker } from 'emoji-mart';
 import 'emoji-mart/css/emoji-mart.css';
 import React, { useState } from 'react';
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 
 export default function useEmojiPicker() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -19,6 +20,7 @@ export default function useEmojiPicker() {
         <InsertEmoticonIcon />
       </IconButton>
       {show && (
+        <ClickAwayListener onClickAway={toggleEmojiPicker}>
           <Picker
             title={''}
             set='facebook'
@@ -35,6 +37,7 @@ export default function useEmojiPicker() {
             }}
             {...props}
           />
+        </ClickAwayListener>
       )}
     </>
   );
