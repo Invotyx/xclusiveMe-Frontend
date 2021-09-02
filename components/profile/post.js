@@ -114,7 +114,7 @@ export default function Post({
   const [loading, setLoading] = useState(false);
   const fetchData = useSelector(fetchingSelector);
   const [notByedModel, setnotBuyedModel] = useState(false);
-  const { toggleEmojiPicker, EmojiPicker } = useEmojiPicker();
+  const { toggleEmojiPicker, EmojiPicker, emojiPickerRef } = useEmojiPicker();
   const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
   const [checkRefs, setCheckRefs] = useState(false);
 
@@ -750,7 +750,10 @@ export default function Post({
               }
               endAdornment={
                 <>
-                  <EmojiPicker onSelect={addEmoji} />
+                  <span ref={emojiPickerRef}>
+                    <EmojiPicker onSelect={addEmoji} />
+                  </span>
+
                   <Button
                     type='submit'
                     style={{
