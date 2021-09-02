@@ -58,25 +58,19 @@ const MessagesListItem = ({ activeConversationId, i, ...props }) => {
               i.sender.id !== current?.id ? 'flex-start' : 'flex-end'
             }
           >
-            {i.media?.map((messageMedia, i) =>
-              messageMedia.type === 'upload' ? (
-                <a
-                  key={`messageMedia${i}`}
-                  href={messageMedia.url}
-                  target='_blank'
-                >
+            {i.media?.map((messageMedia, i) => (
+              <a
+                key={`messageMedia${i}`}
+                href={messageMedia.url}
+                target='_blank'
+              >
+                {i.messageMediaType === 'photo' ? (
                   <ImageListItem src={messageMedia.url} />
-                </a>
-              ) : (
-                <a
-                  key={`messageMedia${i}`}
-                  href={messageMedia.url}
-                  target='_blank'
-                >
-                  <p>{messageMedia.type}</p>
-                </a>
-              )
-            )}
+                ) : (
+                  <p>{i.messageMediaType || 'unknown type'}</p>
+                )}
+              </a>
+            ))}
           </Box>
         </div>
         {i.sender.id !== current?.id ? (
