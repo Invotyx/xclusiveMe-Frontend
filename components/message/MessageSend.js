@@ -37,7 +37,7 @@ export default function MessageSend({ handleSendMessage }) {
     setMsgText(msgText + emoji);
   };
 
-  const showEmoji = () => {
+  const showEmojiPicker = () => {
     setShow(!show);
   };
 
@@ -110,7 +110,7 @@ export default function MessageSend({ handleSendMessage }) {
             }
             endAdornment={
               <>
-                <IconButton onClick={showEmoji}>
+                <IconButton onClick={showEmojiPicker}>
                   <InsertEmoticonIcon />
                 </IconButton>
                 <IconButton onClick={handleOnEnter}>
