@@ -8,17 +8,18 @@ import Popper from '@material-ui/core/Popper';
 
 export default function useEmojiPicker() {
   const [show, setShow] = useState(null);
+  const emojiPickerRef = React.useRef(null);
 
   const toggleEmojiPicker = event => {
     setShow(s => !s);
   };
 
-  const EmojiPicker = ({ anchorEl, ...props }) => (
+  const EmojiPicker = props => (
     <>
       <IconButton onClick={toggleEmojiPicker}>
         <InsertEmoticonIcon />
       </IconButton>
-      <Popper open={show} anchorEl={anchorEl} transition>
+      <Popper open={show} anchorEl={emojiPickerRef?.current} transition>
         <ClickAwayListener onClickAway={toggleEmojiPicker}>
           <Picker
             title={''}
@@ -34,6 +35,7 @@ export default function useEmojiPicker() {
   );
 
   return {
+    emojiPickerRef,
     toggleEmojiPicker,
     EmojiPicker,
   };
