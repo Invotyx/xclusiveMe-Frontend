@@ -69,7 +69,9 @@ const MessagesListItem = ({ activeConversationId, message, ...props }) => {
                 {message.messageMediaType === 'photo' ? (
                   <ImageListItem src={messageMedia.url} />
                 ) : message.messageMediaType === 'audio' ? (
-                  <ImageListItem src={messageMedia.url} />
+                  <audio controls>
+                    <source src={messageMedia.url} />
+                  </audio>
                 ) : (
                   <p>{message.messageMediaType || 'unknown type'}</p>
                 )}
