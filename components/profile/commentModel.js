@@ -30,9 +30,7 @@ import TipModal from './TipModal';
 import { fetchingSelector } from '../../selectors/postSelector';
 import LoadingOverlay from 'react-loading-overlay';
 import BounceLoader from 'react-spinners/BounceLoader';
-import { Picker } from 'emoji-mart';
-import 'emoji-mart/css/emoji-mart.css';
-import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
+import useEmojiPicker from '../useEmojiPicker';
 import { currentUserSelector } from '../../selectors/authSelector';
 import MonetizationOnOutlinedIcon from '@material-ui/icons/MonetizationOnOutlined';
 
@@ -100,7 +98,7 @@ const CommentModel = ({
   const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
   const [pageNumber, setPageNumber] = useState(2);
   const fetchData = useSelector(fetchingSelector);
-  const [show, setShow] = useState(false);
+  const { toggleEmojiPicker, EmojiPicker } = useEmojiPicker();
   const [commLength, setcommLength] = useState(10);
   const currUser = useSelector(currentUserSelector);
 
@@ -118,9 +116,6 @@ const CommentModel = ({
     setCommentText(commentText + emoji);
   };
 
-  const showEmoji = () => {
-    setShow(!show);
-  };
   function refreshPage() {
     window.location.reload(false);
   }
@@ -188,7 +183,7 @@ const CommentModel = ({
 
   const handleAddComment = event => {
     event.preventDefault();
-    setShow(false);
+    toggleEmojiPicker();
     if (!commentText || commentText.trim() === '') {
       return;
     }
@@ -563,7 +558,6 @@ const CommentModel = ({
                               display: 'flex',
                               justifyContent: 'space-between',
                             }}
-                            onClick={() => setShow(false)}
                           >
                             <div style={{ display: 'flex' }}>
                               <NextLink
@@ -853,18 +847,7 @@ const CommentModel = ({
                     }
                     endAdornment={
                       <>
-                        <Button
-                          onClick={showEmoji}
-                          style={{
-                            backgroundColor: '#111111',
-                            border: 'none',
-                            marginRight: '-20px',
-                          }}
-                        >
-                          <span role='img'>
-                            <InsertEmoticonIcon />
-                          </span>
-                        </Button>
+                        <EmojiPicker onSelect={addEmoji} />
                         <Button
                           type='submit'
                           style={{ backgroundColor: '#111111', border: 'none' }}
@@ -874,26 +857,6 @@ const CommentModel = ({
                       </>
                     }
                   />
-                  {show && (
-                    <span>
-                      <Picker
-                        title={''}
-                        onSelect={addEmoji}
-                        set='facebook'
-                        emoji='point_up'
-                        theme='dark'
-                        skin='1'
-                        style={{
-                          position: 'absolute',
-                          right: isMobile ? '40px' : '90px',
-                          bottom: '100px',
-                          maxWidth: '300px',
-                          with: '100%',
-                          outline: 'none',
-                        }}
-                      />
-                    </span>
-                  )}
                 </Box>
               </form>
             </div>
