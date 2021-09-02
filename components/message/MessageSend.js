@@ -105,7 +105,7 @@ export default function MessageSend({ handleSendMessage }) {
             }
             endAdornment={
               <span ref={myRef} style={{ display: 'flex' }}>
-                <EmojiPicker onSelect={addEmoji} />
+                <EmojiPicker onSelect={addEmoji} anchorEl={myRef.current} />
                 <IconButton onClick={handleOnEnter}>
                   <img
                     src='/send.png'
