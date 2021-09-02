@@ -33,9 +33,7 @@ import TipModal from '../components/profile/TipModal';
 import { fetchingSelector } from '../selectors/postSelector';
 import LoadingOverlay from 'react-loading-overlay';
 import BounceLoader from 'react-spinners/BounceLoader';
-import { Picker } from 'emoji-mart';
-import 'emoji-mart/css/emoji-mart.css';
-import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
+import useEmojiPicker from '../components/useEmojiPicker';
 import { useRouter } from 'next/router';
 import { currentUserSelector } from '../selectors/authSelector';
 
@@ -105,7 +103,7 @@ const SinglePost = ({
   const [openTip, setopenTip] = useState(false);
   const fetchData = useSelector(fetchingSelector);
   const [commLength, setcommLength] = useState(10);
-  const [show, setShow] = useState(false);
+  const { toggleEmojiPicker, EmojiPicker } = useEmojiPicker();
   const router = useRouter();
   const currUser = useSelector(currentUserSelector);
   const { postId, forCommentId } = router.query;
@@ -123,10 +121,6 @@ const SinglePost = ({
     sym.forEach(el => codesArray.push('0x' + el));
     let emoji = String.fromCodePoint(...codesArray);
     setCommentText(commentText + emoji);
-  };
-
-  const showEmoji = () => {
-    setShow(!show);
   };
 
   useEffect(() => {
@@ -194,7 +188,7 @@ const SinglePost = ({
 
   const handleAddComment = event => {
     event.preventDefault();
-    setShow(false);
+    toggleEmojiPicker();
     if (!commentText || commentText.trim() === '') {
       return;
     }
@@ -914,18 +908,7 @@ const SinglePost = ({
                   }
                   endAdornment={
                     <>
-                      <Button
-                        onClick={showEmoji}
-                        style={{
-                          backgroundColor: '#111111',
-                          border: 'none',
-                          marginRight: '-20px',
-                        }}
-                      >
-                        <span role='img'>
-                          <InsertEmoticonIcon />
-                        </span>
-                      </Button>
+                      <EmojiPicker onSelect={addEmoji} />
                       <Button
                         type='submit'
                         style={{ backgroundColor: '#111111', border: 'none' }}
@@ -935,26 +918,6 @@ const SinglePost = ({
                     </>
                   }
                 />
-                {show && (
-                  <span>
-                    <Picker
-                      title={''}
-                      onSelect={addEmoji}
-                      set='facebook'
-                      emoji='point_up'
-                      theme='dark'
-                      skin='1'
-                      style={{
-                        position: 'absolute',
-                        right: isMobile ? '40px' : '90px',
-                        bottom: '100px',
-                        maxWidth: '300px',
-                        with: '100%',
-                        outline: 'none',
-                      }}
-                    />
-                  </span>
-                )}
               </Box>
             </form>
           </div>
