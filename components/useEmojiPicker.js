@@ -26,7 +26,7 @@ export default function useEmojiPicker() {
             set='facebook'
             emoji='point_up'
             theme='dark'
-            skin='1'
+            skin={1}
             style={{
               position: 'absolute',
               bottom: '40px',
