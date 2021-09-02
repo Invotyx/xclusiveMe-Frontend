@@ -37,7 +37,7 @@ const RepliesData = ({
   const replyData = useSelector(repliesDataSelector);
   const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
   const [replyText, setReplyText] = useState('');
-  const { toggleEmojiPicker, EmojiPicker } = useEmojiPicker();
+  const { toggleEmojiPicker, EmojiPicker, emojiPickerRef } = useEmojiPicker();
   const totalRepliesCount = useSelector(totalrepliesSelector);
   const [pageNumber, setPageNumber] = useState(2);
   const [commLength, setcommLength] = useState(3);
@@ -322,7 +322,13 @@ const RepliesData = ({
               }
               endAdornment={
                 <>
-                  <EmojiPicker onSelect={addEmoji} />
+                  <span ref={emojiPickerRef}>
+                    <EmojiPicker
+                      onSelect={addEmoji}
+                      popperProps={{ style: { zIndex: 1111111 } }}
+                    />
+                  </span>
+
                   <Button
                     type='submit'
                     style={{

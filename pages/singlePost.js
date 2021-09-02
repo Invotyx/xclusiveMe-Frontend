@@ -103,7 +103,7 @@ const SinglePost = ({
   const [openTip, setopenTip] = useState(false);
   const fetchData = useSelector(fetchingSelector);
   const [commLength, setcommLength] = useState(10);
-  const { toggleEmojiPicker, EmojiPicker } = useEmojiPicker();
+  const { toggleEmojiPicker, EmojiPicker, emojiPickerRef } = useEmojiPicker();
   const router = useRouter();
   const currUser = useSelector(currentUserSelector);
   const { postId, forCommentId } = router.query;
@@ -908,7 +908,10 @@ const SinglePost = ({
                   }
                   endAdornment={
                     <>
-                      <EmojiPicker onSelect={addEmoji} />
+                      <span ref={emojiPickerRef}>
+                        <EmojiPicker onSelect={addEmoji} />
+                      </span>
+
                       <Button
                         type='submit'
                         style={{ backgroundColor: '#111111', border: 'none' }}

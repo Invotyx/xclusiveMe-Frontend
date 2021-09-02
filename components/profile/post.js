@@ -751,7 +751,10 @@ export default function Post({
               endAdornment={
                 <>
                   <span ref={emojiPickerRef}>
-                    <EmojiPicker onSelect={addEmoji} />
+                    <EmojiPicker
+                      onSelect={addEmoji}
+                      popperProps={{ placement: 'bottom-end' }}
+                    />
                   </span>
 
                   <Button
