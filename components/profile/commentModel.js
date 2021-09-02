@@ -98,7 +98,7 @@ const CommentModel = ({
   const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
   const [pageNumber, setPageNumber] = useState(2);
   const fetchData = useSelector(fetchingSelector);
-  const { toggleEmojiPicker, EmojiPicker } = useEmojiPicker();
+  const { toggleEmojiPicker, EmojiPicker, emojiPickerRef } = useEmojiPicker();
   const [commLength, setcommLength] = useState(10);
   const currUser = useSelector(currentUserSelector);
 
@@ -847,7 +847,13 @@ const CommentModel = ({
                     }
                     endAdornment={
                       <>
-                        <EmojiPicker onSelect={addEmoji} />
+                        <span ref={emojiPickerRef}>
+                          <EmojiPicker
+                            onSelect={addEmoji}
+                            popperProps={{ style: { zIndex: 1111111 } }}
+                          />
+                        </span>
+
                         <Button
                           type='submit'
                           style={{ backgroundColor: '#111111', border: 'none' }}
