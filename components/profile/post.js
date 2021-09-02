@@ -276,32 +276,28 @@ export default function Post({
             avatar={<ProfileImageAvatar user={profileData} />}
             action={
               <div>
-                {post.media.length === 0 ||
-                post?.user?.username == currentUser?.username ? (
-                  <></>
-                ) : (
-                  <ManuButton
-                    postid={post?.id}
-                    subscriptionPlans={subscriptionPlans}
-                    title='Report'
-                    profileImage={post?.user}
-                    onConfirm={(reason, callback) =>
-                      dispatch(
-                        postData.postReport({
-                          reportData: {
-                            itemId: post?.id,
-                            reason,
-                          },
-                          callback: () => {
-                            callback && callback();
-                            dispatch(postData.request());
-                            dispatch(postData.requestSubscribed());
-                          },
-                        })
-                      )
-                    }
-                  />
-                )}
+                <ManuButton
+                  post={post}
+                  currentUser={currentUser}
+                  subscriptionPlans={subscriptionPlans}
+                  title='Report'
+                  profileImage={post?.user}
+                  onConfirm={(reason, callback) =>
+                    dispatch(
+                      postData.postReport({
+                        reportData: {
+                          itemId: post?.id,
+                          reason,
+                        },
+                        callback: () => {
+                          callback && callback();
+                          dispatch(postData.request());
+                          dispatch(postData.requestSubscribed());
+                        },
+                      })
+                    )
+                  }
+                />
               </div>
             }
             title={
