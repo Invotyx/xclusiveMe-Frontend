@@ -9,13 +9,12 @@ import Box from '@material-ui/core/Box';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import { Button } from '@material-ui/core';
 import SendIcon from '@material-ui/icons/Send';
-import { useMediaQuery } from 'react-responsive';
-import { Picker } from 'emoji-mart';
-import 'emoji-mart/css/emoji-mart.css';
+import useEmojiPicker from '../useEmojiPicker';
 import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
 import { totalrepliesSelector } from '../../selectors/postSelector';
 import RepliesLists from './RepliesLists';
 import { TramOutlined } from '@material-ui/icons';
+import { useMediaQuery } from 'react-responsive';
 
 const RepliesData = ({
   comm,
@@ -38,7 +37,7 @@ const RepliesData = ({
   const replyData = useSelector(repliesDataSelector);
   const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
   const [replyText, setReplyText] = useState('');
-  const [show, setShow] = useState(false);
+  const { toggleEmojiPicker, EmojiPicker } = useEmojiPicker();
   const totalRepliesCount = useSelector(totalrepliesSelector);
   const [pageNumber, setPageNumber] = useState(2);
   const [commLength, setcommLength] = useState(3);
@@ -53,10 +52,6 @@ const RepliesData = ({
     sym.forEach(el => codesArray.push('0x' + el));
     let emoji = String.fromCodePoint(...codesArray);
     setReplyText(replyText + emoji);
-  };
-
-  const showEmoji = () => {
-    setShow(!show);
   };
 
   useEffect(() => {
@@ -125,7 +120,7 @@ const RepliesData = ({
 
   const handleAddReply = event => {
     event.preventDefault();
-    setShow(false);
+    toggleEmojiPicker();
     console.log(commentId);
 
     if (!replyText || replyText.trim() === '') {
@@ -158,7 +153,7 @@ const RepliesData = ({
 
   return (
     <div>
-      <div style={{ display: 'flex' }} onClick={() => setShow(false)}>
+      <div style={{ display: 'flex' }}>
         <div style={{ marginRight: '10px' }}>
           {comm.totalLikes === 0 ? (
             <div style={{ display: 'flex' }}>
@@ -327,18 +322,7 @@ const RepliesData = ({
               }
               endAdornment={
                 <>
-                  <Button
-                    onClick={showEmoji}
-                    style={{
-                      backgroundColor: '#111111',
-                      border: 'none',
-                      marginRight: '-20px',
-                    }}
-                  >
-                    <span role='img'>
-                      <InsertEmoticonIcon />
-                    </span>
-                  </Button>
+                  <EmojiPicker onSelect={addEmoji} />
                   <Button
                     type='submit'
                     style={{
@@ -351,26 +335,6 @@ const RepliesData = ({
                 </>
               }
             />
-            {show && (
-              <span>
-                <Picker
-                  title={''}
-                  onSelect={addEmoji}
-                  set='facebook'
-                  emoji='point_up'
-                  theme='dark'
-                  skin='1'
-                  style={{
-                    position: 'absolute',
-                    left: isMobile ? '40px' : '17vw',
-                    bottom: isMobile ? '250px' : '80px',
-                    maxWidth: '300px',
-                    with: '100%',
-                    outline: 'none',
-                  }}
-                />
-              </span>
-            )}
           </Box>
         </form>
       ) : (
