@@ -1,32 +1,26 @@
 import { OutlinedInput } from '@material-ui/core';
 import CardActions from '@material-ui/core/CardActions';
 import IconButton from '@material-ui/core/IconButton';
-import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
-import { Picker } from 'emoji-mart';
-import 'emoji-mart/css/emoji-mart.css';
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { currentUserSelector } from '../../selectors/authSelector';
 import ProfileImageAvatar from '../profile/profile-image-avatar';
 import MessageModalMedia from './MessageModalMedia';
 import useAudioSend from './useAudioSend';
+import useEmojiPicker from '../useEmojiPicker';
 
 export default function MessageSend({ handleSendMessage }) {
+  const { toggleEmojiPicker, EmojiPicker } = useEmojiPicker();
   const current = useSelector(currentUserSelector);
   const { AudioSend, isRecording, startRecordingHandler } = useAudioSend();
-  const [show, setShow] = useState(false);
   const [msgText, setMsgText] = useState('');
-
-  function hideEmojiPicker() {
-    setShow(false);
-  }
 
   function handleOnEnter() {
     if (!msgText || msgText.trim() === '') {
       return;
     }
 
-    hideEmojiPicker();
+    toggleEmojiPicker();
 
     handleSendMessage(msgText, () => {
       setMsgText('');
@@ -39,10 +33,6 @@ export default function MessageSend({ handleSendMessage }) {
     sym.forEach(el => codesArray.push('0x' + el));
     let emoji = String.fromCodePoint(...codesArray);
     setMsgText(msgText + emoji);
-  };
-
-  const showEmojiPicker = () => {
-    setShow(!show);
   };
 
   return (
@@ -114,9 +104,7 @@ export default function MessageSend({ handleSendMessage }) {
             }
             endAdornment={
               <>
-                <IconButton onClick={showEmojiPicker}>
-                  <InsertEmoticonIcon />
-                </IconButton>
+                <EmojiPicker onSelect={addEmoji} />
                 <IconButton onClick={handleOnEnter}>
                   <img
                     src='/send.png'
@@ -139,27 +127,6 @@ export default function MessageSend({ handleSendMessage }) {
           />
         )}
       </CardActions>
-
-      {show && (
-        <span>
-          <Picker
-            title={''}
-            onSelect={addEmoji}
-            set='facebook'
-            emoji='point_up'
-            theme='dark'
-            skin='1'
-            style={{
-              position: 'absolute',
-              bottom: '40px',
-              right: '150px',
-              maxWidth: '300px',
-              with: '100%',
-              outline: 'none',
-            }}
-          />
-        </span>
-      )}
     </>
   );
 }
