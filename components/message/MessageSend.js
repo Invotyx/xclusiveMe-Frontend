@@ -17,12 +17,16 @@ export default function MessageSend({ handleSendMessage }) {
   const [show, setShow] = useState(false);
   const [msgText, setMsgText] = useState('');
 
+  function hideEmojiPicker() {
+    setShow(false);
+  }
+
   function handleOnEnter() {
     if (!msgText || msgText.trim() === '') {
       return;
     }
 
-    setShow(false);
+    hideEmojiPicker();
 
     handleSendMessage(msgText, () => {
       setMsgText('');
