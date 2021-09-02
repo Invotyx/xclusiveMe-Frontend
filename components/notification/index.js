@@ -81,9 +81,9 @@ export default function Notification({
                   moment().toISOString().substring(0, 10)
             );
             return temp.length ? (
-            <li key={Math.random()} className={classes.listSection}>
-              <ul style={{ padding: 0 }}>
-                <ListSubheader>{elm}</ListSubheader>
+              <li key={Math.random()} className={classes.listSection}>
+                <ul style={{ padding: 0 }}>
+                  <ListSubheader>{elm}</ListSubheader>
                   {temp.map((i, x) => (
                     <ListItem
                       onClick={() =>
@@ -231,8 +231,8 @@ export default function Notification({
                       />
                     </ListItem>
                   ))}
-              </ul>
-            </li>
+                </ul>
+              </li>
             ) : (
               <></>
             );
