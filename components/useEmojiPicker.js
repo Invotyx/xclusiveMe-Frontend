@@ -6,7 +6,7 @@ import React, { useState } from 'react';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 
 export default function useEmojiPicker() {
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
 
   const show = Boolean(anchorEl);
 
