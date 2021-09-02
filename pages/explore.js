@@ -93,7 +93,12 @@ export default function Home() {
             </Grid>
 
             {!isMobile && (
-              <Grid item xs={12} md={3}>
+              <Grid
+                item
+                xs={12}
+                md={3}
+                style={{ overflow: 'hidden', paddingLeft: '16px' }}
+              >
                 <Typography>Suggestions For You</Typography>
                 <List>
                   {suggestion?.map(
