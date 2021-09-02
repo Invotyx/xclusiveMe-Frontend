@@ -4,22 +4,21 @@ import { Picker } from 'emoji-mart';
 import 'emoji-mart/css/emoji-mart.css';
 import React, { useState } from 'react';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+import Popper from '@material-ui/core/Popper';
 
 export default function useEmojiPicker() {
-  const [anchorEl, setAnchorEl] = useState(null);
-
-  const show = Boolean(anchorEl);
+  const [show, setShow] = useState(null);
 
   const toggleEmojiPicker = event => {
-    setAnchorEl(anchorEl ? null : event.currentTarget);
+    setShow(s => !s);
   };
 
-  const EmojiPicker = props => (
+  const EmojiPicker = ({ anchorEl, ...props }) => (
     <>
       <IconButton onClick={toggleEmojiPicker}>
         <InsertEmoticonIcon />
       </IconButton>
-      {show && (
+      <Popper open={show} anchorEl={anchorEl} transition>
         <ClickAwayListener onClickAway={toggleEmojiPicker}>
           <Picker
             title={''}
@@ -27,18 +26,10 @@ export default function useEmojiPicker() {
             emoji='point_up'
             theme='dark'
             skin={1}
-            style={{
-              position: 'absolute',
-              bottom: '50px',
-              right: '90px',
-              maxWidth: '300px',
-              with: '100%',
-              outline: 'none',
-            }}
             {...props}
           />
         </ClickAwayListener>
-      )}
+      </Popper>
     </>
   );
 
