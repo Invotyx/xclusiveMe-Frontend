@@ -7,6 +7,11 @@ const postDataSelector = createSelector(postState, state => {
   return data;
 });
 
+const purchasedPostsSelector = createSelector(postState, state => {
+  const data = state.get('purchased');
+  return data;
+});
+
 const settingsNotify = createSelector(postState, state => {
   const data = state.get('notiData');
   return data;
@@ -72,6 +77,7 @@ const errorSelector = createSelector(postState, state => {
 });
 export {
   postDataSelector,
+  purchasedPostsSelector,
   notificationsCount,
   profileDataSelector,
   singlepostDataSelector,
