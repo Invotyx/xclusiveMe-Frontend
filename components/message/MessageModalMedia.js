@@ -85,11 +85,25 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
           handleClose();
         }
       );
-    } else {
+    } else if (type === 'photo' || type === 'camera') {
       onMediaUploaded(
         {
           type: 'media',
           messageMediaType: 'photo',
+          media: uploadedMedia,
+          content,
+          isPaid: Boolean(price),
+          price,
+        },
+        () => {
+          handleClose();
+        }
+      );
+    } else if (type === 'video') {
+      onMediaUploaded(
+        {
+          type: 'media',
+          messageMediaType: 'video',
           media: uploadedMedia,
           content,
           isPaid: Boolean(price),
@@ -177,9 +191,10 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
             </Box>
             <Box mx={1}>
               <UploadVideo
-                onUploadVideoComplete={(muxId, mediaType) => {
+                onUploadVideoComplete={(muxId, mediaType, data) => {
                   set_disabled(false);
                   setTileData([...tileData, '/no-media.jpg']);
+                  setUploadedMedia(prev => [...prev, data]);
                 }}
                 onVideoError={() => set_disabled(false)}
                 onVideoUploadProgress={val => {

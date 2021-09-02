@@ -49,7 +49,7 @@ export default function UploadVideo({
 
             // subscribe to events
             upload.on('success', err => {
-              onUploadVideoComplete(res.id, video.type);
+              onUploadVideoComplete(res.id, video.type, res);
               onVideoUploaded && onVideoUploaded();
               event.target.value = null;
               console.log("Wrap it up, we're done here.");

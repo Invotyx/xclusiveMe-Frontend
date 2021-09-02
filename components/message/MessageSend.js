@@ -119,6 +119,7 @@ export default function MessageSend({ handleSendMessage }) {
           <AudioSend
             onAudioUploaded={data =>
               handleSendMessage({
+                content: '',
                 type: 'media',
                 messageMediaType: 'audio',
                 media: data,
