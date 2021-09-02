@@ -607,7 +607,12 @@ export default function Profile({
                           <Videos videosData={videosData} />
                         </TabPanel>
                         <TabPanel value={tab} index={3}>
-                          <PurchasedPosts />
+                          <PurchasedPosts
+                            profileData={profileData}
+                            me={me}
+                            username={username}
+                            subscriptionPlans={subscriptionPlans}
+                          />
                         </TabPanel>
                       </ListItemText>
                     </ListItem>

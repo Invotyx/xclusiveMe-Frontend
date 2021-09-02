@@ -6,7 +6,7 @@ import { post } from '../../actions/post';
 import { purchasedPostsSelector } from '../../selectors/postSelector';
 import Post from './post';
 
-export default function PurchasedPosts() {
+export default function PurchasedPosts(props) {
   const dispatch = useDispatch();
 
   const purchasedPosts = useSelector(purchasedPostsSelector);
@@ -26,7 +26,7 @@ export default function PurchasedPosts() {
       )}
       {purchasedPosts?.results?.map((post, i) => (
         <Grid item xs={12} key={`purchasedPosts${i}`}>
-          <Post post={post} />
+          <Post post={post} {...props} />
         </Grid>
       ))}
     </Grid>
