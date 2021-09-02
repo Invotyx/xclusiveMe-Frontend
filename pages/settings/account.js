@@ -131,6 +131,9 @@ export default function Home(props) {
         },
       })
     );
+    setConfirmPassword('');
+    set_password('');
+    set_password_old('');
   };
   const handleLogOutAllSessions = () => {
     dispatch(auth.expireAllSessions());
