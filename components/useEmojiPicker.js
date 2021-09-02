@@ -14,12 +14,17 @@ export default function useEmojiPicker() {
     setShow(s => !s);
   };
 
-  const EmojiPicker = props => (
+  const EmojiPicker = ({ popperProps, ...props }) => (
     <>
       <IconButton onClick={toggleEmojiPicker}>
         <InsertEmoticonIcon />
       </IconButton>
-      <Popper open={show} anchorEl={emojiPickerRef?.current} transition>
+      <Popper
+        open={show}
+        anchorEl={emojiPickerRef?.current}
+        transition
+        {...popperProps}
+      >
         <ClickAwayListener onClickAway={toggleEmojiPicker}>
           <Picker
             title={''}
