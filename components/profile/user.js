@@ -59,6 +59,7 @@ import {
 } from '../../selectors/userSelector';
 import { followerCountSelector } from '../../selectors/userSelector';
 import ReportModal from './ReportModal';
+import PurchasedPosts from './PurchasedPosts';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -604,6 +605,9 @@ export default function Profile({
                         </TabPanel>
                         <TabPanel value={tab} index={2}>
                           <Videos videosData={videosData} />
+                        </TabPanel>
+                        <TabPanel value={tab} index={3}>
+                          <PurchasedPosts />
                         </TabPanel>
                       </ListItemText>
                     </ListItem>

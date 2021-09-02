@@ -7,6 +7,10 @@ export async function getAll() {
   return apiClient.get(`${SERVER_ADDRESS}/posts/`);
 }
 
+export async function getPurchased() {
+  return apiClient.get(`${SERVER_ADDRESS}/posts/purchased`);
+}
+
 export async function getOnePost(id) {
   return apiClient.get(`${SERVER_ADDRESS}/posts/${id}`);
 }

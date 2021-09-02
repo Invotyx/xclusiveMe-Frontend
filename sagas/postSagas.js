@@ -4,6 +4,7 @@ import { post } from '../actions/post';
 import { snackbar } from '../actions/snackbar';
 import {
   getAll,
+  getPurchased,
   uploadImage,
   update,
   destory,
@@ -52,6 +53,16 @@ function* handleGetProfile() {
         numberOfPosts: data.totalCount,
       })
     );
+  } catch (e) {
+    console.log(e);
+    yield put(post.success({ error: true }));
+  }
+}
+
+function* handleGetPurchased() {
+  try {
+    const { data } = yield call(getPurchased);
+    yield put(post.success({ purchased: data }));
   } catch (e) {
     console.log(e);
     yield put(post.success({ error: true }));
@@ -579,6 +590,7 @@ function* watchPostSagas() {
   yield all([
     takeLatest(POST.GET, handleGet),
     takeLatest(POST.GET, handleGetProfile),
+    takeLatest(POST.GET_PURCHASED, handleGetPurchased),
     takeLatest(POST.PURCHASE_POST, handlePostPurchase),
     takeLatest(POST.GET_NOTIFICATIONS, getAllNotifications),
     takeLatest(POST.ADD_SETTING_NOTIFICATIONS, handleAddSettingNotifications),

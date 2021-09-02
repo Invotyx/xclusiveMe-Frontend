@@ -9,6 +9,13 @@ export const post = {
       error: null,
     }),
 
+  requestPurchased: () =>
+    createAction(POST.GET_PURCHASED, {
+      fetching: true,
+      success: false,
+      error: null,
+    }),
+
   requestNotifications: () =>
     createAction(POST.GET_NOTIFICATIONS, {
       fetching: true,

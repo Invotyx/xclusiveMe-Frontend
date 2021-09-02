@@ -2,6 +2,7 @@ import { createActionTypes } from '../../utils';
 
 export const POST = createActionTypes('POST', [
   'GET',
+  'GET_PURCHASED',
   'GET_ONE',
   'PURCHASE_POST',
   'GET_SUBSCRIBED',
