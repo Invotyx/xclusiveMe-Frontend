@@ -85,7 +85,7 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
           handleClose();
         }
       );
-    } else {
+    } else if (type === 'photo' || type === 'camera') {
       onMediaUploaded(
         {
           type: 'media',
