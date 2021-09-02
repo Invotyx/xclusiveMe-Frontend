@@ -50,32 +50,33 @@ export default function MessageSend({ handleSendMessage }) {
       >
         <div
           style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            width: '30%',
             opacity: isRecording ? 0 : 1,
           }}
         >
           <MessageModalMedia type='camera' onMediaUploaded={handleSendMessage}>
             <img
               src='/camera.svg'
+              style={{ marginRight: '10px' }}
               alt='camera'
             />
           </MessageModalMedia>
           <MessageModalMedia type='photo' onMediaUploaded={handleSendMessage}>
             <img
               src='/imageBtn.svg'
+              style={{ marginRight: '10px' }}
               alt='image'
             />
           </MessageModalMedia>
           <MessageModalMedia type='video' onMediaUploaded={handleSendMessage}>
             <img
               src='/videoBtn.svg'
+              style={{ marginRight: '10px' }}
               alt='video'
             />
           </MessageModalMedia>
           <img
             src='/voiceBtn.svg'
+            style={{ marginRight: '10px' }}
             alt='voice'
             onClick={startRecordingHandler}
           />
