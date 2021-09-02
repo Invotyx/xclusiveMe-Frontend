@@ -84,34 +84,6 @@ const MessagesListItem = ({ activeConversationId, message, ...props }) => {
             ))}
           </Box>
         </div>
-        {message.sender.id !== current?.id ? (
-          <div className={styles.leftSide}>
-            <div>{message.mediaLink && message.mediaLink}</div>
-          </div>
-        ) : (
-          <div className={styles.rightSide}>
-            {message.mediaLink && (
-              <div
-                style={{
-                  marginTop: '10px',
-                  border: '1px solid #222222',
-                  borderRadius: '8px',
-                }}
-              >
-                <img
-                  src={message.mediaLink}
-                  alt=''
-                  style={{
-                    width: '200px',
-                    height: '200px',
-                    padding: '20px',
-                    borderRadius: '8px',
-                  }}
-                />
-              </div>
-            )}
-          </div>
-        )}
       </div>
     </div>
   );
