@@ -10,6 +10,7 @@ import useAudioSend from './useAudioSend';
 import useEmojiPicker from '../useEmojiPicker';
 
 export default function MessageSend({ handleSendMessage }) {
+  const myRef = React.useRef(null);
   const { toggleEmojiPicker, EmojiPicker } = useEmojiPicker();
   const current = useSelector(currentUserSelector);
   const { AudioSend, isRecording, startRecordingHandler } = useAudioSend();
@@ -103,7 +104,7 @@ export default function MessageSend({ handleSendMessage }) {
               />
             }
             endAdornment={
-              <span>
+              <span ref={myRef}>
                 <EmojiPicker onSelect={addEmoji} />
                 <IconButton onClick={handleOnEnter}>
                   <img
