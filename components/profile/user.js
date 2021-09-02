@@ -395,7 +395,8 @@ export default function Profile({
                             {me ||
                               (myCurrentUser?.username === username
                                 ? ''
-                                : !subscriptionPlans && (
+                                : (profileData?.followsMe ||
+                                    !subscriptionPlans) && (
                                     <>
                                       <NormalCaseButton
                                         startIcon={<ChatIcon />}
