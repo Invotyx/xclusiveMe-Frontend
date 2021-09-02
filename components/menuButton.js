@@ -5,6 +5,7 @@ import Menu from '@material-ui/core/Menu';
 import ReportModal from './profile/ReportModal';
 import { useDispatch } from 'react-redux';
 import { snackbar } from '../actions/snackbar';
+import { post } from '../actions/post';
 
 const ManuButton = props => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -56,18 +57,25 @@ const ManuButton = props => {
         <MoreVertIcon />
       </IconButton>
 
-      <Menu
-        id='simple-menu'
-        anchorEl={anchorEl}
-        keepMounted
-        open={Boolean(anchorEl)}
-        onClose={handleCloseMenu}
-      >
-        {props.postid && (
-          <MenuItem onClick={handleCopy}>Copy link to post</MenuItem>
-        )}
-        <MenuItem onClick={handleOpenReportModal}>Report</MenuItem>
-      </Menu>
+      {props.post?.media.length === 0 ? (
+        <></>
+      ) : (
+        <Menu
+          id='simple-menu'
+          anchorEl={anchorEl}
+          keepMounted
+          open={Boolean(anchorEl)}
+          onClose={handleCloseMenu}
+        >
+          {props.post && (
+            <MenuItem onClick={handleCopy}>Copy link to post</MenuItem>
+          )}
+          {(!props.post ||
+            props.post?.user.username !== props.currentUser?.username) && (
+            <MenuItem onClick={handleOpenReportModal}>Report</MenuItem>
+          )}
+        </Menu>
+      )}
 
       <ReportModal
         openReportModal={openReportModal}
