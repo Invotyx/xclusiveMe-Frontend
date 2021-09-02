@@ -73,7 +73,7 @@ const MessagesListItem = ({ activeConversationId, i, ...props }) => {
                   href={messageMedia.url}
                   target='_blank'
                 >
-                  <p>{messageMedia.type}</p>
+                  <p>{i.messageMediaType}</p>
                 </a>
               )
             )}
