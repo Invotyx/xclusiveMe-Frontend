@@ -24,11 +24,9 @@ export default function PurchasedPosts() {
           </Box>
         </Grid>
       )}
-      {purchasedPosts?.map((post, i) => (
-        <Grid item xs={12} md={4} key={`purchasedPosts${i}`}>
-          <Post
-            post={post}
-          />
+      {purchasedPosts?.results?.map((post, i) => (
+        <Grid item xs={12} key={`purchasedPosts${i}`}>
+          <Post post={post} />
         </Grid>
       ))}
     </Grid>
