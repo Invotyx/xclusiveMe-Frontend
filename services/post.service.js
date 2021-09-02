@@ -8,7 +8,7 @@ export async function getAll() {
 }
 
 export async function getPurchased() {
-  return apiClient.get(`${SERVER_ADDRESS}/posts/purchased`);
+  return apiClient.get(`${SERVER_ADDRESS}/posts/a/b/c/purchased`);
 }
 
 export async function getOnePost(id) {
