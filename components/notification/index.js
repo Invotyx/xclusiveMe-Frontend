@@ -72,19 +72,19 @@ export default function Notification({
     <>
       {Boolean(notifyCount) ? (
         <List disablePadding>
-          {chckday.map(elm => {
-            const temp = listofNotifications?.filter(n =>
-              elm === 'Today'
-                ? n.createdAt.substring(0, 10) ===
-                  moment().toISOString().substring(0, 10)
-                : n.createdAt.substring(0, 10) !==
-                  moment().toISOString().substring(0, 10)
-            );
-            return temp.length ? (
+          {chckday.map(elm => (
             <li key={Math.random()} className={classes.listSection}>
               <ul style={{ padding: 0 }}>
                 <ListSubheader>{elm}</ListSubheader>
-                  {temp.map((i, x) => (
+                {listofNotifications
+                  ?.filter(n =>
+                    elm === 'Today'
+                      ? n.createdAt.substring(0, 10) ===
+                        moment().toISOString().substring(0, 10)
+                      : n.createdAt.substring(0, 10) !==
+                        moment().toISOString().substring(0, 10)
+                  )
+                  .map((i, x) => (
                     <ListItem
                       onClick={() =>
                         readNotification(
@@ -233,10 +233,7 @@ export default function Notification({
                   ))}
               </ul>
             </li>
-            ) : (
-              <></>
-            );
-          })}
+          ))}
         </List>
       ) : (
         <p style={{ marginLeft: '20px', padding: '20px', width: '200px' }}>
