@@ -103,7 +103,7 @@ export default function MessageSend({ handleSendMessage }) {
               />
             }
             endAdornment={
-              <>
+              <span>
                 <EmojiPicker onSelect={addEmoji} />
                 <IconButton onClick={handleOnEnter}>
                   <img
@@ -112,7 +112,7 @@ export default function MessageSend({ handleSendMessage }) {
                     style={{ marginRight: '10px' }}
                   />
                 </IconButton>
-              </>
+              </span>
             }
           />
         ) : (
