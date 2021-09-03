@@ -80,7 +80,7 @@ export default function Home() {
         </Head>
         <Container maxWidth='md' disableGutters>
           <Grid container className={classes.root}>
-            <Grid item xs={12} md={9}>
+            <Grid item xs={12} md={8}>
               {posts && posts.length > 0 ? (
                 posts.map((post, i) => (
                   <Box key={i} mb={2}>
@@ -96,8 +96,11 @@ export default function Home() {
               <Grid
                 item
                 xs={12}
-                md={3}
-                style={{ overflow: 'hidden', paddingLeft: '16px' }}
+                md={4}
+                style={{
+                  overflow: 'hidden',
+                  paddingLeft: '16px',
+                }}
               >
                 <Typography>Suggestions For You</Typography>
                 <List>
@@ -127,7 +130,7 @@ export default function Home() {
                           <ListItemSecondaryAction>
                             <NextLink href={`/x/${s.username}`} passHref>
                               <Link>
-                                <div style={{ marginRight: '-10vw' }}>
+                                <div>
                                   <Typography variant='caption'>
                                     See Profile
                                   </Typography>
