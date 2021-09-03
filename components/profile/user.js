@@ -60,6 +60,7 @@ import {
 import { followerCountSelector } from '../../selectors/userSelector';
 import ReportModal from './ReportModal';
 import PurchasedPosts from './PurchasedPosts';
+import { post } from '../../actions/post';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -598,6 +599,9 @@ export default function Profile({
                                       post={f}
                                       profileData={profileData}
                                       me={me}
+                                      callbackAction={() => {
+                                        dispatch(post.requestX({ username }));
+                                      }}
                                     />
                                   </Grid>
                                 ))}
@@ -616,6 +620,9 @@ export default function Profile({
                         <TabPanel value={tab} index={3}>
                           <PurchasedPosts
                             me={me}
+                            callbackAction={() => {
+                              dispatch(post.requestPurchased());
+                            }}
                           />
                         </TabPanel>
                       </ListItemText>
