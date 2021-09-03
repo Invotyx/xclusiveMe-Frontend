@@ -80,7 +80,11 @@ const MessagesListItem = ({ activeConversationId, message, ...props }) => {
                   }}
                   onClick={handleOpenModel}
                 />
-                <PostPurchaseModel post={null} modalTitle='Unlock message?' />
+                <PostPurchaseModel
+                  post={null}
+                  modalTitle='Unlock message?'
+                  price={message.price}
+                />
               </>
             )}
             {!message.isLocked &&

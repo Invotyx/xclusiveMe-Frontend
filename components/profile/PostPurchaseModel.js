@@ -66,7 +66,7 @@ const usePostPurchaseModel = () => {
     setOpenModel(false);
   };
 
-  const PostPurchaseModel = ({ post, modalTitle }) => (
+  const PostPurchaseModel = ({ post, modalTitle, price }) => (
     <Modal
       aria-labelledby='transition-modal-title'
       aria-describedby='transition-modal-description'
@@ -144,7 +144,7 @@ const usePostPurchaseModel = () => {
                         fontWeight: '600',
                       }}
                     >
-                      ${post?.price}.00
+                      ${price}.00
                     </p>
                     <p
                       style={{
@@ -279,7 +279,7 @@ const usePostPurchaseModel = () => {
                         marginTop: '-1vh',
                       }}
                     >
-                      ${post?.price}.00
+                      ${price}.00
                     </p>
                   </div>
                   <div
