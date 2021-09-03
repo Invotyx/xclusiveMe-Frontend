@@ -27,6 +27,10 @@ export default function MessageModalMediaCamera({
     );
   }, [webcamRef, setImgSrc]);
 
+  const reset = () => {
+    setImgSrc(null);
+  };
+
   return (
     <>
       {imgSrc ? (
@@ -36,7 +40,7 @@ export default function MessageModalMediaCamera({
             <Button
               variant='outlined'
               size='small'
-              onClick={() => setImgSrc(null)}
+              onClick={reset}
             >
               Retake
             </Button>
