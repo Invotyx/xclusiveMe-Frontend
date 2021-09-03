@@ -8,6 +8,7 @@ import ImageListItem from './ImageListItem';
 import Box from '@material-ui/core/Box';
 import PostMediaVideo from '../profile/post-media-video';
 import AudioPlayer from './AudioPlayer';
+import LockedPost from '../profile/LockedPost';
 
 const MessagesListItem = ({ activeConversationId, message, ...props }) => {
   const { ref, inView } = useInView({
@@ -62,6 +63,20 @@ const MessagesListItem = ({ activeConversationId, message, ...props }) => {
               message.sender.id !== current?.id ? 'flex-start' : 'flex-end'
             }
           >
+            {message.isLocked && (
+              <LockedPost
+                style={{
+                  width: '100px',
+                  height: '100px',
+                  padding: '0',
+                  display: 'flex',
+                  alignContent: 'center',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  cursor: 'pointer',
+                }}
+              />
+            )}
             {!message.isLocked &&
               message.media?.map((messageMedia, i) => (
                 <span key={`messageMedia${i}`}>
