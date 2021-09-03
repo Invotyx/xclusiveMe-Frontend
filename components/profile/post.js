@@ -96,13 +96,14 @@ export default function Post({
   const { closeEmojiPicker, EmojiPicker, emojiPickerRef } = useEmojiPicker();
   const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
   const [checkRefs, setCheckRefs] = useState(false);
+  const [mediaClicked, setMediaClicked] = useState(false);
 
   const handleOpenModel = () => {
     setOpenModel(true);
   };
 
   function handleFocus() {
-    searchInput.current?.focus();
+    searchInput?.current?.focus();
   }
 
   const handleLike = () => {
@@ -131,15 +132,16 @@ export default function Post({
   };
 
   const handleOpen = forReplyId => {
+    setMediaClicked(true);
     // console.log('commentid', forReplyId);
-    dispatch(postData.requestOne(post.id));
+    // dispatch(postData.requestOne(post.id));
     // dispatch(postData.requestReplies(forReplyId, post.id));
+    // setOpen(true);
+    // setForCommentId(forReplyId);
 
-    setForCommentId(forReplyId);
-    searchInput.current.focus();
-    setCheckRefs(true);
+    // searchInput?.current?.focus();
+    // setCheckRefs(true);
     // setOpenReply(true);
-    setOpen(true);
   };
 
   const handleNotOpenn = () => {
@@ -420,6 +422,7 @@ export default function Post({
           profileData={profileData}
           me={me}
           callbackAction={callbackAction}
+          mediaClicked={mediaClicked}
         />
       </Card>
     </LoadingOverlay>

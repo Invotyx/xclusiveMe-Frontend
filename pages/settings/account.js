@@ -137,6 +137,13 @@ export default function Home(props) {
   };
   const handleLogOutAllSessions = () => {
     dispatch(auth.expireAllSessions());
+    // dispatch(
+    //   auth.logout({
+    //     callback: () => {
+    //       dispatch(auth.redirectToLoginPage());
+    //     },
+    //   })
+    // );
   };
   const saveLinks = (e, link) => {
     e.preventDefault();

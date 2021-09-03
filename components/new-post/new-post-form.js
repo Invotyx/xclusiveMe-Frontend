@@ -328,6 +328,11 @@ export default function NewPostForm({ afterSave }) {
                           </>
                         ),
                       }}
+                      onKeyDown={e => {
+                        if (e.key === '.') {
+                          e.preventDefault();
+                        }
+                      }}
                       style={{
                         width: '140px',
                         margin: 0,
