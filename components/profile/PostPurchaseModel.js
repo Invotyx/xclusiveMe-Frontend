@@ -144,7 +144,7 @@ const usePostPurchaseModel = () => {
                         fontWeight: '600',
                       }}
                     >
-                      ${price}.00
+                      ${price || 0}.00
                     </p>
                     <p
                       style={{
@@ -279,7 +279,7 @@ const usePostPurchaseModel = () => {
                         marginTop: '-1vh',
                       }}
                     >
-                      ${price}.00
+                      ${price || 0}.00
                     </p>
                   </div>
                   <div
