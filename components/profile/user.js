@@ -600,7 +600,6 @@ export default function Profile({
                                       altHeader={false}
                                       me={me}
                                       username={username}
-                                      subscriptionPlans={subscriptionPlans}
                                     />
                                   </Grid>
                                 ))}
