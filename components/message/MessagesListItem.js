@@ -9,8 +9,10 @@ import Box from '@material-ui/core/Box';
 import PostMediaVideo from '../profile/post-media-video';
 import AudioPlayer from './AudioPlayer';
 import LockedPost from '../profile/LockedPost';
+import usePostPurchaseModel from '../profile/PostPurchaseModel';
 
 const MessagesListItem = ({ activeConversationId, message, ...props }) => {
+  const { PostPurchaseModel, handleOpenModel } = usePostPurchaseModel();
   const { ref, inView } = useInView({
     threshold: 0,
   });
@@ -76,7 +78,9 @@ const MessagesListItem = ({ activeConversationId, message, ...props }) => {
                     justifyContent: 'center',
                     cursor: 'pointer',
                   }}
+                  onClick={handleOpenModel}
                 />
+                <PostPurchaseModel post={null} />
               </>
             )}
             {!message.isLocked &&
