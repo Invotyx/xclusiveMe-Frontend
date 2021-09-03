@@ -76,7 +76,6 @@ export default function Post({
   profileData,
   altHeader,
   me,
-  username,
 }) {
   const classes = useStyles();
   const [commentText, setCommentText] = useState('');
@@ -138,8 +137,6 @@ export default function Post({
         callback: () => {
           setCommentText('');
 
-          !username && dispatch(postData.requestSubscribed());
-          username && dispatch(postData.requestX({ username }));
         },
       })
     );
