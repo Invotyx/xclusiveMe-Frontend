@@ -101,20 +101,20 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
       );
     } else if (type === 'photo' || type === 'video') {
       uploadedMedia.map(umedia => {
-      onMediaUploaded(
-        {
-          type: 'media',
-          messageMediaType:
-            umedia.resource_type === 'image' ? 'photo' : 'video',
-          media: [umedia],
-          content,
-          isPaid: Boolean(price),
-          price,
-        },
-        () => {
-          handleClose();
-        }
-      );
+        onMediaUploaded(
+          {
+            type: 'media',
+            messageMediaType:
+              umedia.resource_type === 'image' ? 'photo' : 'video',
+            media: [umedia],
+            content,
+            isPaid: Boolean(price),
+            price,
+          },
+          () => {
+            handleClose();
+          }
+        );
       });
     }
   };
