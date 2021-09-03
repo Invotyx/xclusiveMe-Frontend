@@ -116,9 +116,9 @@ const CommentModel = ({
     setCommentText(commentText + emoji);
   };
 
-  function refreshPage() {
-    window.location.reload(false);
-  }
+  // function refreshPage() {
+  //   window.location.reload(false);
+  // }
 
   useEffect(() => {
     setCommentsData(commentsData => commentsData?.concat(forComments));
@@ -168,7 +168,7 @@ const CommentModel = ({
     setOpen(false);
     setisReplyField(false);
     setissubReplyField(false);
-    refreshPage();
+    // refreshPage();
   };
 
   const handleReplyField = id => {
