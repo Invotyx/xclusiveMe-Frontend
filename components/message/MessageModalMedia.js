@@ -99,25 +99,11 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
           handleClose();
         }
       );
-    } else if (type === 'photo') {
+    } else if (type === 'photo' || type === 'video') {
       onMediaUploaded(
         {
           type: 'media',
           messageMediaType: 'photo',
-          media: uploadedMedia,
-          content,
-          isPaid: Boolean(price),
-          price,
-        },
-        () => {
-          handleClose();
-        }
-      );
-    } else if (type === 'video') {
-      onMediaUploaded(
-        {
-          type: 'media',
-          messageMediaType: 'video',
           media: uploadedMedia,
           content,
           isPaid: Boolean(price),
