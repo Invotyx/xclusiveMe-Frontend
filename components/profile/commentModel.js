@@ -23,7 +23,7 @@ import SinglePostMedia from './SinglePostMedia';
 import styles from './profile.module.css';
 import RepliesData from './RepliesData';
 import LocalMallIcon from '@material-ui/icons/LocalMall';
-import PostPurchaseModel from './PostPurchaseModel';
+import usePostPurchaseModel from './PostPurchaseModel';
 import { useMediaQuery } from 'react-responsive';
 import { getCommentsDataSelector } from '../../selectors/postSelector';
 import TipModal from './TipModal';
@@ -77,6 +77,7 @@ const CommentModel = ({
   checkRefs,
   setCheckRefs,
 }) => {
+  const { PostPurchaseModel, handleOpenModel } = usePostPurchaseModel();
   const classes = useStyles();
   const [commentText, setCommentText] = useState('');
   const [commentId, setCommentId] = useState(null);
@@ -94,7 +95,6 @@ const CommentModel = ({
   const [showReply, setShowReply] = useState({ idx: '', replyCheck: false });
   var [commentsData, setCommentsData] = useState([]);
   const dispatch = useDispatch();
-  const [openModel, setOpenModel] = useState(false);
   const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
   const [pageNumber, setPageNumber] = useState(2);
   const fetchData = useSelector(fetchingSelector);
@@ -102,12 +102,6 @@ const CommentModel = ({
   const [commLength, setcommLength] = useState(10);
   const currUser = useSelector(currentUserSelector);
   const [closeCheck, setCloseClick] = useState(false);
-
-  const handleOpenModel = () => {
-    console.log('in model');
-    setOpenModel(true);
-    console.log(openModel);
-  };
 
   const addEmoji = e => {
     let sym = e.unified.split('-');
@@ -506,11 +500,7 @@ const CommentModel = ({
                       </NormalCaseButton>
                     )}
                   </div>
-                  <PostPurchaseModel
-                    post={post}
-                    openModel={openModel}
-                    setOpenModel={setOpenModel}
-                  />
+                  <PostPurchaseModel post={post} />
                 </div>
               )}
               <div>

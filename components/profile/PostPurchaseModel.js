@@ -33,7 +33,13 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const PostPurchaseModel = ({ post, openModel, setOpenModel }) => {
+const usePostPurchaseModel = ({ post }) => {
+  const [openModel, setOpenModel] = useState(false);
+  const handleOpenModel = () => {
+    console.log('in model');
+    setOpenModel(true);
+    console.log(openModel);
+  };
   const classes = useStyles();
   const dispatch = useDispatch();
   const [purchased, setPurchased] = useState(false);
@@ -60,7 +66,7 @@ const PostPurchaseModel = ({ post, openModel, setOpenModel }) => {
     setOpenModel(false);
   };
 
-  return (
+  const PostPurchaseModel = (
     <Modal
       aria-labelledby='transition-modal-title'
       aria-describedby='transition-modal-description'
@@ -371,6 +377,7 @@ const PostPurchaseModel = ({ post, openModel, setOpenModel }) => {
       </Fade>
     </Modal>
   );
+  return { PostPurchaseModel, handleOpenModel };
 };
 
-export default PostPurchaseModel;
+export default usePostPurchaseModel;
