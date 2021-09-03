@@ -84,7 +84,10 @@ export default function Home() {
               {posts && posts.length > 0 ? (
                 posts.map((p, i) => (
                   <Box key={i} mb={2}>
-                    <Post post={p} profileData={p.user} />
+                    <Post
+                      post={p}
+                      profileData={p.user}
+                    />
                   </Box>
                 ))
               ) : (
