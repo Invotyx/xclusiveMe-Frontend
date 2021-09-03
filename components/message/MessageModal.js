@@ -29,7 +29,12 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const MessageModal = ({ messageModal, setMessageModal, profileData }) => {
+const MessageModal = ({
+  messageModal,
+  setMessageModal,
+  profileData,
+  receiverId,
+}) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const [purchased, setPurchased] = useState(false);
@@ -48,7 +53,7 @@ const MessageModal = ({ messageModal, setMessageModal, profileData }) => {
       chatData?.sendMessage({
         saveData: {
           content: postText,
-          sentTo: profileData?.id,
+          sentTo: receiverId,
           type: 'text',
           isPaid: false,
         },
