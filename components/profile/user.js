@@ -130,7 +130,7 @@ export default function Profile({
   const { username, selected_tab } = query;
 
   useEffect(() => {
-    setTab(+selected_tab);
+    setTab(selected_tab ? +selected_tab : 0);
   }, [selected_tab]);
 
   // console.log(myCurrentUser?.username, username);
