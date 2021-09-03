@@ -31,6 +31,10 @@ export default function MessageModalMediaCamera({
     setImgSrc(null);
   };
 
+  React.useEffect(() => {
+    reset();
+  }, []);
+
   return (
     <>
       {imgSrc ? (
