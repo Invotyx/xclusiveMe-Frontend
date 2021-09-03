@@ -87,6 +87,9 @@ export default function Home() {
                     <Post
                       post={p}
                       profileData={p.user}
+                      callbackAction={() => {
+                        dispatch(post.requestSubscribed());
+                      }}
                     />
                   </Box>
                 ))
