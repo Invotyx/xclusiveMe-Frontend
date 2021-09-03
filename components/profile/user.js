@@ -126,6 +126,7 @@ export default function Profile({
   const followcount = useSelector(followerCountSelector);
   const followingData = useSelector(followingSelector);
 
+  const { pathname, query } = router;
   const { username } = router.query;
 
   // console.log(myCurrentUser?.username, username);
@@ -153,6 +154,7 @@ export default function Profile({
 
   const handleTabChange = (e, tab) => {
     setTab(tab);
+    router.push({ pathname, query: { ...query, tab } });
   };
 
   const handleMessageModal = () => {
