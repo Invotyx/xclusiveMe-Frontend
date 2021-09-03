@@ -6,20 +6,13 @@ import CardMedia from '@material-ui/core/CardMedia';
 import PostMediaVideo from './post-media-video';
 import Carousel from 'react-material-ui-carousel';
 import { Paper, Button } from '@material-ui/core';
+import LockedPost from './LockedPost';
 
 const useStyles = makeStyles(theme => ({
   media: {
     width: '40vw',
     height: '30vw',
     paddingTop: '56.25%', // 16:9
-  },
-  locked: {
-    backgroundImage: `url('/post-blurred.jpg')`,
-    width: '40vw',
-    height: '30vw',
-    backgroundRepeat: 'no-repeat',
-    backgroundColor: 'rgba(0,0,0,0.3)',
-    backgroundBlendMode: 'multiply',
   },
   paper: {
     backgroundColor: 'black',
@@ -57,18 +50,7 @@ const SinglePostMedia = ({ media, mediaCount, singlePost }) => {
       {mediaCount > media?.length &&
         Array.apply(null, Array(1)).map(() => (
           <Grid item xs={12} key={Math.random()}>
-            <Box py={8} bgcolor='#000' className={classes.locked}>
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  marginTop: '20vh',
-                }}
-              >
-                <LockIcon />
-              </div>
-            </Box>
+            <LockedPost />
           </Grid>
         ))}
 

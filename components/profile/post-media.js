@@ -11,18 +11,12 @@ import { post as postData } from '../../actions/post/index';
 import { useDispatch, useSelector } from 'react-redux';
 import PostMediaAudio from './post-media-audio';
 import { CardActionArea } from '@material-ui/core';
+import LockedPost from './LockedPost';
 
 const useStyles = makeStyles(theme => ({
   media: {
     height: 0,
     paddingTop: '56.25%', // 16:9
-  },
-  locked: {
-    backgroundImage: `url('/post-blurred.jpg')`,
-    backgroundSize: 'cover',
-    backgroundRepeat: 'no-repeat',
-    backgroundColor: 'rgba(0,0,0,0.3)',
-    backgroundBlendMode: 'multiply',
   },
   modal: {
     display: 'flex',
@@ -60,14 +54,7 @@ export default function PostMedia({ media, mediaCount, onImageClick }) {
         {mediaCount > media?.length &&
           Array.apply(null, Array(1)).map(() => (
             <Grid item xs={12} key={Math.random()}>
-              <Box
-                py={8}
-                bgcolor='#000'
-                textAlign='center'
-                className={classes.locked}
-              >
-                <LockIcon />
-              </Box>
+              <LockedPost />
             </Grid>
           ))}
 
