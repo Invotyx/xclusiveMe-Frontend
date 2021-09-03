@@ -82,9 +82,9 @@ export default function Home() {
           <Grid container className={classes.root}>
             <Grid item xs={12} md={8}>
               {posts && posts.length > 0 ? (
-                posts.map((post, i) => (
+                posts.map((p, i) => (
                   <Box key={i} mb={2}>
-                    <Post post={post} profileData={post.user} />
+                    <Post post={p} profileData={p.user} />
                   </Box>
                 ))
               ) : (
