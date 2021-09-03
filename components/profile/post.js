@@ -3,12 +3,10 @@ import BookmarkBorderOutlinedIcon from '@material-ui/icons/BookmarkBorderOutline
 import Box from '@material-ui/core/Box';
 import Link from '@material-ui/core/Link';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import IconButton from '@material-ui/core/IconButton';
 import MonetizationOnOutlinedIcon from '@material-ui/icons/MonetizationOnOutlined';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
@@ -17,37 +15,26 @@ import ProfileImageAvatar from './profile-image-avatar';
 import NormalCaseButton from '../NormalCaseButton';
 import PostMedia from './post-media';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
-import SendIcon from '@material-ui/icons/Send';
-import { useEffect, useState, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { post as postData } from '../../actions/post/index';
 import styles from './profile.module.css';
 import { currentUserSelector } from '../../selectors/authSelector';
 import { singlepostDataSelector } from '../../selectors/postSelector';
 import { totalrepliesSelector } from '../../selectors/postSelector';
-import RemoveIcon from '@material-ui/icons/Remove';
 import CommentModel from './commentModel';
 import { Button } from '@material-ui/core';
 import LocalMallIcon from '@material-ui/icons/LocalMall';
-import { Hidden } from '@material-ui/core';
 import PostPurchaseModel from './PostPurchaseModel';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
 import ReportModal from './ReportModal';
 import TipModal from './TipModal';
-import { TramRounded } from '@material-ui/icons';
-import { getCommentsDataSelector } from '../../selectors/postSelector';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import { fetchingSelector } from '../../selectors/postSelector';
 import LoadingOverlay from 'react-loading-overlay';
 import BounceLoader from 'react-spinners/BounceLoader';
-import Notifications from '../../components/notification';
 import NotBuyedModel from './NotBuyedModel';
 import useEmojiPicker from '../useEmojiPicker';
 import { useMediaQuery } from 'react-responsive';
 import queryString from 'query-string';
-import SinglePost from '../../pages/singlePost';
 import ManuButton from '../../components/menuButton';
 import ShowMoreText from 'react-show-more-text';
 
@@ -89,29 +76,20 @@ export default function Post({
   profileData,
   altHeader,
   me,
-  subscriptionPlans,
   username,
 }) {
   const classes = useStyles();
   const [commentText, setCommentText] = useState('');
-  const [replyText, setReplyText] = useState('');
-  const [liked, setLiked] = useState(false);
-  const [commentedId, setCommentedId] = useState(null);
   const [forCommentId, setForCommentId] = useState(null);
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   const currentUser = useSelector(currentUserSelector);
-  const [commentId, setCommentId] = useState(null);
   const [openReply, setOpenReply] = useState(false);
-  const [isReplyField, setisReplyField] = useState(false);
   const singlePost = useSelector(singlepostDataSelector);
   const replyCount = useSelector(totalrepliesSelector);
   const [openModel, setOpenModel] = useState(false);
-  const [focused, setFocused] = useState(false);
   const searchInput = useRef(null);
   const [openReportModal, setreportModal] = useState(false);
-  const [openTip, setopenTip] = useState(false);
-  const [loading, setLoading] = useState(false);
   const fetchData = useSelector(fetchingSelector);
   const [notByedModel, setnotBuyedModel] = useState(false);
   const { closeEmojiPicker, EmojiPicker, emojiPickerRef } = useEmojiPicker();
@@ -160,14 +138,7 @@ export default function Post({
         callback: () => {
           setCommentText('');
 
-          !username &&
-            dispatch(
-              postData.requestSubscribed()
-
-              // postData.getComment({
-              //   id: post.id,
-              // })
-            );
+          !username && dispatch(postData.requestSubscribed());
           username && dispatch(postData.requestX({ username }));
         },
       })
@@ -182,7 +153,6 @@ export default function Post({
             postData.deleteLike({
               id: post.id,
               callback: () => {
-                setLiked(false);
                 dispatch(postData.request());
                 dispatch(postData.requestSubscribed());
               },
@@ -193,7 +163,6 @@ export default function Post({
           postData.saveLike({
             id: post.id,
             callback: () => {
-              setLiked(true);
               dispatch(postData.request());
               dispatch(postData.requestSubscribed());
             },
@@ -243,10 +212,6 @@ export default function Post({
     dispatch(postData.requestOne(post.id));
   };
 
-  const handleNotOpen = () => {
-    setnotBuyedModel(true);
-  };
-
   const handleNotOpenn = () => {
     console.log('Post not buyed');
   };
@@ -279,7 +244,6 @@ export default function Post({
                 <ManuButton
                   post={post}
                   currentUser={currentUser}
-                  subscriptionPlans={subscriptionPlans}
                   title='Report'
                   profileImage={post?.user}
                   onConfirm={(reason, callback) =>
