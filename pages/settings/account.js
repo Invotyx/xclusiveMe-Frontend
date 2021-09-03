@@ -335,6 +335,7 @@ export default function Home(props) {
                   onChange={e => set_password(e.target.value)}
                   variant='outlined'
                   fullWidth
+                  margin='normal'
                   name='password'
                   label='New Password'
                   type='password'
