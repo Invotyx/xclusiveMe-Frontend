@@ -81,7 +81,9 @@ const MessagesListItem = ({ activeConversationId, message, ...props }) => {
                   onClick={handleOpenModel}
                 />
                 <PostPurchaseModel
-                  post={null}
+                  handlePurchase={() => {
+                    console.log('purchasing...');
+                  }}
                   modalTitle='Unlock message?'
                   price={message.price}
                   user={{ fullName: null, profileImage: null }}

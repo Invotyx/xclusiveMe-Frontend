@@ -47,25 +47,11 @@ const usePostPurchaseModel = () => {
   const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
   const fetchData = useSelector(fetchingSelector);
 
-  const handlePurchase = () => {
-    // setPurchased(true);
-    dispatch(
-      postData?.purchasePost({
-        id: post.id,
-        callback: () => {
-          setPurchased(true);
-          dispatch(postData.request());
-          dispatch(postData.requestSubscribed());
-        },
-      })
-    );
-  };
-
   const handleClose = () => {
     setOpenModel(false);
   };
 
-  const PostPurchaseModel = ({ post, modalTitle, price, user }) => (
+  const PostPurchaseModel = ({ handlePurchase, modalTitle, price, user }) => (
     <Modal
       aria-labelledby='transition-modal-title'
       aria-describedby='transition-modal-description'

@@ -501,7 +501,17 @@ const CommentModel = ({
                     )}
                   </div>
                   <PostPurchaseModel
-                    post={post}
+                    handlePurchase={() => {
+                      dispatch(
+                        postData.purchasePost({
+                          id: post.id,
+                          callback: () => {
+                            dispatch(postData.request());
+                            dispatch(postData.requestSubscribed());
+                          },
+                        })
+                      );
+                    }}
                     price={post?.price}
                     user={post?.user}
                   />
