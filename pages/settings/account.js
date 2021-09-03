@@ -373,7 +373,7 @@ export default function Home(props) {
               <Box mb={4}>
                 <UppercaseInputLabel>Login Sessions</UppercaseInputLabel>
                 <List>
-                  {loginSessions.length === 0 && <div>no sessions</div>}
+                  {loginSessions.length === 0 && <div>No sessions</div>}
                   {loginSessions.map((i, j) => {
                     const ua = parser(i.browser);
                     return (
