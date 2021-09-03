@@ -127,6 +127,8 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
           <>
             <MessageModalMediaCamera
               imageHandler={imageHandler}
+              onInit={() => set_disabled(true)}
+              onCapture={() => set_disabled(false)}
             />
           </>
         )}
