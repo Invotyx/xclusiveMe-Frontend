@@ -151,6 +151,10 @@ export default function Profile({
     }
   }, [feed]);
 
+  const handleTabChange = (e, v) => {
+    setTab(v);
+  };
+
   const handleMessageModal = () => {
     setMessageModal(!messageModal);
   };
@@ -546,7 +550,7 @@ export default function Profile({
                       <Paper>
                         <Tabs
                           value={tab}
-                          onChange={(e, v) => setTab(v)}
+                          onChange={handleTabChange}
                           variant='fullWidth'
                           indicatorColor='primary'
                           textColor='primary'
