@@ -29,7 +29,11 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const MessageModal = ({ messageModal, setMessageModal, profileData }) => {
+const MessageModal = ({
+  messageModal,
+  setMessageModal,
+  profileData,
+}) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const [purchased, setPurchased] = useState(false);
