@@ -16,6 +16,7 @@ export default function PurchasedPosts(props) {
   }, [dispatch]);
 
   return (
+    <Box ml={{ xs: 0, sm: 0, md: 8 }} mr={{ xs: 0, sm: 0, md: 8 }}>
     <Grid container spacing={2}>
       {(!purchasedPosts || purchasedPosts.length === 0) && (
         <Grid item xs={12}>
@@ -30,5 +31,6 @@ export default function PurchasedPosts(props) {
         </Grid>
       ))}
     </Grid>
+    </Box>
   );
 }
