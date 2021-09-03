@@ -423,6 +423,7 @@ export default function Profile({
                                         messageModal={messageModal}
                                         setMessageModal={setMessageModal}
                                         profileData={profileData}
+                                        receiverId={user?.id}
                                       />
                                     </>
                                   ))}

@@ -33,6 +33,7 @@ const MessageModal = ({
   messageModal,
   setMessageModal,
   profileData,
+  receiverId,
 }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -52,7 +53,7 @@ const MessageModal = ({
       chatData?.sendMessage({
         saveData: {
           content: postText,
-          sentTo: profileData?.id,
+          sentTo: receiverId,
           type: 'text',
           isPaid: false,
         },
