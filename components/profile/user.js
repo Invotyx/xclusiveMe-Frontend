@@ -598,7 +598,6 @@ export default function Profile({
                                       post={f}
                                       profileData={profileData}
                                       me={me}
-                                      username={username}
                                     />
                                   </Grid>
                                 ))}
