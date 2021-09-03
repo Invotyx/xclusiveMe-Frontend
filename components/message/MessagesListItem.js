@@ -64,18 +64,20 @@ const MessagesListItem = ({ activeConversationId, message, ...props }) => {
             }
           >
             {message.isLocked && (
-              <LockedPost
-                style={{
-                  width: '100px',
-                  height: '100px',
-                  padding: '0',
-                  display: 'flex',
-                  alignContent: 'center',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  cursor: 'pointer',
-                }}
-              />
+              <>
+                <LockedPost
+                  style={{
+                    width: '100px',
+                    height: '100px',
+                    padding: '0',
+                    display: 'flex',
+                    alignContent: 'center',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    cursor: 'pointer',
+                  }}
+                />
+              </>
             )}
             {!message.isLocked &&
               message.media?.map((messageMedia, i) => (
