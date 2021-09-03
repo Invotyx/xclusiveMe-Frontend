@@ -14,6 +14,10 @@ export default function useEmojiPicker() {
     setShow(s => !s);
   };
 
+  const closeEmojiPicker = event => {
+    setShow(false);
+  };
+
   const EmojiPicker = ({ popperProps, ...props }) => (
     <>
       <IconButton onClick={toggleEmojiPicker}>
@@ -42,6 +46,7 @@ export default function useEmojiPicker() {
   return {
     emojiPickerRef,
     toggleEmojiPicker,
+    closeEmojiPicker,
     EmojiPicker,
   };
 }
