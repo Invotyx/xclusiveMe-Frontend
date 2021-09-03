@@ -13,7 +13,7 @@ const { PlayPause, SeekBar } = controls;
 const PPlayer = ({ src }) => (
   <Media>
     <div>
-      <div>
+      <Box display='flex' bgcolor='#666' borderRadius='10px' p='6px 12px'>
         <PlayPause
           style={{
             color: '#fff',
@@ -23,7 +23,7 @@ const PPlayer = ({ src }) => (
           }}
         />
         <SeekBar />
-      </div>
+      </Box>
       <Player vendor='audio' src={src} />
     </div>
   </Media>
