@@ -67,7 +67,7 @@ const MessagesListItem = ({ activeConversationId, message, ...props }) => {
               >
                 {message.messageMediaType === 'photo' ? (
                   <a href={messageMedia.url} target='_blank'>
-                  <ImageListItem src={messageMedia.url} />
+                    <ImageListItem src={messageMedia.url} />
                   </a>
                 ) : message.messageMediaType === 'audio' ? (
                   <audio controls>
@@ -79,7 +79,7 @@ const MessagesListItem = ({ activeConversationId, message, ...props }) => {
                   </Box>
                 ) : (
                   <a href={messageMedia.url} target='_blank'>
-                  <p>{message.messageMediaType || 'unknown type'}</p>
+                    <p>{message.messageMediaType || 'unknown type'}</p>
                   </a>
                 )}
               </span>
