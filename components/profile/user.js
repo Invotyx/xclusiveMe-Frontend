@@ -127,7 +127,7 @@ export default function Profile({
   const followingData = useSelector(followingSelector);
 
   const { pathname, query } = router;
-  const { username } = router.query;
+  const { username } = query;
 
   // console.log(myCurrentUser?.username, username);
 
