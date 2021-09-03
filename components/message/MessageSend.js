@@ -10,7 +10,7 @@ import useAudioSend from './useAudioSend';
 import useEmojiPicker from '../useEmojiPicker';
 
 export default function MessageSend({ handleSendMessage }) {
-  const { toggleEmojiPicker, EmojiPicker, emojiPickerRef } = useEmojiPicker();
+  const { closeEmojiPicker, EmojiPicker, emojiPickerRef } = useEmojiPicker();
   const current = useSelector(currentUserSelector);
   const { AudioSend, isRecording, startRecordingHandler } = useAudioSend();
   const [msgText, setMsgText] = useState('');
@@ -20,7 +20,7 @@ export default function MessageSend({ handleSendMessage }) {
       return;
     }
 
-    toggleEmojiPicker();
+    closeEmojiPicker();
 
     handleSendMessage(msgText, () => {
       setMsgText('');

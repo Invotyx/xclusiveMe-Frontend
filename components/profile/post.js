@@ -114,7 +114,7 @@ export default function Post({
   const [loading, setLoading] = useState(false);
   const fetchData = useSelector(fetchingSelector);
   const [notByedModel, setnotBuyedModel] = useState(false);
-  const { toggleEmojiPicker, EmojiPicker, emojiPickerRef } = useEmojiPicker();
+  const { closeEmojiPicker, EmojiPicker, emojiPickerRef } = useEmojiPicker();
   const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
   const [checkRefs, setCheckRefs] = useState(false);
 
@@ -145,7 +145,7 @@ export default function Post({
 
   const handleAddComment = event => {
     event.preventDefault();
-    toggleEmojiPicker();
+    closeEmojiPicker();
     if (!commentText || commentText.trim() === '') {
       return;
     }

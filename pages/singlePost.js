@@ -103,7 +103,7 @@ const SinglePost = ({
   const [openTip, setopenTip] = useState(false);
   const fetchData = useSelector(fetchingSelector);
   const [commLength, setcommLength] = useState(10);
-  const { toggleEmojiPicker, EmojiPicker, emojiPickerRef } = useEmojiPicker();
+  const { closeEmojiPicker, EmojiPicker, emojiPickerRef } = useEmojiPicker();
   const router = useRouter();
   const currUser = useSelector(currentUserSelector);
   const { postId, forCommentId } = router.query;
@@ -188,7 +188,7 @@ const SinglePost = ({
 
   const handleAddComment = event => {
     event.preventDefault();
-    toggleEmojiPicker();
+    closeEmojiPicker();
     if (!commentText || commentText.trim() === '') {
       return;
     }

@@ -98,7 +98,7 @@ const CommentModel = ({
   const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
   const [pageNumber, setPageNumber] = useState(2);
   const fetchData = useSelector(fetchingSelector);
-  const { toggleEmojiPicker, EmojiPicker, emojiPickerRef } = useEmojiPicker();
+  const { closeEmojiPicker, EmojiPicker, emojiPickerRef } = useEmojiPicker();
   const [commLength, setcommLength] = useState(10);
   const currUser = useSelector(currentUserSelector);
 
@@ -183,7 +183,7 @@ const CommentModel = ({
 
   const handleAddComment = event => {
     event.preventDefault();
-    toggleEmojiPicker();
+    closeEmojiPicker();
     if (!commentText || commentText.trim() === '') {
       return;
     }

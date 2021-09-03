@@ -37,7 +37,7 @@ const RepliesData = ({
   const replyData = useSelector(repliesDataSelector);
   const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
   const [replyText, setReplyText] = useState('');
-  const { toggleEmojiPicker, EmojiPicker, emojiPickerRef } = useEmojiPicker();
+  const { closeEmojiPicker, EmojiPicker, emojiPickerRef } = useEmojiPicker();
   const totalRepliesCount = useSelector(totalrepliesSelector);
   const [pageNumber, setPageNumber] = useState(2);
   const [commLength, setcommLength] = useState(3);
@@ -120,7 +120,7 @@ const RepliesData = ({
 
   const handleAddReply = event => {
     event.preventDefault();
-    toggleEmojiPicker();
+    closeEmojiPicker();
     console.log(commentId);
 
     if (!replyText || replyText.trim() === '') {
