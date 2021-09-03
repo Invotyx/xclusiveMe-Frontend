@@ -204,7 +204,7 @@ export default function NewPostForm({ afterSave }) {
                   />
                 </MuiImageListItem>
               ))}
-              {tileData && tileData.length > 0 && (
+              {/* {tileData && tileData.length > 0 && (
                 <MuiImageListItem>
                   <ImageListItemBar
                     actionIcon={
@@ -214,7 +214,7 @@ export default function NewPostForm({ afterSave }) {
                     }
                   />
                 </MuiImageListItem>
-              )}
+              )} */}
             </ImageList>
           </CardContent>
         </Card>
