@@ -220,9 +220,6 @@ export default function Post({
     dispatch(postData.requestOne(post.id));
   };
 
-  const handleNotOpen = () => {
-    setnotBuyedModel(true);
-  };
 
   const handleNotOpenn = () => {
     console.log('Post not buyed');
