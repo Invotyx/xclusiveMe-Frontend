@@ -330,7 +330,7 @@ const Chat = () => {
             ) : (
               <Card>
                 <CardContent>
-                  <p>select a conversation or start a new one</p>
+                  <p>Select a conversation or start a new one</p>
                 </CardContent>
               </Card>
             )}
