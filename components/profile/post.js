@@ -76,6 +76,7 @@ export default function Post({
   profileData,
   altHeader,
   me,
+  callbackAction,
 }) {
   const classes = useStyles();
   const [commentText, setCommentText] = useState('');
@@ -137,6 +138,7 @@ export default function Post({
         callback: () => {
           setCommentText('');
 
+          callbackAction && callbackAction();
         },
       })
     );
@@ -151,7 +153,7 @@ export default function Post({
               id: post.id,
               callback: () => {
                 dispatch(postData.request());
-                dispatch(postData.requestSubscribed());
+                callbackAction && callbackAction();
               },
             })
           )
@@ -161,7 +163,7 @@ export default function Post({
             id: post.id,
             callback: () => {
               dispatch(postData.request());
-              dispatch(postData.requestSubscribed());
+              callbackAction && callbackAction();
             },
           })
         );
@@ -176,7 +178,7 @@ export default function Post({
               id: comm.id,
               callback: () => {
                 dispatch(postData.request());
-                dispatch(postData.requestSubscribed());
+                callbackAction && callbackAction();
               },
             })
           )
@@ -186,7 +188,7 @@ export default function Post({
               id: comm.id,
               callback: () => {
                 dispatch(postData.request());
-                dispatch(postData.requestSubscribed());
+                callbackAction && callbackAction();
               },
             })
           )
@@ -253,7 +255,7 @@ export default function Post({
                         callback: () => {
                           callback && callback();
                           dispatch(postData.request());
-                          dispatch(postData.requestSubscribed());
+                          callbackAction && callbackAction();
                         },
                       })
                     )
@@ -420,7 +422,7 @@ export default function Post({
                               callback: () => {
                                 callback && callback();
                                 dispatch(postData.request());
-                                dispatch(postData.requestSubscribed());
+                                callbackAction && callbackAction();
                               },
                             })
                           )
