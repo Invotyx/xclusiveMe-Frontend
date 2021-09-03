@@ -64,24 +64,24 @@ const MessagesListItem = ({ activeConversationId, message, ...props }) => {
           >
             {!message.isLocked &&
               message.media?.map((messageMedia, i) => (
-              <span key={`messageMedia${i}`}>
-                {message.messageMediaType === 'photo' ? (
-                  <a href={messageMedia.url} target='_blank'>
-                    <ImageListItem src={messageMedia.url} />
-                  </a>
-                ) : message.messageMediaType === 'audio' ? (
-                  <AudioPlayer src={messageMedia.url} />
-                ) : message.messageMediaType === 'video' ? (
-                  <Box maxWidth='200px'>
-                    <PostMediaVideo src={messageMedia.url} />
-                  </Box>
-                ) : (
-                  <a href={messageMedia.url} target='_blank'>
-                    <p>{message.messageMediaType || 'unknown type'}</p>
-                  </a>
-                )}
-              </span>
-            ))}
+                <span key={`messageMedia${i}`}>
+                  {message.messageMediaType === 'photo' ? (
+                    <a href={messageMedia.url} target='_blank'>
+                      <ImageListItem src={messageMedia.url} />
+                    </a>
+                  ) : message.messageMediaType === 'audio' ? (
+                    <AudioPlayer src={messageMedia.url} />
+                  ) : message.messageMediaType === 'video' ? (
+                    <Box maxWidth='200px'>
+                      <PostMediaVideo src={messageMedia.url} />
+                    </Box>
+                  ) : (
+                    <a href={messageMedia.url} target='_blank'>
+                      <p>{message.messageMediaType || 'unknown type'}</p>
+                    </a>
+                  )}
+                </span>
+              ))}
           </Box>
         </div>
       </div>
