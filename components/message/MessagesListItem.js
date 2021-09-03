@@ -7,27 +7,7 @@ import { useInView } from 'react-intersection-observer';
 import ImageListItem from './ImageListItem';
 import Box from '@material-ui/core/Box';
 import PostMediaVideo from '../profile/post-media-video';
-import { Media, Player, controls } from 'react-media-player';
-const { PlayPause, SeekBar } = controls;
-
-const PPlayer = ({ src }) => (
-  <Media>
-    <div>
-      <Box display='flex' bgcolor='#666' borderRadius='10px' p='6px 12px'>
-        <PlayPause
-          style={{
-            color: '#fff',
-            backgroundColor: 'transparent',
-            border: 0,
-            position: 'relative',
-          }}
-        />
-        <SeekBar />
-      </Box>
-      <Player vendor='audio' src={src} />
-    </div>
-  </Media>
-);
+import AudioPlayer from './AudioPlayer';
 
 const MessagesListItem = ({ activeConversationId, message, ...props }) => {
   const { ref, inView } = useInView({
@@ -91,7 +71,7 @@ const MessagesListItem = ({ activeConversationId, message, ...props }) => {
                     <ImageListItem src={messageMedia.url} />
                   </a>
                 ) : message.messageMediaType === 'audio' ? (
-                  <PPlayer src={messageMedia.url} />
+                  <AudioPlayer src={messageMedia.url} />
                 ) : message.messageMediaType === 'video' ? (
                   <Box maxWidth='200px'>
                     <PostMediaVideo src={messageMedia.url} />
