@@ -127,7 +127,11 @@ export default function Profile({
   const followingData = useSelector(followingSelector);
 
   const { pathname, query } = router;
-  const { username } = query;
+  const { username, selected_tab } = query;
+
+  useEffect(() => {
+    setTab(selected_tab);
+  }, [selected_tab]);
 
   // console.log(myCurrentUser?.username, username);
 
