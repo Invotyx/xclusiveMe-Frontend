@@ -62,13 +62,13 @@ const MessagesListItem = ({ activeConversationId, message, ...props }) => {
             }
           >
             {message.media?.map((messageMedia, i) => (
-              <a
+              <span
                 key={`messageMedia${i}`}
-                href={messageMedia.url}
-                target='_blank'
               >
                 {message.messageMediaType === 'photo' ? (
+                  <a href={messageMedia.url} target='_blank'>
                   <ImageListItem src={messageMedia.url} />
+                  </a>
                 ) : message.messageMediaType === 'audio' ? (
                   <audio controls>
                     <source src={messageMedia.url} />
@@ -78,9 +78,11 @@ const MessagesListItem = ({ activeConversationId, message, ...props }) => {
                     <PostMediaVideo src={messageMedia.url} />
                   </Box>
                 ) : (
+                  <a href={messageMedia.url} target='_blank'>
                   <p>{message.messageMediaType || 'unknown type'}</p>
+                  </a>
                 )}
-              </a>
+              </span>
             ))}
           </Box>
         </div>
