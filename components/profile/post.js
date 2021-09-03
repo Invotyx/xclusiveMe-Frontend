@@ -350,10 +350,12 @@ export default function Post({
             </Typography>
           </CardContent>
         )}
+
         <PostMedia
           media={post.media}
           mediaCount={post.mediaCount}
           post={post}
+          onImageClick={handleOpen}
         />
 
         <div

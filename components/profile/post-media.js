@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react';
 import { post as postData } from '../../actions/post/index';
 import { useDispatch, useSelector } from 'react-redux';
 import PostMediaAudio from './post-media-audio';
+import { CardActionArea } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   media: {
@@ -37,7 +38,7 @@ const useStyles = makeStyles(theme => ({
     height: 'auto',
   },
 }));
-function MediaElement({ m }) {
+function MediaElement({ m, onImageClick }) {
   const classes = useStyles();
 
   return m.type && m.type.indexOf('video') !== -1 ? (
@@ -45,10 +46,12 @@ function MediaElement({ m }) {
   ) : m.type === 'upload' ? (
     <PostMediaAudio src={m.url} />
   ) : (
-    <CardMedia className={classes.media} image={m.url} title='post media' />
+    <CardActionArea onClick={onImageClick}>
+      <CardMedia className={classes.media} image={m.url} title='post media' />
+    </CardActionArea>
   );
 }
-export default function PostMedia({ media, mediaCount, post }) {
+export default function PostMedia({ media, mediaCount, onImageClick }) {
   const classes = useStyles();
 
   return (
@@ -71,11 +74,11 @@ export default function PostMedia({ media, mediaCount, post }) {
         {media && media.length > 0 && (
           <>
             <Grid item xs={12}>
-              <MediaElement m={media[0]} />
+              <MediaElement m={media[0]} onImageClick={onImageClick} />
             </Grid>
             {media.slice(1).map((m, i) => (
               <Grid item xs={12} md={4} key={`media${i}`}>
-                <MediaElement m={m} />
+                <MediaElement m={m} onImageClick={onImageClick} />
               </Grid>
             ))}
           </>
