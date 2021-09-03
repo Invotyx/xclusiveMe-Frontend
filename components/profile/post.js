@@ -139,14 +139,7 @@ export default function Post({
         callback: () => {
           setCommentText('');
 
-          !username &&
-            dispatch(
-              postData.requestSubscribed()
-
-              // postData.getComment({
-              //   id: post.id,
-              // })
-            );
+          !username && dispatch(postData.requestSubscribed());
           username && dispatch(postData.requestX({ username }));
         },
       })
@@ -219,7 +212,6 @@ export default function Post({
   const handleGetSinglePostData = () => {
     dispatch(postData.requestOne(post.id));
   };
-
 
   const handleNotOpenn = () => {
     console.log('Post not buyed');
