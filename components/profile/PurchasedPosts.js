@@ -17,20 +17,20 @@ export default function PurchasedPosts(props) {
 
   return (
     <Box ml={{ xs: 0, sm: 0, md: 8 }} mr={{ xs: 0, sm: 0, md: 8 }}>
-    <Grid container spacing={2}>
-      {(!purchasedPosts || purchasedPosts.length === 0) && (
-        <Grid item xs={12}>
-          <Box textAlign='center' p={4}>
-            <p>no content</p>
-          </Box>
-        </Grid>
-      )}
-      {purchasedPosts?.results?.map((post, i) => (
-        <Grid item xs={12} key={`purchasedPosts${i}`}>
-          <Post post={post} {...props} />
-        </Grid>
-      ))}
-    </Grid>
+      <Grid container spacing={2}>
+        {(!purchasedPosts || purchasedPosts.length === 0) && (
+          <Grid item xs={12}>
+            <Box textAlign='center' p={4}>
+              <p>no content</p>
+            </Box>
+          </Grid>
+        )}
+        {purchasedPosts?.results?.map((post, i) => (
+          <Grid item xs={12} key={`purchasedPosts${i}`}>
+            <Post post={post} {...props} />
+          </Grid>
+        ))}
+      </Grid>
     </Box>
   );
 }
