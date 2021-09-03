@@ -597,7 +597,6 @@ export default function Profile({
                                     <Post
                                       post={f}
                                       profileData={profileData}
-                                      altHeader={false}
                                       me={me}
                                       username={username}
                                     />
