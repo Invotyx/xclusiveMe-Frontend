@@ -49,7 +49,6 @@ const usePostPurchaseModel = () => {
 
   const handlePurchase = () => {
     // setPurchased(true);
-    dispatch(paymentMethod.request());
     dispatch(
       postData?.purchasePost({
         id: post.id,
