@@ -66,7 +66,7 @@ const usePostPurchaseModel = () => {
     setOpenModel(false);
   };
 
-  const PostPurchaseModel = ({ post }) => (
+  const PostPurchaseModel = ({ post, modalTitle }) => (
     <Modal
       aria-labelledby='transition-modal-title'
       aria-describedby='transition-modal-description'
@@ -107,12 +107,6 @@ const usePostPurchaseModel = () => {
                         height: '60px',
                       }}
                     />
-                    {/* <img
-                      src={post?.user?.profileImage}
-                      alt='profile image'
-                      width='60px'
-                      height='65px'
-                    /> */}
                     <CloseIcon
                       onClick={handleClose}
                       style={{
@@ -133,7 +127,7 @@ const usePostPurchaseModel = () => {
                     }}
                   >
                     <p style={{ fontWeight: '600', fontSize: '17px' }}>
-                      Buy this Post
+                      {modalTitle || 'Buy this Post'}
                     </p>
                   </div>
                 </div>
