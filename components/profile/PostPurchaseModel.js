@@ -66,7 +66,7 @@ const usePostPurchaseModel = () => {
     setOpenModel(false);
   };
 
-  const PostPurchaseModel = ({ post, modalTitle, price }) => (
+  const PostPurchaseModel = ({ post, modalTitle, price, user }) => (
     <Modal
       aria-labelledby='transition-modal-title'
       aria-describedby='transition-modal-description'
@@ -98,7 +98,7 @@ const usePostPurchaseModel = () => {
                     }}
                   >
                     <ProfileImageAvatar
-                      user={post?.user}
+                      user={user}
                       style={{
                         borderRadius: '50%',
                         marginTop: '-20px',
@@ -256,7 +256,7 @@ const usePostPurchaseModel = () => {
                 <div>
                   <div style={{ display: 'flex', justifyContent: 'center' }}>
                     <ProfileImageAvatar
-                      user={post?.user}
+                      user={user}
                       style={{
                         borderRadius: '50%',
                         marginTop: '20px',
@@ -295,7 +295,7 @@ const usePostPurchaseModel = () => {
                         color: '#444444',
                       }}
                     >
-                      Paid to {post?.user?.fullName}
+                      Paid to {user?.fullName}
                     </p>
                   </div>
 

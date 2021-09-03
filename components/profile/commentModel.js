@@ -500,7 +500,11 @@ const CommentModel = ({
                       </NormalCaseButton>
                     )}
                   </div>
-                  <PostPurchaseModel post={post} price={post?.price} />
+                  <PostPurchaseModel
+                    post={post}
+                    price={post?.price}
+                    user={post?.user}
+                  />
                 </div>
               )}
               <div>

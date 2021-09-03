@@ -84,6 +84,7 @@ const MessagesListItem = ({ activeConversationId, message, ...props }) => {
                   post={null}
                   modalTitle='Unlock message?'
                   price={message.price}
+                  user={{ fullName: null, profileImage: null }}
                 />
               </>
             )}
