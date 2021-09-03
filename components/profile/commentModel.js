@@ -101,6 +101,7 @@ const CommentModel = ({
   const { closeEmojiPicker, EmojiPicker, emojiPickerRef } = useEmojiPicker();
   const [commLength, setcommLength] = useState(10);
   const currUser = useSelector(currentUserSelector);
+  const [closeCheck, setCloseClick] = useState(false);
 
   const handleOpenModel = () => {
     console.log('in model');
@@ -165,6 +166,7 @@ const CommentModel = ({
   };
 
   const handleClose = () => {
+    setCloseClick(true);
     setOpen(false);
     setisReplyField(false);
     setissubReplyField(false);
@@ -672,6 +674,7 @@ const CommentModel = ({
                               forCommentId={forCommentId}
                               openReply={openReply}
                               checkRefs={checkRefs}
+                              closeCheck={closeCheck}
                             />
                           </div>
                         </div>
@@ -815,6 +818,7 @@ const CommentModel = ({
                                 forCommentId={forCommentId}
                                 openReply={openReply}
                                 checkRefs={checkRefs}
+                                closeCheck={closeCheck}
                               />
                             </div>
                           </div>
