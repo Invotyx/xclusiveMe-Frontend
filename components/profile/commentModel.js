@@ -77,7 +77,8 @@ const CommentModel = ({
   checkRefs,
   setCheckRefs,
 }) => {
-  const { PostPurchaseModel, handleOpenModel } = usePostPurchaseModel();
+  const { PostPurchaseModel, handleOpenModel, setPurchased } =
+    usePostPurchaseModel();
   const classes = useStyles();
   const [commentText, setCommentText] = useState('');
   const [commentId, setCommentId] = useState(null);
@@ -506,6 +507,7 @@ const CommentModel = ({
                         postData.purchasePost({
                           id: post.id,
                           callback: () => {
+                            setPurchased(true);
                             dispatch(postData.request());
                             dispatch(postData.requestSubscribed());
                           },

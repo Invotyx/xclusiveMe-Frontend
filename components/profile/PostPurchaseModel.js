@@ -356,7 +356,7 @@ const usePostPurchaseModel = () => {
       </Fade>
     </Modal>
   );
-  return { PostPurchaseModel, handleOpenModel };
+  return { PostPurchaseModel, handleOpenModel, setPurchased };
 };
 
 export default usePostPurchaseModel;
