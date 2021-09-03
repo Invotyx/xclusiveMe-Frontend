@@ -4,7 +4,7 @@ import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
 import ProfileImageAvatar from './profile-image-avatar';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { post as postData } from '../../actions/post/index';
 import styles from './profile.module.css';
@@ -57,6 +57,7 @@ export default function PostComments({
   altHeader,
   me,
   callbackAction,
+  mediaClicked,
 }) {
   const classes = useStyles();
   const [commentText, setCommentText] = useState('');
@@ -175,13 +176,17 @@ export default function PostComments({
     );
   };
 
+  useEffect(() => {
+    mediaClicked && (dispatch(postData.requestOne(post.id)), setOpen(true));
+  }, [mediaClicked]);
+
   const handleOpen = forReplyId => {
     // console.log('commentid', forReplyId);
     dispatch(postData.requestOne(post.id));
     // dispatch(postData.requestReplies(forReplyId, post.id));
 
     setForCommentId(forReplyId);
-    searchInput.current.focus();
+    searchInput.current?.focus();
     setCheckRefs(true);
     // setOpenReply(true);
     setOpen(true);
