@@ -151,8 +151,8 @@ export default function Profile({
     }
   }, [feed]);
 
-  const handleTabChange = (e, v) => {
-    setTab(v);
+  const handleTabChange = (e, tab) => {
+    setTab(tab);
   };
 
   const handleMessageModal = () => {
