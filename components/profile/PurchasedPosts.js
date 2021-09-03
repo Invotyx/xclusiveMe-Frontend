@@ -27,7 +27,7 @@ export default function PurchasedPosts(props) {
         )}
         {purchasedPosts?.results?.map((post, i) => (
           <Grid item xs={12} key={`purchasedPosts${i}`}>
-            <Post post={post} {...props} />
+            <Post post={post} profileData={post.user} {...props} />
           </Grid>
         ))}
       </Grid>

@@ -618,7 +618,6 @@ export default function Profile({
                         </TabPanel>
                         <TabPanel value={tab} index={3}>
                           <PurchasedPosts
-                            profileData={profileData}
                             me={me}
                             username={username}
                             subscriptionPlans={subscriptionPlans}
