@@ -125,7 +125,9 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
       <DialogContent className={classes.content}>
         {type === 'camera' && (
           <>
-            <MessageModalMediaCamera imageHandler={imageHandler} />
+            <MessageModalMediaCamera
+              imageHandler={imageHandler}
+            />
           </>
         )}
         {type === 'text' && (
