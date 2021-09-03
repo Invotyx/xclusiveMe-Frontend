@@ -62,7 +62,8 @@ const MessagesListItem = ({ activeConversationId, message, ...props }) => {
               message.sender.id !== current?.id ? 'flex-start' : 'flex-end'
             }
           >
-            {message.media?.map((messageMedia, i) => (
+            {!message.isLocked &&
+              message.media?.map((messageMedia, i) => (
               <span key={`messageMedia${i}`}>
                 {message.messageMediaType === 'photo' ? (
                   <a href={messageMedia.url} target='_blank'>
