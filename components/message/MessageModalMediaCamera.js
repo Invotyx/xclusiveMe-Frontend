@@ -7,8 +7,6 @@ import { post } from '../../actions/post';
 
 export default function MessageModalMediaCamera({
   imageHandler,
-  onImageSelect,
-  onImageUploaded,
   handleClose,
 }) {
   const dispatch = useDispatch();
@@ -19,12 +17,10 @@ export default function MessageModalMediaCamera({
     const imageSrc = webcamRef.current.getScreenshot();
     setImgSrc(imageSrc);
 
-    onImageSelect && onImageSelect(imageSrc);
     dispatch(
       post.uploadImage({
         fileObject: [dataURItoBlob(imageSrc)],
         callback: data => {
-          onImageUploaded && onImageUploaded();
           imageHandler(data);
         },
       })
