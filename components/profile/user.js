@@ -154,7 +154,7 @@ export default function Profile({
 
   const handleTabChange = (e, tab) => {
     setTab(tab);
-    router.push({ pathname, query: { ...query, tab } });
+    router.push({ pathname, query: { ...query, selected_tab: tab } });
   };
 
   const handleMessageModal = () => {
