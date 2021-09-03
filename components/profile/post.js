@@ -76,7 +76,6 @@ export default function Post({
   profileData,
   altHeader,
   me,
-  subscriptionPlans,
   username,
 }) {
   const classes = useStyles();
@@ -245,7 +244,6 @@ export default function Post({
                 <ManuButton
                   post={post}
                   currentUser={currentUser}
-                  subscriptionPlans={subscriptionPlans}
                   title='Report'
                   profileImage={post?.user}
                   onConfirm={(reason, callback) =>
