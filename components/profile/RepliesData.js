@@ -30,6 +30,7 @@ const RepliesData = ({
   currUser,
   replyRef,
   checkRefs,
+  closeCheck,
 }) => {
   const [showMyReply, setShowMyReply] = useState(false);
 
@@ -60,6 +61,15 @@ const RepliesData = ({
     //   setCommentsData([]);
     // };
   }, [forComments]);
+
+  useEffect(() => {
+    closeCheck &&
+      (setShowMyReply(false),
+      setisReplyField(false),
+      setissubReplyField(false),
+      setCommentsData([]),
+      setcommLength(0));
+  }, [closeCheck]);
 
   const handleReplyList = commId => {
     setShowMyReply(true);
@@ -117,6 +127,14 @@ const RepliesData = ({
     setCommentsData([]);
     setcommLength(0);
   };
+
+  // const handleClose = () => {
+  //   setShowMyReply(false);
+  //   setisReplyField(false);
+  //   setissubReplyField(false);
+  //   setCommentsData([]);
+  //   setcommLength(0);
+  // };
 
   const handleAddReply = event => {
     event.preventDefault();
