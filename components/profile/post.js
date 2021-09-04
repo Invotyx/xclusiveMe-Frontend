@@ -25,7 +25,6 @@ import { totalrepliesSelector } from '../../selectors/postSelector';
 import CommentModel from './commentModel';
 import { Button } from '@material-ui/core';
 import LocalMallIcon from '@material-ui/icons/LocalMall';
-import PostPurchaseModel from './PostPurchaseModel';
 import ReportModal from './ReportModal';
 import TipModal from './TipModal';
 import { fetchingSelector } from '../../selectors/postSelector';
@@ -38,6 +37,7 @@ import queryString from 'query-string';
 import ManuButton from '../../components/menuButton';
 import ShowMoreText from 'react-show-more-text';
 import PostComments from './postCommenst';
+import usePostPurchaseModel from './PostPurchaseModel';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -79,6 +79,8 @@ export default function Post({
   me,
   callbackAction,
 }) {
+  const { PostPurchaseModel, handleOpenModel, setPurchased } =
+    usePostPurchaseModel();
   const classes = useStyles();
   const [commentText, setCommentText] = useState('');
   const [forCommentId, setForCommentId] = useState(null);
@@ -97,10 +99,6 @@ export default function Post({
   const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
   const [checkRefs, setCheckRefs] = useState(false);
   const [mediaClicked, setMediaClicked] = useState(false);
-
-  const handleOpenModel = () => {
-    setOpenModel(true);
-  };
 
   function handleFocus() {
     searchInput?.current?.focus();
@@ -391,9 +389,20 @@ export default function Post({
             )}
           </div>
           <PostPurchaseModel
-            post={post}
-            openModel={openModel}
-            setOpenModel={setOpenModel}
+            handlePurchase={() => {
+              dispatch(
+                postData.purchasePost({
+                  id: post.id,
+                  callback: () => {
+                    setPurchased(true);
+                    dispatch(postData.request());
+                    dispatch(postData.requestSubscribed());
+                  },
+                })
+              );
+            }}
+            price={post?.price}
+            user={post?.user}
           />
           <ReportModal
             openReportModal={openReportModal}

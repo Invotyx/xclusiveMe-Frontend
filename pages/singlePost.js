@@ -26,7 +26,6 @@ import SinglePostMedia from '../components/profile/SinglePostMedia';
 import styles from '../components/profile/profile.module.css';
 import RepliesData from '../components/profile/RepliesData';
 import LocalMallIcon from '@material-ui/icons/LocalMall';
-import PostPurchaseModel from '../components/profile/PostPurchaseModel';
 import { useMediaQuery } from 'react-responsive';
 import { getCommentsDataSelector } from '../selectors/postSelector';
 import TipModal from '../components/profile/TipModal';
@@ -36,6 +35,7 @@ import BounceLoader from 'react-spinners/BounceLoader';
 import useEmojiPicker from '../components/useEmojiPicker';
 import { useRouter } from 'next/router';
 import { currentUserSelector } from '../selectors/authSelector';
+import usePostPurchaseModel from '../components/profile/PostPurchaseModel';
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -77,6 +77,8 @@ const SinglePost = ({
 
   openReply,
 }) => {
+  const { PostPurchaseModel, handleOpenModel, setPurchased } =
+    usePostPurchaseModel();
   const classes = useStyles();
   const [commentText, setCommentText] = useState('');
   const [commentId, setCommentId] = useState(null);
@@ -108,12 +110,6 @@ const SinglePost = ({
   const currUser = useSelector(currentUserSelector);
   const { postId, forCommentId } = router.query;
   const [checkRefs, setCheckRefs] = useState(false);
-
-  const handleOpenModel = () => {
-    console.log('in model');
-    setOpenModel(true);
-    console.log(openModel);
-  };
 
   const addEmoji = e => {
     let sym = e.unified.split('-');
@@ -508,9 +504,20 @@ const SinglePost = ({
                   )}
                 </div>
                 <PostPurchaseModel
-                  post={post}
-                  openModel={openModel}
-                  setOpenModel={setOpenModel}
+                  handlePurchase={() => {
+                    dispatch(
+                      postData.purchasePost({
+                        id: post.id,
+                        callback: () => {
+                          setPurchased(true);
+                          dispatch(postData.request());
+                          dispatch(postData.requestSubscribed());
+                        },
+                      })
+                    );
+                  }}
+                  price={post?.price}
+                  user={post?.user}
                 />
               </div>
             )}
