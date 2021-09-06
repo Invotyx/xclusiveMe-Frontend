@@ -32,6 +32,7 @@ import ManuButton from '../../components/menuButton';
 import ShowMoreText from 'react-show-more-text';
 import PostComments from './postCommenst';
 import usePostPurchaseModel from './PostPurchaseModel';
+import { useInView } from 'react-intersection-observer';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -73,6 +74,14 @@ export default function Post({
   me,
   callbackAction,
 }) {
+  const { ref, inView } = useInView({ threshold: 0 });
+  React.useEffect(() => {
+    if (inView) {
+      console.log(inView);
+    } else {
+      console.log('out');
+    }
+  }, [inView]);
   const { PostPurchaseModel, handleOpenModel, setPurchased } =
     usePostPurchaseModel();
   const classes = useStyles();
@@ -137,7 +146,7 @@ export default function Post({
 
   return (
     <LoadingOverlay active={fetchData} spinner={<BounceLoader />}>
-      <Card className={styles.postCard}>
+      <Card className={styles.postCard} ref={ref}>
         {altHeader ? (
           <CardHeader
             action={
