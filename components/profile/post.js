@@ -14,7 +14,6 @@ import moment from 'moment';
 import ProfileImageAvatar from './profile-image-avatar';
 import NormalCaseButton from '../NormalCaseButton';
 import PostMedia from './post-media';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
 import { useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { post as postData } from '../../actions/post/index';
@@ -22,8 +21,6 @@ import styles from './profile.module.css';
 import { currentUserSelector } from '../../selectors/authSelector';
 import { singlepostDataSelector } from '../../selectors/postSelector';
 import { totalrepliesSelector } from '../../selectors/postSelector';
-import CommentModel from './commentModel';
-import { Button } from '@material-ui/core';
 import LocalMallIcon from '@material-ui/icons/LocalMall';
 import ReportModal from './ReportModal';
 import TipModal from './TipModal';
@@ -33,7 +30,6 @@ import BounceLoader from 'react-spinners/BounceLoader';
 import NotBuyedModel from './NotBuyedModel';
 import useEmojiPicker from '../useEmojiPicker';
 import { useMediaQuery } from 'react-responsive';
-import queryString from 'query-string';
 import ManuButton from '../../components/menuButton';
 import ShowMoreText from 'react-show-more-text';
 import PostComments from './postCommenst';
@@ -82,22 +78,13 @@ export default function Post({
   const { PostPurchaseModel, handleOpenModel, setPurchased } =
     usePostPurchaseModel();
   const classes = useStyles();
-  const [commentText, setCommentText] = useState('');
-  const [forCommentId, setForCommentId] = useState(null);
-  const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   const currentUser = useSelector(currentUserSelector);
-  const [openReply, setOpenReply] = useState(false);
-  const singlePost = useSelector(singlepostDataSelector);
-  const replyCount = useSelector(totalrepliesSelector);
-  const [openModel, setOpenModel] = useState(false);
   const searchInput = useRef(null);
   const [openReportModal, setreportModal] = useState(false);
   const fetchData = useSelector(fetchingSelector);
   const [notByedModel, setnotBuyedModel] = useState(false);
-  const { closeEmojiPicker, EmojiPicker, emojiPickerRef } = useEmojiPicker();
   const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
-  const [checkRefs, setCheckRefs] = useState(false);
   const [mediaClicked, setMediaClicked] = useState(false);
 
   function handleFocus() {
