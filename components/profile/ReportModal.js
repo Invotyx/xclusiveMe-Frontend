@@ -31,14 +31,10 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const ReportModal = ({
-  openReportModal,
-  setreportModal,
-  title,
-  profileImage,
+const useReportModal = ({
   onConfirm,
-  post,
 }) => {
+  const [openReportModal, setreportModal] = React.useState(false);
   const classes = useStyles();
   const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
   const [postText, set_postText] = useState('');
@@ -56,7 +52,7 @@ const ReportModal = ({
     setreportModal(false);
   };
 
-  return (
+  const ReportModal = ({ title, profileImage, post }) => (
     <Modal
       aria-labelledby='transition-modal-title'
       aria-describedby='transition-modal-description'
@@ -170,6 +166,8 @@ const ReportModal = ({
       </Fade>
     </Modal>
   );
+
+  return { ReportModal, setreportModal };
 };
 
-export default ReportModal;
+export default useReportModal;

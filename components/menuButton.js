@@ -2,14 +2,13 @@ import { IconButton, MenuItem } from '@material-ui/core';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import React, { useState } from 'react';
 import Menu from '@material-ui/core/Menu';
-import ReportModal from './profile/ReportModal';
+import useReportModal from './profile/ReportModal';
 import { useDispatch } from 'react-redux';
 import { snackbar } from '../actions/snackbar';
 import { post } from '../actions/post';
 
-const ManuButton = props => {
+const ManuButton = ({ onConfirm, ...props }) => {
   const [anchorEl, setAnchorEl] = useState(null);
-  const [openReportModal, setreportModal] = useState(false);
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
 
@@ -17,6 +16,7 @@ const ManuButton = props => {
     setAnchorEl(event.currentTarget);
   };
 
+  const { ReportModal, setreportModal } = useReportModal({ onConfirm });
   const handleOpenReportModal = () => {
     setAnchorEl(null);
     setreportModal(true);
@@ -78,8 +78,6 @@ const ManuButton = props => {
       )}
 
       <ReportModal
-        openReportModal={openReportModal}
-        setreportModal={setreportModal}
         {...props}
       />
     </>

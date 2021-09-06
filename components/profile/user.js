@@ -58,7 +58,7 @@ import {
   followingSelector,
 } from '../../selectors/userSelector';
 import { followerCountSelector } from '../../selectors/userSelector';
-import ReportModal from './ReportModal';
+import useReportModal from './ReportModal';
 import PurchasedPosts from './PurchasedPosts';
 import { post } from '../../actions/post';
 
@@ -105,7 +105,6 @@ export default function Profile({
   followings,
 }) {
   const dispatch = useDispatch();
-  const [openReportModal, setreportModal] = React.useState(false);
   const [tab, setTab] = React.useState(0);
   const [userFeed, setUserFeed] = React.useState(feed);
   const [_numberOfPosts, set_numberOfPosts] = React.useState(numberOfPosts);
@@ -211,6 +210,23 @@ export default function Profile({
       })
     );
   };
+
+  const { ReportModal, setreportModal } = useReportModal({
+    onConfirm: (reason, callback) => {
+      const itemId = profileData?.id;
+      dispatch(
+        userAction.report({
+          reportData: {
+            itemId,
+            reason,
+          },
+          callback: () => {
+            callback && callback();
+          },
+        })
+      );
+    },
+  });
 
   return (
     <LoadingOverlay active={fetchData} spinner={<BounceLoader />}>
@@ -465,24 +481,8 @@ export default function Profile({
                               </NormalCaseButton>
 
                               <ReportModal
-                                openReportModal={openReportModal}
-                                setreportModal={setreportModal}
                                 title='Report this User'
                                 profileImage={profileData}
-                                onConfirm={(reason, callback) => {
-                                  const itemId = profileData?.id;
-                                  dispatch(
-                                    userAction.report({
-                                      reportData: {
-                                        itemId,
-                                        reason,
-                                      },
-                                      callback: () => {
-                                        callback && callback();
-                                      },
-                                    })
-                                  );
-                                }}
                               />
                             </>
                           </Box>

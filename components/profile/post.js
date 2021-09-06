@@ -21,7 +21,7 @@ import { post as postData } from '../../actions/post/index';
 import styles from './profile.module.css';
 import { currentUserSelector } from '../../selectors/authSelector';
 import LocalMallIcon from '@material-ui/icons/LocalMall';
-import ReportModal from './ReportModal';
+import useReportModal from './ReportModal';
 import TipModal from './TipModal';
 import { fetchingSelector } from '../../selectors/postSelector';
 import LoadingOverlay from 'react-loading-overlay';
@@ -88,7 +88,11 @@ export default function Post({
   const dispatch = useDispatch();
   const currentUser = useSelector(currentUserSelector);
   const searchInput = useRef(null);
-  const [openReportModal, setreportModal] = useState(false);
+  const { ReportModal, setreportModal } = useReportModal({
+    onConfirm: () => {
+      //
+    },
+  });
   const fetchData = useSelector(fetchingSelector);
   const [notByedModel, setnotBuyedModel] = useState(false);
   const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
@@ -390,8 +394,6 @@ export default function Post({
             user={post?.user}
           />
           <ReportModal
-            openReportModal={openReportModal}
-            setreportModal={setreportModal}
             post={post}
           />
           <NotBuyedModel
