@@ -68,13 +68,15 @@ export const post = {
       success: false,
       error: null,
     }),
-  requestX: (data, doNotResetXFeed) => {
+  requestX: (data, doNotResetXFeed, skipFetching) => {
     let payload = {
       ...data,
-      fetching: true,
       success: false,
       error: null,
     };
+    if (!Boolean(skipFetching)) {
+      payload.fetching = true;
+    }
     if (!Boolean(doNotResetXFeed)) {
       payload.xfeed = [];
     }
