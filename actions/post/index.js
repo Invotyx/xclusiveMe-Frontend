@@ -69,13 +69,14 @@ export const post = {
       error: null,
     }),
   requestX: data => {
-    return createAction(POST.GET_X, {
+    let payload = {
       ...data,
       xfeed: [],
       fetching: true,
       success: false,
       error: null,
-    });
+    };
+    return createAction(POST.GET_X, payload);
   },
   requestReplies: data =>
     createAction(POST.GET_REPLIES, {
