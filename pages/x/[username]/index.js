@@ -15,8 +15,10 @@ export default function Profile() {
   const router = useRouter();
   const { username } = router.query;
   useEffect(() => {
-    dispatch(user.requestOne(username));
-    dispatch(post.requestX({ username }));
+    if (username) {
+      dispatch(user.requestOne(username));
+      dispatch(post.requestX({ username }));
+    }
   }, [username]);
   const u = useSelector(singleSelector);
   const numberOfPosts = useSelector(xfeed_numberOfPostsSelector);
