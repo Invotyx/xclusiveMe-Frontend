@@ -43,14 +43,14 @@ export default function Home() {
             <Box mb={2}>
               {bankData.length ? (
                 <>
-                      <Box mb={2}>
-                        <Typography variant='subtitle2'>
-                          <strong>Your Linked Bank Account</strong>
-                        </Typography>
-                        <Typography variant='subtitle2'>
-                          You may not be able to change your bank details
-                        </Typography>
-                      </Box>
+                  <Box mb={2}>
+                    <Typography variant='subtitle2'>
+                      <strong>Your Linked Bank Account</strong>
+                    </Typography>
+                    <Typography variant='subtitle2'>
+                      You may not be able to change your bank details
+                    </Typography>
+                  </Box>
                   <List>
                     {bankData.map(p => (
                       <ListItem
@@ -77,12 +77,12 @@ export default function Home() {
                   </List>
                 </>
               ) : (
-                  <Box mb={2}>
-                    <Typography variant='subtitle2'>
-                      You have no bank account linked to this profile. To add a
-                      subscription fee to your content, please add a bank.
-                    </Typography>
-                  </Box>
+                <Box mb={2}>
+                  <Typography variant='subtitle2'>
+                    You have no bank account linked to this profile. To add a
+                    subscription fee to your content, please add a bank.
+                  </Typography>
+                </Box>
               )}
             </Box>
           </Grid>
