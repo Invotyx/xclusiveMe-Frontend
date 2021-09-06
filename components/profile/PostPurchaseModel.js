@@ -59,9 +59,9 @@ const usePostPurchaseModel = () => {
         timeout: 500,
       }}
     >
-      <Fade in={openModel}>
-        <LoadingOverlay active={fetchData} spinner={<BounceLoader />}>
-          <div className={classes.paper}>
+      <div className={classes.paper}>
+        <Fade in={openModel}>
+          <LoadingOverlay active={fetchData} spinner={<BounceLoader />}>
             {purchased === false ? (
               <div>
                 <div
@@ -346,9 +346,9 @@ const usePostPurchaseModel = () => {
                 </div>
               </div>
             )}
-          </div>
-        </LoadingOverlay>
-      </Fade>
+          </LoadingOverlay>
+        </Fade>
+      </div>
     </Modal>
   );
   return { PostPurchaseModel, handleOpenModel, setPurchased };
