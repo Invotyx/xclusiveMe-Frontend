@@ -58,9 +58,9 @@ import {
   followingSelector,
 } from '../../selectors/userSelector';
 import { followerCountSelector } from '../../selectors/userSelector';
-import useReportModal from './ReportModal';
 import PurchasedPosts from './PurchasedPosts';
 import { post } from '../../actions/post';
+import ManuButton from '../menuButton';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -210,23 +210,6 @@ export default function Profile({
       })
     );
   };
-
-  const { ReportModal, setreportModal } = useReportModal({
-    onConfirm: (reason, callback) => {
-      const itemId = profileData?.id;
-      dispatch(
-        userAction.report({
-          reportData: {
-            itemId,
-            reason,
-          },
-          callback: () => {
-            callback && callback();
-          },
-        })
-      );
-    },
-  });
 
   return (
     <LoadingOverlay active={fetchData} spinner={<BounceLoader />}>
@@ -471,18 +454,25 @@ export default function Profile({
                               </NormalCaseButton>
                             )}
                             <>
-                              <NormalCaseButton
-                                size='small'
-                                variant='outlined'
-                                onClick={() => setreportModal(true)}
-                                style={{ marginLeft: '10px' }}
-                              >
-                                Report
-                              </NormalCaseButton>
-
-                              <ReportModal
+                              <ManuButton
                                 title='Report this User'
                                 profileImage={profileData}
+                                onConfirm={{
+                                  onConfirm: (reason, callback) => {
+                                    const itemId = profileData?.id;
+                                    dispatch(
+                                      userAction.report({
+                                        reportData: {
+                                          itemId,
+                                          reason,
+                                        },
+                                        callback: () => {
+                                          callback && callback();
+                                        },
+                                      })
+                                    );
+                                  },
+                                }}
                               />
                             </>
                           </Box>
