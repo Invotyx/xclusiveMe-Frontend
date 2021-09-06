@@ -112,7 +112,6 @@ export default function Post({
             postData.deleteLike({
               id: post.id,
               callback: () => {
-                dispatch(postData.request());
                 callbackAction && callbackAction();
               },
             })
@@ -122,7 +121,6 @@ export default function Post({
           postData.saveLike({
             id: post.id,
             callback: () => {
-              dispatch(postData.request());
               callbackAction && callbackAction();
             },
           })
