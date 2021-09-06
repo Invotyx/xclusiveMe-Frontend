@@ -71,11 +71,11 @@ export const post = {
   requestX: data => {
     let payload = {
       ...data,
-      xfeed: [],
       fetching: true,
       success: false,
       error: null,
     };
+      payload.xfeed = [];
     return createAction(POST.GET_X, payload);
   },
   requestReplies: data =>
