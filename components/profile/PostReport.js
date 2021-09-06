@@ -101,8 +101,6 @@ export default function PostReport({ postid, handleClose }) {
         },
         callback: () => {
           handleClose();
-          dispatch(postData.request());
-          dispatch(postData.requestSubscribed());
         },
       })
     );
