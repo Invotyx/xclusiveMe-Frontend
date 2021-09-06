@@ -99,7 +99,6 @@ export default function NewPostForm({ afterSave }) {
           setTileData([]);
           setMedia([]);
           setPostText('');
-          dispatch(post.request());
         },
       })
     );
