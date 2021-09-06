@@ -32,7 +32,6 @@ const RepliesLists = ({
             postData.delCommentLike({
               id: re.id,
               callback: () => {
-                // dispatch(postData.request());
                 console.log('eee');
                 dispatch(postData.requestOne(sPost.id));
               },
@@ -45,8 +44,6 @@ const RepliesLists = ({
               callback: () => {
                 console.log('ddd');
                 dispatch(postData.requestOne(sPost.id));
-                console.log(dispatch(postData.requestOne(sPost.id)));
-                // dispatch(postData.request());
               },
             })
           )
