@@ -456,7 +456,7 @@ export default function Profile({
                             <>
                               <ManuButton
                                 title='Report this User'
-                                profileImage={profileData}
+                                profileImage={profileData?.profileImage}
                                 onConfirm={{
                                   onConfirm: (reason, callback) => {
                                     const itemId = profileData?.id;
