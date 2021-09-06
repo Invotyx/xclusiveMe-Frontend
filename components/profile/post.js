@@ -1,3 +1,4 @@
+import React from 'react';
 import NextLink from 'next/link';
 import BookmarkBorderOutlinedIcon from '@material-ui/icons/BookmarkBorderOutlined';
 import Box from '@material-ui/core/Box';
