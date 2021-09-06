@@ -101,7 +101,6 @@ export const post = {
   getCommentsVal: data =>
     createAction(POST.GET_COMMENTS, {
       ...data,
-      fetching: true,
       success: false,
       error: null,
     }),
