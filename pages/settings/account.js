@@ -37,6 +37,7 @@ import { isValidHttpUrl } from '../../services/helper';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import * as parser from 'ua-parser-js';
 import NormalCaseButton from '../../components/NormalCaseButton';
+import moment from 'moment';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -378,6 +379,7 @@ export default function Home(props) {
             </form>
             <form noValidate>
               <Box mb={4}>
+                Sessions
                 <UppercaseInputLabel>Login Sessions</UppercaseInputLabel>
                 <List>
                   {loginSessions.length === 0 && <div>No sessions</div>}
@@ -388,8 +390,11 @@ export default function Home(props) {
                         <ListItem selected={true} divider>
                           <ListItemText
                             primary={`${ua.browser.name} | ${ua.os.name} (${ua.os.version})`}
-                            secondary={`${i.publicIp}`}
+                            secondary={`${
+                              i.publicIp
+                            } ${' at '}  ${i.createdAt.substring(11, 16)}`}
                           />
+
                           <ListItemSecondaryAction>
                             {i.time}
                           </ListItemSecondaryAction>
