@@ -348,7 +348,7 @@ export default function Post({
                   ) : (
                     <>
                       <TipModal
-                        profileImage={post?.user?.profileImage}
+                        profileImage={post?.user}
                         name={post?.user?.fullName}
                       >
                         <NormalCaseButton
