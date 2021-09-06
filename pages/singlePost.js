@@ -472,8 +472,6 @@ const SinglePost = ({
 
                                     callback: () => {
                                       callback && callback();
-                                      dispatch(postData.request());
-                                      dispatch(postData.requestSubscribed());
                                     },
                                   })
                                 )
@@ -510,8 +508,6 @@ const SinglePost = ({
                         id: post.id,
                         callback: () => {
                           setPurchased(true);
-                          dispatch(postData.request());
-                          dispatch(postData.requestSubscribed());
                         },
                       })
                     );

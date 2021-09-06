@@ -389,8 +389,7 @@ export default function Post({
                   id: post.id,
                   callback: () => {
                     setPurchased(true);
-                    dispatch(postData.request());
-                    dispatch(postData.requestSubscribed());
+                    callbackAction && callbackAction();
                   },
                 })
               );

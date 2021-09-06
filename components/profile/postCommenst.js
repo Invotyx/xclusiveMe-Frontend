@@ -133,7 +133,6 @@ export default function PostComments({
             postData.deleteLike({
               id: post.id,
               callback: () => {
-                dispatch(postData.request());
                 callbackAction && callbackAction();
               },
             })
@@ -143,7 +142,6 @@ export default function PostComments({
           postData.saveLike({
             id: post.id,
             callback: () => {
-              dispatch(postData.request());
               callbackAction && callbackAction();
             },
           })
@@ -158,7 +156,6 @@ export default function PostComments({
             postData.delCommentLike({
               id: comm.id,
               callback: () => {
-                dispatch(postData.request());
                 callbackAction && callbackAction();
               },
             })
@@ -168,7 +165,6 @@ export default function PostComments({
             postData.saveCommentLike({
               id: comm.id,
               callback: () => {
-                dispatch(postData.request());
                 callbackAction && callbackAction();
               },
             })
