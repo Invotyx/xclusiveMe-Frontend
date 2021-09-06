@@ -471,8 +471,6 @@ const CommentModel = ({
 
                                     callback: () => {
                                       callback && callback();
-                                      dispatch(postData.request());
-                                      dispatch(postData.requestSubscribed());
                                     },
                                   })
                                 )
@@ -508,7 +506,6 @@ const CommentModel = ({
                           id: post.id,
                           callback: () => {
                             setPurchased(true);
-                            dispatch(postData.request());
                             dispatch(postData.requestSubscribed());
                           },
                         })
