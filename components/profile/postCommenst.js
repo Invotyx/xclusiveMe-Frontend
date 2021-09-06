@@ -238,7 +238,7 @@ export default function PostComments({
       />
 
       {post.comments.map(comm => (
-        <div style={{ marginBottom: '20px' }}>
+        <div style={{ marginBottom: '20px' }} key={`abcdef${i}`}>
           <div
             style={{
               display: 'flex',

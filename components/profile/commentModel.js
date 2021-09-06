@@ -149,7 +149,6 @@ const CommentModel = ({
               postData.delCommentLike({
                 id: comm.id,
                 callback: () => {
-
                   dispatch(postData.requestOne(sPost.id));
                 },
               })
@@ -214,7 +213,6 @@ const CommentModel = ({
           postData.deleteLike({
             id: singlePost.id,
             callback: () => {
-
               dispatch(postData.requestOne(sPost.id));
             },
           })
@@ -545,7 +543,7 @@ const CommentModel = ({
                 {singlePost?.comments?.map(
                   (comm, index) =>
                     comm?.parentCommentId === null && (
-                      <div>
+                      <div key={`abcdef${i}`}>
                         <div
                           style={{
                             display: 'flex',
@@ -685,7 +683,7 @@ const CommentModel = ({
                   commentsData?.map(
                     (comm, index) =>
                       comm?.parentCommentId === null && (
-                        <div>
+                        <div key={`abcdef${i}`}>
                           <div
                             style={{
                               display: 'flex',

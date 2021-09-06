@@ -556,7 +556,7 @@ const SinglePost = ({
               {sPost?.comments?.map(
                 (comm, index) =>
                   comm?.parentCommentId === null && (
-                    <div>
+                    <div key={`abcdef${i}`}>
                       <div
                         style={{
                           display: 'flex',
@@ -721,7 +721,7 @@ const SinglePost = ({
                 commentsData?.map(
                   (comm, index) =>
                     comm?.parentCommentId === null && (
-                      <div>
+                      <div key={`abcdef${i}`}>
                         <div
                           style={{
                             display: 'flex',

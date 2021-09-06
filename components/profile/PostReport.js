@@ -111,6 +111,7 @@ export default function PostReport({ postid, handleClose }) {
         <FormControl component='fieldset'>
           {reasons.map(r => (
             <RadioGroup
+              key={`abcdef${i}`}
               name='customized-radios'
               value={value}
               onChange={e => setValue(e.target.value)}
