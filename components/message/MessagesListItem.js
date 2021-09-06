@@ -83,9 +83,19 @@ const MessagesListItem = ({ activeConversationId, message, ...props }) => {
                 <PostPurchaseModel
                   handlePurchase={() => {
                     console.log('purchasing...');
+                    dispatch(
+                      chat.purchaseMessage({
+                        id: message.id,
+                        conversationId: activeConversationId,
+                        callback: () => {
+                          //
+                        },
+                      })
+                    );
                   }}
                   modalTitle='Unlock message?'
                   price={message.price}
+                  price={10}
                   user={{ fullName: null, profileImage: null }}
                 />
               </>

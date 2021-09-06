@@ -13,6 +13,12 @@ export async function sendSingleMsg(id, saveData) {
   return apiClient.post(`${SERVER_ADDRESS}/conversations/${id}/messages`, data);
 }
 
+export async function purchaseMessage(id, conversationId) {
+  return apiClient.post(
+    `${SERVER_ADDRESS}/conversations/${conversationId}/messages/${id}/purchase`
+  );
+}
+
 export async function getConversations(pageNum, limit) {
   return apiClient.get(
     `${SERVER_ADDRESS}/conversations?page=${pageNum}&limit=${limit}`

@@ -26,6 +26,14 @@ export const chat = {
       error: null,
     }),
 
+  purchaseMessage: data =>
+    createAction(CHAT.PURCHASE_MESSAGE, {
+      ...data,
+      fetching: true,
+      success: false,
+      error: null,
+    }),
+
   getConversations: data =>
     createAction(CHAT.GET, {
       ...data,

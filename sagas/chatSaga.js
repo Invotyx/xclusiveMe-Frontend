@@ -7,6 +7,7 @@ import {
   getConversations,
   getSingleChat,
   sendSingleMsg,
+  purchaseMessage,
   uploadAudio,
   isSeen,
 } from '../services/chat.service';
@@ -37,6 +38,29 @@ function* handleSendSingleMessage(action) {
   try {
     const { conversationId, saveData } = action.payload;
     yield call(sendSingleMsg, conversationId, saveData);
+    yield put(chat.success({}));
+
+    const { callback } = action.payload;
+    if (callback) {
+      yield call(callback);
+    }
+  } catch (e) {
+    console.log(e);
+    yield put(chat.failure({ error: { ...e } }));
+    yield put(
+      snackbar.update({
+        open: true,
+        message: e.response.data.message,
+        severity: 'error',
+      })
+    );
+  }
+}
+
+function* handlePurchaseMessage(action) {
+  try {
+    const { id, conversationId } = action.payload;
+    yield call(purchaseMessage, id, conversationId);
     yield put(chat.success({}));
 
     const { callback } = action.payload;
@@ -133,6 +157,7 @@ function* watchChatSagas() {
     takeLatest(CHAT.GET, handlegetConversations),
     takeLatest(CHAT.GET_ONE, handleGetOneCon),
     takeLatest(CHAT.SEND_ONE, handleSendSingleMessage),
+    takeLatest(CHAT.PURCHASE_MESSAGE, handlePurchaseMessage),
     takeLatest(CHAT.SEND_VOICEMAIL, handleUploadAudio),
     takeLatest(CHAT.IS_SEEN, handleUpdateIsSeen),
   ]);

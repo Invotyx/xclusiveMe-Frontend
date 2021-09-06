@@ -6,6 +6,7 @@ export const CHAT = createActionTypes('CHAT', [
   'SEND_VOICEMAIL',
   'SEND_ONE',
   'GET_ONE',
+  'PURCHASE_MESSAGE',
   'IS_SEEN',
   'SUCCESS',
   'FAIL',
