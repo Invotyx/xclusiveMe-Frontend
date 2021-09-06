@@ -33,7 +33,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const useTipModal = ({ onConfirm }) => {
+const TipModal = ({ profileImage, name, onConfirm, children }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const [openTip, setopenTip] = useState(false);
@@ -62,7 +62,7 @@ const useTipModal = ({ onConfirm }) => {
     openTip && dispatch(paymentMethod.request());
   }, [openTip]);
 
-  const TipModal = (profileImage, name, children) => (
+  return (
     <>
       {children ? (
         <span onClick={handleOpenTopModal}>{children}</span>
@@ -397,7 +397,6 @@ const useTipModal = ({ onConfirm }) => {
       </Modal>
     </>
   );
-  return { TipModal };
 };
 
-export default useTipModal;
+export default TipModal;

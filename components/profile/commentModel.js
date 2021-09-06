@@ -26,7 +26,7 @@ import LocalMallIcon from '@material-ui/icons/LocalMall';
 import usePostPurchaseModel from './PostPurchaseModel';
 import { useMediaQuery } from 'react-responsive';
 import { getCommentsDataSelector } from '../../selectors/postSelector';
-import useTipModal from './TipModal';
+import TipModal from './TipModal';
 import { fetchingSelector } from '../../selectors/postSelector';
 import LoadingOverlay from 'react-loading-overlay';
 import BounceLoader from 'react-spinners/BounceLoader';
@@ -234,23 +234,6 @@ const CommentModel = ({
     if (n >= 1e9 && n < 1e12) return +(n / 1e9).toFixed(1) + 'B';
     if (n >= 1e12) return +(n / 1e12).toFixed(1) + 'T';
   };
-
-  const { TipModal } = useTipModal({
-    onConfirm: (amount, callback) =>
-      dispatch(
-        postData.addTip({
-          saveData: {
-            itemTipped: post.id,
-            itemTippedType: 'post',
-            amount,
-          },
-
-          callback: () => {
-            callback && callback();
-          },
-        })
-      ),
-  });
 
   return (
     <Modal
@@ -476,6 +459,21 @@ const CommentModel = ({
                               <TipModal
                                 profileImage={post?.user?.profileImage}
                                 name={post?.user?.fullName}
+                                onConfirm={(amount, callback) =>
+                                  dispatch(
+                                    postData.addTip({
+                                      saveData: {
+                                        itemTipped: post.id,
+                                        itemTippedType: 'post',
+                                        amount,
+                                      },
+
+                                      callback: () => {
+                                        callback && callback();
+                                      },
+                                    })
+                                  )
+                                }
                               >
                                 <NormalCaseButton
                                   aria-label='Buy Post'

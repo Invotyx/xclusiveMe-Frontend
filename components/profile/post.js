@@ -22,7 +22,7 @@ import styles from './profile.module.css';
 import { currentUserSelector } from '../../selectors/authSelector';
 import LocalMallIcon from '@material-ui/icons/LocalMall';
 import useReportModal from './ReportModal';
-import useTipModal from './TipModal';
+import TipModal from './TipModal';
 import { fetchingSelector } from '../../selectors/postSelector';
 import LoadingOverlay from 'react-loading-overlay';
 import BounceLoader from 'react-spinners/BounceLoader';
@@ -147,23 +147,6 @@ export default function Post({
     if (n >= 1e9 && n < 1e12) return +(n / 1e9).toFixed(1) + 'B';
     if (n >= 1e12) return +(n / 1e12).toFixed(1) + 'T';
   };
-
-  const { TipModal } = useTipModal({
-    onConfirm: (amount, callback) =>
-      dispatch(
-        postData.addTip({
-          saveData: {
-            itemTipped: post.id,
-            itemTippedType: 'post',
-            amount,
-          },
-
-          callback: () => {
-            callback && callback();
-          },
-        })
-      ),
-  });
 
   return (
     <LoadingOverlay active={fetchData} spinner={<BounceLoader />}>
@@ -350,6 +333,21 @@ export default function Post({
                       <TipModal
                         profileImage={post?.user}
                         name={post?.user?.fullName}
+                        onConfirm={(amount, callback) =>
+                          dispatch(
+                            postData.addTip({
+                              saveData: {
+                                itemTipped: post.id,
+                                itemTippedType: 'post',
+                                amount,
+                              },
+
+                              callback: () => {
+                                callback && callback();
+                              },
+                            })
+                          )
+                        }
                       >
                         <NormalCaseButton
                           aria-label='Buy Post'
