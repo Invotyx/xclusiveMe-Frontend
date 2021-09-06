@@ -25,10 +25,6 @@ export default function Profile() {
   const _feed = useSelector(xfeedSelector);
   const currentUser = useSelector(currentUserSelector);
 
-  useEffect(() => {
-    currentUser?.username === username && dispatch(user.requestOne(username));
-  }, [currentUser]);
-
   return (
     <>
       <Head>
