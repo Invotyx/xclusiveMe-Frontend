@@ -188,7 +188,7 @@ const Chat = () => {
 
   useEffect(() => {
     if (conId) {
-      dispatch(chat.updateActiveConversationId(conId));
+      dispatch(chat.updateActiveConversationId(+conId));
       if (chatsData && current) {
         setActiveParticipant(
           chatsData
