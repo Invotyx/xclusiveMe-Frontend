@@ -20,7 +20,7 @@ export default function useEmojiPicker() {
 
   const EmojiPicker = ({ popperProps, ...props }) => (
     <>
-      <IconButton onClick={toggleEmojiPicker}>
+      <IconButton onClick={toggleEmojiPicker} style={{ color: '#868686' }}>
         <InsertEmoticonIcon />
       </IconButton>
       <Popper
