@@ -29,6 +29,7 @@ const useStyles = makeStyles(theme => ({
 const MessagesList = ({
   lastMessageReceived,
   scrollIntoViewPointer,
+  activeParticipant,
 }) => {
   const myRef = React.useRef(null);
   const activeConversationId = useSelector(activeConversationIdSelector);
@@ -77,6 +78,7 @@ const MessagesList = ({
             key={`message${x}`}
             message={message}
             activeConversationId={activeConversationId}
+            activeParticipant={activeParticipant}
           />
         ))}
         <div ref={myRef} style={{ textIndent: '-9999px' }}>

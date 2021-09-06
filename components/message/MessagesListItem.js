@@ -14,6 +14,7 @@ import usePostPurchaseModel from '../profile/PostPurchaseModel';
 const MessagesListItem = ({
   activeConversationId,
   message,
+  activeParticipant,
   ...props
 }) => {
   const { PostPurchaseModel, handleOpenModel } = usePostPurchaseModel();
@@ -99,7 +100,7 @@ const MessagesListItem = ({
                   modalTitle='Unlock message?'
                   price={message.price}
                   price={10}
-                  user={{ fullName: null, profileImage: null }}
+                  user={activeParticipant}
                 />
               </>
             )}

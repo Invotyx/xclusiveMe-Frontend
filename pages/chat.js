@@ -320,6 +320,7 @@ const Chat = () => {
                   <MessagesList
                     lastMessageReceived={lastMessageReceived}
                     scrollIntoViewPointer={scrollIntoViewPointer}
+                    activeParticipant={activeParticipant}
                   />
                 </CardContent>
                 <MessageSend
