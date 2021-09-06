@@ -602,7 +602,7 @@ export default function Profile({
                                       me={me}
                                       callbackAction={() => {
                                         dispatch(
-                                          post.requestX({ username }, false)
+                                          post.requestX({ username }, true)
                                         );
                                       }}
                                     />
