@@ -601,7 +601,9 @@ export default function Profile({
                                       profileData={profileData}
                                       me={me}
                                       callbackAction={() => {
-                                        dispatch(post.requestX({ username }));
+                                        dispatch(
+                                          post.requestX({ username }, false)
+                                        );
                                       }}
                                     />
                                   </Grid>
