@@ -11,7 +11,11 @@ import AudioPlayer from './AudioPlayer';
 import LockedPost from '../profile/LockedPost';
 import usePostPurchaseModel from '../profile/PostPurchaseModel';
 
-const MessagesListItem = ({ activeConversationId, message, ...props }) => {
+const MessagesListItem = ({
+  activeConversationId,
+  message,
+  ...props
+}) => {
   const { PostPurchaseModel, handleOpenModel } = usePostPurchaseModel();
   const { ref, inView } = useInView({
     threshold: 0,
