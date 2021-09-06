@@ -50,8 +50,8 @@ const NotBuyedModel = ({ notByedModel, setnotBuyedModel, post }) => {
         timeout: 500,
       }}
     >
-      <Fade in={notByedModel}>
-        <div className={classes.paper}>
+      <div className={classes.paper}>
+        <Fade in={notByedModel}>
           <div>
             <div
               style={{
@@ -108,8 +108,8 @@ const NotBuyedModel = ({ notByedModel, setnotBuyedModel, post }) => {
               </div>
             </div>
           </div>
-        </div>
-      </Fade>
+        </Fade>
+      </div>
     </Modal>
   );
 };
