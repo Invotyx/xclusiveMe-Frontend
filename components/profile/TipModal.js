@@ -62,7 +62,7 @@ const useTipModal = ({ onConfirm }) => {
     openTip && dispatch(paymentMethod.request());
   }, [openTip]);
 
-  const TipModal = (profileImage, name, children) => (
+  const TipModal = ({ profileImage, name, children }) => (
     <>
       {children ? (
         <span onClick={handleOpenTopModal}>{children}</span>
