@@ -109,7 +109,6 @@ export const post = {
   saveComment: data =>
     createAction(POST.ADD_COMMENT, {
       ...data,
-      fetching: true,
       success: false,
       error: null,
     }),
