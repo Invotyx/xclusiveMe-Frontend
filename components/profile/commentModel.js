@@ -506,7 +506,6 @@ const CommentModel = ({
                           id: post.id,
                           callback: () => {
                             setPurchased(true);
-                            dispatch(postData.requestSubscribed());
                           },
                         })
                       );
