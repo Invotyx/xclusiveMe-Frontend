@@ -111,7 +111,6 @@ export const post = {
   saveLike: id =>
     createAction(POST.ADD_LIKE, {
       ...id,
-      fetching: true,
       success: false,
       error: null,
     }),
@@ -135,7 +134,6 @@ export const post = {
   deleteLike: id =>
     createAction(POST.DELETE_LIKES, {
       ...id,
-      fetching: true,
       success: false,
       error: null,
     }),
