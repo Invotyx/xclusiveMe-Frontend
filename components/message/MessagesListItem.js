@@ -82,7 +82,6 @@ const MessagesListItem = ({ activeConversationId, message, ...props }) => {
                 />
                 <PostPurchaseModel
                   handlePurchase={() => {
-                    console.log('purchasing...');
                     dispatch(
                       chat.purchaseMessage({
                         id: message.id,
