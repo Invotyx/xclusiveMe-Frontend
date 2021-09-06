@@ -237,7 +237,7 @@ export default function PostComments({
         setCheckRefs={setCheckRefs}
       />
 
-      {post.comments.map(comm => (
+      {post.comments.map((comm, i) => (
         <div style={{ marginBottom: '20px' }} key={`abcdef${i}`}>
           <div
             style={{

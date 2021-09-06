@@ -109,7 +109,7 @@ export default function PostReport({ postid, handleClose }) {
     <Card className={classes.root}>
       <CardContent>
         <FormControl component='fieldset'>
-          {reasons.map(r => (
+          {reasons.map((r, i) => (
             <RadioGroup
               key={`abcdef${i}`}
               name='customized-radios'

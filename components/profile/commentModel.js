@@ -543,7 +543,7 @@ const CommentModel = ({
                 {singlePost?.comments?.map(
                   (comm, index) =>
                     comm?.parentCommentId === null && (
-                      <div key={`abcdef${i}`}>
+                      <div key={`abcdef${index}`}>
                         <div
                           style={{
                             display: 'flex',
@@ -683,7 +683,7 @@ const CommentModel = ({
                   commentsData?.map(
                     (comm, index) =>
                       comm?.parentCommentId === null && (
-                        <div key={`abcdef${i}`}>
+                        <div key={`abcdef${index}`}>
                           <div
                             style={{
                               display: 'flex',
