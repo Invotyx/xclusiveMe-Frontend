@@ -68,14 +68,16 @@ export const post = {
       success: false,
       error: null,
     }),
-  requestX: data => {
+  requestX: (data, doNotResetXFeed) => {
     let payload = {
       ...data,
       fetching: true,
       success: false,
       error: null,
     };
+    if (!Boolean(doNotResetXFeed)) {
       payload.xfeed = [];
+    }
     return createAction(POST.GET_X, payload);
   },
   requestReplies: data =>
