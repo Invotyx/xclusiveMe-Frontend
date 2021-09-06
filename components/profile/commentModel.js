@@ -246,110 +246,131 @@ const CommentModel = ({
       open={open}
     >
       <div>
-      <Fade in={open}>
-        <LoadingOverlay active={fetchData} spinner={<BounceLoader />}>
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              backgroundColor: '#101010',
-            }}
-          >
-            <div className={styles.hideOnMobile}>
-              <SinglePostMedia
-                media={singlePost?.media}
-                mediaCount={singlePost?.mediaCount}
-                singlePost={singlePost}
-              />
-            </div>
-
+        <Fade in={open}>
+          <LoadingOverlay active={fetchData} spinner={<BounceLoader />}>
             <div
-              className={styles.profileModelStyle}
-              style={{ backgroundColor: '#101010' }}
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                backgroundColor: '#101010',
+              }}
             >
-              {altHeader ? (
-                <CardHeader
-                  action={
-                    <IconButton aria-label='settings'>
-                      <CloseIcon onClick={handleClose} />
-                    </IconButton>
-                  }
-                  subheader={moment(singlePost.createdAt).fromNow()}
+              <div className={styles.hideOnMobile}>
+                <SinglePostMedia
+                  media={singlePost?.media}
+                  mediaCount={singlePost?.mediaCount}
+                  singlePost={singlePost}
                 />
-              ) : (
-                !isMobile && (
+              </div>
+
+              <div
+                className={styles.profileModelStyle}
+                style={{ backgroundColor: '#101010' }}
+              >
+                {altHeader ? (
                   <CardHeader
-                    avatar={<ProfileImageAvatar user={profileData} />}
                     action={
                       <IconButton aria-label='settings'>
-                        {!isMobile && <CloseIcon onClick={handleClose} />}
+                        <CloseIcon onClick={handleClose} />
                       </IconButton>
                     }
-                    title={
-                      <>
-                        <Box clone mr={1}>
-                          <Typography variant='body2' component='span'>
-                            <NextLink
-                              href={`/x/${singlePost?.user?.username}`}
-                              passHref
-                            >
-                              <Link>
-                                {singlePost?.user?.fullName || '(no name)'}
-                              </Link>
-                            </NextLink>
-                          </Typography>
-                        </Box>
-                        <Typography variant='caption' color='textSecondary'>
-                          {moment(
-                            singlePost &&
-                              singlePost.createdAt &&
-                              singlePost.createdAt
-                          ).fromNow()}
-                        </Typography>
-                      </>
-                    }
-                    subheader={
-                      <Typography variant='caption' color='textSecondary'>
-                        @{singlePost?.user?.username}
-                      </Typography>
-                    }
+                    subheader={moment(singlePost.createdAt).fromNow()}
                   />
-                )
-              )}
-              {isMobile && (
-                <div
-                  style={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    marginLeft: '25px',
-                    marginRight: '40vw',
-                    marginTop: '20px',
-                  }}
-                >
-                  <img src='/backBtn.svg' alt='back' onClick={handleClose} />
-                  <p
-                    style={{
-                      fontWeight: '500',
-                      fontSize: '15px',
-                      fontFamily: 'Poppins',
-                    }}
-                  >
-                    Comments
-                  </p>
-                </div>
-              )}
-              {singlePost &&
-                singlePost.postText &&
-                (isMobile ? (
+                ) : (
+                  !isMobile && (
+                    <CardHeader
+                      avatar={<ProfileImageAvatar user={profileData} />}
+                      action={
+                        <IconButton aria-label='settings'>
+                          {!isMobile && <CloseIcon onClick={handleClose} />}
+                        </IconButton>
+                      }
+                      title={
+                        <>
+                          <Box clone mr={1}>
+                            <Typography variant='body2' component='span'>
+                              <NextLink
+                                href={`/x/${singlePost?.user?.username}`}
+                                passHref
+                              >
+                                <Link>
+                                  {singlePost?.user?.fullName || '(no name)'}
+                                </Link>
+                              </NextLink>
+                            </Typography>
+                          </Box>
+                          <Typography variant='caption' color='textSecondary'>
+                            {moment(
+                              singlePost &&
+                                singlePost.createdAt &&
+                                singlePost.createdAt
+                            ).fromNow()}
+                          </Typography>
+                        </>
+                      }
+                      subheader={
+                        <Typography variant='caption' color='textSecondary'>
+                          @{singlePost?.user?.username}
+                        </Typography>
+                      }
+                    />
+                  )
+                )}
+                {isMobile && (
                   <div
                     style={{
                       display: 'flex',
-                      marginLeft: '18px',
-                      marginTop: '10px',
+                      justifyContent: 'space-between',
+                      marginLeft: '25px',
+                      marginRight: '40vw',
+                      marginTop: '20px',
                     }}
                   >
-                    <ProfileImageAvatar user={singlePost?.user} />
+                    <img src='/backBtn.svg' alt='back' onClick={handleClose} />
+                    <p
+                      style={{
+                        fontWeight: '500',
+                        fontSize: '15px',
+                        fontFamily: 'Poppins',
+                      }}
+                    >
+                      Comments
+                    </p>
+                  </div>
+                )}
+                {singlePost &&
+                  singlePost.postText &&
+                  (isMobile ? (
+                    <div
+                      style={{
+                        display: 'flex',
+                        marginLeft: '18px',
+                        marginTop: '10px',
+                      }}
+                    >
+                      <ProfileImageAvatar user={singlePost?.user} />
+                      <CardContent>
+                        <Typography
+                          variant='body2'
+                          color='textSecondary'
+                          component='p'
+                          style={{
+                            whiteSpace: 'normal',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+
+                            color: 'white',
+                            fontFamily: 'Poppins',
+                            fontSize: '16px',
+                            marginTop: '-10px',
+                          }}
+                        >
+                          {singlePost.postText.slice(0, 90)}
+                        </Typography>
+                      </CardContent>
+                    </div>
+                  ) : (
                     <CardContent>
                       <Typography
                         variant='body2'
@@ -358,330 +379,172 @@ const CommentModel = ({
                         style={{
                           whiteSpace: 'normal',
                           overflow: 'hidden',
-                          textOverflow: 'ellipsis',
-
+                          textOverflow: 'clip',
                           color: 'white',
                           fontFamily: 'Poppins',
                           fontSize: '16px',
-                          marginTop: '-10px',
                         }}
                       >
-                        {singlePost.postText.slice(0, 90)}
+                        {singlePost.postText.slice(0, 140)}
                       </Typography>
                     </CardContent>
-                  </div>
-                ) : (
-                  <CardContent>
-                    <Typography
-                      variant='body2'
-                      color='textSecondary'
-                      component='p'
-                      style={{
-                        whiteSpace: 'normal',
-                        overflow: 'hidden',
-                        textOverflow: 'clip',
-                        color: 'white',
-                        fontFamily: 'Poppins',
-                        fontSize: '16px',
-                      }}
-                    >
-                      {singlePost.postText.slice(0, 140)}
-                    </Typography>
-                  </CardContent>
-                ))}
-              {!isMobile && (
-                <div
-                  style={{
-                    marginLeft: '10px',
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                  }}
-                >
-                  <div>
-                    <Box>
-                      {singlePost &&
-                      singlePost.likes &&
-                      singlePost.likes.length === 0 ? (
-                        <NormalCaseButton
-                          aria-label='add to favorites'
-                          startIcon={
-                            <img src='/emptyHeart.png' alt='unliked' />
-                          }
-                          onClick={handleLike}
-                        >
-                          {nFormatter(singlePost?.totalLikes)}{' '}
-                          <span
-                            className={styles.hideOnMobile}
-                            style={{ marginLeft: '5px' }}
-                          >
-                            Likes
-                          </span>
-                        </NormalCaseButton>
-                      ) : (
-                        <NormalCaseButton
-                          aria-label='add to favorites'
-                          startIcon={<img src='/filled.png' alt='liked' />}
-                          onClick={handleLike}
-                        >
-                          {nFormatter(singlePost?.totalLikes)}{' '}
-                          <span
-                            className={styles.hideOnMobile}
-                            style={{ marginLeft: '5px' }}
-                          >
-                            Likes
-                          </span>
-                        </NormalCaseButton>
-                      )}
-
-                      <NormalCaseButton
-                        aria-label='share'
-                        startIcon={<img src='/comment.png' alt='comment' />}
-                      >
-                        {nFormatter(singlePost?.totalComments)}{' '}
-                        <span
-                          className={styles.hideOnMobile}
-                          style={{ marginLeft: '5px' }}
-                        >
-                          {' '}
-                          Comments
-                        </span>
-                      </NormalCaseButton>
-                      {
-                        <span aria-label='tip'>
-                          {sPost?.media.length === 0 ? (
-                            <MonetizationOnOutlinedIcon
-                              style={{ marginRight: '5px', marginLeft: '5px' }}
-                            />
-                          ) : (
-                            <TipModal
-                              profileImage={post?.user?.profileImage}
-                              name={post?.user?.fullName}
-                              onConfirm={(amount, callback) =>
-                                dispatch(
-                                  postData.addTip({
-                                    saveData: {
-                                      itemTipped: post.id,
-                                      itemTippedType: 'post',
-                                      amount,
-                                    },
-
-                                    callback: () => {
-                                      callback && callback();
-                                    },
-                                  })
-                                )
-                              }
-                            >
-                              <NormalCaseButton
-                                aria-label='Buy Post'
-                                startIcon={<MonetizationOnOutlinedIcon />}
-                              >
-                                Tip
-                              </NormalCaseButton>
-                            </TipModal>
-                          )}
-                        </span>
-                      }
-                    </Box>
-                  </div>
-                  <div style={{ marginRight: '6px' }}>
-                    {singlePost?.media.length === 0 && (
-                      <NormalCaseButton
-                        aria-label='Buy Post'
-                        startIcon={<LocalMallIcon />}
-                        onClick={handleOpenModel}
-                      >
-                        Buy Post
-                      </NormalCaseButton>
-                    )}
-                  </div>
-                  <PostPurchaseModel
-                    handlePurchase={() => {
-                      dispatch(
-                        postData.purchasePost({
-                          id: post.id,
-                          callback: () => {
-                            setPurchased(true);
-                          },
-                        })
-                      );
-                    }}
-                    price={post?.price}
-                    user={post?.user}
-                  />
-                </div>
-              )}
-              <div>
-                <img src='/border.png' alt='bar' style={{ width: '100%' }} />
-
-                {singlePost?.totalComments < 10 ||
-                commLength >= singlePost?.totalComments ? (
-                  ''
-                ) : (
-                  <p
+                  ))}
+                {!isMobile && (
+                  <div
                     style={{
-                      fontWeight: '500',
-                      fontSize: '14px',
-                      marginLeft: '15px',
-                      cursor: 'pointer',
+                      marginLeft: '10px',
+                      display: 'flex',
+                      justifyContent: 'space-between',
                     }}
-                    onClick={handlleGetComments}
                   >
-                    View previous comments
-                  </p>
-                )}
-              </div>
-
-              <div
-                // className={styles.commentBox}
-                style={{
-                  overflowY: 'scroll',
-                  overflowX: 'hidden',
-                  height: isMobile ? '65vh' : '280px',
-                  marginLeft: '15px',
-                }}
-              >
-                {singlePost?.comments?.map(
-                  (comm, index) =>
-                    comm?.parentCommentId === null && (
-                      <div key={`abcdef${index}`}>
-                        <div
-                          style={{
-                            display: 'flex',
-                            justifyContent: 'space-between',
-                            marginTop:
-                              singlePost?.totalComments < 10 ? '15px' : '',
-                          }}
-                        >
-                          <div
-                            style={{
-                              display: 'flex',
-                              justifyContent: 'space-between',
-                            }}
+                    <div>
+                      <Box>
+                        {singlePost &&
+                        singlePost.likes &&
+                        singlePost.likes.length === 0 ? (
+                          <NormalCaseButton
+                            aria-label='add to favorites'
+                            startIcon={
+                              <img src='/emptyHeart.png' alt='unliked' />
+                            }
+                            onClick={handleLike}
                           >
-                            <div style={{ display: 'flex' }}>
-                              <NextLink
-                                href={`/x/${comm?.user?.username}`}
-                                passHref
-                              >
-                                <Link>
-                                  <ProfileImageAvatar user={comm?.user} />
-                                </Link>
-                              </NextLink>
-
-                              <NextLink
-                                href={`/x/${comm?.user?.username}`}
-                                passHref
-                              >
-                                <Link>
-                                  <p
-                                    style={{
-                                      marginTop: '7px',
-                                      marginLeft: '10px',
-                                      fontWeight: 'bold',
-                                      cursor: 'pointer',
-                                    }}
-                                    className={styles.userNameMobile}
-                                  >
-                                    {comm?.user?.fullName}
-                                  </p>
-                                </Link>
-                              </NextLink>
-                            </div>
-
-                            <p
-                              style={{
-                                cursor: 'pointer',
-                                marginLeft: '10px',
-                                marginTop: '5px',
-                                whiteSpace: 'normal',
-                                overflow: 'hidden',
-                                textOverflow: 'ellipsis',
-                                marginRight: '15px',
-                                color: '#ACACAC',
-                                fontWeight: comm.id === commentId && 'bold',
-                              }}
+                            {nFormatter(singlePost?.totalLikes)}{' '}
+                            <span
+                              className={styles.hideOnMobile}
+                              style={{ marginLeft: '5px' }}
                             >
-                              {comm.comment.slice(0, 511)}
-                            </p>
-                          </div>
-                          <div style={{ display: 'flex', marginRight: '14px' }}>
-                            <div key={index}>
-                              <img
-                                src='/comment.png'
-                                alt='reply button'
-                                style={{
-                                  width: '20px',
-                                  height: '20px',
-                                  marginRight: '9px',
-                                  cursor: 'pointer',
-                                }}
-                                className={styles.commMobile}
-                                id={comm.id}
-                                onClick={() => handleReplyField(comm.id)}
-                              />
-                            </div>
+                              Likes
+                            </span>
+                          </NormalCaseButton>
+                        ) : (
+                          <NormalCaseButton
+                            aria-label='add to favorites'
+                            startIcon={<img src='/filled.png' alt='liked' />}
+                            onClick={handleLike}
+                          >
+                            {nFormatter(singlePost?.totalLikes)}{' '}
+                            <span
+                              className={styles.hideOnMobile}
+                              style={{ marginLeft: '5px' }}
+                            >
+                              Likes
+                            </span>
+                          </NormalCaseButton>
+                        )}
 
-                            {comm.likes && comm.likes.length === 0 ? (
-                              <img
-                                src='/emptyHeart.png'
-                                alt='unliked'
+                        <NormalCaseButton
+                          aria-label='share'
+                          startIcon={<img src='/comment.png' alt='comment' />}
+                        >
+                          {nFormatter(singlePost?.totalComments)}{' '}
+                          <span
+                            className={styles.hideOnMobile}
+                            style={{ marginLeft: '5px' }}
+                          >
+                            {' '}
+                            Comments
+                          </span>
+                        </NormalCaseButton>
+                        {
+                          <span aria-label='tip'>
+                            {sPost?.media.length === 0 ? (
+                              <MonetizationOnOutlinedIcon
                                 style={{
-                                  width: '20px',
-                                  height: '20px',
-                                  cursor: 'pointer',
+                                  marginRight: '5px',
+                                  marginLeft: '5px',
                                 }}
-                                onClick={() => handleModelCommentLike(comm.id)}
                               />
                             ) : (
-                              <img
-                                src='/filled.png'
-                                alt='unliked'
-                                style={{
-                                  width: '20px',
-                                  height: '20px',
-                                  cursor: 'pointer',
-                                }}
-                                onClick={() => handleModelCommentLike(comm.id)}
-                              />
+                              <TipModal
+                                profileImage={post?.user?.profileImage}
+                                name={post?.user?.fullName}
+                                onConfirm={(amount, callback) =>
+                                  dispatch(
+                                    postData.addTip({
+                                      saveData: {
+                                        itemTipped: post.id,
+                                        itemTippedType: 'post',
+                                        amount,
+                                      },
+
+                                      callback: () => {
+                                        callback && callback();
+                                      },
+                                    })
+                                  )
+                                }
+                              >
+                                <NormalCaseButton
+                                  aria-label='Buy Post'
+                                  startIcon={<MonetizationOnOutlinedIcon />}
+                                >
+                                  Tip
+                                </NormalCaseButton>
+                              </TipModal>
                             )}
-                          </div>
-                        </div>
-
-                        <div>
-                          <div
-                            style={{
-                              marginLeft: '50px',
-                              marginTop: '-10px',
-                              marginBottom: '0px',
-                              cursor: 'pointer',
-                              fontSize: '11px',
-                            }}
-                          >
-                            <RepliesData
-                              comm={comm}
-                              post={post}
-                              singlePost={singlePost}
-                              currUser={currUser}
-                              isReplyField={isReplyField}
-                              setisReplyField={setisReplyField}
-                              issubReplyField={issubReplyField}
-                              setissubReplyField={setissubReplyField}
-                              commentId={commentId}
-                              setCommentId={setCommentId}
-                              forCommentId={forCommentId}
-                              openReply={openReply}
-                              checkRefs={checkRefs}
-                              closeCheck={closeCheck}
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    )
+                          </span>
+                        }
+                      </Box>
+                    </div>
+                    <div style={{ marginRight: '6px' }}>
+                      {singlePost?.media.length === 0 && (
+                        <NormalCaseButton
+                          aria-label='Buy Post'
+                          startIcon={<LocalMallIcon />}
+                          onClick={handleOpenModel}
+                        >
+                          Buy Post
+                        </NormalCaseButton>
+                      )}
+                    </div>
+                    <PostPurchaseModel
+                      handlePurchase={() => {
+                        dispatch(
+                          postData.purchasePost({
+                            id: post.id,
+                            callback: () => {
+                              setPurchased(true);
+                            },
+                          })
+                        );
+                      }}
+                      price={post?.price}
+                      user={post?.user}
+                    />
+                  </div>
                 )}
+                <div>
+                  <img src='/border.png' alt='bar' style={{ width: '100%' }} />
 
-                {singlePost?.totalComments > 10 &&
-                  commentsData?.map(
+                  {singlePost?.totalComments < 10 ||
+                  commLength >= singlePost?.totalComments ? (
+                    ''
+                  ) : (
+                    <p
+                      style={{
+                        fontWeight: '500',
+                        fontSize: '14px',
+                        marginLeft: '15px',
+                        cursor: 'pointer',
+                      }}
+                      onClick={handlleGetComments}
+                    >
+                      View previous comments
+                    </p>
+                  )}
+                </div>
+
+                <div
+                  // className={styles.commentBox}
+                  style={{
+                    overflowY: 'scroll',
+                    overflowX: 'hidden',
+                    height: isMobile ? '65vh' : '280px',
+                    marginLeft: '15px',
+                  }}
+                >
+                  {singlePost?.comments?.map(
                     (comm, index) =>
                       comm?.parentCommentId === null && (
                         <div key={`abcdef${index}`}>
@@ -689,6 +552,8 @@ const CommentModel = ({
                             style={{
                               display: 'flex',
                               justifyContent: 'space-between',
+                              marginTop:
+                                singlePost?.totalComments < 10 ? '15px' : '',
                             }}
                           >
                             <div
@@ -740,7 +605,7 @@ const CommentModel = ({
                                   fontWeight: comm.id === commentId && 'bold',
                                 }}
                               >
-                                {comm.comment.slice(0, 100)}
+                                {comm.comment.slice(0, 511)}
                               </p>
                             </div>
                             <div
@@ -823,54 +688,201 @@ const CommentModel = ({
                         </div>
                       )
                   )}
-              </div>
 
-              <form onSubmit={handleAddComment}>
-                <Box style={{ borderTop: '1px solid #444444' }}>
-                  <OutlinedInput
-                    value={commentText}
-                    onChange={e => setCommentText(e.target.value)}
-                    name='commentText'
-                    fullWidth
-                    multiline
-                    onKeyDown={e => {
-                      if (e.keyCode === 13) {
-                        if (!event.shiftKey) {
-                          handleAddComment(e);
+                  {singlePost?.totalComments > 10 &&
+                    commentsData?.map(
+                      (comm, index) =>
+                        comm?.parentCommentId === null && (
+                          <div key={`abcdef${index}`}>
+                            <div
+                              style={{
+                                display: 'flex',
+                                justifyContent: 'space-between',
+                              }}
+                            >
+                              <div
+                                style={{
+                                  display: 'flex',
+                                  justifyContent: 'space-between',
+                                }}
+                              >
+                                <div style={{ display: 'flex' }}>
+                                  <NextLink
+                                    href={`/x/${comm?.user?.username}`}
+                                    passHref
+                                  >
+                                    <Link>
+                                      <ProfileImageAvatar user={comm?.user} />
+                                    </Link>
+                                  </NextLink>
+
+                                  <NextLink
+                                    href={`/x/${comm?.user?.username}`}
+                                    passHref
+                                  >
+                                    <Link>
+                                      <p
+                                        style={{
+                                          marginTop: '7px',
+                                          marginLeft: '10px',
+                                          fontWeight: 'bold',
+                                          cursor: 'pointer',
+                                        }}
+                                        className={styles.userNameMobile}
+                                      >
+                                        {comm?.user?.fullName}
+                                      </p>
+                                    </Link>
+                                  </NextLink>
+                                </div>
+
+                                <p
+                                  style={{
+                                    cursor: 'pointer',
+                                    marginLeft: '10px',
+                                    marginTop: '5px',
+                                    whiteSpace: 'normal',
+                                    overflow: 'hidden',
+                                    textOverflow: 'ellipsis',
+                                    marginRight: '15px',
+                                    color: '#ACACAC',
+                                    fontWeight: comm.id === commentId && 'bold',
+                                  }}
+                                >
+                                  {comm.comment.slice(0, 100)}
+                                </p>
+                              </div>
+                              <div
+                                style={{ display: 'flex', marginRight: '14px' }}
+                              >
+                                <div key={index}>
+                                  <img
+                                    src='/comment.png'
+                                    alt='reply button'
+                                    style={{
+                                      width: '20px',
+                                      height: '20px',
+                                      marginRight: '9px',
+                                      cursor: 'pointer',
+                                    }}
+                                    className={styles.commMobile}
+                                    id={comm.id}
+                                    onClick={() => handleReplyField(comm.id)}
+                                  />
+                                </div>
+
+                                {comm.likes && comm.likes.length === 0 ? (
+                                  <img
+                                    src='/emptyHeart.png'
+                                    alt='unliked'
+                                    style={{
+                                      width: '20px',
+                                      height: '20px',
+                                      cursor: 'pointer',
+                                    }}
+                                    onClick={() =>
+                                      handleModelCommentLike(comm.id)
+                                    }
+                                  />
+                                ) : (
+                                  <img
+                                    src='/filled.png'
+                                    alt='unliked'
+                                    style={{
+                                      width: '20px',
+                                      height: '20px',
+                                      cursor: 'pointer',
+                                    }}
+                                    onClick={() =>
+                                      handleModelCommentLike(comm.id)
+                                    }
+                                  />
+                                )}
+                              </div>
+                            </div>
+
+                            <div>
+                              <div
+                                style={{
+                                  marginLeft: '50px',
+                                  marginTop: '-10px',
+                                  marginBottom: '0px',
+                                  cursor: 'pointer',
+                                  fontSize: '11px',
+                                }}
+                              >
+                                <RepliesData
+                                  comm={comm}
+                                  post={post}
+                                  singlePost={singlePost}
+                                  currUser={currUser}
+                                  isReplyField={isReplyField}
+                                  setisReplyField={setisReplyField}
+                                  issubReplyField={issubReplyField}
+                                  setissubReplyField={setissubReplyField}
+                                  commentId={commentId}
+                                  setCommentId={setCommentId}
+                                  forCommentId={forCommentId}
+                                  openReply={openReply}
+                                  checkRefs={checkRefs}
+                                  closeCheck={closeCheck}
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        )
+                    )}
+                </div>
+
+                <form onSubmit={handleAddComment}>
+                  <Box style={{ borderTop: '1px solid #444444' }}>
+                    <OutlinedInput
+                      value={commentText}
+                      onChange={e => setCommentText(e.target.value)}
+                      name='commentText'
+                      fullWidth
+                      multiline
+                      onKeyDown={e => {
+                        if (e.keyCode === 13) {
+                          if (!event.shiftKey) {
+                            handleAddComment(e);
+                          }
                         }
+                      }}
+                      placeholder='Add Comment'
+                      startAdornment={
+                        <ProfileImageAvatar
+                          user={currentUser}
+                          style={{ marginLeft: '2px', marginRight: '5px' }}
+                        />
                       }
-                    }}
-                    placeholder='Add Comment'
-                    startAdornment={
-                      <ProfileImageAvatar
-                        user={currentUser}
-                        style={{ marginLeft: '2px', marginRight: '5px' }}
-                      />
-                    }
-                    endAdornment={
-                      <>
-                        <span ref={emojiPickerRef}>
-                          <EmojiPicker
-                            onSelect={addEmoji}
-                            popperProps={{ style: { zIndex: 1111111 } }}
-                          />
-                        </span>
+                      endAdornment={
+                        <>
+                          <span ref={emojiPickerRef}>
+                            <EmojiPicker
+                              onSelect={addEmoji}
+                              popperProps={{ style: { zIndex: 1111111 } }}
+                            />
+                          </span>
 
-                        <Button
-                          type='submit'
-                          style={{ backgroundColor: '#111111', border: 'none' }}
-                        >
-                          <img src='/send.png' alt='send button' />
-                        </Button>
-                      </>
-                    }
-                  />
-                </Box>
-              </form>
+                          <Button
+                            type='submit'
+                            style={{
+                              backgroundColor: '#111111',
+                              border: 'none',
+                            }}
+                          >
+                            <img src='/send.png' alt='send button' />
+                          </Button>
+                        </>
+                      }
+                    />
+                  </Box>
+                </form>
+              </div>
             </div>
-          </div>
-        </LoadingOverlay>
-      </Fade>
+          </LoadingOverlay>
+        </Fade>
       </div>
     </Modal>
   );
