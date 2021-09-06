@@ -36,7 +36,7 @@ const useStyles = makeStyles(theme => ({
 const useTipModal = ({ onConfirm }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const [openTip, setopenTip] = useState(false);
+  const [openTipModal, setOpenTipModal] = useState(false);
   const [purchased, setPurchased] = useState(false);
   const paymentData = useSelector(paymentMethodDataSelector);
   const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
@@ -49,18 +49,18 @@ const useTipModal = ({ onConfirm }) => {
   };
 
   const handleOpenTopModal = () => {
-    setopenTip(true);
+    setOpenTipModal(true);
   };
 
   const handleClose = () => {
-    setopenTip(false);
+    setOpenTipModal(false);
     setPurchased(false);
     setAddPrice('');
   };
 
   useEffect(() => {
-    openTip && dispatch(paymentMethod.request());
-  }, [openTip]);
+    openTipModal && dispatch(paymentMethod.request());
+  }, [openTipModal]);
 
   const TipModal = ({ profileImage, name, children }) => (
     <>
@@ -75,7 +75,7 @@ const useTipModal = ({ onConfirm }) => {
         aria-labelledby='transition-modal-title'
         aria-describedby='transition-modal-description'
         className={classes.modal}
-        open={openTip}
+        open={openTipModal}
         onClose={handleClose}
         closeAfterTransition
         BackdropComponent={Backdrop}
@@ -84,7 +84,7 @@ const useTipModal = ({ onConfirm }) => {
         }}
       >
         <div className={classes.paper}>
-          <Fade in={openTip}>
+          <Fade in={openTipModal}>
             {purchased === false ? (
               <div>
                 <div
