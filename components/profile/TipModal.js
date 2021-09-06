@@ -83,8 +83,8 @@ const TipModal = ({ profileImage, name, onConfirm, children }) => {
           timeout: 500,
         }}
       >
-        <Fade in={openTip}>
-          <div className={classes.paper}>
+        <div className={classes.paper}>
+          <Fade in={openTip}>
             {purchased === false ? (
               <div>
                 <div
@@ -392,8 +392,8 @@ const TipModal = ({ profileImage, name, onConfirm, children }) => {
                 </div>
               </div>
             )}
-          </div>
-        </Fade>
+          </Fade>
+        </div>
       </Modal>
     </>
   );
