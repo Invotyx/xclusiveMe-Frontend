@@ -86,8 +86,6 @@ const RepliesData = ({
 
   useEffect(() => {
     checkRefs === true && inputField.current?.focus();
-    console.log('on replied data', checkRefs);
-    console.log('actual ref', inputField);
   }, [checkRefs, inputField, isReplyField, issubReplyField]);
 
   useEffect(() => {
@@ -106,9 +104,8 @@ const RepliesData = ({
   }, [forCommentId]);
 
   const getPaginatedReplies = commId => {
-    console.log(pageNumber);
     setPageNumber(pageNumber + 1);
-    console.log('after', pageNumber);
+
     setcommLength(commLength + 3);
     dispatch(
       postData.requestReplies({
@@ -139,11 +136,8 @@ const RepliesData = ({
   const handleAddReply = event => {
     event.preventDefault();
     closeEmojiPicker();
-    console.log(commentId);
 
     if (!replyText || replyText.trim() === '') {
-      console.log('commentId');
-      console.log(replyText);
       return;
     }
     dispatch(

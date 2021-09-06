@@ -105,7 +105,7 @@ export default function Post({
   }
 
   const handleLike = () => {
-    // console.log('post.likes = ', post.likes);
+    //
     post.likes.length > 0
       ? post.likes.map(like =>
           dispatch(
@@ -129,7 +129,7 @@ export default function Post({
 
   const handleOpen = forReplyId => {
     setMediaClicked(true);
-    // console.log('commentid', forReplyId);
+    //
     // dispatch(postData.requestOne(post.id));
     // dispatch(postData.requestReplies(forReplyId, post.id));
     // setOpen(true);
@@ -140,9 +140,7 @@ export default function Post({
     // setOpenReply(true);
   };
 
-  const handleNotOpenn = () => {
-    console.log('Post not buyed');
-  };
+  const handleNotOpenn = () => {};
 
   const nFormatter = n => {
     if (n < 1e3) return n;
@@ -286,7 +284,7 @@ export default function Post({
                     post.media.length === 0 ? handleNotOpenn : handleLike
                   }
                 >
-                  {/* {console.log('likeeddd')} */}
+                  {/* {} */}
                   {nFormatter(post.totalLikes)}{' '}
                   <span
                     className={styles.hideOnMobile}

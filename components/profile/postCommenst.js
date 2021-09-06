@@ -126,7 +126,7 @@ export default function PostComments({
   };
 
   const handleLike = () => {
-    // console.log('post.likes = ', post.likes);
+    //
     post.likes.length > 0
       ? post.likes.map(like =>
           dispatch(
@@ -149,7 +149,7 @@ export default function PostComments({
   };
 
   const handleCommentLike = cId => {
-    // console.log(cId);
+    //
     post.comments.map(comm =>
       comm.likes && comm.likes.length > 0 && comm.id === cId
         ? dispatch(
@@ -177,7 +177,7 @@ export default function PostComments({
   }, [mediaClicked]);
 
   const handleOpen = forReplyId => {
-    // console.log('commentid', forReplyId);
+    //
     dispatch(postData.requestOne(post.id));
     // dispatch(postData.requestReplies(forReplyId, post.id));
 
@@ -192,9 +192,7 @@ export default function PostComments({
     dispatch(postData.requestOne(post.id));
   };
 
-  const handleNotOpenn = () => {
-    console.log('Post not buyed');
-  };
+  const handleNotOpenn = () => {};
 
   return (
     <>

@@ -19,9 +19,6 @@ const notifications = () => {
 
   tempArr = ourdata;
 
-  useEffect(() => {
-    console.log('our', ourdata);
-  }, [ourdata]);
 
   useEffect(() => {
     dispatch(post.requestSettingsNotifications());
@@ -39,9 +36,7 @@ const notifications = () => {
   });
 
   function arrayRemove(arr, value) {
-    console.log(arr, value, 'remove fubction');
     var tt = arr.filter(item => item !== value);
-    console.log(tt, 'updated array');
 
     return tt;
   }
@@ -51,7 +46,6 @@ const notifications = () => {
     return arr;
   }
   const handleChange = (check, event) => {
-    console.log('check', check, event.target.checked);
     // setState({ ...state, [check]: event.target.checked });
 
     var updated =
@@ -67,7 +61,7 @@ const notifications = () => {
 
         callback: () => {
           dispatch(post.requestSettingsNotifications());
-          console.log('dispatch');
+
           // postData.getComment({
           //   id: post.id,
           // })

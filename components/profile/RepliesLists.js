@@ -21,7 +21,7 @@ const RepliesLists = ({
 
   const handleSubReplyField = id => {
     setCommentId(id);
-    console.log('reply id', id);
+
     setissubReplyField({ check: true, id });
   };
 
@@ -32,7 +32,6 @@ const RepliesLists = ({
             postData.delCommentLike({
               id: re.id,
               callback: () => {
-                console.log('eee');
                 dispatch(postData.requestOne(sPost.id));
               },
             })
@@ -42,7 +41,6 @@ const RepliesLists = ({
             postData.saveCommentLike({
               id: re.id,
               callback: () => {
-                console.log('ddd');
                 dispatch(postData.requestOne(sPost.id));
               },
             })

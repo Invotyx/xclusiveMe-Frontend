@@ -134,7 +134,7 @@ export default function Profile({
     setTab(selected_tab ? +selected_tab : 0);
   }, [selected_tab]);
 
-  // console.log(myCurrentUser?.username, username);
+  //
 
   useEffect(() => {
     set_numberOfPosts(numberOfPosts);
@@ -144,7 +144,7 @@ export default function Profile({
     setUserFeed(feed);
     let temp_images = [];
     let temp_videos = [];
-    // console.log(feed);
+    //
     if (feed) {
       feed.forEach(f => {
         const images = f.media.filter(m => m.type.indexOf('image/') !== -1);

@@ -61,7 +61,6 @@ export default function Comp({ sidebarMenu, set_sidebarMenu }) {
 
   React.useEffect(() => {
     notifications?.map(n => n.isRead === false && setRead(read + 1));
-    console.log('read', read);
   }, [notifications]);
 
   React.useEffect(() => {

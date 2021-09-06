@@ -136,7 +136,7 @@ const SinglePost = ({
   }, [postId, forCommentId]);
 
   const handleModelCommentLike = cId => {
-    // console.log(cId);
+    //
     sPost.comments &&
       sPost.comments.map(comm =>
         comm.likes && comm.likes.length === 0 && comm.id === cId
@@ -144,8 +144,6 @@ const SinglePost = ({
               postData.saveCommentLike({
                 id: comm.id,
                 callback: () => {
-                  console.log('in save');
-
                   dispatch(postData.requestOne(sPost.id));
                 },
               })
@@ -155,8 +153,6 @@ const SinglePost = ({
               postData.delCommentLike({
                 id: comm.id,
                 callback: () => {
-                  console.log('in');
-
                   dispatch(postData.requestOne(sPost.id));
                 },
               })
@@ -173,13 +169,13 @@ const SinglePost = ({
   const handleReplyField = id => {
     setCommentId(id);
     setCheckRefs(true);
-    console.log('refs', checkRefs);
-    // console.log('setted', commentId);
-    // console.log('reply id', id, 'commid', forCommentId);
+
+    //
+    //
 
     setisReplyField({ check: true, id });
     setissubReplyField({ check: false });
-    // console.log('isreplyfield', isReplyField.id, isReplyField.check);
+    //
   };
 
   const handleAddComment = event => {
@@ -206,7 +202,7 @@ const SinglePost = ({
   const handlleGetComments = () => {
     setPageNumber(pageNumber + 1);
     setcommLength(commLength + 10);
-    console.log('comm length', commLength);
+
     dispatch(
       postData.getCommentsVal({
         id: sPost?.id,
@@ -222,7 +218,6 @@ const SinglePost = ({
           postData.deleteLike({
             id: sPost.id,
             callback: () => {
-              console.log('deletw');
               dispatch(postData.requestOne(sPost.id));
             },
           })

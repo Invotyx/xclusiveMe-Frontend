@@ -126,13 +126,13 @@ const CommentModel = ({
   useEffect(() => {
     if (forCommentId) {
       handleReplyField(forCommentId);
-      // console.log('cm', forCommentId);
+      //
     }
-    // console.log('check', data);
+    //
   }, [forCommentId]);
 
   const handleModelCommentLike = cId => {
-    // console.log(cId);
+    //
     singlePost.comments &&
       singlePost.comments.map(comm =>
         comm.likes && comm.likes.length === 0 && comm.id === cId
@@ -140,8 +140,6 @@ const CommentModel = ({
               postData.saveCommentLike({
                 id: comm.id,
                 callback: () => {
-                  console.log('in save');
-
                   dispatch(postData.requestOne(sPost.id));
                 },
               })
@@ -151,7 +149,6 @@ const CommentModel = ({
               postData.delCommentLike({
                 id: comm.id,
                 callback: () => {
-                  console.log('in');
 
                   dispatch(postData.requestOne(sPost.id));
                 },
@@ -171,8 +168,8 @@ const CommentModel = ({
   const handleReplyField = id => {
     setCommentId(id);
     setCheckRefs && setCheckRefs(true);
-    // console.log('refs', checkRefs);
-    // console.log('reply id', id);
+    //
+    //
 
     setisReplyField({ check: true, id });
     setissubReplyField({ check: false });
@@ -217,7 +214,7 @@ const CommentModel = ({
           postData.deleteLike({
             id: singlePost.id,
             callback: () => {
-              console.log('deletw');
+
               dispatch(postData.requestOne(sPost.id));
             },
           })

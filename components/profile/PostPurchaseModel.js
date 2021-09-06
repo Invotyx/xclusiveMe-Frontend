@@ -34,9 +34,7 @@ const useStyles = makeStyles(theme => ({
 const usePostPurchaseModel = () => {
   const [openModel, setOpenModel] = useState(false);
   const handleOpenModel = () => {
-    console.log('in model');
     setOpenModel(true);
-    console.log(openModel);
   };
   const classes = useStyles();
   const [purchased, setPurchased] = useState(false);

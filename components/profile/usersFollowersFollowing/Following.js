@@ -116,7 +116,7 @@ export default function Followings({ openFollowing, setOpenFollowing, user }) {
 
   const loadmore = () => {
     setFollowersPage(followersPage + 1);
-    console.log(followersPage);
+
     setFollowLength(followLength + 5);
     dispatch(
       userAction.followings({
