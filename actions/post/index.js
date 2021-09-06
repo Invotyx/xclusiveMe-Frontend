@@ -124,7 +124,6 @@ export const post = {
   saveCommentLike: id =>
     createAction(POST.COMMENT_LIKE, {
       ...id,
-      fetching: true,
       success: false,
       error: null,
     }),
@@ -132,7 +131,6 @@ export const post = {
   delCommentLike: id =>
     createAction(POST.DEL_COMMENT_LIKE, {
       ...id,
-      fetching: true,
       success: false,
       error: null,
     }),
