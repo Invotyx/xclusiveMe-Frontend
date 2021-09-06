@@ -91,8 +91,8 @@ const MessageModal = ({
         timeout: 500,
       }}
     >
-      <Fade in={messageModal}>
-        <div className={classes.paper}>
+      <div className={classes.paper}>
+        <Fade in={messageModal}>
           <div>
             <div
               style={{
@@ -190,8 +190,8 @@ const MessageModal = ({
               SEND NOW
             </Button>
           </div>
-        </div>
-      </Fade>
+        </Fade>
+      </div>
     </Modal>
   );
 };
