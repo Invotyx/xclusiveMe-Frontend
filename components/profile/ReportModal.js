@@ -65,10 +65,10 @@ const useReportModal = ({
         timeout: 500,
       }}
     >
-      <Fade in={openReportModal}>
-        <LoadingOverlay active={fetchData} spinner={<BounceLoader />}>
-          <div className={classes.paper}>
-            <div>
+      <div>
+        <Fade in={openReportModal}>
+          <LoadingOverlay active={fetchData} spinner={<BounceLoader />}>
+            <div className={classes.paper}>
               <div
                 style={{
                   display: 'flex',
@@ -161,9 +161,9 @@ const useReportModal = ({
                 </div>
               )}
             </div>
-          </div>
-        </LoadingOverlay>
-      </Fade>
+          </LoadingOverlay>
+        </Fade>
+      </div>
     </Modal>
   );
 
