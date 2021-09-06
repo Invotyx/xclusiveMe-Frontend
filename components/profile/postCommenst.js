@@ -189,7 +189,7 @@ export default function PostComments({
   };
 
   const handleGetSinglePostData = () => {
-    dispatch(postData.requestOne(post.id));
+    // dispatch(postData.requestOne(post.id));
   };
 
   const handleNotOpenn = () => {};
