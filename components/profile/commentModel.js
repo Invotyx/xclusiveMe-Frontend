@@ -245,6 +245,7 @@ const CommentModel = ({
       BackdropComponent={Backdrop}
       open={open}
     >
+      <div>
       <Fade in={open}>
         <LoadingOverlay active={fetchData} spinner={<BounceLoader />}>
           <div
@@ -870,6 +871,7 @@ const CommentModel = ({
           </div>
         </LoadingOverlay>
       </Fade>
+      </div>
     </Modal>
   );
 };
