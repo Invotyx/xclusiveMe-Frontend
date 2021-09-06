@@ -183,8 +183,6 @@ export default function Post({
                         },
                         callback: () => {
                           callback && callback();
-                          dispatch(postData.request());
-                          callbackAction && callbackAction();
                         },
                       })
                     )
@@ -350,8 +348,6 @@ export default function Post({
 
                               callback: () => {
                                 callback && callback();
-                                dispatch(postData.request());
-                                callbackAction && callbackAction();
                               },
                             })
                           )
