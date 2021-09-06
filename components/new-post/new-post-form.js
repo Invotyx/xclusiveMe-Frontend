@@ -390,8 +390,9 @@ export default function NewPostForm({ afterSave }) {
           size='large'
           startIcon={<SendIcon />}
           disabled={
-            disabled ||
-            ((!postText || postText.trim() === '') && media.length === 0)
+            // disabled ||
+            // ((!postText || postText.trim() === '') && media.length === 0)
+            disabled || !postText || postText.trim() === ''
           }
         >
           Post now
