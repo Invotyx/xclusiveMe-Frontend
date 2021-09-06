@@ -188,10 +188,6 @@ export default function PostComments({
     setOpen(true);
   };
 
-  const handleGetSinglePostData = () => {
-    // dispatch(postData.requestOne(post.id));
-  };
-
   const handleNotOpenn = () => {};
 
   return (
@@ -213,7 +209,6 @@ export default function PostComments({
               fontWeight: '500',
               fontSize: '14px',
             }}
-            onClick={handleGetSinglePostData}
           >
             {post.media.length === 0 ? '' : 'View previous comments'}
           </p>
