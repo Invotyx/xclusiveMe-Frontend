@@ -59,8 +59,9 @@ const TipModal = ({ profileImage, name, onConfirm, children }) => {
   };
 
   useEffect(() => {
-    dispatch(paymentMethod.request());
-  }, [paymentMethod]);
+    openTip && dispatch(paymentMethod.request());
+  }, [openTip]);
+
   return (
     <>
       {children ? (
