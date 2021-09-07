@@ -100,7 +100,6 @@ const MessagesListItem = ({
                   }}
                   modalTitle='Unlock message?'
                   price={message.price}
-                  price={10}
                   user={activeParticipant}
                 />
               </>
