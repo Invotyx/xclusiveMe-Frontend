@@ -43,6 +43,7 @@ const useTipModal = ({ onConfirm }) => {
   const [addPrice, setAddPrice] = useState('');
 
   const handlePurchase = () => {
+    setAddPrice(priceFieldRef.current.value);
     onConfirm(+addPrice, () => {
       setPurchased(true);
     });
