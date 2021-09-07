@@ -44,7 +44,7 @@ function* handleGetSuggestions(action) {
       apiClient.get,
       `${SERVER_ADDRESS}/users/suggestions?limit=${limit}&page=${pageNumber}`
     );
-    yield put(user.success({ suggestions: data.users }));
+    yield put(user.success({ suggestions: data.results }));
   } catch (e) {
     console.log(e);
     yield put(user.failure({ error: { ...e } }));
