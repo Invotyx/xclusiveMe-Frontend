@@ -22,9 +22,6 @@ export default function UploadFile({
       <input
         ref={inputFile}
         type='file'
-        accept='audio/*'
-        name='audio'
-        multiple={false}
         type='hidden'
         onChange={onChangeInputFile}
         {...inputProps}

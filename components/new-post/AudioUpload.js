@@ -31,6 +31,11 @@ export default function AudioUpload({
     <>
       <UploadFile
         handleFileChange={onChangeFile}
+        inputProps={{
+          accept: 'audio/*',
+          name: 'audio',
+          multiple: false,
+        }}
       >
         {children}
       </UploadFile>
