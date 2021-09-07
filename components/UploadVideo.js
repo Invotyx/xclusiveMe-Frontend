@@ -2,6 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { post } from '../actions/post';
 import * as UpChunk from '@mux/upchunk';
+import UploadFile from './UploadFile';
 
 export default function UploadVideo({
   onUploadVideoComplete,
@@ -14,12 +15,9 @@ export default function UploadVideo({
   const Children = props => React.cloneElement(children, props);
 
   const dispatch = useDispatch();
-  const inputFile = React.useRef(null);
 
-  const onChangeFile = event => {
-    event.stopPropagation();
-    event.preventDefault();
-    var video = event.target.files[0];
+  const onChangeFile = files => {
+    var video = files[0];
     if (video) {
       onVideoSelect && onVideoSelect();
 
@@ -62,19 +60,15 @@ export default function UploadVideo({
 
   return (
     <>
-      <input
-        accept='video/*'
-        type='file'
-        ref={inputFile}
-        style={{ display: 'none' }}
-        onChange={onChangeFile}
-      />
-
+    <UploadFile
+      handleFileChange={onChangeFile}
+      inputProps={{
+        accept: 'video/*',
+      }}
+    >
       <Children
-        onClick={() => {
-          inputFile.current.click();
-        }}
       />
+    </UploadFile>
     </>
   );
 }
