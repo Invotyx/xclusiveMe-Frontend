@@ -1,6 +1,9 @@
 import React from 'react';
 
-export default function UploadFile({ children, handleFileChange }) {
+export default function UploadFile({
+  children,
+  handleFileChange,
+}) {
   const inputFile = React.useRef(null);
 
   const Children = props => React.cloneElement(children, props);
