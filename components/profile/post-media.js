@@ -65,7 +65,7 @@ export default function PostMedia({ media, mediaCount, onImageClick }) {
         )}
         {mediaCount > media?.length &&
           Array.apply(null, Array(1)).map(() => (
-            <Grid item xs={12} key={Math.random()}>
+            <Grid item xs={12} md={4} key={Math.random()}>
               <LockedPost />
             </Grid>
           ))}
