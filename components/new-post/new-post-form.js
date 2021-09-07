@@ -197,7 +197,7 @@ export default function NewPostForm({ afterSave }) {
                             onClick={() => togglePreview(i)}
                             style={{ cursor: 'pointer', color: '#ccc' }}
                           >
-                            {tile.isPreview ? (
+                            {!tile.isPreview ? (
                               <LockOutlinedIcon />
                             ) : (
                               <LockOpenOutlinedIcon />
