@@ -34,6 +34,10 @@ const chatMenu = 'link';
 
 const useStyles = makeStyles(theme => ({
   root: {
+    marginBottom: '12px',
+    [theme.breakpoints.down('sm')]: {
+      marginBottom: '18px',
+    },
     [theme.breakpoints.up('md')]: {
       marginBottom: '48px',
     },
