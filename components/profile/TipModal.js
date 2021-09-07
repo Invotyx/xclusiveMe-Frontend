@@ -308,6 +308,7 @@ const useTipModal = ({ onConfirm }) => {
                         marginTop: '-1vh',
                       }}
                     >
+                      {currencySymbol}
                       {addPrice}.00
                     </p>
                   </div>
