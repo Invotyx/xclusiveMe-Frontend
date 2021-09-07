@@ -79,6 +79,7 @@ const MessagesList = ({
             message={message}
             activeConversationId={activeConversationId}
             activeParticipant={activeParticipant}
+            getOneConversation={getOneConversation}
           />
         ))}
         <div ref={myRef} style={{ textIndent: '-9999px' }}>
