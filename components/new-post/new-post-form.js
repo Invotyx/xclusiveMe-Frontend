@@ -30,6 +30,8 @@ import useAudioSend from '../message/useAudioSend';
 import CheckIcon from '@material-ui/icons/Check';
 import NewPostAudioMenu from './NewPostAudioMenu';
 import ClearIcon from '@material-ui/icons/Clear';
+import LockOpenOutlinedIcon from '@material-ui/icons/LockOpenOutlined';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
 const useStyles = makeStyles(theme => ({
   alertIcon: {
@@ -158,6 +160,12 @@ export default function NewPostForm({ afterSave }) {
     setAnchorEl(event.currentTarget);
   };
 
+  const togglePreview = index => {
+    const prev = media.slice();
+    prev[index].isPreview = !prev[index].isPreview;
+    setMedia(prev);
+  };
+
   return (
     <>
       <Box mb={3} style={{ display: activeTab === '' ? 'block' : 'none' }}>
@@ -184,6 +192,18 @@ export default function NewPostForm({ afterSave }) {
                     actionPosition='left'
                     actionIcon={
                       <>
+                        {Boolean(price) && (
+                          <span
+                            onClick={() => togglePreview(i)}
+                            style={{ cursor: 'pointer', color: '#ccc' }}
+                          >
+                            {tile.isPreview ? (
+                              <LockOutlinedIcon />
+                            ) : (
+                              <LockOpenOutlinedIcon />
+                            )}
+                          </span>
+                        )}
                         <span
                           onClick={() => removeImageHandler(i)}
                           style={{
