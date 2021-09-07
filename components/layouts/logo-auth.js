@@ -43,6 +43,7 @@ const useStyles = makeStyles(theme => ({
     },
   },
 }));
+
 export default function Comp({ sidebarMenu, set_sidebarMenu }) {
   const classes = useStyles();
   const dispatch = useDispatch();
