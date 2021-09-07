@@ -135,7 +135,7 @@ export default function NewPostForm({ afterSave }) {
   };
 
   const removeImageHandler = index => {
-    setMedia(prev => prev.splice(index, 1));
+    setMedia(prev => prev.filter((p, i) => i !== index));
   };
 
   const [popperOpen, setPopperOpen] = React.useState(false);
