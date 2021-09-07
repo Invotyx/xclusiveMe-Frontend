@@ -85,8 +85,12 @@ export default function Comp({ sidebarMenu, set_sidebarMenu }) {
   };
 
   return (
-      <AppBar position='relative' color='transparent' elevation={0}>
     <>
+      <AppBar
+        position='relative'
+        color='transparent'
+        elevation={0}
+      >
         <Box
           display={{ xs: 'none', sm: 'none', md: 'flex' }}
           justifyContent='flex-end'
