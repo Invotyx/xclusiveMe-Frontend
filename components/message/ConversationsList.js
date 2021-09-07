@@ -147,8 +147,8 @@ export default function ConversationsList({ subheaderPrefix }) {
                   color='primary'
                   style={{
                     fontWeight:
-                      !i.lastMessage.isSeen
-                      && i.lastMessage.sender?.id !== myData?.id
+                      !i.lastMessage.isSeen &&
+                      i.lastMessage.sender?.id !== myData?.id
                         ? 700
                         : 400,
                   }}
@@ -164,10 +164,9 @@ export default function ConversationsList({ subheaderPrefix }) {
                     style={{ color: '#757575' }}
                   >
                     {!i.lastMessage.isSeen &&
-                    i.lastMessage.sender?.id !== myData?.id &&
-                    (
-                      <span style={{ marginRight: '10px' }}>•</span>
-                    )}
+                      i.lastMessage.sender?.id !== myData?.id && (
+                        <span style={{ marginRight: '10px' }}>•</span>
+                      )}
                     {i.lastMessage.content.slice(0, 15)}...
                   </Typography>
                 </React.Fragment>
