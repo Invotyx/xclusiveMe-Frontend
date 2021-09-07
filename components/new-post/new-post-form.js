@@ -135,8 +135,8 @@ export default function NewPostForm({ afterSave }) {
     setMedia(prev => [...prev, ...data]);
   };
 
-  const removeImageHandler = thumbnail => {
-    setMedia(prev => prev.filter(f => f.thumbnail !== thumbnail));
+  const removeImageHandler = index => {
+    setMedia(prev => prev.splice(index, 1));
   };
 
   const [popperOpen, setPopperOpen] = React.useState(false);
@@ -175,7 +175,7 @@ export default function NewPostForm({ afterSave }) {
                     actionIcon={
                       <>
                         <span
-                          onClick={() => removeImageHandler(tile.thumbnail)}
+                          onClick={() => removeImageHandler(i)}
                           style={{
                             cursor: 'pointer',
                             color: '#ccc',
