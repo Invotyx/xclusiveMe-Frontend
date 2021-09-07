@@ -63,15 +63,16 @@ const useTipModal = ({ onConfirm }) => {
     openTipModal && dispatch(paymentMethod.request());
   }, [openTipModal]);
 
-  const TipModal = ({ profileImage, name, children }) => (
+  const TipModal = ({ profileImage, name, hideDefaultButton, children }) => (
     <>
-      {children ? (
+      {!hideDefaultButton &&
+        (children ? (
         <span onClick={handleOpenTopModal}>{children}</span>
       ) : (
         <IconButton onClick={handleOpenTopModal}>
           <MonetizationOnOutlinedIcon />
         </IconButton>
-      )}
+        ))}
       <Modal
         aria-labelledby='transition-modal-title'
         aria-describedby='transition-modal-description'
