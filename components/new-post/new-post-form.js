@@ -78,7 +78,6 @@ export default function NewPostForm({ afterSave }) {
   const [showPriceInput, setShowPriceInput] = React.useState(false);
   const [price, setPrice] = React.useState(false);
   const [postText, setPostText] = React.useState('');
-  const [tileData, setTileData] = React.useState([]);
   const [media, setMedia] = React.useState([]);
   const [progressVideo, setProgressVideo] = React.useState({ val: 0 });
   const [loadingItems, setLoadingItems] = React.useState([]);
@@ -97,7 +96,6 @@ export default function NewPostForm({ afterSave }) {
         },
         callback: () => {
           afterSave && afterSave();
-          setTileData([]);
           setMedia([]);
           setPostText('');
         },
@@ -106,7 +104,6 @@ export default function NewPostForm({ afterSave }) {
   };
 
   const imageHandler = images => {
-    setTileData(prev => [...prev, ...images.map(i => i.url)]);
     setMedia(prev => [
       ...prev,
       ...images.map(source_url => ({
@@ -123,10 +120,10 @@ export default function NewPostForm({ afterSave }) {
 
   const onUploadVideoComplete = (muxId, mediaType) => {
     setDisabled(false);
-    setTileData(prev => [...prev, '/no-media.jpg']);
     setMedia(prev => [
       ...prev,
       {
+        thumbnail: '/no-media.jpg',
         muxId: muxId,
         type: mediaType,
       },
@@ -135,13 +132,11 @@ export default function NewPostForm({ afterSave }) {
 
   const audioHandler = data => {
     setDisabled(false);
-    setTileData(prev => [...prev, '/no-media.jpg']);
     setMedia(prev => [...prev, ...data]);
   };
 
-  const removeImageHandler = tile => {
-    setTileData(prev => prev.filter(t => t !== tile));
-    setMedia(prev => prev.filter(f => f.url !== tile));
+  const removeImageHandler = thumbnail => {
+    setMedia(prev => prev.filter(f => f.thumbnail !== thumbnail));
   };
 
   const [popperOpen, setPopperOpen] = React.useState(false);
@@ -171,16 +166,16 @@ export default function NewPostForm({ afterSave }) {
         <Card>
           <CardContent>
             <ImageList rowHeight={100} cols={4}>
-              {tileData.map((tile, i) => (
+              {media.map((tile, i) => (
                 <ImageListItem key={`tile${i}`}>
-                  <img src={tile} alt={'no Image'} />
+                  <img src={tile.thumbnail} alt={'no Image'} />
                   <ImageListItemBar
                     position='top'
                     actionPosition='left'
                     actionIcon={
                       <>
                         <span
-                          onClick={() => removeImageHandler(tile)}
+                          onClick={() => removeImageHandler(tile.thumbnail)}
                           style={
                             Boolean(price)
                               ? {
@@ -215,7 +210,7 @@ export default function NewPostForm({ afterSave }) {
                   />
                 </MuiImageListItem>
               ))}
-              {/* {tileData && tileData.length > 0 && (
+              {/* {media && media.length > 0 && (
                 <MuiImageListItem>
                   <ImageListItemBar
                     actionIcon={
