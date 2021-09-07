@@ -28,10 +28,19 @@ import ConversationsList from '../message/ConversationsList';
 import MessageMenu from '../message/MessageMenu';
 import { currentUserSelector } from '../../selectors/authSelector';
 import { notificationsData } from '../../selectors/postSelector';
+import { makeStyles } from '@material-ui/core';
 
 const chatMenu = 'link';
 
+const useStyles = makeStyles(theme => ({
+  root: {
+    [theme.breakpoints.up('md')]: {
+      marginBottom: '48px',
+    },
+  },
+}));
 export default function Comp({ sidebarMenu, set_sidebarMenu }) {
+  const classes = useStyles();
   const dispatch = useDispatch();
   const router = useRouter();
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -90,6 +99,7 @@ export default function Comp({ sidebarMenu, set_sidebarMenu }) {
         position='relative'
         color='transparent'
         elevation={0}
+        className={classes.root}
       >
         <Box
           display={{ xs: 'none', sm: 'none', md: 'flex' }}
