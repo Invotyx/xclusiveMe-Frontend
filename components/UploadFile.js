@@ -5,6 +5,7 @@ export default function UploadFile({
   children,
   handleFileChange,
   buttonProps,
+  inputProps,
 }) {
   const inputFile = React.useRef(null);
 
@@ -26,6 +27,7 @@ export default function UploadFile({
         multiple={false}
         type='hidden'
         onChange={onChangeInputFile}
+        {...inputProps}
       />
 
       {children ? (
