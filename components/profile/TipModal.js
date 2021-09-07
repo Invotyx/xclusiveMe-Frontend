@@ -9,6 +9,7 @@ import IconButton from '@material-ui/core/IconButton';
 import { makeStyles } from '@material-ui/core/styles';
 import { paymentMethod } from '../../actions/payment-method';
 import { paymentMethodDataSelector } from '../../selectors/paymentMethodSelector';
+import { fetchingSelector } from '../../selectors/postSelector';
 import { useDispatch, useSelector } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
 import styles from './profile.module.css';
@@ -38,6 +39,7 @@ const useTipModal = ({ onConfirm }) => {
   const [openTipModal, setOpenTipModal] = useState(false);
   const [purchased, setPurchased] = useState(false);
   const paymentData = useSelector(paymentMethodDataSelector);
+  const fetching = useSelector(fetchingSelector);
   const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
   const [addPrice, setAddPrice] = useState('');
   const priceFieldRef = useRef();
@@ -233,6 +235,7 @@ const useTipModal = ({ onConfirm }) => {
                     marginTop: '10px',
                   }}
                   onClick={handlePurchase}
+                  disabled={fetching}
                 >
                   SEND NOW
                 </Button>
