@@ -296,7 +296,6 @@ const Chat = () => {
                       <TipModal
                         profileImage={activeParticipant}
                         name={activeParticipant?.fullName}
-                        hideDefaultButton
                       />
                       <ManuButton
                         title='Report this User'
