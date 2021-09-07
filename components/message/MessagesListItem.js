@@ -17,7 +17,7 @@ const MessagesListItem = ({
   activeParticipant,
   ...props
 }) => {
-  const { PostPurchaseModel, handleOpenModel } = usePostPurchaseModel();
+  const { PostPurchaseModel, openPurchaseModal } = usePostPurchaseModel();
   const { ref, inView } = useInView({ threshold: 0 });
   const current = useSelector(currentUserSelector);
   const dispatch = useDispatch();
@@ -81,7 +81,7 @@ const MessagesListItem = ({
                     justifyContent: 'center',
                     cursor: 'pointer',
                   }}
-                  onClick={handleOpenModel}
+                  onClick={openPurchaseModal}
                 />
                 <PostPurchaseModel
                   handlePurchase={() => {

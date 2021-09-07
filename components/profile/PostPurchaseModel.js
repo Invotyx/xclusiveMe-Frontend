@@ -351,7 +351,11 @@ const usePostPurchaseModel = () => {
       </div>
     </Modal>
   );
-  return { PostPurchaseModel, handleOpenModel, setPurchased };
+  return {
+    PostPurchaseModel,
+    openPurchaseModal: handleOpenModel,
+    setPurchased,
+  };
 };
 
 export default usePostPurchaseModel;
