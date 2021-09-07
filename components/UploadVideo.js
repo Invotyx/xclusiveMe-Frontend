@@ -65,8 +65,7 @@ export default function UploadVideo({
         accept: 'video/*',
       }}
     >
-      <Children
-      />
+      <Children />
     </UploadFile>
   );
 }
