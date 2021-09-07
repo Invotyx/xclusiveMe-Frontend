@@ -29,7 +29,11 @@ export default function AudioUpload({
 
   return (
     <>
-      <UploadFile handleFileChange={onChangeFile}>{children}</UploadFile>
+      <UploadFile
+        handleFileChange={onChangeFile}
+      >
+        {children}
+      </UploadFile>
     </>
   );
 }
