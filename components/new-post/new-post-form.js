@@ -176,17 +176,13 @@ export default function NewPostForm({ afterSave }) {
                       <>
                         <span
                           onClick={() => removeImageHandler(tile.thumbnail)}
-                          style={
-                            Boolean(price)
-                              ? {
-                                  cursor: 'pointer',
-                                  color: '#ccc',
-                                  position: 'absolute',
-                                  top: '10px',
-                                  right: '10px',
-                                }
-                              : {}
-                          }
+                          style={{
+                            cursor: 'pointer',
+                            color: '#ccc',
+                            position: Boolean(price) ? 'absolute' : '',
+                            top: Boolean(price) ? '10px' : '',
+                            right: Boolean(price) ? '10px' : '',
+                          }}
                         >
                           <ClearIcon />
                         </span>
