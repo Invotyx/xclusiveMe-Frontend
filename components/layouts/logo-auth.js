@@ -85,8 +85,8 @@ export default function Comp({ sidebarMenu, set_sidebarMenu }) {
   };
 
   return (
-    <Box clone mb={6}>
       <AppBar position='relative' color='transparent' elevation={0}>
+    <>
         <Box
           display={{ xs: 'none', sm: 'none', md: 'flex' }}
           justifyContent='flex-end'
@@ -212,6 +212,6 @@ export default function Comp({ sidebarMenu, set_sidebarMenu }) {
           </Toolbar>
         </Box>
       </AppBar>
-    </Box>
+    </>
   );
 }
