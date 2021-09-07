@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef } from 'react';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
@@ -37,18 +37,21 @@ const useReportModal = ({
   const [openReportModal, setreportModal] = React.useState(false);
   const classes = useStyles();
   const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
-  const [postText, set_postText] = useState('');
+  const priceFieldRef = useRef();
   const fetchData = useSelector(fetchingSelector);
 
   const handlePurchase = () => {
-    if (!postText || postText.trim() === '') {
+    if (
+      !priceFieldRef.current.value ||
+      priceFieldRef.current.value.trim() === ''
+    ) {
       return;
     }
-    onConfirm && onConfirm(postText, () => setreportModal(false));
+    onConfirm &&
+      onConfirm(priceFieldRef.current.value, () => setreportModal(false));
   };
 
   const handleClose = () => {
-    set_postText('');
     setreportModal(false);
   };
 
@@ -133,8 +136,7 @@ const useReportModal = ({
                       variant='outlined'
                       fullWidth
                       multiline
-                      value={postText}
-                      onChange={e => set_postText(e.target.value)}
+                      inputRef={priceFieldRef}
                       rows={3}
                       placeholder='Write something...'
                       style={{ width: isMobile ? '80vw' : '30vw' }}
