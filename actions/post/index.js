@@ -49,7 +49,7 @@ export const post = {
   requestOne: id =>
     createAction(POST.GET_ONE, {
       id,
-      fetching: true,
+      // fetching: true,
       success: false,
       error: null,
     }),
