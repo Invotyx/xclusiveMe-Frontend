@@ -4,6 +4,7 @@ import Button from '@material-ui/core/Button';
 export default function UploadFile({
   children,
   handleFileChange,
+  buttonProps,
 }) {
   const inputFile = React.useRef(null);
 
@@ -38,6 +39,7 @@ export default function UploadFile({
           onClick={() => {
             inputFile.current.click();
           }}
+          {...buttonProps}
         >
           Select File
         </Button>
