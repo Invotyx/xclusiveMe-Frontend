@@ -25,7 +25,7 @@ const MessagesListItem = ({
   const dispatch = useDispatch();
 
   React.useEffect(() => {
-    if (!message.isSeen && inView) {
+    if (!message.isSeen && inView && message.sender.id !== current?.id) {
       dispatch(
         chat.isSeenMessage({
           id: activeConversationId,
