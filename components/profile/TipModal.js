@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
@@ -41,10 +41,11 @@ const useTipModal = ({ onConfirm }) => {
   const paymentData = useSelector(paymentMethodDataSelector);
   const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
   const [addPrice, setAddPrice] = useState('');
+  const priceFieldRef = useRef();
 
   const handlePurchase = () => {
     setAddPrice(priceFieldRef.current.value);
-    onConfirm(+addPrice, () => {
+    onConfirm(+priceFieldRef.current.value, () => {
       setPurchased(true);
     });
   };
@@ -164,8 +165,7 @@ const useTipModal = ({ onConfirm }) => {
                           InputProps={{
                             startAdornment: currencySymbol,
                           }}
-                          value={addPrice}
-                          onChange={e => setAddPrice(e.target.value)}
+                          inputRef={priceFieldRef}
                           name='addPrice'
                           onKeyDown={e => {
                             if (e.key === '.') {
