@@ -398,7 +398,7 @@ const useTipModal = ({ onConfirm }) => {
       </Modal>
     </>
   );
-  return { TipModal };
+  return { TipModal, setOpenTipModal };
 };
 
 export default useTipModal;
