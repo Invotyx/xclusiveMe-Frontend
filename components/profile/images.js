@@ -6,6 +6,7 @@ import Card from '@material-ui/core/Card';
 import { Box } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { post } from '../../actions/post';
+import { singleDataImagesSelector } from '../../selectors/postSelector';
 
 const useStyles = makeStyles(theme => ({
   media: {
