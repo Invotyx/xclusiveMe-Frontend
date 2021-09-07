@@ -40,25 +40,23 @@ export default function FormDialog({
 
   return (
     <>
-    <UploadFile
-      handleFileChange={onChangeFile}
-      inputProps={{
-        accept: 'image/*',
-        multiple: true,
-      }}
-    >
-      {children ? (
-        <Children
-        />
-      ) : (
-        <Box clone color='#666'>
-          <IconButton
-          >
-            <WallpaperOutlinedIcon />
-          </IconButton>
-        </Box>
-      )}
-    </UploadFile>
+      <UploadFile
+        handleFileChange={onChangeFile}
+        inputProps={{
+          accept: 'image/*',
+          multiple: true,
+        }}
+      >
+        {children ? (
+          <Children />
+        ) : (
+          <Box clone color='#666'>
+            <IconButton>
+              <WallpaperOutlinedIcon />
+            </IconButton>
+          </Box>
+        )}
+      </UploadFile>
     </>
   );
 }
