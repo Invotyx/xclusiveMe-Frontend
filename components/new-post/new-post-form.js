@@ -177,6 +177,7 @@ export default function NewPostForm({ afterSave }) {
                     position='top'
                     actionPosition='left'
                     actionIcon={
+                      <>
                       <Button
                         size='small'
                         variant='outlined'
@@ -184,6 +185,7 @@ export default function NewPostForm({ afterSave }) {
                       >
                         Remove
                       </Button>
+                      </>
                     }
                   />
                 </ImageListItem>
