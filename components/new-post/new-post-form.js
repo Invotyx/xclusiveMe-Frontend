@@ -186,7 +186,7 @@ export default function NewPostForm({ afterSave }) {
                             right: Boolean(price) ? '10px' : '',
                           }}
                         >
-                          <ClearIcon />
+                          <ClearIcon fontSize='small' />
                         </span>
                       </>
                     }
