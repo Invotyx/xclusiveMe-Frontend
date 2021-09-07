@@ -11,7 +11,6 @@ import TextField from '@material-ui/core/TextField';
 import LoadingOverlay from 'react-loading-overlay';
 import BounceLoader from 'react-spinners/BounceLoader';
 import { fetchingSelector } from '../../selectors/postSelector';
-import ImageAvatar from '../image-avatar';
 import ProfileImageAvatar from './profile-image-avatar';
 import PostReport from './PostReport';
 
