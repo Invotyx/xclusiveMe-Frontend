@@ -131,7 +131,12 @@ export default function NewPostForm({ afterSave }) {
 
   const audioHandler = data => {
     setDisabled(false);
-    setMedia(prev => [...prev, ...data]);
+    setMedia(prev => [
+      ...prev,
+      ...data.map(d => {
+        return d;
+      }),
+    ]);
   };
 
   const removeImageHandler = index => {
