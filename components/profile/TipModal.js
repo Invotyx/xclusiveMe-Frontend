@@ -238,7 +238,7 @@ const useTipModal = ({ onConfirm }) => {
                   onClick={handlePurchase}
                   disabled={fetching}
                 >
-                  SEND NOW
+                  {fetching ? 'loading...' : 'SEND NOW'}
                 </Button>
               </div>
             ) : (
