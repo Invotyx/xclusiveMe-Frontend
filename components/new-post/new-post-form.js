@@ -29,6 +29,7 @@ import MessageModalMediaCamera from '../message/MessageModalMediaCamera';
 import useAudioSend from '../message/useAudioSend';
 import CheckIcon from '@material-ui/icons/Check';
 import NewPostAudioMenu from './NewPostAudioMenu';
+import ClearIcon from '@material-ui/icons/Clear';
 
 const useStyles = makeStyles(theme => ({
   alertIcon: {
@@ -178,13 +179,11 @@ export default function NewPostForm({ afterSave }) {
                     actionPosition='left'
                     actionIcon={
                       <>
-                        <Button
-                          size='small'
-                          variant='outlined'
+                        <IconButton
                           onClick={() => removeImageHandler(tile)}
                         >
-                          Remove
-                        </Button>
+                          <ClearIcon />
+                        </IconButton>
                       </>
                     }
                   />
