@@ -23,6 +23,10 @@ export async function getX(username) {
   return apiClient.get(`${SERVER_ADDRESS}/users/posts/${username}`);
 }
 
+export async function getOnePostImages(username) {
+  return apiClient.get(`${SERVER_ADDRESS}/users/posts/${username}/images`);
+}
+
 export async function add(saveData) {
   const data = JSON.stringify(saveData);
   return apiClient.post(`${SERVER_ADDRESS}/posts`, data);

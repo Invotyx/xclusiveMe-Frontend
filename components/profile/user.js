@@ -108,7 +108,6 @@ export default function Profile({
   const [tab, setTab] = React.useState(0);
   const [userFeed, setUserFeed] = React.useState(feed);
   const [_numberOfPosts, set_numberOfPosts] = React.useState(numberOfPosts);
-  const [imagesData, set_imagesData] = React.useState(null);
   const [videosData, set_videosData] = React.useState(null);
   const [openFollowers, setOpenFollowers] = React.useState(false);
   const [openFollowing, setOpenFollowing] = React.useState(false);
@@ -141,17 +140,13 @@ export default function Profile({
 
   useEffect(() => {
     setUserFeed(feed);
-    let temp_images = [];
     let temp_videos = [];
     //
     if (feed) {
       feed.forEach(f => {
-        const images = f.media.filter(m => m.type.indexOf('image/') !== -1);
-        temp_images.push(...images);
         const videos = f.media.filter(m => m.type.indexOf('video/') !== -1);
         temp_videos.push(...videos);
       });
-      set_imagesData(temp_images);
       set_videosData(temp_videos);
     }
   }, [feed]);
@@ -610,7 +605,7 @@ export default function Profile({
                           </Box>
                         </TabPanel>
                         <TabPanel value={tab} index={1}>
-                          <Images imagesData={imagesData} />
+                          <Images username={username} />
                         </TabPanel>
                         <TabPanel value={tab} index={2}>
                           <Videos videosData={videosData} />

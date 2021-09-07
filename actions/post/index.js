@@ -54,6 +54,14 @@ export const post = {
       error: null,
     }),
 
+  requestOneImages: id =>
+    createAction(POST.GET_ONE_IMAGES, {
+      id,
+      fetching: true,
+      success: false,
+      error: null,
+    }),
+
   purchasePost: id =>
     createAction(POST.PURCHASE_POST, {
       ...id,

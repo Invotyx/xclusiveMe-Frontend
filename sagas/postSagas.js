@@ -29,6 +29,7 @@ import {
   reportPost,
   getCommentsData,
   tipPost,
+  getOnePostImages,
 } from '../services/post.service';
 import { bottomalert } from '../actions/bottom-alert';
 
@@ -126,6 +127,21 @@ function* handleGetOne(action) {
     const { id } = action.payload;
     const { data } = yield call(getOnePost, id);
     yield put(post.success({ singleData: data[0] }));
+    const { callback } = action.payload;
+    if (callback) {
+      yield call(callback);
+    }
+  } catch (e) {
+    console.log(e);
+    yield put(post.success({ error: true }));
+  }
+}
+
+function* handleGetOneImages(action) {
+  try {
+    const { id } = action.payload;
+    const { data } = yield call(getOnePostImages, id);
+    yield put(post.success({ singleDataImages: data.results }));
     const { callback } = action.payload;
     if (callback) {
       yield call(callback);
@@ -590,6 +606,7 @@ function* watchPostSagas() {
     takeLatest(POST.GET_SETTING_NOTIFICATIONS, getSettingsNotifications),
     takeLatest(POST.VIEW_NOTIFICATION, handleViewNotify),
     takeLatest(POST.GET_ONE, handleGetOne),
+    takeLatest(POST.GET_ONE_IMAGES, handleGetOneImages),
     takeLatest(POST.GET_SUBSCRIBED, handleGetSubscribed),
     takeLatest(POST.GET_X, handleGetX),
     takeLatest(POST.SAVE, handlePost),

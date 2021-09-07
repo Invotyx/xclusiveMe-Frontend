@@ -4,6 +4,8 @@ import Grid from '@material-ui/core/Grid';
 import CardMedia from '@material-ui/core/CardMedia';
 import Card from '@material-ui/core/Card';
 import { Box } from '@material-ui/core';
+import { useDispatch, useSelector } from 'react-redux';
+import { post } from '../../actions/post';
 
 const useStyles = makeStyles(theme => ({
   media: {
@@ -12,8 +14,15 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function ImageGridList({ imagesData }) {
+export default function ImageGridList({ username }) {
+  const dispatch = useDispatch();
+  React.useEffect(() => {
+    if (username) {
+      dispatch(post.requestOneImages(username));
+    }
+  }, [username]);
   const classes = useStyles();
+  const imagesData = useSelector(singleDataImagesSelector);
 
   return (
     <Grid container spacing={2}>
