@@ -17,7 +17,8 @@ const MessagesListItem = ({
   activeParticipant,
   ...props
 }) => {
-  const { PostPurchaseModel, openPurchaseModal } = usePostPurchaseModel();
+  const { PostPurchaseModel, closePurchaseModal, openPurchaseModal } =
+    usePostPurchaseModel();
   const { ref, inView } = useInView({ threshold: 0 });
   const current = useSelector(currentUserSelector);
   const dispatch = useDispatch();
@@ -90,7 +91,7 @@ const MessagesListItem = ({
                         id: message.id,
                         conversationId: activeConversationId,
                         callback: () => {
-                          //
+                          closePurchaseModal();
                         },
                       })
                     );

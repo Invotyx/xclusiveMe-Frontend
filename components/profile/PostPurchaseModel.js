@@ -354,6 +354,7 @@ const usePostPurchaseModel = () => {
   return {
     PostPurchaseModel,
     openPurchaseModal: handleOpenModel,
+    closePurchaseModal: handleClose,
     setPurchased,
   };
 };
