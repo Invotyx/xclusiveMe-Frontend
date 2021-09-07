@@ -59,7 +59,6 @@ export default function UploadVideo({
   };
 
   return (
-    <>
     <UploadFile
       handleFileChange={onChangeFile}
       inputProps={{
@@ -69,6 +68,5 @@ export default function UploadVideo({
       <Children
       />
     </UploadFile>
-    </>
   );
 }
