@@ -22,7 +22,7 @@ export default function UploadFile({
         accept='audio/*'
         name='audio'
         multiple={false}
-        hidden
+        type='hidden'
         onChange={onChangeInputFile}
       />
 
