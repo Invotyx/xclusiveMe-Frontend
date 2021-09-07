@@ -68,7 +68,7 @@ const MessagesListItem = ({
               message.sender.id !== current?.id ? 'flex-start' : 'flex-end'
             }
           >
-            {message.isLocked && (
+            {message.isLocked && message.sender.id !== current?.id && (
               <>
                 <LockedPost
                   style={{
@@ -102,7 +102,7 @@ const MessagesListItem = ({
                 />
               </>
             )}
-            {!message.isLocked &&
+            {(!message.isLocked || message.sender.id === current?.id) &&
               message.media?.map((messageMedia, i) => (
                 <span key={`messageMedia${i}`}>
                   {message.messageMediaType === 'photo' ? (
