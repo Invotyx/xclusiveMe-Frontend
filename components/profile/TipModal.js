@@ -166,6 +166,7 @@ const useTipModal = ({ onConfirm }) => {
                             startAdornment: currencySymbol,
                           }}
                           inputRef={priceFieldRef}
+                          defaultValue={addPrice}
                           name='addPrice'
                           onKeyDown={e => {
                             if (e.key === '.') {
