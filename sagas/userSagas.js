@@ -37,6 +37,20 @@ function* handleGetAll(action) {
   }
 }
 
+function* handleGetSuggestions(action) {
+  try {
+    const { limit, pageNumber } = action.payload;
+    const { data } = yield call(
+      apiClient.get,
+      `${SERVER_ADDRESS}/users/suggestions?limit=${limit}&page=${pageNumber}`
+    );
+    yield put(user.success({ suggestions: data.users }));
+  } catch (e) {
+    console.log(e);
+    yield put(user.failure({ error: { ...e } }));
+  }
+}
+
 function* handleGetOne(action) {
   try {
     const { id } = action.payload;
@@ -240,6 +254,7 @@ function* watchPresetSagas() {
   yield all([
     takeLatest(USER.GET, handleGet),
     takeLatest(USER.GET_ALL, handleGetAll),
+    takeLatest(USER.GET_SUGGESTIONS, handleGetSuggestions),
     takeLatest(USER.GET_ONE, handleGetOne),
     takeLatest(USER.GET_FOLLOWERS, handleGetFollowers),
     takeLatest(USER.GET_FOLLOWINGS, handleGetFollowings),

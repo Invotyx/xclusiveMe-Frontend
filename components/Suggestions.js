@@ -9,17 +9,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import Typography from '@material-ui/core/Typography';
 import { user } from '../actions/user';
-import { allUsersSelector } from '../selectors/userSelector';
+import { suggestionsSelector } from '../selectors/userSelector';
 import ImageAvatar from '../components/image-avatar';
 
 export default function Home() {
   const dispatch = useDispatch();
-  const suggestion = useSelector(allUsersSelector);
+  const suggestion = useSelector(suggestionsSelector);
   const pageNum = Math.floor(Math.random() * 3 + 1);
   const limit = Math.floor(Math.random() * 5 + 1);
 
   useEffect(() => {
-    dispatch(user.requestAll({ limit: limit, pageNumber: pageNum }));
+    dispatch(user.requestSuggestions({ limit: limit, pageNumber: pageNum }));
   }, []);
 
   return (
