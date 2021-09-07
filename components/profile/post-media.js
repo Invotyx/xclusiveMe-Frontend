@@ -51,13 +51,6 @@ export default function PostMedia({ media, mediaCount, onImageClick }) {
   return (
     <div>
       <Grid container spacing={1}>
-        {mediaCount > media?.length &&
-          Array.apply(null, Array(1)).map(() => (
-            <Grid item xs={12} key={Math.random()}>
-              <LockedPost />
-            </Grid>
-          ))}
-
         {media && media.length > 0 && (
           <>
             <Grid item xs={12}>
@@ -70,6 +63,12 @@ export default function PostMedia({ media, mediaCount, onImageClick }) {
             ))}
           </>
         )}
+        {mediaCount > media?.length &&
+          Array.apply(null, Array(1)).map(() => (
+            <Grid item xs={12} key={Math.random()}>
+              <LockedPost />
+            </Grid>
+          ))}
         {/* (!media || media.length === 0) && (
         <MediaElement m={{ url: '/no-media.jpg' }} />
       ) */}
