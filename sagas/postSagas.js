@@ -562,13 +562,6 @@ function* handleAddTip(action) {
     yield call(tipPost, saveData);
     yield put(post.success({}));
     yield call(post.request);
-    yield put(
-      snackbar.update({
-        open: true,
-        message: 'Tip Added',
-        severity: 'success',
-      })
-    );
     const { callback } = action.payload;
     if (callback) {
       yield call(callback);
