@@ -123,7 +123,6 @@ export default function NewPostForm({ afterSave }) {
     setMedia(prev => [
       ...prev,
       {
-        thumbnail: '/no-media.jpg',
         muxId: muxId,
         type: mediaType,
       },
@@ -168,7 +167,10 @@ export default function NewPostForm({ afterSave }) {
             <ImageList rowHeight={100} cols={4}>
               {media.map((tile, i) => (
                 <ImageListItem key={`tile${i}`}>
-                  <img src={tile.thumbnail} alt={'no Image'} />
+                  <img
+                    src={tile.thumbnail || '/no-media.jpg'}
+                    alt={'no Image'}
+                  />
                   <ImageListItemBar
                     position='top'
                     actionPosition='left'
