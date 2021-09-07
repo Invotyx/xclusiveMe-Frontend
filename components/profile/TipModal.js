@@ -163,6 +163,7 @@ const useTipModal = ({ onConfirm }) => {
                         <TextField
                           id='outlined-basic'
                           variant='outlined'
+                          autoFocus
                           placeholder='Enter amount in USD'
                           InputProps={{
                             startAdornment: currencySymbol,
