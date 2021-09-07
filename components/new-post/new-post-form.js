@@ -116,7 +116,7 @@ export default function NewPostForm({ afterSave }) {
         signature: source_url.signature,
         thumbnail: source_url.thumbnail,
         type: `${source_url.resource_type}`,
-        isPreview: true,
+        isPreview: false,
       })),
     ]);
   };
@@ -128,7 +128,7 @@ export default function NewPostForm({ afterSave }) {
       {
         muxId: muxId,
         type: mediaType,
-        isPreview: true,
+        isPreview: false,
       },
     ]);
   };
@@ -138,7 +138,7 @@ export default function NewPostForm({ afterSave }) {
     setMedia(prev => [
       ...prev,
       ...data.map(d => {
-        d.isPreview = true;
+        d.isPreview = false;
         return d;
       }),
     ]);
