@@ -22,7 +22,7 @@ export default function UploadFile({
       <input
         ref={inputFile}
         type='file'
-        type='hidden'
+        hidden
         onChange={onChangeInputFile}
         {...inputProps}
       />
