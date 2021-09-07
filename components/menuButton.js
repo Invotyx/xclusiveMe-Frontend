@@ -6,8 +6,9 @@ import useReportModal from './profile/ReportModal';
 import { useDispatch } from 'react-redux';
 import { snackbar } from '../actions/snackbar';
 import { post } from '../actions/post';
+import useTipModal from './profile/TipModal';
 
-const ManuButton = ({ onConfirm, ...props }) => {
+const ManuButton = ({ onConfirm, tip, ...props }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
@@ -46,6 +47,23 @@ const ManuButton = ({ onConfirm, ...props }) => {
     setreportModal(true);
   };
 
+  const { TipModal, setOpenTipModal } = useTipModal({
+    onConfirm: (amount, callback) =>
+      dispatch(
+        post.addTip({
+          saveData: {
+            itemTipped: tip,
+            itemTippedType: 'user',
+            amount,
+          },
+
+          callback: () => {
+            callback && callback();
+          },
+        })
+      ),
+  });
+
   return (
     <>
       <IconButton
@@ -74,12 +92,23 @@ const ManuButton = ({ onConfirm, ...props }) => {
             props.post?.user.username !== props.currentUser?.username) && (
             <MenuItem onClick={handleOpenReportModal}>Report</MenuItem>
           )}
+          {Boolean(tip) && (
+            <MenuItem
+              onClick={() => {
+                setOpenTipModal(true);
+                setAnchorEl(null);
+              }}
+            >
+              Tip
+            </MenuItem>
+          )}
         </Menu>
       )}
 
       <ReportModal
         {...props}
       />
+      <TipModal hideDefaultButton {...props} />
     </>
   );
 };

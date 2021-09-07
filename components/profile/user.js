@@ -455,6 +455,7 @@ export default function Profile({
                             )}
                             <>
                               <ManuButton
+                                tip={user?.id}
                                 title='Report this User'
                                 profileImage={profileData?.profileImage}
                                 onConfirm={{
