@@ -13,7 +13,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
 import styles from './profile.module.css';
 import TextField from '@material-ui/core/TextField';
-import ImageAvatar from '../image-avatar';
 import ProfileImageAvatar from './profile-image-avatar';
 import { currencySymbol } from '../../services/currencySymbol';
 
