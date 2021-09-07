@@ -145,7 +145,12 @@ export default function ConversationsList({ subheaderPrefix }) {
                   variant='body2'
                   display='block'
                   color='primary'
-                  style={{ fontWeight: !i.lastMessage.isSeen ? 700 : 400 }}
+                  style={{
+                    fontWeight:
+                      !i.lastMessage.isSeen
+                        ? 700
+                        : 400,
+                  }}
                 >
                   {i.participants.find(p => p?.id !== myData?.id)?.fullName}
                 </Typography>
