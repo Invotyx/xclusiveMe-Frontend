@@ -67,11 +67,11 @@ const useTipModal = ({ onConfirm }) => {
     <>
       {!hideDefaultButton &&
         (children ? (
-        <span onClick={handleOpenTopModal}>{children}</span>
-      ) : (
-        <IconButton onClick={handleOpenTopModal}>
-          <MonetizationOnOutlinedIcon />
-        </IconButton>
+          <span onClick={handleOpenTopModal}>{children}</span>
+        ) : (
+          <IconButton onClick={handleOpenTopModal}>
+            <MonetizationOnOutlinedIcon />
+          </IconButton>
         ))}
       <Modal
         aria-labelledby='transition-modal-title'
