@@ -1,4 +1,5 @@
 import React from 'react';
+import Button from '@material-ui/core/Button';
 
 export default function UploadFile({
   children,
@@ -26,11 +27,21 @@ export default function UploadFile({
         onChange={onChangeInputFile}
       />
 
-      <Children
-        onClick={() => {
-          inputFile.current.click();
-        }}
-      />
+      {children ? (
+        <Children
+          onClick={() => {
+            inputFile.current.click();
+          }}
+        />
+      ) : (
+        <Button
+          onClick={() => {
+            inputFile.current.click();
+          }}
+        >
+          Select File
+        </Button>
+      )}
     </>
   );
 }
