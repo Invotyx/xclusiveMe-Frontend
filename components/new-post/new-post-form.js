@@ -179,11 +179,11 @@ export default function NewPostForm({ afterSave }) {
                     actionPosition='left'
                     actionIcon={
                       <>
-                        <IconButton
+                        <span
                           onClick={() => removeImageHandler(tile)}
                         >
                           <ClearIcon />
-                        </IconButton>
+                        </span>
                       </>
                     }
                   />
