@@ -11,7 +11,6 @@ import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import CloseIcon from '@material-ui/icons/Close';
 import React from 'react';
-import GreenButton from '../GreenButton';
 import NormalCaseButton from '../NormalCaseButton';
 import StripeElements from '../settings/payment/StripeElements';
 import SubscriptionForm from '../settings/subscription/SubscriptionForm';
@@ -133,14 +132,14 @@ export default function SetupAccountDialog({ buttonProps, ...props }) {
                   }}
                 />
 
-                <GreenButton
+                <NormalCaseButton
                   onClick={handleContinue}
                   color='primary'
                   variant='contained'
                   fullWidth
                 >
                   Next
-                </GreenButton>
+                </NormalCaseButton>
                 <NormalCaseButton onClick={handleClose} fullWidth>
                   Skip for now
                 </NormalCaseButton>
@@ -168,14 +167,14 @@ export default function SetupAccountDialog({ buttonProps, ...props }) {
                   }}
                 />
 
-                <GreenButton
+                <NormalCaseButton
                   onClick={handleContinue}
                   color='primary'
                   variant='contained'
                   fullWidth
                 >
                   Continue
-                </GreenButton>
+                </NormalCaseButton>
                 <NormalCaseButton onClick={handleClose} fullWidth>
                   Skip for now
                 </NormalCaseButton>
@@ -186,14 +185,14 @@ export default function SetupAccountDialog({ buttonProps, ...props }) {
               <Box textAlign='center' p={6} pb={8}>
                 <BeenhereIcon style={{ fontSize: '3rem' }} />
                 <Typography variant='h6'>All Set!</Typography>
-                <GreenButton
+                <NormalCaseButton
                   onClick={handleClose}
                   color='primary'
                   variant='contained'
                   fullWidth
                 >
                   Close
-                </GreenButton>
+                </NormalCaseButton>
               </Box>
             )}
           </Box>
