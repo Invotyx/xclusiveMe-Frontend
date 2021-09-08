@@ -40,7 +40,7 @@ function* handleSearch(action) {
   try {
     const { query } = action.payload;
     const { data } = yield call(search, query);
-    yield put(chat.success({ searchResults: data }));
+    yield put(chat.success({ searchResults: data.result }));
 
     const { callback } = action.payload;
     if (callback) {
