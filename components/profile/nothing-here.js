@@ -9,10 +9,10 @@ const useStyles = makeStyles(theme => ({
     height: 0,
   },
 }));
-export default function NothingHere({ me }) {
+export default function NothingHere({ me, ...props }) {
   const classes = useStyles();
   return (
-    <Box textAlign='center' p={4}>
+    <Box textAlign='center' p={4} {...props}>
       <img src='/nothing-here.svg' alt='no media' />
       <Box mt={-2}>
         <Typography gutterBottom>No content found</Typography>
