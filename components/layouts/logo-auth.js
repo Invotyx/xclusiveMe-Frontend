@@ -139,7 +139,7 @@ export default function Comp({ sidebarMenu, set_sidebarMenu }) {
             </Box>
             <Box flexGrow={1} display={{ xs: 'none', sm: 'none', md: 'flex' }}>
               <Box display='flex'>
-                <Box mr={1} display='flex'>
+                <Box mr={1} display='flex' className={'step-2'}>
                   <NewPostDialog />
                 </Box>
                 <NextLink passHref href={`/x/${me?.username}`}>
@@ -152,13 +152,17 @@ export default function Comp({ sidebarMenu, set_sidebarMenu }) {
             <Box display='flex'>
               <Box ml={3} display={{ xs: 'none', sm: 'none', md: 'flex' }}>
                 <NextLink href='/search' passHref>
-                  <IconButton color='inherit'>
+                  <IconButton color='inherit' className='step-3'>
                     <SearchIcon />
                   </IconButton>
                 </NextLink>
               </Box>
               <Box ml={3} display={{ xs: 'none', sm: 'none', md: 'flex' }}>
-                <IconButton color='inherit' onClick={settingsMenuOpen}>
+                <IconButton
+                  color='inherit'
+                  onClick={settingsMenuOpen}
+                  className='step-5'
+                >
                   {read > 0 ? (
                     <Badge color='secondary' variant='dot'>
                       <CheckBoxOutlineBlankIcon />
@@ -186,7 +190,7 @@ export default function Comp({ sidebarMenu, set_sidebarMenu }) {
               <Box ml={3} display={{ xs: 'none', sm: 'none', md: 'flex' }}>
                 {chatMenu === 'link' ? (
                   <NextLink href='/chat' passHref>
-                    <IconButton color='inherit'>
+                    <IconButton color='inherit' className='step-6'>
                       <SmsIcon />
                     </IconButton>
                   </NextLink>
@@ -194,6 +198,7 @@ export default function Comp({ sidebarMenu, set_sidebarMenu }) {
                   <>
                     <IconButton
                       color='inherit'
+                      className='step-6'
                       onClick={e => setMessageEl(e.currentTarget)}
                     >
                       <SmsIcon />
@@ -208,7 +213,7 @@ export default function Comp({ sidebarMenu, set_sidebarMenu }) {
               </Box>
               <Box ml={3}>
                 <NextLink href='/settings/account' passHref>
-                  <IconButton color='inherit'>
+                  <IconButton color='inherit' className='step-4'>
                     <SettingsIcon />
                   </IconButton>
                 </NextLink>
