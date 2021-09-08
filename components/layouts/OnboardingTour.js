@@ -12,7 +12,7 @@ const styles = {
     spotlightShadow: '0 0 15px rgba(0, 0, 0, 0.5)',
     textColor: '#fff',
     width: undefined,
-    zIndex: 100,
+    zIndex: 10000,
   },
 };
 
