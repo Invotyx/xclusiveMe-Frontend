@@ -68,6 +68,14 @@ export default function OnboardingTour() {
     if (action === 'skip') {
       localStorage.setItem('OnboardingTourSkipped', 1);
     }
+    if (
+      action === 'next' &&
+      index === 7 &&
+      status === 'finished' &&
+      type === 'tour:end'
+    ) {
+      //
+    }
   };
   return (
     <>
