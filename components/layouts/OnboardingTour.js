@@ -80,18 +80,20 @@ export default function OnboardingTour() {
   };
   return (
     <>
-      {pathname === '/explore' && startTour && !startTourSkipped && (
-        <Joyride
-          callback={handleJoyrideCallback}
-          continuous
-          showSkipButton
-          styles={styles}
-          steps={steps}
-          locale={{
-            last: 'Setup your account',
-          }}
-        />
-      )}
+      {pathname === '/explore' &&
+        startTour &&
+        !startTourSkipped && (
+          <Joyride
+            callback={handleJoyrideCallback}
+            continuous
+            showSkipButton
+            styles={styles}
+            steps={steps}
+            locale={{
+              last: 'Setup your account',
+            }}
+          />
+        )}
     </>
   );
 }
