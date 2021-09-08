@@ -67,7 +67,9 @@ export default function Home() {
                   </Box>
                 ))
               ) : (
-                <NothingHere />
+                <span className={'step-1'}>
+                  <NothingHere />
+                </span>
               )}
             </Grid>
 
