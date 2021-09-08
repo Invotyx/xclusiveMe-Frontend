@@ -2810,6 +2810,13 @@ raw-body@2.4.1:
     iconv-lite "0.4.24"
     unpipe "1.0.0"
 
+react-curved-arrow@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/react-curved-arrow/-/react-curved-arrow-0.1.0.tgz#5ecbbddbb6ee1926802491b91961988a37b30368"
+  integrity sha512-0tW3uj1kGBWLyK3Hhtax4iXm0l9lEcH3U0Rrgyg+2Uec+5j4D327kVxjX5J+wFC8tK2frOhxyG9Mez5jgdtDYw==
+  dependencies:
+    react "16.12.0"
+
 react-dom@17.0.2:
   version "17.0.2"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-17.0.2.tgz#ecffb6845e3ad8dbfcdc498f0d0a939736502c23"
@@ -2993,6 +3000,15 @@ react-webcam@^6.0.0:
   version "6.0.0"
   resolved "https://registry.yarnpkg.com/react-webcam/-/react-webcam-6.0.0.tgz#46dd9ba44cebe6bf3cc4ea2ff09d12243900abfa"
   integrity sha512-pw7067WYnDHRjAXYXrsLeig9/AAxCFDnnaEJzZ5ep6UZoYMqF4UNRtVkeTk0LotpwqT/c8vHisn/+QodNbUsQA==
+
+react@16.12.0:
+  version "16.12.0"
+  resolved "https://registry.yarnpkg.com/react/-/react-16.12.0.tgz#0c0a9c6a142429e3614834d5a778e18aa78a0b83"
+  integrity sha512-fglqy3k5E+81pA8s+7K0/T3DBCF0ZDOher1elBFzF7O6arXJgzyu/FW+COxFvAWXJoJN9KIZbT2LXlukwphYTA==
+  dependencies:
+    loose-envify "^1.1.0"
+    object-assign "^4.1.1"
+    prop-types "^15.6.2"
 
 react@17.0.2:
   version "17.0.2"
