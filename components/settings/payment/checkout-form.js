@@ -12,7 +12,7 @@ import {
   errorSelector,
 } from '../../../selectors/paymentMethodSelector';
 
-export default function CheckoutForm(props) {
+export default function CheckoutForm({ buttonProps, ...props }) {
   const fetching = useSelector(fetchingSelector);
   const stripe = useStripe();
   const elements = useElements();
@@ -121,6 +121,7 @@ export default function CheckoutForm(props) {
           variant='contained'
           disabled={!stripe || fetching || _disabled}
           type='submit'
+          {...buttonProps}
         >
           Add Method
         </Button>
