@@ -167,7 +167,7 @@ export default function SetupAccountDialog({ buttonProps, ...props }) {
                   variant='contained'
                   fullWidth
                 >
-                  Done
+                  Continue
                 </GreenButton>
                 <NormalCaseButton onClick={handleClose} fullWidth>
                   handleClose
