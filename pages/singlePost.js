@@ -475,7 +475,7 @@ const SinglePost = ({
                               name={sPost?.user?.fullName}
                             >
                               <NormalCaseButton
-                                aria-label='Buy Post'
+                                aria-label='Tip'
                                 startIcon={<MonetizationOnOutlinedIcon />}
                               >
                                 Tip
