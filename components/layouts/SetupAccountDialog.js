@@ -74,6 +74,7 @@ export default function SetupAccountDialog({ buttonProps, ...props }) {
   };
 
   const handleClose = () => {
+    setActiveStep(0);
     setOpen(false);
   };
 
