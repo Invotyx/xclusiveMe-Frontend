@@ -6,8 +6,21 @@
   margin-top: 20px;
 }
 
+@-webkit-keyframes demo {
+  0% {
+    background-color: #ffff0030;
+    opacity: 1;
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
 .highlight {
-  background: #ffff0030;
+  -webkit-animation-name: demo;
+  -webkit-animation-duration: 900ms;
+  -webkit-animation-iteration-count: 1;
+  -webkit-animation-timing-function: ease-in-out;
 }
 
 .leftSide {
