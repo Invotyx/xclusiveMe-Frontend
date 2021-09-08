@@ -74,6 +74,7 @@ export default function OnboardingTour() {
       status === 'finished' &&
       type === 'tour:end'
     ) {
+      localStorage.setItem('OnboardingTourSkipped', 1);
       //
     }
   };
