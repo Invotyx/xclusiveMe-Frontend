@@ -14,7 +14,7 @@ import { fetchingSelector } from '../../../selectors/authSelector';
 import { errorSelector } from '../../../selectors/authSelector';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-export default function SubscriptionForm({ buttonProps, ...props }) {
+export default function SubscriptionForm({ buttonProps, fieldOnly, ...props }) {
   const fetching = useSelector(fetchingSelector);
   const error = useSelector(errorSelector);
   const dispatch = useDispatch();
@@ -50,21 +50,25 @@ export default function SubscriptionForm({ buttonProps, ...props }) {
   };
   return (
     <>
-      <Box my={2}>
-        <UppercaseInputLabel>Set Up A Subscription Fee</UppercaseInputLabel>
-      </Box>
-      <Box mb={2}>
-        <Divider />
-      </Box>
-      {fetching && <CircularProgress />}
-      <Box my={2}>
-        <Typography variant='subtitle2'>Add a subscription fee</Typography>
-      </Box>
-      <Box my={2}>
-        <Typography variant='body2'>
-          Users who will follow you will have to pay this upfront
-        </Typography>
-      </Box>
+      {!fieldOnly && (
+        <>
+          <Box my={2}>
+            <UppercaseInputLabel>Set Up A Subscription Fee</UppercaseInputLabel>
+          </Box>
+          <Box mb={2}>
+            <Divider />
+          </Box>
+          {fetching && <CircularProgress />}
+          <Box my={2}>
+            <Typography variant='subtitle2'>Add a subscription fee</Typography>
+          </Box>
+          <Box my={2}>
+            <Typography variant='body2'>
+              Users who will follow you will have to pay this upfront
+            </Typography>
+          </Box>
+        </>
+      )}
       <form onSubmit={handleUpdate}>
         <Box mb={4}>
           <TileTextField
