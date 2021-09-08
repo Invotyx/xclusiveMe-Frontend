@@ -366,13 +366,13 @@ export default function Post({
 
             {!me && post.isPaid && post.media.length < post.mediaCount && (
               <div style={{ marginRight: '4px' }}>
-                  <NormalCaseButton
-                    aria-label='Buy Post'
-                    startIcon={<LocalMallIcon />}
-                    onClick={handleOpenModel}
-                  >
-                    Buy Post
-                  </NormalCaseButton>
+                <NormalCaseButton
+                  aria-label='Buy Post'
+                  startIcon={<LocalMallIcon />}
+                  onClick={handleOpenModel}
+                >
+                  Buy Post
+                </NormalCaseButton>
               </div>
             )}
           </div>
