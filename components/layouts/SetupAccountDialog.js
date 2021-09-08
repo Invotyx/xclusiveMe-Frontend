@@ -64,13 +64,16 @@ export default function SetupAccountDialog({ buttonProps, ...props }) {
     setOpen(true);
   };
 
+  const nextStep = () => {
+    setActiveStep(s => s + 1);
+  };
+
   const handleContinue = () => {
     if (activeStep === 0) {
       subscriptionFormSubmitButton.current.click();
     } else if (activeStep === 1) {
       checkoutFormSubmitButton.current.click();
     }
-    setActiveStep(s => s + 1);
   };
 
   const handleClose = () => {
@@ -117,6 +120,7 @@ export default function SetupAccountDialog({ buttonProps, ...props }) {
 
                 <SubscriptionForm
                   fieldOnly
+                  callback={nextStep}
                   buttonProps={{
                     ref: subscriptionFormSubmitButton,
                     style: {
@@ -149,6 +153,8 @@ export default function SetupAccountDialog({ buttonProps, ...props }) {
                   Add your Bank Card details
                 </Typography>
                 <StripeElements
+                  callback={() => {
+                    nextStep();
                   }}
                   buttonProps={{
                     ref: checkoutFormSubmitButton,
