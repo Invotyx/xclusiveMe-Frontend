@@ -86,6 +86,9 @@ export default function OnboardingTour() {
           showSkipButton
           styles={styles}
           steps={steps}
+          locale={{
+            last: 'Setup your account',
+          }}
         />
       )}
     </>
