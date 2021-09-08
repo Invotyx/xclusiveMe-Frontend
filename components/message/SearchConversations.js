@@ -1,5 +1,6 @@
 import React from 'react';
 import SearchIcon from '@material-ui/icons/Search';
+import ClearIcon from '@material-ui/icons/Clear';
 import TileTextField from '../TileTextField';
 import { useRouter } from 'next/router';
 
@@ -19,6 +20,10 @@ export default function SearchConversations() {
         handleSearch(e.target.value);
       }, 1500)
     );
+  };
+  const clearSearch = () => {
+    setSearchQuery('');
+    handleSearch('');
   };
   const handleSubmit = e => {
     e.preventDefault()
@@ -53,6 +58,15 @@ export default function SearchConversations() {
           InputProps={{
             startAdornment: (
               <SearchIcon fontSize='small' style={{ color: '#7c8080' }} />
+            ),
+            endAdornment: Boolean(searchQuery) ? (
+              <ClearIcon
+                fontSize='small'
+                style={{ color: '#7c8080' }}
+                onClick={clearSearch}
+              />
+            ) : (
+              <></>
             ),
           }}
         />
