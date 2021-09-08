@@ -61,7 +61,12 @@ export default function OnboardingTour() {
   return (
     <>
       {startTour && (
-        <Joyride continuous showSkipButton styles={styles} steps={steps} />
+        <Joyride
+          continuous
+          showSkipButton
+          styles={styles}
+          steps={steps}
+        />
       )}
     </>
   );
