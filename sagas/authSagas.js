@@ -389,10 +389,14 @@ function* handleGetSessions() {
   }
 }
 
-function* handleExpireAllSessions() {
+function* handleExpireAllSessions(action) {
   try {
     yield call(expireAllSessions);
     yield put(auth.success());
+    const { callback } = action.payload;
+    if (callback) {
+      yield call(callback);
+    }
   } catch (e) {
     console.log(e);
     yield put(auth.failure({ error: { ...e } }));

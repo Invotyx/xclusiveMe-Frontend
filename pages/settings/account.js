@@ -137,14 +137,18 @@ export default function Home(props) {
     set_password_old('');
   };
   const handleLogOutAllSessions = () => {
-    dispatch(auth.expireAllSessions());
-    // dispatch(
-    //   auth.logout({
-    //     callback: () => {
-    //       dispatch(auth.redirectToLoginPage());
-    //     },
-    //   })
-    // );
+    dispatch(
+      auth.expireAllSessions({
+        callback: () =>
+          dispatch(
+            auth.logout({
+              callback: () => {
+                dispatch(auth.redirectToLoginPage());
+              },
+            })
+          ),
+      })
+    );
   };
   const saveLinks = (e, link) => {
     e.preventDefault();
