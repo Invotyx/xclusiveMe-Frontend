@@ -14,6 +14,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import React from 'react';
 import GreenButton from '../GreenButton';
 import NormalCaseButton from '../NormalCaseButton';
+import StripeElements from '../settings/payment/StripeElements';
 import SubscriptionForm from '../settings/subscription/SubscriptionForm';
 
 const styles = theme => ({
@@ -54,6 +55,7 @@ function getSteps() {
 
 export default function SetupAccountDialog({ buttonProps, ...props }) {
   const subscriptionFormSubmitButton = React.useRef();
+  const checkoutFormSubmitButton = React.useRef();
   const [open, setOpen] = React.useState(false);
   const [activeStep, setActiveStep] = React.useState(0);
   const steps = getSteps();
@@ -136,6 +138,39 @@ export default function SetupAccountDialog({ buttonProps, ...props }) {
                 </GreenButton>
                 <NormalCaseButton onClick={handleClose} fullWidth>
                   Skip for now
+                </NormalCaseButton>
+              </div>
+            )}
+
+            {activeStep === 1 && (
+              <div>
+                <Typography variant='subtitle2'>
+                  Add your Bank Card details
+                </Typography>
+                <StripeElements
+                  }}
+                  buttonProps={{
+                    ref: checkoutFormSubmitButton,
+                    style: {
+                      width: 0,
+                      height: 0,
+                      padding: 0,
+                      border: 0,
+                      textIndent: '-9999px',
+                    },
+                  }}
+                />
+
+                <GreenButton
+                  onClick={handleContinue}
+                  color='primary'
+                  variant='contained'
+                  fullWidth
+                >
+                  Done
+                </GreenButton>
+                <NormalCaseButton onClick={handleClose} fullWidth>
+                  handleClose
                 </NormalCaseButton>
               </div>
             )}
