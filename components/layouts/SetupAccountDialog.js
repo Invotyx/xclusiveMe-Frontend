@@ -15,6 +15,7 @@ import GreenButton from '../GreenButton';
 import NormalCaseButton from '../NormalCaseButton';
 import StripeElements from '../settings/payment/StripeElements';
 import SubscriptionForm from '../settings/subscription/SubscriptionForm';
+import BeenhereIcon from '@material-ui/icons/Beenhere';
 
 const styles = theme => ({
   root: {
@@ -172,6 +173,21 @@ export default function SetupAccountDialog({ buttonProps, ...props }) {
                   handleClose
                 </NormalCaseButton>
               </div>
+            )}
+
+            {activeStep === 2 && (
+              <Box textAlign='center'>
+                <BeenhereIcon />
+                <Typography variant='subtitle2'>All Set!</Typography>
+                <GreenButton
+                  onClick={handleContinue}
+                  color='primary'
+                  variant='contained'
+                  fullWidth
+                >
+                  Close
+                </GreenButton>
+              </Box>
             )}
           </Box>
         </DialogContent>
