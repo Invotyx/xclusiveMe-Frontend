@@ -9,6 +9,13 @@ export const chat = {
       success: false,
       error: null,
     }),
+  searchMessages: data =>
+    createAction(CHAT.SEARCH_MESSAGES, {
+      ...data,
+      fetching: true,
+      success: false,
+      error: null,
+    }),
 
   sendVoicemail: data =>
     createAction(CHAT.SEND_VOICEMAIL, {

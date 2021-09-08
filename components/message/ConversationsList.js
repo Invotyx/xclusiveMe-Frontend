@@ -94,6 +94,10 @@ export default function ConversationsList({ subheaderPrefix }) {
 
   const { search } = query;
 
+  React.useEffect(() => {
+    dispatch(chat.search({ query: search }));
+  }, [search]);
+
   return (
     <List className={classes.list} disablePadding>
       <ListSubheader

@@ -3,6 +3,7 @@ import { createActionTypes } from '../../utils';
 export const CHAT = createActionTypes('CHAT', [
   'GET',
   'SEND',
+  'SEARCH_MESSAGES',
   'SEND_VOICEMAIL',
   'SEND_ONE',
   'GET_ONE',
