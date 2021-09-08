@@ -39,8 +39,8 @@ function* handleSendMessage(action) {
 function* handleSearch(action) {
   try {
     const { query } = action.payload;
-    yield call(search, query);
-    yield put(chat.success({}));
+    const { data } = yield call(search, query);
+    yield put(chat.success({ searchResults: data }));
 
     const { callback } = action.payload;
     if (callback) {
