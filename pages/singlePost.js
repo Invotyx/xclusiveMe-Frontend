@@ -77,8 +77,11 @@ const SinglePost = ({
 
   openReply,
 }) => {
-  const { PostPurchaseModel, handleOpenModel, setPurchased } =
-    usePostPurchaseModel();
+  const {
+    PostPurchaseModel,
+    openPurchaseModal,
+    setPurchased,
+  } = usePostPurchaseModel();
   const classes = useStyles();
   const [commentText, setCommentText] = useState('');
   const [commentId, setCommentId] = useState(null);
@@ -492,7 +495,7 @@ const SinglePost = ({
                     <NormalCaseButton
                       aria-label='Buy Post'
                       startIcon={<LocalMallIcon />}
-                      onClick={handleOpenModel}
+                      onClick={openPurchaseModal}
                     >
                       Buy Post
                     </NormalCaseButton>
