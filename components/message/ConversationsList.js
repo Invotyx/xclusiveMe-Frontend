@@ -12,6 +12,7 @@ import {
   chatDataSelector,
   chatCountSelector,
   activeConversationIdSelector,
+  searchResultsSelector,
 } from '../../selectors/chatSelector';
 import { useDispatch, useSelector } from 'react-redux';
 import { currentUserSelector } from '../../selectors/authSelector';
@@ -79,6 +80,7 @@ const useStyles = makeStyles(theme => ({
 export default function ConversationsList({ subheaderPrefix }) {
   const dispatch = useDispatch();
   const activeConversationId = useSelector(activeConversationIdSelector);
+  const searchResults = useSelector(searchResultsSelector);
   const SubheaderPrefix = () => subheaderPrefix || <></>;
   const classes = useStyles();
   const chatData = useSelector(chatDataSelector);
@@ -114,7 +116,53 @@ export default function ConversationsList({ subheaderPrefix }) {
           <ListItemText secondary='No Data Found' />
         </ListItem>
       )}
-      {chatData.map((i, x) => (
+      {Boolean(search) ? (
+        Boolean(searchResults?.length) ? (
+          searchResults.map((i, x) => (
+            <ListItem
+              key={`chatData${x}`}
+              button
+              onClick={() => handleOpenChat(i.conversationId)}
+              disableGutters
+            >
+              <ListItemAvatar>
+                <ImageAvatar src={i.sender?.profileImage} />
+              </ListItemAvatar>
+              <ListItemText
+                primary={
+                  <Typography variant='body2' display='block' color='primary'>
+                    {i.sender?.fullName}
+                  </Typography>
+                }
+                secondary={
+                  <React.Fragment>
+                    <Typography
+                      component='span'
+                      variant='body2'
+                      style={{ color: '#757575' }}
+                    >
+                      {i.content.slice(0, 15)}...
+                    </Typography>
+                  </React.Fragment>
+                }
+              />
+
+              <ListItemSecondaryAction>
+                <Typography component='span' variant='caption'>
+                  <Moment fromNow inteval={10000}>
+                    {i.updatedAt}
+                  </Moment>
+                </Typography>
+              </ListItemSecondaryAction>
+            </ListItem>
+          ))
+        ) : (
+          <ListItem>
+            <ListItemText secondary='No result found' />
+          </ListItem>
+        )
+      ) : (
+        chatData?.map((i, x) => (
           <ListItem
             key={`chatData${x}`}
             button
@@ -171,7 +219,8 @@ export default function ConversationsList({ subheaderPrefix }) {
               </Typography>
             </ListItemSecondaryAction>
           </ListItem>
-        ))}
+        ))
+      )}
     </List>
   );
 }
