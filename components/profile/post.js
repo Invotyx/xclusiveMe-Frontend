@@ -364,9 +364,8 @@ export default function Post({
               )}
             </div>
 
-            {!me && (
+            {!me && post.isPaid && post.media.length < post.mediaCount && (
               <div style={{ marginRight: '4px' }}>
-                {post.isPaid && post.media.length < post.mediaCount ? (
                   <NormalCaseButton
                     aria-label='Buy Post'
                     startIcon={<LocalMallIcon />}
@@ -374,9 +373,6 @@ export default function Post({
                   >
                     Buy Post
                   </NormalCaseButton>
-                ) : (
-                  ''
-                )}
               </div>
             )}
           </div>
