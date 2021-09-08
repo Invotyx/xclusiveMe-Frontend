@@ -70,7 +70,7 @@ export default function SubscriptionForm({ buttonProps, fieldOnly, ...props }) {
         </>
       )}
       <form onSubmit={handleUpdate}>
-        <Box mb={4}>
+        <>
           <TileTextField
             value={price}
             onChange={e => set_price(e.target.value)}
@@ -99,7 +99,7 @@ export default function SubscriptionForm({ buttonProps, fieldOnly, ...props }) {
           >
             Save
           </Button>
-        </Box>
+        </>
       </form>
     </>
   );
