@@ -114,22 +114,7 @@ export default function ConversationsList({ subheaderPrefix }) {
           <ListItemText secondary='No Data Found' />
         </ListItem>
       )}
-      {chatData
-        ?.filter(c => {
-          // search disabled
-          if (false) {
-            const participant = c.participants.find(p => p.id !== myData?.id);
-            if (participant) {
-              return participant.fullName
-                .toLowerCase()
-                .indexOf(search.toLowerCase()) > -1
-                ? true
-                : false;
-            }
-          }
-          return true;
-        })
-        .map((i, x) => (
+      {chatData.map((i, x) => (
           <ListItem
             key={`chatData${x}`}
             button
