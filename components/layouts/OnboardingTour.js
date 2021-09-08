@@ -55,14 +55,20 @@ const steps = [
 
 export default function OnboardingTour() {
   const [startTour, setStartTour] = React.useState(false);
+  const [startTourSkipped, setStartTourSkipped] = React.useState(false);
   React.useEffect(() => {
+    setStartTourSkipped(Boolean(localStorage.getItem('OnboardingTourSkipped')));
     setTimeout(() => setStartTour(true), 5000);
   }, []);
   const handleJoyrideCallback = data => {
+    const { action, index, status, type } = data;
+    if (action === 'skip') {
+      localStorage.setItem('OnboardingTourSkipped', 1);
+    }
   };
   return (
     <>
-      {startTour && (
+      {startTour && !startTourSkipped && (
         <Joyride
           callback={handleJoyrideCallback}
           continuous
