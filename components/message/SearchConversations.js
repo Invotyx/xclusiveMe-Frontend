@@ -26,15 +26,15 @@ export default function SearchConversations() {
     handleSearch('');
   };
   const handleSubmit = e => {
-    e.preventDefault()
-    handleSearch(searchQuery)
-};
+    e.preventDefault();
+    handleSearch(searchQuery);
+  };
   const handleSearch = search => {
     router.push({
       pathname,
       query: { ...query, search },
     });
-};
+  };
 
   return (
     <>
