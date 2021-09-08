@@ -366,7 +366,7 @@ export default function Post({
 
             <NormalCaseButton>Total Tips: {post?.totalTips}</NormalCaseButton>
 
-            {!me && post.isPaid && post.media.length < post.mediaCount && (
+            {!me && post.isPaid && post.media.length < post.mediaCount ? (
               <div style={{ marginRight: '4px' }}>
                 <NormalCaseButton
                   aria-label='Buy Post'
@@ -376,6 +376,7 @@ export default function Post({
                   Buy Post
                 </NormalCaseButton>
               </div>
+            ) : (
             )}
           </div>
           <PostPurchaseModel
