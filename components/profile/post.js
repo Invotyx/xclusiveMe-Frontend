@@ -391,9 +391,7 @@ export default function Post({
             price={post?.price}
             user={post?.user}
           />
-          <ReportModal
-            post={post}
-          />
+          <ReportModal post={post} />
           <NotBuyedModel
             notByedModel={notByedModel}
             setnotBuyedModel={setnotBuyedModel}
