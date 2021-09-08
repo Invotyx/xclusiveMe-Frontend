@@ -178,9 +178,9 @@ export default function SetupAccountDialog({ buttonProps, ...props }) {
             )}
 
             {activeStep === 2 && (
-              <Box textAlign='center'>
-                <BeenhereIcon />
-                <Typography variant='subtitle2'>All Set!</Typography>
+              <Box textAlign='center' p={6} pb={8}>
+                <BeenhereIcon style={{ fontSize: '3rem' }} />
+                <Typography variant='h6'>All Set!</Typography>
                 <GreenButton
                   onClick={handleClose}
                   color='primary'
