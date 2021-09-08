@@ -9,8 +9,8 @@ export async function send(saveData) {
 }
 
 export async function search(q) {
-  return apiClient.post(`${SERVER_ADDRESS}/conversations/search`, {
-    query: { search: q },
+  return apiClient.get(`${SERVER_ADDRESS}/conversations/search`, {
+    params: { search: q },
   });
 }
 
