@@ -147,6 +147,7 @@ export default function SignInSide() {
             fullWidth
             id='code'
             label='Enter Code'
+            autoFocus
             name='code'
             autoComplete='code'
           />
