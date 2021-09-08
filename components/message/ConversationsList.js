@@ -116,7 +116,8 @@ export default function ConversationsList({ subheaderPrefix }) {
       )}
       {chatData
         ?.filter(c => {
-          if (search) {
+          // search disabled
+          if (false) {
             const participant = c.participants.find(p => p.id !== myData?.id);
             if (participant) {
               return participant.fullName
