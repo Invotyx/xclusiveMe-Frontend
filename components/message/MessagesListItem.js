@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { currentUserSelector } from '../../selectors/authSelector';
@@ -44,7 +45,11 @@ const MessagesListItem = ({
   }, [inView]);
 
   return (
-    <div ref={ref} className={styles.container} {...props}>
+    <div
+      ref={ref}
+      className={clsx(styles.container, messageIdRef && styles.highlight)}
+      {...props}
+    >
       <div className={styles.chatMessages} ref={messageIdRef}>
         <div
           className={

@@ -6,6 +6,10 @@
   margin-top: 20px;
 }
 
+.highlight {
+  background: #ffff0030;
+}
+
 .leftSide {
   display: flex;
   justify-content: flex-start;
