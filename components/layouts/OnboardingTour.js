@@ -3,6 +3,7 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import { useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+import SetupAccountDialog from './SetupAccountDialog';
 
 const styles = {
   options: {
@@ -57,6 +58,7 @@ const steps = [
 ];
 
 export default function OnboardingTour() {
+  const setupAccountDialogButton = React.useRef();
   const router = useRouter();
   const { pathname } = router;
   const theme = useTheme();
@@ -80,10 +82,23 @@ export default function OnboardingTour() {
     ) {
       localStorage.setItem('OnboardingTourSkipped', 1);
       //
+      setupAccountDialogButton.current.click();
     }
   };
   return (
     <>
+      <SetupAccountDialog
+        buttonProps={{
+          ref: setupAccountDialogButton,
+          style: {
+            width: 0,
+            height: 0,
+            padding: 0,
+            border: 0,
+            textIndent: '-9999px',
+          },
+        }}
+      />
       {pathname === '/explore' &&
         isMediumAndUp &&
         startTour &&
