@@ -14,7 +14,12 @@ import { fetchingSelector } from '../../../selectors/authSelector';
 import { errorSelector } from '../../../selectors/authSelector';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-export default function SubscriptionForm({ buttonProps, fieldOnly, ...props }) {
+export default function SubscriptionForm({
+  buttonProps,
+  fieldOnly,
+  callbackAdditional,
+  ...props
+}) {
   const fetching = useSelector(fetchingSelector);
   const error = useSelector(errorSelector);
   const dispatch = useDispatch();
@@ -45,6 +50,7 @@ export default function SubscriptionForm({ buttonProps, fieldOnly, ...props }) {
           amount: price,
           currency: 'USD',
         },
+        callback: callbackAdditional,
       })
     );
   };

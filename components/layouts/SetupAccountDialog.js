@@ -120,7 +120,7 @@ export default function SetupAccountDialog({ buttonProps, ...props }) {
 
                 <SubscriptionForm
                   fieldOnly
-                  callback={nextStep}
+                  callbackAdditional={nextStep}
                   buttonProps={{
                     ref: subscriptionFormSubmitButton,
                     style: {
