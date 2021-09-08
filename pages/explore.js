@@ -56,7 +56,7 @@ export default function Home() {
             <Grid item xs={12} md={8}>
               {posts && posts.length > 0 ? (
                 posts.map((p, i) => (
-                  <Box key={i} mb={2}>
+                  <Box key={i} mb={2} className={i === 0 ? 'step-1' : ''}>
                     <Post
                       post={p}
                       profileData={p.user}
