@@ -58,10 +58,13 @@ export default function OnboardingTour() {
   React.useEffect(() => {
     setTimeout(() => setStartTour(true), 5000);
   }, []);
+  const handleJoyrideCallback = data => {
+  };
   return (
     <>
       {startTour && (
         <Joyride
+          callback={handleJoyrideCallback}
           continuous
           showSkipButton
           styles={styles}
