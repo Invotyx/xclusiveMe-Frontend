@@ -20,6 +20,7 @@ import { withStyles } from '@material-ui/core';
 import { useRouter } from 'next/router';
 import Moment from 'react-moment';
 import { chat } from '../../actions/chat';
+import Highlighter from 'react-highlight-words';
 
 const ListItem = withStyles({
   root: {
@@ -141,7 +142,10 @@ export default function ConversationsList({ subheaderPrefix }) {
                       variant='body2'
                       style={{ color: '#757575' }}
                     >
-                      {i.content.slice(0, 15)}...
+                      <Highlighter
+                        textToHighlight={i.content}
+                        searchWords={search?.split(' ')}
+                      />
                     </Typography>
                   </React.Fragment>
                 }
