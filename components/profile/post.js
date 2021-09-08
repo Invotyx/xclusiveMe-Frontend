@@ -366,7 +366,7 @@ export default function Post({
 
             {!me && (
               <div style={{ marginRight: '4px' }}>
-                {post.media.length < post.mediaCount ? (
+                {post.isPaid && post.media.length < post.mediaCount ? (
                   <NormalCaseButton
                     aria-label='Buy Post'
                     startIcon={<LocalMallIcon />}
