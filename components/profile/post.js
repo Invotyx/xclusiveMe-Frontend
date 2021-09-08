@@ -364,8 +364,6 @@ export default function Post({
               )}
             </div>
 
-            <NormalCaseButton>Total Tips: {post?.totalTips}</NormalCaseButton>
-
             {!me && post.isPaid && post.media.length < post.mediaCount ? (
               <div style={{ marginRight: '4px' }}>
                 <NormalCaseButton
@@ -377,6 +375,7 @@ export default function Post({
                 </NormalCaseButton>
               </div>
             ) : (
+              <NormalCaseButton>Total Tips: {post?.totalTips}</NormalCaseButton>
             )}
           </div>
           <PostPurchaseModel
