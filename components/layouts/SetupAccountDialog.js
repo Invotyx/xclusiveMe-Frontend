@@ -134,7 +134,7 @@ export default function SetupAccountDialog({ buttonProps, ...props }) {
                 >
                   Next
                 </GreenButton>
-                <NormalCaseButton onClick={handleContinue} fullWidth>
+                <NormalCaseButton onClick={handleClose} fullWidth>
                   Skip for now
                 </NormalCaseButton>
               </div>
