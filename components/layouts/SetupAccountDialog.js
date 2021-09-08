@@ -180,7 +180,7 @@ export default function SetupAccountDialog({ buttonProps, ...props }) {
                 <BeenhereIcon />
                 <Typography variant='subtitle2'>All Set!</Typography>
                 <GreenButton
-                  onClick={handleContinue}
+                  onClick={handleClose}
                   color='primary'
                   variant='contained'
                   fullWidth
