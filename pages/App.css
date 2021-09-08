@@ -28,10 +28,10 @@
 .react-joyride__tooltip {
   border: 1px solid #fff;
   border-radius: 10px !important;
-  outline: 0;
 }
 .react-joyride__tooltip button {
   font-size: 12px !important;
+  outline: 0;
 }
 .react-joyride__tooltip button[data-action='primary'] {
   color: #000 !important;
