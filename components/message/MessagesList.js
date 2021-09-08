@@ -1,4 +1,5 @@
 import { makeStyles } from '@material-ui/core';
+import { useRouter } from 'next/router';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { chat } from '../../actions/chat';
@@ -32,13 +33,21 @@ const MessagesList = ({
   activeParticipant,
 }) => {
   const myRef = React.useRef(null);
+  const messageIdRef = React.useRef(null);
   const activeConversationId = useSelector(activeConversationIdSelector);
   const singlechat = useSelector(singleChatSelector);
   const dispatch = useDispatch();
   const pageNum = 1;
   const limit = 50;
 
+  const router = useRouter();
+  const { messageId } = router.query;
+
   const scrollIntoView = () => {
+    if (Boolean(messageId)) {
+      messageIdRef.current?.scrollIntoView();
+      return;
+    }
     myRef.current.scrollIntoView();
   };
   const getOneConversation = clear => {
@@ -80,6 +89,7 @@ const MessagesList = ({
             activeConversationId={activeConversationId}
             activeParticipant={activeParticipant}
             getOneConversation={getOneConversation}
+            messageIdRef={+messageId === message.id ? messageIdRef : null}
           />
         ))}
         <div ref={myRef} style={{ textIndent: '-9999px' }}>

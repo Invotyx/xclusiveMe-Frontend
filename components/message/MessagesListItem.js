@@ -16,6 +16,7 @@ const MessagesListItem = ({
   message,
   activeParticipant,
   getOneConversation,
+  messageIdRef,
   ...props
 }) => {
   const { PostPurchaseModel, closePurchaseModal, openPurchaseModal } =
@@ -44,7 +45,7 @@ const MessagesListItem = ({
 
   return (
     <div ref={ref} className={styles.container} {...props}>
-      <div className={styles.chatMessages}>
+      <div className={styles.chatMessages} ref={messageIdRef}>
         <div
           className={
             message.sender.id !== current?.id
