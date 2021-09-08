@@ -9,7 +9,7 @@ export const chat = {
       success: false,
       error: null,
     }),
-  searchMessages: data =>
+  search: data =>
     createAction(CHAT.SEARCH_MESSAGES, {
       ...data,
       fetching: true,

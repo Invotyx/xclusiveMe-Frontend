@@ -8,6 +8,12 @@ export async function send(saveData) {
   return apiClient.post(`${SERVER_ADDRESS}/conversations`, data);
 }
 
+export async function search(q) {
+  return apiClient.post(`${SERVER_ADDRESS}/conversations/search`, {
+    query: { search: q },
+  });
+}
+
 export async function sendSingleMsg(id, saveData) {
   const data = JSON.stringify(saveData);
   return apiClient.post(`${SERVER_ADDRESS}/conversations/${id}/messages`, data);
