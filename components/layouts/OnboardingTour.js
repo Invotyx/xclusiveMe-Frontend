@@ -1,5 +1,6 @@
 import Joyride from 'react-joyride';
 import React from 'react';
+import { useRouter } from 'next/router';
 
 const styles = {
   options: {
@@ -54,6 +55,8 @@ const steps = [
 ];
 
 export default function OnboardingTour() {
+  const router = useRouter();
+  const { pathname } = router;
   const [startTour, setStartTour] = React.useState(false);
   const [startTourSkipped, setStartTourSkipped] = React.useState(false);
   React.useEffect(() => {
@@ -68,7 +71,7 @@ export default function OnboardingTour() {
   };
   return (
     <>
-      {startTour && !startTourSkipped && (
+      {pathname === '/explore' && startTour && !startTourSkipped && (
         <Joyride
           callback={handleJoyrideCallback}
           continuous
