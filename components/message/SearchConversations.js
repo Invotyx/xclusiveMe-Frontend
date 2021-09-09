@@ -50,7 +50,7 @@ export default function SearchConversations() {
         <TileTextField
           fullWidth
           id='outlined-basic'
-          placeholder='Search'
+          placeholder='Search username'
           variant='outlined'
           margin='dense'
           value={searchQuery}
