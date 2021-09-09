@@ -44,7 +44,6 @@ import { SubscribeUser } from './subscribe-button';
 import { useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import ChatIcon from '@material-ui/icons/Chat';
-import LoadingOverlay from 'react-loading-overlay';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { fetchingSelector } from '../../selectors/postSelector';
 import MessageModal from '../message/MessageModal';
@@ -197,7 +196,7 @@ export default function Profile({
   };
 
   return (
-    <LoadingOverlay active={fetchData} spinner={<CircularProgress />}>
+    <>
       <motion.div initial='hidden' animate='visible' variants={variants}>
         <Layout
           hideMainAppBar={
@@ -617,6 +616,6 @@ export default function Profile({
           </Container>
         </Layout>
       </motion.div>
-    </LoadingOverlay>
+    </>
   );
 }
