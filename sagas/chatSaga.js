@@ -118,7 +118,7 @@ function* handlegetConversations(action) {
   }
 }
 
-function* handleGetOneCon(action) {
+function* handleGetOneMessages(action) {
   try {
     const { id, pageNum, limit } = action.payload;
     const { data } = yield call(getSingleChat, id, pageNum, limit);
@@ -181,7 +181,7 @@ function* watchChatSagas() {
     takeLatest(CHAT.SEND, handleSendMessage),
     takeLatest(CHAT.SEARCH_MESSAGES, handleSearch),
     takeLatest(CHAT.GET, handlegetConversations),
-    takeLatest(CHAT.GET_ONE, handleGetOneCon),
+    takeLatest(CHAT.GET_ONE, handleGetOneMessages),
     takeLatest(CHAT.SEND_ONE, handleSendSingleMessage),
     takeLatest(CHAT.PURCHASE_MESSAGE, handlePurchaseMessage),
     takeLatest(CHAT.SEND_VOICEMAIL, handleUploadAudio),
