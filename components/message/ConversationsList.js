@@ -197,6 +197,11 @@ export default function ConversationsList({
                       i.lastMessage.sender?.id !== myData?.id
                         ? 700
                         : 400,
+                    fontSize:
+                      !i.lastMessage.isSeen &&
+                      i.lastMessage.sender?.id !== myData?.id
+                        ? '1rem'
+                        : '0.875rem',
                   }}
                 >
                   {i.participants.find(p => p?.id !== myData?.id)?.fullName}
