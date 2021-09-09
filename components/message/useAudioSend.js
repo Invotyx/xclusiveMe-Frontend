@@ -109,7 +109,7 @@ function AudioSendComp({
     stopRecording();
   };
 
-  const onStop = audioData => {
+  function onStop(audioData) {
     const date = moment();
     date.format('YYYY-MM-DD');
 
@@ -118,7 +118,7 @@ function AudioSendComp({
       lastModified: date,
     });
     voiceMailSend([audioFile]);
-  };
+  }
 
   const voiceMailSend = audioFile => {
     clearInterval(progressRef);
