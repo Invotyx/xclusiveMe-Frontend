@@ -139,7 +139,7 @@ function* handleGetOneMessagesHistory(action) {
   try {
     const { id, messageId } = action.payload;
     const { data } = yield call(getConversationMessagesHistory, id, messageId);
-    yield put(chat.success({ singleChat: data }));
+    yield put(chat.success({ singleChat: data.results }));
     const { callback } = action.payload;
     if (callback) {
       yield call(callback);
