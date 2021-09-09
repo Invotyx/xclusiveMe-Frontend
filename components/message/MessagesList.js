@@ -54,7 +54,7 @@ const MessagesList = ({
     clear && dispatch(chat.success({ singleChat: [] }));
     activeConversationId && Boolean(messageId)
       ? dispatch(
-          chat.getConversationMessages({
+          chat.getConversationMessagesHistory({
             id: activeConversationId,
             messageId,
             callback: () => {
