@@ -140,7 +140,10 @@ export default function SetupAccountDialog({ buttonProps, ...props }) {
                 >
                   Next
                 </NormalCaseButton>
-                <NormalCaseButton onClick={handleClose} fullWidth>
+                <NormalCaseButton
+                  onClick={() => setActiveStep(s => s + 1)}
+                  fullWidth
+                >
                   Skip for now
                 </NormalCaseButton>
               </div>
@@ -175,7 +178,10 @@ export default function SetupAccountDialog({ buttonProps, ...props }) {
                 >
                   Continue
                 </NormalCaseButton>
-                <NormalCaseButton onClick={handleClose} fullWidth>
+                <NormalCaseButton
+                  onClick={() => setActiveStep(s => s + 1)}
+                  fullWidth
+                >
                   Skip for now
                 </NormalCaseButton>
               </div>
