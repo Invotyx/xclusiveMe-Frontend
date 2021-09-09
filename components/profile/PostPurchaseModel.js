@@ -11,7 +11,7 @@ import { useMediaQuery } from 'react-responsive';
 import ShareIcon from '@material-ui/icons/Share';
 import styles from './profile.module.css';
 import { fetchingSelector } from '../../selectors/postSelector';
-import BounceLoader from 'react-spinners/BounceLoader';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import LoadingOverlay from 'react-loading-overlay';
 import ProfileImageAvatar from './profile-image-avatar';
 
@@ -61,7 +61,7 @@ const usePostPurchaseModal = () => {
     >
       <div className={classes.paper}>
         <Fade in={openModal}>
-          <LoadingOverlay active={fetchData} spinner={<BounceLoader />}>
+          <LoadingOverlay active={fetchData} spinner={<CircularProgress />}>
             {purchased === false ? (
               <div>
                 <div

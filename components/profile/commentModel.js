@@ -29,7 +29,7 @@ import { getCommentsDataSelector } from '../../selectors/postSelector';
 import useTipModal from './TipModal';
 import { fetchingSelector } from '../../selectors/postSelector';
 import LoadingOverlay from 'react-loading-overlay';
-import BounceLoader from 'react-spinners/BounceLoader';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import useEmojiPicker from '../useEmojiPicker';
 import { currentUserSelector } from '../../selectors/authSelector';
 import MonetizationOnOutlinedIcon from '@material-ui/icons/MonetizationOnOutlined';
@@ -258,7 +258,7 @@ const CommentModal = ({
     >
       <div>
         <Fade in={open}>
-          <LoadingOverlay active={fetchData} spinner={<BounceLoader />}>
+          <LoadingOverlay active={fetchData} spinner={<CircularProgress />}>
             <div
               style={{
                 display: 'flex',

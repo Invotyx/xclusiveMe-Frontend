@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
 import TextField from '@material-ui/core/TextField';
 import LoadingOverlay from 'react-loading-overlay';
-import BounceLoader from 'react-spinners/BounceLoader';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { fetchingSelector } from '../../selectors/postSelector';
 import ProfileImageAvatar from './profile-image-avatar';
 import PostReport from './PostReport';
@@ -69,7 +69,7 @@ const useReportModal = ({
     >
       <div>
         <Fade in={openReportModal}>
-          <LoadingOverlay active={fetchData} spinner={<BounceLoader />}>
+          <LoadingOverlay active={fetchData} spinner={<CircularProgress />}>
             <div className={classes.paper}>
               <div
                 style={{

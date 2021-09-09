@@ -25,7 +25,7 @@ import useReportModal from './ReportModal';
 import useTipModal from './TipModal';
 import { fetchingSelector } from '../../selectors/postSelector';
 import LoadingOverlay from 'react-loading-overlay';
-import BounceLoader from 'react-spinners/BounceLoader';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import NotBuyedModal from './NotBuyedModel';
 import { useMediaQuery } from 'react-responsive';
 import ManuButton from '../../components/menuButton';
@@ -161,7 +161,7 @@ export default function Post({
   });
 
   return (
-    <LoadingOverlay active={fetchData} spinner={<BounceLoader />}>
+    <LoadingOverlay active={fetchData} spinner={<CircularProgress />}>
       <Card className={styles.postCard} ref={ref}>
         {altHeader ? (
           <CardHeader
