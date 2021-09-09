@@ -139,11 +139,6 @@ export default function Profile({
 
   useEffect(() => {
     setUserFeed(feed);
-    //
-    if (feed) {
-      feed.forEach(f => {
-      });
-    }
   }, [feed]);
 
   const handleTabChange = (e, tab) => {
