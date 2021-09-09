@@ -31,7 +31,7 @@ import CheckIcon from '@material-ui/icons/Check';
 import NewPostAudioMenu from './NewPostAudioMenu';
 import ClearIcon from '@material-ui/icons/Clear';
 import LockOpenOutlinedIcon from '@material-ui/icons/LockOpenOutlined';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import LockIcon from '@material-ui/icons/Lock';
 
 const useStyles = makeStyles(theme => ({
   alertIcon: {
@@ -198,7 +198,7 @@ export default function NewPostForm({ afterSave }) {
                             style={{ cursor: 'pointer', color: '#ccc' }}
                           >
                             {!tile.isPreview ? (
-                              <LockOutlinedIcon />
+                              <LockIcon />
                             ) : (
                               <LockOpenOutlinedIcon />
                             )}
