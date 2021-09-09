@@ -50,7 +50,12 @@ const SinglePostMedia = ({ media, mediaCount, singlePost }) => {
       {mediaCount > media?.length &&
         Array.apply(null, Array(1)).map(() => (
           <Grid item xs={12} key={Math.random()}>
-            <LockedPost />
+            <LockedPost
+              style={{
+                width: '100px',
+                height: '100px',
+              }}
+            />
           </Grid>
         ))}
 
