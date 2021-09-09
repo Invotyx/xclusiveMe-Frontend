@@ -57,6 +57,14 @@ export const chat = {
       error: null,
     }),
 
+  getConversationMessagesHistory: data =>
+    createAction(CHAT.GET_ONE_HISTORY, {
+      ...data,
+      fetching: true,
+      success: false,
+      error: null,
+    }),
+
   isSeenMessage: data =>
     createAction(CHAT.IS_SEEN, {
       ...data,

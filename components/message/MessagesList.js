@@ -53,6 +53,17 @@ const MessagesList = ({
   const getConversationMessages = clear => {
     clear && dispatch(chat.success({ singleChat: [] }));
     activeConversationId &&
+    Boolean(messageId)
+      ? dispatch(
+          chat.getConversationMessages({
+            id: activeConversationId,
+            messageId,
+            callback: () => {
+              scrollIntoView();
+            },
+          })
+        )
+    :
       dispatch(
         chat.getConversationMessages({
           id: activeConversationId,
