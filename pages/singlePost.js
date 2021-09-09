@@ -30,7 +30,6 @@ import { useMediaQuery } from 'react-responsive';
 import { getCommentsDataSelector } from '../selectors/postSelector';
 import useTipModal from '../components/profile/TipModal';
 import { fetchingSelector } from '../selectors/postSelector';
-import LoadingOverlay from 'react-loading-overlay';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import useEmojiPicker from '../components/useEmojiPicker';
 import { useRouter } from 'next/router';
@@ -256,7 +255,7 @@ const SinglePost = ({
       className={classes.modal}
       style={{ marginTop: middleDesktop ? '20%' : higherDesktop ? '5%' : '3%' }}
     >
-      <LoadingOverlay active={fetchData} spinner={<CircularProgress />}>
+      <>
         <div
           style={{
             display: 'flex',
@@ -918,7 +917,7 @@ const SinglePost = ({
             </form>
           </div>
         </div>
-      </LoadingOverlay>
+      </>
     </div>
   );
 };
