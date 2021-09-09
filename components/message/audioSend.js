@@ -24,6 +24,7 @@ export default function audioSend({
   const dispatch = useDispatch();
 
   const voiceSendHandler = () => {
+    stopRecording();
     onStop(mediaBlob);
   };
 
@@ -47,7 +48,6 @@ export default function audioSend({
 
   const voiceMailSend = audioFile => {
     clearInterval(progressRef);
-    stopRecording();
     dispatch(
       chat.sendVoicemail({
         audioFile,
