@@ -36,7 +36,19 @@ function MediaElement({ m, onImageClick }) {
   const classes = useStyles();
 
   return m.type && m.type.indexOf('video') !== -1 ? (
-    <PostMediaVideo thumbnail={m.thumbnail} src={m.url} />
+    <PostMediaVideo
+      thumbnail={m.thumbnail}
+      src={m.url}
+      thumbnailProps={{
+        style: {
+          width: '100%',
+          height: '280px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        },
+      }}
+    />
   ) : m.type === 'upload' ? (
     <PostMediaAudio src={m.url} />
   ) : (
