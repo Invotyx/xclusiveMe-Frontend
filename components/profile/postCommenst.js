@@ -42,11 +42,6 @@ const useStyles = makeStyles(theme => ({
   profileModalStyle: {
     width: '30%',
   },
-  modelStyle: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   showMore: {
     color: theme.palette.primary.main,
   },

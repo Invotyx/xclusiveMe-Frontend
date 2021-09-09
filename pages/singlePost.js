@@ -57,12 +57,6 @@ const useStyles = makeStyles(theme => ({
       maxWidth: '100%',
     },
   },
-  modelStyle: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
 }));
 
 const SinglePost = ({
