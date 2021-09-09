@@ -12,7 +12,6 @@ import ShareIcon from '@material-ui/icons/Share';
 import styles from './profile.module.css';
 import { fetchingSelector } from '../../selectors/postSelector';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import LoadingOverlay from 'react-loading-overlay';
 import ProfileImageAvatar from './profile-image-avatar';
 
 const useStyles = makeStyles(theme => ({
@@ -61,7 +60,7 @@ const usePostPurchaseModal = () => {
     >
       <div className={classes.paper}>
         <Fade in={openModal}>
-          <LoadingOverlay active={fetchData} spinner={<CircularProgress />}>
+          <>
             {purchased === false ? (
               <div>
                 <div
@@ -346,7 +345,7 @@ const usePostPurchaseModal = () => {
                 </div>
               </div>
             )}
-          </LoadingOverlay>
+          </>
         </Fade>
       </div>
     </Modal>
