@@ -37,7 +37,19 @@ export default function VideoGridList({ username }) {
           tile && (
             <Grid item xs={12} md={4} key={i}>
               <Card>
-                <PostMediaVideo thumbnail={tile.thumbnail} src={tile.url} />
+                <PostMediaVideo
+                  thumbnail={tile.thumbnail}
+                  src={tile.url}
+                  thumbnailProps={{
+                    style: {
+                      width: '100%',
+                      height: '280px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    },
+                  }}
+                />
               </Card>
             </Grid>
           )
