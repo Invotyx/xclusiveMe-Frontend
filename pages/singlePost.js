@@ -263,7 +263,6 @@ const SinglePost = ({
   return (
     <div
       className={classes.modal}
-      closeAfterTransition
       style={{ marginTop: middleDesktop ? '20%' : higherDesktop ? '5%' : '3%' }}
     >
       <LoadingOverlay active={fetchData} spinner={<BounceLoader />}>
