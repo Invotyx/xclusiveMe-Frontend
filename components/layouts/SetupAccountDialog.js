@@ -1,3 +1,4 @@
+import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -110,6 +111,32 @@ export default function SetupAccountDialog({ buttonProps, ...props }) {
                 </Step>
               ))}
             </Stepper>
+
+            {activeStep === 0 && (
+              <div>
+                <Grid container>
+                  <Grid item xs={12} md={6}>
+                  </Grid>
+                  <Grid item xs={12} md={6}>
+                  </Grid>
+                </Grid>
+
+                <NormalCaseButton
+                  onClick={() => setActiveStep(s => s + 1)}
+                  color='primary'
+                  variant='contained'
+                  fullWidth
+                >
+                  Next
+                </NormalCaseButton>
+                <NormalCaseButton
+                  onClick={() => setActiveStep(s => s + 1)}
+                  fullWidth
+                >
+                  Skip for now
+                </NormalCaseButton>
+              </div>
+            )}
 
             {activeStep === 1 && (
               <div>
