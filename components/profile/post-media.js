@@ -80,8 +80,11 @@ export default function PostMedia({ media, mediaCount, onImageClick }) {
             <Grid item xs={12} md={4} key={Math.random()}>
               <LockedPost
                 style={{
-                  width: '100px',
-                  height: '100px',
+                  width: '100%',
+                  height: '280px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
                 }}
               />
             </Grid>
