@@ -8,7 +8,6 @@ import IconButton from '@material-ui/core/IconButton';
 import Box from '@material-ui/core/Box';
 import Badge from '@material-ui/core/Badge';
 import SettingsIcon from '@material-ui/icons/SettingsOutlined';
-import SmsIcon from '@material-ui/icons/SmsOutlined';
 import SearchIcon from '@material-ui/icons/Search';
 import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import axiosInterceptorResponse from '../../services/axiosInterceptorResponse';
@@ -21,17 +20,11 @@ import NewPostDialog from '../new-post';
 import CurrentUserProfileImageAvatar from '../profile/current-user-profile-image-avatar';
 import NotificationMenu from '../notification/menu';
 import { post } from '../../actions/post';
-import { notificationsCount } from '../../selectors/postSelector';
 import styles from './layout.module.css';
-import { fetchingSelector } from '../../selectors/postSelector';
-import ConversationsList from '../message/ConversationsList';
-import MessageMenu from '../message/MessageMenu';
 import { currentUserSelector } from '../../selectors/authSelector';
 import { notificationsData } from '../../selectors/postSelector';
 import { makeStyles } from '@material-ui/core';
 import ChatNavItem from './ChatNavItem';
-
-const chatMenu = 'link';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -50,9 +43,6 @@ export default function Comp({ sidebarMenu, set_sidebarMenu }) {
   const dispatch = useDispatch();
   const router = useRouter();
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [messageEl, setMessageEl] = React.useState(null);
-  const notificationCount = useSelector(notificationsCount);
-  const fetchData = useSelector(fetchingSelector);
   const me = useSelector(currentUserSelector);
   const notifications = useSelector(notificationsData);
   const [read, setRead] = useState(0);
@@ -64,10 +54,6 @@ export default function Comp({ sidebarMenu, set_sidebarMenu }) {
 
   const settingsMenuClose = () => {
     setAnchorEl(null);
-  };
-
-  const messagesClose = () => {
-    setMessageEl(null);
   };
 
   React.useEffect(() => {
