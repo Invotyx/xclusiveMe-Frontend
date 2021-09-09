@@ -23,7 +23,7 @@ import SinglePostMedia from './SinglePostMedia';
 import styles from './profile.module.css';
 import RepliesData from './RepliesData';
 import LocalMallIcon from '@material-ui/icons/LocalMall';
-import usePostPurchaseModel from './PostPurchaseModel';
+import usePostPurchaseModal from './PostPurchaseModel';
 import { useMediaQuery } from 'react-responsive';
 import { getCommentsDataSelector } from '../../selectors/postSelector';
 import useTipModal from './TipModal';
@@ -49,7 +49,7 @@ const useStyles = makeStyles(theme => ({
     border: '2px solid #000',
     boxShadow: theme.shadows[5],
   },
-  profileModelStyle: {
+  profileModalStyle: {
     width: '40vw',
 
     ['@media and screen and (minWidth: 600px)']: {
@@ -64,7 +64,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const CommentModel = ({
+const CommentModal = ({
   post,
   profileData,
   altHeader,
@@ -77,8 +77,8 @@ const CommentModel = ({
   checkRefs,
   setCheckRefs,
 }) => {
-  const { PostPurchaseModel, openPurchaseModal, setPurchased } =
-    usePostPurchaseModel();
+  const { PostPurchaseModal, openPurchaseModal, setPurchased } =
+    usePostPurchaseModal();
   const classes = useStyles();
   const [commentText, setCommentText] = useState('');
   const [commentId, setCommentId] = useState(null);
@@ -131,7 +131,7 @@ const CommentModel = ({
     //
   }, [forCommentId]);
 
-  const handleModelCommentLike = cId => {
+  const handleModalCommentLike = cId => {
     //
     singlePost.comments &&
       singlePost.comments.map(comm =>
@@ -282,7 +282,7 @@ const CommentModel = ({
               </div>
 
               <div
-                className={styles.profileModelStyle}
+                className={styles.profileModalStyle}
                 style={{ backgroundColor: '#101010' }}
               >
                 {altHeader ? (
@@ -500,7 +500,7 @@ const CommentModel = ({
                         </NormalCaseButton>
                       )}
                     </div>
-                    <PostPurchaseModel
+                    <PostPurchaseModal
                       handlePurchase={() => {
                         dispatch(
                           postData.purchasePost({
@@ -639,7 +639,7 @@ const CommentModel = ({
                                     cursor: 'pointer',
                                   }}
                                   onClick={() =>
-                                    handleModelCommentLike(comm.id)
+                                    handleModalCommentLike(comm.id)
                                   }
                                 />
                               ) : (
@@ -652,7 +652,7 @@ const CommentModel = ({
                                     cursor: 'pointer',
                                   }}
                                   onClick={() =>
-                                    handleModelCommentLike(comm.id)
+                                    handleModalCommentLike(comm.id)
                                   }
                                 />
                               )}
@@ -783,7 +783,7 @@ const CommentModel = ({
                                       cursor: 'pointer',
                                     }}
                                     onClick={() =>
-                                      handleModelCommentLike(comm.id)
+                                      handleModalCommentLike(comm.id)
                                     }
                                   />
                                 ) : (
@@ -796,7 +796,7 @@ const CommentModel = ({
                                       cursor: 'pointer',
                                     }}
                                     onClick={() =>
-                                      handleModelCommentLike(comm.id)
+                                      handleModalCommentLike(comm.id)
                                     }
                                   />
                                 )}
@@ -890,4 +890,4 @@ const CommentModel = ({
   );
 };
 
-export default CommentModel;
+export default CommentModal;

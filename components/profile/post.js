@@ -26,12 +26,12 @@ import useTipModal from './TipModal';
 import { fetchingSelector } from '../../selectors/postSelector';
 import LoadingOverlay from 'react-loading-overlay';
 import BounceLoader from 'react-spinners/BounceLoader';
-import NotBuyedModel from './NotBuyedModel';
+import NotBuyedModal from './NotBuyedModel';
 import { useMediaQuery } from 'react-responsive';
 import ManuButton from '../../components/menuButton';
 import ShowMoreText from 'react-show-more-text';
 import PostComments from './postCommenst';
-import usePostPurchaseModel from './PostPurchaseModel';
+import usePostPurchaseModal from './PostPurchaseModel';
 import { useInView } from 'react-intersection-observer';
 
 const useStyles = makeStyles(theme => ({
@@ -55,7 +55,7 @@ const useStyles = makeStyles(theme => ({
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
   },
-  profileModelStyle: {
+  profileModalStyle: {
     width: '30%',
   },
   modelStyle: {
@@ -82,8 +82,8 @@ export default function Post({
       console.log('out');
     }
   }, [inView]);
-  const { PostPurchaseModel, openPurchaseModal, setPurchased } =
-    usePostPurchaseModel();
+  const { PostPurchaseModal, openPurchaseModal, setPurchased } =
+    usePostPurchaseModal();
   const classes = useStyles();
   const dispatch = useDispatch();
   const currentUser = useSelector(currentUserSelector);
@@ -94,7 +94,7 @@ export default function Post({
     },
   });
   const fetchData = useSelector(fetchingSelector);
-  const [notByedModel, setnotBuyedModel] = useState(false);
+  const [notByedModal, setnotBuyedModal] = useState(false);
   const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
   const [mediaClicked, setMediaClicked] = useState(false);
 
@@ -378,7 +378,7 @@ export default function Post({
               <NormalCaseButton>Total Tips: {post?.totalTips}</NormalCaseButton>
             )}
           </div>
-          <PostPurchaseModel
+          <PostPurchaseModal
             handlePurchase={() => {
               dispatch(
                 postData.purchasePost({
@@ -394,9 +394,9 @@ export default function Post({
             user={post?.user}
           />
           <ReportModal post={post} />
-          <NotBuyedModel
-            notByedModel={notByedModel}
-            setnotBuyedModel={setnotBuyedModel}
+          <NotBuyedModal
+            notByedModal={notByedModal}
+            setnotBuyedModal={setnotBuyedModal}
             post={post}
           />
         </div>

@@ -10,7 +10,7 @@ import Box from '@material-ui/core/Box';
 import PostMediaVideo from '../profile/post-media-video';
 import AudioPlayer from './AudioPlayer';
 import LockedPost from '../profile/LockedPost';
-import usePostPurchaseModel from '../profile/PostPurchaseModel';
+import usePostPurchaseModal from '../profile/PostPurchaseModel';
 
 const MessagesListItem = ({
   activeConversationId,
@@ -20,8 +20,8 @@ const MessagesListItem = ({
   messageIdRef,
   ...props
 }) => {
-  const { PostPurchaseModel, closePurchaseModal, openPurchaseModal } =
-    usePostPurchaseModel();
+  const { PostPurchaseModal, closePurchaseModal, openPurchaseModal } =
+    usePostPurchaseModal();
   const { ref, inView } = useInView({ threshold: 0 });
   const current = useSelector(currentUserSelector);
   const dispatch = useDispatch();
@@ -91,7 +91,7 @@ const MessagesListItem = ({
                   }}
                   onClick={openPurchaseModal}
                 />
-                <PostPurchaseModel
+                <PostPurchaseModal
                   handlePurchase={() => {
                     dispatch(
                       chat.purchaseMessage({

@@ -31,10 +31,10 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const usePostPurchaseModel = () => {
-  const [openModel, setOpenModel] = useState(false);
-  const handleOpenModel = () => {
-    setOpenModel(true);
+const usePostPurchaseModal = () => {
+  const [openModal, setOpenModal] = useState(false);
+  const handleOpenModal = () => {
+    setOpenModal(true);
   };
   const classes = useStyles();
   const [purchased, setPurchased] = useState(false);
@@ -43,15 +43,15 @@ const usePostPurchaseModel = () => {
   const fetchData = useSelector(fetchingSelector);
 
   const handleClose = () => {
-    setOpenModel(false);
+    setOpenModal(false);
   };
 
-  const PostPurchaseModel = ({ handlePurchase, modalTitle, price, user }) => (
+  const PostPurchaseModal = ({ handlePurchase, modalTitle, price, user }) => (
     <Modal
       aria-labelledby='transition-modal-title'
       aria-describedby='transition-modal-description'
       className={classes.modal}
-      open={openModel}
+      open={openModal}
       onClose={handleClose}
       closeAfterTransition
       BackdropComponent={Backdrop}
@@ -60,7 +60,7 @@ const usePostPurchaseModel = () => {
       }}
     >
       <div className={classes.paper}>
-        <Fade in={openModel}>
+        <Fade in={openModal}>
           <LoadingOverlay active={fetchData} spinner={<BounceLoader />}>
             {purchased === false ? (
               <div>
@@ -352,11 +352,11 @@ const usePostPurchaseModel = () => {
     </Modal>
   );
   return {
-    PostPurchaseModel,
-    openPurchaseModal: handleOpenModel,
+    PostPurchaseModal,
+    openPurchaseModal: handleOpenModal,
     closePurchaseModal: handleClose,
     setPurchased,
   };
 };
 
-export default usePostPurchaseModel;
+export default usePostPurchaseModal;

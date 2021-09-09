@@ -11,7 +11,7 @@ import styles from './profile.module.css';
 import { currentUserSelector } from '../../selectors/authSelector';
 import { singlepostDataSelector } from '../../selectors/postSelector';
 import { totalrepliesSelector } from '../../selectors/postSelector';
-import CommentModel from './commentModel';
+import CommentModal from './commentModel';
 import { Button } from '@material-ui/core';
 import { fetchingSelector } from '../../selectors/postSelector';
 import useEmojiPicker from '../useEmojiPicker';
@@ -39,7 +39,7 @@ const useStyles = makeStyles(theme => ({
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
   },
-  profileModelStyle: {
+  profileModalStyle: {
     width: '30%',
   },
   modelStyle: {
@@ -68,17 +68,17 @@ export default function PostComments({
   const [openReply, setOpenReply] = useState(false);
   const singlePost = useSelector(singlepostDataSelector);
   const replyCount = useSelector(totalrepliesSelector);
-  const [openModel, setOpenModel] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
   const searchInput = useRef(null);
   const [openReportModal, setreportModal] = useState(false);
   const fetchData = useSelector(fetchingSelector);
-  const [notByedModel, setnotBuyedModel] = useState(false);
+  const [notByedModal, setnotBuyedModal] = useState(false);
   const { closeEmojiPicker, EmojiPicker, emojiPickerRef } = useEmojiPicker();
   const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
   const [checkRefs, setCheckRefs] = useState(false);
 
-  const handleOpenModel = () => {
-    setOpenModel(true);
+  const handleOpenModal = () => {
+    setOpenModal(true);
   };
 
   function handleFocus() {
@@ -217,7 +217,7 @@ export default function PostComments({
         ''
       )}
 
-      <CommentModel
+      <CommentModal
         post={post}
         profileData={profileData}
         altHeader={altHeader}

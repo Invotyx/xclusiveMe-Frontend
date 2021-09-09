@@ -13,7 +13,7 @@ import moment from 'moment';
 import styles from './newPost.module.css';
 import { useRouter } from 'next/router';
 import { singlepostDataSelector } from '../../selectors/postSelector';
-import CommentModel from '../profile/commentModel';
+import CommentModal from '../profile/commentModel';
 import ProfileImageAvatar from '../profile/profile-image-avatar';
 import { useMediaQuery } from 'react-responsive';
 import { ListItem } from '@material-ui/core';
@@ -243,7 +243,7 @@ export default function Notification({
           No Data Found
         </p>
       )}
-      <CommentModel
+      <CommentModal
         singlePost={singlePost}
         profileData={profileData}
         open={open}

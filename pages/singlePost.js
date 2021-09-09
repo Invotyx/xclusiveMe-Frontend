@@ -35,7 +35,7 @@ import BounceLoader from 'react-spinners/BounceLoader';
 import useEmojiPicker from '../components/useEmojiPicker';
 import { useRouter } from 'next/router';
 import { currentUserSelector } from '../selectors/authSelector';
-import usePostPurchaseModel from '../components/profile/PostPurchaseModel';
+import usePostPurchaseModal from '../components/profile/PostPurchaseModel';
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -50,7 +50,7 @@ const useStyles = makeStyles(theme => ({
     border: '2px solid #000',
     boxShadow: theme.shadows[5],
   },
-  profileModelStyle: {
+  profileModalStyle: {
     width: '40vw',
 
     ['@media and screen and (minWidth: 600px)']: {
@@ -77,8 +77,8 @@ const SinglePost = ({
 
   openReply,
 }) => {
-  const { PostPurchaseModel, openPurchaseModal, setPurchased } =
-    usePostPurchaseModel();
+  const { PostPurchaseModal, openPurchaseModal, setPurchased } =
+    usePostPurchaseModal();
   const classes = useStyles();
   const [commentText, setCommentText] = useState('');
   const [commentId, setCommentId] = useState(null);
@@ -97,7 +97,7 @@ const SinglePost = ({
   const [showReply, setShowReply] = useState({ idx: '', replyCheck: false });
   var [commentsData, setCommentsData] = useState([]);
   const dispatch = useDispatch();
-  const [openModel, setOpenModel] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
   const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
   const middleDesktop = useMediaQuery({ query: '(max-width: 1024px)' });
   const higherDesktop = useMediaQuery({ query: '(max-width: 1440px)' });
@@ -135,7 +135,7 @@ const SinglePost = ({
     forCommentId && handleReplyField(forCommentId);
   }, [postId, forCommentId]);
 
-  const handleModelCommentLike = cId => {
+  const handleModalCommentLike = cId => {
     //
     sPost.comments &&
       sPost.comments.map(comm =>
@@ -280,7 +280,7 @@ const SinglePost = ({
           </div>
 
           <div
-            className={styles.profileModelStyle}
+            className={styles.profileModalStyle}
             style={{ backgroundColor: '#101010' }}
           >
             {altHeader ? (
@@ -497,7 +497,7 @@ const SinglePost = ({
                     </NormalCaseButton>
                   )}
                 </div>
-                <PostPurchaseModel
+                <PostPurchaseModal
                   handlePurchase={() => {
                     dispatch(
                       postData.purchasePost({
@@ -649,7 +649,7 @@ const SinglePost = ({
                           {comm.likes && comm.likes.length === 0 ? (
                             // <FavoriteIcon
                             //   fontSize='small'
-                            //   onClick={() => handleModelCommentLike(comm.id)}
+                            //   onClick={() => handleModalCommentLike(comm.id)}
                             // />
                             <img
                               src='/emptyHeart.png'
@@ -659,13 +659,13 @@ const SinglePost = ({
                                 height: '20px',
                                 cursor: 'pointer',
                               }}
-                              onClick={() => handleModelCommentLike(comm.id)}
+                              onClick={() => handleModalCommentLike(comm.id)}
                             />
                           ) : (
                             // <FavoriteIcon
                             //   fontSize='small'
                             //   style={{ color: 'red' }}
-                            //   onClick={() => handleModelCommentLike(comm.id)}
+                            //   onClick={() => handleModalCommentLike(comm.id)}
                             // />
                             <img
                               src='/filled.png'
@@ -675,7 +675,7 @@ const SinglePost = ({
                                 height: '20px',
                                 cursor: 'pointer',
                               }}
-                              onClick={() => handleModelCommentLike(comm.id)}
+                              onClick={() => handleModalCommentLike(comm.id)}
                             />
                           )}
                         </div>
@@ -813,7 +813,7 @@ const SinglePost = ({
                             {comm.likes && comm.likes.length === 0 ? (
                               // <FavoriteIcon
                               //   fontSize='small'
-                              //   onClick={() => handleModelCommentLike(comm.id)}
+                              //   onClick={() => handleModalCommentLike(comm.id)}
                               // />
                               <img
                                 src='/emptyHeart.png'
@@ -823,13 +823,13 @@ const SinglePost = ({
                                   height: '20px',
                                   cursor: 'pointer',
                                 }}
-                                onClick={() => handleModelCommentLike(comm.id)}
+                                onClick={() => handleModalCommentLike(comm.id)}
                               />
                             ) : (
                               // <FavoriteIcon
                               //   fontSize='small'
                               //   style={{ color: 'red' }}
-                              //   onClick={() => handleModelCommentLike(comm.id)}
+                              //   onClick={() => handleModalCommentLike(comm.id)}
                               // />
                               <img
                                 src='/filled.png'
@@ -839,7 +839,7 @@ const SinglePost = ({
                                   height: '20px',
                                   cursor: 'pointer',
                                 }}
-                                onClick={() => handleModelCommentLike(comm.id)}
+                                onClick={() => handleModalCommentLike(comm.id)}
                               />
                             )}
                           </div>
