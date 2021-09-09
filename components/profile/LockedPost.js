@@ -3,7 +3,7 @@ import FullSizeImage from './FullSizeImage';
 
 export default function LockedPost(props) {
   return (
-    <FullSizeImage backgroundImage={'/post-blurred.jpg'}>
+    <FullSizeImage backgroundImage={'/post-blurred.jpg'} {...props}>
       <LockIcon />
     </FullSizeImage>
   );
