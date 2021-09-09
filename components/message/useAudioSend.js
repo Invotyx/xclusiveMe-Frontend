@@ -103,7 +103,7 @@ function AudioSendComp({
   };
 
   const Clear = () => {
-    clearInterval(progressRef);
+    clearInterval(progressInterval);
     setProgress(0);
     setIsRecording(false);
     stopRecording();
@@ -121,7 +121,7 @@ function AudioSendComp({
   }
 
   const voiceMailSend = audioFile => {
-    clearInterval(progressRef);
+    clearInterval(progressInterval);
     dispatch(
       chat.sendVoicemail({
         audioFile,
