@@ -32,6 +32,7 @@ import ShowMoreText from 'react-show-more-text';
 import PostComments from './postCommenst';
 import usePostPurchaseModal from './PostPurchaseModel';
 import { useInView } from 'react-intersection-observer';
+import { currencySymbol } from '../../services/currencySymbol';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -369,7 +370,10 @@ export default function Post({
                 </NormalCaseButton>
               </div>
             ) : (
-              <NormalCaseButton>Total Tips: {post?.totalTips}</NormalCaseButton>
+              <NormalCaseButton>
+                Total Tips: {currencySymbol}
+                {post?.totalTips}
+              </NormalCaseButton>
             )}
           </div>
           <PostPurchaseModal
