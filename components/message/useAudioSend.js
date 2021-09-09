@@ -12,10 +12,11 @@ import moment from 'moment';
 import ClearIcon from '@material-ui/icons/Clear';
 import { chat } from '../../actions/chat';
 
-export default function useAudioSend() {
+export default function useAudioSend({ onAudioUploaded }) {
   let { status, mediaBlob, stopRecording, startRecording } = useMediaRecorder({
     recordScreen: false,
     mediaStreamConstraints: { audio: true, video: false },
+    onStop,
   });
   const [seconds, setSeconds] = useState(0);
   const [progress, setProgress] = useState(0);
@@ -66,37 +67,6 @@ export default function useAudioSend() {
     startRecording();
   };
 
-  return {
-    AudioSend: props => (
-      <AudioSendComp
-        stopRecording={stopRecording}
-        mediaBlob={mediaBlob}
-        progress={progress}
-        progressRef={progressInterval}
-        seconds={seconds}
-        setProgress={setProgress}
-        setIsRecording={setIsRecording}
-        {...props}
-      />
-    ),
-    startRecordingHandler,
-    isRecording,
-  };
-}
-
-function AudioSendComp({
-  stopRecording,
-  mediaBlob,
-  progress,
-  seconds,
-  progressRef,
-  setProgress,
-  setIsRecording,
-  onAudioUploaded,
-  finishIcon,
-}) {
-  const dispatch = useDispatch();
-
   const Clear = () => {
     clearInterval(progressInterval);
     setProgress(0);
@@ -137,8 +107,8 @@ function AudioSendComp({
     return `${getMinutes} : ${getSeconds}`;
   };
 
-  return (
-    <>
+  return {
+    AudioSend: ({ finishIcon }) => (
       <Paper
         elevation={10}
         style={{
@@ -161,6 +131,8 @@ function AudioSendComp({
           {finishIcon || <img src='/send.png' alt='send button' />}
         </IconButton>
       </Paper>
-    </>
-  );
+    ),
+    startRecordingHandler,
+    isRecording,
+  };
 }

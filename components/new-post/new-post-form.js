@@ -73,7 +73,9 @@ const ImageListItemBar = withStyles(() => ({
 }))(MuiImageListItemBar);
 
 export default function NewPostForm({ afterSave }) {
-  const { AudioSend, isRecording, startRecordingHandler } = useAudioSend();
+  const { AudioSend, isRecording, startRecordingHandler } = useAudioSend({
+    onAudioUploaded: audioHandler,
+  });
   const dispatch = useDispatch();
   const [activeTab, setActiveTab] = React.useState('');
   const [disabled, setDisabled] = React.useState(false);
@@ -253,10 +255,7 @@ export default function NewPostForm({ afterSave }) {
       </Box>
       {isRecording && (
         <Box mb={3}>
-          <AudioSend
-            finishIcon={<CheckIcon />}
-            onAudioUploaded={audioHandler}
-          />
+          <AudioSend finishIcon={<CheckIcon />} />
         </Box>
       )}
       <Box mb={3} style={{ display: activeTab === '' ? 'block' : 'none' }}>

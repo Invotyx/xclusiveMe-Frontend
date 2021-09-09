@@ -12,7 +12,15 @@ import useEmojiPicker from '../useEmojiPicker';
 export default function MessageSend({ handleSendMessage }) {
   const { closeEmojiPicker, EmojiPicker, emojiPickerRef } = useEmojiPicker();
   const current = useSelector(currentUserSelector);
-  const { AudioSend, isRecording, startRecordingHandler } = useAudioSend();
+  const { AudioSend, isRecording, startRecordingHandler } = useAudioSend({
+    onAudioUploaded: data =>
+      handleSendMessage({
+        content: '',
+        type: 'media',
+        messageMediaType: 'audio',
+        media: data,
+      }),
+  });
   const [msgText, setMsgText] = useState('');
 
   function handleOnEnter() {
@@ -116,16 +124,7 @@ export default function MessageSend({ handleSendMessage }) {
             }
           />
         ) : (
-          <AudioSend
-            onAudioUploaded={data =>
-              handleSendMessage({
-                content: '',
-                type: 'media',
-                messageMediaType: 'audio',
-                media: data,
-              })
-            }
-          />
+          <AudioSend />
         )}
       </CardActions>
     </>
