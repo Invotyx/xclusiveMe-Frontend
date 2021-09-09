@@ -123,7 +123,7 @@ const usePostPurchaseModal = () => {
                         fontWeight: '600',
                       }}
                     >
-                      ${price || 0}.00
+                      {currencySymbol}${price || 0}.00
                     </p>
                     <p
                       style={{
@@ -258,7 +258,7 @@ const usePostPurchaseModal = () => {
                         marginTop: '-1vh',
                       }}
                     >
-                      ${price || 0}.00
+                      {currencySymbol}${price || 0}.00
                     </p>
                   </div>
                   <div
