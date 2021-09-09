@@ -416,7 +416,6 @@ export default function Post({
         <PostComments
           post={post}
           profileData={profileData}
-          profileData={profileData}
           me={me}
           callbackAction={callbackAction}
           mediaClicked={mediaClicked}
