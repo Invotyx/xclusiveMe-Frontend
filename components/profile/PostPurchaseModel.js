@@ -13,6 +13,7 @@ import styles from './profile.module.css';
 import { fetchingSelector } from '../../selectors/postSelector';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import ProfileImageAvatar from './profile-image-avatar';
+import { currencySymbol } from '../../services/currencySymbol';
 
 const useStyles = makeStyles(theme => ({
   modal: {
