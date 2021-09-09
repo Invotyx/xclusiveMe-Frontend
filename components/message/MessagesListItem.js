@@ -125,6 +125,15 @@ const MessagesListItem = ({
                       <PostMediaVideo
                         thumbnail={messageMedia.thumbnail}
                         src={messageMedia.url}
+                        thumbnailProps={{
+                          style: {
+                            width: '96px',
+                            height: '96px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                          },
+                        }}
                       />
                     </Box>
                   ) : (
