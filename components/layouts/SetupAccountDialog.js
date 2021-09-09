@@ -111,7 +111,7 @@ export default function SetupAccountDialog({ buttonProps, ...props }) {
               ))}
             </Stepper>
 
-            {activeStep === 0 && (
+            {activeStep === 1 && (
               <div>
                 <Typography variant='subtitle2'>
                   Add a subscription fee
@@ -149,7 +149,7 @@ export default function SetupAccountDialog({ buttonProps, ...props }) {
               </div>
             )}
 
-            {activeStep === 1 && (
+            {activeStep === 2 && (
               <div>
                 <Typography variant='subtitle2'>
                   Add your Bank Card details
@@ -187,7 +187,7 @@ export default function SetupAccountDialog({ buttonProps, ...props }) {
               </div>
             )}
 
-            {activeStep === 2 && (
+            {activeStep === 3 && (
               <Box textAlign='center' p={6} pb={8}>
                 <BeenhereIcon style={{ fontSize: '3rem' }} />
                 <Typography variant='h6'>All Set!</Typography>
