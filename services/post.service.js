@@ -27,6 +27,10 @@ export async function getOnePostImages(username) {
   return apiClient.get(`${SERVER_ADDRESS}/users/posts/${username}/images`);
 }
 
+export async function getOnePostVideos(username) {
+  return apiClient.get(`${SERVER_ADDRESS}/users/posts/${username}/videos`);
+}
+
 export async function add(saveData) {
   const data = JSON.stringify(saveData);
   return apiClient.post(`${SERVER_ADDRESS}/posts`, data);

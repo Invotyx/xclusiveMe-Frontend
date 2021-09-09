@@ -56,6 +56,10 @@ const singleDataImagesSelector = createSelector(postState, state =>
   state.get('singleDataImages')
 );
 
+const singleDataVideosSelector = createSelector(postState, state =>
+  state.get('singleDataVideos')
+);
+
 const numberOfPostsSelector = createSelector(postState, state =>
   state.get('numberOfPosts')
 );
@@ -86,6 +90,7 @@ export {
   profileDataSelector,
   singlepostDataSelector,
   singleDataImagesSelector,
+  singleDataVideosSelector,
   numberOfPostsSelector,
   subscribedSelector,
   xfeedSelector,

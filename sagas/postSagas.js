@@ -30,6 +30,7 @@ import {
   getCommentsData,
   tipPost,
   getOnePostImages,
+  getOnePostVideos,
 } from '../services/post.service';
 import { bottomalert } from '../actions/bottom-alert';
 
@@ -142,6 +143,21 @@ function* handleGetOneImages(action) {
     const { id } = action.payload;
     const { data } = yield call(getOnePostImages, id);
     yield put(post.success({ singleDataImages: data.results }));
+    const { callback } = action.payload;
+    if (callback) {
+      yield call(callback);
+    }
+  } catch (e) {
+    console.log(e);
+    yield put(post.success({ error: true }));
+  }
+}
+
+function* handleGetOneVideos(action) {
+  try {
+    const { id } = action.payload;
+    const { data } = yield call(getOnePostVideos, id);
+    yield put(post.success({ singleDataVideos: data.results }));
     const { callback } = action.payload;
     if (callback) {
       yield call(callback);
@@ -607,6 +623,7 @@ function* watchPostSagas() {
     takeLatest(POST.VIEW_NOTIFICATION, handleViewNotify),
     takeLatest(POST.GET_ONE, handleGetOne),
     takeLatest(POST.GET_ONE_IMAGES, handleGetOneImages),
+    takeLatest(POST.GET_ONE_VIDEOS, handleGetOneVideos),
     takeLatest(POST.GET_SUBSCRIBED, handleGetSubscribed),
     takeLatest(POST.GET_X, handleGetX),
     takeLatest(POST.SAVE, handlePost),

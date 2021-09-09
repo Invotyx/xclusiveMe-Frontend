@@ -5,6 +5,7 @@ export const POST = createActionTypes('POST', [
   'GET_PURCHASED',
   'GET_ONE',
   'GET_ONE_IMAGES',
+  'GET_ONE_VIDEOS',
   'PURCHASE_POST',
   'GET_SUBSCRIBED',
   'GET_X',
