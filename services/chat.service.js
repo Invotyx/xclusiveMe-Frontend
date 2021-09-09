@@ -31,10 +31,10 @@ export async function getConversations(pageNum, limit) {
   );
 }
 
-export async function getSingleChat(id, pageNum, limit) {
-  return apiClient.get(
-    `${SERVER_ADDRESS}/conversations/${id}/messages?page=${pageNum}&limit=${limit}`
-  );
+export async function getSingleChat(id, page, limit) {
+  return apiClient.get(`${SERVER_ADDRESS}/conversations/${id}/messages`, {
+    params: { page, limit },
+  });
 }
 
 export async function getConversationMessagesHistory(id, messageId) {
