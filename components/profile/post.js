@@ -82,11 +82,8 @@ export default function Post({
       console.log('out');
     }
   }, [inView]);
-  const {
-    PostPurchaseModel,
-    openPurchaseModal,
-    setPurchased,
-  } = usePostPurchaseModel();
+  const { PostPurchaseModel, openPurchaseModal, setPurchased } =
+    usePostPurchaseModel();
   const classes = useStyles();
   const dispatch = useDispatch();
   const currentUser = useSelector(currentUserSelector);
