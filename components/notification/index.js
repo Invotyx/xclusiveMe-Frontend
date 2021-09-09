@@ -86,6 +86,7 @@ export default function Notification({
                   <ListSubheader>{elm}</ListSubheader>
                   {temp.map((i, x) => (
                     <ListItem
+                      button
                       onClick={() =>
                         readNotification(
                           i.id,
