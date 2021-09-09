@@ -16,7 +16,7 @@ const MessagesListItem = ({
   activeConversationId,
   message,
   activeParticipant,
-  getOneConversation,
+  getConversationMessages,
   messageIdRef,
   ...props
 }) => {
@@ -98,7 +98,7 @@ const MessagesListItem = ({
                         id: message.id,
                         conversationId: activeConversationId,
                         callback: () => {
-                          getOneConversation();
+                          getConversationMessages();
                           closePurchaseModal();
                         },
                       })

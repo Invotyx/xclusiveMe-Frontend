@@ -50,11 +50,11 @@ const MessagesList = ({
     }
     myRef.current.scrollIntoView();
   };
-  const getOneConversation = clear => {
+  const getConversationMessages = clear => {
     clear && dispatch(chat.success({ singleChat: [] }));
     activeConversationId &&
       dispatch(
-        chat.getOneConversation({
+        chat.getConversationMessages({
           id: activeConversationId,
           pageNum: pageNum,
           limit: limit,
@@ -66,11 +66,11 @@ const MessagesList = ({
   };
 
   React.useEffect(() => {
-    getOneConversation(true);
+    getConversationMessages(true);
   }, [activeConversationId]);
 
   React.useEffect(() => {
-    getOneConversation();
+    getConversationMessages();
   }, [lastMessageReceived]);
 
   React.useEffect(() => {
@@ -88,7 +88,7 @@ const MessagesList = ({
             message={message}
             activeConversationId={activeConversationId}
             activeParticipant={activeParticipant}
-            getOneConversation={getOneConversation}
+            getConversationMessages={getConversationMessages}
             messageIdRef={+messageId === message.id ? messageIdRef : null}
           />
         ))}

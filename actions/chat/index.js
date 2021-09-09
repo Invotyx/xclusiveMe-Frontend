@@ -49,7 +49,7 @@ export const chat = {
       error: null,
     }),
 
-  getOneConversation: data =>
+  getConversationMessages: data =>
     createAction(CHAT.GET_ONE, {
       ...data,
       fetching: true,
