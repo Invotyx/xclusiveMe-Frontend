@@ -291,8 +291,8 @@ const CommentModel = ({
                 {altHeader ? (
                   <CardHeader
                     action={
-                      <IconButton aria-label='settings'>
-                        <CloseIcon onClick={handleClose} />
+                      <IconButton aria-label='settings' onClick={handleClose}>
+                        <CloseIcon />
                       </IconButton>
                     }
                     subheader={moment(singlePost.createdAt).fromNow()}
@@ -302,8 +302,8 @@ const CommentModel = ({
                     <CardHeader
                       avatar={<ProfileImageAvatar user={profileData} />}
                       action={
-                        <IconButton aria-label='settings'>
-                          {!isMobile && <CloseIcon onClick={handleClose} />}
+                        <IconButton aria-label='settings' onClick={handleClose}>
+                          {!isMobile && <CloseIcon />}
                         </IconButton>
                       }
                       title={
