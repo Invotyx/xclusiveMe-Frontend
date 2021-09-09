@@ -8,6 +8,7 @@ export const CHAT = createActionTypes('CHAT', [
   'SEND_ONE',
   'GET_ONE',
   'GET_ONE_HISTORY',
+  'GET_ONE_UNREAD_MESSAGES_COUNT',
   'PURCHASE_MESSAGE',
   'IS_SEEN',
   'SUCCESS',

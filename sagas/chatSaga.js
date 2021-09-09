@@ -7,6 +7,7 @@ import {
   search,
   getConversations,
   getSingleChat,
+  getUnreadMessagesCount,
   getConversationMessagesHistory,
   sendSingleMsg,
   purchaseMessage,
@@ -149,6 +150,20 @@ function* handleGetOneMessagesHistory(action) {
   }
 }
 
+function* handleGetUnreadMessagesCount(action) {
+  try {
+    const { data } = yield call(getUnreadMessagesCount);
+    yield put(chat.success({ hasUnreadMessages: Boolean(data.totalCount) }));
+    const { callback } = action.payload;
+    if (callback) {
+      yield call(callback);
+    }
+  } catch (e) {
+    console.log(e);
+    yield put(chat.success({ error: true }));
+  }
+}
+
 function* handleUploadAudio(action) {
   try {
     const { audioFile, callback } = action.payload;
@@ -199,6 +214,10 @@ function* watchChatSagas() {
     takeLatest(CHAT.GET, handlegetConversations),
     takeLatest(CHAT.GET_ONE, handleGetOneMessages),
     takeLatest(CHAT.GET_ONE_HISTORY, handleGetOneMessagesHistory),
+    takeLatest(
+      CHAT.GET_ONE_UNREAD_MESSAGES_COUNT,
+      handleGetUnreadMessagesCount
+    ),
     takeLatest(CHAT.SEND_ONE, handleSendSingleMessage),
     takeLatest(CHAT.PURCHASE_MESSAGE, handlePurchaseMessage),
     takeLatest(CHAT.SEND_VOICEMAIL, handleUploadAudio),

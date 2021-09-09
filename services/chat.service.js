@@ -37,6 +37,10 @@ export async function getSingleChat(id, page, limit) {
   });
 }
 
+export async function getUnreadMessagesCount() {
+  return apiClient.get(`${SERVER_ADDRESS}/conversations/messages/unread`);
+}
+
 export async function getConversationMessagesHistory(id, messageId) {
   return apiClient.get(
     `${SERVER_ADDRESS}/conversations/${id}/history/${messageId}/`

@@ -65,6 +65,14 @@ export const chat = {
       error: null,
     }),
 
+  getOneUnreadMessagesCount: data =>
+    createAction(CHAT.GET_ONE_UNREAD_MESSAGES_COUNT, {
+      ...data,
+      fetching: true,
+      success: false,
+      error: null,
+    }),
+
   isSeenMessage: data =>
     createAction(CHAT.IS_SEEN, {
       ...data,
