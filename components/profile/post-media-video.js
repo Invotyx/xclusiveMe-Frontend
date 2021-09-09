@@ -3,7 +3,12 @@ import Hls from 'hls.js';
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 import FullSizeImage from './FullSizeImage';
 
-export default function PostMediaVideo({ thumbnail, src }) {
+export default function PostMediaVideo({
+  thumbnail,
+  src,
+  thumbnailProps,
+  ...props
+}) {
   const videoRef = useRef(null);
   const [play, setPlay] = useState(false);
 
@@ -39,13 +44,7 @@ export default function PostMediaVideo({ thumbnail, src }) {
   return play ? (
     <video controls autoPlay ref={videoRef} style={{ width: '100%' }} />
   ) : (
-    <FullSizeImage
-      backgroundImage={thumbnail}
-      style={{
-        width: '100px',
-        height: '100px',
-      }}
-    >
+    <FullSizeImage backgroundImage={thumbnail} {...thumbnailProps}>
       <PlayCircleOutlineIcon
         onClick={() => setPlay(true)}
         style={{ cursor: 'pointer' }}
