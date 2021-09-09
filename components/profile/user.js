@@ -608,7 +608,7 @@ export default function Profile({
                           <Images username={username} />
                         </TabPanel>
                         <TabPanel value={tab} index={2}>
-                          <Videos videosData={videosData} />
+                          <Videos username={username} />
                         </TabPanel>
                         <TabPanel value={tab} index={3}>
                           <PurchasedPosts
