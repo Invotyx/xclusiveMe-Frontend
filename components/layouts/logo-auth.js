@@ -191,7 +191,9 @@ export default function Comp({ sidebarMenu, set_sidebarMenu }) {
                 {chatMenu === 'link' ? (
                   <NextLink href='/chat' passHref>
                     <IconButton color='inherit' className='step-6'>
-                      <SmsIcon />
+                      <Badge color='secondary' variant={'dot'}>
+                        <SmsIcon />
+                      </Badge>
                     </IconButton>
                   </NextLink>
                 ) : (
@@ -201,7 +203,9 @@ export default function Comp({ sidebarMenu, set_sidebarMenu }) {
                       className='step-6'
                       onClick={e => setMessageEl(e.currentTarget)}
                     >
-                      <SmsIcon />
+                      <Badge color='secondary' variant={'dot'}>
+                        <SmsIcon />
+                      </Badge>
                     </IconButton>
                     <div>
                       <MessageMenu anchorEl={messageEl} onClose={messagesClose}>
