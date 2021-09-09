@@ -170,6 +170,7 @@ const MessageModal = ({
                   value={postText}
                   onChange={e => set_postText(e.target.value)}
                   rows={3}
+                  autoFocus
                   placeholder='Write something...'
                   style={{ width: isMobile ? '80vw' : '30vw' }}
                 />
