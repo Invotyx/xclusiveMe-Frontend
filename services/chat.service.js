@@ -37,6 +37,12 @@ export async function getSingleChat(id, pageNum, limit) {
   );
 }
 
+export async function getConversationMessagesHistory(id, messageId) {
+  return apiClient.get(
+    `${SERVER_ADDRESS}/conversations/${id}/history/${messageId}/`
+  );
+}
+
 export async function isSeen(id) {
   return apiClient.patch(
     `${SERVER_ADDRESS}/conversations/${id}/messages/seen`,
