@@ -97,11 +97,6 @@ function AudioSendComp({
 }) {
   const dispatch = useDispatch();
 
-  const voiceSendHandler = () => {
-    stopRecording();
-    setTimeout(() => onStop(mediaBlob), 500);
-  };
-
   const Clear = () => {
     clearInterval(progressInterval);
     setProgress(0);
@@ -162,7 +157,7 @@ function AudioSendComp({
           value={progress}
         />
         <Typography style={{ display: 'flex' }}>{formatTime()}</Typography>
-        <IconButton onClickCapture={voiceSendHandler}>
+        <IconButton onClickCapture={stopRecording}>
           {finishIcon || <img src='/send.png' alt='send button' />}
         </IconButton>
       </Paper>
