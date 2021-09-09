@@ -28,7 +28,6 @@ import { useMediaQuery } from 'react-responsive';
 import { getCommentsDataSelector } from '../../selectors/postSelector';
 import useTipModal from './TipModal';
 import { fetchingSelector } from '../../selectors/postSelector';
-import LoadingOverlay from 'react-loading-overlay';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import useEmojiPicker from '../useEmojiPicker';
 import { currentUserSelector } from '../../selectors/authSelector';
@@ -258,7 +257,7 @@ const CommentModal = ({
     >
       <div>
         <Fade in={open}>
-          <LoadingOverlay active={fetchData} spinner={<CircularProgress />}>
+          <>
             <div
               style={{
                 display: 'flex',
@@ -877,7 +876,7 @@ const CommentModal = ({
                 </form>
               </div>
             </div>
-          </LoadingOverlay>
+          </>
         </Fade>
       </div>
     </Modal>
