@@ -38,6 +38,7 @@ const MessagesListItem = ({
                 limit: 50,
               })
             );
+            dispatch(chat.getOneUnreadMessagesCount());
           },
         })
       );
