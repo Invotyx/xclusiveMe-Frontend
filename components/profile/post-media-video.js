@@ -37,7 +37,7 @@ export default function PostMediaVideo({ thumbnail, src }) {
   }, [play]);
 
   return play ? (
-    <video controls ref={videoRef} style={{ width: '100%' }} />
+    <video controls autoPlay ref={videoRef} style={{ width: '100%' }} />
   ) : (
     <ImageListItem src={thumbnail}>
       <PlayCircleOutlineIcon
