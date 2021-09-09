@@ -52,8 +52,7 @@ const MessagesList = ({
   };
   const getConversationMessages = clear => {
     clear && dispatch(chat.success({ singleChat: [] }));
-    activeConversationId &&
-    Boolean(messageId)
+    activeConversationId && Boolean(messageId)
       ? dispatch(
           chat.getConversationMessages({
             id: activeConversationId,
@@ -63,17 +62,16 @@ const MessagesList = ({
             },
           })
         )
-    :
-      dispatch(
-        chat.getConversationMessages({
-          id: activeConversationId,
-          pageNum: pageNum,
-          limit: limit,
-          callback: () => {
-            scrollIntoView();
-          },
-        })
-      );
+      : dispatch(
+          chat.getConversationMessages({
+            id: activeConversationId,
+            pageNum: pageNum,
+            limit: limit,
+            callback: () => {
+              scrollIntoView();
+            },
+          })
+        );
   };
 
   React.useEffect(() => {
