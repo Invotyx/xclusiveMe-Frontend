@@ -77,11 +77,8 @@ const SinglePost = ({
 
   openReply,
 }) => {
-  const {
-    PostPurchaseModel,
-    openPurchaseModal,
-    setPurchased,
-  } = usePostPurchaseModel();
+  const { PostPurchaseModel, openPurchaseModal, setPurchased } =
+    usePostPurchaseModel();
   const classes = useStyles();
   const [commentText, setCommentText] = useState('');
   const [commentId, setCommentId] = useState(null);
