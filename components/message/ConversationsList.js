@@ -204,6 +204,10 @@ export default function ConversationsList({
                         : '0.875rem',
                   }}
                 >
+                  {!i.lastMessage.isSeen &&
+                    i.lastMessage.sender?.id !== myData?.id && (
+                      <span style={{ marginRight: '10px' }}>•</span>
+                    )}
                   {i.participants.find(p => p?.id !== myData?.id)?.fullName}
                 </Typography>
               }
@@ -214,10 +218,6 @@ export default function ConversationsList({
                     variant='body2'
                     style={{ color: '#757575' }}
                   >
-                    {!i.lastMessage.isSeen &&
-                      i.lastMessage.sender?.id !== myData?.id && (
-                        <span style={{ marginRight: '10px' }}>•</span>
-                      )}
                     {i.lastMessage.content.slice(0, 15)}...
                   </Typography>
                 </React.Fragment>
