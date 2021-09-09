@@ -39,7 +39,13 @@ export default function PostMediaVideo({ thumbnail, src }) {
   return play ? (
     <video controls autoPlay ref={videoRef} style={{ width: '100%' }} />
   ) : (
-    <FullSizeImage backgroundImage={thumbnail}>
+    <FullSizeImage
+      backgroundImage={thumbnail}
+      style={{
+        width: '100px',
+        height: '100px',
+      }}
+    >
       <PlayCircleOutlineIcon
         onClick={() => setPlay(true)}
         style={{ cursor: 'pointer' }}
