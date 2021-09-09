@@ -133,7 +133,7 @@ export default function NewPostForm({ afterSave }) {
     ]);
   };
 
-  const audioHandler = data => {
+  function audioHandler(data) {
     setDisabled(false);
     setMedia(prev => [
       ...prev,
@@ -142,7 +142,7 @@ export default function NewPostForm({ afterSave }) {
         return d;
       }),
     ]);
-  };
+  }
 
   const removeImageHandler = index => {
     setMedia(prev => prev.filter((p, i) => i !== index));
