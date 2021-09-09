@@ -9,7 +9,12 @@ const useStyles = makeStyles({
     backgroundBlendMode: 'multiply',
   },
 });
-export default function FullSizeImage({ backgroundImage, children, ...props }) {
+export default function FullSizeImage({
+  backgroundImage,
+  style,
+  children,
+  ...props
+}) {
   const classes = useStyles();
 
   return (
@@ -17,7 +22,7 @@ export default function FullSizeImage({ backgroundImage, children, ...props }) {
       py={8}
       bgcolor='#000'
       textAlign='center'
-      style={{ backgroundImage: `url(${backgroundImage})` }}
+      style={{ backgroundImage: `url(${backgroundImage})`, ...style }}
       className={classes.box}
       {...props}
     >
