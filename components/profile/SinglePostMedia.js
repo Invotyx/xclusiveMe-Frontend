@@ -36,7 +36,7 @@ function MediaElement({ m }) {
         alignItems: 'center',
       }}
     >
-      <PostMediaVideo src={m.url} />
+      <PostMediaVideo thumbnail={m.thumbnail} src={m.url} />
     </div>
   ) : (
     <CardMedia className={classes.media} image={m.url} title='post media' />

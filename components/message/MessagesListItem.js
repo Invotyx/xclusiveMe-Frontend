@@ -121,7 +121,10 @@ const MessagesListItem = ({
                     <AudioPlayer src={messageMedia.url} />
                   ) : message.messageMediaType === 'video' ? (
                     <Box maxWidth='200px'>
-                      <PostMediaVideo src={messageMedia.url} />
+                      <PostMediaVideo
+                        thumbnail={messageMedia.thumbnail}
+                        src={messageMedia.url}
+                      />
                     </Box>
                   ) : (
                     <a href={messageMedia.url} target='_blank'>

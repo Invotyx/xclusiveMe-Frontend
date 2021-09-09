@@ -37,7 +37,7 @@ export default function VideoGridList({ username }) {
           tile && (
             <Grid item xs={12} md={4} key={i}>
               <Card>
-                <PostMediaVideo src={tile.url} />
+                <PostMediaVideo thumbnail={tile.thumbnail} src={tile.url} />
               </Card>
             </Grid>
           )
