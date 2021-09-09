@@ -143,27 +143,29 @@ function AudioSendComp({
   };
 
   return (
-    <Paper
-      elevation={10}
-      style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        width: '100%',
-        alignItems: 'center',
-      }}
-    >
-      <IconButton onClick={Clear}>
-        <ClearIcon />
-      </IconButton>
-      <LinearProgress
-        style={{ display: 'flex', width: '70%' }}
-        variant='determinate'
-        value={progress}
-      />
-      <Typography style={{ display: 'flex' }}>{formatTime()}</Typography>
-      <IconButton onClickCapture={voiceSendHandler}>
-        {finishIcon || <img src='/send.png' alt='send button' />}
-      </IconButton>
-    </Paper>
+    <>
+      <Paper
+        elevation={10}
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          width: '100%',
+          alignItems: 'center',
+        }}
+      >
+        <IconButton onClick={Clear}>
+          <ClearIcon />
+        </IconButton>
+        <LinearProgress
+          style={{ display: 'flex', width: '70%' }}
+          variant='determinate'
+          value={progress}
+        />
+        <Typography style={{ display: 'flex' }}>{formatTime()}</Typography>
+        <IconButton onClickCapture={voiceSendHandler}>
+          {finishIcon || <img src='/send.png' alt='send button' />}
+        </IconButton>
+      </Paper>
+    </>
   );
 }
