@@ -78,7 +78,9 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function ConversationsList({ subheaderPrefix }) {
+export default function ConversationsList({
+  subheaderPrefix,
+}) {
   const dispatch = useDispatch();
   const activeConversationId = useSelector(activeConversationIdSelector);
   const searchResults = useSelector(searchResultsSelector);
