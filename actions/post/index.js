@@ -62,7 +62,7 @@ export const post = {
       error: null,
     }),
 
-  requestOneImages: id =>
+  requestOneVideos: id =>
     createAction(POST.GET_ONE_VIDEOS, {
       id,
       fetching: true,
