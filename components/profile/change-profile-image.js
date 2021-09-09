@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { auth } from '../../actions/auth';
 import DepressedButton from '../DepressedButton';
 
-export default function FormDialog({ children }) {
+export default function ProfileImage({ children }) {
   const dispatch = useDispatch();
   const inputFile = React.useRef(null);
 
