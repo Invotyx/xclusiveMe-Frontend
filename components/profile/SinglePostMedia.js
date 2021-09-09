@@ -52,8 +52,11 @@ const SinglePostMedia = ({ media, mediaCount, singlePost }) => {
           <Grid item xs={12} key={Math.random()}>
             <LockedPost
               style={{
-                width: '100px',
-                height: '100px',
+                width: '100%',
+                height: '280px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
               }}
             />
           </Grid>
