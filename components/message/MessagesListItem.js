@@ -27,7 +27,7 @@ const MessagesListItem = ({
   const dispatch = useDispatch();
 
   React.useEffect(() => {
-    if (!message.isSeen && inView && message.sender.id !== current?.id) {
+    if (!message.isSeen && inView && message.sender?.id !== current?.id) {
       dispatch(
         chat.isSeenMessage({
           id: activeConversationId,
@@ -53,7 +53,7 @@ const MessagesListItem = ({
       <div className={styles.chatMessages} ref={messageIdRef}>
         <div
           className={
-            message.sender.id !== current?.id
+            message.sender?.id !== current?.id
               ? styles.leftSide
               : styles.rightSide
           }
@@ -61,7 +61,7 @@ const MessagesListItem = ({
           {message.content && (
             <span
               className={
-                message.sender.id !== current?.id
+                message.sender?.id !== current?.id
                   ? styles.leftMessage
                   : styles.rightMessage
               }
@@ -73,10 +73,10 @@ const MessagesListItem = ({
             display='flex'
             width='100%'
             justifyContent={
-              message.sender.id !== current?.id ? 'flex-start' : 'flex-end'
+              message.sender?.id !== current?.id ? 'flex-start' : 'flex-end'
             }
           >
-            {message.isLocked && message.sender.id !== current?.id && (
+            {message.isLocked && message.sender?.id !== current?.id && (
               <>
                 <LockedPost
                   style={{
@@ -110,7 +110,7 @@ const MessagesListItem = ({
                 />
               </>
             )}
-            {(!message.isLocked || message.sender.id === current?.id) &&
+            {(!message.isLocked || message.sender?.id === current?.id) &&
               message.media?.map((messageMedia, i) => (
                 <span key={`messageMedia${i}`}>
                   {message.messageMediaType === 'photo' ? (
