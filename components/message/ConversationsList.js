@@ -80,6 +80,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function ConversationsList({
   subheaderPrefix,
+  setScrollIntoViewPointer,
 }) {
   const dispatch = useDispatch();
   const activeConversationId = useSelector(activeConversationIdSelector);
@@ -95,6 +96,7 @@ export default function ConversationsList({
   const handleOpenChat = (conId, messageId) => {
     dispatch(chat.updateActiveConversationId(+conId));
     router.push({ pathname: '/chat', query: { ...query, conId, messageId } });
+    messageId && setScrollIntoViewPointer(+new Date());
   };
 
   const { search } = query;

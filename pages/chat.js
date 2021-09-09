@@ -245,6 +245,7 @@ const Chat = () => {
                   }}
                 />
               }
+              setScrollIntoViewPointer={setScrollIntoViewPointer}
             />
           </Grid>
 
