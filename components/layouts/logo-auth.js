@@ -29,6 +29,7 @@ import MessageMenu from '../message/MessageMenu';
 import { currentUserSelector } from '../../selectors/authSelector';
 import { notificationsData } from '../../selectors/postSelector';
 import { makeStyles } from '@material-ui/core';
+import ChatNavItem from './ChatNavItem';
 
 const chatMenu = 'link';
 
@@ -188,32 +189,7 @@ export default function Comp({ sidebarMenu, set_sidebarMenu }) {
               </Box>
 
               <Box ml={3} display={{ xs: 'none', sm: 'none', md: 'flex' }}>
-                {chatMenu === 'link' ? (
-                  <NextLink href='/chat' passHref>
-                    <IconButton color='inherit' className='step-6'>
-                      <Badge color='secondary' variant={'dot'}>
-                        <SmsIcon />
-                      </Badge>
-                    </IconButton>
-                  </NextLink>
-                ) : (
-                  <>
-                    <IconButton
-                      color='inherit'
-                      className='step-6'
-                      onClick={e => setMessageEl(e.currentTarget)}
-                    >
-                      <Badge color='secondary' variant={'dot'}>
-                        <SmsIcon />
-                      </Badge>
-                    </IconButton>
-                    <div>
-                      <MessageMenu anchorEl={messageEl} onClose={messagesClose}>
-                        <ConversationsList />
-                      </MessageMenu>
-                    </div>
-                  </>
-                )}
+                <ChatNavItem />
               </Box>
               <Box ml={3}>
                 <NextLink href='/settings/account' passHref>
