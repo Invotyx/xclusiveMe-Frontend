@@ -185,7 +185,7 @@ const usePostPurchaseModal = () => {
                   }}
                   onClick={handlePurchase}
                 >
-                  SEND NOW
+                  PAY NOW
                 </Button>
               </div>
             ) : (
