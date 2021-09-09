@@ -104,6 +104,7 @@ const Chat = () => {
           severity: 'success',
         })
       );
+      dispatch(chat.getOneUnreadMessagesCount());
       console.log('New message received: ', data);
     });
     socket.on('exception', data => {
