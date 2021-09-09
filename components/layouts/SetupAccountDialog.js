@@ -68,9 +68,9 @@ export default function SetupAccountDialog({ buttonProps, ...props }) {
   };
 
   const handleContinue = () => {
-    if (activeStep === 0) {
+    if (activeStep === 1) {
       subscriptionFormSubmitButton.current.click();
-    } else if (activeStep === 1) {
+    } else if (activeStep === 2) {
       checkoutFormSubmitButton.current.click();
     }
   };
