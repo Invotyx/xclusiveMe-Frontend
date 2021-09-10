@@ -170,7 +170,7 @@ export default function SetupAccountDialog({ buttonProps, ...props }) {
                     </Card>
                   </Grid>
                   <Grid item xs={12} md={6}>
-                    <Box mt={8} mb={8} textAlign='center'>
+                    <Box mt={6} mb={6} textAlign='center'>
                       <Typography variant='subtitle2'>
                         Upload Cover Image
                       </Typography>
@@ -183,7 +183,7 @@ export default function SetupAccountDialog({ buttonProps, ...props }) {
                     </Box>
                   </Grid>
                   <Grid item xs={12} md={6}>
-                    <Box mt={8} mb={8} textAlign='center'>
+                    <Box mt={6} mb={6} textAlign='center'>
                       <Typography variant='subtitle2'>
                         Upload Profile Image
                       </Typography>
