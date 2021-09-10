@@ -31,12 +31,12 @@ export default function UpdateCoverImage({ children }) {
       {children ? (
         <span onClick={() => inputFile.current.click()}>{children}</span>
       ) : (
-      <IconButton
-        aria-label='settings'
-        onClick={() => inputFile.current.click()}
-      >
-        <CameraAltIcon style={{ color: '#606366' }} />
-      </IconButton>
+        <IconButton
+          aria-label='settings'
+          onClick={() => inputFile.current.click()}
+        >
+          <CameraAltIcon style={{ color: '#606366' }} />
+        </IconButton>
       )}
     </>
   );
