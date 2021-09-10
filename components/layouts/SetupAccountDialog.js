@@ -192,17 +192,14 @@ export default function SetupAccountDialog({ buttonProps, ...props }) {
                 </Grid>
 
                 <NormalCaseButton
-                  onClick={() => setActiveStep(s => s + 1)}
+                  onClick={nextStep}
                   color='primary'
                   variant='contained'
                   fullWidth
                 >
                   Next
                 </NormalCaseButton>
-                <NormalCaseButton
-                  onClick={() => setActiveStep(s => s + 1)}
-                  fullWidth
-                >
+                <NormalCaseButton onClick={nextStep} fullWidth>
                   Skip for now
                 </NormalCaseButton>
               </div>
@@ -237,10 +234,7 @@ export default function SetupAccountDialog({ buttonProps, ...props }) {
                 >
                   Next
                 </NormalCaseButton>
-                <NormalCaseButton
-                  onClick={() => setActiveStep(s => s + 1)}
-                  fullWidth
-                >
+                <NormalCaseButton onClick={nextStep} fullWidth>
                   Skip for now
                 </NormalCaseButton>
               </div>
@@ -275,10 +269,7 @@ export default function SetupAccountDialog({ buttonProps, ...props }) {
                 >
                   Next
                 </NormalCaseButton>
-                <NormalCaseButton
-                  onClick={() => setActiveStep(s => s + 1)}
-                  fullWidth
-                >
+                <NormalCaseButton onClick={nextStep} fullWidth>
                   Skip for now
                 </NormalCaseButton>
               </div>
