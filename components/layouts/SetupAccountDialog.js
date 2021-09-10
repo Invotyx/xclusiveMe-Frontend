@@ -273,7 +273,7 @@ export default function SetupAccountDialog({ buttonProps, ...props }) {
                   variant='contained'
                   fullWidth
                 >
-                  Continue
+                  Next
                 </NormalCaseButton>
                 <NormalCaseButton
                   onClick={() => setActiveStep(s => s + 1)}
