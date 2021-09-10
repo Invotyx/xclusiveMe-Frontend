@@ -119,6 +119,11 @@ export async function twoFactorAuthentication(fa2) {
   return apiClient.patch(`${SERVER_ADDRESS}/users/`, data);
 }
 
+export async function updateAgeLimitRestriction(allow18Plus) {
+  const data = JSON.stringify({ allow18Plus });
+  return apiClient.patch(`${SERVER_ADDRESS}/users/allow18plusfollowers/`, data);
+}
+
 export async function uploadImage(fileObject) {
   const data = new FormData();
   data.append('image', fileObject);

@@ -38,6 +38,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import * as parser from 'ua-parser-js';
 import NormalCaseButton from '../../components/NormalCaseButton';
 import moment from 'moment';
+import AgeRestrictionListItem from '../../components/settings/account/AgeRestrictionListItem';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -449,6 +450,7 @@ export default function Home(props) {
                       />
                     </ListItemSecondaryAction>
                   </ListItem>
+                  <AgeRestrictionListItem />
                 </List>
               </Box>
             </form>

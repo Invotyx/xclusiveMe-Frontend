@@ -136,6 +136,13 @@ export const auth = {
       success: false,
       error: null,
     }),
+  updateAgeLimitRestriction: data =>
+    createAction(AUTH.UPDATE_AGE_LIMIT_RESTRICTION, {
+      ...data,
+      fetching: true,
+      success: false,
+      error: null,
+    }),
   success: data =>
     createAction(AUTH.SUCCESS, {
       ...data,
