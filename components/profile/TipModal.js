@@ -33,7 +33,9 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const useTipModal = ({ onConfirm }) => {
+const TipModal = ({
+  onConfirm,
+}) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const [openTipModal, setOpenTipModal] = useState(false);
