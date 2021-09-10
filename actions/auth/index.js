@@ -144,7 +144,13 @@ export const auth = {
       error: null,
     }),
   failure: error =>
-    createAction(AUTH.FAILURE, { ...error, fetching: false, success: false }),
+    createAction(AUTH.FAILURE, {
+      ...error,
+      fetching: false,
+      uploadingProfileImage: false,
+      uploadingCover: false,
+      success: false,
+    }),
   redirectToLoginPage: asPath =>
     createAction(AUTH.REDIRECT_TO_LOGIN_PAGE, { asPath }),
 };
