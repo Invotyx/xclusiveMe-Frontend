@@ -2,6 +2,7 @@ import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
 import CardHeader from '@material-ui/core/CardHeader';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -67,6 +68,7 @@ function getSteps() {
 }
 
 export default function SetupAccountDialog({ buttonProps, ...props }) {
+  const uploadCoverInputRef = React.useRef(null);
   const currentUser = useSelector(currentUserSelector);
   const uploadingCover = useSelector(uploadingCoverSelector);
   const uploadingProfileImage = useSelector(uploadingProfileImageSelector);
@@ -133,6 +135,9 @@ export default function SetupAccountDialog({ buttonProps, ...props }) {
                 <Grid container>
                   <Grid item xs={12}>
                     <Card>
+                      <CardActionArea
+                        onClick={() => uploadCoverInputRef.current.click()}
+                      >
                       <CardHeader
                         title={currentUser?.fullName}
                         avatar={<ProfileImageAvatar user={currentUser} />}
@@ -154,6 +159,7 @@ export default function SetupAccountDialog({ buttonProps, ...props }) {
                           boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',
                         }}
                       />
+                      </CardActionArea>
                     </Card>
                   </Grid>
                   <Grid item xs={12} md={6}>
@@ -161,7 +167,9 @@ export default function SetupAccountDialog({ buttonProps, ...props }) {
                       <Typography variant='subtitle2'>
                         Upload Cover Image
                       </Typography>
-                      <UpdateCoverImage>Select Image</UpdateCoverImage>
+                      <UpdateCoverImage inputRef={uploadCoverInputRef}>
+                        Select Image
+                      </UpdateCoverImage>
                     </Box>
                   </Grid>
                   <Grid item xs={12} md={6}>
