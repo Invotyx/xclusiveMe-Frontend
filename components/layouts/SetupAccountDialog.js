@@ -1,6 +1,8 @@
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
+import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
@@ -16,6 +18,12 @@ import NormalCaseButton from '../NormalCaseButton';
 import StripeElements from '../settings/payment/StripeElements';
 import SubscriptionForm from '../settings/subscription/SubscriptionForm';
 import BeenhereIcon from '@material-ui/icons/Beenhere';
+import ChangeProfileImage from '../profile/change-profile-image';
+import UpdateCoverImage from '../profile/update-cover-image-2';
+import { useSelector } from 'react-redux';
+import { currentUserSelector } from '../../selectors/authSelector';
+import ProfileImageAvatar from '../profile/profile-image-avatar';
+import { getImage } from '../../services/getImage';
 
 const styles = theme => ({
   root: {
@@ -54,6 +62,7 @@ function getSteps() {
 }
 
 export default function SetupAccountDialog({ buttonProps, ...props }) {
+  const currentUser = useSelector(currentUserSelector);
   const subscriptionFormSubmitButton = React.useRef();
   const checkoutFormSubmitButton = React.useRef();
   const [open, setOpen] = React.useState(false);
@@ -115,9 +124,37 @@ export default function SetupAccountDialog({ buttonProps, ...props }) {
             {activeStep === 0 && (
               <div>
                 <Grid container>
-                  <Grid item xs={12} md={6}>
+                  <Grid item xs={12}>
+                    <Card>
+                      <CardHeader
+                        title={currentUser?.fullName}
+                        avatar={<ProfileImageAvatar user={currentUser} />}
+                        style={{
+                          backgroundSize: 'cover',
+                          backgroundPosition: 'center',
+                          backgroundImage: currentUser?.coverImage
+                            ? `url(${getImage(currentUser?.coverImage)})`
+                            : `url('/cover2.jpg')`,
+                          boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',
+                        }}
+                      />
+                    </Card>
                   </Grid>
                   <Grid item xs={12} md={6}>
+                    <Box p={8}>
+                      <Typography variant='body2'>
+                        Upload Cover Image
+                      </Typography>
+                      <UpdateCoverImage>Select Image</UpdateCoverImage>
+                    </Box>
+                  </Grid>
+                  <Grid item xs={12} md={6}>
+                    <Box p={8}>
+                      <Typography variant='body2'>
+                        Upload Profile Image
+                      </Typography>
+                      <ChangeProfileImage>Select Image</ChangeProfileImage>
+                    </Box>
                   </Grid>
                 </Grid>
 
