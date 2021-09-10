@@ -5,9 +5,9 @@ import IconButton from '@material-ui/core/IconButton';
 import CameraAltIcon from '@material-ui/icons/CameraAlt';
 import DepressedButton from '../DepressedButton';
 
-export default function UpdateCoverImage({ children }) {
+export default function UpdateCoverImage({ inputRef, children }) {
   const dispatch = useDispatch();
-  const inputFile = React.useRef(null);
+  const inputFile = inputRef || React.useRef(null);
 
   const onChangeFile = event => {
     event.stopPropagation();
