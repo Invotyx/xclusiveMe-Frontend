@@ -63,6 +63,7 @@ export const auth = {
     createAction(AUTH.UPLOAD_IMAGE, {
       ...data,
       fetching: true,
+      uploadingProfileImage: true,
       success: false,
       error: null,
     }),
