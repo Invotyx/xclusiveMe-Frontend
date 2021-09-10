@@ -28,7 +28,7 @@ import RepliesData from '../components/profile/RepliesData';
 import LocalMallIcon from '@material-ui/icons/LocalMall';
 import { useMediaQuery } from 'react-responsive';
 import { getCommentsDataSelector } from '../selectors/postSelector';
-import useTipModal from '../components/profile/TipModal';
+import TipModal from '../components/profile/TipModal';
 import { fetchingSelector } from '../selectors/postSelector';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import useEmojiPicker from '../components/useEmojiPicker';
@@ -232,23 +232,6 @@ const SinglePost = ({
     if (n >= 1e9 && n < 1e12) return +(n / 1e9).toFixed(1) + 'B';
     if (n >= 1e12) return +(n / 1e12).toFixed(1) + 'T';
   };
-
-  const { TipModal } = useTipModal({
-    onConfirm: (amount, callback) =>
-      dispatch(
-        postData.addTip({
-          saveData: {
-            itemTipped: sPost.id,
-            itemTippedType: 'post',
-            amount,
-          },
-
-          callback: () => {
-            callback && callback();
-          },
-        })
-      ),
-  });
 
   return (
     <div
@@ -465,6 +448,21 @@ const SinglePost = ({
                             <TipModal
                               profileImage={sPost?.user?.profileImage}
                               name={sPost?.user?.fullName}
+                              onConfirm={(amount, callback) =>
+                                dispatch(
+                                  postData.addTip({
+                                    saveData: {
+                                      itemTipped: sPost.id,
+                                      itemTippedType: 'post',
+                                      amount,
+                                    },
+
+                                    callback: () => {
+                                      callback && callback();
+                                    },
+                                  })
+                                )
+                              }
                             >
                               <NormalCaseButton
                                 aria-label='Tip'

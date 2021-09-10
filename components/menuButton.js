@@ -6,7 +6,7 @@ import useReportModal from './profile/ReportModal';
 import { useDispatch } from 'react-redux';
 import { snackbar } from '../actions/snackbar';
 import { post } from '../actions/post';
-import useTipModal from './profile/TipModal';
+import TipModal from './profile/TipModal';
 
 const ManuButton = ({ onConfirm, tip, ...props }) => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -47,23 +47,6 @@ const ManuButton = ({ onConfirm, tip, ...props }) => {
     setreportModal(true);
   };
 
-  const { TipModal } = useTipModal({
-    onConfirm: (amount, callback) =>
-      dispatch(
-        post.addTip({
-          saveData: {
-            itemTipped: tip,
-            itemTippedType: 'user',
-            amount,
-          },
-
-          callback: () => {
-            callback && callback();
-          },
-        })
-      ),
-  });
-
   return (
     <>
       <IconButton
@@ -93,7 +76,24 @@ const ManuButton = ({ onConfirm, tip, ...props }) => {
             <MenuItem onClick={handleOpenReportModal}>Report</MenuItem>
           )}
           {Boolean(tip) && (
-            <TipModal {...props}>
+            <TipModal
+              onConfirm={(amount, callback) =>
+                dispatch(
+                  post.addTip({
+                    saveData: {
+                      itemTipped: tip,
+                      itemTippedType: 'user',
+                      amount,
+                    },
+
+                    callback: () => {
+                      callback && callback();
+                    },
+                  })
+                )
+              }
+              {...props}
+            >
               <MenuItem
                 onClick={() => {
                   setAnchorEl(null);
@@ -106,9 +106,7 @@ const ManuButton = ({ onConfirm, tip, ...props }) => {
         </Menu>
       )}
 
-      <ReportModal
-        {...props}
-      />
+      <ReportModal {...props} />
     </>
   );
 };

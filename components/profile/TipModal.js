@@ -35,6 +35,10 @@ const useStyles = makeStyles(theme => ({
 
 const TipModal = ({
   onConfirm,
+  profileImage,
+  name,
+  hideDefaultButton,
+  children,
 }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -67,7 +71,7 @@ const TipModal = ({
     openTipModal && dispatch(paymentMethod.request());
   }, [openTipModal]);
 
-  const TipModal = ({ profileImage, name, hideDefaultButton, children }) => (
+  return (
     <>
       {!hideDefaultButton &&
         (children ? (
@@ -406,7 +410,6 @@ const TipModal = ({
       </Modal>
     </>
   );
-  return { TipModal, setOpenTipModal };
 };
 
-export default useTipModal;
+export default TipModal;

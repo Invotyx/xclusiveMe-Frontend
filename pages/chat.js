@@ -28,7 +28,7 @@ import { useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import io from 'socket.io-client';
 import { snackbar } from '../actions/snackbar';
-import useTipModal from '../components/profile/TipModal';
+import TipModal from '../components/profile/TipModal';
 import ManuButton from '../components/menuButton';
 import { user } from '../actions/user';
 import MessageSend from '../components/message/MessageSend';
@@ -202,26 +202,6 @@ const Chat = () => {
     }
   }, [conId, chatsData, current, singlechat]);
 
-  const { TipModal } = useTipModal({
-    onConfirm: (amount, callback) =>
-      dispatch(
-        post.addTip({
-          saveData: {
-            itemTipped: conId,
-            itemTippedType: 'conversation',
-            amount,
-          },
-
-          callback: () => {
-            handleSendMessage(
-              `${activeParticipant?.fullName} sent you a ${currencySymbol}${amount} tip`,
-              callback
-            );
-          },
-        })
-      ),
-  });
-
   return (
     <Layout>
       <Head>
@@ -298,6 +278,24 @@ const Chat = () => {
                       <TipModal
                         profileImage={activeParticipant}
                         name={activeParticipant?.fullName}
+                        onConfirm={(amount, callback) =>
+                          dispatch(
+                            post.addTip({
+                              saveData: {
+                                itemTipped: conId,
+                                itemTippedType: 'conversation',
+                                amount,
+                              },
+
+                              callback: () => {
+                                handleSendMessage(
+                                  `${activeParticipant?.fullName} sent you a ${currencySymbol}${amount} tip`,
+                                  callback
+                                );
+                              },
+                            })
+                          )
+                        }
                       />
                       <ManuButton
                         title='Report this User'
