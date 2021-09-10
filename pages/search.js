@@ -107,16 +107,17 @@ export default function Home() {
                         pb={3}
                         mb={4}
                         height={100}
-                        style={{
-                          backgroundSize: 'cover',
-                          backgroundPosition: 'center',
-                          backgroundImage: u.coverImage
-                            ? `url(${getImage(u.coverImage)})`
-                            : `url('/cover2.jpg')`,
-                          boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',
-                        }}
                       >
-                        <ListItem>
+                        <ListItem
+                          style={{
+                            backgroundSize: 'cover',
+                            backgroundPosition: 'center',
+                            backgroundImage: u.coverImage
+                              ? `url(${getImage(u.coverImage)})`
+                              : `url('/cover2.jpg')`,
+                            boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',
+                          }}
+                        >
                           <Box clone mr={2}>
                             <ListItemAvatar>
                               <ProfileImageAvatar
