@@ -23,6 +23,7 @@ import UpdateCoverImage from '../profile/update-cover-image-2';
 import { useSelector } from 'react-redux';
 import {
   currentUserSelector,
+  uploadingCoverSelector,
   uploadingProfileImageSelector,
 } from '../../selectors/authSelector';
 import ProfileImageAvatar from '../profile/profile-image-avatar';
@@ -67,6 +68,7 @@ function getSteps() {
 
 export default function SetupAccountDialog({ buttonProps, ...props }) {
   const currentUser = useSelector(currentUserSelector);
+  const uploadingCover = useSelector(uploadingCoverSelector);
   const uploadingProfileImage = useSelector(uploadingProfileImageSelector);
   const subscriptionFormSubmitButton = React.useRef();
   const checkoutFormSubmitButton = React.useRef();
@@ -133,6 +135,7 @@ export default function SetupAccountDialog({ buttonProps, ...props }) {
                     <Card>
                       <CardHeader
                         title={currentUser?.fullName}
+                        avatar={<ProfileImageAvatar user={currentUser} />}
                         avatar={
                           uploadingProfileImage ? (
                             <CircularProgress />
@@ -144,7 +147,9 @@ export default function SetupAccountDialog({ buttonProps, ...props }) {
                           backgroundSize: 'cover',
                           backgroundPosition: 'center',
                           backgroundImage: currentUser?.coverImage
-                            ? `url(${getImage(currentUser?.coverImage)})`
+                            ? `${
+                                uploadingCover ? 'url("/loading.gif"), ' : ''
+                              }url(${getImage(currentUser?.coverImage)})`
                             : `url('/cover2.jpg')`,
                           boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',
                         }}
