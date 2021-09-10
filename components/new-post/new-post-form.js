@@ -362,6 +362,10 @@ export default function NewPostForm({ afterSave }) {
                       onKeyDown={e => {
                         e.key === '.' && e.preventDefault();
                       }}
+                      onPaste={e => {
+                        e.preventDefault();
+                        setPrice(e.target.value.replace('.', ''));
+                      }}
                       style={{
                         width: '140px',
                         margin: 0,
