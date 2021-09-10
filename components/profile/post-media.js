@@ -1,14 +1,7 @@
 import CardMedia from '@material-ui/core/CardMedia';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
 import PostMediaVideo from './post-media-video';
-import LockIcon from '@material-ui/icons/Lock';
-
-import { useEffect, useState } from 'react';
-
-import { post as postData } from '../../actions/post/index';
-import { useDispatch, useSelector } from 'react-redux';
 import PostMediaAudio from './post-media-audio';
 import { CardActionArea } from '@material-ui/core';
 import LockedPost from './LockedPost';
