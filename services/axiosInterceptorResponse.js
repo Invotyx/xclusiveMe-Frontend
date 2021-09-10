@@ -1,6 +1,9 @@
 import apiClient from './axiosInterceptor';
 import { auth } from '../actions/auth';
 import Router from 'next/router';
+import getConfig from 'next/config';
+const { publicRuntimeConfig } = getConfig();
+const SERVER_ADDRESS = publicRuntimeConfig.backendUrl;
 
 const UNAUTHORIZED = 401;
 const interceptor = dispatch => {
@@ -10,12 +13,23 @@ const interceptor = dispatch => {
       try {
         const { status } = error.response;
         if (status === UNAUTHORIZED) {
+          const refreshResponse = await apiClient
+            .get(`${SERVER_ADDRESS}/auth/refresh`)
+            .then(response => ({ ...response }))
+            .catch(error => ({ ...error }));
+          if (Boolean(refreshResponse.isAxiosError)) {
+            // logout
           dispatch(auth.redirectToLoginPage(Router.router.asPath));
-          // dispatch(
-          //   auth.refreshToken({
-          // // callback: () => apiClient.request(error.config),
-          //   })
-          // );
+          } else {
+            localStorage.setItem('jwtToken', refreshResponse.data.accessToken);
+            localStorage.setItem(
+              'refreshToken',
+              refreshResponse.data.refreshToken
+            );
+            // retry request
+            const retryResponse = await apiClient.request(error.config);
+            return Promise.resolve(retryResponse);
+          }
         }
       } catch (e) {
         console.log(e);
