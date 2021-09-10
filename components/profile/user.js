@@ -25,7 +25,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Card from '@material-ui/core/Card';
 import Post from './post';
 import ProfileImageAvatar from './profile-image-avatar';
-import ProfileImage from './change-profile-image';
+import ChangeProfileImage from './change-profile-image';
 import CoverImage from './change-cover-image';
 import UpdateCoverImage from './update-cover-image-2';
 import { makeStyles } from '@material-ui/core/styles';
@@ -251,13 +251,13 @@ export default function Profile({
                       className={classes.header2}
                       avatar={
                         (me && me) || myCurrentUser?.username === username ? (
-                          <ProfileImage>
+                          <ChangeProfileImage>
                             <ProfileImageAvatar
                               className={classes.userAvatar}
                               src={profileData?.profileImage}
                               alt={profileData?.fullName}
                             />
-                          </ProfileImage>
+                          </ChangeProfileImage>
                         ) : (
                           <ProfileImageAvatar
                             className={classes.userAvatar}
