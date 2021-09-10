@@ -255,7 +255,7 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
               variant='outlined'
               margin='dense'
               InputProps={{
-                endAdornment: currencySymbol,
+                startAdornment: currencySymbol,
               }}
               style={{ width: '100px' }}
             />
