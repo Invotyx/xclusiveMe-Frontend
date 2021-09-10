@@ -3,7 +3,11 @@ import { useDispatch } from 'react-redux';
 import { auth } from '../../actions/auth';
 import DepressedButton from '../DepressedButton';
 
-export default function ChangeProfileImage({ inputRef, children }) {
+export default function ChangeProfileImage({
+  inputRef,
+  buttonProps,
+  children,
+}) {
   const dispatch = useDispatch();
   const inputFile = inputRef || React.useRef(null);
 
@@ -29,6 +33,7 @@ export default function ChangeProfileImage({ inputRef, children }) {
       />
 
       <DepressedButton
+        {...buttonProps}
         onClick={() => {
           inputFile.current.click();
         }}

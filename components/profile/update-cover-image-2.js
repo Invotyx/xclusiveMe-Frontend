@@ -5,7 +5,7 @@ import IconButton from '@material-ui/core/IconButton';
 import CameraAltIcon from '@material-ui/icons/CameraAlt';
 import DepressedButton from '../DepressedButton';
 
-export default function UpdateCoverImage({ inputRef, children }) {
+export default function UpdateCoverImage({ inputRef, buttonProps, children }) {
   const dispatch = useDispatch();
   const inputFile = inputRef || React.useRef(null);
 
@@ -31,6 +31,7 @@ export default function UpdateCoverImage({ inputRef, children }) {
       />
       {children ? (
         <DepressedButton
+          {...buttonProps}
           onClick={() => {
             inputFile.current.click();
           }}
