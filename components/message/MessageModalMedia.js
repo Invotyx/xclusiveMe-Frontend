@@ -251,6 +251,7 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
               value={price}
               onChange={e => setPrice(e.target.value)}
               placeholder='0.00'
+              type='number'
               variant='outlined'
               margin='dense'
               InputProps={{
