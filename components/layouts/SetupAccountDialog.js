@@ -173,7 +173,7 @@ export default function SetupAccountDialog({ buttonProps, ...props }) {
                   </Grid>
                   <Grid item xs={12} md={6}>
                     <Box mt={6} mb={6} textAlign='center'>
-                      <Typography variant='subtitle2'>
+                      <Typography variant='subtitle2' gutterBottom>
                         Upload Cover Image
                       </Typography>
                       <UpdateCoverImage
@@ -191,7 +191,7 @@ export default function SetupAccountDialog({ buttonProps, ...props }) {
                       textAlign='center'
                       style={{ borderLeft: '1px dashed #999' }}
                     >
-                      <Typography variant='subtitle2'>
+                      <Typography variant='subtitle2' gutterBottom>
                         Upload Profile Image
                       </Typography>
                       <ChangeProfileImage
