@@ -27,7 +27,7 @@ import Post from './post';
 import ProfileImageAvatar from './profile-image-avatar';
 import ProfileImage from './change-profile-image';
 import CoverImage from './change-cover-image';
-import UpdateCoverImage2 from './update-cover-image-2';
+import UpdateCoverImage from './update-cover-image-2';
 import { makeStyles } from '@material-ui/core/styles';
 import Layout from '../layouts/layout-auth';
 import UpdateProfile from './update-profile';
@@ -218,7 +218,7 @@ export default function Profile({
                     (myCurrentUser?.username === username && (
                       <>
                         <UpdateProfile />
-                        <UpdateCoverImage2 />
+                        <UpdateCoverImage />
                       </>
                     ))}
                 </Toolbar>
@@ -240,7 +240,7 @@ export default function Profile({
                               (myCurrentUser?.username === username && (
                                 <>
                                   <UpdateProfile />
-                                  <UpdateCoverImage2 />
+                                  <UpdateCoverImage />
                                 </>
                               ))}
                           </Box>

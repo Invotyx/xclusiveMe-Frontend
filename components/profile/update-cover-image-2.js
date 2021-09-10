@@ -4,7 +4,7 @@ import { auth } from '../../actions/auth';
 import IconButton from '@material-ui/core/IconButton';
 import CameraAltIcon from '@material-ui/icons/CameraAlt';
 
-export default function UpdateCoverImage2({ children }) {
+export default function UpdateCoverImage({ children }) {
   const dispatch = useDispatch();
   const inputFile = React.useRef(null);
 
