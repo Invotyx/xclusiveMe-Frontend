@@ -47,7 +47,7 @@ const ManuButton = ({ onConfirm, tip, ...props }) => {
     setreportModal(true);
   };
 
-  const { TipModal, setOpenTipModal } = useTipModal({
+  const { TipModal } = useTipModal({
     onConfirm: (amount, callback) =>
       dispatch(
         post.addTip({
@@ -93,14 +93,15 @@ const ManuButton = ({ onConfirm, tip, ...props }) => {
             <MenuItem onClick={handleOpenReportModal}>Report</MenuItem>
           )}
           {Boolean(tip) && (
+            <TipModal {...props}>
             <MenuItem
               onClick={() => {
-                setOpenTipModal(true);
                 setAnchorEl(null);
               }}
             >
               Tip
             </MenuItem>
+            </TipModal>
           )}
         </Menu>
       )}
@@ -108,7 +109,6 @@ const ManuButton = ({ onConfirm, tip, ...props }) => {
       <ReportModal
         {...props}
       />
-      <TipModal hideDefaultButton {...props} />
     </>
   );
 };
