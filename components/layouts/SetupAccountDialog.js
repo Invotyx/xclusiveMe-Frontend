@@ -21,9 +21,13 @@ import BeenhereIcon from '@material-ui/icons/Beenhere';
 import ChangeProfileImage from '../profile/change-profile-image';
 import UpdateCoverImage from '../profile/update-cover-image-2';
 import { useSelector } from 'react-redux';
-import { currentUserSelector } from '../../selectors/authSelector';
+import {
+  currentUserSelector,
+  uploadingProfileImageSelector,
+} from '../../selectors/authSelector';
 import ProfileImageAvatar from '../profile/profile-image-avatar';
 import { getImage } from '../../services/getImage';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const styles = theme => ({
   root: {
@@ -63,6 +67,7 @@ function getSteps() {
 
 export default function SetupAccountDialog({ buttonProps, ...props }) {
   const currentUser = useSelector(currentUserSelector);
+  const uploadingProfileImage = useSelector(uploadingProfileImageSelector);
   const subscriptionFormSubmitButton = React.useRef();
   const checkoutFormSubmitButton = React.useRef();
   const [open, setOpen] = React.useState(false);
@@ -128,7 +133,13 @@ export default function SetupAccountDialog({ buttonProps, ...props }) {
                     <Card>
                       <CardHeader
                         title={currentUser?.fullName}
-                        avatar={<ProfileImageAvatar user={currentUser} />}
+                        avatar={
+                          uploadingProfileImage ? (
+                            <CircularProgress />
+                          ) : (
+                            <ProfileImageAvatar user={currentUser} />
+                          )
+                        }
                         style={{
                           backgroundSize: 'cover',
                           backgroundPosition: 'center',
