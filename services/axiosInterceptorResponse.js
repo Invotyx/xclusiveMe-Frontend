@@ -22,7 +22,7 @@ const interceptor = dispatch => {
             .catch(error => ({ ...error }));
           if (Boolean(refreshResponse.isAxiosError)) {
             // logout
-          dispatch(auth.redirectToLoginPage(Router.router.asPath));
+            dispatch(auth.redirectToLoginPage(Router.router.asPath));
           } else {
             localStorage.setItem('jwtToken', refreshResponse.data.accessToken);
             localStorage.setItem(
