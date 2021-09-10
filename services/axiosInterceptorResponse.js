@@ -6,7 +6,7 @@ const UNAUTHORIZED = 401;
 const interceptor = dispatch => {
   apiClient.interceptors.response.use(
     response => response,
-    error => {
+    async error => {
       try {
         const { status } = error.response;
         if (status === UNAUTHORIZED) {
