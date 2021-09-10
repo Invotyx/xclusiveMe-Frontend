@@ -140,7 +140,6 @@ export default function SetupAccountDialog({ buttonProps, ...props }) {
                       >
                         <CardHeader
                           title={currentUser?.fullName}
-                          avatar={<ProfileImageAvatar user={currentUser} />}
                           avatar={
                             uploadingProfileImage ? (
                               <CircularProgress />
