@@ -4,6 +4,7 @@ import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardHeader from '@material-ui/core/CardHeader';
+import List from '@material-ui/core/List';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
@@ -30,6 +31,7 @@ import {
 import ProfileImageAvatar from '../profile/profile-image-avatar';
 import { getImage } from '../../services/getImage';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import AgeRestrictionListItem from '../settings/account/AgeRestrictionListItem';
 
 const styles = theme => ({
   root: {
@@ -199,6 +201,13 @@ export default function SetupAccountDialog({ buttonProps, ...props }) {
                         Select Image
                       </ChangeProfileImage>
                     </Box>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <List
+                      style={{ padding: '0px 100px', marginBottom: '10px' }}
+                    >
+                      <AgeRestrictionListItem />
+                    </List>
                   </Grid>
                 </Grid>
 
