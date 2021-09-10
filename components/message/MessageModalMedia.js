@@ -241,6 +241,13 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
               </Typography>
             </Box>
             <TextField
+              onKeyDown={e => {
+                e.key === '.' && e.preventDefault();
+              }}
+              onPaste={e => {
+                e.preventDefault();
+                setPrice(e.target.value.replace('.', ''));
+              }}
               value={price}
               onChange={e => setPrice(e.target.value)}
               placeholder='0.00'
