@@ -128,9 +128,9 @@ export const post = {
       error: null,
     }),
 
-  saveLike: id =>
+  saveLike: data =>
     createAction(POST.ADD_LIKE, {
-      ...id,
+      ...data,
       success: false,
       error: null,
     }),
