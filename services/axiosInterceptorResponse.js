@@ -12,7 +12,10 @@ const interceptor = dispatch => {
     async error => {
       try {
         const { status } = error.response;
-        if (status === UNAUTHORIZED) {
+        if (
+          status === UNAUTHORIZED &&
+          error.config.url.indexOf('/auth/refresh') === -1
+        ) {
           const refreshResponse = await apiClient
             .get(`${SERVER_ADDRESS}/auth/refresh`)
             .then(response => ({ ...response }))
