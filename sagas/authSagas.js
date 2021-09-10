@@ -476,7 +476,9 @@ function* handleUploadImage({ payload }) {
   try {
     const { fileObject } = payload;
     const { data } = yield call(uploadImage, fileObject);
-    yield put(auth.success({ currentUser: data }));
+    yield put(
+      auth.success({ currentUser: data, uploadingProfileImage: false })
+    );
     yield put(
       bottomalert.update({
         open: true,
