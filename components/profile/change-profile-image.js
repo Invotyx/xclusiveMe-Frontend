@@ -3,9 +3,9 @@ import { useDispatch } from 'react-redux';
 import { auth } from '../../actions/auth';
 import DepressedButton from '../DepressedButton';
 
-export default function ChangeProfileImage({ children }) {
+export default function ChangeProfileImage({ inputRef, children }) {
   const dispatch = useDispatch();
-  const inputFile = React.useRef(null);
+  const inputFile = inputRef || React.useRef(null);
 
   const onChangeFile = event => {
     event.stopPropagation();
