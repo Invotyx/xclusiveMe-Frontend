@@ -183,7 +183,12 @@ export default function SetupAccountDialog({ buttonProps, ...props }) {
                     </Box>
                   </Grid>
                   <Grid item xs={12} md={6}>
-                    <Box mt={6} mb={6} textAlign='center'>
+                    <Box
+                      mt={6}
+                      mb={6}
+                      textAlign='center'
+                      style={{ borderLeft: '1px dashed #999' }}
+                    >
                       <Typography variant='subtitle2'>
                         Upload Profile Image
                       </Typography>
