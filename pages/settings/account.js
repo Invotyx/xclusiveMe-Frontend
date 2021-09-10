@@ -433,7 +433,7 @@ export default function Home(props) {
                     </ListItem>
                   )}
                   <ListItem disableGutters>
-                    <ListItemText primary={`Verification via SMS`} />
+                    <ListItemText primary={`Two Step Authentication`} />
                     <ListItemSecondaryAction>
                       <Switch
                         edge='end'
