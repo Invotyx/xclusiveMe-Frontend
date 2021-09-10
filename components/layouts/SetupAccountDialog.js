@@ -176,7 +176,7 @@ export default function SetupAccountDialog({ buttonProps, ...props }) {
                       </Typography>
                       <UpdateCoverImage
                         inputRef={uploadCoverInputRef}
-                        buttonProps={{ variant: 'outlined' }}
+                        buttonProps={{ variant: 'outlined', size: 'small' }}
                       >
                         Select Image
                       </UpdateCoverImage>
@@ -189,7 +189,7 @@ export default function SetupAccountDialog({ buttonProps, ...props }) {
                       </Typography>
                       <ChangeProfileImage
                         inputRef={uploadProfileImageInputRef}
-                        buttonProps={{ variant: 'outlined' }}
+                        buttonProps={{ variant: 'outlined', size: 'small' }}
                       >
                         Select Image
                       </ChangeProfileImage>
