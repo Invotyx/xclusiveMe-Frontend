@@ -93,7 +93,7 @@ export default function Home(props) {
       set_email(currentUser.email);
       set_phone(currentUser.phoneNumber);
       set_verificationViaSms(currentUser.fa2);
-      setLinks(currentUser.profile.links || linkedAccounts);
+      setLinks(currentUser.profile?.links || linkedAccounts);
     }
   }, [currentUser]);
   useEffect(() => {
