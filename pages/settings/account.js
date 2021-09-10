@@ -394,9 +394,9 @@ export default function Home(props) {
                         <ListItem selected={true} divider>
                           <ListItemText
                             primary={`${ua.browser.name} | ${ua.os.name} (${ua.os.version})`}
-                            secondary={`${
-                              i.publicIp
-                            } ${' at '}  ${i.createdAt.substring(11, 16)}`}
+                            secondary={`${i.publicIp} ${' at '}  ${moment(
+                              i.createdAt
+                            ).format('hh:mma DD/MM/YYYY')}`}
                           />
 
                           <ListItemSecondaryAction>
