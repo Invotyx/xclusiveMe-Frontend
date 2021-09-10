@@ -414,9 +414,6 @@ export default function Home(props) {
             </form>
             <form noValidate>
               <Box mb={4}>
-                <UppercaseInputLabel>
-                  Two Step Authentication
-                </UppercaseInputLabel>
                 <List>
                   {false && (
                     <ListItem disableGutters>
