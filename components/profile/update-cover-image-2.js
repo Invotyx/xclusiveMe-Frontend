@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { auth } from '../../actions/auth';
 import IconButton from '@material-ui/core/IconButton';
 import CameraAltIcon from '@material-ui/icons/CameraAlt';
+import DepressedButton from '../DepressedButton';
 
 export default function UpdateCoverImage({ children }) {
   const dispatch = useDispatch();
@@ -29,7 +30,13 @@ export default function UpdateCoverImage({ children }) {
         onChange={onChangeFile}
       />
       {children ? (
-        <span onClick={() => inputFile.current.click()}>{children}</span>
+        <DepressedButton
+          onClick={() => {
+            inputFile.current.click();
+          }}
+        >
+          {children}
+        </DepressedButton>
       ) : (
         <IconButton
           aria-label='settings'
