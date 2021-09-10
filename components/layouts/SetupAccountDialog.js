@@ -69,6 +69,7 @@ function getSteps() {
 
 export default function SetupAccountDialog({ buttonProps, ...props }) {
   const uploadCoverInputRef = React.useRef(null);
+  const uploadProfileImageInputRef = React.useRef(null);
   const currentUser = useSelector(currentUserSelector);
   const uploadingCover = useSelector(uploadingCoverSelector);
   const uploadingProfileImage = useSelector(uploadingProfileImageSelector);
@@ -144,7 +145,14 @@ export default function SetupAccountDialog({ buttonProps, ...props }) {
                             uploadingProfileImage ? (
                               <CircularProgress />
                             ) : (
-                              <ProfileImageAvatar user={currentUser} />
+                              <ProfileImageAvatar
+                                onClick={e => {
+                                  e.preventDefault();
+                                  e.stopPropagation();
+                                  uploadProfileImageInputRef.current.click();
+                                }}
+                                user={currentUser}
+                              />
                             )
                           }
                           style={{
@@ -176,7 +184,9 @@ export default function SetupAccountDialog({ buttonProps, ...props }) {
                       <Typography variant='subtitle2'>
                         Upload Profile Image
                       </Typography>
-                      <ChangeProfileImage>Select Image</ChangeProfileImage>
+                      <ChangeProfileImage inputRef={uploadProfileImageInputRef}>
+                        Select Image
+                      </ChangeProfileImage>
                     </Box>
                   </Grid>
                 </Grid>
