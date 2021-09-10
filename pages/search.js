@@ -101,13 +101,7 @@ export default function Home() {
                   users?.length > 0 &&
                   users?.map(u => (
                     <NextLink href={`/x/${u.username}`} key={`user${u.id}`}>
-                      <Box
-                        clone
-                        pt={3}
-                        pb={3}
-                        mb={4}
-                        height={100}
-                      >
+                      <Box clone pt={3} pb={3} mb={4} height={100}>
                         <ListItem
                           style={{
                             backgroundSize: 'cover',
