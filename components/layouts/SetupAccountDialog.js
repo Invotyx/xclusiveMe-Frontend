@@ -138,27 +138,27 @@ export default function SetupAccountDialog({ buttonProps, ...props }) {
                       <CardActionArea
                         onClick={() => uploadCoverInputRef.current.click()}
                       >
-                      <CardHeader
-                        title={currentUser?.fullName}
-                        avatar={<ProfileImageAvatar user={currentUser} />}
-                        avatar={
-                          uploadingProfileImage ? (
-                            <CircularProgress />
-                          ) : (
-                            <ProfileImageAvatar user={currentUser} />
-                          )
-                        }
-                        style={{
-                          backgroundSize: 'cover',
-                          backgroundPosition: 'center',
-                          backgroundImage: currentUser?.coverImage
-                            ? `${
-                                uploadingCover ? 'url("/loading.gif"), ' : ''
-                              }url(${getImage(currentUser?.coverImage)})`
-                            : `url('/cover2.jpg')`,
-                          boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',
-                        }}
-                      />
+                        <CardHeader
+                          title={currentUser?.fullName}
+                          avatar={<ProfileImageAvatar user={currentUser} />}
+                          avatar={
+                            uploadingProfileImage ? (
+                              <CircularProgress />
+                            ) : (
+                              <ProfileImageAvatar user={currentUser} />
+                            )
+                          }
+                          style={{
+                            backgroundSize: 'cover',
+                            backgroundPosition: 'center',
+                            backgroundImage: currentUser?.coverImage
+                              ? `${
+                                  uploadingCover ? 'url("/loading.gif"), ' : ''
+                                }url(${getImage(currentUser?.coverImage)})`
+                              : `url('/cover2.jpg')`,
+                            boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',
+                          }}
+                        />
                       </CardActionArea>
                     </Card>
                   </Grid>
