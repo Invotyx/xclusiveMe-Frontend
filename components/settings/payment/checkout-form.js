@@ -94,6 +94,7 @@ export default function CheckoutForm({ buttonProps, ...props }) {
           <TextField
             variant='outlined'
             name='name'
+            margin='normal'
             label='Title'
             fullWidth
             error={validationErrors && validationErrors.name}
