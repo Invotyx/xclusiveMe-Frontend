@@ -94,13 +94,13 @@ const ManuButton = ({ onConfirm, tip, ...props }) => {
           )}
           {Boolean(tip) && (
             <TipModal {...props}>
-            <MenuItem
-              onClick={() => {
-                setAnchorEl(null);
-              }}
-            >
-              Tip
-            </MenuItem>
+              <MenuItem
+                onClick={() => {
+                  setAnchorEl(null);
+                }}
+              >
+                Tip
+              </MenuItem>
             </TipModal>
           )}
         </Menu>
