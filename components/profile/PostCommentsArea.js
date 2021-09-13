@@ -5,7 +5,7 @@ import { post as postData } from '../../actions/post/index';
 import CommentModal from './commentModel';
 import useEmojiPicker from '../useEmojiPicker';
 import { useRouter } from 'next/router';
-import PostCommentsList from './postCommentsList';
+import PostCommentsList from './PostCommentsList';
 import PostCommentsForm from './PostCommentsForm';
 
 export default function PostCommentsArea({
