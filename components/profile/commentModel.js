@@ -58,7 +58,6 @@ const CommentModal = ({
   post,
   profileData,
   altHeader,
-  singlePost,
   setOpen,
   open,
   currentUser,
@@ -77,7 +76,7 @@ const CommentModal = ({
     id: '',
     check: false,
   });
-  const sPost = useSelector(singlepostDataSelector);
+  const singlePost = useSelector(singlepostDataSelector);
   const paginatedComments = useSelector(getCommentsDataSelector);
   var forComments = paginatedComments?.results;
   var [commentsData, setCommentsData] = useState([]);
@@ -118,14 +117,14 @@ const CommentModal = ({
 
   const handleModalCommentLike = cId => {
     //
-    singlePost.comments &&
-      singlePost.comments.map(comm =>
+    sPos.comments &&
+      sPos.comments.map(comm =>
         comm.likes && comm.likes.length === 0 && comm.id === cId
           ? dispatch(
               postData.saveCommentLike({
                 id: comm.id,
                 callback: () => {
-                  dispatch(postData.requestOne(sPost.id));
+                  dispatch(postData.requestOne(singlePost.id));
                 },
               })
             )
@@ -134,7 +133,7 @@ const CommentModal = ({
               postData.delCommentLike({
                 id: comm.id,
                 callback: () => {
-                  dispatch(postData.requestOne(sPost.id));
+                  dispatch(postData.requestOne(singlePost.id));
                 },
               })
             )
@@ -174,7 +173,7 @@ const CommentModal = ({
         },
         callback: () => {
           setCommentText('');
-          dispatch(postData.requestOne(sPost.id));
+          dispatch(postData.requestOne(singlePost.id));
         },
       })
     );
@@ -198,7 +197,7 @@ const CommentModal = ({
           postData.deleteLike({
             id: singlePost.id,
             callback: () => {
-              dispatch(postData.requestOne(sPost.id));
+              dispatch(postData.requestOne(singlePost.id));
             },
           })
         )
@@ -206,7 +205,7 @@ const CommentModal = ({
           postData.saveLike({
             id: singlePost.id,
             callback: () => {
-              dispatch(postData.requestOne(sPost.id));
+              dispatch(postData.requestOne(singlePost.id));
             },
           })
         );
@@ -433,7 +432,7 @@ const CommentModal = ({
                         </NormalCaseButton>
                         {
                           <span aria-label='tip'>
-                            {sPost?.media.length === 0 ? (
+                            {singlePost?.media.length === 0 ? (
                               <MonetizationOnOutlinedIcon
                                 style={{
                                   marginRight: '5px',

@@ -8,7 +8,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { post as postData } from '../../actions/post/index';
 import styles from './profile.module.css';
 import { currentUserSelector } from '../../selectors/authSelector';
-import { singlepostDataSelector } from '../../selectors/postSelector';
 import { totalrepliesSelector } from '../../selectors/postSelector';
 import CommentModal from './commentModel';
 import { Button } from '@material-ui/core';
@@ -27,7 +26,6 @@ export default function PostComments({
   const dispatch = useDispatch();
   const currentUser = useSelector(currentUserSelector);
   const [openReply, setOpenReply] = useState(false);
-  const singlePost = useSelector(singlepostDataSelector);
   const replyCount = useSelector(totalrepliesSelector);
   const searchInput = useRef(null);
   const { closeEmojiPicker, EmojiPicker, emojiPickerRef } = useEmojiPicker();
@@ -137,7 +135,6 @@ export default function PostComments({
         post={post}
         profileData={profileData}
         altHeader={altHeader}
-        singlePost={singlePost}
         open={open}
         setOpen={setOpen}
         replyCount={replyCount}

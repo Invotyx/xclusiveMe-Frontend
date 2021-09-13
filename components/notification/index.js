@@ -12,7 +12,6 @@ import { post } from '../../actions/post';
 import moment from 'moment';
 import styles from './newPost.module.css';
 import { useRouter } from 'next/router';
-import { singlepostDataSelector } from '../../selectors/postSelector';
 import CommentModal from '../profile/commentModel';
 import ProfileImageAvatar from '../profile/profile-image-avatar';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
@@ -45,7 +44,6 @@ export default function Notification({
   const notifyCount = useSelector(notificationsCount);
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
-  const singlePost = useSelector(singlepostDataSelector);
   const router = useRouter();
   const isMobile = useMediaQuery('(max-width: 760px)');
   const chckday = ['Today', 'Older'];
@@ -245,7 +243,6 @@ export default function Notification({
         </p>
       )}
       <CommentModal
-        singlePost={singlePost}
         profileData={profileData}
         open={open}
         setOpen={setOpen}
