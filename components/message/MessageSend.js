@@ -9,8 +9,17 @@ import MessageModalMedia from './MessageModalMedia';
 import useAudioSend from './useAudioSend';
 import useEmojiPicker from '../useEmojiPicker';
 import AudioSend from './AudioSend';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles(() => ({
+  button: {
+    marginRight: '2rem',
+    cursor: 'pointer',
+  },
+}));
 
 export default function MessageSend({ handleSendMessage }) {
+  const classes = useStyles();
   const { closeEmojiPicker, EmojiPicker, emojiPickerRef } = useEmojiPicker();
   const current = useSelector(currentUserSelector);
   const {
@@ -66,27 +75,27 @@ export default function MessageSend({ handleSendMessage }) {
           <MessageModalMedia type='camera' onMediaUploaded={handleSendMessage}>
             <img
               src='/camera.svg'
-              style={{ marginRight: '2rem', cursor: 'pointer' }}
+              className={classes.button}
               alt='camera'
             />
           </MessageModalMedia>
           <MessageModalMedia type='photo' onMediaUploaded={handleSendMessage}>
             <img
               src='/imageBtn.svg'
-              style={{ marginRight: '2rem', cursor: 'pointer' }}
+              className={classes.button}
               alt='image'
             />
           </MessageModalMedia>
           <MessageModalMedia type='video' onMediaUploaded={handleSendMessage}>
             <img
               src='/videoBtn.svg'
-              style={{ marginRight: '2rem', cursor: 'pointer' }}
+              className={classes.button}
               alt='video'
             />
           </MessageModalMedia>
           <img
             src='/voiceBtn.svg'
-            style={{ marginRight: '2rem', cursor: 'pointer' }}
+            className={classes.button}
             alt='voice'
             onClick={startRecordingHandler}
           />
