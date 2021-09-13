@@ -55,7 +55,6 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const CommentModal = ({
-  post,
   profileData,
   altHeader,
   setOpen,
@@ -434,13 +433,13 @@ const CommentModal = ({
                               />
                             ) : (
                               <TipModal
-                                profileImage={post?.user?.profileImage}
-                                name={post?.user?.fullName}
+                                profileImage={singlePost?.user?.profileImage}
+                                name={singlePost?.user?.fullName}
                                 onConfirm={(amount, callback) =>
                                   dispatch(
                                     postData.addTip({
                                       saveData: {
-                                        itemTipped: post.id,
+                                        itemTipped: singlePost.id,
                                         itemTippedType: 'post',
                                         amount,
                                       },
@@ -479,15 +478,15 @@ const CommentModal = ({
                       handlePurchase={() => {
                         dispatch(
                           postData.purchasePost({
-                            id: post.id,
+                            id: singlePost.id,
                             callback: () => {
                               setPurchased(true);
                             },
                           })
                         );
                       }}
-                      price={post?.price}
-                      user={post?.user}
+                      price={singlePost?.price}
+                      user={singlePost?.user}
                     />
                   </div>
                 )}
@@ -646,7 +645,7 @@ const CommentModal = ({
                             >
                               <RepliesData
                                 comm={comm}
-                                post={post}
+                                post={singlePost}
                                 singlePost={singlePost}
                                 currUser={currUser}
                                 isReplyField={isReplyField}
@@ -790,7 +789,7 @@ const CommentModal = ({
                               >
                                 <RepliesData
                                   comm={comm}
-                                  post={post}
+                                  post={singlePost}
                                   singlePost={singlePost}
                                   currUser={currUser}
                                   isReplyField={isReplyField}

@@ -131,7 +131,6 @@ export default function PostComments({
       )}
 
       <CommentModal
-        post={post}
         profileData={profileData}
         open={open}
         setOpen={setOpen}
