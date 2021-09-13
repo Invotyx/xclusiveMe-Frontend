@@ -35,7 +35,6 @@ const useStyles = makeStyles(theme => ({
 
 export default function Notification({
   setAnchorEl,
-  profileData,
   currentUser,
 }) {
   const classes = useStyles();
@@ -241,7 +240,7 @@ export default function Notification({
           No Data Found
         </p>
       )}
-      <CommentModal profileData={profileData} open={open} setOpen={setOpen} />
+      <CommentModal open={open} setOpen={setOpen} />
     </>
   );
 }
