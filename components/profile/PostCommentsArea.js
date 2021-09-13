@@ -81,7 +81,11 @@ export default function PostCommentsArea({
         handleOpen={handleOpen}
       />
 
-      <PostCommentsForm post={post} callbackAction={callbackAction} />
+      <PostCommentsForm
+        post={post}
+        callbackAction={callbackAction}
+        searchInput={searchInput}
+      />
     </>
   );
 }

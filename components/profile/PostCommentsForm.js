@@ -1,16 +1,19 @@
 import Box from '@material-ui/core/Box';
 import ProfileImageAvatar from './profile-image-avatar';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { post as postData } from '../../actions/post/index';
 import { currentUserSelector } from '../../selectors/authSelector';
 import { Button } from '@material-ui/core';
 import useEmojiPicker from '../useEmojiPicker';
 
-export default function PostCommentsForm({ post, callbackAction }) {
+export default function PostCommentsForm({
+  post,
+  callbackAction,
+  searchInput,
+}) {
   const dispatch = useDispatch();
-  const searchInput = useRef(null);
   const currentUser = useSelector(currentUserSelector);
   const { closeEmojiPicker, EmojiPicker, emojiPickerRef } = useEmojiPicker();
   const [commentText, setCommentText] = useState('');
