@@ -85,7 +85,6 @@ export default function Post({
       //
     },
   });
-  const fetchData = useSelector(fetchingSelector);
   const [notByedModal, setnotBuyedModal] = useState(false);
   const isMobile = useMediaQuery('(max-width: 760px)');
   const [mediaClicked, setMediaClicked] = useState(false);
