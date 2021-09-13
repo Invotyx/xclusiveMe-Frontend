@@ -27,6 +27,17 @@ export default function useAudioSend({ onAudioUploaded }) {
 
   useEffect(() => {
     if (status === 'recording') {
+      setIsRecording(true);
+      setProgressInterval(
+        setInterval(() => {
+          setProgress(oldProgress => {
+            if (oldProgress === 100) {
+              return 0;
+            }
+            return oldProgress + 0.3;
+          });
+        }, 300)
+      );
       setCountInterval(
         setInterval(() => {
           setSeconds(seconds => seconds + 1);
@@ -48,22 +59,7 @@ export default function useAudioSend({ onAudioUploaded }) {
     }
   }, [status]);
 
-  const progressHandler = () => {
-    setProgressInterval(
-      setInterval(() => {
-        setProgress(oldProgress => {
-          if (oldProgress === 100) {
-            return 0;
-          }
-          return oldProgress + 0.3;
-        });
-      }, 300)
-    );
-  };
-
   const startRecordingHandler = () => {
-    setIsRecording(true);
-    progressHandler();
     startRecording();
   };
 
