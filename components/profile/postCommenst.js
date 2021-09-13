@@ -1,7 +1,6 @@
 import NextLink from 'next/link';
 import Box from '@material-ui/core/Box';
 import Link from '@material-ui/core/Link';
-import { makeStyles } from '@material-ui/core/styles';
 import ProfileImageAvatar from './profile-image-avatar';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import { useState, useRef, useEffect } from 'react';
@@ -13,48 +12,16 @@ import { singlepostDataSelector } from '../../selectors/postSelector';
 import { totalrepliesSelector } from '../../selectors/postSelector';
 import CommentModal from './commentModel';
 import { Button } from '@material-ui/core';
-import { fetchingSelector } from '../../selectors/postSelector';
 import useEmojiPicker from '../useEmojiPicker';
-import { useMediaQuery } from 'react-responsive';
 import queryString from 'query-string';
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    marginTop: 0,
-    border: '1px solid #444444',
-    ['@media and screen and (maxWidth: 600px)']: {
-      width: '50px',
-      height: '50px',
-    },
-  },
-  modal: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'rgba(0, 0, 2, 0.9)',
-  },
-  paper: {
-    backgroundColor: theme.palette.background.paper,
-    border: '2px solid #000',
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
-  },
-  profileModalStyle: {
-    width: '30%',
-  },
-  showMore: {
-    color: theme.palette.primary.main,
-  },
-}));
 export default function PostComments({
   post,
   profileData,
   altHeader,
-  me,
   callbackAction,
   mediaClicked,
 }) {
-  const classes = useStyles();
   const [commentText, setCommentText] = useState('');
   const [forCommentId, setForCommentId] = useState(null);
   const [open, setOpen] = useState(false);
@@ -63,22 +30,9 @@ export default function PostComments({
   const [openReply, setOpenReply] = useState(false);
   const singlePost = useSelector(singlepostDataSelector);
   const replyCount = useSelector(totalrepliesSelector);
-  const [openModal, setOpenModal] = useState(false);
   const searchInput = useRef(null);
-  const [openReportModal, setreportModal] = useState(false);
-  const fetchData = useSelector(fetchingSelector);
-  const [notByedModal, setnotBuyedModal] = useState(false);
   const { closeEmojiPicker, EmojiPicker, emojiPickerRef } = useEmojiPicker();
-  const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
   const [checkRefs, setCheckRefs] = useState(false);
-
-  const handleOpenModal = () => {
-    setOpenModal(true);
-  };
-
-  function handleFocus() {
-    searchInput.current.focus();
-  }
 
   const addEmoji = e => {
     let sym = e.unified.split('-');
@@ -118,29 +72,6 @@ export default function PostComments({
         },
       })
     );
-  };
-
-  const handleLike = () => {
-    //
-    post.likes.length > 0
-      ? post.likes.map(like =>
-          dispatch(
-            postData.deleteLike({
-              id: post.id,
-              callback: () => {
-                callbackAction && callbackAction();
-              },
-            })
-          )
-        )
-      : dispatch(
-          postData.saveLike({
-            id: post.id,
-            callback: () => {
-              callbackAction && callbackAction();
-            },
-          })
-        );
   };
 
   const handleCommentLike = cId => {
