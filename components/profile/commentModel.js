@@ -67,7 +67,6 @@ const CommentModal = ({
   const { PostPurchaseModal, openPurchaseModal, setPurchased } =
     usePostPurchaseModal();
   const classes = useStyles();
-  const [commentText, setCommentText] = useState('');
   const [commentId, setCommentId] = useState(null);
   const [isReplyField, setisReplyField] = useState({ id: '', check: false });
   const [issubReplyField, setissubReplyField] = useState({
