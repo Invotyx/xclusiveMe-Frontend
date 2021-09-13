@@ -48,7 +48,6 @@ export default function useAudioSend({ onAudioUploaded }) {
     } else if (status === 'stopped') {
       clearInterval(progressInterval);
       clearInterval(countInterval);
-      setSeconds(0);
       setIsRecording(false);
     } else if (status === 'failed') {
       dispatch(
@@ -68,7 +67,6 @@ export default function useAudioSend({ onAudioUploaded }) {
   };
 
   const Clear = () => {
-    setProgress(0);
     stopRecording();
   };
 
