@@ -28,6 +28,8 @@ export default function useAudioSend({ onAudioUploaded }) {
   useEffect(() => {
     if (status === 'recording') {
       setIsRecording(true);
+      setSeconds(0);
+      setProgress(0);
       setProgressInterval(
         setInterval(() => {
           setProgress(oldProgress => {
