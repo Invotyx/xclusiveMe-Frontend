@@ -4,12 +4,14 @@ import ProfileImageAvatar from './profile-image-avatar';
 import { useDispatch } from 'react-redux';
 import { post as postData } from '../../actions/post/index';
 import styles from './profile.module.css';
+import RepliesData from './RepliesData';
 
 export default function PostCommentsList({
   post,
   callbackAction,
   setOpenReply,
   handleOpen,
+  replies,
 }) {
   const dispatch = useDispatch();
 
@@ -165,6 +167,7 @@ export default function PostCommentsList({
             </div>
           </div>
 
+          {!replies ? (
           <div onClick={() => setOpenReply(true)}>
             <p
               style={{
@@ -204,6 +207,20 @@ export default function PostCommentsList({
               </span>
             </p>
           </div>
+          ) : (
+            <div
+              style={{
+                marginLeft: '50px',
+                marginTop: '-10px',
+                marginBottom: '0px',
+                cursor: 'pointer',
+                fontSize: '11px',
+              }}
+            >
+              <RepliesData
+              />
+            </div>
+          )}
         </div>
       ))}
     </>
