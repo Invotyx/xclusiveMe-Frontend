@@ -44,7 +44,7 @@ export default function PostCommentsList({
 
   return (
     <>
-      {post.comments.map((comm, i) => (
+      {post?.comments?.map((comm, i) => (
         <div style={{ marginBottom: '20px' }} key={`abcdef${i}`}>
           <div
             style={{
