@@ -91,7 +91,6 @@ export default function useAudioSend({ onAudioUploaded }) {
         audioFile,
         callback: data => {
           onAudioUploaded(data);
-          Clear();
         },
       })
     );
