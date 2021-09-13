@@ -547,7 +547,6 @@ const CommentModal = ({
                             <div
                               style={{ display: 'flex', marginRight: '14px' }}
                             >
-                              <div key={index}>
                                 <img
                                   src='/comment.png'
                                   alt='reply button'
@@ -561,7 +560,6 @@ const CommentModal = ({
                                   id={comm.id}
                                   onClick={() => handleReplyField(comm.id)}
                                 />
-                              </div>
 
                               {comm.likes && comm.likes.length === 0 ? (
                                 <img
