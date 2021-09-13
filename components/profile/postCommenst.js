@@ -16,7 +16,6 @@ import useEmojiPicker from '../useEmojiPicker';
 export default function PostComments({
   post,
   profileData,
-  altHeader,
   callbackAction,
   mediaClicked,
 }) {
