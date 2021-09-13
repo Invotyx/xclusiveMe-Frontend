@@ -571,7 +571,7 @@ export default function Profile({
                                   <Grid item xs={12} key={ix}>
                                     <Post
                                       post={f}
-                                      profileData={profileData}
+                                      profileData={f.user}
                                       me={me}
                                       callbackAction={() => {
                                         dispatch(
