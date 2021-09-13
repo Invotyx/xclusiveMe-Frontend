@@ -547,19 +547,19 @@ const CommentModal = ({
                             <div
                               style={{ display: 'flex', marginRight: '14px' }}
                             >
-                                <img
-                                  src='/comment.png'
-                                  alt='reply button'
-                                  style={{
-                                    width: '20px',
-                                    height: '20px',
-                                    marginRight: '9px',
-                                    cursor: 'pointer',
-                                  }}
-                                  className={styles.commMobile}
-                                  id={comm.id}
-                                  onClick={() => handleReplyField(comm.id)}
-                                />
+                              <img
+                                src='/comment.png'
+                                alt='reply button'
+                                style={{
+                                  width: '20px',
+                                  height: '20px',
+                                  marginRight: '9px',
+                                  cursor: 'pointer',
+                                }}
+                                className={styles.commMobile}
+                                id={comm.id}
+                                onClick={() => handleReplyField(comm.id)}
+                              />
 
                               {comm.likes && comm.likes.length === 0 ? (
                                 <img
