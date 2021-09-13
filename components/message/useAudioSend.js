@@ -28,7 +28,7 @@ export default function useAudioSend({ onAudioUploaded }) {
 
   useEffect(() => {
     if (status === 'recording') {
-      setSend(false);
+      // setSend(false);
       setIsRecording(true);
       setSeconds(0);
       setProgress(0);
@@ -127,7 +127,7 @@ export default function useAudioSend({ onAudioUploaded }) {
         <Typography style={{ display: 'flex' }}>{formatTime()}</Typography>
         <IconButton
           onClickCapture={() => {
-            setSend(true);
+            // setSend(true);
             stopRecording();
           }}
         >
