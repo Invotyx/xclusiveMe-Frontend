@@ -134,8 +134,8 @@ export default function PostComments({
         profileData={profileData}
         open={open}
         setOpen={setOpen}
-        replyCount={replyCount}
         currentUser={currentUser}
+        replyCount={replyCount}
         forCommentId={forCommentId}
         openReply={openReply}
         checkRefs={checkRefs}
