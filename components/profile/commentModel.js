@@ -604,7 +604,6 @@ const CommentModal = ({
                               <RepliesData
                                 comm={comm}
                                 post={singlePost}
-                                currUser={currentUser}
                                 isReplyField={isReplyField}
                                 setisReplyField={setisReplyField}
                                 issubReplyField={issubReplyField}
@@ -747,7 +746,6 @@ const CommentModal = ({
                                 <RepliesData
                                   comm={comm}
                                   post={singlePost}
-                                  currUser={currentUser}
                                   isReplyField={isReplyField}
                                   setisReplyField={setisReplyField}
                                   issubReplyField={issubReplyField}
