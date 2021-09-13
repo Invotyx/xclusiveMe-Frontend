@@ -260,14 +260,7 @@ const SinglePost = ({
             style={{ backgroundColor: '#101010' }}
           >
             {altHeader ? (
-              <CardHeader
-                action={
-                  <IconButton aria-label='settings'>
-                    <CloseIcon onClick={handleClose} />
-                  </IconButton>
-                }
-                subheader={moment(sPost.createdAt).fromNow()}
-              />
+              <></>
             ) : (
               !isMobile && (
                 <CardHeader

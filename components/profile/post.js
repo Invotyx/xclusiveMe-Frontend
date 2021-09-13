@@ -147,14 +147,7 @@ export default function Post({
     <>
       <Card className={styles.postCard} ref={ref}>
         {altHeader ? (
-          <CardHeader
-            action={
-              <IconButton aria-label='settings'>
-                <MoreHorizIcon />
-              </IconButton>
-            }
-            subheader={moment(post.createdAt).fromNow()}
-          />
+          <></>
         ) : (
           <CardHeader
             avatar={<ProfileImageAvatar user={profileData} />}

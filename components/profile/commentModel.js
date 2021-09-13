@@ -253,14 +253,7 @@ const CommentModal = ({
                 style={{ backgroundColor: '#101010' }}
               >
                 {altHeader ? (
-                  <CardHeader
-                    action={
-                      <IconButton aria-label='settings' onClick={handleClose}>
-                        <CloseIcon />
-                      </IconButton>
-                    }
-                    subheader={moment(singlePost.createdAt).fromNow()}
-                  />
+                  <></>
                 ) : (
                   !isMobile && (
                     <CardHeader

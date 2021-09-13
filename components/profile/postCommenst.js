@@ -134,7 +134,6 @@ export default function PostComments({
       <CommentModal
         post={post}
         profileData={profileData}
-        altHeader={altHeader}
         open={open}
         setOpen={setOpen}
         replyCount={replyCount}

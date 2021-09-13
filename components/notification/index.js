@@ -37,7 +37,6 @@ export default function Notification({
   setAnchorEl,
   profileData,
   currentUser,
-  altHeader,
 }) {
   const classes = useStyles();
   const listofNotifications = useSelector(notificationsData);
@@ -247,7 +246,6 @@ export default function Notification({
         open={open}
         setOpen={setOpen}
         currentUser={currentUser}
-        altHeader={altHeader}
       />
     </>
   );
