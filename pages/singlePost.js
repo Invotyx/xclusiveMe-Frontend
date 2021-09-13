@@ -652,14 +652,12 @@ const SinglePost = ({ post, altHeader, currentUser }) => {
                           <RepliesData
                             comm={comm}
                             post={post}
-                            currentUser={currentUser}
                             isReplyField={isReplyField}
                             setisReplyField={setisReplyField}
                             issubReplyField={issubReplyField}
                             setissubReplyField={setissubReplyField}
                             commentId={commentId}
                             setCommentId={setCommentId}
-                            currUser={currUser}
                             checkRefs={checkRefs}
                             setCheckRefs={setCheckRefs}
                           />
@@ -815,14 +813,12 @@ const SinglePost = ({ post, altHeader, currentUser }) => {
                             <RepliesData
                               comm={comm}
                               post={post}
-                              currentUser={currentUser}
                               isReplyField={isReplyField}
                               setisReplyField={setisReplyField}
                               issubReplyField={issubReplyField}
                               setissubReplyField={setissubReplyField}
                               commentId={commentId}
                               setCommentId={setCommentId}
-                              currUser={currUser}
                               checkRefs={checkRefs}
                               setCheckRefs={setCheckRefs}
                             />
