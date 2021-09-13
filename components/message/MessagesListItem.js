@@ -61,11 +61,12 @@ const MessagesListItem = ({
         >
           {message.content && (
             <span
-              className={
+              className={clsx(
+                styles.message,
                 message.sender?.id !== current?.id
                   ? styles.leftMessage
                   : styles.rightMessage
-              }
+              )}
             >
               {message.content}
             </span>
