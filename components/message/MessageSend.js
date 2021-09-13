@@ -13,6 +13,8 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(() => ({
   button: {
+    width: '20px',
+    height: '20px',
     marginRight: '2rem',
     cursor: 'pointer',
   },
