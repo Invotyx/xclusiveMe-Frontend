@@ -33,9 +33,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function Notification({
-  setAnchorEl,
-}) {
+export default function Notification({ setAnchorEl }) {
   const classes = useStyles();
   const listofNotifications = useSelector(notificationsData);
   const notifyCount = useSelector(notificationsCount);
