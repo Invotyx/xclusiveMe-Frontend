@@ -323,22 +323,6 @@ const TipModal = ({
                       {addPrice}.00
                     </p>
                   </div>
-                  <div
-                    style={{
-                      display: 'flex',
-
-                      justifyContent: 'center',
-                    }}
-                  >
-                    <p
-                      style={{
-                        marginTop: isMobile ? '-3vh' : '-4vh',
-                        color: '#444444',
-                      }}
-                    >
-                      sent to {name}
-                    </p>
-                  </div>
 
                   {isMobile ? (
                     <div>
