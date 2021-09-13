@@ -120,7 +120,7 @@ export default function PostComments({
       {post.comments.length >= 3 ? (
         <Links
           passHref
-          href=`/singlePost?postId=${post.id}`
+          href={`/singlePost?postId=${post.id}`}
         >
           <p
             style={{
