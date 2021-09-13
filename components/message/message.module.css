@@ -31,6 +31,12 @@
   margin-left: 20px;
 }
 
+.message {
+  text-overflow: inherit;
+  white-space: normal;
+  word-wrap: break-word;
+}
+
 .leftMessage {
   font-family: 'Poppins';
   font-weight: 500;
