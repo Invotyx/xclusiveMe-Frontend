@@ -1,12 +1,8 @@
 import NextLink from 'next/link';
-import BookmarkBorderOutlinedIcon from '@material-ui/icons/BookmarkBorderOutlined';
 import Box from '@material-ui/core/Box';
 import Link from '@material-ui/core/Link';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
-import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
-import FavoriteIcon from '@material-ui/icons/Favorite';
 import IconButton from '@material-ui/core/IconButton';
 import MonetizationOnOutlinedIcon from '@material-ui/icons/MonetizationOnOutlined';
 import Typography from '@material-ui/core/Typography';
@@ -20,7 +16,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { post as postData } from '../actions/post';
 import CloseIcon from '@material-ui/icons/Close';
 import { singlepostDataSelector } from '../selectors/postSelector';
-import { repliesDataSelector } from '../selectors/postSelector';
 import { Button } from '@material-ui/core';
 import SinglePostMedia from '../components/profile/SinglePostMedia';
 import styles from '../components/profile/profile.module.css';
@@ -29,8 +24,6 @@ import LocalMallIcon from '@material-ui/icons/LocalMall';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { getCommentsDataSelector } from '../selectors/postSelector';
 import TipModal from '../components/profile/TipModal';
-import { fetchingSelector } from '../selectors/postSelector';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import useEmojiPicker from '../components/useEmojiPicker';
 import { useRouter } from 'next/router';
 import { currentUserSelector } from '../selectors/authSelector';
@@ -74,28 +67,20 @@ const SinglePost = ({
   const classes = useStyles();
   const [commentText, setCommentText] = useState('');
   const [commentId, setCommentId] = useState(null);
-  const [replyText, setReplyText] = useState('');
-  const [replyPostId, setReplyPostId] = useState(0);
   const [isReplyField, setisReplyField] = useState({ id: '', check: false });
   const [issubReplyField, setissubReplyField] = useState({
     id: '',
     check: false,
   });
-  const [isCommentField, setIsCommentField] = useState(false);
   const sPost = useSelector(singlepostDataSelector);
-  const replyData = useSelector(repliesDataSelector);
   const paginatedComments = useSelector(getCommentsDataSelector);
   var forComments = paginatedComments?.results;
-  const [showReply, setShowReply] = useState({ idx: '', replyCheck: false });
   var [commentsData, setCommentsData] = useState([]);
   const dispatch = useDispatch();
-  const [openModal, setOpenModal] = useState(false);
   const isMobile = useMediaQuery('(max-width: 760px)');
   const middleDesktop = useMediaQuery('(max-width: 1024px)');
   const higherDesktop = useMediaQuery('(max-width: 1440px)');
   const [pageNumber, setPageNumber] = useState(2);
-  const [openTip, setopenTip] = useState(false);
-  const fetchData = useSelector(fetchingSelector);
   const [commLength, setcommLength] = useState(10);
   const { closeEmojiPicker, EmojiPicker, emojiPickerRef } = useEmojiPicker();
   const router = useRouter();
