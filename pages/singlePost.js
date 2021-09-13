@@ -62,7 +62,7 @@ const SinglePost = ({ post, altHeader, currentUser }) => {
     id: '',
     check: false,
   });
-  const sPost = useSelector(singlepostDataSelector);
+  const singlePost = useSelector(singlepostDataSelector);
   const paginatedComments = useSelector(getCommentsDataSelector);
   var forComments = paginatedComments?.results;
   var [commentsData, setCommentsData] = useState([]);
@@ -104,14 +104,14 @@ const SinglePost = ({ post, altHeader, currentUser }) => {
 
   const handleModalCommentLike = cId => {
     //
-    sPost.comments &&
-      sPost.comments.map(comm =>
+    singlePost.comments &&
+      singlePost.comments.map(comm =>
         comm.likes && comm.likes.length === 0 && comm.id === cId
           ? dispatch(
               postData.saveCommentLike({
                 id: comm.id,
                 callback: () => {
-                  dispatch(postData.requestOne(sPost.id));
+                  dispatch(postData.requestOne(singlePost.id));
                 },
               })
             )
@@ -120,7 +120,7 @@ const SinglePost = ({ post, altHeader, currentUser }) => {
               postData.delCommentLike({
                 id: comm.id,
                 callback: () => {
-                  dispatch(postData.requestOne(sPost.id));
+                  dispatch(postData.requestOne(singlePost.id));
                 },
               })
             )
@@ -153,14 +153,14 @@ const SinglePost = ({ post, altHeader, currentUser }) => {
     }
     dispatch(
       postData.saveComment({
-        id: sPost.id,
+        id: singlePost.id,
         commentText: {
           comment: commentText,
           isReply: false,
         },
         callback: () => {
           setCommentText('');
-          dispatch(postData.requestOne(sPost.id));
+          dispatch(postData.requestOne(singlePost.id));
         },
       })
     );
@@ -172,7 +172,7 @@ const SinglePost = ({ post, altHeader, currentUser }) => {
 
     dispatch(
       postData.getCommentsVal({
-        id: sPost?.id,
+        id: singlePost?.id,
         page: pageNumber,
         limit: 10,
       })
@@ -180,20 +180,20 @@ const SinglePost = ({ post, altHeader, currentUser }) => {
   };
 
   const handleLike = () => {
-    sPost.likes && sPost.likes.length > 0
+    singlePost.likes && singlePost.likes.length > 0
       ? dispatch(
           postData.deleteLike({
-            id: sPost.id,
+            id: singlePost.id,
             callback: () => {
-              dispatch(postData.requestOne(sPost.id));
+              dispatch(postData.requestOne(singlePost.id));
             },
           })
         )
       : dispatch(
           postData.saveLike({
-            id: sPost.id,
+            id: singlePost.id,
             callback: () => {
-              dispatch(postData.requestOne(sPost.id));
+              dispatch(postData.requestOne(singlePost.id));
             },
           })
         );
@@ -223,9 +223,9 @@ const SinglePost = ({ post, altHeader, currentUser }) => {
         >
           <div className={styles.hideOnMobile}>
             <SinglePostMedia
-              media={sPost?.media}
-              mediaCount={sPost?.mediaCount}
-              sPost={sPost}
+              media={singlePost?.media}
+              mediaCount={singlePost?.mediaCount}
+              singlePost={singlePost}
             />
           </div>
 
@@ -238,7 +238,7 @@ const SinglePost = ({ post, altHeader, currentUser }) => {
             ) : (
               !isMobile && (
                 <CardHeader
-                  avatar={<ProfileImageAvatar user={sPost?.user} />}
+                  avatar={<ProfileImageAvatar user={singlePost?.user} />}
                   action={
                     <IconButton aria-label='settings'>
                       {!isMobile && <CloseIcon onClick={handleClose} />}
@@ -249,23 +249,27 @@ const SinglePost = ({ post, altHeader, currentUser }) => {
                       <Box clone mr={1}>
                         <Typography variant='body2' component='span'>
                           <NextLink
-                            href={`/x/${sPost?.user?.username}`}
+                            href={`/x/${singlePost?.user?.username}`}
                             passHref
                           >
-                            <Link>{sPost?.user?.fullName || '(no name)'}</Link>
+                            <Link>
+                              {singlePost?.user?.fullName || '(no name)'}
+                            </Link>
                           </NextLink>
                         </Typography>
                       </Box>
                       <Typography variant='caption' color='textSecondary'>
                         {moment(
-                          sPost && sPost.createdAt && sPost.createdAt
+                          singlePost &&
+                            singlePost.createdAt &&
+                            singlePost.createdAt
                         ).fromNow()}
                       </Typography>
                     </>
                   }
                   subheader={
                     <Typography variant='caption' color='textSecondary'>
-                      @{sPost?.user?.username}
+                      @{singlePost?.user?.username}
                     </Typography>
                   }
                 />
@@ -293,8 +297,8 @@ const SinglePost = ({ post, altHeader, currentUser }) => {
                 </p>
               </div>
             )}
-            {sPost &&
-              sPost.postText &&
+            {singlePost &&
+              singlePost.postText &&
               (isMobile ? (
                 <div
                   style={{
@@ -303,7 +307,7 @@ const SinglePost = ({ post, altHeader, currentUser }) => {
                     marginTop: '10px',
                   }}
                 >
-                  <ProfileImageAvatar user={sPost?.user} />
+                  <ProfileImageAvatar user={singlePost?.user} />
                   <CardContent>
                     <Typography
                       variant='body2'
@@ -320,7 +324,7 @@ const SinglePost = ({ post, altHeader, currentUser }) => {
                         marginTop: '-10px',
                       }}
                     >
-                      {sPost.postText.slice(0, 90)}
+                      {singlePost.postText.slice(0, 90)}
                     </Typography>
                   </CardContent>
                 </div>
@@ -339,7 +343,7 @@ const SinglePost = ({ post, altHeader, currentUser }) => {
                       fontSize: '16px',
                     }}
                   >
-                    {sPost.postText.slice(0, 140)}
+                    {singlePost.postText.slice(0, 140)}
                   </Typography>
                 </CardContent>
               ))}
@@ -353,13 +357,15 @@ const SinglePost = ({ post, altHeader, currentUser }) => {
               >
                 <div>
                   <Box>
-                    {sPost && sPost.likes && sPost.likes.length === 0 ? (
+                    {singlePost &&
+                    singlePost.likes &&
+                    singlePost.likes.length === 0 ? (
                       <NormalCaseButton
                         aria-label='add to favorites'
                         startIcon={<img src='/emptyHeart.png' alt='unliked' />}
                         onClick={handleLike}
                       >
-                        {nFormatter(sPost?.totalLikes)}{' '}
+                        {nFormatter(singlePost?.totalLikes)}{' '}
                         <span
                           className={styles.hideOnMobile}
                           style={{ marginLeft: '5px' }}
@@ -373,7 +379,7 @@ const SinglePost = ({ post, altHeader, currentUser }) => {
                         startIcon={<img src='/filled.png' alt='liked' />}
                         onClick={handleLike}
                       >
-                        {nFormatter(sPost?.totalLikes)}{' '}
+                        {nFormatter(singlePost?.totalLikes)}{' '}
                         <span
                           className={styles.hideOnMobile}
                           style={{ marginLeft: '5px' }}
@@ -387,7 +393,7 @@ const SinglePost = ({ post, altHeader, currentUser }) => {
                       aria-label='share'
                       startIcon={<img src='/comment.png' alt='comment' />}
                     >
-                      {nFormatter(sPost?.totalComments)}{' '}
+                      {nFormatter(singlePost?.totalComments)}{' '}
                       <span
                         className={styles.hideOnMobile}
                         style={{ marginLeft: '5px' }}
@@ -398,7 +404,7 @@ const SinglePost = ({ post, altHeader, currentUser }) => {
                     </NormalCaseButton>
                     {
                       <span aria-label='tip'>
-                        {sPost?.media.length === 0 ? (
+                        {singlePost?.media.length === 0 ? (
                           <>
                             <MonetizationOnOutlinedIcon
                               style={{ marginRight: '5px', marginLeft: '5px' }}
@@ -413,13 +419,13 @@ const SinglePost = ({ post, altHeader, currentUser }) => {
                         ) : (
                           <>
                             <TipModal
-                              profileImage={sPost?.user?.profileImage}
-                              name={sPost?.user?.fullName}
+                              profileImage={singlePost?.user?.profileImage}
+                              name={singlePost?.user?.fullName}
                               onConfirm={(amount, callback) =>
                                 dispatch(
                                   postData.addTip({
                                     saveData: {
-                                      itemTipped: sPost.id,
+                                      itemTipped: singlePost.id,
                                       itemTippedType: 'post',
                                       amount,
                                     },
@@ -445,7 +451,7 @@ const SinglePost = ({ post, altHeader, currentUser }) => {
                   </Box>
                 </div>
                 <div style={{ marginRight: '6px' }}>
-                  {sPost?.media.length === 0 && (
+                  {singlePost?.media.length === 0 && (
                     <NormalCaseButton
                       aria-label='Buy Post'
                       startIcon={<LocalMallIcon />}
@@ -474,8 +480,8 @@ const SinglePost = ({ post, altHeader, currentUser }) => {
             <div>
               <img src='/border.png' alt='bar' style={{ width: '100%' }} />
 
-              {sPost?.totalComments < 10 ||
-              commLength >= sPost?.totalComments ? (
+              {singlePost?.totalComments < 10 ||
+              commLength >= singlePost?.totalComments ? (
                 ''
               ) : (
                 <p
@@ -512,7 +518,7 @@ const SinglePost = ({ post, altHeader, currentUser }) => {
                 marginLeft: '15px',
               }}
             >
-              {sPost?.comments?.map(
+              {singlePost?.comments?.map(
                 (comm, index) =>
                   comm?.parentCommentId === null && (
                     <div key={`abcdef${index}`}>
@@ -520,7 +526,8 @@ const SinglePost = ({ post, altHeader, currentUser }) => {
                         style={{
                           display: 'flex',
                           justifyContent: 'space-between',
-                          marginTop: sPost?.totalComments < 10 ? '15px' : '',
+                          marginTop:
+                            singlePost?.totalComments < 10 ? '15px' : '',
                         }}
                       >
                         <div
@@ -652,7 +659,7 @@ const SinglePost = ({ post, altHeader, currentUser }) => {
                           <RepliesData
                             comm={comm}
                             post={post}
-                            singlePost={sPost}
+                            singlePost={singlePost}
                             currentUser={currentUser}
                             isReplyField={isReplyField}
                             setisReplyField={setisReplyField}
@@ -676,7 +683,7 @@ const SinglePost = ({ post, altHeader, currentUser }) => {
                   )
               )}
 
-              {sPost?.totalComments > 10 &&
+              {singlePost?.totalComments > 10 &&
                 commentsData?.map(
                   (comm, index) =>
                     comm?.parentCommentId === null && (
@@ -816,7 +823,7 @@ const SinglePost = ({ post, altHeader, currentUser }) => {
                             <RepliesData
                               comm={comm}
                               post={post}
-                              singlePost={sPost}
+                              singlePost={singlePost}
                               currentUser={currentUser}
                               isReplyField={isReplyField}
                               setisReplyField={setisReplyField}
