@@ -27,7 +27,7 @@ const RepliesLists = ({
 
     setissubReplyField({ check: true, id });
   };
-  const sPost = useSelector(singlepostDataSelector);
+  const singlePost = useSelector(singlepostDataSelector);
 
   const handleReplyLike = repId => {
     replyData?.map(re =>
@@ -36,7 +36,7 @@ const RepliesLists = ({
             postData.delCommentLike({
               id: re.id,
               callback: () => {
-                dispatch(postData.requestOne(sPost.id));
+                dispatch(postData.requestOne(singlePost.id));
               },
             })
           )
@@ -45,7 +45,7 @@ const RepliesLists = ({
             postData.saveCommentLike({
               id: re.id,
               callback: () => {
-                dispatch(postData.requestOne(sPost.id));
+                dispatch(postData.requestOne(singlePost.id));
               },
             })
           )
