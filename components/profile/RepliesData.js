@@ -10,6 +10,7 @@ import { Button } from '@material-ui/core';
 import useEmojiPicker from '../useEmojiPicker';
 import RepliesLists from './RepliesLists';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { currentUserSelector } from '../../selectors/authSelector';
 
 const RepliesData = ({
   comm,
@@ -22,11 +23,12 @@ const RepliesData = ({
   setCommentId,
   forCommentId,
   openReply,
-  currUser,
   replyRef,
   checkRefs,
   closeCheck,
 }) => {
+  const currUser = useSelector(currentUserSelector);
+
   const [showMyReply, setShowMyReply] = useState(false);
 
   const dispatch = useDispatch();
