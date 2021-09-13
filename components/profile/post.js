@@ -90,6 +90,7 @@ export default function Post({
   });
   const [notByedModal, setnotBuyedModal] = useState(false);
   const isMobile = useMediaQuery('(max-width: 760px)');
+  const [mediaClicked, setMediaClicked] = useState(false);
 
   function handleFocus() {
     searchInput?.current?.focus();
@@ -120,6 +121,7 @@ export default function Post({
 
   const handleOpen = forReplyId => {
     router.push({ pathname, query: { ...query, postId: post.id } });
+    setMediaClicked(+new Date());
     //
     // dispatch(postData.requestOne(post.id));
     // dispatch(postData.requestReplies(forReplyId, post.id));
@@ -402,6 +404,7 @@ export default function Post({
           profileData={profileData}
           me={me}
           callbackAction={callbackAction}
+          mediaClicked={mediaClicked}
         />
       </Card>
     </>
