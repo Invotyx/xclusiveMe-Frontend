@@ -59,7 +59,6 @@ const CommentModal = ({
   altHeader,
   setOpen,
   open,
-  currentUser,
   forCommentId,
   openReply,
   checkRefs,
@@ -84,7 +83,7 @@ const CommentModal = ({
   const [pageNumber, setPageNumber] = useState(2);
   const { closeEmojiPicker, EmojiPicker, emojiPickerRef } = useEmojiPicker();
   const [commLength, setcommLength] = useState(10);
-  const currUser = useSelector(currentUserSelector);
+  const currentUser = useSelector(currentUserSelector);
   const [closeCheck, setCloseClick] = useState(false);
 
   const addEmoji = e => {
@@ -647,7 +646,7 @@ const CommentModal = ({
                                 comm={comm}
                                 post={singlePost}
                                 singlePost={singlePost}
-                                currUser={currUser}
+                                currUser={currentUser}
                                 isReplyField={isReplyField}
                                 setisReplyField={setisReplyField}
                                 issubReplyField={issubReplyField}
@@ -791,7 +790,7 @@ const CommentModal = ({
                                   comm={comm}
                                   post={singlePost}
                                   singlePost={singlePost}
-                                  currUser={currUser}
+                                  currUser={currentUser}
                                   isReplyField={isReplyField}
                                   setisReplyField={setisReplyField}
                                   issubReplyField={issubReplyField}
