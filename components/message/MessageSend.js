@@ -8,11 +8,19 @@ import ProfileImageAvatar from '../profile/profile-image-avatar';
 import MessageModalMedia from './MessageModalMedia';
 import useAudioSend from './useAudioSend';
 import useEmojiPicker from '../useEmojiPicker';
+import AudioSend from './AudioSend';
 
 export default function MessageSend({ handleSendMessage }) {
   const { closeEmojiPicker, EmojiPicker, emojiPickerRef } = useEmojiPicker();
   const current = useSelector(currentUserSelector);
-  const { AudioSend, isRecording, startRecordingHandler } = useAudioSend({
+  const {
+    progress,
+    startRecordingHandler,
+    isRecording,
+    formatTime,
+    Clear,
+    stopRecording,
+  } = useAudioSend({
     onAudioUploaded: data =>
       handleSendMessage({
         content: '',
@@ -124,7 +132,12 @@ export default function MessageSend({ handleSendMessage }) {
             }
           />
         ) : (
-          <AudioSend />
+          <AudioSend
+            handleClear={Clear}
+            progress={progress}
+            time={formatTime()}
+            handleSend={stopRecording}
+          />
         )}
       </CardActions>
     </>

@@ -2,14 +2,7 @@ import useMediaRecorder from '@wmik/use-media-recorder';
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { snackbar } from '../../actions/snackbar';
-import {
-  IconButton,
-  LinearProgress,
-  Paper,
-  Typography,
-} from '@material-ui/core';
 import moment from 'moment';
-import ClearIcon from '@material-ui/icons/Clear';
 import { chat } from '../../actions/chat';
 
 export default function useAudioSend({ onAudioUploaded }) {
@@ -110,40 +103,12 @@ export default function useAudioSend({ onAudioUploaded }) {
     return `${getMinutes} : ${getSeconds}`;
   };
 
-  function AudioSend({ finishIcon }) {
-    return (
-      <Paper
-        elevation={10}
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          width: '100%',
-          alignItems: 'center',
-        }}
-      >
-        <IconButton onClick={Clear}>
-          <ClearIcon />
-        </IconButton>
-        <LinearProgress
-          style={{ display: 'flex', width: '70%' }}
-          variant='determinate'
-          value={progress}
-        />
-        <Typography style={{ display: 'flex' }}>{formatTime()}</Typography>
-        <IconButton
-          onClickCapture={() => {
-            stopRecording();
-          }}
-        >
-          {finishIcon || <img src='/send.png' alt='send button' />}
-        </IconButton>
-      </Paper>
-    );
-  }
-
   return {
-    AudioSend,
+    progress,
     startRecordingHandler,
     isRecording,
+    formatTime,
+    Clear,
+    stopRecording,
   };
 }

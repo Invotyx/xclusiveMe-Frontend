@@ -32,6 +32,7 @@ import NewPostAudioMenu from './NewPostAudioMenu';
 import ClearIcon from '@material-ui/icons/Clear';
 import LockOpenOutlinedIcon from '@material-ui/icons/LockOpenOutlined';
 import LockIcon from '@material-ui/icons/Lock';
+import AudioSend from '../message/AudioSend';
 
 const useStyles = makeStyles(theme => ({
   alertIcon: {
@@ -73,7 +74,14 @@ const ImageListItemBar = withStyles(() => ({
 }))(MuiImageListItemBar);
 
 export default function NewPostForm({ afterSave }) {
-  const { AudioSend, isRecording, startRecordingHandler } = useAudioSend({
+  const {
+    progress,
+    startRecordingHandler,
+    isRecording,
+    formatTime,
+    Clear,
+    stopRecording,
+  } = useAudioSend({
     onAudioUploaded: audioHandler,
   });
   const dispatch = useDispatch();
@@ -255,7 +263,13 @@ export default function NewPostForm({ afterSave }) {
       </Box>
       {isRecording && (
         <Box mb={3}>
-          <AudioSend finishIcon={<CheckIcon />} />
+          <AudioSend
+            handleClear={Clear}
+            progress={progress}
+            time={formatTime()}
+            handleSend={stopRecording}
+            finishIcon={<CheckIcon />}
+          />
         </Box>
       )}
       <Box mb={3} style={{ display: activeTab === '' ? 'block' : 'none' }}>
