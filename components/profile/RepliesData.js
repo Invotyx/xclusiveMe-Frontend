@@ -3,16 +3,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { post as postData } from '../../actions/post/index';
 import { repliesDataSelector } from '../../selectors/postSelector';
 import ProfileImageAvatar from './profile-image-avatar';
-import styles from './profile.module.css';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import Box from '@material-ui/core/Box';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import { Button } from '@material-ui/core';
-import SendIcon from '@material-ui/icons/Send';
 import useEmojiPicker from '../useEmojiPicker';
-import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
 import RepliesLists from './RepliesLists';
-import { TramOutlined } from '@material-ui/icons';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 const RepliesData = ({
