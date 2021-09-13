@@ -47,9 +47,9 @@ export default function useAudioSend({ onAudioUploaded }) {
   }
 
   function cleanup() {
-      clearInterval(progressInterval);
-      clearInterval(countInterval);
-      setIsRecording(false);
+    clearInterval(progressInterval);
+    clearInterval(countInterval);
+    setIsRecording(false);
   }
 
   useEffect(() => {
