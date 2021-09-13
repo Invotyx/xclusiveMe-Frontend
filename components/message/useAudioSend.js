@@ -33,7 +33,7 @@ export default function useAudioSend({ onAudioUploaded }) {
     setProgressInterval(
       setInterval(() => {
         setProgress(oldProgress => {
-          if (oldProgress === 100) {
+          if (oldProgress > 100) {
             return 0;
           }
           return oldProgress + 0.3;
