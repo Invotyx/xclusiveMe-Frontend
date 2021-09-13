@@ -51,11 +51,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const SinglePost = ({
-  post,
-  altHeader,
-  currentUser,
-}) => {
+const SinglePost = ({ post, altHeader, currentUser }) => {
   const { PostPurchaseModal, openPurchaseModal, setPurchased } =
     usePostPurchaseModal();
   const classes = useStyles();
