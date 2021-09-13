@@ -55,7 +55,6 @@ export default function PostCommentsForm({ post, callbackAction }) {
             onChange={e => setCommentText(e.target.value)}
             name='commentText'
             multiline
-            disabled={post.media.length === 0}
             fullWidth
             onKeyDown={e => {
               if (e.keyCode === 13) {
