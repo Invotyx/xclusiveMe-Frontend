@@ -36,12 +36,6 @@ export default function PostComments({
     setCommentText(commentText + emoji);
   };
 
-  const Links = ({ href, children, ...otherProps }) => (
-    <NextLink href={`${href}`} {...otherProps}>
-      {children}
-    </NextLink>
-  );
-
   const handleAddComment = event => {
     event.preventDefault();
     closeEmojiPicker();
@@ -110,7 +104,7 @@ export default function PostComments({
   return (
     <>
       {post.comments.length >= 3 ? (
-        <Links passHref href={`/singlePost?postId=${post.id}`}>
+        <NextLink passHref href={`/singlePost?postId=${post.id}`}>
           <p
             style={{
               cursor: 'pointer',
@@ -123,7 +117,7 @@ export default function PostComments({
           >
             {post.media.length === 0 ? '' : 'View previous comments'}
           </p>
-        </Links>
+        </NextLink>
       ) : (
         ''
       )}
