@@ -168,45 +168,45 @@ export default function PostCommentsList({
           </div>
 
           {!replies ? (
-          <div onClick={() => setOpenReply(true)}>
-            <p
-              style={{
-                marginLeft: '72px',
-                marginTop: '-10px',
-                marginBottom: '0px',
-                cursor: 'pointer',
-                fontSize: '13px',
-                display: 'flex',
-              }}
-              onClick={() => handleOpen(comm.id)}
-            >
-              {comm.totalReplies === 0 || post.media.length === 0 ? (
-                ''
-              ) : (
-                <div>
-                  <img
-                    src='/lineReply.svg'
-                    alt='line'
-                    style={{
-                      marginBottom: '5px',
-                      marginRight: '3px',
-                    }}
-                  />
-                </div>
-              )}
-              <span
+            <div onClick={() => setOpenReply(true)}>
+              <p
                 style={{
-                  fontSize: '12px',
-                  fontWeight: '500',
-                  marginLeft: '10px',
+                  marginLeft: '72px',
+                  marginTop: '-10px',
+                  marginBottom: '0px',
+                  cursor: 'pointer',
+                  fontSize: '13px',
+                  display: 'flex',
                 }}
+                onClick={() => handleOpen(comm.id)}
               >
-                {comm.totalReplies === 0 || post.media.length === 0
-                  ? ''
-                  : 'VIEW REPLIES'}
-              </span>
-            </p>
-          </div>
+                {comm.totalReplies === 0 || post.media.length === 0 ? (
+                  ''
+                ) : (
+                  <div>
+                    <img
+                      src='/lineReply.svg'
+                      alt='line'
+                      style={{
+                        marginBottom: '5px',
+                        marginRight: '3px',
+                      }}
+                    />
+                  </div>
+                )}
+                <span
+                  style={{
+                    fontSize: '12px',
+                    fontWeight: '500',
+                    marginLeft: '10px',
+                  }}
+                >
+                  {comm.totalReplies === 0 || post.media.length === 0
+                    ? ''
+                    : 'VIEW REPLIES'}
+                </span>
+              </p>
+            </div>
           ) : (
             <div
               style={{
@@ -218,6 +218,8 @@ export default function PostCommentsList({
               }}
             >
               <RepliesData
+                dksjgalksdjgkldsjaglsdkagjl={392683409684309}
+                dksjgalksdjgkldsjaglsdkagjl={392683409684309}
               />
             </div>
           )}
