@@ -79,25 +79,13 @@ export default function MessageSend({ handleSendMessage }) {
           }}
         >
           <MessageModalMedia type='camera' onMediaUploaded={handleSendMessage}>
-            <img
-              src='/camera.svg'
-              className={classes.button}
-              alt='camera'
-            />
+            <img src='/camera.svg' className={classes.button} alt='camera' />
           </MessageModalMedia>
           <MessageModalMedia type='photo' onMediaUploaded={handleSendMessage}>
-            <img
-              src='/imageBtn.svg'
-              className={classes.button}
-              alt='image'
-            />
+            <img src='/imageBtn.svg' className={classes.button} alt='image' />
           </MessageModalMedia>
           <MessageModalMedia type='video' onMediaUploaded={handleSendMessage}>
-            <img
-              src='/videoBtn.svg'
-              className={classes.button}
-              alt='video'
-            />
+            <img src='/videoBtn.svg' className={classes.button} alt='video' />
           </MessageModalMedia>
           <img
             src='/voiceBtn.svg'
