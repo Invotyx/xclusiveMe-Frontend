@@ -26,24 +26,24 @@ export default function useAudioSend({ onAudioUploaded }) {
   const dispatch = useDispatch();
 
   function init() {
-      setIsRecording(true);
-      setSeconds(0);
-      setProgress(0);
-      setProgressInterval(
-        setInterval(() => {
-          setProgress(oldProgress => {
-            if (oldProgress === 100) {
-              return 0;
-            }
-            return oldProgress + 0.3;
-          });
-        }, 300)
-      );
-      setCountInterval(
-        setInterval(() => {
-          setSeconds(seconds => seconds + 1);
-        }, 1000)
-      );
+    setIsRecording(true);
+    setSeconds(0);
+    setProgress(0);
+    setProgressInterval(
+      setInterval(() => {
+        setProgress(oldProgress => {
+          if (oldProgress === 100) {
+            return 0;
+          }
+          return oldProgress + 0.3;
+        });
+      }, 300)
+    );
+    setCountInterval(
+      setInterval(() => {
+        setSeconds(seconds => seconds + 1);
+      }, 1000)
+    );
   }
 
   function cleanup() {
