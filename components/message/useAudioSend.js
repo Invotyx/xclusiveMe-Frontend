@@ -18,7 +18,6 @@ export default function useAudioSend({ onAudioUploaded }) {
     mediaStreamConstraints: { audio: true, video: false },
     onStop,
   });
-  const [send, setSend] = useState(false);
   const [seconds, setSeconds] = useState(0);
   const [progress, setProgress] = useState(0);
   const [countInterval, setCountInterval] = React.useState(null);
@@ -27,7 +26,6 @@ export default function useAudioSend({ onAudioUploaded }) {
   const dispatch = useDispatch();
 
   function init() {
-      // setSend(false);
       setIsRecording(true);
       setSeconds(0);
       setProgress(0);
@@ -133,7 +131,6 @@ export default function useAudioSend({ onAudioUploaded }) {
         <Typography style={{ display: 'flex' }}>{formatTime()}</Typography>
         <IconButton
           onClickCapture={() => {
-            // setSend(true);
             stopRecording();
           }}
         >
