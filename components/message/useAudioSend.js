@@ -46,8 +46,10 @@ export default function useAudioSend({ onAudioUploaded }) {
         }, 1000)
       );
     } else if (status === 'stopped') {
+      clearInterval(progressInterval);
       clearInterval(countInterval);
       setSeconds(0);
+      setIsRecording(false);
     } else if (status === 'failed') {
       dispatch(
         snackbar.update({
@@ -66,9 +68,7 @@ export default function useAudioSend({ onAudioUploaded }) {
   };
 
   const Clear = () => {
-    clearInterval(progressInterval);
     setProgress(0);
-    setIsRecording(false);
     stopRecording();
   };
 
