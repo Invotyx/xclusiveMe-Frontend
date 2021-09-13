@@ -15,7 +15,7 @@ import { useRouter } from 'next/router';
 import { singlepostDataSelector } from '../../selectors/postSelector';
 import CommentModal from '../profile/commentModel';
 import ProfileImageAvatar from '../profile/profile-image-avatar';
-import { useMediaQuery } from 'react-responsive';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { ListItem } from '@material-ui/core';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 
@@ -47,7 +47,7 @@ export default function Notification({
   const [open, setOpen] = useState(false);
   const singlePost = useSelector(singlepostDataSelector);
   const router = useRouter();
-  const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
+  const isMobile = useMediaQuery('(max-width: 760px)');
   const chckday = ['Today', 'Older'];
 
   const readNotification = (notifyId, modalId, type, user) => {

@@ -6,7 +6,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import { useSelector } from 'react-redux';
-import { useMediaQuery } from 'react-responsive';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import TextField from '@material-ui/core/TextField';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { fetchingSelector } from '../../selectors/postSelector';
@@ -29,12 +29,10 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const useReportModal = ({
-  onConfirm,
-}) => {
+const useReportModal = ({ onConfirm }) => {
   const [openReportModal, setreportModal] = React.useState(false);
   const classes = useStyles();
-  const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
+  const isMobile = useMediaQuery('(max-width: 760px)');
   const priceFieldRef = useRef();
   const fetchData = useSelector(fetchingSelector);
 

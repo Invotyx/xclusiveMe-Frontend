@@ -7,7 +7,7 @@ import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import { paymentMethodDataSelector } from '../../selectors/paymentMethodSelector';
 import { useSelector } from 'react-redux';
-import { useMediaQuery } from 'react-responsive';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import ShareIcon from '@material-ui/icons/Share';
 import styles from './profile.module.css';
 import { fetchingSelector } from '../../selectors/postSelector';
@@ -39,7 +39,7 @@ const usePostPurchaseModal = () => {
   const classes = useStyles();
   const [purchased, setPurchased] = useState(false);
   const paymentData = useSelector(paymentMethodDataSelector);
-  const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
+  const isMobile = useMediaQuery('(max-width: 760px)');
   const fetchData = useSelector(fetchingSelector);
 
   const handleClose = () => {

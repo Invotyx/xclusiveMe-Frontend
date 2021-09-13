@@ -14,7 +14,7 @@ import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
 import { totalrepliesSelector } from '../../selectors/postSelector';
 import RepliesLists from './RepliesLists';
 import { TramOutlined } from '@material-ui/icons';
-import { useMediaQuery } from 'react-responsive';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 const RepliesData = ({
   comm,
@@ -36,7 +36,7 @@ const RepliesData = ({
 
   const dispatch = useDispatch();
   const replyData = useSelector(repliesDataSelector);
-  const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
+  const isMobile = useMediaQuery('(max-width: 760px)');
   const [replyText, setReplyText] = useState('');
   const { closeEmojiPicker, EmojiPicker, emojiPickerRef } = useEmojiPicker();
   const totalRepliesCount = useSelector(totalrepliesSelector);

@@ -11,7 +11,7 @@ import { paymentMethod } from '../../actions/payment-method';
 import { paymentMethodDataSelector } from '../../selectors/paymentMethodSelector';
 import { fetchingSelector } from '../../selectors/postSelector';
 import { useDispatch, useSelector } from 'react-redux';
-import { useMediaQuery } from 'react-responsive';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import styles from './profile.module.css';
 import TextField from '@material-ui/core/TextField';
 import ProfileImageAvatar from './profile-image-avatar';
@@ -46,7 +46,7 @@ const TipModal = ({
   const [purchased, setPurchased] = useState(false);
   const paymentData = useSelector(paymentMethodDataSelector);
   const fetching = useSelector(fetchingSelector);
-  const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
+  const isMobile = useMediaQuery('(max-width: 760px)');
   const [addPrice, setAddPrice] = useState('');
   const priceFieldRef = useRef();
 

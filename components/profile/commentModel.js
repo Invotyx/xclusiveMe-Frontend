@@ -24,7 +24,7 @@ import styles from './profile.module.css';
 import RepliesData from './RepliesData';
 import LocalMallIcon from '@material-ui/icons/LocalMall';
 import usePostPurchaseModal from './PostPurchaseModel';
-import { useMediaQuery } from 'react-responsive';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { getCommentsDataSelector } from '../../selectors/postSelector';
 import TipModal from './TipModal';
 import { fetchingSelector } from '../../selectors/postSelector';
@@ -89,7 +89,7 @@ const CommentModal = ({
   const [showReply, setShowReply] = useState({ idx: '', replyCheck: false });
   var [commentsData, setCommentsData] = useState([]);
   const dispatch = useDispatch();
-  const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
+  const isMobile = useMediaQuery('(max-width: 760px)');
   const [pageNumber, setPageNumber] = useState(2);
   const fetchData = useSelector(fetchingSelector);
   const { closeEmojiPicker, EmojiPicker, emojiPickerRef } = useEmojiPicker();

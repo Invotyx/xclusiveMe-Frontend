@@ -7,7 +7,7 @@ import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { useMediaQuery } from 'react-responsive';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import ShareIcon from '@material-ui/icons/Share';
 import TextField from '@material-ui/core/TextField';
 import { chat as chatData } from '../../actions/chat';
@@ -38,7 +38,7 @@ const MessageModal = ({
   const classes = useStyles();
   const dispatch = useDispatch();
   const [purchased, setPurchased] = useState(false);
-  const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
+  const isMobile = useMediaQuery('(max-width: 760px)');
   const [postText, set_postText] = useState('');
   const pageNum = 1;
   const limit = 10;

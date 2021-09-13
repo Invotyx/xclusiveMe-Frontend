@@ -13,7 +13,7 @@ import { post } from '../actions/post';
 import { subscribedSelector } from '../selectors/postSelector';
 import Box from '@material-ui/core/Box';
 import NothingHere from '../components/profile/nothing-here';
-import { useMediaQuery } from 'react-responsive';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { fetchingSelector } from '../selectors/postSelector';
 
@@ -27,7 +27,7 @@ export default function Home() {
   const classes = useStyles();
   const dispatch = useDispatch();
   const posts = useSelector(subscribedSelector);
-  const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
+  const isMobile = useMediaQuery('(max-width: 760px)');
   const fetching = useSelector(fetchingSelector);
 
   useEffect(() => {

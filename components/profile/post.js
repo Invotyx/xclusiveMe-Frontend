@@ -26,7 +26,7 @@ import TipModal from './TipModal';
 import { fetchingSelector } from '../../selectors/postSelector';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import NotBuyedModal from './NotBuyedModel';
-import { useMediaQuery } from 'react-responsive';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import ManuButton from '../../components/menuButton';
 import ShowMoreText from 'react-show-more-text';
 import PostComments from './postCommenst';
@@ -90,7 +90,7 @@ export default function Post({
   });
   const fetchData = useSelector(fetchingSelector);
   const [notByedModal, setnotBuyedModal] = useState(false);
-  const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
+  const isMobile = useMediaQuery('(max-width: 760px)');
   const [mediaClicked, setMediaClicked] = useState(false);
 
   function handleFocus() {

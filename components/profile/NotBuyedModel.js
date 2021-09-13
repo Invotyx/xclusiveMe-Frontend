@@ -8,7 +8,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { paymentMethod } from '../../actions/payment-method';
 import { paymentMethodDataSelector } from '../../selectors/paymentMethodSelector';
 import { useDispatch, useSelector } from 'react-redux';
-import { useMediaQuery } from 'react-responsive';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import ShareIcon from '@material-ui/icons/Share';
 import styles from './profile.module.css';
 import TextField from '@material-ui/core/TextField';
@@ -32,7 +32,7 @@ const useStyles = makeStyles(theme => ({
 
 const NotBuyedModal = ({ notByedModal, setnotBuyedModal, post }) => {
   const classes = useStyles();
-  const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
+  const isMobile = useMediaQuery('(max-width: 760px)');
   const handleClose = () => {
     setnotBuyedModal(false);
   };
