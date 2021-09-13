@@ -162,7 +162,7 @@ export default function Post({
                     dispatch(
                       postData.postReport({
                         reportData: {
-                          itemId: post?.id,
+                          itemId: post.id,
                           reason,
                         },
                         callback: () => {
