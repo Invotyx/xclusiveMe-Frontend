@@ -99,7 +99,9 @@ export default function PostCommentsArea({
     setOpen(true);
   };
 
-  const handleNotOpenn = () => {};
+  const handleNotOpenn = () => {
+    return false;
+  };
 
   return (
     <>
