@@ -30,6 +30,7 @@ import PostCommentsArea from './PostCommentsArea';
 import usePostPurchaseModal from './PostPurchaseModel';
 import { useInView } from 'react-intersection-observer';
 import { currencySymbol } from '../../services/currencySymbol';
+import { useRouter } from 'next/dist/client/router';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -74,6 +75,8 @@ export default function Post({
       console.log('out');
     }
   }, [inView]);
+  const router = useRouter();
+  const { pathname, query } = router;
   const { PostPurchaseModal, openPurchaseModal, setPurchased } =
     usePostPurchaseModal();
   const classes = useStyles();
@@ -117,6 +120,7 @@ export default function Post({
   };
 
   const handleOpen = forReplyId => {
+    router.push({ pathname, query: { ...query, postId: post.id } });
     setMediaClicked(+new Date());
     //
     // dispatch(postData.requestOne(post.id));
