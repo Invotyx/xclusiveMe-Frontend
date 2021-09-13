@@ -66,8 +66,7 @@ export default function useAudioSend({ onAudioUploaded }) {
           severity: 'error',
         })
       );
-      setProgress(0);
-      setIsRecording(false);
+      cleanup();
     }
   }, [status]);
 
