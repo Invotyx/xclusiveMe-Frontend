@@ -127,8 +127,8 @@ export default function useAudioSend({ onAudioUploaded }) {
         <Typography style={{ display: 'flex' }}>{formatTime()}</Typography>
         <IconButton
           onClickCapture={() => {
-            stopRecording();
             setSend(true);
+            stopRecording();
           }}
         >
           {finishIcon || <img src='/send.png' alt='send button' />}
