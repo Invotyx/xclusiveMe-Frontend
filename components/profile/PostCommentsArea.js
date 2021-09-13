@@ -17,7 +17,6 @@ export default function PostCommentsArea({
   post,
   profileData,
   callbackAction,
-  mediaClicked,
 }) {
   const router = useRouter();
   const { postId } = router.query;
@@ -85,10 +84,6 @@ export default function PostCommentsArea({
           )
     );
   };
-
-  useEffect(() => {
-    mediaClicked && (dispatch(postData.requestOne(post.id)), setOpen(true));
-  }, [mediaClicked]);
 
   useEffect(() => {
     // setOpen(Boolean(postId));
