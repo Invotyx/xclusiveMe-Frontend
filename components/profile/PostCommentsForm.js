@@ -85,7 +85,6 @@ export default function PostCommentsForm({ post, callbackAction }) {
                   style={{
                     backgroundColor: '#111111',
                     border: 'none',
-                    marginRight: '-20px',
                   }}
                 >
                   <img
