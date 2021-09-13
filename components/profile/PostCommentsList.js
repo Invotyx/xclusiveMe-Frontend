@@ -141,11 +141,7 @@ export default function PostCommentsList({
                     cursor: 'pointer',
                     marginRight: '7px',
                   }}
-                  onClick={() =>
-                    handleCommentLike(
-                      post.media.length === 0 ? handleNotOpenn : comm.id
-                    )
-                  }
+                  onClick={() => handleCommentLike(comm.id)}
                 />
               ) : (
                 <img
@@ -157,11 +153,7 @@ export default function PostCommentsList({
                     cursor: 'pointer',
                     marginRight: '7px',
                   }}
-                  onClick={() =>
-                    handleCommentLike(
-                      post.media.length === 0 ? handleNotOpenn : comm.id
-                    )
-                  }
+                  onClick={() => handleCommentLike(comm.id)}
                 />
               )}
             </div>
