@@ -13,11 +13,12 @@ import ClearIcon from '@material-ui/icons/Clear';
 import { chat } from '../../actions/chat';
 
 export default function useAudioSend({ onAudioUploaded }) {
-  let { status, mediaBlob, stopRecording, startRecording, pauseRecording } = useMediaRecorder({
-    recordScreen: false,
-    mediaStreamConstraints: { audio: true, video: false },
-    onStop,
-  });
+  let { status, mediaBlob, stopRecording, startRecording, pauseRecording } =
+    useMediaRecorder({
+      recordScreen: false,
+      mediaStreamConstraints: { audio: true, video: false },
+      onStop,
+    });
   const [seconds, setSeconds] = useState(0);
   const [progress, setProgress] = useState(0);
   const [countInterval, setCountInterval] = React.useState(null);
