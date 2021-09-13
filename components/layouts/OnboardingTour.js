@@ -1,7 +1,6 @@
 import Joyride from 'react-joyride';
 import React from 'react';
 import { useRouter } from 'next/router';
-import { useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import SetupAccountDialog from './SetupAccountDialog';
 
@@ -61,8 +60,7 @@ export default function OnboardingTour() {
   const setupAccountDialogButton = React.useRef();
   const router = useRouter();
   const { pathname } = router;
-  const theme = useTheme();
-  const isMediumAndUp = useMediaQuery(theme.breakpoints.up('md'));
+  const isMediumAndUp = useMediaQuery(theme => theme.breakpoints.up('md'));
   const [startTour, setStartTour] = React.useState(false);
   const [startTourSkipped, setStartTourSkipped] = React.useState(false);
   React.useEffect(() => {

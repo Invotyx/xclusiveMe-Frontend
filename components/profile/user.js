@@ -41,7 +41,6 @@ import Videos from './videos';
 import NormalCaseButton from '../NormalCaseButton';
 import NothingHere from './nothing-here';
 import { SubscribeUser } from './subscribe-button';
-import { useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import ChatIcon from '@material-ui/icons/Chat';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -110,8 +109,7 @@ export default function Profile({
   const [openFollowers, setOpenFollowers] = React.useState(false);
   const [openFollowing, setOpenFollowing] = React.useState(false);
   const classes = useStyles();
-  const theme = useTheme();
-  const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
+  const isSmall = useMediaQuery(theme => theme.breakpoints.down('sm'));
   const verySmall = useMediaQuery('(max-width:350px)');
   const veryVerySmall = useMediaQuery('(max-width:310px)');
   const fetchData = useSelector(fetchingSelector);

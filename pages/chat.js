@@ -24,7 +24,6 @@ import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
-import { useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import io from 'socket.io-client';
 import { snackbar } from '../actions/snackbar';
@@ -49,8 +48,7 @@ const useStyles = makeStyles(theme => ({
 const Chat = () => {
   const dispatch = useDispatch();
   const [socketIo, setSocketIo] = useState(null);
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isMobile = useMediaQuery(theme => theme.breakpoints.down('sm'));
   const activeConversationId = useSelector(activeConversationIdSelector);
   const [activeParticipant, setActiveParticipant] = React.useState(null);
   const [lastMessageReceived, setLastMessageReceived] = React.useState(null);
