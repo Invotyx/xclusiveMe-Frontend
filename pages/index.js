@@ -5,8 +5,26 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import LayoutGuest from '../components/layouts/layout-guest';
+import { currentUserSelector } from '../selectors/authSelector';
+import { useDispatch, useSelector } from 'react-redux';
+import { useRouter } from 'next/router';
+import React from 'react';
+import { auth } from '../actions/auth';
 
 export default function Home() {
+  const me = useSelector(currentUserSelector);
+  const router = useRouter();
+  const dispatch = useDispatch();
+  React.useEffect(() => {
+    const token = localStorage.getItem('jwtToken');
+    token && dispatch(auth.me());
+  }, []);
+  React.useEffect(() => {
+    if (Boolean(me)) {
+      router.push('/explore');
+    }
+  }, [me]);
+
   return (
     <LayoutGuest>
       <Head>
