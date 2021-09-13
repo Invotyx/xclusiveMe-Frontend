@@ -13,7 +13,6 @@ import { totalrepliesSelector } from '../../selectors/postSelector';
 import CommentModal from './commentModel';
 import { Button } from '@material-ui/core';
 import useEmojiPicker from '../useEmojiPicker';
-import queryString from 'query-string';
 
 export default function PostComments({
   post,
@@ -42,9 +41,9 @@ export default function PostComments({
     setCommentText(commentText + emoji);
   };
 
-  const Links = ({ passQueryString, href, children, ...otherProps }) => (
+  const Links = ({  href, children, ...otherProps }) => (
     <NextLink
-      href={`${href}?${queryString.stringify(passQueryString)}`}
+      href={`${href}`}
       {...otherProps}
     >
       {children}
@@ -121,10 +120,7 @@ export default function PostComments({
       {post.comments.length >= 3 ? (
         <Links
           passHref
-          href='/singlePost'
-          passQueryString={{
-            postId: `${post.id}`,
-          }}
+          href=`/singlePost?postId=${post.id}`
         >
           <p
             style={{
