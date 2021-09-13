@@ -15,7 +15,6 @@ import { useRouter } from 'next/router';
 
 export default function PostCommentsArea({
   post,
-  profileData,
   callbackAction,
   mediaClicked,
 }) {
@@ -134,7 +133,7 @@ export default function PostCommentsArea({
       )}
 
       <CommentModal
-        profileData={profileData}
+        profileData={post.user}
         open={open}
         setOpen={setOpen}
         forCommentId={forCommentId}
