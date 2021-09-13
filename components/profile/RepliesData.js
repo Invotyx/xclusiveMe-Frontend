@@ -11,7 +11,6 @@ import { Button } from '@material-ui/core';
 import SendIcon from '@material-ui/icons/Send';
 import useEmojiPicker from '../useEmojiPicker';
 import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
-import { totalrepliesSelector } from '../../selectors/postSelector';
 import RepliesLists from './RepliesLists';
 import { TramOutlined } from '@material-ui/icons';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
@@ -39,7 +38,6 @@ const RepliesData = ({
   const isMobile = useMediaQuery('(max-width: 760px)');
   const [replyText, setReplyText] = useState('');
   const { closeEmojiPicker, EmojiPicker, emojiPickerRef } = useEmojiPicker();
-  const totalRepliesCount = useSelector(totalrepliesSelector);
   const [pageNumber, setPageNumber] = useState(2);
   const [commLength, setcommLength] = useState(3);
   var [commentsData, setCommentsData] = useState([]);

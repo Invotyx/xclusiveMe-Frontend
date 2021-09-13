@@ -65,7 +65,6 @@ const SinglePost = ({
 
   setOpen,
   open,
-  replyCount,
   currentUser,
 
   openReply,
