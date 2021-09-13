@@ -13,7 +13,7 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 const RepliesData = ({
   comm,
-  singlePost,
+  post,
   isReplyField,
   setisReplyField,
   issubReplyField,
@@ -70,7 +70,7 @@ const RepliesData = ({
     setChekId(commId);
     dispatch(
       postData.requestReplies({
-        postId: singlePost.id,
+        postId: post.id,
         parentCommentId: commId,
         page: 1,
         limit: 3,
@@ -89,7 +89,7 @@ const RepliesData = ({
       setChekId(forCommentId),
       dispatch(
         postData.requestReplies({
-          postId: singlePost.id,
+          postId: post.id,
           parentCommentId: forCommentId,
           page: 1,
           limit: 3,
@@ -103,7 +103,7 @@ const RepliesData = ({
     setcommLength(commLength + 3);
     dispatch(
       postData.requestReplies({
-        postId: singlePost.id,
+        postId: post.id,
         parentCommentId: commId,
         page: pageNumber,
         limit: 3,
@@ -136,7 +136,7 @@ const RepliesData = ({
     }
     dispatch(
       postData.saveComment({
-        id: singlePost?.id,
+        id: post?.id,
         commentText: {
           comment: replyText,
           isReply: true,
@@ -147,7 +147,7 @@ const RepliesData = ({
           setReplyText('');
           setisReplyField(false);
           setissubReplyField(false);
-          dispatch(postData.requestOne(singlePost.id));
+          dispatch(postData.requestOne(post.id));
 
           // postData.getComment({
           //   id: post.id,
