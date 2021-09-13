@@ -11,6 +11,7 @@ import { currentUserSelector } from '../../selectors/authSelector';
 import CommentModal from './commentModel';
 import { Button } from '@material-ui/core';
 import useEmojiPicker from '../useEmojiPicker';
+import { useRouter } from 'next/router';
 
 export default function PostCommentsArea({
   post,
@@ -18,6 +19,8 @@ export default function PostCommentsArea({
   callbackAction,
   mediaClicked,
 }) {
+  const router = useRouter();
+  const { postId } = router.query;
   const [commentText, setCommentText] = useState('');
   const [forCommentId, setForCommentId] = useState(null);
   const [open, setOpen] = useState(false);
@@ -86,6 +89,12 @@ export default function PostCommentsArea({
   useEffect(() => {
     mediaClicked && (dispatch(postData.requestOne(post.id)), setOpen(true));
   }, [mediaClicked]);
+
+  useEffect(() => {
+    // setOpen(Boolean(postId));
+    // postId && dispatch(postData.requestOne(post.id));
+    console.log(postId);
+  }, [postId]);
 
   const handleOpen = forReplyId => {
     //
