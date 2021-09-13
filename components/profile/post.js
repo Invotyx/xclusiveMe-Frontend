@@ -26,7 +26,7 @@ import NotBuyedModal from './NotBuyedModel';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import ManuButton from '../../components/menuButton';
 import ShowMoreText from 'react-show-more-text';
-import PostComments from './postCommenst';
+import PostCommentsArea from './PostCommentsArea';
 import usePostPurchaseModal from './PostPurchaseModel';
 import { useInView } from 'react-intersection-observer';
 import { currencySymbol } from '../../services/currencySymbol';
@@ -395,7 +395,7 @@ export default function Post({
           </NormalCaseButton>
         )}
 
-        <PostComments
+        <PostCommentsArea
           post={post}
           profileData={profileData}
           me={me}

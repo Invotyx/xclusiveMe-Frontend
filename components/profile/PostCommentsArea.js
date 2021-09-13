@@ -12,7 +12,7 @@ import CommentModal from './commentModel';
 import { Button } from '@material-ui/core';
 import useEmojiPicker from '../useEmojiPicker';
 
-export default function PostComments({
+export default function PostCommentsArea({
   post,
   profileData,
   callbackAction,
