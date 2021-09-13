@@ -3,7 +3,6 @@ import { useState, useRef, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { post as postData } from '../../actions/post/index';
 import CommentModal from './commentModel';
-import useEmojiPicker from '../useEmojiPicker';
 import { useRouter } from 'next/router';
 import PostCommentsList from './PostCommentsList';
 import PostCommentsForm from './PostCommentsForm';
