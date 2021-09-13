@@ -30,7 +30,7 @@ import PostCommentsArea from './PostCommentsArea';
 import usePostPurchaseModal from './PostPurchaseModel';
 import { useInView } from 'react-intersection-observer';
 import { currencySymbol } from '../../services/currencySymbol';
-import { useRouter } from 'next/dist/client/router';
+import { useRouter } from 'next/router';
 
 const useStyles = makeStyles(theme => ({
   root: {
