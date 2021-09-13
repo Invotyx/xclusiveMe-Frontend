@@ -83,7 +83,7 @@ export default function Post({
   const dispatch = useDispatch();
   const currentUser = useSelector(currentUserSelector);
   const searchInput = useRef(null);
-  const { ReportModal, setreportModal } = useReportModal({
+  const { ReportModal } = useReportModal({
     onConfirm: () => {
       //
     },
