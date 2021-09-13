@@ -98,9 +98,11 @@ export async function verifyForgotPasswordToken(token, email) {
 }
 
 export async function logout() {
+  const response = await apiClient.post(`${SERVER_ADDRESS}/auth/logout`);
   localStorage.removeItem('jwtToken');
   localStorage.removeItem('refreshToken');
-  return apiClient.post(`${SERVER_ADDRESS}/auth/logout`);
+
+  return response;
 }
 
 export async function changePassword(currentPassword, newPassword) {
