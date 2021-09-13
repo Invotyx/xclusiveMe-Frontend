@@ -74,14 +74,14 @@ export default function useAudioSend({ onAudioUploaded }) {
 
   function onStop(audioData) {
     if (send) {
-    const date = moment();
-    date.format('YYYY-MM-DD');
+      const date = moment();
+      date.format('YYYY-MM-DD');
 
-    const audioFile = new File([audioData], `abc.wav`, {
-      type: 'audio/wav',
-      lastModified: date,
-    });
-    voiceMailSend([audioFile]);
+      const audioFile = new File([audioData], `abc.wav`, {
+        type: 'audio/wav',
+        lastModified: date,
+      });
+      voiceMailSend([audioFile]);
     }
   }
 
