@@ -13,7 +13,7 @@ import ClearIcon from '@material-ui/icons/Clear';
 import { chat } from '../../actions/chat';
 
 export default function useAudioSend({ onAudioUploaded }) {
-  let { status, mediaBlob, stopRecording, startRecording } = useMediaRecorder({
+  let { status, mediaBlob, stopRecording, startRecording, pauseRecording } = useMediaRecorder({
     recordScreen: false,
     mediaStreamConstraints: { audio: true, video: false },
     onStop,
@@ -75,7 +75,7 @@ export default function useAudioSend({ onAudioUploaded }) {
   };
 
   const Clear = () => {
-    stopRecording();
+    pauseRecording();
   };
 
   function onStop(audioData) {
