@@ -1,7 +1,10 @@
 import React from 'react';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import styles from './profile.module.css';
-import { repliesDataSelector } from '../../selectors/postSelector';
+import {
+  repliesDataSelector,
+  singlepostDataSelector,
+} from '../../selectors/postSelector';
 import { useDispatch, useSelector } from 'react-redux';
 import { post as postData } from '../../actions/post/index';
 
@@ -24,6 +27,7 @@ const RepliesLists = ({
 
     setissubReplyField({ check: true, id });
   };
+  const sPost = useSelector(singlepostDataSelector);
 
   const handleReplyLike = repId => {
     replyData?.map(re =>
