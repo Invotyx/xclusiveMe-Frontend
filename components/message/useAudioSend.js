@@ -76,6 +76,7 @@ export default function useAudioSend({ onAudioUploaded }) {
 
   const Clear = () => {
     pauseRecording();
+    cleanup();
   };
 
   function onStop(audioData) {
