@@ -245,7 +245,6 @@ export default function Notification({
         profileData={profileData}
         open={open}
         setOpen={setOpen}
-        currentUser={currentUser}
       />
     </>
   );
