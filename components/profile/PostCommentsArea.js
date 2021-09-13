@@ -18,7 +18,7 @@ export default function PostCommentsArea({
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   const [openReply, setOpenReply] = useState(false);
-  const searchInput = useRef(null);
+  const searchInputRef = useRef(null);
   const [checkRefs, setCheckRefs] = useState(false);
 
   useEffect(() => {
@@ -37,7 +37,7 @@ export default function PostCommentsArea({
     // dispatch(postData.requestReplies(forReplyId, post.id));
 
     setForCommentId(forReplyId);
-    searchInput.current?.focus();
+    searchInputRef.current?.focus();
     setCheckRefs(true);
     // setOpenReply(true);
     setOpen(true);
@@ -84,7 +84,7 @@ export default function PostCommentsArea({
       <PostCommentsForm
         post={post}
         callbackAction={callbackAction}
-        searchInput={searchInput}
+        searchInputRef={searchInputRef}
       />
     </>
   );

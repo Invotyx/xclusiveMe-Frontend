@@ -11,7 +11,7 @@ import useEmojiPicker from '../useEmojiPicker';
 export default function PostCommentsForm({
   post,
   callbackAction,
-  searchInput,
+  searchInputRef,
 }) {
   const dispatch = useDispatch();
   const currentUser = useSelector(currentUserSelector);
@@ -66,7 +66,7 @@ export default function PostCommentsForm({
                 }
               }
             }}
-            inputRef={searchInput}
+            inputRef={searchInputRef}
             placeholder='Add a comment'
             startAdornment={
               <ProfileImageAvatar
