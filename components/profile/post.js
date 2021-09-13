@@ -117,7 +117,7 @@ export default function Post({
   };
 
   const handleOpen = forReplyId => {
-    setMediaClicked(true);
+    setMediaClicked(+new Date());
     //
     // dispatch(postData.requestOne(post.id));
     // dispatch(postData.requestReplies(forReplyId, post.id));
