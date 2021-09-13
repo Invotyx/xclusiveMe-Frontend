@@ -41,11 +41,8 @@ export default function PostComments({
     setCommentText(commentText + emoji);
   };
 
-  const Links = ({  href, children, ...otherProps }) => (
-    <NextLink
-      href={`${href}`}
-      {...otherProps}
-    >
+  const Links = ({ href, children, ...otherProps }) => (
+    <NextLink href={`${href}`} {...otherProps}>
       {children}
     </NextLink>
   );
@@ -118,10 +115,7 @@ export default function PostComments({
   return (
     <>
       {post.comments.length >= 3 ? (
-        <Links
-          passHref
-          href={`/singlePost?postId=${post.id}`}
-        >
+        <Links passHref href={`/singlePost?postId=${post.id}`}>
           <p
             style={{
               cursor: 'pointer',
