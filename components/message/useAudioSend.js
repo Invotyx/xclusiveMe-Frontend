@@ -26,8 +26,7 @@ export default function useAudioSend({ onAudioUploaded }) {
   const [isRecording, setIsRecording] = useState(false);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (status === 'recording') {
+  function init() {
       // setSend(false);
       setIsRecording(true);
       setSeconds(0);
@@ -47,10 +46,19 @@ export default function useAudioSend({ onAudioUploaded }) {
           setSeconds(seconds => seconds + 1);
         }, 1000)
       );
-    } else if (status === 'stopped') {
+  }
+
+  function cleanup() {
       clearInterval(progressInterval);
       clearInterval(countInterval);
       setIsRecording(false);
+  }
+
+  useEffect(() => {
+    if (status === 'recording') {
+      init();
+    } else if (status === 'stopped') {
+      cleanup();
     } else if (status === 'failed') {
       dispatch(
         snackbar.update({
