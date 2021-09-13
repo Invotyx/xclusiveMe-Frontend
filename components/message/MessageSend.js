@@ -17,6 +17,10 @@ const useStyles = makeStyles(() => ({
     height: '20px',
     marginRight: '2rem',
     cursor: 'pointer',
+    '&:hover': {
+      borderRadius: '50%',
+      backgroundColor: '#333',
+    },
   },
 }));
 
