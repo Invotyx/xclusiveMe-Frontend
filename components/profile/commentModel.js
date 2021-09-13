@@ -604,7 +604,6 @@ const CommentModal = ({
                               <RepliesData
                                 comm={comm}
                                 post={singlePost}
-                                singlePost={singlePost}
                                 currUser={currentUser}
                                 isReplyField={isReplyField}
                                 setisReplyField={setisReplyField}
