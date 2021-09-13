@@ -86,7 +86,6 @@ export default function useAudioSend({ onAudioUploaded }) {
   }
 
   const voiceMailSend = audioFile => {
-    clearInterval(progressInterval);
     dispatch(
       chat.sendVoicemail({
         audioFile,
