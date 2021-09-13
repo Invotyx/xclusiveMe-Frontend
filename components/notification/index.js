@@ -241,11 +241,7 @@ export default function Notification({
           No Data Found
         </p>
       )}
-      <CommentModal
-        profileData={profileData}
-        open={open}
-        setOpen={setOpen}
-      />
+      <CommentModal profileData={profileData} open={open} setOpen={setOpen} />
     </>
   );
 }
