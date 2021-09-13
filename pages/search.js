@@ -75,7 +75,7 @@ export default function Home() {
                   <OutlinedInput
                     autoFocus
                     fullWidth
-                    placeholder='Search…'
+                    placeholder='Search Username…'
                     startAdornment={<SearchIcon />}
                     value={_search}
                     onChange={e => {
