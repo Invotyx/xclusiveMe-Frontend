@@ -11,7 +11,7 @@ import moment from 'moment';
 import ProfileImageAvatar from '../components/profile/profile-image-avatar';
 import NormalCaseButton from '../components/NormalCaseButton';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
-import { createRef, useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { post as postData } from '../actions/post';
 import CloseIcon from '@material-ui/icons/Close';
