@@ -115,8 +115,8 @@ const CommentModal = ({
 
   const handleModalCommentLike = cId => {
     //
-    sPos.comments &&
-      sPos.comments.map(comm =>
+    singlePost.comments &&
+      singlePost.comments.map(comm =>
         comm.likes && comm.likes.length === 0 && comm.id === cId
           ? dispatch(
               postData.saveCommentLike({
