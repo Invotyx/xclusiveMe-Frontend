@@ -105,8 +105,8 @@ export default function useAudioSend({ onAudioUploaded }) {
     return `${getMinutes} : ${getSeconds}`;
   };
 
-  return {
-    AudioSend: ({ finishIcon }) => (
+  function AudioSend({ finishIcon }) {
+    return (
       <Paper
         elevation={10}
         style={{
@@ -134,7 +134,11 @@ export default function useAudioSend({ onAudioUploaded }) {
           {finishIcon || <img src='/send.png' alt='send button' />}
         </IconButton>
       </Paper>
-    ),
+    );
+  }
+
+  return {
+    AudioSend,
     startRecordingHandler,
     isRecording,
   };
