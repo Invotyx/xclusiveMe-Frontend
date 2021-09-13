@@ -8,7 +8,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import moment from 'moment';
 import ProfileImageAvatar from './profile-image-avatar';
 import NormalCaseButton from '../NormalCaseButton';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { post as postData } from '../../actions/post/index';
@@ -17,7 +16,7 @@ import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import CloseIcon from '@material-ui/icons/Close';
 import { singlepostDataSelector } from '../../selectors/postSelector';
-import { Button, IconButton } from '@material-ui/core';
+import { IconButton } from '@material-ui/core';
 import SinglePostMedia from './SinglePostMedia';
 import styles from './profile.module.css';
 import RepliesData from './RepliesData';
@@ -26,10 +25,10 @@ import usePostPurchaseModal from './PostPurchaseModel';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { getCommentsDataSelector } from '../../selectors/postSelector';
 import TipModal from './TipModal';
-import useEmojiPicker from '../useEmojiPicker';
 import { currentUserSelector } from '../../selectors/authSelector';
 import MonetizationOnOutlinedIcon from '@material-ui/icons/MonetizationOnOutlined';
 import { nFormatter } from '../../services/nFormatter';
+import PostCommentsForm from './PostCommentsForm';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -82,18 +81,9 @@ const CommentModal = ({
   const dispatch = useDispatch();
   const isMobile = useMediaQuery('(max-width: 760px)');
   const [pageNumber, setPageNumber] = useState(2);
-  const { closeEmojiPicker, EmojiPicker, emojiPickerRef } = useEmojiPicker();
   const [commLength, setcommLength] = useState(10);
   const currentUser = useSelector(currentUserSelector);
   const [closeCheck, setCloseClick] = useState(false);
-
-  const addEmoji = e => {
-    let sym = e.unified.split('-');
-    let codesArray = [];
-    sym.forEach(el => codesArray.push('0x' + el));
-    let emoji = String.fromCodePoint(...codesArray);
-    setCommentText(commentText + emoji);
-  };
 
   // function refreshPage() {
   //   window.location.reload(false);
@@ -155,27 +145,6 @@ const CommentModal = ({
 
     setisReplyField({ check: true, id });
     setissubReplyField({ check: false });
-  };
-
-  const handleAddComment = event => {
-    event.preventDefault();
-    closeEmojiPicker();
-    if (!commentText || commentText.trim() === '') {
-      return;
-    }
-    dispatch(
-      postData.saveComment({
-        id: singlePost.id,
-        commentText: {
-          comment: commentText,
-          isReply: false,
-        },
-        callback: () => {
-          setCommentText('');
-          dispatch(postData.requestOne(singlePost.id));
-        },
-      })
-    );
   };
 
   const handlleGetComments = () => {
@@ -802,51 +771,12 @@ const CommentModal = ({
                     )}
                 </div>
 
-                <form onSubmit={handleAddComment}>
-                  <Box style={{ borderTop: '1px solid #444444' }}>
-                    <OutlinedInput
-                      value={commentText}
-                      onChange={e => setCommentText(e.target.value)}
-                      name='commentText'
-                      fullWidth
-                      multiline
-                      onKeyDown={e => {
-                        if (e.keyCode === 13) {
-                          if (!event.shiftKey) {
-                            handleAddComment(e);
-                          }
-                        }
-                      }}
-                      placeholder='Add Comment'
-                      startAdornment={
-                        <ProfileImageAvatar
-                          user={currentUser}
-                          style={{ marginLeft: '2px', marginRight: '5px' }}
-                        />
-                      }
-                      endAdornment={
-                        <>
-                          <span ref={emojiPickerRef}>
-                            <EmojiPicker
-                              onSelect={addEmoji}
-                              popperProps={{ style: { zIndex: 1111111 } }}
-                            />
-                          </span>
-
-                          <Button
-                            type='submit'
-                            style={{
-                              backgroundColor: '#111111',
-                              border: 'none',
-                            }}
-                          >
-                            <img src='/send.png' alt='send button' />
-                          </Button>
-                        </>
-                      }
-                    />
-                  </Box>
-                </form>
+                <PostCommentsForm
+                  post={singlePost}
+                  callbackAction={() =>
+                    dispatch(postData.requestOne(singlePost.id))
+                  }
+                />
               </div>
             </div>
           </>
