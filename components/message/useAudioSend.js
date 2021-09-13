@@ -81,7 +81,6 @@ export default function useAudioSend({ onAudioUploaded }) {
   };
 
   function onStop(audioData) {
-    if (send) {
       const date = moment();
       date.format('YYYY-MM-DD');
 
@@ -90,7 +89,6 @@ export default function useAudioSend({ onAudioUploaded }) {
         lastModified: date,
       });
       voiceMailSend([audioFile]);
-    }
   }
 
   const voiceMailSend = audioFile => {
