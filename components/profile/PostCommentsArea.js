@@ -82,7 +82,7 @@ export default function PostCommentsArea({
       />
 
       <PostCommentsForm
-        post={post}
+        postId={post.id}
         callbackAction={callbackAction}
         searchInputRef={searchInputRef}
       />

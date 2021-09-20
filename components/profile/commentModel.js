@@ -763,7 +763,7 @@ const CommentModal = ({
                 </div>
 
                 <PostCommentsForm
-                  post={singlePost}
+                  postId={singlePost.id}
                   callbackAction={() =>
                     dispatch(postData.requestOne(singlePost.id))
                   }

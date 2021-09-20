@@ -9,7 +9,7 @@ import { Button } from '@material-ui/core';
 import useEmojiPicker from '../useEmojiPicker';
 
 export default function PostCommentsForm({
-  post,
+  postId,
   callbackAction,
   searchInputRef,
 }) {
@@ -34,7 +34,7 @@ export default function PostCommentsForm({
     }
     dispatch(
       postData.saveComment({
-        id: post.id,
+        id: postId,
         commentText: {
           comment: commentText,
           isReply: false,
