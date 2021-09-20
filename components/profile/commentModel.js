@@ -104,7 +104,7 @@ const CommentModal = ({
 
   const handleModalCommentLike = cId => {
     //
-    singlePost.comments &&
+    singlePost?.comments &&
       singlePost.comments.map(comm =>
         comm.likes && comm.likes.length === 0 && comm.id === cId
           ? dispatch(
@@ -301,7 +301,7 @@ const CommentModal = ({
                             marginTop: '-10px',
                           }}
                         >
-                          {singlePost.postText.slice(0, 90)}
+                          {singlePost?.postText.slice(0, 90)}
                         </Typography>
                       </CardContent>
                     </div>
@@ -320,7 +320,7 @@ const CommentModal = ({
                           fontSize: '16px',
                         }}
                       >
-                        {singlePost.postText.slice(0, 140)}
+                        {singlePost?.postText.slice(0, 140)}
                       </Typography>
                     </CardContent>
                   ))}
@@ -480,9 +480,9 @@ const CommentModal = ({
                   }}
                 >
                   <PostCommentsList
-                    postId={singlePost.id}
-                    locked={singlePost.media.length === 0}
-                    comments={singlePost.comments}
+                    postId={singlePost?.id}
+                    locked={singlePost?.media.length === 0}
+                    comments={singlePost?.comments}
                     callbackAction={() =>
                       dispatch(postData.requestOne(singlePost.id))
                     }
@@ -626,7 +626,7 @@ const CommentModal = ({
                               >
                                 <RepliesData
                                   comment={comm}
-                                  postId={singlePost.id}
+                                  postId={singlePost?.id}
                                   isReplyField={isReplyField}
                                   setisReplyField={setisReplyField}
                                   issubReplyField={issubReplyField}
@@ -646,7 +646,7 @@ const CommentModal = ({
                 </div>
 
                 <PostCommentsForm
-                  postId={singlePost.id}
+                  postId={singlePost?.id}
                   callbackAction={() =>
                     dispatch(postData.requestOne(singlePost.id))
                   }
