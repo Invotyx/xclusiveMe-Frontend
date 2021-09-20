@@ -84,7 +84,7 @@ export default function SignInSide() {
             label='Username'
             name='email'
             autoComplete='email'
-            style={{ backgroundClip: 'content-box !important' }}
+            style={{ WebkitBoxShadow: '0 0 0 1000px white inset' }}
             autoFocus
           />
           <TileTextField
@@ -99,7 +99,7 @@ export default function SignInSide() {
             type='password'
             id='password'
             autoComplete='current-password'
-            style={{ backgroundClip: 'content-box !important' }}
+            style={{ WebkitBoxShadow: '0 0 0 1000px white inset' }}
           />
           <Box my={2}>
             <Grid container>
