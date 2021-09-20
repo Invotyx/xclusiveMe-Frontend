@@ -75,7 +75,9 @@ export default function PostCommentsArea({
       />
 
       <PostCommentsList
-        post={post}
+        postId={post.id}
+        locked={post.media.length === 0}
+        comments={post.comments}
         callbackAction={callbackAction}
         setOpenReply={setOpenReply}
         handleOpen={handleOpen}

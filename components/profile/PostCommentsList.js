@@ -7,7 +7,9 @@ import styles from './profile.module.css';
 import RepliesData from './RepliesData';
 
 export default function PostCommentsList({
-  post,
+  postId,
+  locked,
+  comments,
   callbackAction,
   setOpenReply,
   handleOpen,
@@ -17,7 +19,7 @@ export default function PostCommentsList({
   const dispatch = useDispatch();
 
   const handleCommentLike = cId => {
-    post.comments.map(comm =>
+    comments.map(comm =>
       comm.likes && comm.likes.length > 0 && comm.id === cId
         ? dispatch(
             postData.delCommentLike({
@@ -45,7 +47,7 @@ export default function PostCommentsList({
 
   return (
     <>
-      {post?.comments?.map((comm, i) => (
+      {comments?.map((comm, i) => (
         <div style={{ marginBottom: '20px' }} key={`abcdef${i}`}>
           <div
             style={{
@@ -119,7 +121,7 @@ export default function PostCommentsList({
                 className={styles.commMobile}
                 id={comm.id}
                 onClick={
-                  post.media.length === 0
+                  locked
                     ? handleNotOpenn
                     : () => handleOpen(comm.id)
                 }
@@ -173,7 +175,7 @@ export default function PostCommentsList({
                 }}
                 onClick={() => handleOpen(comm.id)}
               >
-                {comm.totalReplies === 0 || post.media.length === 0 ? (
+                {comm.totalReplies === 0 || locked ? (
                   ''
                 ) : (
                   <div>
@@ -194,7 +196,7 @@ export default function PostCommentsList({
                     marginLeft: '10px',
                   }}
                 >
-                  {comm.totalReplies === 0 || post.media.length === 0
+                  {comm.totalReplies === 0 || locked
                     ? ''
                     : 'VIEW REPLIES'}
                 </span>
@@ -214,7 +216,7 @@ export default function PostCommentsList({
                 dksjgalksdjgkldsjaglsdkagjl={392683409684309}
                 dksjgalksdjgkldsjaglsdkagjl={392683409684309}
                 comment={comm}
-                postId={post.id}
+                postId={postId}
                 {...repliesDataProps}
               />
             </div>
