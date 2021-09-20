@@ -6,7 +6,7 @@ const { publicRuntimeConfig } = getConfig();
 const SERVER_ADDRESS = publicRuntimeConfig.backendUrl;
 
 const UNAUTHORIZED = 401;
-const interceptor = dispatch => {
+const axiosInterceptorResponse = dispatch => {
   apiClient.interceptors.response.use(
     response => response,
     async error => {
@@ -41,4 +41,4 @@ const interceptor = dispatch => {
     }
   );
 };
-export default interceptor;
+export default axiosInterceptorResponse;
