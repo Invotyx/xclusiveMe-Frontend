@@ -85,7 +85,7 @@ export default function SignInSide() {
             name='email'
             autoComplete='email'
             inputProps={{
-              style: { WebkitBoxShadow: '0 0 0 1000px white inset' },
+              style: { WebkitBoxShadow: '0 0 0 1000px #111 inset' },
             }}
             autoFocus
           />
@@ -102,7 +102,7 @@ export default function SignInSide() {
             id='password'
             autoComplete='current-password'
             inputProps={{
-              style: { WebkitBoxShadow: '0 0 0 1000px white inset' },
+              style: { WebkitBoxShadow: '0 0 0 1000px #111 inset' },
             }}
           />
           <Box my={2}>
