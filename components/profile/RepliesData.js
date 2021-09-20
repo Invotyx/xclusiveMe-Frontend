@@ -13,7 +13,7 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { currentUserSelector } from '../../selectors/authSelector';
 
 const RepliesData = ({
-  comm,
+  comment,
   post,
   isReplyField,
   setisReplyField,
@@ -163,7 +163,7 @@ const RepliesData = ({
     <div>
       <div style={{ display: 'flex' }}>
         <div style={{ marginRight: '10px' }}>
-          {comm.totalLikes === 0 ? (
+          {comment.totalLikes === 0 ? (
             <div style={{ display: 'flex' }}>
               <p
                 style={{
@@ -183,19 +183,19 @@ const RepliesData = ({
                   marginRight: '5px',
                 }}
               >
-                {comm.totalLikes}{' '}
+                {comment.totalLikes}{' '}
               </p>
               <FavoriteIcon style={{ color: 'red', fontSize: '15px' }} />
             </div>
           )}
         </div>
-        {comm.totalReplies > 3 && showMyReply === true && (
-          <span onClick={() => getPaginatedReplies(comm.id)}>
-            {commLength >= comm.totalReplies ? '' : 'View Previous Replies'}
+        {comment.totalReplies > 3 && showMyReply === true && (
+          <span onClick={() => getPaginatedReplies(comment.id)}>
+            {commLength >= comment.totalReplies ? '' : 'View Previous Replies'}
           </span>
         )}
-        {comm.totalReplies > 0 && (
-          <div onClick={() => handleReplyList(comm.id)}>
+        {comment.totalReplies > 0 && (
+          <div onClick={() => handleReplyList(comment.id)}>
             {showMyReply === false ? (
               <div>
                 <img
@@ -217,7 +217,7 @@ const RepliesData = ({
                     fontWeight: '500',
                   }}
                 >
-                  {comm.totalReplies > 0 ? ' VIEW REPLIES' : ' '}
+                  {comment.totalReplies > 0 ? ' VIEW REPLIES' : ' '}
                 </span>
               </div>
             ) : (
@@ -226,9 +226,9 @@ const RepliesData = ({
           </div>
         )}
 
-        {comm.totalReplies > 0 && (
-          <div onClick={() => handleReplyList(comm.id)}>
-            {checkId !== comm.id && openReply === true ? (
+        {comment.totalReplies > 0 && (
+          <div onClick={() => handleReplyList(comment.id)}>
+            {checkId !== comment.id && openReply === true ? (
               <div>
                 <img
                   src='/lineReply.svg'
@@ -249,7 +249,7 @@ const RepliesData = ({
                     fontWeight: '500',
                   }}
                 >
-                  {comm.totalReplies > 0 ? ' VIEW REPLIES' : ' '}
+                  {comment.totalReplies > 0 ? ' VIEW REPLIES' : ' '}
                 </span>
               </div>
             ) : (
@@ -259,11 +259,11 @@ const RepliesData = ({
         )}
       </div>
 
-      {comm.totalReplies > 0 && showMyReply === true && (
+      {comment.totalReplies > 0 && showMyReply === true && (
         <RepliesLists
           showMyReply={showMyReply}
           commentsData={commentsData}
-          comm={comm}
+          comment={comment}
           ProfileImageAvatar={ProfileImageAvatar}
           isMobile={isMobile}
           commentId={commentId}
@@ -273,9 +273,9 @@ const RepliesData = ({
         />
       )}
 
-      {showMyReply === true && comm.totalReplies > 0 && checkId === comm.id && (
+      {showMyReply === true && comment.totalReplies > 0 && checkId === comment.id && (
         <div
-          onClick={() => hideReply(comm.id)}
+          onClick={() => hideReply(comment.id)}
           style={{ marginLeft: isMobile ? '5px' : '5px' }}
         >
           <img
@@ -297,8 +297,8 @@ const RepliesData = ({
         </div>
       )}
 
-      {(isReplyField.check === true && isReplyField.id === comm.id) ||
-      (issubReplyField.check === true && issubReplyField.id === comm.id) ? (
+      {(isReplyField.check === true && isReplyField.id === comment.id) ||
+      (issubReplyField.check === true && issubReplyField.id === comment.id) ? (
         <form onSubmit={handleAddReply}>
           {/* <img src='/border.png' alt='border' /> */}
           <Box mb={2} ml={5}>

@@ -11,7 +11,7 @@ import { post as postData } from '../../actions/post/index';
 const RepliesLists = ({
   showMyReply,
   commentsData,
-  comm,
+  comment,
   ProfileImageAvatar,
   isMobile,
   commentId,
@@ -63,7 +63,7 @@ const RepliesLists = ({
       {showMyReply === true &&
         commentsData?.map(
           reply =>
-            reply?.parentCommentId === comm.id && (
+            reply?.parentCommentId === comment.id && (
               <div
                 style={{
                   width: '100%',
@@ -212,15 +212,15 @@ const RepliesLists = ({
                         cursor: 'pointer',
                       }}
                       className={styles.commMobile}
-                      id={comm.id}
-                      onClick={() => handleSubReplyField(comm.id)}
+                      id={comment.id}
+                      onClick={() => handleSubReplyField(comment.id)}
                     />
                     {/* <ChatBubbleOutlineIcon
                                           style={{ marginRight: '9px' }}
-                                          id={comm.id}
+                                          id={comment.id}
                                           fontSize='small'
                                           onClick={() =>
-                                            handleSubReplyField(comm.id)
+                                            handleSubReplyField(comment.id)
                                           }
                                         /> */}
                     {reply.likes && reply.likes.length === 0 ? (

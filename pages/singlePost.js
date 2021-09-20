@@ -650,7 +650,7 @@ const SinglePost = ({ post, altHeader, currentUser }) => {
                           }}
                         >
                           <RepliesData
-                            comm={comm}
+                            comment={comm}
                             post={post}
                             isReplyField={isReplyField}
                             setisReplyField={setisReplyField}
@@ -811,7 +811,7 @@ const SinglePost = ({ post, altHeader, currentUser }) => {
                             }}
                           >
                             <RepliesData
-                              comm={comm}
+                              comment={comm}
                               post={post}
                               isReplyField={isReplyField}
                               setisReplyField={setisReplyField}
