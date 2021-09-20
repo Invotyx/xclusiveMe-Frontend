@@ -127,13 +127,6 @@ export default function PostCommentsList({
                 }
               />
 
-              {/* <ChatBubbleOutlineIcon
-                style={{ marginRight: '9px' }}
-                id={comm.id}
-                fontSize='small'
-                onClick={() => handleReplyField(comm.id)}
-              /> */}
-
               {comm.likes && comm.likes.length === 0 ? (
                 <img
                   src='/emptyHeart.png'
