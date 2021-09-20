@@ -212,6 +212,8 @@ export default function PostCommentsList({
               <RepliesData
                 dksjgalksdjgkldsjaglsdkagjl={392683409684309}
                 dksjgalksdjgkldsjaglsdkagjl={392683409684309}
+                comment={comm}
+                post={post}
               />
             </div>
           )}
