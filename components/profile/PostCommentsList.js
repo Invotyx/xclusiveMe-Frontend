@@ -214,7 +214,7 @@ export default function PostCommentsList({
                 dksjgalksdjgkldsjaglsdkagjl={392683409684309}
                 dksjgalksdjgkldsjaglsdkagjl={392683409684309}
                 comment={comm}
-                post={post}
+                postId={post.id}
                 {...repliesDataProps}
               />
             </div>

@@ -14,7 +14,7 @@ import { currentUserSelector } from '../../selectors/authSelector';
 
 const RepliesData = ({
   comment,
-  post,
+  postId,
   isReplyField,
   setisReplyField,
   issubReplyField,
@@ -72,7 +72,7 @@ const RepliesData = ({
     setChekId(commId);
     dispatch(
       postData.requestReplies({
-        postId: post.id,
+        postId,
         parentCommentId: commId,
         page: 1,
         limit: 3,
@@ -91,7 +91,7 @@ const RepliesData = ({
       setChekId(forCommentId),
       dispatch(
         postData.requestReplies({
-          postId: post.id,
+          postId,
           parentCommentId: forCommentId,
           page: 1,
           limit: 3,
@@ -105,7 +105,7 @@ const RepliesData = ({
     setcommLength(commLength + 3);
     dispatch(
       postData.requestReplies({
-        postId: post.id,
+        postId,
         parentCommentId: commId,
         page: pageNumber,
         limit: 3,
@@ -138,7 +138,7 @@ const RepliesData = ({
     }
     dispatch(
       postData.saveComment({
-        id: post?.id,
+        id: postId,
         commentText: {
           comment: replyText,
           isReply: true,
@@ -149,10 +149,10 @@ const RepliesData = ({
           setReplyText('');
           setisReplyField(false);
           setissubReplyField(false);
-          dispatch(postData.requestOne(post.id));
+          dispatch(postData.requestOne(postId));
 
           // postData.getComment({
-          //   id: post.id,
+          //   id: postId,
           // })
         },
       })

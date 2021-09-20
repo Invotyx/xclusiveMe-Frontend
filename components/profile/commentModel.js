@@ -743,7 +743,7 @@ const CommentModal = ({
                               >
                                 <RepliesData
                                   comment={comm}
-                                  post={singlePost}
+                                  postId={singlePost.id}
                                   isReplyField={isReplyField}
                                   setisReplyField={setisReplyField}
                                   issubReplyField={issubReplyField}
