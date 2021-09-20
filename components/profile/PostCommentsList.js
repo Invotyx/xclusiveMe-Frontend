@@ -120,11 +120,7 @@ export default function PostCommentsList({
                 }}
                 className={styles.commMobile}
                 id={comm.id}
-                onClick={
-                  locked
-                    ? handleNotOpenn
-                    : () => handleOpen(comm.id)
-                }
+                onClick={locked ? handleNotOpenn : () => handleOpen(comm.id)}
               />
 
               {comm.likes && comm.likes.length === 0 ? (
@@ -189,9 +185,7 @@ export default function PostCommentsList({
                     marginLeft: '10px',
                   }}
                 >
-                  {comm.totalReplies === 0 || locked
-                    ? ''
-                    : 'VIEW REPLIES'}
+                  {comm.totalReplies === 0 || locked ? '' : 'VIEW REPLIES'}
                 </span>
               </p>
             </div>
