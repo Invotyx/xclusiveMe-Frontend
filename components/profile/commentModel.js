@@ -600,7 +600,7 @@ const CommentModal = ({
                               }}
                             >
                               <RepliesData
-                                comm={comm}
+                                comment={comm}
                                 post={singlePost}
                                 isReplyField={isReplyField}
                                 setisReplyField={setisReplyField}
