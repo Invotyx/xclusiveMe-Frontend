@@ -1,6 +1,6 @@
 import React from 'react';
-import AddCommentIcon from '@material-ui/icons/AddComment';
-import IconButton from '@material-ui/core/IconButton';
+import AddCommentIcon from '@mui/icons-material/AddComment';
+import IconButton from '@mui/material/IconButton';
 import SearchConversations from './SearchConversations';
 import MessageModalMedia from './MessageModalMedia';
 

@@ -1,5 +1,5 @@
 import NextLink from 'next/link';
-import Link from '@material-ui/core/Link';
+import Link from '@mui/material/Link';
 import ProfileImageAvatar from './profile-image-avatar';
 import { useDispatch } from 'react-redux';
 import { post as postData } from '../../actions/post/index';

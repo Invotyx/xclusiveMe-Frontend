@@ -1,8 +1,8 @@
 import React from 'react';
 import NextLink from 'next/link';
-import IconButton from '@material-ui/core/IconButton';
-import Badge from '@material-ui/core/Badge';
-import SmsIcon from '@material-ui/icons/SmsOutlined';
+import IconButton from '@mui/material/IconButton';
+import Badge from '@mui/material/Badge';
+import SmsIcon from '@mui/icons-material/SmsOutlined';
 import { useDispatch, useSelector } from 'react-redux';
 import ConversationsList from '../message/ConversationsList';
 import MessageMenu from '../message/MessageMenu';
@@ -20,34 +20,32 @@ export default function ChatNavItem() {
     dispatch(chat.getOneUnreadMessagesCount());
   }, [dispatch]);
 
-  return (
-    <>
-      {chatMenu === 'link' ? (
-        <NextLink href='/chat' passHref>
-          <IconButton color='inherit' className='step-6'>
-            <Badge color='secondary' variant={hasUnreadMessages ? 'dot' : ''}>
-              <SmsIcon />
-            </Badge>
-          </IconButton>
-        </NextLink>
-      ) : (
-        <>
-          <IconButton
-            color='inherit'
-            className='step-6'
-            onClick={e => setMessageEl(e.currentTarget)}
-          >
-            <Badge color='secondary' variant={'dot'}>
-              <SmsIcon />
-            </Badge>
-          </IconButton>
-          <div>
-            <MessageMenu anchorEl={messageEl} onClose={messagesClose}>
-              <ConversationsList />
-            </MessageMenu>
-          </div>
-        </>
-      )}
-    </>
-  );
+  return <>
+    {chatMenu === 'link' ? (
+      <NextLink href='/chat' passHref>
+        <IconButton color='inherit' className='step-6' size="large">
+          <Badge color='secondary' variant={hasUnreadMessages ? 'dot' : ''}>
+            <SmsIcon />
+          </Badge>
+        </IconButton>
+      </NextLink>
+    ) : (
+      <>
+        <IconButton
+          color='inherit'
+          className='step-6'
+          onClick={e => setMessageEl(e.currentTarget)}
+          size="large">
+          <Badge color='secondary' variant={'dot'}>
+            <SmsIcon />
+          </Badge>
+        </IconButton>
+        <div>
+          <MessageMenu anchorEl={messageEl} onClose={messagesClose}>
+            <ConversationsList />
+          </MessageMenu>
+        </div>
+      </>
+    )}
+  </>;
 }

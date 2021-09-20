@@ -1,5 +1,5 @@
-import ListItem from '@material-ui/core/ListItem';
-import { withStyles } from '@material-ui/core/styles';
+import ListItem from '@mui/material/ListItem';
+import withStyles from '@mui/styles/withStyles';
 
 const StyledListItem = withStyles({
   root: {

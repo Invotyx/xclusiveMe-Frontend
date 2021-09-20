@@ -1,26 +1,26 @@
 import React, { useEffect, useState } from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import MuiDialogTitle from '@material-ui/core/DialogTitle';
-import MuiDialogContent from '@material-ui/core/DialogContent';
-import MuiDialogActions from '@material-ui/core/DialogActions';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
-import Typography from '@material-ui/core/Typography';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import Divider from '@material-ui/core/Divider';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import Avatar from '@material-ui/core/Avatar';
-import { makeStyles } from '@material-ui/core/styles';
+import withStyles from '@mui/styles/withStyles';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import MuiDialogTitle from '@mui/material/DialogTitle';
+import MuiDialogContent from '@mui/material/DialogContent';
+import MuiDialogActions from '@mui/material/DialogActions';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
+import Typography from '@mui/material/Typography';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import Divider from '@mui/material/Divider';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import Avatar from '@mui/material/Avatar';
+import makeStyles from '@mui/styles/makeStyles';
 import { user as userAction } from '../../../actions/user';
 import { useDispatch, useSelector } from 'react-redux';
 import ProfileImageAvatar from '../profile-image-avatar';
 import NextLink from 'next/link';
-import { Box, CircularProgress } from '@material-ui/core';
-import { ListItemSecondaryAction } from '@material-ui/core';
+import { Box, CircularProgress } from '@mui/material';
+import { ListItemSecondaryAction } from '@mui/material';
 import { getImage } from '../../../services/getImage';
 import { fetchingSelector } from '../../../selectors/userSelector';
 
@@ -62,7 +62,7 @@ const DialogTitle = withStyles(styles)(props => {
           aria-label='close'
           className={classes.closeButton}
           onClick={onClose}
-        >
+          size="large">
           <CloseIcon />
         </IconButton>
       ) : null}

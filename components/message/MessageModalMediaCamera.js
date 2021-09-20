@@ -1,7 +1,7 @@
 import React from 'react';
 import Webcam from 'react-webcam';
-import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import { useDispatch } from 'react-redux';
 import { post } from '../../actions/post';
 

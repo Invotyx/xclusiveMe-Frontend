@@ -1,25 +1,25 @@
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardHeader from '@material-ui/core/CardHeader';
-import List from '@material-ui/core/List';
-import Dialog from '@material-ui/core/Dialog';
-import DialogContent from '@material-ui/core/DialogContent';
-import MuiDialogTitle from '@material-ui/core/DialogTitle';
-import IconButton from '@material-ui/core/IconButton';
-import Step from '@material-ui/core/Step';
-import StepLabel from '@material-ui/core/StepLabel';
-import Stepper from '@material-ui/core/Stepper';
-import { withStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import CloseIcon from '@material-ui/icons/Close';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Card from '@mui/material/Card';
+import CardActionArea from '@mui/material/CardActionArea';
+import CardHeader from '@mui/material/CardHeader';
+import List from '@mui/material/List';
+import Dialog from '@mui/material/Dialog';
+import DialogContent from '@mui/material/DialogContent';
+import MuiDialogTitle from '@mui/material/DialogTitle';
+import IconButton from '@mui/material/IconButton';
+import Step from '@mui/material/Step';
+import StepLabel from '@mui/material/StepLabel';
+import Stepper from '@mui/material/Stepper';
+import withStyles from '@mui/styles/withStyles';
+import Typography from '@mui/material/Typography';
+import CloseIcon from '@mui/icons-material/Close';
 import React from 'react';
 import NormalCaseButton from '../NormalCaseButton';
 import StripeElements from '../settings/payment/StripeElements';
 import SubscriptionForm from '../settings/subscription/SubscriptionForm';
-import BeenhereIcon from '@material-ui/icons/Beenhere';
+import BeenhereIcon from '@mui/icons-material/Beenhere';
 import ChangeProfileImage from '../profile/change-profile-image';
 import UpdateCoverImage from '../profile/update-cover-image-2';
 import { useSelector } from 'react-redux';
@@ -30,7 +30,7 @@ import {
 } from '../../selectors/authSelector';
 import ProfileImageAvatar from '../profile/profile-image-avatar';
 import { getImage } from '../../services/getImage';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import CircularProgress from '@mui/material/CircularProgress';
 import AgeRestrictionListItem from '../settings/account/AgeRestrictionListItem';
 
 const styles = theme => ({
@@ -57,7 +57,7 @@ const DialogTitle = withStyles(styles)(props => {
           aria-label='close'
           className={classes.closeButton}
           onClick={onClose}
-        >
+          size="large">
           <CloseIcon />
         </IconButton>
       ) : null}

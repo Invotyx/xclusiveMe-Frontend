@@ -1,5 +1,5 @@
 import React from 'react';
-import Avatar from '@material-ui/core/Avatar';
+import Avatar from '@mui/material/Avatar';
 import { getImage } from '../services/getImage';
 
 export default function ImageAvatar({ src, alt, ...props }) {

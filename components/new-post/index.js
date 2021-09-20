@@ -1,13 +1,13 @@
 import React from 'react';
 import Image from 'next/image';
-import { withStyles } from '@material-ui/core/styles';
-import Box from '@material-ui/core/Box';
-import Dialog from '@material-ui/core/Dialog';
-import MuiDialogTitle from '@material-ui/core/DialogTitle';
-import MuiDialogContent from '@material-ui/core/DialogContent';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
-import Typography from '@material-ui/core/Typography';
+import withStyles from '@mui/styles/withStyles';
+import Box from '@mui/material/Box';
+import Dialog from '@mui/material/Dialog';
+import MuiDialogTitle from '@mui/material/DialogTitle';
+import MuiDialogContent from '@mui/material/DialogContent';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
+import Typography from '@mui/material/Typography';
 import RoundedButton from '../RoundedButton';
 import NewPostForm from './new-post-form';
 
@@ -36,7 +36,7 @@ const DialogTitle = withStyles(styles)(props => {
           aria-label='close'
           className={classes.closeButton}
           onClick={onClose}
-        >
+          size="large">
           <CloseIcon />
         </IconButton>
       ) : null}

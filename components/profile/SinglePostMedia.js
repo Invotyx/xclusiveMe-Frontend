@@ -1,11 +1,11 @@
-import { Box, Grid } from '@material-ui/core';
+import { Box, Grid } from '@mui/material';
 import React from 'react';
-import LockIcon from '@material-ui/icons/Lock';
-import { makeStyles } from '@material-ui/core/styles';
-import CardMedia from '@material-ui/core/CardMedia';
+import LockIcon from '@mui/icons-material/Lock';
+import makeStyles from '@mui/styles/makeStyles';
+import CardMedia from '@mui/material/CardMedia';
 import PostMediaVideo from './post-media-video';
 import Carousel from 'react-material-ui-carousel';
-import { Paper, Button } from '@material-ui/core';
+import { Paper, Button } from '@mui/material';
 import LockedPost from './LockedPost';
 
 const useStyles = makeStyles(theme => ({

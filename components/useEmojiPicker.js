@@ -1,10 +1,10 @@
-import IconButton from '@material-ui/core/IconButton';
-import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
+import IconButton from '@mui/material/IconButton';
+import InsertEmoticonIcon from '@mui/icons-material/InsertEmoticon';
 import { Picker } from 'emoji-mart';
 import 'emoji-mart/css/emoji-mart.css';
 import React, { useState } from 'react';
-import ClickAwayListener from '@material-ui/core/ClickAwayListener';
-import Popper from '@material-ui/core/Popper';
+import ClickAwayListener from '@mui/material/ClickAwayListener';
+import Popper from '@mui/material/Popper';
 
 export default function useEmojiPicker() {
   const [show, setShow] = useState(null);
@@ -20,7 +20,7 @@ export default function useEmojiPicker() {
 
   const EmojiPicker = ({ popperProps, ...props }) => (
     <>
-      <IconButton onClick={toggleEmojiPicker} style={{ color: '#868686' }}>
+      <IconButton onClick={toggleEmojiPicker} style={{ color: '#868686' }} size="large">
         <InsertEmoticonIcon />
       </IconButton>
       <Popper

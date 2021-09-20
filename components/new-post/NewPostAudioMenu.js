@@ -1,8 +1,8 @@
 import React from 'react';
-import IconButton from '@material-ui/core/IconButton';
-import GraphicEqRoundedIcon from '@material-ui/icons/GraphicEqRounded';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
+import IconButton from '@mui/material/IconButton';
+import GraphicEqRoundedIcon from '@mui/icons-material/GraphicEqRounded';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 import AudioUpload from './AudioUpload';
 
 export default function NewPostAudioMenu({

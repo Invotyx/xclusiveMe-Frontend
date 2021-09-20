@@ -1,9 +1,9 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import Card from '@material-ui/core/Card';
+import makeStyles from '@mui/styles/makeStyles';
+import Grid from '@mui/material/Grid';
+import Card from '@mui/material/Card';
 import PostMediaVideo from './post-media-video';
-import { Box } from '@material-ui/core';
+import { Box } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { post } from '../../actions/post';
 import { singleDataVideosSelector } from '../../selectors/postSelector';

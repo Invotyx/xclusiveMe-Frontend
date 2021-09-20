@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import Hls from 'hls.js';
-import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
+import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 import FullSizeImage from './FullSizeImage';
 
 export default function PostMediaVideo({

@@ -1,18 +1,18 @@
 import React, { useEffect } from 'react';
-import CreateIcon from '@material-ui/icons/Create';
-import IconButton from '@material-ui/core/IconButton';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
-import FormHelperText from '@material-ui/core/FormHelperText';
+import CreateIcon from '@mui/icons-material/Create';
+import IconButton from '@mui/material/IconButton';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
+import FormHelperText from '@mui/material/FormHelperText';
 import { currentUserSelector } from '../../selectors/authSelector';
 import { useSelector, useDispatch } from 'react-redux';
 import { auth } from '../../actions/auth';
@@ -82,115 +82,113 @@ export default function FormDialog() {
       );
   };
 
-  return (
-    <>
-      <IconButton aria-label='create' onClick={handleClickOpen}>
-        <CreateIcon style={{ color: '#606366' }} />
-      </IconButton>
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        aria-labelledby='form-dialog-title'
-      >
-        <DialogTitle id='form-dialog-title'>Update Profile</DialogTitle>
-        <DialogContent>
-          <form onSubmit={handleUpdate}>
-            <TextField
-              value={fullName}
-              onChange={e => set_fullName(e.target.value)}
-              variant='outlined'
-              margin='normal'
-              fullWidth
-              name='fullName'
-              label='Full Name'
-              error={validationErrors && validationErrors.fullName}
-              helperText={
-                validationErrors.fullName
-                  ? Object.values(validationErrors.fullName).join(', ')
-                  : ''
-              }
-            />
-            <FormControl component='fieldset'>
-              <FormLabel component='legend'>Gender</FormLabel>
-              <RadioGroup
-                name='gender'
-                value={gender}
-                onChange={e => set_gender(e.target.value)}
-                row
-              >
-                <FormControlLabel
-                  value='male'
-                  control={<Radio />}
-                  label='Male'
-                />
-                <FormControlLabel
-                  value='female'
-                  control={<Radio />}
-                  label='Female'
-                />
-              </RadioGroup>
-
-              <FormHelperText
-                error={validationErrors && validationErrors.gender}
-              >
-                {validationErrors.gender
-                  ? Object.values(validationErrors.gender).join(', ')
-                  : ''}
-              </FormHelperText>
-            </FormControl>
-            <TextField
-              value={dob}
-              onChange={e => set_dob(e.target.value)}
-              variant='outlined'
-              margin='normal'
-              fullWidth
-              type='date'
-              name='dob'
-              label='Dob'
-              InputLabelProps={{ shrink: true }}
-              error={validationErrors && validationErrors.dob}
-              helperText={
-                validationErrors.dob
-                  ? Object.values(validationErrors.dob).join(', ')
-                  : ''
-              }
-            />
-            <TextField
-              value={description}
-              onChange={e => set_description(e.target.value)}
-              variant='outlined'
-              margin='normal'
-              fullWidth
-              name='description'
-              label='Description'
-              helperText={`Max 160 characters`}
-              inputProps={{ maxLength: 160 }}
-            />
-            {false && (
-              <TextField
-                value={headline}
-                onChange={e => set_headline(e.target.value)}
-                variant='outlined'
-                margin='normal'
-                fullWidth
-                name='headline'
-                label='Headline'
+  return <>
+    <IconButton aria-label='create' onClick={handleClickOpen} size="large">
+      <CreateIcon style={{ color: '#606366' }} />
+    </IconButton>
+    <Dialog
+      open={open}
+      onClose={handleClose}
+      aria-labelledby='form-dialog-title'
+    >
+      <DialogTitle id='form-dialog-title'>Update Profile</DialogTitle>
+      <DialogContent>
+        <form onSubmit={handleUpdate}>
+          <TextField
+            value={fullName}
+            onChange={e => set_fullName(e.target.value)}
+            variant='outlined'
+            margin='normal'
+            fullWidth
+            name='fullName'
+            label='Full Name'
+            error={validationErrors && validationErrors.fullName}
+            helperText={
+              validationErrors.fullName
+                ? Object.values(validationErrors.fullName).join(', ')
+                : ''
+            }
+          />
+          <FormControl component='fieldset'>
+            <FormLabel component='legend'>Gender</FormLabel>
+            <RadioGroup
+              name='gender'
+              value={gender}
+              onChange={e => set_gender(e.target.value)}
+              row
+            >
+              <FormControlLabel
+                value='male'
+                control={<Radio />}
+                label='Male'
               />
-            )}
-            <Button color='primary' type='submit' style={{ display: 'none' }}>
-              Update
-            </Button>
-          </form>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color='primary'>
-            Cancel
-          </Button>
-          <Button onClick={handleUpdate} color='primary'>
+              <FormControlLabel
+                value='female'
+                control={<Radio />}
+                label='Female'
+              />
+            </RadioGroup>
+
+            <FormHelperText
+              error={validationErrors && validationErrors.gender}
+            >
+              {validationErrors.gender
+                ? Object.values(validationErrors.gender).join(', ')
+                : ''}
+            </FormHelperText>
+          </FormControl>
+          <TextField
+            value={dob}
+            onChange={e => set_dob(e.target.value)}
+            variant='outlined'
+            margin='normal'
+            fullWidth
+            type='date'
+            name='dob'
+            label='Dob'
+            InputLabelProps={{ shrink: true }}
+            error={validationErrors && validationErrors.dob}
+            helperText={
+              validationErrors.dob
+                ? Object.values(validationErrors.dob).join(', ')
+                : ''
+            }
+          />
+          <TextField
+            value={description}
+            onChange={e => set_description(e.target.value)}
+            variant='outlined'
+            margin='normal'
+            fullWidth
+            name='description'
+            label='Description'
+            helperText={`Max 160 characters`}
+            inputProps={{ maxLength: 160 }}
+          />
+          {false && (
+            <TextField
+              value={headline}
+              onChange={e => set_headline(e.target.value)}
+              variant='outlined'
+              margin='normal'
+              fullWidth
+              name='headline'
+              label='Headline'
+            />
+          )}
+          <Button color='primary' type='submit' style={{ display: 'none' }}>
             Update
           </Button>
-        </DialogActions>
-      </Dialog>
-    </>
-  );
+        </form>
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={handleClose} color='primary'>
+          Cancel
+        </Button>
+        <Button onClick={handleUpdate} color='primary'>
+          Update
+        </Button>
+      </DialogActions>
+    </Dialog>
+  </>;
 }

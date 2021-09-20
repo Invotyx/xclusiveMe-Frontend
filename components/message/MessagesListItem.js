@@ -6,7 +6,7 @@ import styles from './message.module.css';
 import { chat } from '../../actions/chat';
 import { useInView } from 'react-intersection-observer';
 import ImageListItem from './ImageListItem';
-import Box from '@material-ui/core/Box';
+import Box from '@mui/material/Box';
 import PostMediaVideo from '../profile/post-media-video';
 import AudioPlayer from './AudioPlayer';
 import LockedPost from '../profile/LockedPost';

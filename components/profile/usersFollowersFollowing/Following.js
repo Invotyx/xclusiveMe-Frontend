@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import MuiDialogTitle from '@material-ui/core/DialogTitle';
-import MuiDialogContent from '@material-ui/core/DialogContent';
-import MuiDialogActions from '@material-ui/core/DialogActions';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
-import Typography from '@material-ui/core/Typography';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import Divider from '@material-ui/core/Divider';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import Avatar from '@material-ui/core/Avatar';
-import { makeStyles } from '@material-ui/core/styles';
+import withStyles from '@mui/styles/withStyles';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import MuiDialogTitle from '@mui/material/DialogTitle';
+import MuiDialogContent from '@mui/material/DialogContent';
+import MuiDialogActions from '@mui/material/DialogActions';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
+import Typography from '@mui/material/Typography';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import Divider from '@mui/material/Divider';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import Avatar from '@mui/material/Avatar';
+import makeStyles from '@mui/styles/makeStyles';
 import { followingSelector } from '../../../selectors/userSelector';
 import { followingCountSelector } from '../../../selectors/userSelector';
 import { useDispatch, useSelector } from 'react-redux';
@@ -23,11 +23,11 @@ import NextLink from 'next/link';
 import { user as userAction } from '../../../actions/user';
 import UserListComponent from '../userListComponent';
 import { fetchingSelector } from '../../../selectors/userSelector';
-import { Box } from '@material-ui/core';
-import { ListItemSecondaryAction } from '@material-ui/core';
+import { Box } from '@mui/material';
+import { ListItemSecondaryAction } from '@mui/material';
 import { getImage } from '../../../services/getImage';
 import { useInView } from 'react-intersection-observer';
-import { CircularProgress } from '@material-ui/core';
+import { CircularProgress } from '@mui/material';
 
 const styles = theme => ({
   root: {
@@ -67,7 +67,7 @@ const DialogTitle = withStyles(styles)(props => {
           aria-label='close'
           className={classes.closeButton}
           onClick={onClose}
-        >
+          size="large">
           <CloseIcon />
         </IconButton>
       ) : null}

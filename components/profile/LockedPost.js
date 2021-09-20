@@ -1,4 +1,4 @@
-import LockIcon from '@material-ui/icons/Lock';
+import LockIcon from '@mui/icons-material/Lock';
 import FullSizeImage from './FullSizeImage';
 
 export default function LockedPost(props) {

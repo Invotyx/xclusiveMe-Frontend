@@ -4,8 +4,8 @@ import {
   LinearProgress,
   Paper,
   Typography,
-} from '@material-ui/core';
-import ClearIcon from '@material-ui/icons/Clear';
+} from '@mui/material';
+import ClearIcon from '@mui/icons-material/Clear';
 
 export default function AudioSend({
   time,
@@ -24,7 +24,7 @@ export default function AudioSend({
         alignItems: 'center',
       }}
     >
-      <IconButton onClick={handleClear}>
+      <IconButton onClick={handleClear} size="large">
         <ClearIcon />
       </IconButton>
       <LinearProgress
@@ -33,7 +33,7 @@ export default function AudioSend({
         value={progress}
       />
       <Typography style={{ display: 'flex' }}>{time}</Typography>
-      <IconButton onClickCapture={handleSend}>
+      <IconButton onClickCapture={handleSend} size="large">
         {finishIcon || <img src='/send.png' alt='send button' />}
       </IconButton>
     </Paper>

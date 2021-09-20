@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import List from '@material-ui/core/List';
-import ListSubheader from '@material-ui/core/ListSubheader';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import Typography from '@material-ui/core/Typography';
+import makeStyles from '@mui/styles/makeStyles';
+import List from '@mui/material/List';
+import ListSubheader from '@mui/material/ListSubheader';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import Typography from '@mui/material/Typography';
 import { useDispatch, useSelector } from 'react-redux';
 import { notificationsData } from '../../selectors/postSelector';
 import { notificationsCount } from '../../selectors/postSelector';
@@ -14,9 +14,9 @@ import styles from './newPost.module.css';
 import { useRouter } from 'next/router';
 import CommentModal from '../profile/commentModel';
 import ProfileImageAvatar from '../profile/profile-image-avatar';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { ListItem } from '@material-ui/core';
-import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { ListItem } from '@mui/material';
+import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 
 const useStyles = makeStyles(theme => ({
   small: {

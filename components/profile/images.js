@@ -1,9 +1,9 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import CardMedia from '@material-ui/core/CardMedia';
-import Card from '@material-ui/core/Card';
-import { Box } from '@material-ui/core';
+import makeStyles from '@mui/styles/makeStyles';
+import Grid from '@mui/material/Grid';
+import CardMedia from '@mui/material/CardMedia';
+import Card from '@mui/material/Card';
+import { Box } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { post } from '../../actions/post';
 import { singleDataImagesSelector } from '../../selectors/postSelector';

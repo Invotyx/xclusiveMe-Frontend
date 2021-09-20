@@ -1,13 +1,11 @@
-import Button from '@material-ui/core/Button';
-import {
-  MuiThemeProvider,
-  createTheme,
-  withStyles,
-} from '@material-ui/core/styles';
+import Button from '@mui/material/Button';
+import { ThemeProvider, StyledEngineProvider, createTheme, adaptV4Theme } from '@mui/material/styles';
 
-const theme = createTheme({
+import withStyles from '@mui/styles/withStyles';
+
+const theme = createTheme(adaptV4Theme({
   palette: {
-    type: 'dark',
+    mode: 'dark',
     primary: {
       light: '#000',
       main: '#fff',
@@ -15,7 +13,7 @@ const theme = createTheme({
       contrastText: '#fff',
     },
   },
-});
+}));
 
 const StyledButton = withStyles({
   contained: {
@@ -30,8 +28,10 @@ const StyledButton = withStyles({
 
 export default function BlackButton(props) {
   return (
-    <MuiThemeProvider theme={theme}>
-      <StyledButton {...props} />
-    </MuiThemeProvider>
+    <StyledEngineProvider injectFirst>
+      <ThemeProvider theme={theme}>
+        <StyledButton {...props} />
+      </ThemeProvider>
+    </StyledEngineProvider>
   );
 }

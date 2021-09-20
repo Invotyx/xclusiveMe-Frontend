@@ -1,11 +1,11 @@
-import Box from '@material-ui/core/Box';
-import Grid from '@material-ui/core/Grid';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
 import AuthNav from './auth-nav';
 import LayoutGuest from './layout-guest';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 export default function LayoutGuestAuth({ children }) {
-  const isSmall = useMediaQuery(theme => theme.breakpoints.down('sm'));
+  const isSmall = useMediaQuery(theme => theme.breakpoints.down('md'));
   return (
     <LayoutGuest>
       <Grid item xs={12} md={5}>

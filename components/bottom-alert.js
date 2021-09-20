@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
-import IconButton from '@material-ui/core/IconButton';
-import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
-import CancelOutlinedIcon from '@material-ui/icons/CancelOutlined';
+import IconButton from '@mui/material/IconButton';
+import makeStyles from '@mui/styles/makeStyles';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   severitySelector,
@@ -57,35 +57,33 @@ export default function BottomAlert() {
     }, 6000);
   }, [open]);
 
-  return (
-    <>
-      {open && (
-        <AppBar position='fixed' className={classes.appBar}>
-          {severity === 'error' ? (
-            <Toolbar className={classes.alert}>
-              <IconButton>
-                <CancelOutlinedIcon
-                  color='primary'
-                  fontSize='small'
-                  className={classes.grow1}
-                />
-              </IconButton>
-              <Typography className={classes.message}>{message}</Typography>
-            </Toolbar>
-          ) : (
-            <Toolbar className={classes.alert}>
-              <IconButton>
-                <CheckCircleOutlineIcon
-                  color='primary'
-                  fontSize='small'
-                  className={classes.grow}
-                />
-              </IconButton>
-              <Typography className={classes.message}>{message}</Typography>
-            </Toolbar>
-          )}
-        </AppBar>
-      )}
-    </>
-  );
+  return <>
+    {open && (
+      <AppBar position='fixed' className={classes.appBar}>
+        {severity === 'error' ? (
+          <Toolbar className={classes.alert}>
+            <IconButton size="large">
+              <CancelOutlinedIcon
+                color='primary'
+                fontSize='small'
+                className={classes.grow1}
+              />
+            </IconButton>
+            <Typography className={classes.message}>{message}</Typography>
+          </Toolbar>
+        ) : (
+          <Toolbar className={classes.alert}>
+            <IconButton size="large">
+              <CheckCircleOutlineIcon
+                color='primary'
+                fontSize='small'
+                className={classes.grow}
+              />
+            </IconButton>
+            <Typography className={classes.message}>{message}</Typography>
+          </Toolbar>
+        )}
+      </AppBar>
+    )}
+  </>;
 }

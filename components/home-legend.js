@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import Box from '@material-ui/core/Box';
+import Box from '@mui/material/Box';
 
 export default function HomeLegend() {
   return (

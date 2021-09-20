@@ -3,13 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { post as postData } from '../../actions/post/index';
 import { repliesDataSelector } from '../../selectors/postSelector';
 import ProfileImageAvatar from './profile-image-avatar';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import Box from '@material-ui/core/Box';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
-import { Button } from '@material-ui/core';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import Box from '@mui/material/Box';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import { Button } from '@mui/material';
 import useEmojiPicker from '../useEmojiPicker';
 import RepliesLists from './RepliesLists';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import { currentUserSelector } from '../../selectors/authSelector';
 
 const RepliesData = ({

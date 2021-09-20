@@ -1,18 +1,18 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
-import Divider from '@material-ui/core/Divider';
-import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import Divider from '@mui/material/Divider';
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import UppercaseInputLabel from '../../UppercaseInputLabel';
-import Button from '@material-ui/core/Button';
+import Button from '@mui/material/Button';
 import TileTextField from '../../TileTextField';
 import { auth } from '../../../actions/auth';
 import { currentUserSelector } from '../../../selectors/authSelector';
 import { useSelector } from 'react-redux';
 import { fetchingSelector } from '../../../selectors/authSelector';
 import { errorSelector } from '../../../selectors/authSelector';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import CircularProgress from '@mui/material/CircularProgress';
 
 export default function SubscriptionForm({
   buttonProps,

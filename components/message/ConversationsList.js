@@ -1,12 +1,12 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import List from '@material-ui/core/List';
-import MuiListItem from '@material-ui/core/ListItem';
-import ListSubheader from '@material-ui/core/ListSubheader';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import Typography from '@material-ui/core/Typography';
+import makeStyles from '@mui/styles/makeStyles';
+import List from '@mui/material/List';
+import MuiListItem from '@mui/material/ListItem';
+import ListSubheader from '@mui/material/ListSubheader';
+import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import Typography from '@mui/material/Typography';
 import ImageAvatar from '../image-avatar';
 import {
   chatDataSelector,
@@ -16,7 +16,7 @@ import {
 } from '../../selectors/chatSelector';
 import { useDispatch, useSelector } from 'react-redux';
 import { currentUserSelector } from '../../selectors/authSelector';
-import { withStyles } from '@material-ui/core';
+import withStyles from '@mui/styles/withStyles';
 import { useRouter } from 'next/router';
 import Moment from 'react-moment';
 import { chat } from '../../actions/chat';

@@ -1,31 +1,31 @@
 import NextLink from 'next/link';
-import Box from '@material-ui/core/Box';
-import Link from '@material-ui/core/Link';
-import CardContent from '@material-ui/core/CardContent';
-import CardHeader from '@material-ui/core/CardHeader';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import Box from '@mui/material/Box';
+import Link from '@mui/material/Link';
+import CardContent from '@mui/material/CardContent';
+import CardHeader from '@mui/material/CardHeader';
+import Typography from '@mui/material/Typography';
+import makeStyles from '@mui/styles/makeStyles';
 import moment from 'moment';
 import ProfileImageAvatar from './profile-image-avatar';
 import NormalCaseButton from '../NormalCaseButton';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { post as postData } from '../../actions/post/index';
-import Modal from '@material-ui/core/Modal';
-import Backdrop from '@material-ui/core/Backdrop';
-import Fade from '@material-ui/core/Fade';
-import CloseIcon from '@material-ui/icons/Close';
+import Modal from '@mui/material/Modal';
+import Backdrop from '@mui/material/Backdrop';
+import Fade from '@mui/material/Fade';
+import CloseIcon from '@mui/icons-material/Close';
 import { singlepostDataSelector } from '../../selectors/postSelector';
-import { IconButton } from '@material-ui/core';
+import { IconButton } from '@mui/material';
 import SinglePostMedia from './SinglePostMedia';
 import styles from './profile.module.css';
 import RepliesData from './RepliesData';
-import LocalMallIcon from '@material-ui/icons/LocalMall';
+import LocalMallIcon from '@mui/icons-material/LocalMall';
 import usePostPurchaseModal from './PostPurchaseModel';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import { getCommentsDataSelector } from '../../selectors/postSelector';
 import TipModal from './TipModal';
-import MonetizationOnOutlinedIcon from '@material-ui/icons/MonetizationOnOutlined';
+import MonetizationOnOutlinedIcon from '@mui/icons-material/MonetizationOnOutlined';
 import { nFormatter } from '../../services/nFormatter';
 import PostCommentsForm from './PostCommentsForm';
 import PostCommentsList from './PostCommentsList';
@@ -217,7 +217,7 @@ const CommentModal = ({
                     <CardHeader
                       avatar={<ProfileImageAvatar user={profileData} />}
                       action={
-                        <IconButton aria-label='settings' onClick={handleClose}>
+                        <IconButton aria-label='settings' onClick={handleClose} size="large">
                           {!isMobile && <CloseIcon />}
                         </IconButton>
                       }

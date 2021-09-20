@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import NextLink from 'next/link';
-import List from '@material-ui/core/List';
-import ListItemText from '@material-ui/core/ListItemText';
+import List from '@mui/material/List';
+import ListItemText from '@mui/material/ListItemText';
 import ListItemSettings from './ListItemSettings';
 
 const sidebarNavItems = [

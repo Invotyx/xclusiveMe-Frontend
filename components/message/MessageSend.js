@@ -1,6 +1,6 @@
-import { OutlinedInput } from '@material-ui/core';
-import CardActions from '@material-ui/core/CardActions';
-import IconButton from '@material-ui/core/IconButton';
+import { OutlinedInput } from '@mui/material';
+import CardActions from '@mui/material/CardActions';
+import IconButton from '@mui/material/IconButton';
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { currentUserSelector } from '../../selectors/authSelector';
@@ -9,7 +9,7 @@ import MessageModalMedia from './MessageModalMedia';
 import useAudioSend from './useAudioSend';
 import useEmojiPicker from '../useEmojiPicker';
 import AudioSend from './AudioSend';
-import { makeStyles } from '@material-ui/core/styles';
+import makeStyles from '@mui/styles/makeStyles';
 
 const useStyles = makeStyles(() => ({
   button: {
@@ -66,83 +66,81 @@ export default function MessageSend({ handleSendMessage }) {
     setMsgText(msgText + emoji);
   };
 
-  return (
-    <>
-      <CardActions
+  return <>
+    <CardActions
+      style={{
+        backgroundColor: 'black',
+      }}
+    >
+      <div
         style={{
-          backgroundColor: 'black',
+          opacity: isRecording ? 0 : 1,
         }}
       >
-        <div
-          style={{
-            opacity: isRecording ? 0 : 1,
-          }}
-        >
-          <MessageModalMedia type='camera' onMediaUploaded={handleSendMessage}>
-            <img src='/camera.svg' className={classes.button} alt='camera' />
-          </MessageModalMedia>
-          <MessageModalMedia type='photo' onMediaUploaded={handleSendMessage}>
-            <img src='/imageBtn.svg' className={classes.button} alt='image' />
-          </MessageModalMedia>
-          <MessageModalMedia type='video' onMediaUploaded={handleSendMessage}>
-            <img src='/videoBtn.svg' className={classes.button} alt='video' />
-          </MessageModalMedia>
-          <img
-            src='/voiceBtn.svg'
-            className={classes.button}
-            alt='voice'
-            onClick={startRecordingHandler}
-          />
-        </div>
-      </CardActions>
+        <MessageModalMedia type='camera' onMediaUploaded={handleSendMessage}>
+          <img src='/camera.svg' className={classes.button} alt='camera' />
+        </MessageModalMedia>
+        <MessageModalMedia type='photo' onMediaUploaded={handleSendMessage}>
+          <img src='/imageBtn.svg' className={classes.button} alt='image' />
+        </MessageModalMedia>
+        <MessageModalMedia type='video' onMediaUploaded={handleSendMessage}>
+          <img src='/videoBtn.svg' className={classes.button} alt='video' />
+        </MessageModalMedia>
+        <img
+          src='/voiceBtn.svg'
+          className={classes.button}
+          alt='voice'
+          onClick={startRecordingHandler}
+        />
+      </div>
+    </CardActions>
 
-      <CardActions style={{ padding: 0 }}>
-        {!isRecording ? (
-          <OutlinedInput
-            value={msgText}
-            onChange={e => setMsgText(e.target.value)}
-            name='msgText'
-            margin='dense'
-            fullWidth
-            multiline
-            // disabled={post.media.length === 0}
-            onKeyDown={e => {
-              if (e.keyCode === 13) {
-                if (!event.shiftKey) {
-                  handleOnEnter(e);
-                }
+    <CardActions style={{ padding: 0 }}>
+      {!isRecording ? (
+        <OutlinedInput
+          value={msgText}
+          onChange={e => setMsgText(e.target.value)}
+          name='msgText'
+          margin='dense'
+          fullWidth
+          multiline
+          // disabled={post.media.length === 0}
+          onKeyDown={e => {
+            if (e.keyCode === 13) {
+              if (!event.shiftKey) {
+                handleOnEnter(e);
               }
-            }}
-            // inputRef={searchInput}
-            placeholder='Write a message'
-            startAdornment={
-              <ProfileImageAvatar
-                user={current}
-                style={{ marginRight: '10px' }}
-              />
             }
-            endAdornment={
-              <span ref={emojiPickerRef} style={{ display: 'flex' }}>
-                <EmojiPicker onSelect={addEmoji} />
-                <IconButton onClick={handleOnEnter}>
-                  <img
-                    src='/send.png'
-                    alt='send button'
-                    style={{ marginRight: '10px' }}
-                  />
-                </IconButton>
-              </span>
-            }
-          />
-        ) : (
-          <AudioSend
-            handleClear={Clear}
-            progress={progress}
-            time={formatTime()}
-            handleSend={stopRecording}
-          />
-        )}
-      </CardActions>
-    </>
-  );
+          }}
+          // inputRef={searchInput}
+          placeholder='Write a message'
+          startAdornment={
+            <ProfileImageAvatar
+              user={current}
+              style={{ marginRight: '10px' }}
+            />
+          }
+          endAdornment={
+            <span ref={emojiPickerRef} style={{ display: 'flex' }}>
+              <EmojiPicker onSelect={addEmoji} />
+              <IconButton onClick={handleOnEnter} size="large">
+                <img
+                  src='/send.png'
+                  alt='send button'
+                  style={{ marginRight: '10px' }}
+                />
+              </IconButton>
+            </span>
+          }
+        />
+      ) : (
+        <AudioSend
+          handleClear={Clear}
+          progress={progress}
+          time={formatTime()}
+          handleSend={stopRecording}
+        />
+      )}
+    </CardActions>
+  </>;
 }

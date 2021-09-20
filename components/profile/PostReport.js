@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
 import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core/styles';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
-import Card from '@material-ui/core/Card';
+import makeStyles from '@mui/styles/makeStyles';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
+import Card from '@mui/material/Card';
 import {
   Button,
   CardActions,
   CardContent,
   CardHeader,
-} from '@material-ui/core';
+} from '@mui/material';
 import { post as postData } from '../../actions/post';
 import { useDispatch } from 'react-redux';
 

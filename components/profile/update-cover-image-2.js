@@ -1,8 +1,8 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { auth } from '../../actions/auth';
-import IconButton from '@material-ui/core/IconButton';
-import CameraAltIcon from '@material-ui/icons/CameraAlt';
+import IconButton from '@mui/material/IconButton';
+import CameraAltIcon from '@mui/icons-material/CameraAlt';
 import DepressedButton from '../DepressedButton';
 
 export default function UpdateCoverImage({ inputRef, buttonProps, children }) {
@@ -20,32 +20,30 @@ export default function UpdateCoverImage({ inputRef, buttonProps, children }) {
     );
   };
 
-  return (
-    <>
-      <input
-        accept='image/*'
-        type='file'
-        ref={inputFile}
-        style={{ display: 'none' }}
-        onChange={onChangeFile}
-      />
-      {children ? (
-        <DepressedButton
-          {...buttonProps}
-          onClick={() => {
-            inputFile.current.click();
-          }}
-        >
-          {children}
-        </DepressedButton>
-      ) : (
-        <IconButton
-          aria-label='settings'
-          onClick={() => inputFile.current.click()}
-        >
-          <CameraAltIcon style={{ color: '#606366' }} />
-        </IconButton>
-      )}
-    </>
-  );
+  return <>
+    <input
+      accept='image/*'
+      type='file'
+      ref={inputFile}
+      style={{ display: 'none' }}
+      onChange={onChangeFile}
+    />
+    {children ? (
+      <DepressedButton
+        {...buttonProps}
+        onClick={() => {
+          inputFile.current.click();
+        }}
+      >
+        {children}
+      </DepressedButton>
+    ) : (
+      <IconButton
+        aria-label='settings'
+        onClick={() => inputFile.current.click()}
+        size="large">
+        <CameraAltIcon style={{ color: '#606366' }} />
+      </IconButton>
+    )}
+  </>;
 }

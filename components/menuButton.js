@@ -1,7 +1,7 @@
-import { IconButton, MenuItem } from '@material-ui/core';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+import { IconButton, MenuItem } from '@mui/material';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 import React, { useState } from 'react';
-import Menu from '@material-ui/core/Menu';
+import Menu from '@mui/material/Menu';
 import useReportModal from './profile/ReportModal';
 import { useDispatch } from 'react-redux';
 import { snackbar } from '../actions/snackbar';
@@ -47,68 +47,66 @@ const ManuButton = ({ onConfirm, tip, ...props }) => {
     setreportModal(true);
   };
 
-  return (
-    <>
-      <IconButton
-        aria-label='more'
-        aria-controls='simple-menu'
-        aria-haspopup='true'
-        onClick={handleOpenmenu}
+  return <>
+    <IconButton
+      aria-label='more'
+      aria-controls='simple-menu'
+      aria-haspopup='true'
+      onClick={handleOpenmenu}
+      size="large">
+      <MoreVertIcon />
+    </IconButton>
+
+    {props.post?.media.length === 0 ? (
+      <></>
+    ) : (
+      <Menu
+        id='simple-menu'
+        anchorEl={anchorEl}
+        keepMounted
+        open={Boolean(anchorEl)}
+        onClose={handleCloseMenu}
       >
-        <MoreVertIcon />
-      </IconButton>
+        {props.post && (
+          <MenuItem onClick={handleCopy}>Copy link to post</MenuItem>
+        )}
+        {(!props.post ||
+          props.post?.user.username !== props.currentUser?.username) && (
+          <MenuItem onClick={handleOpenReportModal}>Report</MenuItem>
+        )}
+        {Boolean(tip) && (
+          <TipModal
+            onConfirm={(amount, callback) =>
+              dispatch(
+                post.addTip({
+                  saveData: {
+                    itemTipped: tip,
+                    itemTippedType: 'user',
+                    amount,
+                  },
 
-      {props.post?.media.length === 0 ? (
-        <></>
-      ) : (
-        <Menu
-          id='simple-menu'
-          anchorEl={anchorEl}
-          keepMounted
-          open={Boolean(anchorEl)}
-          onClose={handleCloseMenu}
-        >
-          {props.post && (
-            <MenuItem onClick={handleCopy}>Copy link to post</MenuItem>
-          )}
-          {(!props.post ||
-            props.post?.user.username !== props.currentUser?.username) && (
-            <MenuItem onClick={handleOpenReportModal}>Report</MenuItem>
-          )}
-          {Boolean(tip) && (
-            <TipModal
-              onConfirm={(amount, callback) =>
-                dispatch(
-                  post.addTip({
-                    saveData: {
-                      itemTipped: tip,
-                      itemTippedType: 'user',
-                      amount,
-                    },
-
-                    callback: () => {
-                      callback && callback();
-                    },
-                  })
-                )
-              }
-              {...props}
+                  callback: () => {
+                    callback && callback();
+                  },
+                })
+              )
+            }
+            {...props}
+          >
+            <MenuItem
+              onClick={() => {
+                setAnchorEl(null);
+              }}
             >
-              <MenuItem
-                onClick={() => {
-                  setAnchorEl(null);
-                }}
-              >
-                Tip
-              </MenuItem>
-            </TipModal>
-          )}
-        </Menu>
-      )}
+              Tip
+            </MenuItem>
+          </TipModal>
+        )}
+      </Menu>
+    )}
 
-      <ReportModal {...props} />
-    </>
-  );
+    <ReportModal {...props} />
+  </>;
 };
 
 export default ManuButton;

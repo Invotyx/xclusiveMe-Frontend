@@ -1,6 +1,6 @@
 import React from 'react';
-import SearchIcon from '@material-ui/icons/Search';
-import ClearIcon from '@material-ui/icons/Clear';
+import SearchIcon from '@mui/icons-material/Search';
+import ClearIcon from '@mui/icons-material/Clear';
 import TileTextField from '../TileTextField';
 import { useRouter } from 'next/router';
 

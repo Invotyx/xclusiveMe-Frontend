@@ -1,5 +1,5 @@
-import { makeStyles } from '@material-ui/core/styles';
-import Box from '@material-ui/core/Box';
+import makeStyles from '@mui/styles/makeStyles';
+import Box from '@mui/material/Box';
 
 const useStyles = makeStyles({
   box: {

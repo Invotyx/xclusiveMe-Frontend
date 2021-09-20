@@ -1,4 +1,4 @@
-import { makeStyles } from '@material-ui/core';
+import makeStyles from '@mui/styles/makeStyles';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme => ({
     overflowY: 'scroll',
     overflowX: 'hidden',
     height: `calc(100vh - 435px)`,
-    [theme.breakpoints.down('300')]: {
+    [theme.breakpoints.down(undefined)]: {
       height: `calc(100vh - 500px)`,
     },
     [theme.breakpoints.up('md')]: {

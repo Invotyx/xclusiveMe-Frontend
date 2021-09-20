@@ -1,6 +1,6 @@
 import React from 'react';
-import CardMedia from '@material-ui/core/CardMedia';
-import { makeStyles } from '@material-ui/core/styles';
+import CardMedia from '@mui/material/CardMedia';
+import makeStyles from '@mui/styles/makeStyles';
 import { getImage } from '../../services/getImage';
 
 const useStyles = makeStyles(() => ({

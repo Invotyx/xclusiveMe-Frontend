@@ -1,6 +1,6 @@
 import LogoAuth from './logo-auth';
 import BottomNav from './bottom-nav';
-import Box from '@material-ui/core/Box';
+import Box from '@mui/material/Box';
 import OnboardingTour from './OnboardingTour';
 
 export default function Layout({ children, hideMainAppBar, ...props }) {

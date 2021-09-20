@@ -1,7 +1,7 @@
 import Joyride from 'react-joyride';
 import React from 'react';
 import { useRouter } from 'next/router';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import SetupAccountDialog from './SetupAccountDialog';
 
 const styles = {

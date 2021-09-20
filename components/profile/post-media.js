@@ -1,9 +1,9 @@
-import CardMedia from '@material-ui/core/CardMedia';
-import { makeStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
+import CardMedia from '@mui/material/CardMedia';
+import makeStyles from '@mui/styles/makeStyles';
+import Grid from '@mui/material/Grid';
 import PostMediaVideo from './post-media-video';
 import PostMediaAudio from './post-media-audio';
-import { CardActionArea } from '@material-ui/core';
+import { CardActionArea } from '@mui/material';
 import LockedPost from './LockedPost';
 
 const useStyles = makeStyles(theme => ({

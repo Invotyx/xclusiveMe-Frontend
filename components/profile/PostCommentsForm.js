@@ -1,11 +1,11 @@
-import Box from '@material-ui/core/Box';
+import Box from '@mui/material/Box';
 import ProfileImageAvatar from './profile-image-avatar';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
+import OutlinedInput from '@mui/material/OutlinedInput';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { post as postData } from '../../actions/post/index';
 import { currentUserSelector } from '../../selectors/authSelector';
-import { Button } from '@material-ui/core';
+import { Button } from '@mui/material';
 import useEmojiPicker from '../useEmojiPicker';
 
 export default function PostCommentsForm({

@@ -1,5 +1,5 @@
 import React from 'react';
-import FavoriteIcon from '@material-ui/icons/Favorite';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import styles from './profile.module.css';
 import {
   repliesDataSelector,

@@ -1,13 +1,13 @@
 import React from 'react';
 import ProfileImageAvatar from './profile-image-avatar';
 import NextLink from 'next/link';
-import ListItem from '@material-ui/core/ListItem';
-import { makeStyles } from '@material-ui/core/styles';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import { Box } from '@material-ui/core';
+import ListItem from '@mui/material/ListItem';
+import makeStyles from '@mui/styles/makeStyles';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import { Box } from '@mui/material';
 import { getImage } from '../../services/getImage';
-import { ListItemSecondaryAction, Button } from '@material-ui/core';
+import { ListItemSecondaryAction, Button } from '@mui/material';
 
 const useStyles = makeStyles(theme => ({
   root: {

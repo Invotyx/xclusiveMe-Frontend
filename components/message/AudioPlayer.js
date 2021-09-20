@@ -1,7 +1,7 @@
 import React from 'react';
-import Box from '@material-ui/core/Box';
-import PlayArrowIcon from '@material-ui/icons/PlayArrow';
-import PauseIcon from '@material-ui/icons/Pause';
+import Box from '@mui/material/Box';
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import PauseIcon from '@mui/icons-material/Pause';
 import { Media, Player, controls, withMediaProps } from 'react-media-player';
 
 function CustomPlayPause({ media }) {

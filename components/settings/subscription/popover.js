@@ -1,18 +1,18 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Snackbar from '@material-ui/core/Snackbar';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
-import { AlertTitle } from '@material-ui/lab';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import MuiAlert from '@material-ui/lab/Alert';
-import CloseIcon from '@material-ui/icons/Close';
-import ArrowForwardOutlinedIcon from '@material-ui/icons/ArrowForwardOutlined';
+import makeStyles from '@mui/styles/makeStyles';
+import Snackbar from '@mui/material/Snackbar';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import { AlertTitle } from '@mui/material';
+import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
+import MuiAlert from '@mui/material/Alert';
+import CloseIcon from '@mui/icons-material/Close';
+import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
 import NextLink from 'next/link';
-import PaymentIcon from '@material-ui/icons/Payment';
+import PaymentIcon from '@mui/icons-material/Payment';
 import BlackButton from '../../BlackButton';
-import { withStyles } from '@material-ui/core/styles';
+import withStyles from '@mui/styles/withStyles';
 
 const useStyles = makeStyles((theme) => ({
   closeButton: {
@@ -67,7 +67,7 @@ export default function SimpleSnackbar({ open, setOpen }) {
                   aria-label='close'
                   className={classes.closeButton}
                   onClick={handleClose}
-                >
+                  size="large">
                   <CloseIcon />
                 </IconButton>
               </>

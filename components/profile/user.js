@@ -2,48 +2,48 @@ import React, { useEffect, useState } from 'react';
 import NextLink from 'next/link';
 import { motion } from 'framer-motion';
 import { variants } from '../../services/framer-variants';
-import Box from '@material-ui/core/Box';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
-import Container from '@material-ui/core/Container';
-import CardHeader from '@material-ui/core/CardHeader';
-import SortIcon from '@material-ui/icons/Sort';
-import SearchIcon from '@material-ui/icons/Search';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import FeaturedPlayListOutlinedIcon from '@material-ui/icons/FeaturedPlayListOutlined';
-import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined';
-import VideocamOutlinedIcon from '@material-ui/icons/VideocamOutlined';
-import MonetizationOnOutlinedIcon from '@material-ui/icons/MonetizationOnOutlined';
-import IconButton from '@material-ui/core/IconButton';
-import ListItemText from '@material-ui/core/ListItemText';
-import List from '@material-ui/core/List';
-import ListSubheader from '@material-ui/core/ListSubheader';
-import ListItem from '@material-ui/core/ListItem';
-import Typography from '@material-ui/core/Typography';
-import CardContent from '@material-ui/core/CardContent';
-import Card from '@material-ui/core/Card';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
+import Container from '@mui/material/Container';
+import CardHeader from '@mui/material/CardHeader';
+import SortIcon from '@mui/icons-material/Sort';
+import SearchIcon from '@mui/icons-material/Search';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import FeaturedPlayListOutlinedIcon from '@mui/icons-material/FeaturedPlayListOutlined';
+import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
+import VideocamOutlinedIcon from '@mui/icons-material/VideocamOutlined';
+import MonetizationOnOutlinedIcon from '@mui/icons-material/MonetizationOnOutlined';
+import IconButton from '@mui/material/IconButton';
+import ListItemText from '@mui/material/ListItemText';
+import List from '@mui/material/List';
+import ListSubheader from '@mui/material/ListSubheader';
+import ListItem from '@mui/material/ListItem';
+import Typography from '@mui/material/Typography';
+import CardContent from '@mui/material/CardContent';
+import Card from '@mui/material/Card';
 import Post from './post';
 import ProfileImageAvatar from './profile-image-avatar';
 import ChangeProfileImage from './change-profile-image';
 import CoverImage from './change-cover-image';
 import UpdateCoverImage from './update-cover-image-2';
-import { makeStyles } from '@material-ui/core/styles';
+import makeStyles from '@mui/styles/makeStyles';
 import Layout from '../layouts/layout-auth';
 import UpdateProfile from './update-profile';
 import Images from './images';
-import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
-import { AppBar, Toolbar } from '@material-ui/core';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import { AppBar, Toolbar } from '@mui/material';
 import { subscription } from '../../actions/subscription';
-import { Add } from '@material-ui/icons';
+import { Add } from '@mui/icons-material';
 import { useDispatch, useSelector } from 'react-redux';
 import Videos from './videos';
 import NormalCaseButton from '../NormalCaseButton';
 import NothingHere from './nothing-here';
 import { SubscribeUser } from './subscribe-button';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-import ChatIcon from '@material-ui/icons/Chat';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import ChatIcon from '@mui/icons-material/Chat';
+import CircularProgress from '@mui/material/CircularProgress';
 import { fetchingSelector } from '../../selectors/postSelector';
 import MessageModal from '../message/MessageModal';
 import { useRouter } from 'next/router';
@@ -109,7 +109,7 @@ export default function Profile({
   const [openFollowers, setOpenFollowers] = React.useState(false);
   const [openFollowing, setOpenFollowing] = React.useState(false);
   const classes = useStyles();
-  const isSmall = useMediaQuery(theme => theme.breakpoints.down('sm'));
+  const isSmall = useMediaQuery(theme => theme.breakpoints.down('md'));
   const verySmall = useMediaQuery('(max-width:350px)');
   const veryVerySmall = useMediaQuery('(max-width:310px)');
   const fetchData = useSelector(fetchingSelector);
@@ -193,427 +193,425 @@ export default function Profile({
     );
   };
 
-  return (
-    <>
-      <motion.div initial='hidden' animate='visible' variants={variants}>
-        <Layout
-          hideMainAppBar={
-            <AppBar position='relative' color='transparent' elevation={0}>
-              <Box clone mt={2}>
-                <Toolbar>
-                  <NextLink passHref href='/explore'>
-                    <IconButton>
-                      <ArrowBackIosIcon fontSize='small' />
-                    </IconButton>
-                  </NextLink>
-                  <Box flex={1}>
-                    <Typography>
-                      {profileData?.fullName || '(no name)'}
-                    </Typography>
-                  </Box>
+  return <>
+    <motion.div initial='hidden' animate='visible' variants={variants}>
+      <Layout
+        hideMainAppBar={
+          <AppBar position='relative' color='transparent' elevation={0}>
+            <Box clone mt={2}>
+              <Toolbar>
+                <NextLink passHref href='/explore'>
+                  <IconButton size="large">
+                    <ArrowBackIosIcon fontSize='small' />
+                  </IconButton>
+                </NextLink>
+                <Box flex={1}>
+                  <Typography>
+                    {profileData?.fullName || '(no name)'}
+                  </Typography>
+                </Box>
 
-                  {me ||
-                    (myCurrentUser?.username === username && (
-                      <>
-                        <UpdateProfile />
-                        <UpdateCoverImage />
-                      </>
-                    ))}
-                </Toolbar>
-              </Box>
-            </AppBar>
-          }
-        >
-          <Container maxWidth='md' disableGutters>
-            <>
-              <Grid container className={classes.root}>
-                <Grid item xs={12}>
-                  <Card>
-                    <CoverImage profileData={profileData}>
-                      <CardHeader
-                        className={classes.header}
-                        action={
-                          <Box display={{ xs: 'none', sm: 'none', md: 'flex' }}>
-                            {me ||
-                              (myCurrentUser?.username === username && (
-                                <>
-                                  <UpdateProfile />
-                                  <UpdateCoverImage />
-                                </>
-                              ))}
-                          </Box>
-                        }
-                      />
-                    </CoverImage>
+                {me ||
+                  (myCurrentUser?.username === username && (
+                    <>
+                      <UpdateProfile />
+                      <UpdateCoverImage />
+                    </>
+                  ))}
+              </Toolbar>
+            </Box>
+          </AppBar>
+        }
+      >
+        <Container maxWidth='md' disableGutters>
+          <>
+            <Grid container className={classes.root}>
+              <Grid item xs={12}>
+                <Card>
+                  <CoverImage profileData={profileData}>
                     <CardHeader
-                      className={classes.header2}
-                      avatar={
-                        (me && me) || myCurrentUser?.username === username ? (
-                          <ChangeProfileImage>
-                            <ProfileImageAvatar
-                              className={classes.userAvatar}
-                              src={profileData?.profileImage}
-                              alt={profileData?.fullName}
-                            />
-                          </ChangeProfileImage>
-                        ) : (
+                      className={classes.header}
+                      action={
+                        <Box display={{ xs: 'none', sm: 'none', md: 'flex' }}>
+                          {me ||
+                            (myCurrentUser?.username === username && (
+                              <>
+                                <UpdateProfile />
+                                <UpdateCoverImage />
+                              </>
+                            ))}
+                        </Box>
+                      }
+                    />
+                  </CoverImage>
+                  <CardHeader
+                    className={classes.header2}
+                    avatar={
+                      (me && me) || myCurrentUser?.username === username ? (
+                        <ChangeProfileImage>
                           <ProfileImageAvatar
                             className={classes.userAvatar}
                             src={profileData?.profileImage}
                             alt={profileData?.fullName}
                           />
-                        )
-                      }
-                      action={
+                        </ChangeProfileImage>
+                      ) : (
+                        <ProfileImageAvatar
+                          className={classes.userAvatar}
+                          src={profileData?.profileImage}
+                          alt={profileData?.fullName}
+                        />
+                      )
+                    }
+                    action={
+                      <Box
+                        display='flex'
+                        style={
+                          veryVerySmall
+                            ? { zoom: 0.6 }
+                            : verySmall
+                            ? { zoom: 0.8 }
+                            : {}
+                        }
+                      >
                         <Box
-                          display='flex'
-                          style={
-                            veryVerySmall
-                              ? { zoom: 0.6 }
-                              : verySmall
-                              ? { zoom: 0.8 }
-                              : {}
-                          }
+                          ml={{ xs: 0, sm: 0, md: 2 }}
+                          mr={{ xs: 0, sm: 0, md: 2 }}
+                          width={isSmall ? 70 : 90}
                         >
-                          <Box
-                            ml={{ xs: 0, sm: 0, md: 2 }}
-                            mr={{ xs: 0, sm: 0, md: 2 }}
-                            width={isSmall ? 70 : 90}
-                          >
-                            <NextLink passHref href='#'>
-                              <ListItem component='a' disableGutters>
-                                <Box clone textAlign='center'>
-                                  <ListItemText
-                                    primary={_numberOfPosts || 0}
-                                    secondary='Posts'
-                                  />
-                                </Box>
-                              </ListItem>
-                            </NextLink>
-                          </Box>
-                          <Box
-                            ml={{ xs: 0, sm: 0, md: 2 }}
-                            mr={{ xs: 0, sm: 0, md: 2 }}
-                            width={isSmall ? 70 : 90}
-                          >
-                            <ListItem
-                              component='a'
-                              disableGutters
-                              style={{ cursor: 'pointer' }}
-                            >
-                              <Box
-                                clone
-                                textAlign='center'
-                                onClick={handlegetFollowers}
-                              >
+                          <NextLink passHref href='#'>
+                            <ListItem component='a' disableGutters>
+                              <Box clone textAlign='center'>
                                 <ListItemText
-                                  primary={followers || 0}
-                                  secondary='Followers'
+                                  primary={_numberOfPosts || 0}
+                                  secondary='Posts'
                                 />
                               </Box>
                             </ListItem>
-                            <Followers
-                              openFollowers={openFollowers}
-                              setOpenFollowers={setOpenFollowers}
-                              user={user}
-                              subscriptionPlans={subscriptionPlans}
-                              followsData={followsData}
-                              followcount={followcount}
-                            />
-                          </Box>
-                          <Box
-                            ml={{ xs: 0, sm: 0, md: 2 }}
-                            mr={{ xs: 0, sm: 0, md: 2 }}
-                            width={isSmall ? 70 : 90}
+                          </NextLink>
+                        </Box>
+                        <Box
+                          ml={{ xs: 0, sm: 0, md: 2 }}
+                          mr={{ xs: 0, sm: 0, md: 2 }}
+                          width={isSmall ? 70 : 90}
+                        >
+                          <ListItem
+                            component='a'
+                            disableGutters
+                            style={{ cursor: 'pointer' }}
                           >
-                            <ListItem
-                              component='a'
-                              disableGutters
-                              style={{ cursor: 'pointer' }}
+                            <Box
+                              clone
+                              textAlign='center'
+                              onClick={handlegetFollowers}
                             >
-                              <Box
-                                clone
-                                textAlign='center'
-                                onClick={handlegetFollowing}
-                              >
-                                <ListItemText
-                                  primary={followings || 0}
-                                  secondary='Following'
-                                />
-                              </Box>
-                            </ListItem>
-                            <Followings
-                              openFollowing={openFollowing}
-                              setOpenFollowing={setOpenFollowing}
-                              subscriptionPlans={subscriptionPlans}
-                              user={user}
-                            />
-                          </Box>
-                        </Box>
-                      }
-                      title={
-                        <Box display={{ xs: 'none', sm: 'none', md: 'flex' }}>
-                          <Typography variant='h6'>
-                            {profileData?.fullName || '(no name)'}
-                          </Typography>
-                        </Box>
-                      }
-                      subheader={
-                        <Box display={{ xs: 'none', sm: 'none', md: 'flex' }}>
-                          <Typography variant='body2' className='textSecondary'>
-                            @{profileData?.username}
-                          </Typography>
-                        </Box>
-                      }
-                    />
-                    <CardContent>
-                      <Box display={isSmall ? 'block' : 'flex'}>
-                        <Box flexGrow={1}>
-                          <Box
-                            px={isSmall ? 0 : 2}
-                            mb={isSmall ? 1 : 0}
-                            maxWidth={500}
-                          >
-                            <Typography
-                              variant='body2'
-                              color='textSecondary'
-                              component='p'
-                            >
-                              {profileData?.profile?.description || '(no bio)'}
-                            </Typography>
-                          </Box>
-                        </Box>
-                        {myCurrentUser?.username !== username && (
-                          <Box display='flex' alignItems='center'>
-                            {me ||
-                              (myCurrentUser?.username === username
-                                ? ''
-                                : (profileData?.followsMe ||
-                                    !subscriptionPlans) && (
-                                    <>
-                                      <NormalCaseButton
-                                        startIcon={<ChatIcon />}
-                                        size='small'
-                                        variant='outlined'
-                                        onClick={handleMessageModal}
-                                        style={{ marginRight: '10px' }}
-                                      >
-                                        <span>Message</span>
-                                      </NormalCaseButton>
-                                      <MessageModal
-                                        messageModal={messageModal}
-                                        setMessageModal={setMessageModal}
-                                        profileData={profileData}
-                                        receiverId={user?.id}
-                                      />
-                                    </>
-                                  ))}
-                            {subscriptionPlans ? (
-                              <>
-                                {subscriptionPlans?.price > 0 ? (
-                                  <SubscribeUser
-                                    price={subscriptionPlans?.price}
-                                    handleFollow={handleFollow}
-                                  />
-                                ) : (
-                                  <NormalCaseButton
-                                    startIcon={<Add />}
-                                    size='small'
-                                    variant='outlined'
-                                    onClick={e => handleFollow(e)}
-                                  >
-                                    <span>Follow</span>
-                                  </NormalCaseButton>
-                                )}
-                              </>
-                            ) : (
-                              <NormalCaseButton
-                                size='small'
-                                variant='outlined'
-                                onClick={e => handleUnFollow(e)}
-                              >
-                                <span>Unfollow</span>
-                              </NormalCaseButton>
-                            )}
-                            <>
-                              <ManuButton
-                                tip={user?.id}
-                                title='Report this User'
-                                profileImage={profileData?.profileImage}
-                                onConfirm={{
-                                  onConfirm: (reason, callback) => {
-                                    const itemId = profileData?.id;
-                                    dispatch(
-                                      userAction.report({
-                                        reportData: {
-                                          itemId,
-                                          reason,
-                                        },
-                                        callback: () => {
-                                          callback && callback();
-                                        },
-                                      })
-                                    );
-                                  },
-                                }}
+                              <ListItemText
+                                primary={followers || 0}
+                                secondary='Followers'
                               />
-                            </>
-                          </Box>
-                        )}{' '}
-                      </Box>
-                    </CardContent>
-                  </Card>
-                </Grid>
-                {/* myCurrentUser?.username === username ? (
-                  ''
-                ) : (
-                  <Grid item xs={12}>
-                    {subscriptionPlans ? (
-                      <Box
-                        bgcolor='#111'
-                        display='flex'
-                        p={2}
-                        alignItems='center'
-                        my={2}
-                        border='1px solid #222'
-                      >
-                        <Box flexGrow={1}>
-                          <Typography>
-                            Follow to get posts in your News Feed.
-                          </Typography>
-                        </Box>
-
-                        {subscriptionPlans?.price > 0 ? (
-                          <SubscribeUser
-                            price={subscriptionPlans?.price}
-                            handleFollow={handleFollow}
+                            </Box>
+                          </ListItem>
+                          <Followers
+                            openFollowers={openFollowers}
+                            setOpenFollowers={setOpenFollowers}
+                            user={user}
+                            subscriptionPlans={subscriptionPlans}
+                            followsData={followsData}
+                            followcount={followcount}
                           />
-                        ) : (
-                          <NormalCaseButton
-                            startIcon={<Add />}
-                            size='small'
-                            variant='outlined'
-                            onClick={e => handleFollow(e)}
+                        </Box>
+                        <Box
+                          ml={{ xs: 0, sm: 0, md: 2 }}
+                          mr={{ xs: 0, sm: 0, md: 2 }}
+                          width={isSmall ? 70 : 90}
+                        >
+                          <ListItem
+                            component='a'
+                            disableGutters
+                            style={{ cursor: 'pointer' }}
                           >
-                            <span>Follow</span>
-                          </NormalCaseButton>
-                        )}
+                            <Box
+                              clone
+                              textAlign='center'
+                              onClick={handlegetFollowing}
+                            >
+                              <ListItemText
+                                primary={followings || 0}
+                                secondary='Following'
+                              />
+                            </Box>
+                          </ListItem>
+                          <Followings
+                            openFollowing={openFollowing}
+                            setOpenFollowing={setOpenFollowing}
+                            subscriptionPlans={subscriptionPlans}
+                            user={user}
+                          />
+                        </Box>
                       </Box>
-                    ) : (
-                      <Box
-                        bgcolor='#111'
-                        display='flex'
-                        p={2}
-                        alignItems='center'
-                        my={2}
-                        border='1px solid #222'
-                      >
-                        <Box flexGrow={1}>
-                          <Typography>
-                            Unfollow to stop getting posts in your News Feed.
+                    }
+                    title={
+                      <Box display={{ xs: 'none', sm: 'none', md: 'flex' }}>
+                        <Typography variant='h6'>
+                          {profileData?.fullName || '(no name)'}
+                        </Typography>
+                      </Box>
+                    }
+                    subheader={
+                      <Box display={{ xs: 'none', sm: 'none', md: 'flex' }}>
+                        <Typography variant='body2' className='textSecondary'>
+                          @{profileData?.username}
+                        </Typography>
+                      </Box>
+                    }
+                  />
+                  <CardContent>
+                    <Box display={isSmall ? 'block' : 'flex'}>
+                      <Box flexGrow={1}>
+                        <Box
+                          px={isSmall ? 0 : 2}
+                          mb={isSmall ? 1 : 0}
+                          maxWidth={500}
+                        >
+                          <Typography
+                            variant='body2'
+                            color='textSecondary'
+                            component='p'
+                          >
+                            {profileData?.profile?.description || '(no bio)'}
                           </Typography>
                         </Box>
+                      </Box>
+                      {myCurrentUser?.username !== username && (
+                        <Box display='flex' alignItems='center'>
+                          {me ||
+                            (myCurrentUser?.username === username
+                              ? ''
+                              : (profileData?.followsMe ||
+                                  !subscriptionPlans) && (
+                                  <>
+                                    <NormalCaseButton
+                                      startIcon={<ChatIcon />}
+                                      size='small'
+                                      variant='outlined'
+                                      onClick={handleMessageModal}
+                                      style={{ marginRight: '10px' }}
+                                    >
+                                      <span>Message</span>
+                                    </NormalCaseButton>
+                                    <MessageModal
+                                      messageModal={messageModal}
+                                      setMessageModal={setMessageModal}
+                                      profileData={profileData}
+                                      receiverId={user?.id}
+                                    />
+                                  </>
+                                ))}
+                          {subscriptionPlans ? (
+                            <>
+                              {subscriptionPlans?.price > 0 ? (
+                                <SubscribeUser
+                                  price={subscriptionPlans?.price}
+                                  handleFollow={handleFollow}
+                                />
+                              ) : (
+                                <NormalCaseButton
+                                  startIcon={<Add />}
+                                  size='small'
+                                  variant='outlined'
+                                  onClick={e => handleFollow(e)}
+                                >
+                                  <span>Follow</span>
+                                </NormalCaseButton>
+                              )}
+                            </>
+                          ) : (
+                            <NormalCaseButton
+                              size='small'
+                              variant='outlined'
+                              onClick={e => handleUnFollow(e)}
+                            >
+                              <span>Unfollow</span>
+                            </NormalCaseButton>
+                          )}
+                          <>
+                            <ManuButton
+                              tip={user?.id}
+                              title='Report this User'
+                              profileImage={profileData?.profileImage}
+                              onConfirm={{
+                                onConfirm: (reason, callback) => {
+                                  const itemId = profileData?.id;
+                                  dispatch(
+                                    userAction.report({
+                                      reportData: {
+                                        itemId,
+                                        reason,
+                                      },
+                                      callback: () => {
+                                        callback && callback();
+                                      },
+                                    })
+                                  );
+                                },
+                              }}
+                            />
+                          </>
+                        </Box>
+                      )}{' '}
+                    </Box>
+                  </CardContent>
+                </Card>
+              </Grid>
+              {/* myCurrentUser?.username === username ? (
+                ''
+              ) : (
+                <Grid item xs={12}>
+                  {subscriptionPlans ? (
+                    <Box
+                      bgcolor='#111'
+                      display='flex'
+                      p={2}
+                      alignItems='center'
+                      my={2}
+                      border='1px solid #222'
+                    >
+                      <Box flexGrow={1}>
+                        <Typography>
+                          Follow to get posts in your News Feed.
+                        </Typography>
+                      </Box>
 
+                      {subscriptionPlans?.price > 0 ? (
+                        <SubscribeUser
+                          price={subscriptionPlans?.price}
+                          handleFollow={handleFollow}
+                        />
+                      ) : (
                         <NormalCaseButton
+                          startIcon={<Add />}
                           size='small'
                           variant='outlined'
-                          onClick={e => handleUnFollow(e)}
+                          onClick={e => handleFollow(e)}
                         >
-                          <span>Unfollow</span>
+                          <span>Follow</span>
                         </NormalCaseButton>
+                      )}
+                    </Box>
+                  ) : (
+                    <Box
+                      bgcolor='#111'
+                      display='flex'
+                      p={2}
+                      alignItems='center'
+                      my={2}
+                      border='1px solid #222'
+                    >
+                      <Box flexGrow={1}>
+                        <Typography>
+                          Unfollow to stop getting posts in your News Feed.
+                        </Typography>
                       </Box>
-                    )}
-                  </Grid>
-                ) */}
-                <Grid item xs={12}>
-                  <List disablePadding>
-                    <ListSubheader disableGutters>
-                      <Paper>
-                        <Tabs
-                          value={tab}
-                          onChange={handleTabChange}
-                          variant='fullWidth'
-                          indicatorColor='primary'
-                          textColor='primary'
-                        >
-                          <Tab icon={<FeaturedPlayListOutlinedIcon />} />
-                          <Tab icon={<ImageOutlinedIcon />} />
-                          <Tab icon={<VideocamOutlinedIcon />} />
-                          {myCurrentUser?.username === username && (
-                            <Tab icon={<MonetizationOnOutlinedIcon />} />
-                          )}
-                        </Tabs>
-                      </Paper>
-                    </ListSubheader>
-                    <ListItem>
-                      <ListItemText>
-                        <TabPanel value={tab} index={0}>
-                          <Box
-                            ml={{ xs: 0, sm: 0, md: 8 }}
-                            mr={{ xs: 0, sm: 0, md: 8 }}
-                          >
-                            {/* <CardHeader
-                              action={
-                                <>
-                                  <IconButton aria-label='sort'>
-                                    <SearchIcon />
-                                  </IconButton>
-                                  <IconButton aria-label='sort'>
-                                    <SortIcon />
-                                  </IconButton>
-                                </>
-                              }
-                              title={`${_numberOfPosts || 0} posts`}
-                            /> */}
-                            {userFeed && userFeed.length > 0 ? (
-                              <Grid container spacing={2}>
-                                {userFeed.map((f, ix) => (
-                                  <Grid item xs={12} key={ix}>
-                                    <Post
-                                      post={f}
-                                      profileData={f.user}
-                                      me={me}
-                                      callbackAction={() => {
-                                        dispatch(
-                                          post.requestX(
-                                            { username },
-                                            true,
-                                            true
-                                          )
-                                        );
-                                      }}
-                                    />
-                                  </Grid>
-                                ))}
-                              </Grid>
-                            ) : (
-                              <NothingHere me={me} />
-                            )}
-                          </Box>
-                        </TabPanel>
-                        <TabPanel value={tab} index={1}>
-                          <Images username={username} />
-                        </TabPanel>
-                        <TabPanel value={tab} index={2}>
-                          <Videos username={username} />
-                        </TabPanel>
-                        <TabPanel value={tab} index={3}>
-                          <PurchasedPosts
-                            me={me}
-                            callbackAction={() => {
-                              dispatch(post.requestPurchased());
-                            }}
-                          />
-                        </TabPanel>
-                      </ListItemText>
-                    </ListItem>
-                  </List>
+
+                      <NormalCaseButton
+                        size='small'
+                        variant='outlined'
+                        onClick={e => handleUnFollow(e)}
+                      >
+                        <span>Unfollow</span>
+                      </NormalCaseButton>
+                    </Box>
+                  )}
                 </Grid>
+              ) */}
+              <Grid item xs={12}>
+                <List disablePadding>
+                  <ListSubheader disableGutters>
+                    <Paper>
+                      <Tabs
+                        value={tab}
+                        onChange={handleTabChange}
+                        variant='fullWidth'
+                        indicatorColor='primary'
+                        textColor='primary'
+                      >
+                        <Tab icon={<FeaturedPlayListOutlinedIcon />} />
+                        <Tab icon={<ImageOutlinedIcon />} />
+                        <Tab icon={<VideocamOutlinedIcon />} />
+                        {myCurrentUser?.username === username && (
+                          <Tab icon={<MonetizationOnOutlinedIcon />} />
+                        )}
+                      </Tabs>
+                    </Paper>
+                  </ListSubheader>
+                  <ListItem>
+                    <ListItemText>
+                      <TabPanel value={tab} index={0}>
+                        <Box
+                          ml={{ xs: 0, sm: 0, md: 8 }}
+                          mr={{ xs: 0, sm: 0, md: 8 }}
+                        >
+                          {/* <CardHeader
+                            action={
+                              <>
+                                <IconButton aria-label='sort'>
+                                  <SearchIcon />
+                                </IconButton>
+                                <IconButton aria-label='sort'>
+                                  <SortIcon />
+                                </IconButton>
+                              </>
+                            }
+                            title={`${_numberOfPosts || 0} posts`}
+                          /> */}
+                          {userFeed && userFeed.length > 0 ? (
+                            <Grid container spacing={2}>
+                              {userFeed.map((f, ix) => (
+                                <Grid item xs={12} key={ix}>
+                                  <Post
+                                    post={f}
+                                    profileData={f.user}
+                                    me={me}
+                                    callbackAction={() => {
+                                      dispatch(
+                                        post.requestX(
+                                          { username },
+                                          true,
+                                          true
+                                        )
+                                      );
+                                    }}
+                                  />
+                                </Grid>
+                              ))}
+                            </Grid>
+                          ) : (
+                            <NothingHere me={me} />
+                          )}
+                        </Box>
+                      </TabPanel>
+                      <TabPanel value={tab} index={1}>
+                        <Images username={username} />
+                      </TabPanel>
+                      <TabPanel value={tab} index={2}>
+                        <Videos username={username} />
+                      </TabPanel>
+                      <TabPanel value={tab} index={3}>
+                        <PurchasedPosts
+                          me={me}
+                          callbackAction={() => {
+                            dispatch(post.requestPurchased());
+                          }}
+                        />
+                      </TabPanel>
+                    </ListItemText>
+                  </ListItem>
+                </List>
               </Grid>
-            </>
-          </Container>
-        </Layout>
-      </motion.div>
-    </>
-  );
+            </Grid>
+          </>
+        </Container>
+      </Layout>
+    </motion.div>
+  </>;
 }
