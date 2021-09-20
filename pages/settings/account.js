@@ -4,26 +4,26 @@ import { motion } from 'framer-motion';
 import { variants } from '../../services/framer-variants';
 import Head from 'next/head';
 import Image from 'next/image';
-import Box from '@material-ui/core/Box';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import Switch from '@material-ui/core/Switch';
-import Grid from '@material-ui/core/Grid';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import Box from '@mui/material/Box';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+import Divider from '@mui/material/Divider';
+import Switch from '@mui/material/Switch';
+import Grid from '@mui/material/Grid';
+import InputAdornment from '@mui/material/InputAdornment';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction';
 import UppercaseInputLabel from '../../components/UppercaseInputLabel';
-import Button from '@material-ui/core/Button';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import { makeStyles } from '@material-ui/core/styles';
+import Button from '@mui/material/Button';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import makeStyles from '@mui/styles/makeStyles';
 import TileTextField from '../../components/TileTextField';
-import EditIcon from '@material-ui/icons/Edit';
-import AddIcon from '@material-ui/icons/Add';
-import FacebookIcon from '@material-ui/icons/Facebook';
-import LinkIcon from '@material-ui/icons/Link';
+import EditIcon from '@mui/icons-material/Edit';
+import AddIcon from '@mui/icons-material/Add';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import LinkIcon from '@mui/icons-material/Link';
 import { auth } from '../../actions/auth';
 import {
   currentUserSelector,
@@ -34,7 +34,7 @@ import Layout from '../../components/layouts/layout-settings';
 import { fetchingSelector } from '../../selectors/authSelector';
 import { errorSelector } from '../../selectors/authSelector';
 import { isValidHttpUrl } from '../../services/helper';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import CircularProgress from '@mui/material/CircularProgress';
 import * as parser from 'ua-parser-js';
 import NormalCaseButton from '../../components/NormalCaseButton';
 import moment from 'moment';
@@ -312,7 +312,7 @@ export default function Home(props) {
                                 set_editLinkedAccount(i.title);
                                 set_editLinkedAccountUrl(i.url);
                               }}
-                            >
+                              size="large">
                               {i.url ? <EditIcon /> : <AddIcon />}
                             </IconButton>
                           )}

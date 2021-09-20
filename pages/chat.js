@@ -1,15 +1,15 @@
 import NextLink from 'next/link';
-import Link from '@material-ui/core/Link';
+import Link from '@mui/material/Link';
 import Head from 'next/head';
 import React, { useEffect, useState } from 'react';
 import Layout from '../components/layouts/layout-auth';
-import { makeStyles } from '@material-ui/core/styles';
+import makeStyles from '@mui/styles/makeStyles';
 import ConversationsList from '../components/message/ConversationsList';
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useRouter } from 'next/router';
 import { currentUserSelector } from '../selectors/authSelector';
 import { useDispatch, useSelector } from 'react-redux';
-import Typography from '@material-ui/core/Typography';
+import Typography from '@mui/material/Typography';
 import ImageAvatar from '../components/image-avatar';
 import { chat } from '../actions/chat';
 import {
@@ -18,13 +18,13 @@ import {
   singleChatSelector,
 } from '../selectors/chatSelector';
 import MessagesList from '../components/message/MessagesList';
-import IconButton from '@material-ui/core/IconButton';
-import Container from '@material-ui/core/Container';
-import Grid from '@material-ui/core/Grid';
-import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardContent from '@material-ui/core/CardContent';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
+import IconButton from '@mui/material/IconButton';
+import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
+import Card from '@mui/material/Card';
+import CardHeader from '@mui/material/CardHeader';
+import CardContent from '@mui/material/CardContent';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import io from 'socket.io-client';
 import { snackbar } from '../actions/snackbar';
 import TipModal from '../components/profile/TipModal';
@@ -48,7 +48,7 @@ const useStyles = makeStyles(theme => ({
 const Chat = () => {
   const dispatch = useDispatch();
   const [socketIo, setSocketIo] = useState(null);
-  const isMobile = useMediaQuery(theme => theme.breakpoints.down('sm'));
+  const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'));
   const activeConversationId = useSelector(activeConversationIdSelector);
   const [activeParticipant, setActiveParticipant] = React.useState(null);
   const [lastMessageReceived, setLastMessageReceived] = React.useState(null);
@@ -250,7 +250,7 @@ const Chat = () => {
                             query: { ...query, conId: '' },
                           });
                         }}
-                      >
+                        size="large">
                         <ArrowBackIcon />
                       </IconButton>
                     ) : (

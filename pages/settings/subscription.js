@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { variants } from '../../services/framer-variants';
 import Head from 'next/head';
-import Grid from '@material-ui/core/Grid';
+import Grid from '@mui/material/Grid';
 import Layout from '../../components/layouts/layout-settings';
 import Popover from '../../components/settings/subscription/popover';
 import SubscriptionForm from '../../components/settings/subscription/SubscriptionForm';

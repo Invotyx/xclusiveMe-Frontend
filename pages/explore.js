@@ -1,20 +1,20 @@
 import { motion } from 'framer-motion';
 import { variants } from '../services/framer-variants';
 import Head from 'next/head';
-import Grid from '@material-ui/core/Grid';
-import Container from '@material-ui/core/Container';
+import Grid from '@mui/material/Grid';
+import Container from '@mui/material/Container';
 import Suggestions from '../components/Suggestions';
 import Post from '../components/profile/post';
-import { makeStyles } from '@material-ui/core/styles';
+import makeStyles from '@mui/styles/makeStyles';
 import Layout from '../components/layouts/layout-auth';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { post } from '../actions/post';
 import { subscribedSelector } from '../selectors/postSelector';
-import Box from '@material-ui/core/Box';
+import Box from '@mui/material/Box';
 import NothingHere from '../components/profile/nothing-here';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-import LinearProgress from '@material-ui/core/LinearProgress';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import LinearProgress from '@mui/material/LinearProgress';
 import { fetchingSelector } from '../selectors/postSelector';
 
 const useStyles = makeStyles(() => ({

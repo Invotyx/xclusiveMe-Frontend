@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
-import { ThemeProvider } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
+import { ThemeProvider, StyledEngineProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
 import { darkTheme } from '../theme';
-import { makeStyles } from '@material-ui/core/styles';
+import makeStyles from '@mui/styles/makeStyles';
 import Head from 'next/head';
 import { wrapper } from '../store';
 import './App.css';
@@ -39,12 +39,14 @@ function MyApp({ Component, pageProps }) {
         />
       </Head>
       <>
-        <ThemeProvider theme={darkTheme}>
-          <CssBaseline />
-          <Component {...pageProps} />
-          <AppSnackbar />
-          <BottomAlert />
-        </ThemeProvider>
+        <StyledEngineProvider injectFirst>
+          <ThemeProvider theme={darkTheme}>
+            <CssBaseline />
+            <Component {...pageProps} />
+            <AppSnackbar />
+            <BottomAlert />
+          </ThemeProvider>
+        </StyledEngineProvider>
       </>
     </div>
   );

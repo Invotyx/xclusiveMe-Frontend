@@ -1,27 +1,27 @@
 import NextLink from 'next/link';
-import Box from '@material-ui/core/Box';
-import Link from '@material-ui/core/Link';
-import CardContent from '@material-ui/core/CardContent';
-import CardHeader from '@material-ui/core/CardHeader';
-import IconButton from '@material-ui/core/IconButton';
-import MonetizationOnOutlinedIcon from '@material-ui/icons/MonetizationOnOutlined';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import Box from '@mui/material/Box';
+import Link from '@mui/material/Link';
+import CardContent from '@mui/material/CardContent';
+import CardHeader from '@mui/material/CardHeader';
+import IconButton from '@mui/material/IconButton';
+import MonetizationOnOutlinedIcon from '@mui/icons-material/MonetizationOnOutlined';
+import Typography from '@mui/material/Typography';
+import makeStyles from '@mui/styles/makeStyles';
 import moment from 'moment';
 import ProfileImageAvatar from '../components/profile/profile-image-avatar';
 import NormalCaseButton from '../components/NormalCaseButton';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
+import OutlinedInput from '@mui/material/OutlinedInput';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { post as postData } from '../actions/post';
-import CloseIcon from '@material-ui/icons/Close';
+import CloseIcon from '@mui/icons-material/Close';
 import { singlepostDataSelector } from '../selectors/postSelector';
-import { Button } from '@material-ui/core';
+import { Button } from '@mui/material';
 import SinglePostMedia from '../components/profile/SinglePostMedia';
 import styles from '../components/profile/profile.module.css';
 import RepliesData from '../components/profile/RepliesData';
-import LocalMallIcon from '@material-ui/icons/LocalMall';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
+import LocalMallIcon from '@mui/icons-material/LocalMall';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import { getCommentsDataSelector } from '../selectors/postSelector';
 import TipModal from '../components/profile/TipModal';
 import useEmojiPicker from '../components/useEmojiPicker';
@@ -233,7 +233,7 @@ const SinglePost = ({ post, altHeader, currentUser }) => {
                 <CardHeader
                   avatar={<ProfileImageAvatar user={singlePost?.user} />}
                   action={
-                    <IconButton aria-label='settings'>
+                    <IconButton aria-label='settings' size="large">
                       {!isMobile && <CloseIcon onClick={handleClose} />}
                     </IconButton>
                   }

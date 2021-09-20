@@ -1,26 +1,26 @@
 import React, { useEffect } from 'react';
-import Alert from '@material-ui/lab/Alert';
+import Alert from '@mui/material/Alert';
 import { useDispatch, useSelector } from 'react-redux';
 import { motion } from 'framer-motion';
 import { variants } from '../../services/framer-variants';
 import Head from 'next/head';
 import BillingAddDialog from '../../components/settings/billing/add-dialog';
-import Box from '@material-ui/core/Box';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import Divider from '@material-ui/core/Divider';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import Avatar from '@material-ui/core/Avatar';
-import { makeStyles } from '@material-ui/core/styles';
-import PaymentIcon from '@material-ui/icons/Payment';
-import CheckIcon from '@material-ui/icons/Check';
+import Box from '@mui/material/Box';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import Divider from '@mui/material/Divider';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import CircularProgress from '@mui/material/CircularProgress';
+import Avatar from '@mui/material/Avatar';
+import makeStyles from '@mui/styles/makeStyles';
+import PaymentIcon from '@mui/icons-material/Payment';
+import CheckIcon from '@mui/icons-material/Check';
 import {
   paymentMethodDataSelector,
   fetchingSelector,

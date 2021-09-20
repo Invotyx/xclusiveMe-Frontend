@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
 import { useDispatch, useSelector } from 'react-redux';
 import Head from 'next/head';
 import { auth } from '../../../../actions/auth';

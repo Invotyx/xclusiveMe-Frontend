@@ -2,8 +2,8 @@ import { useRouter } from 'next/router';
 import { motion } from 'framer-motion';
 import { variants } from '../services/framer-variants';
 import Head from 'next/head';
-import Grid from '@material-ui/core/Grid';
-import Container from '@material-ui/core/Container';
+import Grid from '@mui/material/Grid';
+import Container from '@mui/material/Container';
 import Layout from '../components/layouts/layout-auth';
 import NewPostForm from '../components/new-post/new-post-form';
 

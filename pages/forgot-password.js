@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import Head from 'next/head';
-import { makeStyles } from '@material-ui/core/styles';
+import makeStyles from '@mui/styles/makeStyles';
 import TileButton from '../components/TileButton';
 import TileTextField from '../components/TileTextField';
 import { auth } from '../actions/auth';

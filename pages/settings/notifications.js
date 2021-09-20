@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react';
 import Layout from '../../components/layouts/layout-settings';
 import Head from 'next/head';
-import { Box, Divider, Typography } from '@material-ui/core';
-import { withStyles } from '@material-ui/core/styles';
+import { Box, Divider, Typography } from '@mui/material';
+import withStyles from '@mui/styles/withStyles';
 import { post } from '../../actions/post/index';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Switch from '@material-ui/core/Switch';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Switch from '@mui/material/Switch';
 import { useDispatch, useSelector } from 'react-redux';
 import { settingsNotify } from '../../selectors/postSelector';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import CircularProgress from '@mui/material/CircularProgress';
 import { fetchingSelector } from '../../selectors/postSelector';
 
 const notifications = () => {

@@ -3,13 +3,13 @@ import { motion } from 'framer-motion';
 import { variants } from '../services/framer-variants';
 import Head from 'next/head';
 import NextLink from 'next/link';
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
-import Container from '@material-ui/core/Container';
-import SearchIcon from '@material-ui/icons/Search';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import { makeStyles } from '@material-ui/core/styles';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
+import SearchIcon from '@mui/icons-material/Search';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import CircularProgress from '@mui/material/CircularProgress';
+import makeStyles from '@mui/styles/makeStyles';
 import Layout from '../components/layouts/layout-auth';
 import { useSelector, useDispatch } from 'react-redux';
 import {
@@ -25,7 +25,7 @@ import {
   ListItemAvatar,
   ListItemSecondaryAction,
   ListItemText,
-} from '@material-ui/core';
+} from '@mui/material';
 import { getImage } from '../services/getImage';
 import ProfileImageAvatar from '../components/profile/profile-image-avatar';
 import { useRouter } from 'next/router';
