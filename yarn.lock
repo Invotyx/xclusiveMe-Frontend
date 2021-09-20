@@ -2852,7 +2852,7 @@ react-joyride@^2.3.1:
     scrollparent "^2.0.1"
     tree-changes "^0.7.1"
 
-react-material-ui-carousel@^2.2.7:
+react-material-ui-carousel@^2.3.1:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/react-material-ui-carousel/-/react-material-ui-carousel-2.3.1.tgz#73b516f831d45df70bb9219f56fee14a2788e332"
   integrity sha512-QV3z+x10x19rSAPSHMmkHtdx/PSiwqo6FeAaY8Y04LtuKM0ZxHsgeMslNdcI8M1G2B48391YqN+ouWFPYqAbTA==
