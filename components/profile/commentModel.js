@@ -28,6 +28,7 @@ import TipModal from './TipModal';
 import MonetizationOnOutlinedIcon from '@material-ui/icons/MonetizationOnOutlined';
 import { nFormatter } from '../../services/nFormatter';
 import PostCommentsForm from './PostCommentsForm';
+import PostCommentsList from './PostCommentsList';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -478,146 +479,28 @@ const CommentModal = ({
                     marginLeft: '15px',
                   }}
                 >
-                  {singlePost?.comments?.map(
-                    (comm, index) =>
-                      comm?.parentCommentId === null && (
-                        <div key={`abcdef${index}`}>
-                          <div
-                            style={{
-                              display: 'flex',
-                              justifyContent: 'space-between',
-                              marginTop:
-                                singlePost?.totalComments < 10 ? '15px' : '',
-                            }}
-                          >
-                            <div
-                              style={{
-                                display: 'flex',
-                                justifyContent: 'space-between',
-                              }}
-                            >
-                              <div style={{ display: 'flex' }}>
-                                <NextLink
-                                  href={`/x/${comm?.user?.username}`}
-                                  passHref
-                                >
-                                  <Link>
-                                    <ProfileImageAvatar user={comm?.user} />
-                                  </Link>
-                                </NextLink>
-
-                                <NextLink
-                                  href={`/x/${comm?.user?.username}`}
-                                  passHref
-                                >
-                                  <Link>
-                                    <p
-                                      style={{
-                                        marginTop: '7px',
-                                        marginLeft: '10px',
-                                        fontWeight: 'bold',
-                                        cursor: 'pointer',
-                                      }}
-                                      className={styles.userNameMobile}
-                                    >
-                                      {comm?.user?.fullName}
-                                    </p>
-                                  </Link>
-                                </NextLink>
-                              </div>
-
-                              <p
-                                style={{
-                                  cursor: 'pointer',
-                                  marginLeft: '10px',
-                                  marginTop: '5px',
-                                  whiteSpace: 'normal',
-                                  overflow: 'hidden',
-                                  textOverflow: 'ellipsis',
-                                  marginRight: '15px',
-                                  color: '#ACACAC',
-                                  fontWeight: comm.id === commentId && 'bold',
-                                }}
-                              >
-                                {comm.comment.slice(0, 511)}
-                              </p>
-                            </div>
-                            <div
-                              style={{ display: 'flex', marginRight: '14px' }}
-                            >
-                              <img
-                                src='/comment.png'
-                                alt='reply button'
-                                style={{
-                                  width: '20px',
-                                  height: '20px',
-                                  marginRight: '9px',
-                                  cursor: 'pointer',
-                                }}
-                                className={styles.commMobile}
-                                id={comm.id}
-                                onClick={() => handleReplyField(comm.id)}
-                              />
-
-                              {comm.likes && comm.likes.length === 0 ? (
-                                <img
-                                  src='/emptyHeart.png'
-                                  alt='unliked'
-                                  style={{
-                                    width: '20px',
-                                    height: '20px',
-                                    cursor: 'pointer',
-                                  }}
-                                  onClick={() =>
-                                    handleModalCommentLike(comm.id)
-                                  }
-                                />
-                              ) : (
-                                <img
-                                  src='/filled.png'
-                                  alt='unliked'
-                                  style={{
-                                    width: '20px',
-                                    height: '20px',
-                                    cursor: 'pointer',
-                                  }}
-                                  onClick={() =>
-                                    handleModalCommentLike(comm.id)
-                                  }
-                                />
-                              )}
-                            </div>
-                          </div>
-
-                          <div>
-                            <div
-                              style={{
-                                marginLeft: '50px',
-                                marginTop: '-10px',
-                                marginBottom: '0px',
-                                cursor: 'pointer',
-                                fontSize: '11px',
-                              }}
-                            >
-                              <RepliesData
-                                comment={comm}
-                                postId={singlePost.id}
-                                isReplyField={isReplyField}
-                                setisReplyField={setisReplyField}
-                                issubReplyField={issubReplyField}
-                                setissubReplyField={setissubReplyField}
-                                commentId={commentId}
-                                setCommentId={setCommentId}
-                                forCommentId={forCommentId}
-                                openReply={openReply}
-                                checkRefs={checkRefs}
-                                closeCheck={closeCheck}
-                              />
-                            </div>
-                          </div>
-                        </div>
-                      )
-                  )}
+                  <PostCommentsList
+                    postId={singlePost.id}
+                    locked={singlePost.media.length === 0}
+                    comments={singlePost.comments}
+                    callbackAction={() =>
+                      dispatch(postData.requestOne(singlePost.id))
+                    }
+                    handleOpen={handleReplyField}
+                    replies
+                    repliesDataProps={{
+                      isReplyField: isReplyField,
+                      setisReplyField: setisReplyField,
+                      issubReplyField: issubReplyField,
+                      setissubReplyField: setissubReplyField,
+                      commentId: commentId,
+                      setCommentId: setCommentId,
+                      forCommentId: forCommentId,
+                      openReply: openReply,
+                      checkRefs: checkRefs,
+                      closeCheck: closeCheck,
+                    }}
+                  />
 
                   {singlePost?.totalComments > 10 &&
                     commentsData?.map(
