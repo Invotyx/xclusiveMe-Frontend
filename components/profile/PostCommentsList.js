@@ -12,6 +12,7 @@ export default function PostCommentsList({
   setOpenReply,
   handleOpen,
   replies,
+  repliesDataProps,
 }) {
   const dispatch = useDispatch();
 
@@ -214,6 +215,7 @@ export default function PostCommentsList({
                 dksjgalksdjgkldsjaglsdkagjl={392683409684309}
                 comment={comm}
                 post={post}
+                {...repliesDataProps}
               />
             </div>
           )}
