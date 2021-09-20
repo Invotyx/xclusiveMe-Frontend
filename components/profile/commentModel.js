@@ -25,7 +25,6 @@ import usePostPurchaseModal from './PostPurchaseModel';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { getCommentsDataSelector } from '../../selectors/postSelector';
 import TipModal from './TipModal';
-import { currentUserSelector } from '../../selectors/authSelector';
 import MonetizationOnOutlinedIcon from '@material-ui/icons/MonetizationOnOutlined';
 import { nFormatter } from '../../services/nFormatter';
 import PostCommentsForm from './PostCommentsForm';
@@ -81,7 +80,6 @@ const CommentModal = ({
   const isMobile = useMediaQuery('(max-width: 760px)');
   const [pageNumber, setPageNumber] = useState(2);
   const [commLength, setcommLength] = useState(10);
-  const currentUser = useSelector(currentUserSelector);
   const [closeCheck, setCloseClick] = useState(false);
 
   // function refreshPage() {
