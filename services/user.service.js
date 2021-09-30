@@ -83,7 +83,7 @@ export async function updatePassword(request) {
   return apiClient.patch(`${SERVER_ADDRESS}/users/update-password`, data);
 }
 
-export async function resetPassword(request) {
+export async function resetForgotPassword(request) {
   const data = JSON.stringify(request);
   return apiClient.patch(`${SERVER_ADDRESS}/users/reset-password`, data);
 }
