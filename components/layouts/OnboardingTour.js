@@ -39,6 +39,7 @@ const steps = [
     target: 'body',
     floaterProps,
     hideCloseButton: true,
+    hideBackButton: true,
   },
   {
     target: '.step-1',
@@ -60,6 +61,7 @@ const steps = [
     placement: 'right-start',
     floaterProps,
     hideCloseButton: true,
+    hideBackButton: true,
   },
   {
     target: '.step-2',
@@ -80,6 +82,7 @@ const steps = [
     ),
     floaterProps,
     hideCloseButton: true,
+    hideBackButton: true,
   },
   {
     target: '.step-3',
@@ -100,6 +103,7 @@ const steps = [
     ),
     floaterProps,
     hideCloseButton: true,
+    hideBackButton: true,
   },
   {
     target: '.step-4',
@@ -120,6 +124,7 @@ const steps = [
     ),
     floaterProps,
     hideCloseButton: true,
+    hideBackButton: true,
   },
   {
     target: '.step-5',
@@ -140,6 +145,7 @@ const steps = [
     ),
     floaterProps,
     hideCloseButton: true,
+    hideBackButton: true,
   },
   {
     target: '.step-6',
@@ -160,6 +166,7 @@ const steps = [
     ),
     floaterProps,
     hideCloseButton: true,
+    hideBackButton: true,
   },
   {
     content: (
@@ -171,6 +178,7 @@ const steps = [
     target: 'body',
     floaterProps,
     hideCloseButton: true,
+    hideBackButton: true,
   },
 ];
 
