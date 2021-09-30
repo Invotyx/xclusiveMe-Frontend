@@ -29,6 +29,9 @@
   /* border: 1px solid #fff; */
   /* border-radius: 10px !important; */
 }
+.react-joyride__tooltip > div > div {
+  padding: 0 !important;
+}
 .react-joyride__tooltip button {
   font-size: 12px !important;
   outline: 0;
