@@ -22,8 +22,8 @@ const axiosInterceptorResponse = dispatch => {
           }
           const refreshResponse = await apiClient
             .get(`${SERVER_ADDRESS}/auth/refresh`)
-            .then(response => ({ ...response }))
-            .catch(error => ({ ...error }));
+            .then(res => ({ ...res }))
+            .catch(err => ({ ...err }));
           if (Boolean(refreshResponse.isAxiosError)) {
             // logout
             dispatch(auth.redirectToLoginPage(Router.router.asPath));
