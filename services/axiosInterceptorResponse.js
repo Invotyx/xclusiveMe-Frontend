@@ -27,6 +27,7 @@ const axiosInterceptorResponse = dispatch => {
           if (Boolean(refreshResponse.isAxiosError)) {
             // logout
             dispatch(auth.redirectToLoginPage(Router.router.asPath));
+            return Promise.reject(error);
           } else {
             localStorage.setItem('jwtToken', refreshResponse.data.accessToken);
             localStorage.setItem(
