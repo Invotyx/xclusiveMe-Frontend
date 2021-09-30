@@ -7,7 +7,7 @@ import SetupAccountDialog from './SetupAccountDialog';
 const styles = {
   options: {
     arrowColor: '#fff',
-    backgroundColor: 'rgba(0, 0, 0, 0.3)',
+    backgroundColor: 'rgba(0, 0, 0, 0)',
     beaconSize: 36,
     overlayColor: 'rgba(0, 0, 0, 0.7)',
     primaryColor: '#fff',
