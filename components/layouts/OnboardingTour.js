@@ -29,7 +29,11 @@ const floaterProps = {
 
 const steps = [
   {
-    content: <h2>Let's begin our journey!</h2>,
+    content: (
+      <>
+        <h2>Let's begin our journey!</h2>
+      </>
+    ),
     placement: 'center',
     target: 'body',
     floaterProps,
@@ -37,43 +41,71 @@ const steps = [
   },
   {
     target: '.step-1',
-    content: <h2>Your newsfeed appears here</h2>,
+    content: (
+      <>
+        <h2>Your newsfeed appears here</h2>
+      </>
+    ),
     placement: 'right-start',
     floaterProps,
     hideCloseButton: true,
   },
   {
     target: '.step-2',
-    content: <h2>Ready for you first masterpiece</h2>,
+    content: (
+      <>
+        <h2>Ready for you first masterpiece</h2>
+      </>
+    ),
     floaterProps,
     hideCloseButton: true,
   },
   {
     target: '.step-3',
-    content: <h2>Search your friends and Family</h2>,
+    content: (
+      <>
+        <h2>Search your friends and Family</h2>
+      </>
+    ),
     floaterProps,
     hideCloseButton: true,
   },
   {
     target: '.step-4',
-    content: <h2>All your settings here</h2>,
+    content: (
+      <>
+        <h2>All your settings here</h2>
+      </>
+    ),
     floaterProps,
     hideCloseButton: true,
   },
   {
     target: '.step-5',
-    content: <h2>Check out your notifications here</h2>,
+    content: (
+      <>
+        <h2>Check out your notifications here</h2>
+      </>
+    ),
     floaterProps,
     hideCloseButton: true,
   },
   {
     target: '.step-6',
-    content: <h2>Chat with your Followers!</h2>,
+    content: (
+      <>
+        <h2>Chat with your Followers!</h2>
+      </>
+    ),
     floaterProps,
     hideCloseButton: true,
   },
   {
-    content: <h2>Lets get you set up</h2>,
+    content: (
+      <>
+        <h2>Lets get you set up</h2>
+      </>
+    ),
     placement: 'center',
     target: 'body',
     floaterProps,
