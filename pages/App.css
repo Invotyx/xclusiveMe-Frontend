@@ -30,6 +30,10 @@
   /* border-radius: 10px !important; */
   padding: 0 !important;
 }
+.react-joyride__tooltip > div {
+  display: block !important;
+  text-align: center;
+}
 .react-joyride__tooltip > div > div {
   padding: 0 !important;
 }
