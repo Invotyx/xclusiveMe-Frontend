@@ -273,29 +273,31 @@ const RepliesData = ({
         />
       )}
 
-      {showMyReply === true && comment.totalReplies > 0 && checkId === comment.id && (
-        <div
-          onClick={() => hideReply(comment.id)}
-          style={{ marginLeft: isMobile ? '5px' : '5px' }}
-        >
-          <img
-            src='/lineReply.svg'
-            alt='view reply line'
-            style={{
-              marginBottom: '4px',
-            }}
-          />
-          <span
-            style={{
-              fontSize: '12px',
-              fontFamily: 'Poppins',
-              marginLeft: '10px',
-            }}
+      {showMyReply === true &&
+        comment.totalReplies > 0 &&
+        checkId === comment.id && (
+          <div
+            onClick={() => hideReply(comment.id)}
+            style={{ marginLeft: isMobile ? '5px' : '5px' }}
           >
-            HIDE REPLIES
-          </span>
-        </div>
-      )}
+            <img
+              src='/lineReply.svg'
+              alt='view reply line'
+              style={{
+                marginBottom: '4px',
+              }}
+            />
+            <span
+              style={{
+                fontSize: '12px',
+                fontFamily: 'Poppins',
+                marginLeft: '10px',
+              }}
+            >
+              HIDE REPLIES
+            </span>
+          </div>
+        )}
 
       {(isReplyField.check === true && isReplyField.id === comment.id) ||
       (issubReplyField.check === true && issubReplyField.id === comment.id) ? (
