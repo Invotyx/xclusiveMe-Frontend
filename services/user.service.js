@@ -83,6 +83,11 @@ export async function updatePassword(request) {
   return apiClient.patch(`${SERVER_ADDRESS}/users/update-password`, data);
 }
 
+export async function resetPassword(request) {
+  const data = JSON.stringify(request);
+  return apiClient.patch(`${SERVER_ADDRESS}/users/reset-password`, data);
+}
+
 export async function updateSubscriptionFee(id, subData) {
   const data = JSON.stringify(subData);
   return apiClient.patch(`${SERVER_ADDRESS}/subscriptions/${id}/price`, data);
