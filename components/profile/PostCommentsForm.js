@@ -56,6 +56,9 @@ export default function PostCommentsForm({
           <OutlinedInput
             value={commentText}
             onChange={e => setCommentText(e.target.value)}
+            style={{
+              backgroundColor: 'transparent',
+            }}
             name='commentText'
             multiline
             fullWidth
