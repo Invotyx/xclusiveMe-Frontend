@@ -12,7 +12,7 @@
 }
 
 .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
-  border: none;
+  /* border: none; */
 }
 
 .react-input-emoji--container {
