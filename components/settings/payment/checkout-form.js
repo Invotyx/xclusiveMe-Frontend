@@ -112,9 +112,8 @@ export default function CheckoutForm({ buttonProps, ...props }) {
           pt={3}
           pb={3}
           pl={1}
-          // border='1px solid #222'
-          // borderRadius={4}
-          style={{ backgroundColor: '#111' }}
+          border='1px solid #222'
+          borderRadius={4}
         >
           <CardSection />
         </Box>
