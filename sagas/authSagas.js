@@ -12,6 +12,7 @@ import {
   resendOtp,
   updateProfile,
   updatePassword,
+  resetForgotPassword,
   updateSubscriptionFee,
   uploadImage,
   uploadCover,
@@ -215,9 +216,10 @@ function* handleUpdateProfile(action) {
 
 function* handleUpdatePassword(action) {
   try {
-    const { saveData } = action.payload;
+    const { saveData, resetForgotPasswordFlag } = action.payload;
 
-    yield call(updatePassword, saveData);
+    const fn = resetForgotPasswordFlag ? resetForgotPassword : updatePassword;
+    yield call(fn, saveData);
     yield put(auth.success({}));
 
     yield put(
