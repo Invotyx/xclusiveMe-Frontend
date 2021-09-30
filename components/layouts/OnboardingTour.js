@@ -18,41 +18,58 @@ const styles = {
   },
 };
 
+const floaterProps = {
+  styles: {
+    arrow: {
+      length: 0,
+      spread: 0,
+    },
+  },
+};
+
 const steps = [
   {
     content: <h2>Let's begin our journey!</h2>,
     placement: 'center',
     target: 'body',
+    floaterProps,
   },
   {
     target: '.step-1',
     content: 'Your newsfeed appears here',
     placement: 'right-start',
+    floaterProps,
   },
   {
     target: '.step-2',
     content: 'Ready for you first masterpiece',
+    floaterProps,
   },
   {
     target: '.step-3',
     content: 'Search your friends and Family',
+    floaterProps,
   },
   {
     target: '.step-4',
     content: 'All your settings here',
+    floaterProps,
   },
   {
     target: '.step-5',
     content: 'Check out your notifications here',
+    floaterProps,
   },
   {
     target: '.step-6',
     content: 'Chat with your Followers!',
+    floaterProps,
   },
   {
     content: 'Lets get you set up',
     placement: 'center',
     target: 'body',
+    floaterProps,
   },
 ];
 
