@@ -3,6 +3,7 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import SetupAccountDialog from './SetupAccountDialog';
+import CurvedArrow from 'react-curved-arrow';
 
 const styles = {
   options: {
@@ -43,6 +44,16 @@ const steps = [
     target: '.step-1',
     content: (
       <>
+        <div className='tour-arrow' style={{ position: 'relative' }}>
+          <CurvedArrow
+            color='#999'
+            fromSelector='.step-1'
+            toSelector='.step-1'
+            fromOffsetX={-100}
+            fromOffsetY={100}
+            middleY={40}
+          />
+        </div>
         <h2>Your newsfeed appears here</h2>
       </>
     ),
@@ -54,6 +65,16 @@ const steps = [
     target: '.step-2',
     content: (
       <>
+        <div className='tour-arrow' style={{ position: 'relative' }}>
+          <CurvedArrow
+            color='#999'
+            fromSelector='.step-2'
+            toSelector='.step-2'
+            fromOffsetX={100}
+            fromOffsetY={100}
+            middleY={40}
+          />
+        </div>
         <h2>Ready for you first masterpiece</h2>
       </>
     ),
@@ -64,6 +85,16 @@ const steps = [
     target: '.step-3',
     content: (
       <>
+        <div className='tour-arrow' style={{ position: 'relative' }}>
+          <CurvedArrow
+            color='#999'
+            fromSelector='.step-3'
+            toSelector='.step-3'
+            fromOffsetX={100}
+            fromOffsetY={100}
+            middleY={40}
+          />
+        </div>
         <h2>Search your friends and Family</h2>
       </>
     ),
@@ -74,6 +105,16 @@ const steps = [
     target: '.step-4',
     content: (
       <>
+        <div className='tour-arrow' style={{ position: 'relative' }}>
+          <CurvedArrow
+            color='#999'
+            fromSelector='.step-4'
+            toSelector='.step-4'
+            fromOffsetX={100}
+            fromOffsetY={100}
+            middleY={40}
+          />
+        </div>
         <h2>All your settings here</h2>
       </>
     ),
@@ -84,6 +125,16 @@ const steps = [
     target: '.step-5',
     content: (
       <>
+        <div className='tour-arrow' style={{ position: 'relative' }}>
+          <CurvedArrow
+            color='#999'
+            fromSelector='.step-5'
+            toSelector='.step-5'
+            fromOffsetX={100}
+            fromOffsetY={100}
+            middleY={40}
+          />
+        </div>
         <h2>Check out your notifications here</h2>
       </>
     ),
@@ -94,6 +145,16 @@ const steps = [
     target: '.step-6',
     content: (
       <>
+        <div className='tour-arrow' style={{ position: 'relative' }}>
+          <CurvedArrow
+            color='#999'
+            fromSelector='.step-6'
+            toSelector='.step-6'
+            fromOffsetX={100}
+            fromOffsetY={100}
+            middleY={40}
+          />
+        </div>
         <h2>Chat with your Followers!</h2>
       </>
     ),

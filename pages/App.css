@@ -44,3 +44,8 @@
 .react-joyride__tooltip button[data-action='primary'] {
   color: #000 !important;
 }
+.tour-arrow > canvas {
+  position: relative !important;
+  top: 0 !important;
+  left: 0 !important;
+}
