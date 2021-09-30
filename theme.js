@@ -76,9 +76,9 @@ const darkTheme = createTheme({
     },
     MuiInputBase: {
       root: {
-        backgroundColor: darkBg,
+        backgroundColor: '#000',
         '& > input': {
-          backgroundColor: darkBg,
+          backgroundColor: '#000',
         },
       },
     },
