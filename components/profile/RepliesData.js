@@ -308,6 +308,7 @@ const RepliesData = ({
               style={{
                 width: isMobile ? '80vw' : '29vw',
                 marginLeft: isMobile ? '-10vw' : '-4vw',
+                backgroundColor: 'transparent',
               }}
               value={replyText}
               onChange={e => setReplyText(e.target.value)}
