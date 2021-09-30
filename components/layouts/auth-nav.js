@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function AuthNav(props) {
-  const { asPath } = useRouter();
+  const { pathname } = useRouter();
   const classes = useStyles();
   return (
     <Box mt={8} mb={4} ml={2} display='flex' alignItems='center'>
@@ -20,8 +20,8 @@ export default function AuthNav(props) {
         <NextLink passHref href='/register'>
           <Button
             variant='text'
-            size={'/register' !== asPath ? 'small' : 'large'}
-            className={'/register' !== asPath ? `${classes.grey}` : ``}
+            size={'/register' !== pathname ? 'small' : 'large'}
+            className={'/register' !== pathname ? `${classes.grey}` : ``}
           >
             SIGN UP
           </Button>
@@ -38,8 +38,8 @@ export default function AuthNav(props) {
         <NextLink passHref href='/login'>
           <Button
             variant='text'
-            size={'/login' !== asPath ? 'small' : 'large'}
-            className={'/login' !== asPath ? `${classes.grey}` : ``}
+            size={'/login' !== pathname ? 'small' : 'large'}
+            className={'/login' !== pathname ? `${classes.grey}` : ``}
           >
             LOGIN
           </Button>
