@@ -16,6 +16,10 @@ const axiosInterceptorResponse = dispatch => {
           status === UNAUTHORIZED &&
           error.config.url.indexOf('/auth/refresh') === -1
         ) {
+          if (!Boolean(localStorage.getItem('refreshToken'))) {
+            Router.router.push('/login');
+            return Promise.reject(error);
+          }
           const refreshResponse = await apiClient
             .get(`${SERVER_ADDRESS}/auth/refresh`)
             .then(response => ({ ...response }))
