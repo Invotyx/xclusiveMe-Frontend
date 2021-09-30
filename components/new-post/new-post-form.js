@@ -46,7 +46,9 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const OutlinedInput = withStyles(() => ({
-  backgroundColor: '#111',
+  root: {
+    backgroundColor: '#111',
+  },
   notchedOutline: {
     borderWidth: '0 !important',
   },
