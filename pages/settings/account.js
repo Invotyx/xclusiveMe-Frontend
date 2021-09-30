@@ -23,6 +23,7 @@ import TileTextField from '../../components/TileTextField';
 import EditIcon from '@material-ui/icons/Edit';
 import AddIcon from '@material-ui/icons/Add';
 import FacebookIcon from '@material-ui/icons/Facebook';
+import InstagramIcon from '@material-ui/icons/Instagram';
 import LinkIcon from '@material-ui/icons/Link';
 import { auth } from '../../actions/auth';
 import {
@@ -61,6 +62,11 @@ const linkedAccounts = [
     url: '@',
     title: 'Facebook',
     icon: <FacebookIcon />,
+  },
+  {
+    url: '@',
+    title: 'Instagram',
+    icon: <InstagramIcon />,
   },
   {
     url: 'https://',
