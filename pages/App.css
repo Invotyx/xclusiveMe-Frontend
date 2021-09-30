@@ -7,7 +7,7 @@
   filter: invert(1);
 }
 
-.tempCountry>div>div {
+.tempCountry > div > div {
   opacity: 0;
 }
 
