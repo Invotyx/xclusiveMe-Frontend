@@ -240,7 +240,15 @@ const SinglePost = ({ post, altHeader, currentUser }) => {
                   title={
                     <>
                       <Box clone mr={1}>
-                        <Typography variant='body2' component='span'>
+                        <Typography
+                          variant='body2'
+                          component='span'
+                          style={{
+                            fontWeight: 500,
+                            fontFamily: 'Poppins',
+                            fontSize: '16px',
+                          }}
+                        >
                           <NextLink
                             href={`/x/${singlePost?.user?.username}`}
                             passHref
@@ -251,7 +259,15 @@ const SinglePost = ({ post, altHeader, currentUser }) => {
                           </NextLink>
                         </Typography>
                       </Box>
-                      <Typography variant='caption' color='textSecondary'>
+                      <Typography
+                        variant='caption'
+                        color='textSecondary'
+                        style={{
+                          fontFamily: 'Poppins',
+                          fontSize: '12px',
+                          marginLeft: '7px',
+                        }}
+                      >
                         {moment(
                           singlePost &&
                             singlePost.createdAt &&
@@ -261,7 +277,16 @@ const SinglePost = ({ post, altHeader, currentUser }) => {
                     </>
                   }
                   subheader={
-                    <Typography variant='caption' color='textSecondary'>
+                    <Typography
+                      variant='caption'
+                      color='textSecondary'
+                      style={{
+                        fontWeight: 600,
+                        fontStyle: 'normal',
+                        fontFamily: 'Poppins',
+                        fontSize: '11px',
+                      }}
+                    >
                       @{singlePost?.user?.username}
                     </Typography>
                   }
@@ -358,10 +383,12 @@ const SinglePost = ({ post, altHeader, currentUser }) => {
                         startIcon={<img src='/emptyHeart.png' alt='unliked' />}
                         onClick={handleLike}
                       >
-                        {nFormatter(singlePost?.totalLikes)}{' '}
+                        <span style={{ marginLeft: '5px', fontWeight: 900 }}>
+                          {nFormatter(singlePost.totalLikes)}
+                        </span>{' '}
                         <span
                           className={styles.hideOnMobile}
-                          style={{ marginLeft: '5px' }}
+                          style={{ marginLeft: '5px', fontWeight: 900 }}
                         >
                           Likes
                         </span>
@@ -372,10 +399,12 @@ const SinglePost = ({ post, altHeader, currentUser }) => {
                         startIcon={<img src='/filled.png' alt='liked' />}
                         onClick={handleLike}
                       >
-                        {nFormatter(singlePost?.totalLikes)}{' '}
+                        <span style={{ marginLeft: '5px', fontWeight: 900 }}>
+                          {nFormatter(singlePost?.totalLikes)}
+                        </span>{' '}
                         <span
                           className={styles.hideOnMobile}
-                          style={{ marginLeft: '5px' }}
+                          style={{ marginLeft: '5px', fontWeight: 900 }}
                         >
                           Likes
                         </span>
@@ -386,10 +415,13 @@ const SinglePost = ({ post, altHeader, currentUser }) => {
                       aria-label='share'
                       startIcon={<img src='/comment.png' alt='comment' />}
                     >
-                      {nFormatter(singlePost?.totalComments)}{' '}
+                      <span style={{ fontWeight: 900 }}>
+                        {' '}
+                        {nFormatter(singlePost?.totalComments)}
+                      </span>{' '}
                       <span
                         className={styles.hideOnMobile}
-                        style={{ marginLeft: '5px' }}
+                        style={{ marginLeft: '5px', fontWeight: 900 }}
                       >
                         {' '}
                         Comments
@@ -404,7 +436,11 @@ const SinglePost = ({ post, altHeader, currentUser }) => {
                             />
                             <span
                               className={styles.hideOnMobile}
-                              style={{ marginLeft: '0px' }}
+                              style={{
+                                marginLeft: '0px',
+                                cursor: 'pointer',
+                                fontWeight: '900',
+                              }}
                             >
                               Tip
                             </span>
@@ -434,7 +470,14 @@ const SinglePost = ({ post, altHeader, currentUser }) => {
                                 aria-label='Tip'
                                 startIcon={<MonetizationOnOutlinedIcon />}
                               >
-                                Tip
+                                <span
+                                  className={styles.hideOnMobile}
+                                  style={{
+                                    fontWeight: '900',
+                                  }}
+                                >
+                                  Tip
+                                </span>
                               </NormalCaseButton>
                             </TipModal>
                           </>
@@ -450,7 +493,7 @@ const SinglePost = ({ post, altHeader, currentUser }) => {
                       startIcon={<LocalMallIcon />}
                       onClick={openPurchaseModal}
                     >
-                      Buy Post
+                      <span style={{ fontWeight: 900 }}>Buy Post</span>
                     </NormalCaseButton>
                   )}
                 </div>
@@ -479,7 +522,7 @@ const SinglePost = ({ post, altHeader, currentUser }) => {
               ) : (
                 <p
                   style={{
-                    fontWeight: '500',
+                    fontWeight: 500,
                     fontSize: '14px',
                     marginLeft: '15px',
                     cursor: 'pointer',
@@ -651,7 +694,7 @@ const SinglePost = ({ post, altHeader, currentUser }) => {
                         >
                           <RepliesData
                             comment={comm}
-                            postId={post.id}
+                            postId={post?.id}
                             isReplyField={isReplyField}
                             setisReplyField={setisReplyField}
                             issubReplyField={issubReplyField}
@@ -812,7 +855,7 @@ const SinglePost = ({ post, altHeader, currentUser }) => {
                           >
                             <RepliesData
                               comment={comm}
-                              postId={post.id}
+                              postId={post?.id}
                               isReplyField={isReplyField}
                               setisReplyField={setisReplyField}
                               issubReplyField={issubReplyField}

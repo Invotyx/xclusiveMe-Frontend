@@ -68,6 +68,9 @@ export default function SearchConversations() {
             ) : (
               <></>
             ),
+            style: {
+              fontFamily: 'Poppins',
+            },
           }}
         />
       </form>

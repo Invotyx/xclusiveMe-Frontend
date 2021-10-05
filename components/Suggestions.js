@@ -24,7 +24,7 @@ export default function Home() {
 
   return (
     <>
-      <Typography>Suggestions For You</Typography>
+      <span>Suggestions For You</span>
       <List>
         {suggestion?.map(
           (s, i) =>
@@ -35,11 +35,14 @@ export default function Home() {
                 </ListItemAvatar>
                 <ListItemText
                   primary={
-                    <Typography variant='body2'>{s.fullName}</Typography>
+                    <Typography variant='body2'>
+                      {' '}
+                      <span>{s.fullName}</span>{' '}
+                    </Typography>
                   }
                   secondary={
                     <Typography variant='caption' color='textSecondary'>
-                      Suggested for you
+                      <span>Suggested for you</span>
                     </Typography>
                   }
                 />
@@ -48,7 +51,9 @@ export default function Home() {
                   <NextLink href={`/x/${s.username}`} passHref>
                     <Link>
                       <div>
-                        <Typography variant='caption'>See Profile</Typography>
+                        <Typography variant='caption'>
+                          <span>See Profile</span>{' '}
+                        </Typography>
                       </div>
                     </Link>
                   </NextLink>

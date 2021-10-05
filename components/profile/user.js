@@ -281,7 +281,11 @@ export default function Profile({
                             width={isSmall ? 70 : 90}
                           >
                             <NextLink passHref href='#'>
-                              <ListItem component='a' disableGutters>
+                              <ListItem
+                                component='a'
+                                disableGutters
+                                style={{ fontWeight: 900 }}
+                              >
                                 <Box clone textAlign='center'>
                                   <ListItemText
                                     primary={_numberOfPosts || 0}
@@ -339,6 +343,7 @@ export default function Profile({
                                 <ListItemText
                                   primary={followings || 0}
                                   secondary='Following'
+                                  className={classes.fff}
                                 />
                               </Box>
                             </ListItem>
@@ -372,12 +377,13 @@ export default function Profile({
                           <Box
                             px={isSmall ? 0 : 2}
                             mb={isSmall ? 1 : 0}
-                            maxWidth={500}
+                            maxWidth={550}
                           >
                             <Typography
                               variant='body2'
                               color='textSecondary'
                               component='p'
+                              style={{ color: 'white', fontSize: '16px' }}
                             >
                               {profileData?.profile?.description || '(no bio)'}
                             </Typography>
