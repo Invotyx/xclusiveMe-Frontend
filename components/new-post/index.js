@@ -66,15 +66,18 @@ export default function NewPostDialog() {
         color='inherit'
         startIcon={
           <Image
-            width={20}
-            height={20}
+            width={30}
+            height={30}
             src='/new-post-icon.svg'
             alt='new post'
           />
         }
         onClick={handleClickOpen}
       >
-        New Post
+        <span style={{ fontWeight: 700, fontSize: '16px', lineHeight: '18px' }}>
+          {' '}
+          New Post
+        </span>
       </RoundedButton>
       <Dialog
         onClose={handleClose}

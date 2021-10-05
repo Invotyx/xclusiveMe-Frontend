@@ -113,6 +113,11 @@ export default function MessageSend({ handleSendMessage }) {
                 }
               }
             }}
+            inputProps={{
+              style: {
+                fontFamily: 'Poppins',
+              },
+            }}
             // inputRef={searchInput}
             placeholder='Write a message'
             startAdornment={

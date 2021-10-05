@@ -211,6 +211,9 @@ export default function Home(props) {
                     startAdornment: (
                       <InputAdornment position='start'>@</InputAdornment>
                     ),
+                    style: {
+                      fontFamily: 'Poppins',
+                    },
                   }}
                   error={validationErrors && validationErrors.username}
                   helperText={
@@ -235,6 +238,11 @@ export default function Home(props) {
                       ? Object.values(validationErrors.email).join(', ')
                       : ''
                   }
+                  inputProps={{
+                    style: {
+                      fontFamily: 'Poppins',
+                    },
+                  }}
                 />
 
                 <TileTextField
@@ -252,6 +260,11 @@ export default function Home(props) {
                       ? Object.values(validationErrors.phoneNumber).join(', ')
                       : ''
                   }
+                  inputProps={{
+                    style: {
+                      fontFamily: 'Poppins',
+                    },
+                  }}
                 />
                 <Button variant='outlined' type='submit' disabled={fetching}>
                   Update
@@ -293,6 +306,11 @@ export default function Home(props) {
                                             ).join(', ')
                                           : ''
                                       }
+                                      inputProps={{
+                                        style: {
+                                          fontFamily: 'Poppins',
+                                        },
+                                      }}
                                     />
                                   </Box>
                                   <Box>
@@ -301,7 +319,7 @@ export default function Home(props) {
                                       disabled={fetching}
                                       onClick={e => saveLinks(e, i)}
                                     >
-                                      save
+                                      <span>save</span>
                                     </Button>
                                   </Box>
                                 </Box>
@@ -346,6 +364,11 @@ export default function Home(props) {
                       ? Object.values(validationErrors.oldPassword).join(', ')
                       : ''
                   }
+                  inputProps={{
+                    style: {
+                      fontFamily: 'Poppins',
+                    },
+                  }}
                 />
 
                 <TileTextField
@@ -364,6 +387,11 @@ export default function Home(props) {
                       ? Object.values(validationErrors.password).join(', ')
                       : ''
                   }
+                  inputProps={{
+                    style: {
+                      fontFamily: 'Poppins',
+                    },
+                  }}
                 />
                 <TileTextField
                   placeholder='•••••••'
@@ -381,6 +409,11 @@ export default function Home(props) {
                       ? Object.values(validationErrors.password).join(', ')
                       : ''
                   }
+                  inputProps={{
+                    style: {
+                      fontFamily: 'Poppins',
+                    },
+                  }}
                 />
 
                 <Button variant='outlined' type='submit' disabled={fetching}>
@@ -463,7 +496,7 @@ export default function Home(props) {
 
             <Box textAlign='center' mb={8}>
               <NormalCaseButton onClick={logout} style={{ color: 'red' }}>
-                Logout
+                <span>Logout</span>
               </NormalCaseButton>
             </Box>
           </Grid>

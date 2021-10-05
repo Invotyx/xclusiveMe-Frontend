@@ -107,6 +107,12 @@ export default function SignInSide() {
             label='Full Name'
             name='fullName'
             autoComplete='fullName'
+            inputProps={{
+              style: {
+                WebkitBoxShadow: '0 0 0 1000px #000 inset',
+                fontFamily: 'Poppins',
+              },
+            }}
           />
           <TileTextField
             error={validationErrors && validationErrors.username}
@@ -125,6 +131,12 @@ export default function SignInSide() {
             label='Username'
             name='username'
             autoComplete='username'
+            inputProps={{
+              style: {
+                WebkitBoxShadow: '0 0 0 1000px #000 inset',
+                fontFamily: 'Poppins',
+              },
+            }}
           />
           <TileTextField
             error={validationErrors && validationErrors.email}
@@ -143,6 +155,12 @@ export default function SignInSide() {
             label='Email Address'
             name='email'
             autoComplete='email'
+            inputProps={{
+              style: {
+                WebkitBoxShadow: '0 0 0 1000px #000 inset',
+                fontFamily: 'Poppins',
+              },
+            }}
           />
           <TileTextField
             error={validationErrors && validationErrors.password}
@@ -162,6 +180,12 @@ export default function SignInSide() {
             type='password'
             id='password'
             autoComplete='current-password'
+            inputProps={{
+              style: {
+                WebkitBoxShadow: '0 0 0 1000px #000 inset',
+                fontFamily: 'Poppins',
+              },
+            }}
           />
           <TileTextField
             error={validationErrors && validationErrors.confirmPassword}
@@ -181,6 +205,12 @@ export default function SignInSide() {
             type='password'
             id='confirmPassword'
             autoComplete='confirm-password'
+            inputProps={{
+              style: {
+                WebkitBoxShadow: '0 0 0 1000px #000 inset',
+                fontFamily: 'Poppins',
+              },
+            }}
           />
           <Box display='flex'>
             <CountryTextField
@@ -245,6 +275,12 @@ export default function SignInSide() {
               label='Phone Number'
               name='phoneNumber'
               autoComplete='phoneNumber'
+              inputProps={{
+                style: {
+                  WebkitBoxShadow: '0 0 0 1000px #000 inset',
+                  fontFamily: 'Poppins',
+                },
+              }}
             />
           </Box>
           <Box my={2}>
@@ -253,6 +289,13 @@ export default function SignInSide() {
               fullWidth
               variant='contained'
               color='primary'
+              style={{
+                fontFamily: 'Poppins',
+                fontWeight: 700,
+                fontStyle: 'normal',
+                fontSize: ' 17px',
+                lineHeight: '30px',
+              }}
               // disabled={fetching}
             >
               Register
@@ -280,6 +323,12 @@ export default function SignInSide() {
             autoFocus
             name='code'
             autoComplete='code'
+            inputProps={{
+              style: {
+                WebkitBoxShadow: '0 0 0 1000px #000 inset',
+                fontFamily: 'Poppins',
+              },
+            }}
           />
           <Box textAlign='center' mt={1}>
             <NextLink href='#' passHref>

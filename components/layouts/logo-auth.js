@@ -36,6 +36,14 @@ const useStyles = makeStyles(theme => ({
       marginBottom: '48px',
     },
   },
+  navLink: {
+    fontStyle: 'normal',
+    fontFamily: 'Poppins',
+    fontSize: '14px',
+    fontWeight: 900,
+    lineHeight: '21px',
+    color: '#A6A6A6',
+  },
 }));
 
 export default function Comp({ sidebarMenu, set_sidebarMenu }) {
@@ -101,17 +109,25 @@ export default function Comp({ sidebarMenu, set_sidebarMenu }) {
             <Box display='flex'>
               <Box ml={3}>
                 <NextLink href='#' passHref>
-                  <Link variant='body2'>How it works</Link>
+                  <Link variant='body2' className={classes.navLink}>
+                    How it works
+                  </Link>
                 </NextLink>
               </Box>
               <Box ml={3}>
                 <NextLink href='#' passHref>
-                  <Link variant='body2'>Support</Link>
+                  <Link variant='body2' className={classes.navLink}>
+                    Support
+                  </Link>
                 </NextLink>
               </Box>
               <Box ml={3}>
                 <NextLink href='#' passHref>
-                  <Link variant='body2' onClick={logout}>
+                  <Link
+                    variant='body2'
+                    onClick={logout}
+                    className={classes.navLink}
+                  >
                     Logout
                   </Link>
                 </NextLink>

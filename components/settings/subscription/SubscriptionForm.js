@@ -59,7 +59,9 @@ export default function SubscriptionForm({
       {!fieldOnly && (
         <>
           <Box my={2}>
-            <UppercaseInputLabel>Set Up A Subscription Fee</UppercaseInputLabel>
+            <UppercaseInputLabel>
+              <span>Set Up A Subscription Fee</span>{' '}
+            </UppercaseInputLabel>
           </Box>
           <Box mb={2}>
             <Divider />

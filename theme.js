@@ -34,7 +34,8 @@ const darkTheme = createTheme({
         color: white,
       },
       secondary: {
-        color: darkText,
+        color: 'white',
+        fontWeight: 900,
       },
     },
     MuiListItemSecondaryAction: {
@@ -59,6 +60,41 @@ const darkTheme = createTheme({
         },
       },
     },
+    MuiFormLabel: {
+      root: {
+        fontStyle: 'Poppins',
+        color: '#868686',
+        textTransform: 'uppercase',
+        fontWeight: 900,
+        fontSize: '14px',
+      },
+    },
+
+    MuiTypography: {
+      h6: {
+        fontFamily: 'Poppins',
+      },
+      h2: {
+        fontFamily: 'Poppins',
+      },
+      p: {
+        fontFamily: 'Poppins',
+      },
+      span: {
+        fontFamily: 'Poppins',
+      },
+      body2: {
+        fontFamily: 'Poppins',
+      },
+      body1: {
+        fontFamily: 'Poppins',
+      },
+
+      subtitle2: {
+        fontFamily: 'Poppins',
+      },
+    },
+
     MuiOutlinedInput: {
       notchedOutline: {
         borderColor: darkBorder,
@@ -77,6 +113,7 @@ const darkTheme = createTheme({
     MuiInputBase: {
       root: {
         backgroundColor: '#000',
+
         '& > input': {
           backgroundColor: '#000',
         },

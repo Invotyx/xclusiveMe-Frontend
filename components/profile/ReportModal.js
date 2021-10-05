@@ -136,6 +136,11 @@ const useReportModal = ({ onConfirm }) => {
                       rows={3}
                       placeholder='Write something...'
                       style={{ width: isMobile ? '80vw' : '30vw' }}
+                      inputProps={{
+                        style: {
+                          fontFamily: 'Poppins',
+                        },
+                      }}
                     />
                   </div>
                 </div>
@@ -151,6 +156,11 @@ const useReportModal = ({ onConfirm }) => {
                       width: isMobile ? '80vw' : '30vw',
                       margin: '20px',
                       marginTop: '10px',
+                      fontFamily: 'Poppins',
+                      fontWeight: 700,
+                      fontStyle: 'normal',
+                      fontSize: ' 14px',
+                      lineHeight: '30px',
                     }}
                     onClick={handlePurchase}
                   >

@@ -173,6 +173,9 @@ const TipModal = ({
                           placeholder='Enter amount in USD'
                           InputProps={{
                             startAdornment: currencySymbol,
+                            style: {
+                              fontFamily: 'Poppins',
+                            },
                           }}
                           inputRef={priceFieldRef}
                           defaultValue={addPrice}
@@ -189,7 +192,6 @@ const TipModal = ({
                     <p
                       style={{
                         color: '#444444',
-
                         marginLeft: '65px',
                       }}
                     >
@@ -240,6 +242,11 @@ const TipModal = ({
                     width: '92%',
                     margin: '20px',
                     marginTop: '10px',
+                    fontFamily: 'Poppins',
+                    fontWeight: 700,
+                    fontStyle: 'normal',
+                    fontSize: ' 16px',
+                    lineHeight: '30px',
                   }}
                   onClick={handlePurchase}
                   disabled={fetching}
@@ -369,6 +376,11 @@ const TipModal = ({
                           padding: '10px',
                           backgroundColor: 'white',
                           color: 'black',
+                          fontFamily: 'Poppins',
+                          fontWeight: 700,
+                          fontStyle: 'normal',
+                          fontSize: ' 16px',
+                          lineHeight: '30px',
                         }}
                       >
                         <CloseIcon className={styles.buttonIcons} /> Close

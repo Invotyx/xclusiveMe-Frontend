@@ -8,6 +8,18 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles(theme => ({
   grey: {
     color: '#666',
+    fontSize: '15px',
+  },
+  greyo: {
+    color: '#666',
+    height: '30px',
+  },
+  auth: {
+    fontSize: '17px',
+    fontFamily: 'Poppins',
+    fontStyle: 'normal',
+    fontWeight: 900,
+    lineHeight: '36px',
   },
 }));
 
@@ -23,15 +35,19 @@ export default function AuthNav(props) {
             size={'/register' !== pathname ? 'small' : 'large'}
             className={'/register' !== pathname ? `${classes.grey}` : ``}
           >
-            SIGN UP
+            <span
+              className={
+                '/register' !== pathname ? `${classes.grey}` : `${classes.auth}`
+              }
+            >
+              SIGN UP
+            </span>
           </Button>
         </NextLink>
       </Box>
       <Box mx={3}>
         <NextLink passHref href='/login'>
-          <Typography component='p' variant='h5' className={`${classes.grey}`}>
-            |
-          </Typography>
+          <img src='/dividers.svg' alt='div' className={classes.greyo} />
         </NextLink>
       </Box>
       <Box>
@@ -41,7 +57,13 @@ export default function AuthNav(props) {
             size={'/login' !== pathname ? 'small' : 'large'}
             className={'/login' !== pathname ? `${classes.grey}` : ``}
           >
-            LOGIN
+            <span
+              className={
+                '/login' !== pathname ? `${classes.grey}` : `${classes.auth}`
+              }
+            >
+              LOGIN
+            </span>
           </Button>
         </NextLink>
       </Box>

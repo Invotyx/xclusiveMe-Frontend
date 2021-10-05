@@ -173,7 +173,11 @@ export default function Post({
                   <Typography
                     variant='body2'
                     component='span'
-                    style={{ fontWeight: '600' }}
+                    style={{
+                      fontWeight: 500,
+                      fontFamily: 'Poppins',
+                      fontSize: '16px',
+                    }}
                   >
                     <NextLink href={`/x/${profileData?.username}`} passHref>
                       <Link>{profileData?.fullName || '(no name)'}</Link>
@@ -183,14 +187,29 @@ export default function Post({
                 <Typography
                   variant='caption'
                   color='textSecondary'
-                  style={{ fontWeight: '900' }}
+                  style={{
+                    fontFamily: 'Poppins',
+                    fontSize: '12px',
+                    marginLeft: '7px',
+                  }}
                 >
-                  {moment(post.createdAt).fromNow()}
+                  <span style={{ fontWeight: 'bolder' }}>
+                    {moment(post.createdAt).fromNow()}
+                  </span>
                 </Typography>
               </>
             }
             subheader={
-              <Typography variant='caption' color='textSecondary'>
+              <Typography
+                variant='caption'
+                color='textSecondary'
+                style={{
+                  fontWeight: 600,
+                  fontStyle: 'normal',
+                  fontFamily: 'Poppins',
+                  fontSize: '11px',
+                }}
+              >
                 @{profileData?.username}
               </Typography>
             }
@@ -247,10 +266,12 @@ export default function Post({
                     post.media.length === 0 ? handleNotOpenn : handleLike
                   }
                 >
-                  {nFormatter(post.totalLikes)}{' '}
+                  <span style={{ marginLeft: '5px', fontWeight: 900 }}>
+                    {nFormatter(post.totalLikes)}
+                  </span>{' '}
                   <span
                     className={styles.hideOnMobile}
-                    style={{ marginLeft: '5px' }}
+                    style={{ marginLeft: '5px', fontWeight: 900 }}
                   >
                     Likes
                   </span>
@@ -264,10 +285,12 @@ export default function Post({
                   }
                 >
                   {/* {} */}
-                  {nFormatter(post.totalLikes)}{' '}
+                  <span style={{ marginLeft: '5px', fontWeight: 900 }}>
+                    {nFormatter(post.totalLikes)}
+                  </span>{' '}
                   <span
                     className={styles.hideOnMobile}
-                    style={{ marginLeft: '5px' }}
+                    style={{ marginLeft: '5px', fontWeight: 900 }}
                   >
                     Likes
                   </span>
@@ -279,10 +302,13 @@ export default function Post({
                 startIcon={<img src='/comment.png' alt='comment' />}
                 onClick={handleFocus}
               >
-                {nFormatter(post.totalComments)}{' '}
+                <span style={{ fontWeight: 900 }}>
+                  {' '}
+                  {nFormatter(post.totalComments)}
+                </span>{' '}
                 <span
                   className={styles.hideOnMobile}
-                  style={{ marginLeft: '5px' }}
+                  style={{ marginLeft: '5px', fontWeight: 900 }}
                 >
                   {' '}
                   Comments
@@ -304,7 +330,11 @@ export default function Post({
                       />
                       <span
                         className={styles.hideOnMobile}
-                        style={{ marginLeft: '0px', cursor: 'pointer' }}
+                        style={{
+                          marginLeft: '0px',
+                          cursor: 'pointer',
+                          fontWeight: '900',
+                        }}
                       >
                         Tip
                       </span>
@@ -334,7 +364,7 @@ export default function Post({
                           aria-label='Tip'
                           startIcon={<MonetizationOnOutlinedIcon />}
                         >
-                          Tip
+                          <span style={{ fontWeight: 900 }}>Tip</span>
                         </NormalCaseButton>
                       </TipModal>
                     </>
@@ -350,13 +380,22 @@ export default function Post({
                   startIcon={<LocalMallIcon />}
                   onClick={openPurchaseModal}
                 >
-                  Buy Post
+                  <span style={{ fontWeight: 900 }}>Buy Post</span>
                 </NormalCaseButton>
               </div>
             ) : (
               <NormalCaseButton>
-                Total Tips: {currencySymbol}
-                {post?.totalTips}
+                <span
+                  style={{
+                    fontFamily: 'Poppins',
+                    fontWeight: 900,
+                    fontSize: '14px',
+                  }}
+                >
+                  {' '}
+                  Total Tips: {currencySymbol}
+                  {post?.totalTips}
+                </span>
               </NormalCaseButton>
             )}
           </div>

@@ -224,7 +224,15 @@ const CommentModal = ({
                       title={
                         <>
                           <Box clone mr={1}>
-                            <Typography variant='body2' component='span'>
+                            <Typography
+                              variant='body2'
+                              component='span'
+                              style={{
+                                fontWeight: 500,
+                                fontFamily: 'Poppins',
+                                fontSize: '16px',
+                              }}
+                            >
                               <NextLink
                                 href={`/x/${singlePost?.user?.username}`}
                                 passHref
@@ -235,17 +243,36 @@ const CommentModal = ({
                               </NextLink>
                             </Typography>
                           </Box>
-                          <Typography variant='caption' color='textSecondary'>
-                            {moment(
-                              singlePost &&
-                                singlePost.createdAt &&
-                                singlePost.createdAt
-                            ).fromNow()}
+                          <Typography
+                            variant='caption'
+                            color='textSecondary'
+                            style={{
+                              fontFamily: 'Poppins',
+                              fontSize: '12px',
+                              marginLeft: '7px',
+                            }}
+                          >
+                            <span style={{ fontWeight: 'bolder' }}>
+                              {moment(
+                                singlePost &&
+                                  singlePost.createdAt &&
+                                  singlePost.createdAt
+                              ).fromNow()}
+                            </span>
                           </Typography>
                         </>
                       }
                       subheader={
-                        <Typography variant='caption' color='textSecondary'>
+                        <Typography
+                          variant='caption'
+                          color='textSecondary'
+                          style={{
+                            fontWeight: 600,
+                            fontStyle: 'normal',
+                            fontFamily: 'Poppins',
+                            fontSize: '11px',
+                          }}
+                        >
                           @{singlePost?.user?.username}
                         </Typography>
                       }
@@ -344,10 +371,14 @@ const CommentModal = ({
                             }
                             onClick={handleLike}
                           >
-                            {nFormatter(singlePost?.totalLikes)}{' '}
+                            <span
+                              style={{ marginLeft: '5px', fontWeight: 900 }}
+                            >
+                              {nFormatter(singlePost.totalLikes)}
+                            </span>{' '}
                             <span
                               className={styles.hideOnMobile}
-                              style={{ marginLeft: '5px' }}
+                              style={{ marginLeft: '5px', fontWeight: 900 }}
                             >
                               Likes
                             </span>
@@ -358,10 +389,14 @@ const CommentModal = ({
                             startIcon={<img src='/filled.png' alt='liked' />}
                             onClick={handleLike}
                           >
-                            {nFormatter(singlePost?.totalLikes)}{' '}
+                            <span
+                              style={{ marginLeft: '5px', fontWeight: 900 }}
+                            >
+                              {nFormatter(singlePost?.totalLikes)}
+                            </span>{' '}
                             <span
                               className={styles.hideOnMobile}
-                              style={{ marginLeft: '5px' }}
+                              style={{ marginLeft: '5px', fontWeight: 900 }}
                             >
                               Likes
                             </span>
@@ -372,10 +407,13 @@ const CommentModal = ({
                           aria-label='share'
                           startIcon={<img src='/comment.png' alt='comment' />}
                         >
-                          {nFormatter(singlePost?.totalComments)}{' '}
+                          <span style={{ fontWeight: 900 }}>
+                            {' '}
+                            {nFormatter(singlePost?.totalComments)}
+                          </span>{' '}
                           <span
                             className={styles.hideOnMobile}
-                            style={{ marginLeft: '5px' }}
+                            style={{ marginLeft: '5px', fontWeight: 900 }}
                           >
                             {' '}
                             Comments
@@ -414,7 +452,7 @@ const CommentModal = ({
                                   aria-label='Tip'
                                   startIcon={<MonetizationOnOutlinedIcon />}
                                 >
-                                  Tip
+                                  <span style={{ fontWeight: 900 }}>Tip</span>
                                 </NormalCaseButton>
                               </TipModal>
                             )}
@@ -429,7 +467,7 @@ const CommentModal = ({
                           startIcon={<LocalMallIcon />}
                           onClick={openPurchaseModal}
                         >
-                          Buy Post
+                          <span style={{ fontWeight: 900 }}>Buy Post</span>
                         </NormalCaseButton>
                       )}
                     </div>

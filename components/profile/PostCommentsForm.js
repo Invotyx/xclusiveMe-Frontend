@@ -71,6 +71,14 @@ export default function PostCommentsForm({
             }}
             inputRef={searchInputRef}
             placeholder='Add a comment'
+            inputProps={{
+              style: {
+                fontFamily: 'Poppins',
+                fontSize: '15px',
+                fontWeight: 900,
+                marginLeft: '10px',
+              },
+            }}
             startAdornment={
               <ProfileImageAvatar
                 user={currentUser}
