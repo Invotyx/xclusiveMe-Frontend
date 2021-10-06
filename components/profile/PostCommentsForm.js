@@ -75,7 +75,7 @@ export default function PostCommentsForm({
               style: {
                 fontFamily: 'Poppins',
                 fontSize: '15px',
-                fontWeight: 900,
+                fontWeight: 500,
                 marginLeft: '10px',
               },
             }}
