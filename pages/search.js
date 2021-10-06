@@ -82,6 +82,13 @@ export default function Home() {
                       doSearch(e.target.value);
                       set_search(e.target.value);
                     }}
+                    inputProps={{
+                      style: {
+                        fontFamily: 'Poppins',
+                        fontWeight: 'bold',
+                        marginLeft: '5px',
+                      },
+                    }}
                   />
                 </Box>
               </form>
@@ -90,9 +97,14 @@ export default function Home() {
               {fetching ? (
                 <CircularProgress />
               ) : users?.length === 0 && searched ? (
-                'no user found'
+                <span style={{ fontSize: '16px', fontWeight: 500 }}>
+                  {' '}
+                  No user found
+                </span>
               ) : !searched ? (
-                'Type something to start'
+                <span style={{ fontSize: '16px', fontWeight: 500 }}>
+                  Type something to start
+                </span>
               ) : (
                 ''
               )}
@@ -127,7 +139,7 @@ export default function Home() {
                               key={`user${u.id}`}
                             >
                               <Button size='small' variant='outlined'>
-                                view profile
+                                <span> view profile</span>
                               </Button>
                             </NextLink>
                           </ListItemSecondaryAction>

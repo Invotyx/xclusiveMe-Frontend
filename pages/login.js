@@ -132,7 +132,10 @@ export default function SignInSide() {
                       <Checkbox
                         value='remember'
                         size='medium'
-                        style={{ color: '#444444' }}
+                        style={{
+                          color: '#444444',
+                          fontWeight: 2,
+                        }}
                       />
                     }
                     label={
@@ -149,8 +152,8 @@ export default function SignInSide() {
                   />
                 </Box>
               </Grid>
-              <Grid item>
-                <Box mb={2} mt={1}>
+              <Grid item xs>
+                <Box mb={2} mt={1.2}>
                   <NextLink href='/forgot-password' passHref>
                     <Link variant='body2' className={classes.grey}>
                       <span className={styles.forgetPassword}>
@@ -170,7 +173,7 @@ export default function SignInSide() {
             color='primary'
             style={{
               fontFamily: 'Poppins',
-              fontWeight: 700,
+              fontWeight: 500,
               fontStyle: 'normal',
               fontSize: ' 17px',
               lineHeight: '30px',
@@ -230,7 +233,7 @@ export default function SignInSide() {
               color='primary'
               style={{
                 fontFamily: 'Poppins',
-                fontWeight: 700,
+                fontWeight: 500,
                 fontStyle: 'normal',
                 fontSize: ' 17px',
                 lineHeight: '30px',

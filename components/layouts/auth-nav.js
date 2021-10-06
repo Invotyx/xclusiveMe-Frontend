@@ -18,7 +18,7 @@ const useStyles = makeStyles(theme => ({
     fontSize: '17px',
     fontFamily: 'Poppins',
     fontStyle: 'normal',
-    fontWeight: 900,
+    fontWeight: 500,
     lineHeight: '36px',
   },
 }));

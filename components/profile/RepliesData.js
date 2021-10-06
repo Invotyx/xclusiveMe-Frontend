@@ -162,7 +162,7 @@ const RepliesData = ({
   return (
     <div>
       <div style={{ display: 'flex' }}>
-        <div style={{ marginRight: '10px' }}>
+        <div style={{ marginRight: '10px', marginLeft: '20px' }}>
           {comment.totalLikes === 0 ? (
             <div style={{ display: 'flex' }}>
               <p

@@ -61,7 +61,7 @@ export default function SignInSide() {
           disabled={fetching}
           style={{
             fontFamily: 'Poppins',
-            fontWeight: 700,
+            fontWeight: 500,
             fontStyle: 'normal',
             fontSize: ' 17px',
             lineHeight: '30px',

@@ -175,6 +175,7 @@ export default function Post({
                     component='span'
                     style={{
                       fontWeight: 500,
+                      lineHeight: '30px',
                       fontFamily: 'Poppins',
                       fontSize: '16px',
                     }}
@@ -193,7 +194,13 @@ export default function Post({
                     marginLeft: '7px',
                   }}
                 >
-                  <span style={{ fontWeight: 'bolder' }}>
+                  <span
+                    style={{
+                      fontWeight: 900,
+                      fontStyle: 'normal',
+                      lineHeight: '30px',
+                    }}
+                  >
                     {moment(post.createdAt).fromNow()}
                   </span>
                 </Typography>
@@ -204,7 +211,7 @@ export default function Post({
                 variant='caption'
                 color='textSecondary'
                 style={{
-                  fontWeight: 600,
+                  fontWeight: 500,
                   fontStyle: 'normal',
                   fontFamily: 'Poppins',
                   fontSize: '11px',
@@ -223,7 +230,7 @@ export default function Post({
               style={{
                 color: 'white',
                 lineHeight: '24px',
-                fontWeight: '500',
+                fontWeight: 500,
                 fontSize: '16px',
                 fontFamily: 'Poppins',
                 marginTop: '-13px',

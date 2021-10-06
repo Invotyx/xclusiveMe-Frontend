@@ -76,7 +76,9 @@ export default function Notification({ setAnchorEl }) {
             return temp.length ? (
               <li key={Math.random()} className={classes.listSection}>
                 <ul style={{ padding: 0 }}>
-                  <ListSubheader>{elm}</ListSubheader>
+                  <ListSubheader>
+                    <span style={{ color: 'white' }}>{elm}</span>{' '}
+                  </ListSubheader>
                   {temp.map((i, x) => (
                     <ListItem
                       button
@@ -174,7 +176,7 @@ export default function Notification({ setAnchorEl }) {
                                         height: 'auto',
                                         width: isMobile ? '40vw' : '15vw',
                                       }}
-                                      className={styles.tag}
+                                      className={styles.tago}
                                     >
                                       {i.content.slice(0, 50)}
                                     </span>
@@ -187,7 +189,7 @@ export default function Notification({ setAnchorEl }) {
                                       height: 'auto',
                                       width: isMobile ? '40vw' : '15vw',
                                     }}
-                                    className={styles.tag}
+                                    className={styles.tago}
                                   >
                                     {i.content}
                                   </span>
@@ -200,7 +202,7 @@ export default function Notification({ setAnchorEl }) {
                                         height: 'auto',
                                         width: isMobile ? '40vw' : '15vw',
                                       }}
-                                      className={styles.tag}
+                                      className={styles.tago}
                                     >
                                       {i.content.slice(0, 50)}
                                     </span>

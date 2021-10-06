@@ -182,6 +182,11 @@ const usePostPurchaseModal = () => {
                     width: '92%',
                     margin: '20px',
                     marginTop: '10px',
+                    fontFamily: 'Poppins',
+                    fontWeight: 500,
+                    fontStyle: 'normal',
+                    fontSize: ' 17px',
+                    lineHeight: '30px',
                   }}
                   onClick={handlePurchase}
                 >
@@ -215,7 +220,7 @@ const usePostPurchaseModal = () => {
                       <p
                         style={{
                           fontSize: '24px',
-                          fontWeight: '600',
+                          fontWeight: 500,
                           marginTop: isMobile ? '35px' : '',
                         }}
                       >
@@ -328,6 +333,11 @@ const usePostPurchaseModal = () => {
                           padding: '10px',
                           backgroundColor: 'white',
                           color: 'black',
+                          fontFamily: 'Poppins',
+                          fontWeight: 500,
+                          fontStyle: 'normal',
+                          fontSize: ' 17px',
+                          lineHeight: '30px',
                         }}
                       >
                         <CloseIcon className={styles.buttonIcons} /> Close

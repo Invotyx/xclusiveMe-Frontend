@@ -157,7 +157,7 @@ const useReportModal = ({ onConfirm }) => {
                       margin: '20px',
                       marginTop: '10px',
                       fontFamily: 'Poppins',
-                      fontWeight: 700,
+                      fontWeight: 500,
                       fontStyle: 'normal',
                       fontSize: ' 14px',
                       lineHeight: '30px',

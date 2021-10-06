@@ -150,6 +150,11 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
             rows={5}
             value={content}
             onChange={e => setContent(e.target.value)}
+            InputProps={{
+              style: {
+                fontFamily: 'Poppins',
+              },
+            }}
           />
         )}
         {(type === 'photo' || type === 'video') && (
@@ -256,6 +261,9 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
               margin='dense'
               InputProps={{
                 startAdornment: currencySymbol,
+                style: {
+                  fontFamily: 'Poppins',
+                },
               }}
               style={{ width: '100px' }}
             />
@@ -270,7 +278,17 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
           disabled={disabled}
           onClick={handleMsgSend}
         >
-          Send Now
+          <span
+            style={{
+              fontFamily: 'Poppins',
+              fontWeight: 500,
+              fontStyle: 'normal',
+              fontSize: ' 17px',
+              lineHeight: '30px',
+            }}
+          >
+            Send Now
+          </span>
         </GreenButton>
       </DialogActions>
     </>

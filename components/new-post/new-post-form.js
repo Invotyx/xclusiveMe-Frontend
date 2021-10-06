@@ -190,6 +190,12 @@ export default function NewPostForm({ afterSave }) {
           fullWidth
           rows={5}
           placeholder='Compose a new post'
+          inputProps={{
+            style: {
+              fontFamily: 'Poppins',
+              fontSize: '18px',
+            },
+          }}
         />
         <Card>
           <CardContent>
@@ -280,7 +286,16 @@ export default function NewPostForm({ afterSave }) {
           <CardContent>
             <Box display='flex'>
               <Box flexGrow={1}>
-                <Typography variant='subtitle1'>Add to your post</Typography>
+                <Typography
+                  variant='subtitle1'
+                  style={{
+                    fontWeight: 600,
+                    lineHeight: '30px',
+                    fontSize: '16px',
+                  }}
+                >
+                  Add to your post
+                </Typography>
               </Box>
               <Box mx={1}>
                 <Box clone color='#666'>
@@ -438,7 +453,20 @@ export default function NewPostForm({ afterSave }) {
           color='black'
           variant='contained'
           size='large'
-          startIcon={<SendIcon />}
+          startIcon={
+            <img
+              src='/seend.png'
+              alt='send'
+              style={{ width: '22px', height: '22px' }}
+            />
+          }
+          style={{
+            fontFamily: 'Poppins',
+            fontWeight: 500,
+            fontStyle: 'normal',
+            fontSize: ' 17px',
+            lineHeight: '30px',
+          }}
           disabled={
             // disabled ||
             // ((!postText || postText.trim() === '') && media.length === 0)

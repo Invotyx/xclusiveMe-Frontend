@@ -131,13 +131,33 @@ export default function PostReport({ postid, handleClose }) {
           onClick={handleClose}
           style={{ backgroundColor: 'white', color: 'black' }}
         >
-          Cancel
+          <span
+            style={{
+              fontFamily: 'Poppins',
+              fontWeight: 500,
+              fontStyle: 'normal',
+              fontSize: ' 15px',
+              lineHeight: '30px',
+            }}
+          >
+            Cancel
+          </span>
         </Button>
         <Button
           onClick={handleSendReport}
           style={{ backgroundColor: 'white', color: 'black' }}
         >
-          Send
+          <span
+            style={{
+              fontFamily: 'Poppins',
+              fontWeight: 500,
+              fontStyle: 'normal',
+              fontSize: ' 15px',
+              lineHeight: '30px',
+            }}
+          >
+            Send
+          </span>
         </Button>
       </CardActions>
     </Card>

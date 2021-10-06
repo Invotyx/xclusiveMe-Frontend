@@ -11,10 +11,12 @@ import { useRouter } from 'next/router';
 import React from 'react';
 import { auth } from '../actions/auth';
 import styles from './pages.module.css';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 export default function Home() {
   const me = useSelector(currentUserSelector);
   const router = useRouter();
+  const isMobile = useMediaQuery('(max-width: 760px)');
   const dispatch = useDispatch();
   React.useEffect(() => {
     const token = localStorage.getItem('jwtToken');
@@ -33,7 +35,7 @@ export default function Home() {
           <title>Home - xclusiveme</title>
         </Head>
         <Grid item xs={12} sm={8} md={5}>
-          <Box pl={6} pr={6} pt={8} mx={4}>
+          <Box pl={isMobile ? 1 : 6} pr={isMobile ? 3 : 6} pt={8} mx={4}>
             <Box py={4} display='block'>
               <Typography
                 component='h1'
@@ -41,8 +43,8 @@ export default function Home() {
                 style={{
                   fontFamily: 'Poppins',
                   fontWeight: '300',
-                  width: '420px',
-                  fontSize: '30px',
+                  width: isMobile ? '300px' : '420px',
+                  fontSize: isMobile ? '22px' : '30px',
                   height: '162px',
                 }}
               >
@@ -65,7 +67,10 @@ export default function Home() {
                 <NextLink href='/register' passHref>
                   <Button
                     variant='outlined'
-                    style={{ width: '250px', border: '1px solid #444444' }}
+                    style={{
+                      width: isMobile ? '230px' : '250px',
+                      border: '1px solid #444444',
+                    }}
                   >
                     {' '}
                     <span className={styles.setFont}>Create Account</span>{' '}

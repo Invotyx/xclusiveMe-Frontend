@@ -243,7 +243,7 @@ const TipModal = ({
                     margin: '20px',
                     marginTop: '10px',
                     fontFamily: 'Poppins',
-                    fontWeight: 700,
+                    fontWeight: 500,
                     fontStyle: 'normal',
                     fontSize: ' 16px',
                     lineHeight: '30px',
@@ -281,7 +281,7 @@ const TipModal = ({
                       <p
                         style={{
                           fontSize: '24px',
-                          fontWeight: '600',
+                          fontWeight: 500,
                           marginTop: isMobile ? '35px' : '',
                         }}
                       >
@@ -377,7 +377,7 @@ const TipModal = ({
                           backgroundColor: 'white',
                           color: 'black',
                           fontFamily: 'Poppins',
-                          fontWeight: 700,
+                          fontWeight: 500,
                           fontStyle: 'normal',
                           fontSize: ' 16px',
                           lineHeight: '30px',
