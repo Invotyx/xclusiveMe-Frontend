@@ -66,12 +66,15 @@ const darkTheme = createTheme({
         color: '#868686',
         textTransform: 'uppercase',
         fontWeight: 900,
-        fontSize: '14px',
+        fontSize: '16px',
       },
     },
 
     MuiTypography: {
       h6: {
+        fontFamily: 'Poppins',
+      },
+      h7: {
         fontFamily: 'Poppins',
       },
       h2: {
@@ -89,7 +92,9 @@ const darkTheme = createTheme({
       body1: {
         fontFamily: 'Poppins',
       },
-
+      subtitle1: {
+        fontFamily: 'Poppins',
+      },
       subtitle2: {
         fontFamily: 'Poppins',
       },
