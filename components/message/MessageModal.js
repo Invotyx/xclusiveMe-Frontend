@@ -173,6 +173,12 @@ const MessageModal = ({
                   autoFocus
                   placeholder='Write something...'
                   style={{ width: isMobile ? '80vw' : '30vw' }}
+                  inputProps={{
+                    style: {
+                      WebkitBoxShadow: '0 0 0 1000px #000 inset',
+                      fontFamily: 'Poppins',
+                    },
+                  }}
                 />
               </div>
             </div>
@@ -185,10 +191,15 @@ const MessageModal = ({
                 width: isMobile ? '80vw' : '30vw',
                 margin: '20px',
                 marginTop: '10px',
+                fontFamily: 'Poppins',
+                fontWeight: 500,
+                fontStyle: 'normal',
+                fontSize: ' 17px',
+                lineHeight: '30px',
               }}
               onClick={handleSendMessage}
             >
-              SEND NOW
+              <span>SEND NOW</span>
             </Button>
           </div>
         </Fade>
