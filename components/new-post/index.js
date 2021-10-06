@@ -64,6 +64,7 @@ export default function NewPostDialog() {
     <>
       <RoundedButton
         color='inherit'
+        style={{ height: '64px', marginTop: '8px' }}
         startIcon={
           <Image
             width={30}
@@ -74,7 +75,14 @@ export default function NewPostDialog() {
         }
         onClick={handleClickOpen}
       >
-        <span style={{ fontWeight: 700, fontSize: '16px', lineHeight: '18px' }}>
+        <span
+          style={{
+            fontWeight: 500,
+            fontStyle: 'normal',
+            fontSize: '16px',
+            lineHeight: '18px',
+          }}
+        >
           {' '}
           New Post
         </span>
