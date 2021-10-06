@@ -69,11 +69,17 @@ const ManuButton = ({ onConfirm, tip, ...props }) => {
           onClose={handleCloseMenu}
         >
           {props.post && (
-            <MenuItem onClick={handleCopy}>Copy link to post</MenuItem>
+            <MenuItem onClick={handleCopy}>
+              {' '}
+              <span>Copy link to post</span>{' '}
+            </MenuItem>
           )}
           {(!props.post ||
             props.post?.user.username !== props.currentUser?.username) && (
-            <MenuItem onClick={handleOpenReportModal}>Report</MenuItem>
+            <MenuItem onClick={handleOpenReportModal}>
+              {' '}
+              <span>Report</span>{' '}
+            </MenuItem>
           )}
           {Boolean(tip) && (
             <TipModal
@@ -99,7 +105,7 @@ const ManuButton = ({ onConfirm, tip, ...props }) => {
                   setAnchorEl(null);
                 }}
               >
-                Tip
+                <span>Tip</span>
               </MenuItem>
             </TipModal>
           )}
