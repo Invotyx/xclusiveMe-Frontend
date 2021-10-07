@@ -15,6 +15,7 @@ import { fetchingSelector, errorSelector } from '../selectors/authSelector';
 import LayoutGuest from '../components/layouts/layout-guest-auth';
 import { countriesSelector } from '../selectors/countriesSelector';
 import CountryTextField from '../components/CountryTextField';
+import countries from '../countries.json'
 
 const useStyles = makeStyles(theme => ({
   grey: {
@@ -24,7 +25,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function SignInSide() {
   const fetching = useSelector(fetchingSelector);
-  const countriesList = useSelector(countriesSelector);
+  const countriesList = countries;  // useSelector(countriesSelector);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(auth.getCountriesList());
@@ -48,7 +49,7 @@ export default function SignInSide() {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [code, setCode] = useState('');
   const [country, setCountry] = useState('US');
-  const [countryCallingCode, setCountryCallingCode] = useState('1');
+  const [countryCallingCode, setCountryCallingCode] = useState('+1');
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -61,7 +62,7 @@ export default function SignInSide() {
             email: email.trim(),
             password,
             confirmPassword,
-            phoneNumber: `+${countryCallingCode}${phoneNumber}`,
+            phoneNumber: `${countryCallingCode}${phoneNumber}`,
           },
           callback: sid => {
             set_registrationState(2);
@@ -82,6 +83,8 @@ export default function SignInSide() {
       );
     }
   };
+  
+  console.log("countriesList", countriesList)
 
   return (
     <LayoutGuest>
@@ -221,7 +224,7 @@ export default function SignInSide() {
                   <Icon>
                     <img
                       src={
-                        countriesList.find(c => c.alpha2Code === country)?.flag
+                        countriesList.find(c => c.cca2 === country)?.flags.svg
                       }
                       style={{ width: '100%' }}
                     />
@@ -238,8 +241,9 @@ export default function SignInSide() {
               onChange={e => {
                 setCountry(e.target.value);
                 setCountryCallingCode(
-                  countriesList.find(c => c.alpha2Code === e.target.value)
-                    ?.callingCodes[0]
+                  countriesList.find(c => c.cca2 === e.target.value)
+                    ?.idd.root + countriesList.find(c => c.cca2 === e.target.value)
+                    ?.idd.suffixes[0]
                 );
               }}
               variant='outlined'
@@ -251,10 +255,10 @@ export default function SignInSide() {
             >
               {countriesList?.map(c => (
                 <MenuItem
-                  value={c.alpha2Code}
-                  key={`countriesList${c.alpha2Code}`}
+                  value={c.cca2}
+                  key={`countriesList${c.cca2}`}
                 >
-                  {c.name} (+{c.callingCodes[0]})
+                  {c.name.common} ({`${c?.idd?.root}${c?.idd?.suffixes ? c?.idd?.suffixes[0] : ''}`})
                 </MenuItem>
               ))}
             </CountryTextField>
