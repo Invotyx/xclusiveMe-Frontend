@@ -228,7 +228,7 @@ const CommentModal = ({
                               variant='body2'
                               component='span'
                               style={{
-                                fontWeight: 500,
+                                fontWeight: 400,
                                 fontFamily: 'Poppins',
                                 fontSize: '16px',
                               }}
@@ -252,7 +252,7 @@ const CommentModal = ({
                               marginLeft: '7px',
                             }}
                           >
-                            <span style={{ fontWeight: 'bolder' }}>
+                            <span style={{ fontWeight: 300 }}>
                               {moment(
                                 singlePost &&
                                   singlePost.createdAt &&
@@ -292,7 +292,7 @@ const CommentModal = ({
                     <img src='/backBtn.svg' alt='back' onClick={handleClose} />
                     <p
                       style={{
-                        fontWeight: '500',
+                        fontWeight: 400,
                         fontSize: '15px',
                         fontFamily: 'Poppins',
                       }}
@@ -321,7 +321,6 @@ const CommentModal = ({
                             whiteSpace: 'normal',
                             overflow: 'hidden',
                             textOverflow: 'ellipsis',
-
                             color: 'white',
                             fontFamily: 'Poppins',
                             fontSize: '16px',
@@ -372,13 +371,13 @@ const CommentModal = ({
                             onClick={handleLike}
                           >
                             <span
-                              style={{ marginLeft: '5px', fontWeight: 300 }}
+                              style={{ marginLeft: '5px', fontWeight: 400 }}
                             >
                               {nFormatter(singlePost.totalLikes)}
                             </span>{' '}
                             <span
                               className={styles.hideOnMobile}
-                              style={{ marginLeft: '5px', fontWeight: 300 }}
+                              style={{ marginLeft: '5px', fontWeight: 400 }}
                             >
                               Likes
                             </span>
@@ -390,13 +389,13 @@ const CommentModal = ({
                             onClick={handleLike}
                           >
                             <span
-                              style={{ marginLeft: '5px', fontWeight: 300 }}
+                              style={{ marginLeft: '5px', fontWeight: 400 }}
                             >
                               {nFormatter(singlePost?.totalLikes)}
                             </span>{' '}
                             <span
                               className={styles.hideOnMobile}
-                              style={{ marginLeft: '5px', fontWeight: 300 }}
+                              style={{ marginLeft: '5px', fontWeight: 400 }}
                             >
                               Likes
                             </span>
@@ -407,13 +406,13 @@ const CommentModal = ({
                           aria-label='share'
                           startIcon={<img src='/comment.png' alt='comment' />}
                         >
-                          <span style={{ fontWeight: 300 }}>
+                          <span style={{ fontWeight: 400 }}>
                             {' '}
                             {nFormatter(singlePost?.totalComments)}
                           </span>{' '}
                           <span
                             className={styles.hideOnMobile}
-                            style={{ marginLeft: '5px', fontWeight: 300 }}
+                            style={{ marginLeft: '5px', fontWeight: 400 }}
                           >
                             {' '}
                             Comments
@@ -452,7 +451,7 @@ const CommentModal = ({
                                   aria-label='Tip'
                                   startIcon={<MonetizationOnOutlinedIcon />}
                                 >
-                                  <span style={{ fontWeight: 300 }}>Tip</span>
+                                  <span style={{ fontWeight: 400 }}>Tip</span>
                                 </NormalCaseButton>
                               </TipModal>
                             )}
@@ -467,7 +466,7 @@ const CommentModal = ({
                           startIcon={<LocalMallIcon />}
                           onClick={openPurchaseModal}
                         >
-                          <span style={{ fontWeight: 300 }}>Buy Post</span>
+                          <span style={{ fontWeight: 400 }}>Buy Post</span>
                         </NormalCaseButton>
                       )}
                     </div>
@@ -514,7 +513,6 @@ const CommentModal = ({
                     overflowY: 'scroll',
                     overflowX: 'hidden',
                     height: isMobile ? '65vh' : '280px',
-                    marginLeft: '15px',
                   }}
                 >
                   <PostCommentsList
