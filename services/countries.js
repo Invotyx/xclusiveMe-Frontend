@@ -1,7 +1,6 @@
-import axios from 'axios';
+import axios from "axios";
+import countries from "../countries.json";
 
 export async function getCountries() {
-  return axios.get(
-    `https://restcountries.eu/rest/v2/all?fields=name;alpha2Code;callingCodes;flag`
-  );
+  return countries;
 }
