@@ -340,7 +340,7 @@ export default function Post({
                         style={{
                           marginLeft: '0px',
                           cursor: 'pointer',
-                          fontWeight: 500,
+                          fontWeight: 400,
                         }}
                       >
                         Tip
@@ -371,7 +371,7 @@ export default function Post({
                           aria-label='Tip'
                           startIcon={<MonetizationOnOutlinedIcon />}
                         >
-                          <span style={{ fontWeight: 500 }}>Tip</span>
+                          <span style={{ fontWeight: 400 }}>Tip</span>
                         </NormalCaseButton>
                       </TipModal>
                     </>
@@ -387,7 +387,7 @@ export default function Post({
                   startIcon={<LocalMallIcon />}
                   onClick={openPurchaseModal}
                 >
-                  <span style={{ fontWeight: 900 }}>Buy Post</span>
+                  <span style={{ fontWeight: 400 }}>Buy Post</span>
                 </NormalCaseButton>
               </div>
             ) : (
@@ -395,7 +395,7 @@ export default function Post({
                 <span
                   style={{
                     fontFamily: 'Poppins',
-                    fontWeight: 500,
+                    fontWeight: 400,
                     fontSize: '14px',
                   }}
                 >

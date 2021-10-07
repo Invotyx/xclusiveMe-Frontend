@@ -35,7 +35,7 @@ const darkTheme = createTheme({
       },
       secondary: {
         color: 'white',
-        fontWeight: 900,
+        fontWeight: 400,
       },
     },
     MuiListItemSecondaryAction: {

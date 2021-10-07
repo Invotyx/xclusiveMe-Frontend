@@ -284,7 +284,7 @@ export default function Profile({
                               <ListItem
                                 component='a'
                                 disableGutters
-                                style={{ fontWeight: 900 }}
+                                style={{ fontWeight: 300 }}
                               >
                                 <Box clone textAlign='center'>
                                   <ListItemText
@@ -383,7 +383,11 @@ export default function Profile({
                               variant='body2'
                               color='textSecondary'
                               component='p'
-                              style={{ color: 'white', fontSize: '16px' }}
+                              style={{
+                                color: 'white',
+                                fontSize: '14px',
+                                lineHeight: '24px',
+                              }}
                             >
                               {profileData?.profile?.description || '(no bio)'}
                             </Typography>
