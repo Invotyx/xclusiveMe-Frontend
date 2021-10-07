@@ -147,7 +147,9 @@ export default function Comp({ sidebarMenu, set_sidebarMenu }) {
                 </Box>
                 <NextLink passHref href={`/x/${me?.username}`}>
                   <IconButton component='a' color='inherit'>
-                    <CurrentUserProfileImageAvatar />
+                    <CurrentUserProfileImageAvatar
+                      styles={true}
+                    />
                   </IconButton>
                 </NextLink>
               </Box>

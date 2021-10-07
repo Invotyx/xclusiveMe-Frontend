@@ -35,7 +35,7 @@ export default function Home() {
           <title>Home - xclusiveme</title>
         </Head>
         <Grid item xs={12} sm={8} md={5}>
-          <Box pl={isMobile ? 1 : 6} pr={isMobile ? 3 : 6} pt={8} mx={4}>
+          <Box pl={isMobile ? 1 : 6} pr={isMobile ? 3 : 6} pt={18} mx={4}>
             <Box py={4} display='block'>
               <Typography
                 component='h1'
