@@ -879,11 +879,16 @@ const SinglePost = ({ post, altHeader, currentUser }) => {
             </div>
 
             <form onSubmit={handleAddComment}>
-              <Box style={{ borderTop: '1px solid #444444' }}>
+              <Box
+                style={{
+                  borderTop: '1px solid #444444',
+                }}
+              >
                 <OutlinedInput
                   value={commentText}
                   onChange={e => setCommentText(e.target.value)}
                   name='commentText'
+                  style={{ backgroundColor: '#101010' }}
                   fullWidth
                   multiline
                   onKeyDown={e => {
