@@ -40,7 +40,7 @@ const useStyles = makeStyles(theme => ({
     fontStyle: 'normal',
     fontFamily: 'Poppins',
     fontSize: '14px',
-    fontWeight: 900,
+    fontWeight: 300,
     lineHeight: '21px',
     color: '#A6A6A6',
   },

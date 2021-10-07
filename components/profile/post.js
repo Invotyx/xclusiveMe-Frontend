@@ -196,7 +196,7 @@ export default function Post({
                 >
                   <span
                     style={{
-                      fontWeight: 900,
+                      fontWeight: 300,
                       fontStyle: 'normal',
                       lineHeight: '30px',
                     }}
@@ -273,12 +273,12 @@ export default function Post({
                     post.media.length === 0 ? handleNotOpenn : handleLike
                   }
                 >
-                  <span style={{ marginLeft: '5px', fontWeight: 900 }}>
+                  <span style={{ marginLeft: '5px', fontWeight: 500 }}>
                     {nFormatter(post.totalLikes)}
                   </span>{' '}
                   <span
                     className={styles.hideOnMobile}
-                    style={{ marginLeft: '5px', fontWeight: 900 }}
+                    style={{ marginLeft: '5px', fontWeight: 500 }}
                   >
                     Likes
                   </span>
@@ -292,12 +292,12 @@ export default function Post({
                   }
                 >
                   {/* {} */}
-                  <span style={{ marginLeft: '5px', fontWeight: 900 }}>
+                  <span style={{ marginLeft: '5px', fontWeight: 500 }}>
                     {nFormatter(post.totalLikes)}
                   </span>{' '}
                   <span
                     className={styles.hideOnMobile}
-                    style={{ marginLeft: '5px', fontWeight: 900 }}
+                    style={{ marginLeft: '5px', fontWeight: 500 }}
                   >
                     Likes
                   </span>
@@ -309,13 +309,13 @@ export default function Post({
                 startIcon={<img src='/comment.png' alt='comment' />}
                 onClick={handleFocus}
               >
-                <span style={{ fontWeight: 900 }}>
+                <span style={{ fontWeight: 500 }}>
                   {' '}
                   {nFormatter(post.totalComments)}
                 </span>{' '}
                 <span
                   className={styles.hideOnMobile}
-                  style={{ marginLeft: '5px', fontWeight: 900 }}
+                  style={{ marginLeft: '5px', fontWeight: 500 }}
                 >
                   {' '}
                   Comments
@@ -340,7 +340,7 @@ export default function Post({
                         style={{
                           marginLeft: '0px',
                           cursor: 'pointer',
-                          fontWeight: '900',
+                          fontWeight: 500,
                         }}
                       >
                         Tip
@@ -371,7 +371,7 @@ export default function Post({
                           aria-label='Tip'
                           startIcon={<MonetizationOnOutlinedIcon />}
                         >
-                          <span style={{ fontWeight: 900 }}>Tip</span>
+                          <span style={{ fontWeight: 500 }}>Tip</span>
                         </NormalCaseButton>
                       </TipModal>
                     </>
@@ -395,13 +395,13 @@ export default function Post({
                 <span
                   style={{
                     fontFamily: 'Poppins',
-                    fontWeight: 900,
+                    fontWeight: 500,
                     fontSize: '14px',
                   }}
                 >
                   {' '}
                   Total Tips: {currencySymbol}
-                  {post?.totalTips}
+                  {nFormatter(post?.totalTips)}
                 </span>
               </NormalCaseButton>
             )}
