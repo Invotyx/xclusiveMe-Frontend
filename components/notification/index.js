@@ -76,9 +76,9 @@ export default function Notification({ setAnchorEl }) {
             return temp.length ? (
               <li key={Math.random()} className={classes.listSection}>
                 <ul style={{ padding: 0 }}>
-                  <ListSubheader>
-                    <span style={{ color: 'white' }}>{elm}</span>{' '}
-                  </ListSubheader>
+
+                    <span style={{ color: 'white', marginLeft: "20px", fontSize: "14px", fontWeight: 500 }}>{elm}</span>
+
                   {temp.map((i, x) => (
                     <ListItem
                       button

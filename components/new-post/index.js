@@ -64,7 +64,7 @@ export default function NewPostDialog() {
     <>
       <RoundedButton
         color='inherit'
-        style={{ height: '64px', marginTop: '8px' }}
+        style={{ height: '60px', marginTop: '15px' }}
         startIcon={
           <Image
             width={30}

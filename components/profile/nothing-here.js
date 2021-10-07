@@ -12,7 +12,7 @@ const useStyles = makeStyles(theme => ({
 export default function NothingHere({ me, ...props }) {
   const classes = useStyles();
   return (
-    <Box textAlign='center' p={4} {...props}>
+    <Box textAlign='center' p={4} mt={15} {...props}>
       <img src='/nothing-here.svg' alt='no media' />
       <Box mt={-2}>
         <Typography gutterBottom>

@@ -401,7 +401,7 @@ export default function Post({
                 >
                   {' '}
                   Total Tips: {currencySymbol}
-                  {post?.totalTips}
+                  {nFormatter(post?.totalTips)}
                 </span>
               </NormalCaseButton>
             )}
