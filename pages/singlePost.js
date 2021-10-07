@@ -383,12 +383,12 @@ const SinglePost = ({ post, altHeader, currentUser }) => {
                         startIcon={<img src='/emptyHeart.png' alt='unliked' />}
                         onClick={handleLike}
                       >
-                        <span style={{ marginLeft: '5px', fontWeight: 900 }}>
+                        <span style={{ marginLeft: '5px', fontWeight: 400 }}>
                           {nFormatter(singlePost.totalLikes)}
                         </span>{' '}
                         <span
                           className={styles.hideOnMobile}
-                          style={{ marginLeft: '5px', fontWeight: 900 }}
+                          style={{ marginLeft: '5px', fontWeight: 400 }}
                         >
                           Likes
                         </span>
@@ -415,13 +415,13 @@ const SinglePost = ({ post, altHeader, currentUser }) => {
                       aria-label='share'
                       startIcon={<img src='/comment.png' alt='comment' />}
                     >
-                      <span style={{ fontWeight: 900 }}>
+                      <span style={{ fontWeight: 400 }}>
                         {' '}
                         {nFormatter(singlePost?.totalComments)}
                       </span>{' '}
                       <span
                         className={styles.hideOnMobile}
-                        style={{ marginLeft: '5px', fontWeight: 900 }}
+                        style={{ marginLeft: '5px', fontWeight: 400 }}
                       >
                         {' '}
                         Comments
@@ -439,7 +439,7 @@ const SinglePost = ({ post, altHeader, currentUser }) => {
                               style={{
                                 marginLeft: '0px',
                                 cursor: 'pointer',
-                                fontWeight: '900',
+                                fontWeight: '400',
                               }}
                             >
                               Tip
@@ -473,7 +473,7 @@ const SinglePost = ({ post, altHeader, currentUser }) => {
                                 <span
                                   className={styles.hideOnMobile}
                                   style={{
-                                    fontWeight: '900',
+                                    fontWeight: '400',
                                   }}
                                 >
                                   Tip
@@ -493,7 +493,7 @@ const SinglePost = ({ post, altHeader, currentUser }) => {
                       startIcon={<LocalMallIcon />}
                       onClick={openPurchaseModal}
                     >
-                      <span style={{ fontWeight: 900 }}>Buy Post</span>
+                      <span style={{ fontWeight: 400 }}>Buy Post</span>
                     </NormalCaseButton>
                   )}
                 </div>
@@ -906,14 +906,17 @@ const SinglePost = ({ post, altHeader, currentUser }) => {
                         <EmojiPicker onSelect={addEmoji} />
                       </span>
 
-                      <Button
-                        type='submit'
-                        style={{ backgroundColor: '#111111', border: 'none' }}
-                      >
+                      <Button type='submit' style={{ border: 'none' }}>
                         <img src='/send.png' alt='send button' />
                       </Button>
                     </>
                   }
+                  inputProps={{
+                    style: {
+                      fontFamily: 'Poppins',
+                      marginLeft: '10px',
+                    },
+                  }}
                 />
               </Box>
             </form>

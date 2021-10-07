@@ -27,7 +27,7 @@ const useStyles = makeStyles(theme => ({
   inline: {
     display: 'flex',
     marginLeft: '8px',
-    fontWeight: '900',
+    fontWeight: '300',
     fontSize: '12px',
     fontFamily: 'Poppins',
   },
