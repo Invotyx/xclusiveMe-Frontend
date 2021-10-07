@@ -65,8 +65,8 @@ const darkTheme = createTheme({
         fontStyle: 'Poppins',
         color: '#868686',
         textTransform: 'uppercase',
-        fontWeight: 900,
-        fontSize: '16px',
+        fontWeight: 300,
+        fontSize: '14px',
       },
     },
 

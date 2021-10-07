@@ -90,6 +90,9 @@ export default function SubscriptionForm({
             type='number'
             InputProps={{
               startAdornment: <AttachMoneyIcon />,
+              style: {
+                fontFamily: 'Poppins',
+              },
             }}
             error={validationErrors && validationErrors.price}
             helperText={

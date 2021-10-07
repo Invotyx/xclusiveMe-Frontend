@@ -6,17 +6,17 @@
 
 .forgetPassword {
     font-family: Poppins;
-    font-weight: 900;
+    font-weight: 300;
     font-size: 13px;
     line-height: 21px;
-    font-weight: bolder;
+    font-weight: normal;
 }
 
 .setFont {
     font-family: Poppins;
     font-size: 18px;
-    font-weight: 900;
-    font-style: 'bolder';
+    font-weight: 300;
+    font-style: normal;
     line-height: 33px;
     padding: 3px;
 }
