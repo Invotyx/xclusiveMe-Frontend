@@ -8,7 +8,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { paymentMethod } from '../../actions/payment-method';
 import { paymentMethodDataSelector } from '../../selectors/paymentMethodSelector';
 import { useDispatch, useSelector } from 'react-redux';
-import { useMediaQuery } from 'react-responsive';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import ShareIcon from '@material-ui/icons/Share';
 import styles from './profile.module.css';
 import TextField from '@material-ui/core/TextField';
@@ -30,11 +30,11 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const NotBuyedModel = ({ notByedModel, setnotBuyedModel, post }) => {
+const NotBuyedModal = ({ notByedModal, setnotBuyedModal, post }) => {
   const classes = useStyles();
-  const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
+  const isMobile = useMediaQuery('(max-width: 760px)');
   const handleClose = () => {
-    setnotBuyedModel(false);
+    setnotBuyedModal(false);
   };
 
   return (
@@ -42,7 +42,7 @@ const NotBuyedModel = ({ notByedModel, setnotBuyedModel, post }) => {
       aria-labelledby='transition-modal-title'
       aria-describedby='transition-modal-description'
       className={classes.modal}
-      open={notByedModel}
+      open={notByedModal}
       onClose={handleClose}
       closeAfterTransition
       BackdropComponent={Backdrop}
@@ -50,8 +50,8 @@ const NotBuyedModel = ({ notByedModel, setnotBuyedModel, post }) => {
         timeout: 500,
       }}
     >
-      <Fade in={notByedModel}>
-        <div className={classes.paper}>
+      <div className={classes.paper}>
+        <Fade in={notByedModal}>
           <div>
             <div
               style={{
@@ -108,10 +108,10 @@ const NotBuyedModel = ({ notByedModel, setnotBuyedModel, post }) => {
               </div>
             </div>
           </div>
-        </div>
-      </Fade>
+        </Fade>
+      </div>
     </Modal>
   );
 };
 
-export default NotBuyedModel;
+export default NotBuyedModal;

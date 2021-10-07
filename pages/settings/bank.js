@@ -41,18 +41,18 @@ export default function Home() {
             </Box>
             {fetchData && <CircularProgress />}
             <Box mb={2}>
-              <List>
-                {bankData.length ? (
-                  bankData.map(p => (
-                    <>
-                      <Box mb={2}>
-                        <Typography variant='subtitle2'>
-                          <strong>Your Linked Bank Account</strong>
-                        </Typography>
-                        <Typography variant='subtitle2'>
-                          You may not be able to change your bank details
-                        </Typography>
-                      </Box>
+              {bankData.length ? (
+                <>
+                  <Box mb={2}>
+                    <Typography variant='subtitle2'>
+                      <strong>Your Linked Bank Account</strong>
+                    </Typography>
+                    <Typography variant='subtitle2'>
+                      You may not be able to change your bank details
+                    </Typography>
+                  </Box>
+                  <List>
+                    {bankData.map(p => (
                       <ListItem
                         key={p.id}
                         button
@@ -73,17 +73,17 @@ export default function Home() {
                           )}
                         </ListItemSecondaryAction>
                       </ListItem>
-                    </>
-                  ))
-                ) : (
-                  <Box mb={2}>
-                    <Typography variant='subtitle2'>
-                      You have no bank account linked to this profile. To add a
-                      subscription fee to your content, please add a bank.
-                    </Typography>
-                  </Box>
-                )}
-              </List>
+                    ))}
+                  </List>
+                </>
+              ) : (
+                <Box mb={2}>
+                  <Typography variant='subtitle2'>
+                    You have no bank account linked to this profile. To add a
+                    subscription fee to your content, please add a bank.
+                  </Typography>
+                </Box>
+              )}
             </Box>
           </Grid>
         </Grid>

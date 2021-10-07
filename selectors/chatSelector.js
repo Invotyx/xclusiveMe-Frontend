@@ -21,9 +21,19 @@ const activeConversationIdSelector = createSelector(chatState, state =>
   state.get('activeConversationId')
 );
 
+const searchResultsSelector = createSelector(chatState, state =>
+  state.get('searchResults')
+);
+
+const hasUnreadMessagesSelector = createSelector(chatState, state =>
+  state.get('hasUnreadMessages')
+);
+
 export {
   chatDataSelector,
   chatCountSelector,
   singleChatSelector,
   activeConversationIdSelector,
+  searchResultsSelector,
+  hasUnreadMessagesSelector,
 };

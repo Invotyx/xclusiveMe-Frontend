@@ -3,13 +3,17 @@ import { withStyles } from '@material-ui/core/styles';
 
 const StyledListItem = withStyles({
   root: {
-    color: '#999',
+    '& .MuiListItemText-root .MuiListItemText-primary': {
+      color: '#868686',
+    },
     '&:hover': {
       color: '#fff',
     },
   },
   selected: {
-    color: '#fff',
+    '& .MuiListItemText-root .MuiListItemText-primary': {
+      color: '#fff',
+    },
     backgroundColor: 'transparent !important',
     borderRight: '2px solid #fff',
   },

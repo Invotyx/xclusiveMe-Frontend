@@ -3,10 +3,11 @@ import { useDispatch } from 'react-redux';
 import { auth } from '../../actions/auth';
 import IconButton from '@material-ui/core/IconButton';
 import CameraAltIcon from '@material-ui/icons/CameraAlt';
+import DepressedButton from '../DepressedButton';
 
-export default function FormDialog({ children }) {
+export default function UpdateCoverImage({ inputRef, buttonProps, children }) {
   const dispatch = useDispatch();
-  const inputFile = React.useRef(null);
+  const inputFile = inputRef || React.useRef(null);
 
   const onChangeFile = event => {
     event.stopPropagation();
@@ -28,12 +29,23 @@ export default function FormDialog({ children }) {
         style={{ display: 'none' }}
         onChange={onChangeFile}
       />
-      <IconButton
-        aria-label='settings'
-        onClick={() => inputFile.current.click()}
-      >
-        <CameraAltIcon style={{ color: '#606366' }} />
-      </IconButton>
+      {children ? (
+        <DepressedButton
+          {...buttonProps}
+          onClick={() => {
+            inputFile.current.click();
+          }}
+        >
+          {children}
+        </DepressedButton>
+      ) : (
+        <IconButton
+          aria-label='settings'
+          onClick={() => inputFile.current.click()}
+        >
+          <CameraAltIcon style={{ color: '#606366' }} />
+        </IconButton>
+      )}
     </>
   );
 }

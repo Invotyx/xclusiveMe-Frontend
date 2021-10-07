@@ -1,20 +1,49 @@
 import { OutlinedInput } from '@material-ui/core';
 import CardActions from '@material-ui/core/CardActions';
 import IconButton from '@material-ui/core/IconButton';
-import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
-import { Picker } from 'emoji-mart';
-import 'emoji-mart/css/emoji-mart.css';
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { currentUserSelector } from '../../selectors/authSelector';
 import ProfileImageAvatar from '../profile/profile-image-avatar';
 import MessageModalMedia from './MessageModalMedia';
 import useAudioSend from './useAudioSend';
+import useEmojiPicker from '../useEmojiPicker';
+import AudioSend from './AudioSend';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles(() => ({
+  button: {
+    width: '20px',
+    height: '20px',
+    marginRight: '2rem',
+    cursor: 'pointer',
+    '&:hover': {
+      borderRadius: '50%',
+      backgroundColor: '#333',
+    },
+  },
+}));
 
 export default function MessageSend({ handleSendMessage }) {
+  const classes = useStyles();
+  const { closeEmojiPicker, EmojiPicker, emojiPickerRef } = useEmojiPicker();
   const current = useSelector(currentUserSelector);
-  const { AudioSend, isRecording, startRecordingHandler } = useAudioSend();
-  const [show, setShow] = useState(false);
+  const {
+    progress,
+    startRecordingHandler,
+    isRecording,
+    formatTime,
+    Clear,
+    stopRecording,
+  } = useAudioSend({
+    onAudioUploaded: data =>
+      handleSendMessage({
+        content: '',
+        type: 'media',
+        messageMediaType: 'audio',
+        media: data,
+      }),
+  });
   const [msgText, setMsgText] = useState('');
 
   function handleOnEnter() {
@@ -22,7 +51,7 @@ export default function MessageSend({ handleSendMessage }) {
       return;
     }
 
-    setShow(false);
+    closeEmojiPicker();
 
     handleSendMessage(msgText, () => {
       setMsgText('');
@@ -37,10 +66,6 @@ export default function MessageSend({ handleSendMessage }) {
     setMsgText(msgText + emoji);
   };
 
-  const showEmoji = () => {
-    setShow(!show);
-  };
-
   return (
     <>
       <CardActions
@@ -50,32 +75,21 @@ export default function MessageSend({ handleSendMessage }) {
       >
         <div
           style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            width: '30%',
             opacity: isRecording ? 0 : 1,
           }}
         >
-          <MessageModalMedia
-            type='camera'
-            onMediaUploaded={handleSendMessage}
-          >
-            <img src='/camera.svg' alt='camera' />
+          <MessageModalMedia type='camera' onMediaUploaded={handleSendMessage}>
+            <img src='/camera.svg' className={classes.button} alt='camera' />
           </MessageModalMedia>
-          <MessageModalMedia
-            type='photo'
-            onMediaUploaded={handleSendMessage}
-          >
-            <img src='/imageBtn.svg' alt='image' />
+          <MessageModalMedia type='photo' onMediaUploaded={handleSendMessage}>
+            <img src='/imageBtn.svg' className={classes.button} alt='image' />
           </MessageModalMedia>
-          <MessageModalMedia
-            type='video'
-            onMediaUploaded={handleSendMessage}
-          >
-            <img src='/videoBtn.svg' alt='video' />
+          <MessageModalMedia type='video' onMediaUploaded={handleSendMessage}>
+            <img src='/videoBtn.svg' className={classes.button} alt='video' />
           </MessageModalMedia>
           <img
             src='/voiceBtn.svg'
+            className={classes.button}
             alt='voice'
             onClick={startRecordingHandler}
           />
@@ -99,6 +113,11 @@ export default function MessageSend({ handleSendMessage }) {
                 }
               }
             }}
+            inputProps={{
+              style: {
+                fontFamily: 'Poppins',
+              },
+            }}
             // inputRef={searchInput}
             placeholder='Write a message'
             startAdornment={
@@ -108,10 +127,8 @@ export default function MessageSend({ handleSendMessage }) {
               />
             }
             endAdornment={
-              <>
-                <IconButton onClick={showEmoji}>
-                  <InsertEmoticonIcon />
-                </IconButton>
+              <span ref={emojiPickerRef} style={{ display: 'flex' }}>
+                <EmojiPicker onSelect={addEmoji} />
                 <IconButton onClick={handleOnEnter}>
                   <img
                     src='/send.png'
@@ -119,41 +136,18 @@ export default function MessageSend({ handleSendMessage }) {
                     style={{ marginRight: '10px' }}
                   />
                 </IconButton>
-              </>
+              </span>
             }
           />
         ) : (
           <AudioSend
-            onAudioUploaded={data =>
-              handleSendMessage({
-                type: 'media',
-                messageMediaType: 'audio',
-                media: data,
-              })
-            }
+            handleClear={Clear}
+            progress={progress}
+            time={formatTime()}
+            handleSend={stopRecording}
           />
         )}
       </CardActions>
-
-      {show && (
-        <span>
-          <Picker
-            onSelect={addEmoji}
-            set='facebook'
-            emoji='point_up'
-            theme='dark'
-            skin='1'
-            style={{
-              position: 'absolute',
-              bottom: '40px',
-              right: '150px',
-              maxWidth: '300px',
-              with: '100%',
-              outline: 'none',
-            }}
-          />
-        </span>
-      )}
     </>
   );
 }

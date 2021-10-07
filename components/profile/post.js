@@ -1,56 +1,37 @@
+import React from 'react';
 import NextLink from 'next/link';
 import BookmarkBorderOutlinedIcon from '@material-ui/icons/BookmarkBorderOutlined';
 import Box from '@material-ui/core/Box';
 import Link from '@material-ui/core/Link';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
-import IconButton from '@material-ui/core/IconButton';
 import MonetizationOnOutlinedIcon from '@material-ui/icons/MonetizationOnOutlined';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
-import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import moment from 'moment';
 import ProfileImageAvatar from './profile-image-avatar';
 import NormalCaseButton from '../NormalCaseButton';
 import PostMedia from './post-media';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
-import SendIcon from '@material-ui/icons/Send';
-import { useEffect, useState, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { post as postData } from '../../actions/post/index';
 import styles from './profile.module.css';
 import { currentUserSelector } from '../../selectors/authSelector';
-import { singlepostDataSelector } from '../../selectors/postSelector';
-import { totalrepliesSelector } from '../../selectors/postSelector';
-import RemoveIcon from '@material-ui/icons/Remove';
-import CommentModel from './commentModel';
-import { Button } from '@material-ui/core';
 import LocalMallIcon from '@material-ui/icons/LocalMall';
-import { Hidden } from '@material-ui/core';
-import PostPurchaseModel from './PostPurchaseModel';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
-import ReportModal from './ReportModal';
+import useReportModal from './ReportModal';
 import TipModal from './TipModal';
-import { TramRounded } from '@material-ui/icons';
-import { getCommentsDataSelector } from '../../selectors/postSelector';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import { fetchingSelector } from '../../selectors/postSelector';
-import LoadingOverlay from 'react-loading-overlay';
-import BounceLoader from 'react-spinners/BounceLoader';
-import Notifications from '../../components/notification';
-import NotBuyedModel from './NotBuyedModel';
-import { Picker } from 'emoji-mart';
-import 'emoji-mart/css/emoji-mart.css';
-import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
-import { useMediaQuery } from 'react-responsive';
-import queryString from 'query-string';
-import SinglePost from '../../pages/singlePost';
+import NotBuyedModal from './NotBuyedModel';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import ManuButton from '../../components/menuButton';
+import ShowMoreText from 'react-show-more-text';
+import PostCommentsArea from './PostCommentsArea';
+import usePostPurchaseModal from './PostPurchaseModel';
+import { useInView } from 'react-intersection-observer';
+import { currencySymbol } from '../../services/currencySymbol';
+import { useRouter } from 'next/router';
+import { nFormatter } from '../../services/nFormatter';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -73,13 +54,11 @@ const useStyles = makeStyles(theme => ({
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
   },
-  profileModelStyle: {
+  profileModalStyle: {
     width: '30%',
   },
-  modelStyle: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
+  showMore: {
+    color: theme.palette.primary.main,
   },
 }));
 export default function Post({
@@ -87,106 +66,46 @@ export default function Post({
   profileData,
   altHeader,
   me,
-  subscriptionPlans,
-  username,
+  callbackAction,
 }) {
+  const { ref, inView } = useInView({ threshold: 0 });
+  React.useEffect(() => {
+    if (inView) {
+      console.log(inView);
+    } else {
+      console.log('out');
+    }
+  }, [inView]);
+  const router = useRouter();
+  const { pathname, query } = router;
+  const { PostPurchaseModal, openPurchaseModal, setPurchased } =
+    usePostPurchaseModal();
   const classes = useStyles();
-  const [commentText, setCommentText] = useState('');
-  const [replyText, setReplyText] = useState('');
-  const [liked, setLiked] = useState(false);
-  const [commentedId, setCommentedId] = useState(null);
-  const [forCommentId, setForCommentId] = useState(null);
-  const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   const currentUser = useSelector(currentUserSelector);
-  const [commentId, setCommentId] = useState(null);
-  const [openReply, setOpenReply] = useState(false);
-  const [isReplyField, setisReplyField] = useState(false);
-  const singlePost = useSelector(singlepostDataSelector);
-  const replyCount = useSelector(totalrepliesSelector);
-  const [openModel, setOpenModel] = useState(false);
-  const [focused, setFocused] = useState(false);
   const searchInput = useRef(null);
-  const [openReportModal, setreportModal] = useState(false);
-  const [openTip, setopenTip] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const fetchData = useSelector(fetchingSelector);
-  const [notByedModel, setnotBuyedModel] = useState(false);
-  const [show, setShow] = useState(false);
-  const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
-  const [checkRefs, setCheckRefs] = useState(false);
-
-  const handleOpenModel = () => {
-    setOpenModel(true);
-  };
+  const { ReportModal } = useReportModal({
+    onConfirm: () => {
+      //
+    },
+  });
+  const [notByedModal, setnotBuyedModal] = useState(false);
+  const isMobile = useMediaQuery('(max-width: 760px)');
+  const [mediaClicked, setMediaClicked] = useState(false);
 
   function handleFocus() {
-    searchInput.current.focus();
+    searchInput?.current?.focus();
   }
 
-  const addEmoji = e => {
-    let sym = e.unified.split('-');
-    let codesArray = [];
-    sym.forEach(el => codesArray.push('0x' + el));
-    let emoji = String.fromCodePoint(...codesArray);
-    setCommentText(commentText + emoji);
-  };
-
-  const Links = ({ passQueryString, href, children, ...otherProps }) => (
-    <NextLink
-      href={`${href}?${queryString.stringify(passQueryString)}`}
-      {...otherProps}
-    >
-      {children}
-    </NextLink>
-  );
-
-  const showEmoji = () => {
-    setShow(!show);
-  };
-
-  const handleAddComment = event => {
-    event.preventDefault();
-    setShow(false);
-    if (!commentText || commentText.trim() === '') {
-      return;
-    }
-    dispatch(
-      postData.saveComment({
-        id: post.id,
-        commentText: {
-          comment: commentText,
-          isReply: false,
-        },
-
-        callback: () => {
-          setCommentText('');
-
-          !username &&
-            dispatch(
-              postData.requestSubscribed()
-
-              // postData.getComment({
-              //   id: post.id,
-              // })
-            );
-          username && dispatch(postData.requestX({ username }));
-        },
-      })
-    );
-  };
-
   const handleLike = () => {
-    // console.log('post.likes = ', post.likes);
+    //
     post.likes.length > 0
       ? post.likes.map(like =>
           dispatch(
             postData.deleteLike({
               id: post.id,
               callback: () => {
-                setLiked(false);
-                dispatch(postData.request());
-                dispatch(postData.requestSubscribed());
+                callbackAction && callbackAction();
               },
             })
           )
@@ -195,121 +114,57 @@ export default function Post({
           postData.saveLike({
             id: post.id,
             callback: () => {
-              setLiked(true);
-              dispatch(postData.request());
-              dispatch(postData.requestSubscribed());
+              callbackAction && callbackAction();
             },
           })
         );
   };
 
-  const handleCommentLike = cId => {
-    // console.log(cId);
-    post.comments.map(comm =>
-      comm.likes && comm.likes.length > 0 && comm.id === cId
-        ? dispatch(
-            postData.delCommentLike({
-              id: comm.id,
-              callback: () => {
-                dispatch(postData.request());
-                dispatch(postData.requestSubscribed());
-              },
-            })
-          )
-        : comm.id === cId &&
-          dispatch(
-            postData.saveCommentLike({
-              id: comm.id,
-              callback: () => {
-                dispatch(postData.request());
-                dispatch(postData.requestSubscribed());
-              },
-            })
-          )
-    );
-  };
-
   const handleOpen = forReplyId => {
-    // console.log('commentid', forReplyId);
-    dispatch(postData.requestOne(post.id));
+    router.push({ pathname, query: { ...query, postId: post.id } });
+    setMediaClicked(+new Date());
+    //
+    // dispatch(postData.requestOne(post.id));
     // dispatch(postData.requestReplies(forReplyId, post.id));
+    // setOpen(true);
+    // setForCommentId(forReplyId);
 
-    setForCommentId(forReplyId);
-    searchInput.current.focus();
-    setCheckRefs(true);
+    // searchInput?.current?.focus();
+    // setCheckRefs(true);
     // setOpenReply(true);
-    setOpen(true);
   };
 
-  const handleGetSinglePostData = () => {
-    dispatch(postData.requestOne(post.id));
-  };
-
-  const handleNotOpen = () => {
-    setnotBuyedModel(true);
-  };
-
-  const handleNotOpenn = () => {
-    console.log('Post not buyed');
-  };
-
-  const nFormatter = n => {
-    if (n < 1e3) return n;
-    if (n >= 1e3 && n < 1e6) return +(n / 1e3).toFixed(1) + 'K';
-    if (n >= 1e6 && n < 1e9) return +(n / 1e6).toFixed(1) + 'M';
-    if (n >= 1e9 && n < 1e12) return +(n / 1e9).toFixed(1) + 'B';
-    if (n >= 1e12) return +(n / 1e12).toFixed(1) + 'T';
-  };
+  const handleNotOpenn = () => {};
 
   return (
-    <LoadingOverlay active={fetchData} spinner={<BounceLoader />}>
-      <Card className={styles.postCard}>
+    <>
+      <Card className={styles.postCard} ref={ref}>
         {altHeader ? (
-          <CardHeader
-            action={
-              <IconButton aria-label='settings'>
-                <MoreHorizIcon />
-              </IconButton>
-            }
-            subheader={moment(post.createdAt).fromNow()}
-          />
+          <></>
         ) : (
           <CardHeader
             avatar={<ProfileImageAvatar user={profileData} />}
             action={
               <div>
-                {post.media.length === 0 ||
-                post?.user?.username == currentUser?.username ? (
-                  <IconButton
-                    aria-label='more'
-                    aria-controls='simple-menu'
-                    aria-haspopup='true'
-                  >
-                    <MoreVertIcon />
-                  </IconButton>
-                ) : (
-                  <ManuButton
-                    postid={post?.id}
-                    subscriptionPlans={subscriptionPlans}
-                    title='Report(Under development)'
-                    profileImage={post?.user}
-                    onConfirm={(reason, callback) =>
-                      dispatch(
-                        postData.postReport({
-                          reportData: {
-                            itemId: post?.id,
-                            reason,
-                          },
-                          callback: () => {
-                            callback && callback();
-                            dispatch(postData.request());
-                            dispatch(postData.requestSubscribed());
-                          },
-                        })
-                      )
-                    }
-                  />
-                )}
+                <ManuButton
+                  post={post}
+                  currentUser={currentUser}
+                  title='Report'
+                  profileImage={post?.user}
+                  onConfirm={(reason, callback) =>
+                    dispatch(
+                      postData.postReport({
+                        reportData: {
+                          itemId: post.id,
+                          reason,
+                        },
+                        callback: () => {
+                          callback && callback();
+                        },
+                      })
+                    )
+                  }
+                />
               </div>
             }
             title={
@@ -318,7 +173,12 @@ export default function Post({
                   <Typography
                     variant='body2'
                     component='span'
-                    style={{ fontWeight: '600' }}
+                    style={{
+                      fontWeight: 500,
+                      lineHeight: '30px',
+                      fontFamily: 'Poppins',
+                      fontSize: '16px',
+                    }}
                   >
                     <NextLink href={`/x/${profileData?.username}`} passHref>
                       <Link>{profileData?.fullName || '(no name)'}</Link>
@@ -328,14 +188,35 @@ export default function Post({
                 <Typography
                   variant='caption'
                   color='textSecondary'
-                  style={{ fontWeight: '900' }}
+                  style={{
+                    fontFamily: 'Poppins',
+                    fontSize: '12px',
+                    marginLeft: '7px',
+                  }}
                 >
-                  {moment(post.createdAt).fromNow()}
+                  <span
+                    style={{
+                      fontWeight: 300,
+                      fontStyle: 'normal',
+                      lineHeight: '30px',
+                    }}
+                  >
+                    {moment(post.createdAt).fromNow()}
+                  </span>
                 </Typography>
               </>
             }
             subheader={
-              <Typography variant='caption' color='textSecondary'>
+              <Typography
+                variant='caption'
+                color='textSecondary'
+                style={{
+                  fontWeight: 500,
+                  fontStyle: 'normal',
+                  fontFamily: 'Poppins',
+                  fontSize: '11px',
+                }}
+              >
                 @{profileData?.username}
               </Typography>
             }
@@ -349,21 +230,25 @@ export default function Post({
               style={{
                 color: 'white',
                 lineHeight: '24px',
-                fontWeight: '500',
+                fontWeight: 500,
                 fontSize: '16px',
                 fontFamily: 'Poppins',
                 marginTop: '-13px',
                 marginLeft: '4px',
               }}
             >
-              {post.postText}
+              <ShowMoreText lines={3} anchorClass={classes.showMore}>
+                {post.postText}
+              </ShowMoreText>
             </Typography>
           </CardContent>
         )}
+
         <PostMedia
           media={post.media}
           mediaCount={post.mediaCount}
           post={post}
+          onImageClick={handleOpen}
         />
 
         <div
@@ -388,10 +273,12 @@ export default function Post({
                     post.media.length === 0 ? handleNotOpenn : handleLike
                   }
                 >
-                  {nFormatter(post.totalLikes)}{' '}
+                  <span style={{ marginLeft: '5px', fontWeight: 500 }}>
+                    {nFormatter(post.totalLikes)}
+                  </span>{' '}
                   <span
                     className={styles.hideOnMobile}
-                    style={{ marginLeft: '5px' }}
+                    style={{ marginLeft: '5px', fontWeight: 500 }}
                   >
                     Likes
                   </span>
@@ -404,11 +291,13 @@ export default function Post({
                     post.media.length === 0 ? handleNotOpenn : handleLike
                   }
                 >
-                  {/* {console.log('likeeddd')} */}
-                  {nFormatter(post.totalLikes)}{' '}
+                  {/* {} */}
+                  <span style={{ marginLeft: '5px', fontWeight: 500 }}>
+                    {nFormatter(post.totalLikes)}
+                  </span>{' '}
                   <span
                     className={styles.hideOnMobile}
-                    style={{ marginLeft: '5px' }}
+                    style={{ marginLeft: '5px', fontWeight: 500 }}
                   >
                     Likes
                   </span>
@@ -420,10 +309,13 @@ export default function Post({
                 startIcon={<img src='/comment.png' alt='comment' />}
                 onClick={handleFocus}
               >
-                {nFormatter(post.totalComments)}{' '}
+                <span style={{ fontWeight: 500 }}>
+                  {' '}
+                  {nFormatter(post.totalComments)}
+                </span>{' '}
                 <span
                   className={styles.hideOnMobile}
-                  style={{ marginLeft: '5px' }}
+                  style={{ marginLeft: '5px', fontWeight: 500 }}
                 >
                   {' '}
                   Comments
@@ -433,20 +325,23 @@ export default function Post({
               {post?.user?.username == currentUser?.username ? (
                 ''
               ) : (
-                <NormalCaseButton
-                  aria-label='tip'
-                  style={{
-                    marginLeft: '-10px',
-                  }}
-                >
+                <span aria-label='tip'>
                   {post.media.length === 0 ? (
                     <>
                       <MonetizationOnOutlinedIcon
-                        style={{ marginLeft: '5px', marginRight: '5px' }}
+                        style={{
+                          marginLeft: '5px',
+                          marginRight: '5px',
+                          marginBottom: isMobile ? '-8px' : '-9px',
+                        }}
                       />
                       <span
                         className={styles.hideOnMobile}
-                        style={{ marginLeft: '0px' }}
+                        style={{
+                          marginLeft: '0px',
+                          cursor: 'pointer',
+                          fontWeight: 400,
+                        }}
                       >
                         Tip
                       </span>
@@ -454,7 +349,7 @@ export default function Post({
                   ) : (
                     <>
                       <TipModal
-                        profileImage={post?.user}
+                        profileImage={post?.user?.profileImage}
                         name={post?.user?.fullName}
                         onConfirm={(amount, callback) =>
                           dispatch(
@@ -467,54 +362,69 @@ export default function Post({
 
                               callback: () => {
                                 callback && callback();
-                                dispatch(postData.request());
-                                dispatch(postData.requestSubscribed());
                               },
                             })
                           )
                         }
-                      />
-                      <span
-                        className={styles.hideOnMobile}
-                        style={{ marginLeft: '-6px' }}
                       >
-                        Tip
-                      </span>
+                        <NormalCaseButton
+                          aria-label='Tip'
+                          startIcon={<MonetizationOnOutlinedIcon />}
+                        >
+                          <span style={{ fontWeight: 400 }}>Tip</span>
+                        </NormalCaseButton>
+                      </TipModal>
                     </>
                   )}
-                </NormalCaseButton>
+                </span>
               )}
             </div>
 
-            {!me && (
+            {!me && post.isPaid && post.media.length < post.mediaCount ? (
               <div style={{ marginRight: '4px' }}>
-                {post.media.length === 0 ? (
-                  <NormalCaseButton
-                    aria-label='Buy Post'
-                    startIcon={<LocalMallIcon />}
-                    onClick={handleOpenModel}
-                  >
-                    Buy Post
-                  </NormalCaseButton>
-                ) : (
-                  ''
-                )}
+                <NormalCaseButton
+                  aria-label='Buy Post'
+                  startIcon={<LocalMallIcon />}
+                  onClick={openPurchaseModal}
+                >
+                  <span style={{ fontWeight: 400 }}>Buy Post</span>
+                </NormalCaseButton>
               </div>
+            ) : (
+              <NormalCaseButton>
+                <span
+                  style={{
+                    fontFamily: 'Poppins',
+                    fontWeight: 400,
+                    fontSize: '14px',
+                  }}
+                >
+                  {' '}
+                  Total Tips: {currencySymbol}
+                  {nFormatter(post?.totalTips)}
+                </span>
+              </NormalCaseButton>
             )}
           </div>
-          <PostPurchaseModel
-            post={post}
-            openModel={openModel}
-            setOpenModel={setOpenModel}
+          <PostPurchaseModal
+            handlePurchase={() => {
+              dispatch(
+                postData.purchasePost({
+                  id: post.id,
+                  callback: () => {
+                    setPurchased(true);
+                    callbackAction && callbackAction();
+                  },
+                })
+              );
+            }}
+            price={post?.price}
+            user={post?.user}
           />
-          <ReportModal
-            openReportModal={openReportModal}
-            setreportModal={setreportModal}
-            post={post}
-          />
-          <NotBuyedModel
-            notByedModel={notByedModel}
-            setnotBuyedModel={setnotBuyedModel}
+          <ReportModal post={post} />
+          <NotBuyedModal
+            notByedModal={notByedModal}
+            setnotBuyedModal={setnotBuyedModal}
             post={post}
           />
         </div>
@@ -528,289 +438,13 @@ export default function Post({
           </NormalCaseButton>
         )}
 
-        {post.comments.length >= 3 ? (
-          <Links
-            passHref
-            href='/singlePost'
-            passQueryString={{
-              postId: `${post.id}`,
-            }}
-          >
-            <p
-              style={{
-                cursor: 'pointer',
-                marginLeft: '21px',
-                marginTop: '0px',
-                marginBottom: '12px',
-                fontWeight: '500',
-                fontSize: '14px',
-              }}
-              onClick={handleGetSinglePostData}
-            >
-              {post.media.length === 0 ? '' : 'View previous comments'}
-            </p>
-          </Links>
-        ) : (
-          ''
-        )}
-
-        <CommentModel
+        <PostCommentsArea
           post={post}
-          profileData={profileData}
-          altHeader={altHeader}
-          singlePost={singlePost}
-          open={open}
-          setOpen={setOpen}
-          replyCount={replyCount}
-          currentUser={currentUser}
-          forCommentId={forCommentId}
-          openReply={openReply}
-          checkRefs={checkRefs}
-          setCheckRefs={setCheckRefs}
+          me={me}
+          callbackAction={callbackAction}
+          mediaClicked={mediaClicked}
         />
-
-        {post.comments.map(comm => (
-          <div style={{ marginBottom: '20px' }}>
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-              }}
-            >
-              <div
-                style={{
-                  display: 'flex',
-                  marginLeft: '14px',
-                }}
-              >
-                <div style={{ display: 'flex', marginLeft: '3px' }}>
-                  <NextLink href={`/x/${comm?.user?.username}`} passHref>
-                    <Link>
-                      <ProfileImageAvatar user={comm?.user} />
-                    </Link>
-                  </NextLink>
-
-                  <NextLink href={`/x/${comm?.user?.username}`} passHref>
-                    <Link>
-                      <p
-                        style={{
-                          marginTop: '7px',
-                          marginLeft: '15px',
-                          fontWeight: '600',
-                          fontSize: '14px',
-                          cursor: 'pointer',
-                        }}
-                        className={styles.userNameMobile}
-                      >
-                        {comm?.user?.fullName}
-                      </p>
-                    </Link>
-                  </NextLink>
-                </div>
-
-                <p
-                  style={{
-                    marginLeft: '10px',
-                    marginTop: '7px',
-                    textAlign: 'left',
-                    color: '#ACACAC',
-                    fontSize: '14px',
-                    fontWeight: '600',
-                    whiteSpace: 'normal',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                  }}
-                >
-                  {comm.comment}
-                </p>
-              </div>
-              <div
-                style={{
-                  display: 'flex',
-                  marginRight: '14px',
-                  marginTop: '5px',
-                }}
-              >
-                <img
-                  src='/comment.png'
-                  alt='reply button'
-                  style={{
-                    width: '20px',
-                    height: '20px',
-                    marginRight: '9px',
-                    cursor: 'pointer',
-                  }}
-                  className={styles.commMobile}
-                  id={comm.id}
-                  onClick={
-                    post.media.length === 0
-                      ? handleNotOpenn
-                      : () => handleOpen(comm.id)
-                  }
-                />
-
-                {/* <ChatBubbleOutlineIcon
-                style={{ marginRight: '9px' }}
-                id={comm.id}
-                fontSize='small'
-                onClick={() => handleReplyField(comm.id)}
-              /> */}
-
-                {comm.likes && comm.likes.length === 0 ? (
-                  <img
-                    src='/emptyHeart.png'
-                    alt='unliked'
-                    style={{
-                      width: '20px',
-                      height: '20px',
-                      cursor: 'pointer',
-                      marginRight: '7px',
-                    }}
-                    onClick={() =>
-                      handleCommentLike(
-                        post.media.length === 0 ? handleNotOpenn : comm.id
-                      )
-                    }
-                  />
-                ) : (
-                  <img
-                    src='/filled.png'
-                    alt='unliked'
-                    style={{
-                      width: '20px',
-                      height: '20px',
-                      cursor: 'pointer',
-                      marginRight: '7px',
-                    }}
-                    onClick={() =>
-                      handleCommentLike(
-                        post.media.length === 0 ? handleNotOpenn : comm.id
-                      )
-                    }
-                  />
-                )}
-              </div>
-            </div>
-
-            <div onClick={() => setOpenReply(true)}>
-              <p
-                style={{
-                  marginLeft: '72px',
-                  marginTop: '-10px',
-                  marginBottom: '0px',
-                  cursor: 'pointer',
-                  fontSize: '13px',
-                  display: 'flex',
-                }}
-                onClick={() => handleOpen(comm.id)}
-              >
-                {comm.totalReplies === 0 || post.media.length === 0 ? (
-                  ''
-                ) : (
-                  <div>
-                    <img
-                      src='/lineReply.svg'
-                      alt='line'
-                      style={{
-                        marginBottom: '5px',
-                        marginRight: '3px',
-                      }}
-                    />
-                  </div>
-                )}
-                <span
-                  style={{
-                    fontSize: '12px',
-                    fontWeight: '500',
-                    marginLeft: '10px',
-                  }}
-                >
-                  {comm.totalReplies === 0 || post.media.length === 0
-                    ? ''
-                    : 'VIEW REPLIES'}
-                </span>
-              </p>
-            </div>
-          </div>
-        ))}
-
-        <form onSubmit={handleAddComment}>
-          <Box style={{ borderTop: '1px solid #444444' }}>
-            <OutlinedInput
-              value={commentText}
-              onChange={e => setCommentText(e.target.value)}
-              name='commentText'
-              multiline
-              disabled={post.media.length === 0}
-              fullWidth
-              onKeyDown={e => {
-                if (e.keyCode === 13) {
-                  if (!event.shiftKey) {
-                    handleAddComment(e);
-                  }
-                }
-              }}
-              inputRef={searchInput}
-              placeholder='Add a comment'
-              startAdornment={
-                <ProfileImageAvatar
-                  user={currentUser}
-                  style={{ marginRight: '10px' }}
-                />
-              }
-              endAdornment={
-                <>
-                  <Button
-                    onClick={showEmoji}
-                    style={{
-                      backgroundColor: '#111111',
-                      border: 'none',
-                      marginRight: '-20px',
-                    }}
-                  >
-                    <span role='img'>
-                      <InsertEmoticonIcon />
-                    </span>
-                  </Button>
-                  <Button
-                    type='submit'
-                    style={{
-                      backgroundColor: '#111111',
-                      border: 'none',
-                      marginRight: '-20px',
-                    }}
-                  >
-                    <img
-                      src='/send.png'
-                      alt='send button'
-                      style={{ marginRight: '10px' }}
-                    />
-                  </Button>
-                </>
-              }
-            />
-            {show && (
-              <span>
-                <Picker
-                  onSelect={addEmoji}
-                  set='facebook'
-                  emoji='point_up'
-                  theme='dark'
-                  skin='1'
-                  style={{
-                    position: 'absolute',
-                    right: isMobile ? '40px' : '90px',
-                    bottom: '80px',
-                    maxWidth: '300px',
-                    with: '100%',
-                    outline: 'none',
-                  }}
-                />
-              </span>
-            )}
-          </Box>
-        </form>
       </Card>
-    </LoadingOverlay>
+    </>
   );
 }

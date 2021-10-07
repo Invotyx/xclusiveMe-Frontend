@@ -63,6 +63,7 @@ export const auth = {
     createAction(AUTH.UPLOAD_IMAGE, {
       ...data,
       fetching: true,
+      uploadingProfileImage: true,
       success: false,
       error: null,
     }),
@@ -135,6 +136,13 @@ export const auth = {
       success: false,
       error: null,
     }),
+  updateAgeLimitRestriction: data =>
+    createAction(AUTH.UPDATE_AGE_LIMIT_RESTRICTION, {
+      ...data,
+      fetching: true,
+      success: false,
+      error: null,
+    }),
   success: data =>
     createAction(AUTH.SUCCESS, {
       ...data,
@@ -143,7 +151,13 @@ export const auth = {
       error: null,
     }),
   failure: error =>
-    createAction(AUTH.FAILURE, { ...error, fetching: false, success: false }),
+    createAction(AUTH.FAILURE, {
+      ...error,
+      fetching: false,
+      uploadingProfileImage: false,
+      uploadingCover: false,
+      success: false,
+    }),
   redirectToLoginPage: asPath =>
     createAction(AUTH.REDIRECT_TO_LOGIN_PAGE, { asPath }),
 };

@@ -59,6 +59,13 @@ export default function SignInSide() {
           variant='contained'
           color='primary'
           disabled={fetching}
+          style={{
+            fontFamily: 'Poppins',
+            fontWeight: 500,
+            fontStyle: 'normal',
+            fontSize: ' 17px',
+            lineHeight: '30px',
+          }}
         >
           Proceed
         </TileButton>

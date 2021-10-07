@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { currentUserSelector } from '../../selectors/authSelector';
@@ -6,16 +7,27 @@ import { chat } from '../../actions/chat';
 import { useInView } from 'react-intersection-observer';
 import ImageListItem from './ImageListItem';
 import Box from '@material-ui/core/Box';
+import PostMediaVideo from '../profile/post-media-video';
+import AudioPlayer from './AudioPlayer';
+import LockedPost from '../profile/LockedPost';
+import usePostPurchaseModal from '../profile/PostPurchaseModel';
 
-const MessagesListItem = ({ activeConversationId, i, ...props }) => {
-  const { ref, inView } = useInView({
-    threshold: 0,
-  });
+const MessagesListItem = ({
+  activeConversationId,
+  message,
+  activeParticipant,
+  getConversationMessages,
+  messageIdRef,
+  ...props
+}) => {
+  const { PostPurchaseModal, closePurchaseModal, openPurchaseModal } =
+    usePostPurchaseModal();
+  const { ref, inView } = useInView({ threshold: 0 });
   const current = useSelector(currentUserSelector);
   const dispatch = useDispatch();
 
   React.useEffect(() => {
-    if (!i.isSeen && inView) {
+    if (!message.isSeen && inView && message.sender?.id !== current?.id) {
       dispatch(
         chat.isSeenMessage({
           id: activeConversationId,
@@ -26,6 +38,7 @@ const MessagesListItem = ({ activeConversationId, i, ...props }) => {
                 limit: 50,
               })
             );
+            dispatch(chat.getOneUnreadMessagesCount());
           },
         })
       );
@@ -35,66 +48,104 @@ const MessagesListItem = ({ activeConversationId, i, ...props }) => {
   return (
     <div
       ref={ref}
-      className={styles.container}
+      className={clsx(styles.container, messageIdRef && styles.highlight)}
       {...props}
     >
-      <div className={styles.chatMessages}>
+      <div className={styles.chatMessages} ref={messageIdRef}>
         <div
           className={
-            i.sender.id !== current?.id ? styles.leftSide : styles.rightSide
+            message.sender?.id !== current?.id
+              ? styles.leftSide
+              : styles.rightSide
           }
         >
-          {i.content && (
+          {message.content && (
             <span
-              className={
-                i.sender.id !== current?.id
+              className={clsx(
+                styles.message,
+                message.sender?.id !== current?.id
                   ? styles.leftMessage
                   : styles.rightMessage
-              }
+              )}
             >
-              {i.content}
+              {message.content}
             </span>
           )}
           <Box
             display='flex'
             width='100%'
             justifyContent={
-              i.sender.id !== current?.id ? 'flex-start' : 'flex-end'
+              message.sender?.id !== current?.id ? 'flex-start' : 'flex-end'
             }
           >
-            {i.media?.map((messageMedia, i) => (
-              <ImageListItem key={`messageMedia${i}`} src={messageMedia.url} />
-            ))}
+            {message.isLocked && message.sender?.id !== current?.id && (
+              <>
+                <LockedPost
+                  style={{
+                    width: '100px',
+                    height: '100px',
+                    padding: '0',
+                    display: 'flex',
+                    alignContent: 'center',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    cursor: 'pointer',
+                  }}
+                  onClick={openPurchaseModal}
+                />
+                <PostPurchaseModal
+                  handlePurchase={() => {
+                    dispatch(
+                      chat.purchaseMessage({
+                        id: message.id,
+                        conversationId: activeConversationId,
+                        callback: () => {
+                          getConversationMessages();
+                          closePurchaseModal();
+                        },
+                      })
+                    );
+                  }}
+                  modalTitle='Unlock message?'
+                  price={message.price}
+                  user={activeParticipant}
+                />
+              </>
+            )}
+            {(!message.isLocked || message.sender?.id === current?.id) &&
+              message.media?.map((messageMedia, i) => (
+                <span key={`messageMedia${i}`}>
+                  {message.messageMediaType === 'photo' ? (
+                    <a href={messageMedia.url} target='_blank'>
+                      <ImageListItem src={messageMedia.url} />
+                    </a>
+                  ) : message.messageMediaType === 'audio' ? (
+                    <AudioPlayer src={messageMedia.url} />
+                  ) : message.messageMediaType === 'video' ? (
+                    <Box maxWidth='200px'>
+                      <PostMediaVideo
+                        thumbnail={messageMedia.thumbnail}
+                        src={messageMedia.url}
+                        thumbnailProps={{
+                          style: {
+                            width: '96px',
+                            height: '96px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                          },
+                        }}
+                      />
+                    </Box>
+                  ) : (
+                    <a href={messageMedia.url} target='_blank'>
+                      <p>{message.messageMediaType || 'unknown type'}</p>
+                    </a>
+                  )}
+                </span>
+              ))}
           </Box>
         </div>
-        {i.sender.id !== current?.id ? (
-          <div className={styles.leftSide}>
-            <div>{i.mediaLink && i.mediaLink}</div>
-          </div>
-        ) : (
-          <div className={styles.rightSide}>
-            {i.mediaLink && (
-              <div
-                style={{
-                  marginTop: '10px',
-                  border: '1px solid #222222',
-                  borderRadius: '8px',
-                }}
-              >
-                <img
-                  src={i.mediaLink}
-                  alt=''
-                  style={{
-                    width: '200px',
-                    height: '200px',
-                    padding: '20px',
-                    borderRadius: '8px',
-                  }}
-                />
-              </div>
-            )}
-          </div>
-        )}
       </div>
     </div>
   );

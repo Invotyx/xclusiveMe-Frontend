@@ -9,6 +9,13 @@ export const post = {
       error: null,
     }),
 
+  requestPurchased: () =>
+    createAction(POST.GET_PURCHASED, {
+      fetching: true,
+      success: false,
+      error: null,
+    }),
+
   requestNotifications: () =>
     createAction(POST.GET_NOTIFICATIONS, {
       fetching: true,
@@ -42,6 +49,22 @@ export const post = {
   requestOne: id =>
     createAction(POST.GET_ONE, {
       id,
+      // fetching: true,
+      success: false,
+      error: null,
+    }),
+
+  requestOneImages: id =>
+    createAction(POST.GET_ONE_IMAGES, {
+      id,
+      fetching: true,
+      success: false,
+      error: null,
+    }),
+
+  requestOneVideos: id =>
+    createAction(POST.GET_ONE_VIDEOS, {
+      id,
       fetching: true,
       success: false,
       error: null,
@@ -61,14 +84,20 @@ export const post = {
       success: false,
       error: null,
     }),
-  requestX: data =>
-    createAction(POST.GET_X, {
+  requestX: (data, doNotResetXFeed, skipFetching) => {
+    let payload = {
       ...data,
-      xfeed: [],
-      fetching: true,
       success: false,
       error: null,
-    }),
+    };
+    if (!Boolean(skipFetching)) {
+      payload.fetching = true;
+    }
+    if (!Boolean(doNotResetXFeed)) {
+      payload.xfeed = [];
+    }
+    return createAction(POST.GET_X, payload);
+  },
   requestReplies: data =>
     createAction(POST.GET_REPLIES, {
       ...data,
@@ -88,7 +117,6 @@ export const post = {
   getCommentsVal: data =>
     createAction(POST.GET_COMMENTS, {
       ...data,
-      fetching: true,
       success: false,
       error: null,
     }),
@@ -96,15 +124,13 @@ export const post = {
   saveComment: data =>
     createAction(POST.ADD_COMMENT, {
       ...data,
-      fetching: true,
       success: false,
       error: null,
     }),
 
-  saveLike: id =>
+  saveLike: data =>
     createAction(POST.ADD_LIKE, {
-      ...id,
-      fetching: true,
+      ...data,
       success: false,
       error: null,
     }),
@@ -112,7 +138,6 @@ export const post = {
   saveCommentLike: id =>
     createAction(POST.COMMENT_LIKE, {
       ...id,
-      fetching: true,
       success: false,
       error: null,
     }),
@@ -120,7 +145,6 @@ export const post = {
   delCommentLike: id =>
     createAction(POST.DEL_COMMENT_LIKE, {
       ...id,
-      fetching: true,
       success: false,
       error: null,
     }),
@@ -128,7 +152,6 @@ export const post = {
   deleteLike: id =>
     createAction(POST.DELETE_LIKES, {
       ...id,
-      fetching: true,
       success: false,
       error: null,
     }),

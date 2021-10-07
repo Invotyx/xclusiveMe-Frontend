@@ -12,6 +12,7 @@ import {
   resendOtp,
   updateProfile,
   updatePassword,
+  resetForgotPassword,
   updateSubscriptionFee,
   uploadImage,
   uploadCover,
@@ -26,6 +27,7 @@ import {
   refreshToken,
   verifyForgotPasswordToken,
   twoFactorAuthentication,
+  updateAgeLimitRestriction,
 } from '../services/user.service';
 import { bottomalert } from '../actions/bottom-alert';
 import { getCountries } from '../services/countries';
@@ -122,7 +124,7 @@ function* handleRegister(action) {
     yield put(
       snackbar.update({
         open: true,
-        message: 'Please Check Your Details',
+        message: e.response.data.message,
         severity: 'error',
       })
     );
@@ -214,9 +216,10 @@ function* handleUpdateProfile(action) {
 
 function* handleUpdatePassword(action) {
   try {
-    const { saveData } = action.payload;
+    const { saveData, resetForgotPasswordFlag } = action.payload;
 
-    yield call(updatePassword, saveData);
+    const fn = resetForgotPasswordFlag ? resetForgotPassword : updatePassword;
+    yield call(fn, saveData);
     yield put(auth.success({}));
 
     yield put(
@@ -389,10 +392,14 @@ function* handleGetSessions() {
   }
 }
 
-function* handleExpireAllSessions() {
+function* handleExpireAllSessions(action) {
   try {
     yield call(expireAllSessions);
     yield put(auth.success());
+    const { callback } = action.payload;
+    if (callback) {
+      yield call(callback);
+    }
   } catch (e) {
     console.log(e);
     yield put(auth.failure({ error: { ...e } }));
@@ -451,6 +458,35 @@ function* handleUpdateTwoFactorAuthentication(action) {
   }
 }
 
+function* handleUpdateAgeLimitRestriction(action) {
+  try {
+    const { check } = action.payload;
+    yield call(updateAgeLimitRestriction, check);
+    yield put(auth.success({}));
+    yield put(
+      snackbar.update({
+        open: true,
+        message: 'Success!',
+        severity: 'success',
+      })
+    );
+    const { callback } = action.payload;
+    if (callback) {
+      yield call(callback);
+    }
+  } catch (e) {
+    console.log(e);
+    yield put(auth.failure({ error: { ...e } }));
+    yield put(
+      snackbar.update({
+        open: true,
+        message: e.response.data.message,
+        severity: 'error',
+      })
+    );
+  }
+}
+
 function* handleRedirectToLoginPage(action) {
   try {
     const { asPath } = action.payload;
@@ -472,7 +508,9 @@ function* handleUploadImage({ payload }) {
   try {
     const { fileObject } = payload;
     const { data } = yield call(uploadImage, fileObject);
-    yield put(auth.success({ currentUser: data }));
+    yield put(
+      auth.success({ currentUser: data, uploadingProfileImage: false })
+    );
     yield put(
       bottomalert.update({
         open: true,
@@ -550,6 +588,10 @@ function* watchAuthSagas() {
     takeLatest(
       AUTH.UPDATE_TWO_FACTOR_AUTHENTICATION,
       handleUpdateTwoFactorAuthentication
+    ),
+    takeLatest(
+      AUTH.UPDATE_AGE_LIMIT_RESTRICTION,
+      handleUpdateAgeLimitRestriction
     ),
     takeLatest(AUTH.REDIRECT_TO_LOGIN_PAGE, handleRedirectToLoginPage),
     takeLatest(AUTH.GET_COUNTRIES, handleGetCountries),

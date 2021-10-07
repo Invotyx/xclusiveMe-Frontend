@@ -10,6 +10,10 @@ const userDataSelector = createSelector(userState, state => {
 
 const singleSelector = createSelector(userState, state => state.get('single'));
 
+const suggestionsSelector = createSelector(userState, state =>
+  state.get('suggestions')
+);
+
 const followersSelector = createSelector(userState, state =>
   state.get('followersData')
 );
@@ -51,6 +55,7 @@ export {
   followingCountSelector,
   allUsersSelector,
   singleSelector,
+  suggestionsSelector,
   fetchingSelector,
   searchedSelector,
   errorSelector,

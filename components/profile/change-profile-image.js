@@ -3,9 +3,13 @@ import { useDispatch } from 'react-redux';
 import { auth } from '../../actions/auth';
 import DepressedButton from '../DepressedButton';
 
-export default function FormDialog({ children }) {
+export default function ChangeProfileImage({
+  inputRef,
+  buttonProps,
+  children,
+}) {
   const dispatch = useDispatch();
-  const inputFile = React.useRef(null);
+  const inputFile = inputRef || React.useRef(null);
 
   const onChangeFile = event => {
     event.stopPropagation();
@@ -29,6 +33,7 @@ export default function FormDialog({ children }) {
       />
 
       <DepressedButton
+        {...buttonProps}
         onClick={() => {
           inputFile.current.click();
         }}

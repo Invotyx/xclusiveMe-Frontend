@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600;700;900&display=swap');
 * {
   font-family: 'Poppins', sans-serif;
 }
@@ -12,7 +12,7 @@
 }
 
 .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
-  border: none;
+  /* border: none; */
 }
 
 .react-input-emoji--container {
@@ -23,4 +23,38 @@
 .MuiListItem-gutters {
   margin-left: 5px !important;
   margin-right: 5px !important;
+}
+
+.react-joyride__tooltip {
+  /* border: 1px solid #fff; */
+  /* border-radius: 10px !important; */
+  padding: 0 !important;
+}
+
+.react-joyride__tooltip>div {
+  display: block !important;
+  text-align: center;
+}
+
+.react-joyride__tooltip>div>div {
+  padding: 0 !important;
+}
+
+.react-joyride__tooltip button {
+  font-size: 12px !important;
+  outline: 0;
+}
+
+.react-joyride__tooltip button[data-action='primary'] {
+  color: #000 !important;
+}
+
+.tour-arrow>canvas {
+  position: relative !important;
+  top: 0 !important;
+  left: 0 !important;
+}
+
+.MuiFormLabel-root.Mui-focused {
+  color: '#868686' !important
 }

@@ -3,23 +3,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import { post as postData } from '../../actions/post/index';
 import { repliesDataSelector } from '../../selectors/postSelector';
 import ProfileImageAvatar from './profile-image-avatar';
-import styles from './profile.module.css';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import Box from '@material-ui/core/Box';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import { Button } from '@material-ui/core';
-import SendIcon from '@material-ui/icons/Send';
-import { useMediaQuery } from 'react-responsive';
-import { Picker } from 'emoji-mart';
-import 'emoji-mart/css/emoji-mart.css';
-import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
-import { totalrepliesSelector } from '../../selectors/postSelector';
+import useEmojiPicker from '../useEmojiPicker';
 import RepliesLists from './RepliesLists';
-import { TramOutlined } from '@material-ui/icons';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { currentUserSelector } from '../../selectors/authSelector';
 
 const RepliesData = ({
-  comm,
-  singlePost,
+  comment,
+  postId,
   isReplyField,
   setisReplyField,
   issubReplyField,
@@ -28,18 +23,19 @@ const RepliesData = ({
   setCommentId,
   forCommentId,
   openReply,
-  currUser,
   replyRef,
   checkRefs,
+  closeCheck,
 }) => {
+  const currUser = useSelector(currentUserSelector);
+
   const [showMyReply, setShowMyReply] = useState(false);
 
   const dispatch = useDispatch();
   const replyData = useSelector(repliesDataSelector);
-  const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
+  const isMobile = useMediaQuery('(max-width: 760px)');
   const [replyText, setReplyText] = useState('');
-  const [show, setShow] = useState(false);
-  const totalRepliesCount = useSelector(totalrepliesSelector);
+  const { closeEmojiPicker, EmojiPicker, emojiPickerRef } = useEmojiPicker();
   const [pageNumber, setPageNumber] = useState(2);
   const [commLength, setcommLength] = useState(3);
   var [commentsData, setCommentsData] = useState([]);
@@ -55,10 +51,6 @@ const RepliesData = ({
     setReplyText(replyText + emoji);
   };
 
-  const showEmoji = () => {
-    setShow(!show);
-  };
-
   useEffect(() => {
     setCommentsData(commentsData => commentsData?.concat(forComments));
     // return () => {
@@ -66,12 +58,21 @@ const RepliesData = ({
     // };
   }, [forComments]);
 
+  useEffect(() => {
+    closeCheck &&
+      (setShowMyReply(false),
+      setisReplyField(false),
+      setissubReplyField(false),
+      setCommentsData([]),
+      setcommLength(0));
+  }, [closeCheck]);
+
   const handleReplyList = commId => {
     setShowMyReply(true);
     setChekId(commId);
     dispatch(
       postData.requestReplies({
-        postId: singlePost.id,
+        postId,
         parentCommentId: commId,
         page: 1,
         limit: 3,
@@ -81,8 +82,6 @@ const RepliesData = ({
 
   useEffect(() => {
     checkRefs === true && inputField.current?.focus();
-    console.log('on replied data', checkRefs);
-    console.log('actual ref', inputField);
   }, [checkRefs, inputField, isReplyField, issubReplyField]);
 
   useEffect(() => {
@@ -92,7 +91,7 @@ const RepliesData = ({
       setChekId(forCommentId),
       dispatch(
         postData.requestReplies({
-          postId: singlePost.id,
+          postId,
           parentCommentId: forCommentId,
           page: 1,
           limit: 3,
@@ -101,13 +100,12 @@ const RepliesData = ({
   }, [forCommentId]);
 
   const getPaginatedReplies = commId => {
-    console.log(pageNumber);
     setPageNumber(pageNumber + 1);
-    console.log('after', pageNumber);
+
     setcommLength(commLength + 3);
     dispatch(
       postData.requestReplies({
-        postId: singlePost.id,
+        postId,
         parentCommentId: commId,
         page: pageNumber,
         limit: 3,
@@ -123,19 +121,24 @@ const RepliesData = ({
     setcommLength(0);
   };
 
+  // const handleClose = () => {
+  //   setShowMyReply(false);
+  //   setisReplyField(false);
+  //   setissubReplyField(false);
+  //   setCommentsData([]);
+  //   setcommLength(0);
+  // };
+
   const handleAddReply = event => {
     event.preventDefault();
-    setShow(false);
-    console.log(commentId);
+    closeEmojiPicker();
 
     if (!replyText || replyText.trim() === '') {
-      console.log('commentId');
-      console.log(replyText);
       return;
     }
     dispatch(
       postData.saveComment({
-        id: singlePost?.id,
+        id: postId,
         commentText: {
           comment: replyText,
           isReply: true,
@@ -146,10 +149,10 @@ const RepliesData = ({
           setReplyText('');
           setisReplyField(false);
           setissubReplyField(false);
-          dispatch(postData.requestOne(singlePost.id));
+          dispatch(postData.requestOne(postId));
 
           // postData.getComment({
-          //   id: post.id,
+          //   id: postId,
           // })
         },
       })
@@ -158,9 +161,9 @@ const RepliesData = ({
 
   return (
     <div>
-      <div style={{ display: 'flex' }} onClick={() => setShow(false)}>
-        <div style={{ marginRight: '10px' }}>
-          {comm.totalLikes === 0 ? (
+      <div style={{ display: 'flex' }}>
+        <div style={{ marginRight: '10px', marginLeft: '20px' }}>
+          {comment.totalLikes === 0 ? (
             <div style={{ display: 'flex' }}>
               <p
                 style={{
@@ -180,19 +183,19 @@ const RepliesData = ({
                   marginRight: '5px',
                 }}
               >
-                {comm.totalLikes}{' '}
+                {comment.totalLikes}{' '}
               </p>
               <FavoriteIcon style={{ color: 'red', fontSize: '15px' }} />
             </div>
           )}
         </div>
-        {comm.totalReplies > 3 && showMyReply === true && (
-          <span onClick={() => getPaginatedReplies(comm.id)}>
-            {commLength >= comm.totalReplies ? '' : 'View Previous Replies'}
+        {comment.totalReplies > 3 && showMyReply === true && (
+          <span onClick={() => getPaginatedReplies(comment.id)}>
+            {commLength >= comment.totalReplies ? '' : 'View Previous Replies'}
           </span>
         )}
-        {comm.totalReplies > 0 && (
-          <div onClick={() => handleReplyList(comm.id)}>
+        {comment.totalReplies > 0 && (
+          <div onClick={() => handleReplyList(comment.id)}>
             {showMyReply === false ? (
               <div>
                 <img
@@ -214,7 +217,7 @@ const RepliesData = ({
                     fontWeight: '500',
                   }}
                 >
-                  {comm.totalReplies > 0 ? ' VIEW REPLIES' : ' '}
+                  {comment.totalReplies > 0 ? ' VIEW REPLIES' : ' '}
                 </span>
               </div>
             ) : (
@@ -223,9 +226,9 @@ const RepliesData = ({
           </div>
         )}
 
-        {comm.totalReplies > 0 && (
-          <div onClick={() => handleReplyList(comm.id)}>
-            {checkId !== comm.id && openReply === true ? (
+        {comment.totalReplies > 0 && (
+          <div onClick={() => handleReplyList(comment.id)}>
+            {checkId !== comment.id && openReply === true ? (
               <div>
                 <img
                   src='/lineReply.svg'
@@ -246,7 +249,7 @@ const RepliesData = ({
                     fontWeight: '500',
                   }}
                 >
-                  {comm.totalReplies > 0 ? ' VIEW REPLIES' : ' '}
+                  {comment.totalReplies > 0 ? ' VIEW REPLIES' : ' '}
                 </span>
               </div>
             ) : (
@@ -256,11 +259,11 @@ const RepliesData = ({
         )}
       </div>
 
-      {comm.totalReplies > 0 && showMyReply === true && (
+      {comment.totalReplies > 0 && showMyReply === true && (
         <RepliesLists
           showMyReply={showMyReply}
           commentsData={commentsData}
-          comm={comm}
+          comment={comment}
           ProfileImageAvatar={ProfileImageAvatar}
           isMobile={isMobile}
           commentId={commentId}
@@ -270,32 +273,34 @@ const RepliesData = ({
         />
       )}
 
-      {showMyReply === true && comm.totalReplies > 0 && checkId === comm.id && (
-        <div
-          onClick={() => hideReply(comm.id)}
-          style={{ marginLeft: isMobile ? '5px' : '5px' }}
-        >
-          <img
-            src='/lineReply.svg'
-            alt='view reply line'
-            style={{
-              marginBottom: '4px',
-            }}
-          />
-          <span
-            style={{
-              fontSize: '12px',
-              fontFamily: 'Poppins',
-              marginLeft: '10px',
-            }}
+      {showMyReply === true &&
+        comment.totalReplies > 0 &&
+        checkId === comment.id && (
+          <div
+            onClick={() => hideReply(comment.id)}
+            style={{ marginLeft: isMobile ? '5px' : '5px' }}
           >
-            HIDE REPLIES
-          </span>
-        </div>
-      )}
+            <img
+              src='/lineReply.svg'
+              alt='view reply line'
+              style={{
+                marginBottom: '4px',
+              }}
+            />
+            <span
+              style={{
+                fontSize: '12px',
+                fontFamily: 'Poppins',
+                marginLeft: '10px',
+              }}
+            >
+              HIDE REPLIES
+            </span>
+          </div>
+        )}
 
-      {(isReplyField.check === true && isReplyField.id === comm.id) ||
-      (issubReplyField.check === true && issubReplyField.id === comm.id) ? (
+      {(isReplyField.check === true && isReplyField.id === comment.id) ||
+      (issubReplyField.check === true && issubReplyField.id === comment.id) ? (
         <form onSubmit={handleAddReply}>
           {/* <img src='/border.png' alt='border' /> */}
           <Box mb={2} ml={5}>
@@ -303,6 +308,7 @@ const RepliesData = ({
               style={{
                 width: isMobile ? '80vw' : '29vw',
                 marginLeft: isMobile ? '-10vw' : '-4vw',
+                backgroundColor: 'transparent',
               }}
               value={replyText}
               onChange={e => setReplyText(e.target.value)}
@@ -327,18 +333,13 @@ const RepliesData = ({
               }
               endAdornment={
                 <>
-                  <Button
-                    onClick={showEmoji}
-                    style={{
-                      backgroundColor: '#111111',
-                      border: 'none',
-                      marginRight: '-20px',
-                    }}
-                  >
-                    <span role='img'>
-                      <InsertEmoticonIcon />
-                    </span>
-                  </Button>
+                  <span ref={emojiPickerRef}>
+                    <EmojiPicker
+                      onSelect={addEmoji}
+                      popperProps={{ style: { zIndex: 1111111 } }}
+                    />
+                  </span>
+
                   <Button
                     type='submit'
                     style={{
@@ -351,25 +352,6 @@ const RepliesData = ({
                 </>
               }
             />
-            {show && (
-              <span>
-                <Picker
-                  onSelect={addEmoji}
-                  set='facebook'
-                  emoji='point_up'
-                  theme='dark'
-                  skin='1'
-                  style={{
-                    position: 'absolute',
-                    left: isMobile ? '40px' : '17vw',
-                    bottom: isMobile ? '250px' : '80px',
-                    maxWidth: '300px',
-                    with: '100%',
-                    outline: 'none',
-                  }}
-                />
-              </span>
-            )}
           </Box>
         </form>
       ) : (

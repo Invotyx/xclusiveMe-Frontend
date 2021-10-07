@@ -1,5 +1,6 @@
 import React from 'react';
 import SearchIcon from '@material-ui/icons/Search';
+import ClearIcon from '@material-ui/icons/Clear';
 import TileTextField from '../TileTextField';
 import { useRouter } from 'next/router';
 
@@ -20,16 +21,20 @@ export default function SearchConversations() {
       }, 1500)
     );
   };
+  const clearSearch = () => {
+    setSearchQuery('');
+    handleSearch('');
+  };
   const handleSubmit = e => {
-    e.preventDefault()
-    handleSearch(searchQuery)
-};
+    e.preventDefault();
+    handleSearch(searchQuery);
+  };
   const handleSearch = search => {
     router.push({
       pathname,
       query: { ...query, search },
     });
-};
+  };
 
   return (
     <>
@@ -45,7 +50,7 @@ export default function SearchConversations() {
         <TileTextField
           fullWidth
           id='outlined-basic'
-          placeholder='Search'
+          placeholder='Search ...'
           variant='outlined'
           margin='dense'
           value={searchQuery}
@@ -54,6 +59,18 @@ export default function SearchConversations() {
             startAdornment: (
               <SearchIcon fontSize='small' style={{ color: '#7c8080' }} />
             ),
+            endAdornment: Boolean(searchQuery) ? (
+              <ClearIcon
+                fontSize='small'
+                style={{ color: '#7c8080' }}
+                onClick={clearSearch}
+              />
+            ) : (
+              <></>
+            ),
+            style: {
+              fontFamily: 'Poppins',
+            },
           }}
         />
       </form>

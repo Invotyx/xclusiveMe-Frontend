@@ -31,6 +31,7 @@ export default function ResetPassword() {
     event.preventDefault();
     dispatch(
       auth.updatePassword({
+        resetForgotPasswordFlag: true,
         saveData: {
           password,
           confirmPassword: password,

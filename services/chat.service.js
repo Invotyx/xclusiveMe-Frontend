@@ -8,9 +8,21 @@ export async function send(saveData) {
   return apiClient.post(`${SERVER_ADDRESS}/conversations`, data);
 }
 
+export async function search(q) {
+  return apiClient.get(`${SERVER_ADDRESS}/conversations/search`, {
+    params: { search: q },
+  });
+}
+
 export async function sendSingleMsg(id, saveData) {
   const data = JSON.stringify(saveData);
   return apiClient.post(`${SERVER_ADDRESS}/conversations/${id}/messages`, data);
+}
+
+export async function purchaseMessage(id, conversationId) {
+  return apiClient.post(
+    `${SERVER_ADDRESS}/conversations/${conversationId}/messages/${id}/purchase`
+  );
 }
 
 export async function getConversations(pageNum, limit) {
@@ -19,9 +31,19 @@ export async function getConversations(pageNum, limit) {
   );
 }
 
-export async function getSingleChat(id, pageNum, limit) {
+export async function getSingleChat(id, page, limit) {
+  return apiClient.get(`${SERVER_ADDRESS}/conversations/${id}/messages`, {
+    params: { page, limit },
+  });
+}
+
+export async function getUnreadMessagesCount() {
+  return apiClient.get(`${SERVER_ADDRESS}/conversations/messages/unread`);
+}
+
+export async function getConversationMessagesHistory(id, messageId) {
   return apiClient.get(
-    `${SERVER_ADDRESS}/conversations/${id}/messages?page=${pageNum}&limit=${limit}`
+    `${SERVER_ADDRESS}/conversations/${id}/history/${messageId}/`
   );
 }
 

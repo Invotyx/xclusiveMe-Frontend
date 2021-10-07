@@ -7,6 +7,10 @@ export async function getAll() {
   return apiClient.get(`${SERVER_ADDRESS}/posts/`);
 }
 
+export async function getPurchased() {
+  return apiClient.get(`${SERVER_ADDRESS}/posts/a/b/c/purchased`);
+}
+
 export async function getOnePost(id) {
   return apiClient.get(`${SERVER_ADDRESS}/posts/${id}`);
 }
@@ -17,6 +21,14 @@ export async function getAllSubscribed() {
 
 export async function getX(username) {
   return apiClient.get(`${SERVER_ADDRESS}/users/posts/${username}`);
+}
+
+export async function getOnePostImages(username) {
+  return apiClient.get(`${SERVER_ADDRESS}/users/posts/${username}/images`);
+}
+
+export async function getOnePostVideos(username) {
+  return apiClient.get(`${SERVER_ADDRESS}/users/posts/${username}/videos`);
 }
 
 export async function add(saveData) {

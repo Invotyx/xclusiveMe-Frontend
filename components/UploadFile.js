@@ -1,6 +1,12 @@
 import React from 'react';
+import Button from '@material-ui/core/Button';
 
-export default function UploadFile({ children, handleFileChange }) {
+export default function UploadFile({
+  children,
+  handleFileChange,
+  buttonProps,
+  inputProps,
+}) {
   const inputFile = React.useRef(null);
 
   const Children = props => React.cloneElement(children, props);
@@ -16,18 +22,27 @@ export default function UploadFile({ children, handleFileChange }) {
       <input
         ref={inputFile}
         type='file'
-        accept='audio/*'
-        name='audio'
-        multiple={false}
         hidden
         onChange={onChangeInputFile}
+        {...inputProps}
       />
 
-      <Children
-        onClick={() => {
-          inputFile.current.click();
-        }}
-      />
+      {children ? (
+        <Children
+          onClick={() => {
+            inputFile.current.click();
+          }}
+        />
+      ) : (
+        <Button
+          onClick={() => {
+            inputFile.current.click();
+          }}
+          {...buttonProps}
+        >
+          Select File
+        </Button>
+      )}
     </>
   );
 }

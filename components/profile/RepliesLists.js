@@ -1,14 +1,17 @@
 import React from 'react';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import styles from './profile.module.css';
-import { repliesDataSelector } from '../../selectors/postSelector';
+import {
+  repliesDataSelector,
+  singlepostDataSelector,
+} from '../../selectors/postSelector';
 import { useDispatch, useSelector } from 'react-redux';
 import { post as postData } from '../../actions/post/index';
 
 const RepliesLists = ({
   showMyReply,
   commentsData,
-  comm,
+  comment,
   ProfileImageAvatar,
   isMobile,
   commentId,
@@ -21,9 +24,10 @@ const RepliesLists = ({
 
   const handleSubReplyField = id => {
     setCommentId(id);
-    console.log('reply id', id);
+
     setissubReplyField({ check: true, id });
   };
+  const singlePost = useSelector(singlepostDataSelector);
 
   const handleReplyLike = repId => {
     replyData?.map(re =>
@@ -32,9 +36,7 @@ const RepliesLists = ({
             postData.delCommentLike({
               id: re.id,
               callback: () => {
-                // dispatch(postData.request());
-                console.log('eee');
-                dispatch(postData.requestOne(sPost.id));
+                dispatch(postData.requestOne(singlePost.id));
               },
             })
           )
@@ -43,10 +45,7 @@ const RepliesLists = ({
             postData.saveCommentLike({
               id: re.id,
               callback: () => {
-                console.log('ddd');
-                dispatch(postData.requestOne(sPost.id));
-                console.log(dispatch(postData.requestOne(sPost.id)));
-                // dispatch(postData.request());
+                dispatch(postData.requestOne(singlePost.id));
               },
             })
           )
@@ -64,7 +63,7 @@ const RepliesLists = ({
       {showMyReply === true &&
         commentsData?.map(
           reply =>
-            reply?.parentCommentId === comm.id && (
+            reply?.parentCommentId === comment.id && (
               <div
                 style={{
                   width: '100%',
@@ -213,15 +212,15 @@ const RepliesLists = ({
                         cursor: 'pointer',
                       }}
                       className={styles.commMobile}
-                      id={comm.id}
-                      onClick={() => handleSubReplyField(comm.id)}
+                      id={comment.id}
+                      onClick={() => handleSubReplyField(comment.id)}
                     />
                     {/* <ChatBubbleOutlineIcon
                                           style={{ marginRight: '9px' }}
-                                          id={comm.id}
+                                          id={comment.id}
                                           fontSize='small'
                                           onClick={() =>
-                                            handleSubReplyField(comm.id)
+                                            handleSubReplyField(comment.id)
                                           }
                                         /> */}
                     {reply.likes && reply.likes.length === 0 ? (

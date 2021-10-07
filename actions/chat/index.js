@@ -9,6 +9,13 @@ export const chat = {
       success: false,
       error: null,
     }),
+  search: data =>
+    createAction(CHAT.SEARCH_MESSAGES, {
+      ...data,
+      fetching: true,
+      success: false,
+      error: null,
+    }),
 
   sendVoicemail: data =>
     createAction(CHAT.SEND_VOICEMAIL, {
@@ -26,6 +33,14 @@ export const chat = {
       error: null,
     }),
 
+  purchaseMessage: data =>
+    createAction(CHAT.PURCHASE_MESSAGE, {
+      ...data,
+      fetching: true,
+      success: false,
+      error: null,
+    }),
+
   getConversations: data =>
     createAction(CHAT.GET, {
       ...data,
@@ -34,8 +49,24 @@ export const chat = {
       error: null,
     }),
 
-  getOneConversation: data =>
+  getConversationMessages: data =>
     createAction(CHAT.GET_ONE, {
+      ...data,
+      fetching: true,
+      success: false,
+      error: null,
+    }),
+
+  getConversationMessagesHistory: data =>
+    createAction(CHAT.GET_ONE_HISTORY, {
+      ...data,
+      fetching: true,
+      success: false,
+      error: null,
+    }),
+
+  getOneUnreadMessagesCount: data =>
+    createAction(CHAT.GET_ONE_UNREAD_MESSAGES_COUNT, {
       ...data,
       fetching: true,
       success: false,

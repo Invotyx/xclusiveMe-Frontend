@@ -104,9 +104,19 @@ export default function Followings({ openFollowing, setOpenFollowing, user }) {
     setFollowers(followerss => followerss?.concat(forFollowers));
   }, [forFollowers]);
 
+  // useEffect(() => {
+  //   openFollowing &&
+  //     dispatch(
+  //       userAction.success({
+  //         followingData: [],
+  //         followingCount: 0,
+  //       })
+  //     );
+  // }, [openFollowing]);
+
   const loadmore = () => {
     setFollowersPage(followersPage + 1);
-    console.log(followersPage);
+
     setFollowLength(followLength + 5);
     dispatch(
       userAction.followings({
@@ -174,9 +184,10 @@ export default function Followings({ openFollowing, setOpenFollowing, user }) {
                           height={100}
                           style={{
                             backgroundSize: 'cover',
+                            backgroundPosition: 'center',
                             backgroundImage: f.coverImage
                               ? `url(${getImage(f.coverImage)})`
-                              : `url('/cover.jpg')`,
+                              : `url('/cover2.jpg')`,
                             boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',
                           }}
                           onClick={() => handleClose()}

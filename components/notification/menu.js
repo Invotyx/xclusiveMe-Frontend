@@ -1,11 +1,13 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Menu from '@material-ui/core/Menu';
+import style from "./newPost.module.css"
 
 const useStyles = makeStyles(() => ({
   root: {
     width: 'auto',
     marginLeft: '-170px',
+    marginTop: "25px"
   },
 }));
 
@@ -29,7 +31,7 @@ export default function NotificationMenu({
         vertical: 'bottom',
         horizontal: 'middle',
       }}
-      className={classes.root}
+      className={style.notificationMenu}
     >
       {children}
     </Menu>

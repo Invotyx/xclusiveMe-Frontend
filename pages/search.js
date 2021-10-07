@@ -28,6 +28,7 @@ import {
 } from '@material-ui/core';
 import { getImage } from '../services/getImage';
 import ProfileImageAvatar from '../components/profile/profile-image-avatar';
+import { useRouter } from 'next/router';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -46,9 +47,15 @@ export default function Home() {
   const users = useSelector(userDataSelector);
   const classes = useStyles();
   const [_search, set_search] = useState('');
+  const router = useRouter();
+  const { pathname, query } = router;
   const handleSearch = event => {
     event.preventDefault();
-    dispatch(user.search({ q: _search }));
+    doSearch(_search);
+  };
+  const doSearch = q => {
+    dispatch(user.search({ q }));
+    router.push({ pathname, query: { ...query, q } });
   };
   useEffect(() => {
     dispatch(user.emptySearchList());
@@ -68,10 +75,20 @@ export default function Home() {
                   <OutlinedInput
                     autoFocus
                     fullWidth
-                    placeholder='Search…'
+                    placeholder='Search Username…'
                     startAdornment={<SearchIcon />}
                     value={_search}
-                    onChange={e => set_search(e.target.value)}
+                    onChange={e => {
+                      doSearch(e.target.value);
+                      set_search(e.target.value);
+                    }}
+                    inputProps={{
+                      style: {
+                        fontFamily: 'Poppins',
+                        fontWeight: 'bold',
+                        marginLeft: '5px',
+                      },
+                    }}
                   />
                 </Box>
               </form>
@@ -80,9 +97,14 @@ export default function Home() {
               {fetching ? (
                 <CircularProgress />
               ) : users?.length === 0 && searched ? (
-                'no user found'
+                <span style={{ fontSize: '16px', fontWeight: 500 }}>
+                  {' '}
+                  No user found
+                </span>
               ) : !searched ? (
-                'type something to start'
+                <span style={{ fontSize: '16px', fontWeight: 500 }}>
+                  Type something to start
+                </span>
               ) : (
                 ''
               )}
@@ -91,21 +113,17 @@ export default function Home() {
                   users?.length > 0 &&
                   users?.map(u => (
                     <NextLink href={`/x/${u.username}`} key={`user${u.id}`}>
-                      <Box
-                        clone
-                        pt={3}
-                        pb={3}
-                        mb={4}
-                        height={100}
-                        style={{
-                          backgroundSize: 'cover',
-                          backgroundImage: u.coverImage
-                            ? `url(${getImage(u.coverImage)})`
-                            : `url('/no-media.jpg')`,
-                          boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',
-                        }}
-                      >
-                        <ListItem>
+                      <Box clone pt={3} pb={3} mb={4} height={100}>
+                        <ListItem
+                          style={{
+                            backgroundSize: 'cover',
+                            backgroundPosition: 'center',
+                            backgroundImage: u.coverImage
+                              ? `url(${getImage(u.coverImage)})`
+                              : `url('/cover2.jpg')`,
+                            boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',
+                          }}
+                        >
                           <Box clone mr={2}>
                             <ListItemAvatar>
                               <ProfileImageAvatar
@@ -121,7 +139,7 @@ export default function Home() {
                               key={`user${u.id}`}
                             >
                               <Button size='small' variant='outlined'>
-                                view profile
+                                <span> view profile</span>
                               </Button>
                             </NextLink>
                           </ListItemSecondaryAction>

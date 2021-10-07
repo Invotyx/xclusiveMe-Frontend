@@ -85,7 +85,7 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
           handleClose();
         }
       );
-    } else {
+    } else if (type === 'camera') {
       onMediaUploaded(
         {
           type: 'media',
@@ -99,6 +99,23 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
           handleClose();
         }
       );
+    } else if (type === 'photo' || type === 'video') {
+      uploadedMedia.map(umedia => {
+        onMediaUploaded(
+          {
+            type: 'media',
+            messageMediaType:
+              umedia.resource_type === 'image' ? 'photo' : 'video',
+            media: [umedia],
+            content,
+            isPaid: Boolean(price),
+            price,
+          },
+          () => {
+            handleClose();
+          }
+        );
+      });
     }
   };
 
@@ -108,7 +125,11 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
       <DialogContent className={classes.content}>
         {type === 'camera' && (
           <>
-            <MessageModalMediaCamera imageHandler={imageHandler} />
+            <MessageModalMediaCamera
+              imageHandler={imageHandler}
+              onInit={() => set_disabled(true)}
+              onCapture={() => set_disabled(false)}
+            />
           </>
         )}
         {type === 'text' && (
@@ -129,6 +150,11 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
             rows={5}
             value={content}
             onChange={e => setContent(e.target.value)}
+            InputProps={{
+              style: {
+                fontFamily: 'Poppins',
+              },
+            }}
           />
         )}
         {(type === 'photo' || type === 'video') && (
@@ -177,9 +203,10 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
             </Box>
             <Box mx={1}>
               <UploadVideo
-                onUploadVideoComplete={(muxId, mediaType) => {
+                onUploadVideoComplete={(muxId, mediaType, data) => {
                   set_disabled(false);
                   setTileData([...tileData, '/no-media.jpg']);
+                  setUploadedMedia(prev => [...prev, data]);
                 }}
                 onVideoError={() => set_disabled(false)}
                 onVideoUploadProgress={val => {
@@ -219,13 +246,24 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
               </Typography>
             </Box>
             <TextField
+              onKeyDown={e => {
+                e.key === '.' && e.preventDefault();
+              }}
+              onPaste={e => {
+                e.preventDefault();
+                setPrice(e.target.value.replace('.', ''));
+              }}
               value={price}
               onChange={e => setPrice(e.target.value)}
               placeholder='0.00'
+              type='number'
               variant='outlined'
               margin='dense'
               InputProps={{
-                endAdornment: currencySymbol,
+                startAdornment: currencySymbol,
+                style: {
+                  fontFamily: 'Poppins',
+                },
               }}
               style={{ width: '100px' }}
             />
@@ -236,12 +274,21 @@ export default function MessageModalMedia({ type, onMediaUploaded, children }) {
       <DialogActions disableSpacing>
         <GreenButton
           variant='contained'
-          color='primary'
           fullWidth
           disabled={disabled}
           onClick={handleMsgSend}
         >
-          Send Now
+          <span
+            style={{
+              fontFamily: 'Poppins',
+              fontWeight: 500,
+              fontStyle: 'normal',
+              fontSize: ' 17px',
+              lineHeight: '30px',
+            }}
+          >
+            Send Now
+          </span>
         </GreenButton>
       </DialogActions>
     </>

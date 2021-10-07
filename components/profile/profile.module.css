@@ -1,59 +1,59 @@
 @media only screen and (max-width: 600px) {
-    .hideOnMobile {
-        display: none;
-    }
-    .imageMobile {
-        margin-left: 190px;
-    }
+  .hideOnMobile {
+    display: none;
+  }
+  .imageMobile {
+    margin-left: 190px;
+  }
 }
 
 @media only screen and (max-width: 760px) {
-    .hideOnMobile {
-        display: none;
-    }
+  .hideOnMobile {
+    display: none;
+  }
 }
 
 @media only screen and (max-width: 600px) {
-    .commMobile {
-        margin-left: '10px';
-    }
+  .commMobile {
+    margin-left: '10px';
+  }
 }
 
 .commentBox {
-    overflow-y: 'scroll' !important;
-    overflow-x: 'hidden' !important;
-    height: '280px' !important;
-    margin-left: '30px' !important;
+  overflow-y: 'scroll' !important;
+  overflow-x: 'hidden' !important;
+  height: '280px' !important;
+  margin-left: '30px' !important;
 }
 
 .buttonIcons {
-    margin-right: 20px;
+  margin-right: 20px;
 }
 
 .postCard {
-    margin-top: 0;
-    border: 1px solid #444444;
+  margin-top: 0;
+  border: 1px solid #444444;
 }
 
 .hScrollBar::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
 @media only screen and (max-width: 600px) {
-    .postCard {
-        width: 100%;
-    }
+  .postCard {
+    width: 100%;
+  }
 }
 
-.profileModelStyle {
-    width: 40vw;
+.profileModalStyle {
+  width: 40vw;
 }
 
 @media only screen and (max-width: 600px) {
-    .profileModelStyle {
-        width: 100%;
-        height: 100%;
-        padding: 0;
-        margin: 0;
-    }
+  .profileModalStyle {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+  }
 }

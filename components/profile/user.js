@@ -25,9 +25,9 @@ import CardContent from '@material-ui/core/CardContent';
 import Card from '@material-ui/core/Card';
 import Post from './post';
 import ProfileImageAvatar from './profile-image-avatar';
-import ProfileImage from './change-profile-image';
+import ChangeProfileImage from './change-profile-image';
 import CoverImage from './change-cover-image';
-import UpdateCoverImage2 from './update-cover-image-2';
+import UpdateCoverImage from './update-cover-image-2';
 import { makeStyles } from '@material-ui/core/styles';
 import Layout from '../layouts/layout-auth';
 import UpdateProfile from './update-profile';
@@ -41,11 +41,9 @@ import Videos from './videos';
 import NormalCaseButton from '../NormalCaseButton';
 import NothingHere from './nothing-here';
 import { SubscribeUser } from './subscribe-button';
-import { useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import ChatIcon from '@material-ui/icons/Chat';
-import LoadingOverlay from 'react-loading-overlay';
-import BounceLoader from 'react-spinners/BounceLoader';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { fetchingSelector } from '../../selectors/postSelector';
 import MessageModal from '../message/MessageModal';
 import { useRouter } from 'next/router';
@@ -53,8 +51,14 @@ import { currentUserSelector } from '../../selectors/authSelector';
 import { user as userAction } from '../../actions/user';
 import Followers from './usersFollowersFollowing/Followers';
 import Followings from './usersFollowersFollowing/Following';
-import { followersSelector } from '../../selectors/userSelector';
+import {
+  followersSelector,
+  followingSelector,
+} from '../../selectors/userSelector';
 import { followerCountSelector } from '../../selectors/userSelector';
+import PurchasedPosts from './PurchasedPosts';
+import { post } from '../../actions/post';
+import ManuButton from '../menuButton';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -100,16 +104,12 @@ export default function Profile({
 }) {
   const dispatch = useDispatch();
   const [tab, setTab] = React.useState(0);
-  const [currentUser, setCurrentUser] = React.useState(user);
   const [userFeed, setUserFeed] = React.useState(feed);
   const [_numberOfPosts, set_numberOfPosts] = React.useState(numberOfPosts);
-  const [imagesData, set_imagesData] = React.useState(null);
-  const [videosData, set_videosData] = React.useState(null);
   const [openFollowers, setOpenFollowers] = React.useState(false);
   const [openFollowing, setOpenFollowing] = React.useState(false);
   const classes = useStyles();
-  const theme = useTheme();
-  const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
+  const isSmall = useMediaQuery(theme => theme.breakpoints.down('sm'));
   const verySmall = useMediaQuery('(max-width:350px)');
   const veryVerySmall = useMediaQuery('(max-width:310px)');
   const fetchData = useSelector(fetchingSelector);
@@ -117,37 +117,31 @@ export default function Profile({
   const myCurrentUser = useSelector(currentUserSelector);
   const router = useRouter();
   const followsData = useSelector(followersSelector);
-
+  const [fCount, setfCount] = useState(0);
   const followcount = useSelector(followerCountSelector);
+  const followingData = useSelector(followingSelector);
 
-  const { username } = router.query;
+  const { pathname, query } = router;
+  const { username, selected_tab } = query;
 
-  // console.log(myCurrentUser?.username, username);
+  useEffect(() => {
+    setTab(selected_tab ? +selected_tab : 0);
+  }, [selected_tab]);
+
+  //
 
   useEffect(() => {
     set_numberOfPosts(numberOfPosts);
   }, [numberOfPosts]);
 
   useEffect(() => {
-    setCurrentUser(user);
-  }, [user]);
-
-  useEffect(() => {
     setUserFeed(feed);
-    let temp_images = [];
-    let temp_videos = [];
-    // console.log(feed);
-    if (feed) {
-      feed.forEach(f => {
-        const images = f.media.filter(m => m.type.indexOf('image/') !== -1);
-        temp_images.push(...images);
-        const videos = f.media.filter(m => m.type.indexOf('video/') !== -1);
-        temp_videos.push(...videos);
-      });
-      set_imagesData(temp_images);
-      set_videosData(temp_videos);
-    }
   }, [feed]);
+
+  const handleTabChange = (e, tab) => {
+    setTab(tab);
+    router.push({ pathname, query: { ...query, selected_tab: tab } });
+  };
 
   const handleMessageModal = () => {
     setMessageModal(!messageModal);
@@ -157,19 +151,30 @@ export default function Profile({
     // !subscriptionPlans && setOpenFollowers(true);
     myCurrentUser?.username === username && setOpenFollowers(true);
 
-    dispatch(
-      userAction.followers({
-        userId: user?.id,
-        limit: 5,
-        page: 1,
-      })
-    );
+    myCurrentUser?.username === username &&
+      dispatch(
+        userAction.followers({
+          userId: user?.id,
+          limit: 5,
+          page: 1,
+        })
+      );
   };
 
   const handlegetFollowing = () => {
+    setfCount(fCount + 1);
     // !subscriptionPlans && setOpenFollowing(true);
     myCurrentUser?.username === username && setOpenFollowing(true);
-    dispatch(userAction.followings({ userId: user?.id, limit: 5, page: 1 }));
+    myCurrentUser?.username === username &&
+      dispatch(
+        userAction.followings({
+          userId: user?.id,
+          limit: 5,
+          page: 1,
+          // append: true,
+          // prevfollowingData: followingData,
+        })
+      );
   };
 
   const handleFollow = event => {
@@ -183,12 +188,13 @@ export default function Profile({
     dispatch(
       subscription.removeSub({
         id: user?.id,
+        callback: afterFollow,
       })
     );
   };
 
   return (
-    <LoadingOverlay active={fetchData} spinner={<BounceLoader />}>
+    <>
       <motion.div initial='hidden' animate='visible' variants={variants}>
         <Layout
           hideMainAppBar={
@@ -210,7 +216,7 @@ export default function Profile({
                     (myCurrentUser?.username === username && (
                       <>
                         <UpdateProfile />
-                        <UpdateCoverImage2 />
+                        <UpdateCoverImage />
                       </>
                     ))}
                 </Toolbar>
@@ -232,7 +238,7 @@ export default function Profile({
                               (myCurrentUser?.username === username && (
                                 <>
                                   <UpdateProfile />
-                                  <UpdateCoverImage2 />
+                                  <UpdateCoverImage />
                                 </>
                               ))}
                           </Box>
@@ -243,13 +249,13 @@ export default function Profile({
                       className={classes.header2}
                       avatar={
                         (me && me) || myCurrentUser?.username === username ? (
-                          <ProfileImage>
+                          <ChangeProfileImage>
                             <ProfileImageAvatar
                               className={classes.userAvatar}
                               src={profileData?.profileImage}
                               alt={profileData?.fullName}
                             />
-                          </ProfileImage>
+                          </ChangeProfileImage>
                         ) : (
                           <ProfileImageAvatar
                             className={classes.userAvatar}
@@ -275,7 +281,11 @@ export default function Profile({
                             width={isSmall ? 70 : 90}
                           >
                             <NextLink passHref href='#'>
-                              <ListItem component='a' disableGutters>
+                              <ListItem
+                                component='a'
+                                disableGutters
+                                style={{ fontWeight: 300 }}
+                              >
                                 <Box clone textAlign='center'>
                                   <ListItemText
                                     primary={_numberOfPosts || 0}
@@ -333,6 +343,7 @@ export default function Profile({
                                 <ListItemText
                                   primary={followings || 0}
                                   secondary='Following'
+                                  className={classes.fff}
                                 />
                               </Box>
                             </ListItem>
@@ -357,46 +368,113 @@ export default function Profile({
                           <Typography variant='body2' className='textSecondary'>
                             @{profileData?.username}
                           </Typography>
-                          {me ||
-                            (myCurrentUser?.username === username
-                              ? ''
-                              : !subscriptionPlans && (
-                                  <div
-                                  // passHref
-                                  // href='/chat'
-                                  // passQueryString={{
-                                  //   user: `${profileData?.fullName}`,
-                                  //   image: `${profileData?.profileImage}`,
-                                  // }}
-                                  >
-                                    <ChatIcon
-                                      style={{ marginLeft: '15px' }}
-                                      onClick={handleMessageModal}
-                                    />
-                                    <MessageModal
-                                      messageModal={messageModal}
-                                      setMessageModal={setMessageModal}
-                                      profileData={profileData}
-                                    />
-                                  </div>
-                                ))}
                         </Box>
                       }
                     />
                     <CardContent>
-                      <Box px={2} maxWidth={500}>
-                        <Typography
-                          variant='body2'
-                          color='textSecondary'
-                          component='p'
-                        >
-                          {profileData?.profile?.description || '(no bio)'}
-                        </Typography>
+                      <Box display={isSmall ? 'block' : 'flex'}>
+                        <Box flexGrow={1}>
+                          <Box
+                            px={isSmall ? 0 : 2}
+                            mb={isSmall ? 1 : 0}
+                            maxWidth={550}
+                          >
+                            <Typography
+                              variant='body2'
+                              color='textSecondary'
+                              component='p'
+                              style={{
+                                color: 'white',
+                                fontSize: '14px',
+                                lineHeight: '24px',
+                              }}
+                            >
+                              {profileData?.profile?.description || '(no bio)'}
+                            </Typography>
+                          </Box>
+                        </Box>
+                        {myCurrentUser?.username !== username && (
+                          <Box display='flex' alignItems='center'>
+                            {me ||
+                              (myCurrentUser?.username === username
+                                ? ''
+                                : (profileData?.followsMe ||
+                                    !subscriptionPlans) && (
+                                    <>
+                                      <NormalCaseButton
+                                        startIcon={<ChatIcon />}
+                                        size='small'
+                                        variant='outlined'
+                                        onClick={handleMessageModal}
+                                        style={{ marginRight: '10px' }}
+                                      >
+                                        <span>Message</span>
+                                      </NormalCaseButton>
+                                      <MessageModal
+                                        messageModal={messageModal}
+                                        setMessageModal={setMessageModal}
+                                        profileData={profileData}
+                                        receiverId={user?.id}
+                                      />
+                                    </>
+                                  ))}
+                            {subscriptionPlans ? (
+                              <>
+                                {subscriptionPlans?.price > 0 ? (
+                                  <SubscribeUser
+                                    price={subscriptionPlans?.price}
+                                    handleFollow={handleFollow}
+                                  />
+                                ) : (
+                                  <NormalCaseButton
+                                    startIcon={<Add />}
+                                    size='small'
+                                    variant='outlined'
+                                    onClick={e => handleFollow(e)}
+                                  >
+                                    <span>Follow</span>
+                                  </NormalCaseButton>
+                                )}
+                              </>
+                            ) : (
+                              <NormalCaseButton
+                                size='small'
+                                variant='outlined'
+                                onClick={e => handleUnFollow(e)}
+                              >
+                                <span>Unfollow</span>
+                              </NormalCaseButton>
+                            )}
+                            <>
+                              <ManuButton
+                                tip={user?.id}
+                                title='Report this User'
+                                profileImage={profileData?.profileImage}
+                                onConfirm={{
+                                  onConfirm: (reason, callback) => {
+                                    const itemId = profileData?.id;
+                                    dispatch(
+                                      userAction.report({
+                                        reportData: {
+                                          itemId,
+                                          reason,
+                                        },
+                                        callback: () => {
+                                          callback && callback();
+                                        },
+                                      })
+                                    );
+                                  },
+                                }}
+                              />
+                            </>
+                          </Box>
+                        )}{' '}
                       </Box>
                     </CardContent>
                   </Card>
                 </Grid>
-                {myCurrentUser?.username === username ? (
+                {/* myCurrentUser?.username === username ? (
                   ''
                 ) : (
                   <Grid item xs={12}>
@@ -456,14 +534,14 @@ export default function Profile({
                       </Box>
                     )}
                   </Grid>
-                )}
+                ) */}
                 <Grid item xs={12}>
                   <List disablePadding>
                     <ListSubheader disableGutters>
                       <Paper>
                         <Tabs
                           value={tab}
-                          onChange={(e, v) => setTab(v)}
+                          onChange={handleTabChange}
                           variant='fullWidth'
                           indicatorColor='primary'
                           textColor='primary'
@@ -471,7 +549,9 @@ export default function Profile({
                           <Tab icon={<FeaturedPlayListOutlinedIcon />} />
                           <Tab icon={<ImageOutlinedIcon />} />
                           <Tab icon={<VideocamOutlinedIcon />} />
-                          <Tab icon={<MonetizationOnOutlinedIcon />} />
+                          {myCurrentUser?.username === username && (
+                            <Tab icon={<MonetizationOnOutlinedIcon />} />
+                          )}
                         </Tabs>
                       </Paper>
                     </ListSubheader>
@@ -482,7 +562,7 @@ export default function Profile({
                             ml={{ xs: 0, sm: 0, md: 8 }}
                             mr={{ xs: 0, sm: 0, md: 8 }}
                           >
-                            <CardHeader
+                            {/* <CardHeader
                               action={
                                 <>
                                   <IconButton aria-label='sort'>
@@ -494,18 +574,24 @@ export default function Profile({
                                 </>
                               }
                               title={`${_numberOfPosts || 0} posts`}
-                            />
+                            /> */}
                             {userFeed && userFeed.length > 0 ? (
                               <Grid container spacing={2}>
                                 {userFeed.map((f, ix) => (
                                   <Grid item xs={12} key={ix}>
                                     <Post
                                       post={f}
-                                      profileData={profileData}
-                                      altHeader={false}
+                                      profileData={f.user}
                                       me={me}
-                                      username={username}
-                                      subscriptionPlans={subscriptionPlans}
+                                      callbackAction={() => {
+                                        dispatch(
+                                          post.requestX(
+                                            { username },
+                                            true,
+                                            true
+                                          )
+                                        );
+                                      }}
                                     />
                                   </Grid>
                                 ))}
@@ -516,10 +602,18 @@ export default function Profile({
                           </Box>
                         </TabPanel>
                         <TabPanel value={tab} index={1}>
-                          <Images imagesData={imagesData} />
+                          <Images username={username} />
                         </TabPanel>
                         <TabPanel value={tab} index={2}>
-                          <Videos videosData={videosData} />
+                          <Videos username={username} />
+                        </TabPanel>
+                        <TabPanel value={tab} index={3}>
+                          <PurchasedPosts
+                            me={me}
+                            callbackAction={() => {
+                              dispatch(post.requestPurchased());
+                            }}
+                          />
                         </TabPanel>
                       </ListItemText>
                     </ListItem>
@@ -530,6 +624,6 @@ export default function Profile({
           </Container>
         </Layout>
       </motion.div>
-    </LoadingOverlay>
+    </>
   );
 }

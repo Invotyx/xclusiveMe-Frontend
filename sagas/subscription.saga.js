@@ -60,6 +60,10 @@ function* handleRemoveSubscription(action) {
         severity: 'success',
       })
     );
+    const { callback } = action.payload;
+    if (callback) {
+      yield call(callback);
+    }
   } catch (e) {
     console.log(e);
     yield put(subscription.failure({ error: { ...e } }));

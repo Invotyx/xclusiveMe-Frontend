@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef } from 'react';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
@@ -6,12 +6,10 @@ import CloseIcon from '@material-ui/icons/Close';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import { useSelector } from 'react-redux';
-import { useMediaQuery } from 'react-responsive';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import TextField from '@material-ui/core/TextField';
-import LoadingOverlay from 'react-loading-overlay';
-import BounceLoader from 'react-spinners/BounceLoader';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { fetchingSelector } from '../../selectors/postSelector';
-import ImageAvatar from '../image-avatar';
 import ProfileImageAvatar from './profile-image-avatar';
 import PostReport from './PostReport';
 
@@ -31,32 +29,29 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const ReportModal = ({
-  openReportModal,
-  setreportModal,
-  title,
-  profileImage,
-  onConfirm,
-  postid,
-}) => {
+const useReportModal = ({ onConfirm }) => {
+  const [openReportModal, setreportModal] = React.useState(false);
   const classes = useStyles();
-  const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
-  const [postText, set_postText] = useState('');
+  const isMobile = useMediaQuery('(max-width: 760px)');
+  const priceFieldRef = useRef();
   const fetchData = useSelector(fetchingSelector);
 
   const handlePurchase = () => {
-    if (!postText || postText.trim() === '') {
+    if (
+      !priceFieldRef.current.value ||
+      priceFieldRef.current.value.trim() === ''
+    ) {
       return;
     }
-    onConfirm && onConfirm(postText, () => setreportModal(false));
+    onConfirm &&
+      onConfirm(priceFieldRef.current.value, () => setreportModal(false));
   };
 
   const handleClose = () => {
-    set_postText('');
     setreportModal(false);
   };
 
-  return (
+  const ReportModal = ({ title, profileImage, post }) => (
     <Modal
       aria-labelledby='transition-modal-title'
       aria-describedby='transition-modal-description'
@@ -69,10 +64,10 @@ const ReportModal = ({
         timeout: 500,
       }}
     >
-      <Fade in={openReportModal}>
-        <LoadingOverlay active={fetchData} spinner={<BounceLoader />}>
-          <div className={classes.paper}>
-            <div>
+      <div>
+        <Fade in={openReportModal}>
+          <>
+            <div className={classes.paper}>
               <div
                 style={{
                   display: 'flex',
@@ -119,8 +114,8 @@ const ReportModal = ({
                 </div>
               </div>
 
-              {postid ? (
-                <PostReport />
+              {post ? (
+                <PostReport postid={post?.id} handleClose={handleClose} />
               ) : (
                 <div
                   style={{
@@ -137,17 +132,21 @@ const ReportModal = ({
                       variant='outlined'
                       fullWidth
                       multiline
-                      value={postText}
-                      onChange={e => set_postText(e.target.value)}
+                      inputRef={priceFieldRef}
                       rows={3}
                       placeholder='Write something...'
                       style={{ width: isMobile ? '80vw' : '30vw' }}
+                      inputProps={{
+                        style: {
+                          fontFamily: 'Poppins',
+                        },
+                      }}
                     />
                   </div>
                 </div>
               )}
 
-              {!postid && (
+              {!post && (
                 <div>
                   <Button
                     variant='contained'
@@ -157,6 +156,11 @@ const ReportModal = ({
                       width: isMobile ? '80vw' : '30vw',
                       margin: '20px',
                       marginTop: '10px',
+                      fontFamily: 'Poppins',
+                      fontWeight: 500,
+                      fontStyle: 'normal',
+                      fontSize: ' 14px',
+                      lineHeight: '30px',
                     }}
                     onClick={handlePurchase}
                   >
@@ -165,11 +169,13 @@ const ReportModal = ({
                 </div>
               )}
             </div>
-          </div>
-        </LoadingOverlay>
-      </Fade>
+          </>
+        </Fade>
+      </div>
     </Modal>
   );
+
+  return { ReportModal, setreportModal };
 };
 
-export default ReportModal;
+export default useReportModal;

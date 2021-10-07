@@ -5,6 +5,7 @@ import Head from 'next/head';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
 import NextLink from 'next/link';
 import Link from '@material-ui/core/Link';
 import Box from '@material-ui/core/Box';
@@ -16,12 +17,23 @@ import { auth } from '../actions/auth';
 import { fetchingSelector } from '../selectors/authSelector';
 import LayoutGuest from '../components/layouts/layout-guest-auth';
 import { currentUserSelector } from '../selectors/authSelector';
+import styles from './pages.module.css';
+import { withStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
   grey: {
     color: '#666',
   },
 }));
+
+// const TileTextFieldXX = withStyles({
+//   root: {
+//     color: 'red',
+//     '& .MuiInputLabel-root': {
+//       color: 'purple',
+//     },
+//   },
+// })(TextField);
 
 export default function SignInSide() {
   const fetching = useSelector(fetchingSelector);
@@ -84,6 +96,12 @@ export default function SignInSide() {
             label='Username'
             name='email'
             autoComplete='email'
+            inputProps={{
+              style: {
+                WebkitBoxShadow: '0 0 0 1000px #000 inset',
+                fontFamily: 'Poppins',
+              },
+            }}
             autoFocus
           />
           <TileTextField
@@ -98,6 +116,12 @@ export default function SignInSide() {
             type='password'
             id='password'
             autoComplete='current-password'
+            inputProps={{
+              style: {
+                WebkitBoxShadow: '0 0 0 1000px #000 inset',
+                fontFamily: 'Poppins',
+              },
+            }}
           />
           <Box my={2}>
             <Grid container>
@@ -105,19 +129,36 @@ export default function SignInSide() {
                 <Box mb={2}>
                   <FormControlLabel
                     control={
-                      <Checkbox value='remember' color='primary' size='small' />
+                      <Checkbox
+                        value='remember'
+                        size='medium'
+                        style={{
+                          color: '#444444',
+                          fontWeight: 2,
+                        }}
+                      />
                     }
-                    label={<Typography variant='body2'>Remember me</Typography>}
+                    label={
+                      <Typography variant='body2'>
+                        {' '}
+                        <span className={styles.forgetPassword}>
+                          {' '}
+                          Remember me?
+                        </span>
+                      </Typography>
+                    }
                     size='small'
                     className={classes.grey}
                   />
                 </Box>
               </Grid>
-              <Grid item>
-                <Box mb={2} mt={1}>
+              <Grid item xs>
+                <Box mb={2} mt={1.2}>
                   <NextLink href='/forgot-password' passHref>
                     <Link variant='body2' className={classes.grey}>
-                      Forgot your password?
+                      <span className={styles.forgetPassword}>
+                        Forgot your password?
+                      </span>
                     </Link>
                   </NextLink>
                 </Box>
@@ -130,6 +171,13 @@ export default function SignInSide() {
             fullWidth
             variant='contained'
             color='primary'
+            style={{
+              fontFamily: 'Poppins',
+              fontWeight: 500,
+              fontStyle: 'normal',
+              fontSize: ' 17px',
+              lineHeight: '30px',
+            }}
             // disabled={fetching}
           >
             Login
@@ -147,8 +195,15 @@ export default function SignInSide() {
             fullWidth
             id='code'
             label='Enter Code'
+            autoFocus
             name='code'
             autoComplete='code'
+            inputProps={{
+              style: {
+                WebkitBoxShadow: '0 0 0 1000px #000 inset',
+                fontFamily: 'Poppins',
+              },
+            }}
           />
           <Box textAlign='center' mt={1}>
             <NextLink href='#' passHref>
@@ -176,6 +231,13 @@ export default function SignInSide() {
               fullWidth
               variant='contained'
               color='primary'
+              style={{
+                fontFamily: 'Poppins',
+                fontWeight: 500,
+                fontStyle: 'normal',
+                fontSize: ' 17px',
+                lineHeight: '30px',
+              }}
             >
               Verify
             </TileButton>

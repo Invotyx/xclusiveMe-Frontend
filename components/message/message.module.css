@@ -6,12 +6,35 @@
   margin-top: 20px;
 }
 
+@-webkit-keyframes demo {
+  0% {
+    background-color: #ffff0030;
+    opacity: 1;
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+.highlight {
+  -webkit-animation-name: demo;
+  -webkit-animation-duration: 900ms;
+  -webkit-animation-iteration-count: 1;
+  -webkit-animation-timing-function: ease-in-out;
+}
+
 .leftSide {
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
   align-items: flex-start;
   margin-left: 20px;
+}
+
+.message {
+  text-overflow: inherit;
+  white-space: normal;
+  word-wrap: break-word;
 }
 
 .leftMessage {

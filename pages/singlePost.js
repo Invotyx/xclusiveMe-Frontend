@@ -1,12 +1,8 @@
 import NextLink from 'next/link';
-import BookmarkBorderOutlinedIcon from '@material-ui/icons/BookmarkBorderOutlined';
 import Box from '@material-ui/core/Box';
 import Link from '@material-ui/core/Link';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
-import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
-import FavoriteIcon from '@material-ui/icons/Favorite';
 import IconButton from '@material-ui/core/IconButton';
 import MonetizationOnOutlinedIcon from '@material-ui/icons/MonetizationOnOutlined';
 import Typography from '@material-ui/core/Typography';
@@ -15,29 +11,24 @@ import moment from 'moment';
 import ProfileImageAvatar from '../components/profile/profile-image-avatar';
 import NormalCaseButton from '../components/NormalCaseButton';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
-import { createRef, useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { post as postData } from '../actions/post';
 import CloseIcon from '@material-ui/icons/Close';
 import { singlepostDataSelector } from '../selectors/postSelector';
-import { repliesDataSelector } from '../selectors/postSelector';
 import { Button } from '@material-ui/core';
 import SinglePostMedia from '../components/profile/SinglePostMedia';
 import styles from '../components/profile/profile.module.css';
 import RepliesData from '../components/profile/RepliesData';
 import LocalMallIcon from '@material-ui/icons/LocalMall';
-import PostPurchaseModel from '../components/profile/PostPurchaseModel';
-import { useMediaQuery } from 'react-responsive';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { getCommentsDataSelector } from '../selectors/postSelector';
 import TipModal from '../components/profile/TipModal';
-import { fetchingSelector } from '../selectors/postSelector';
-import LoadingOverlay from 'react-loading-overlay';
-import BounceLoader from 'react-spinners/BounceLoader';
-import { Picker } from 'emoji-mart';
-import 'emoji-mart/css/emoji-mart.css';
-import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
+import useEmojiPicker from '../components/useEmojiPicker';
 import { useRouter } from 'next/router';
 import { currentUserSelector } from '../selectors/authSelector';
+import usePostPurchaseModal from '../components/profile/PostPurchaseModel';
+import { nFormatter } from '../services/nFormatter';
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -52,70 +43,41 @@ const useStyles = makeStyles(theme => ({
     border: '2px solid #000',
     boxShadow: theme.shadows[5],
   },
-  profileModelStyle: {
+  profileModalStyle: {
     width: '40vw',
 
     ['@media and screen and (minWidth: 600px)']: {
       maxWidth: '100%',
     },
   },
-  modelStyle: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
 }));
 
-const SinglePost = ({
-  post,
-  profileData,
-  altHeader,
-
-  setOpen,
-  open,
-  replyCount,
-  currentUser,
-
-  openReply,
-}) => {
+const SinglePost = ({ post, altHeader, currentUser }) => {
+  const { PostPurchaseModal, openPurchaseModal, setPurchased } =
+    usePostPurchaseModal();
   const classes = useStyles();
   const [commentText, setCommentText] = useState('');
   const [commentId, setCommentId] = useState(null);
-  const [replyText, setReplyText] = useState('');
-  const [replyPostId, setReplyPostId] = useState(0);
   const [isReplyField, setisReplyField] = useState({ id: '', check: false });
   const [issubReplyField, setissubReplyField] = useState({
     id: '',
     check: false,
   });
-  const [isCommentField, setIsCommentField] = useState(false);
-  const sPost = useSelector(singlepostDataSelector);
-  const replyData = useSelector(repliesDataSelector);
+  const singlePost = useSelector(singlepostDataSelector);
   const paginatedComments = useSelector(getCommentsDataSelector);
   var forComments = paginatedComments?.results;
-  const [showReply, setShowReply] = useState({ idx: '', replyCheck: false });
   var [commentsData, setCommentsData] = useState([]);
   const dispatch = useDispatch();
-  const [openModel, setOpenModel] = useState(false);
-  const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
-  const middleDesktop = useMediaQuery({ query: '(max-width: 1024px)' });
-  const higherDesktop = useMediaQuery({ query: '(max-width: 1440px)' });
+  const isMobile = useMediaQuery('(max-width: 760px)');
+  const middleDesktop = useMediaQuery('(max-width: 1024px)');
+  const higherDesktop = useMediaQuery('(max-width: 1440px)');
   const [pageNumber, setPageNumber] = useState(2);
-  const [openTip, setopenTip] = useState(false);
-  const fetchData = useSelector(fetchingSelector);
   const [commLength, setcommLength] = useState(10);
-  const [show, setShow] = useState(false);
+  const { closeEmojiPicker, EmojiPicker, emojiPickerRef } = useEmojiPicker();
   const router = useRouter();
   const currUser = useSelector(currentUserSelector);
   const { postId, forCommentId } = router.query;
   const [checkRefs, setCheckRefs] = useState(false);
-
-  const handleOpenModel = () => {
-    console.log('in model');
-    setOpenModel(true);
-    console.log(openModel);
-  };
 
   const addEmoji = e => {
     let sym = e.unified.split('-');
@@ -123,10 +85,6 @@ const SinglePost = ({
     sym.forEach(el => codesArray.push('0x' + el));
     let emoji = String.fromCodePoint(...codesArray);
     setCommentText(commentText + emoji);
-  };
-
-  const showEmoji = () => {
-    setShow(!show);
   };
 
   useEffect(() => {
@@ -145,18 +103,16 @@ const SinglePost = ({
     forCommentId && handleReplyField(forCommentId);
   }, [postId, forCommentId]);
 
-  const handleModelCommentLike = cId => {
-    // console.log(cId);
-    sPost.comments &&
-      sPost.comments.map(comm =>
+  const handleModalCommentLike = cId => {
+    //
+    singlePost.comments &&
+      singlePost.comments.map(comm =>
         comm.likes && comm.likes.length === 0 && comm.id === cId
           ? dispatch(
               postData.saveCommentLike({
                 id: comm.id,
                 callback: () => {
-                  console.log('in save');
-
-                  dispatch(postData.requestOne(sPost.id));
+                  dispatch(postData.requestOne(singlePost.id));
                 },
               })
             )
@@ -165,9 +121,7 @@ const SinglePost = ({
               postData.delCommentLike({
                 id: comm.id,
                 callback: () => {
-                  console.log('in');
-
-                  dispatch(postData.requestOne(sPost.id));
+                  dispatch(postData.requestOne(singlePost.id));
                 },
               })
             )
@@ -183,31 +137,31 @@ const SinglePost = ({
   const handleReplyField = id => {
     setCommentId(id);
     setCheckRefs(true);
-    console.log('refs', checkRefs);
-    // console.log('setted', commentId);
-    // console.log('reply id', id, 'commid', forCommentId);
+
+    //
+    //
 
     setisReplyField({ check: true, id });
     setissubReplyField({ check: false });
-    // console.log('isreplyfield', isReplyField.id, isReplyField.check);
+    //
   };
 
   const handleAddComment = event => {
     event.preventDefault();
-    setShow(false);
+    closeEmojiPicker();
     if (!commentText || commentText.trim() === '') {
       return;
     }
     dispatch(
       postData.saveComment({
-        id: sPost.id,
+        id: singlePost.id,
         commentText: {
           comment: commentText,
           isReply: false,
         },
         callback: () => {
           setCommentText('');
-          dispatch(postData.requestOne(sPost.id));
+          dispatch(postData.requestOne(singlePost.id));
         },
       })
     );
@@ -216,10 +170,10 @@ const SinglePost = ({
   const handlleGetComments = () => {
     setPageNumber(pageNumber + 1);
     setcommLength(commLength + 10);
-    console.log('comm length', commLength);
+
     dispatch(
       postData.getCommentsVal({
-        id: sPost?.id,
+        id: singlePost?.id,
         page: pageNumber,
         limit: 10,
       })
@@ -227,41 +181,31 @@ const SinglePost = ({
   };
 
   const handleLike = () => {
-    sPost.likes && sPost.likes.length > 0
+    singlePost.likes && singlePost.likes.length > 0
       ? dispatch(
           postData.deleteLike({
-            id: sPost.id,
+            id: singlePost.id,
             callback: () => {
-              console.log('deletw');
-              dispatch(postData.requestOne(sPost.id));
+              dispatch(postData.requestOne(singlePost.id));
             },
           })
         )
       : dispatch(
           postData.saveLike({
-            id: sPost.id,
+            id: singlePost.id,
             callback: () => {
-              dispatch(postData.requestOne(sPost.id));
+              dispatch(postData.requestOne(singlePost.id));
             },
           })
         );
   };
 
-  const nFormatter = n => {
-    if (n < 1e3) return n;
-    if (n >= 1e3 && n < 1e6) return +(n / 1e3).toFixed(1) + 'K';
-    if (n >= 1e6 && n < 1e9) return +(n / 1e6).toFixed(1) + 'M';
-    if (n >= 1e9 && n < 1e12) return +(n / 1e9).toFixed(1) + 'B';
-    if (n >= 1e12) return +(n / 1e12).toFixed(1) + 'T';
-  };
-
   return (
     <div
       className={classes.modal}
-      closeAfterTransition
       style={{ marginTop: middleDesktop ? '20%' : higherDesktop ? '5%' : '3%' }}
     >
-      <LoadingOverlay active={fetchData} spinner={<BounceLoader />}>
+      <>
         <div
           style={{
             display: 'flex',
@@ -272,29 +216,22 @@ const SinglePost = ({
         >
           <div className={styles.hideOnMobile}>
             <SinglePostMedia
-              media={sPost?.media}
-              mediaCount={sPost?.mediaCount}
-              sPost={sPost}
+              media={singlePost?.media}
+              mediaCount={singlePost?.mediaCount}
+              singlePost={singlePost}
             />
           </div>
 
           <div
-            className={styles.profileModelStyle}
+            className={styles.profileModalStyle}
             style={{ backgroundColor: '#101010' }}
           >
             {altHeader ? (
-              <CardHeader
-                action={
-                  <IconButton aria-label='settings'>
-                    <CloseIcon onClick={handleClose} />
-                  </IconButton>
-                }
-                subheader={moment(sPost.createdAt).fromNow()}
-              />
+              <></>
             ) : (
               !isMobile && (
                 <CardHeader
-                  avatar={<ProfileImageAvatar user={sPost?.user} />}
+                  avatar={<ProfileImageAvatar user={singlePost?.user} />}
                   action={
                     <IconButton aria-label='settings'>
                       {!isMobile && <CloseIcon onClick={handleClose} />}
@@ -303,25 +240,54 @@ const SinglePost = ({
                   title={
                     <>
                       <Box clone mr={1}>
-                        <Typography variant='body2' component='span'>
+                        <Typography
+                          variant='body2'
+                          component='span'
+                          style={{
+                            fontWeight: 500,
+                            fontFamily: 'Poppins',
+                            fontSize: '16px',
+                          }}
+                        >
                           <NextLink
-                            href={`/x/${sPost?.user?.username}`}
+                            href={`/x/${singlePost?.user?.username}`}
                             passHref
                           >
-                            <Link>{sPost?.user?.fullName || '(no name)'}</Link>
+                            <Link>
+                              {singlePost?.user?.fullName || '(no name)'}
+                            </Link>
                           </NextLink>
                         </Typography>
                       </Box>
-                      <Typography variant='caption' color='textSecondary'>
+                      <Typography
+                        variant='caption'
+                        color='textSecondary'
+                        style={{
+                          fontFamily: 'Poppins',
+                          fontSize: '12px',
+                          marginLeft: '7px',
+                        }}
+                      >
                         {moment(
-                          sPost && sPost.createdAt && sPost.createdAt
+                          singlePost &&
+                            singlePost.createdAt &&
+                            singlePost.createdAt
                         ).fromNow()}
                       </Typography>
                     </>
                   }
                   subheader={
-                    <Typography variant='caption' color='textSecondary'>
-                      @{sPost?.user?.username}
+                    <Typography
+                      variant='caption'
+                      color='textSecondary'
+                      style={{
+                        fontWeight: 600,
+                        fontStyle: 'normal',
+                        fontFamily: 'Poppins',
+                        fontSize: '11px',
+                      }}
+                    >
+                      @{singlePost?.user?.username}
                     </Typography>
                   }
                 />
@@ -349,8 +315,8 @@ const SinglePost = ({
                 </p>
               </div>
             )}
-            {sPost &&
-              sPost.postText &&
+            {singlePost &&
+              singlePost.postText &&
               (isMobile ? (
                 <div
                   style={{
@@ -359,7 +325,7 @@ const SinglePost = ({
                     marginTop: '10px',
                   }}
                 >
-                  <ProfileImageAvatar user={sPost?.user} />
+                  <ProfileImageAvatar user={singlePost?.user} />
                   <CardContent>
                     <Typography
                       variant='body2'
@@ -376,7 +342,7 @@ const SinglePost = ({
                         marginTop: '-10px',
                       }}
                     >
-                      {sPost.postText.slice(0, 90)}
+                      {singlePost.postText.slice(0, 90)}
                     </Typography>
                   </CardContent>
                 </div>
@@ -395,7 +361,7 @@ const SinglePost = ({
                       fontSize: '16px',
                     }}
                   >
-                    {sPost.postText.slice(0, 140)}
+                    {singlePost.postText.slice(0, 140)}
                   </Typography>
                 </CardContent>
               ))}
@@ -409,16 +375,20 @@ const SinglePost = ({
               >
                 <div>
                   <Box>
-                    {sPost && sPost.likes && sPost.likes.length === 0 ? (
+                    {singlePost &&
+                    singlePost.likes &&
+                    singlePost.likes.length === 0 ? (
                       <NormalCaseButton
                         aria-label='add to favorites'
                         startIcon={<img src='/emptyHeart.png' alt='unliked' />}
                         onClick={handleLike}
                       >
-                        {nFormatter(sPost?.totalLikes)}{' '}
+                        <span style={{ marginLeft: '5px', fontWeight: 400 }}>
+                          {nFormatter(singlePost.totalLikes)}
+                        </span>{' '}
                         <span
                           className={styles.hideOnMobile}
-                          style={{ marginLeft: '5px' }}
+                          style={{ marginLeft: '5px', fontWeight: 400 }}
                         >
                           Likes
                         </span>
@@ -429,10 +399,12 @@ const SinglePost = ({
                         startIcon={<img src='/filled.png' alt='liked' />}
                         onClick={handleLike}
                       >
-                        {nFormatter(sPost?.totalLikes)}{' '}
+                        <span style={{ marginLeft: '5px', fontWeight: 900 }}>
+                          {nFormatter(singlePost?.totalLikes)}
+                        </span>{' '}
                         <span
                           className={styles.hideOnMobile}
-                          style={{ marginLeft: '5px' }}
+                          style={{ marginLeft: '5px', fontWeight: 900 }}
                         >
                           Likes
                         </span>
@@ -443,30 +415,32 @@ const SinglePost = ({
                       aria-label='share'
                       startIcon={<img src='/comment.png' alt='comment' />}
                     >
-                      {nFormatter(sPost?.totalComments)}{' '}
+                      <span style={{ fontWeight: 400 }}>
+                        {' '}
+                        {nFormatter(singlePost?.totalComments)}
+                      </span>{' '}
                       <span
                         className={styles.hideOnMobile}
-                        style={{ marginLeft: '5px' }}
+                        style={{ marginLeft: '5px', fontWeight: 400 }}
                       >
                         {' '}
                         Comments
                       </span>
                     </NormalCaseButton>
                     {
-                      <NormalCaseButton
-                        aria-label='tip'
-                        style={{
-                          marginLeft: '-10px',
-                        }}
-                      >
-                        {sPost?.media.length === 0 ? (
+                      <span aria-label='tip'>
+                        {singlePost?.media.length === 0 ? (
                           <>
                             <MonetizationOnOutlinedIcon
                               style={{ marginRight: '5px', marginLeft: '5px' }}
                             />
                             <span
                               className={styles.hideOnMobile}
-                              style={{ marginLeft: '0px' }}
+                              style={{
+                                marginLeft: '0px',
+                                cursor: 'pointer',
+                                fontWeight: '400',
+                              }}
                             >
                               Tip
                             </span>
@@ -474,66 +448,81 @@ const SinglePost = ({
                         ) : (
                           <>
                             <TipModal
-                              profileImage={sPost?.user?.profileImage}
-                              name={sPost?.user?.fullName}
+                              profileImage={singlePost?.user?.profileImage}
+                              name={singlePost?.user?.fullName}
                               onConfirm={(amount, callback) =>
                                 dispatch(
                                   postData.addTip({
                                     saveData: {
-                                      itemTipped: post.id,
+                                      itemTipped: singlePost.id,
                                       itemTippedType: 'post',
                                       amount,
                                     },
 
                                     callback: () => {
                                       callback && callback();
-                                      dispatch(postData.request());
-                                      dispatch(postData.requestSubscribed());
                                     },
                                   })
                                 )
                               }
-                            />
-                            <span
-                              className={styles.hideOnMobile}
-                              style={{ marginLeft: '-6px' }}
                             >
-                              Tip
-                            </span>
+                              <NormalCaseButton
+                                aria-label='Tip'
+                                startIcon={<MonetizationOnOutlinedIcon />}
+                              >
+                                <span
+                                  className={styles.hideOnMobile}
+                                  style={{
+                                    fontWeight: '400',
+                                  }}
+                                >
+                                  Tip
+                                </span>
+                              </NormalCaseButton>
+                            </TipModal>
                           </>
                         )}
-                      </NormalCaseButton>
+                      </span>
                     }
                   </Box>
                 </div>
                 <div style={{ marginRight: '6px' }}>
-                  {sPost?.media.length === 0 && (
+                  {singlePost?.media.length === 0 && (
                     <NormalCaseButton
                       aria-label='Buy Post'
                       startIcon={<LocalMallIcon />}
-                      onClick={handleOpenModel}
+                      onClick={openPurchaseModal}
                     >
-                      Buy Post
+                      <span style={{ fontWeight: 400 }}>Buy Post</span>
                     </NormalCaseButton>
                   )}
                 </div>
-                <PostPurchaseModel
-                  post={post}
-                  openModel={openModel}
-                  setOpenModel={setOpenModel}
+                <PostPurchaseModal
+                  handlePurchase={() => {
+                    dispatch(
+                      postData.purchasePost({
+                        id: post.id,
+                        callback: () => {
+                          setPurchased(true);
+                        },
+                      })
+                    );
+                  }}
+                  price={post?.price}
+                  user={post?.user}
                 />
               </div>
             )}
             <div>
               <img src='/border.png' alt='bar' style={{ width: '100%' }} />
 
-              {sPost?.totalComments < 10 ||
-              commLength >= sPost?.totalComments ? (
+              {singlePost?.totalComments < 10 ||
+              commLength >= singlePost?.totalComments ? (
                 ''
               ) : (
                 <p
                   style={{
-                    fontWeight: '500',
+                    fontWeight: 500,
                     fontSize: '14px',
                     marginLeft: '15px',
                     cursor: 'pointer',
@@ -565,15 +554,16 @@ const SinglePost = ({
                 marginLeft: '15px',
               }}
             >
-              {sPost?.comments?.map(
+              {singlePost?.comments?.map(
                 (comm, index) =>
                   comm?.parentCommentId === null && (
-                    <div>
+                    <div key={`abcdef${index}`}>
                       <div
                         style={{
                           display: 'flex',
                           justifyContent: 'space-between',
-                          marginTop: sPost?.totalComments < 10 ? '15px' : '',
+                          marginTop:
+                            singlePost?.totalComments < 10 ? '15px' : '',
                         }}
                       >
                         <div
@@ -660,7 +650,7 @@ const SinglePost = ({
                           {comm.likes && comm.likes.length === 0 ? (
                             // <FavoriteIcon
                             //   fontSize='small'
-                            //   onClick={() => handleModelCommentLike(comm.id)}
+                            //   onClick={() => handleModalCommentLike(comm.id)}
                             // />
                             <img
                               src='/emptyHeart.png'
@@ -670,13 +660,13 @@ const SinglePost = ({
                                 height: '20px',
                                 cursor: 'pointer',
                               }}
-                              onClick={() => handleModelCommentLike(comm.id)}
+                              onClick={() => handleModalCommentLike(comm.id)}
                             />
                           ) : (
                             // <FavoriteIcon
                             //   fontSize='small'
                             //   style={{ color: 'red' }}
-                            //   onClick={() => handleModelCommentLike(comm.id)}
+                            //   onClick={() => handleModalCommentLike(comm.id)}
                             // />
                             <img
                               src='/filled.png'
@@ -686,7 +676,7 @@ const SinglePost = ({
                                 height: '20px',
                                 cursor: 'pointer',
                               }}
-                              onClick={() => handleModelCommentLike(comm.id)}
+                              onClick={() => handleModalCommentLike(comm.id)}
                             />
                           )}
                         </div>
@@ -703,17 +693,14 @@ const SinglePost = ({
                           }}
                         >
                           <RepliesData
-                            comm={comm}
-                            post={post}
-                            singlePost={sPost}
-                            currentUser={currentUser}
+                            comment={comm}
+                            postId={post?.id}
                             isReplyField={isReplyField}
                             setisReplyField={setisReplyField}
                             issubReplyField={issubReplyField}
                             setissubReplyField={setissubReplyField}
                             commentId={commentId}
                             setCommentId={setCommentId}
-                            currUser={currUser}
                             checkRefs={checkRefs}
                             setCheckRefs={setCheckRefs}
                           />
@@ -729,11 +716,11 @@ const SinglePost = ({
                   )
               )}
 
-              {sPost?.totalComments > 10 &&
+              {singlePost?.totalComments > 10 &&
                 commentsData?.map(
                   (comm, index) =>
                     comm?.parentCommentId === null && (
-                      <div>
+                      <div key={`abcdef${index}`}>
                         <div
                           style={{
                             display: 'flex',
@@ -824,7 +811,7 @@ const SinglePost = ({
                             {comm.likes && comm.likes.length === 0 ? (
                               // <FavoriteIcon
                               //   fontSize='small'
-                              //   onClick={() => handleModelCommentLike(comm.id)}
+                              //   onClick={() => handleModalCommentLike(comm.id)}
                               // />
                               <img
                                 src='/emptyHeart.png'
@@ -834,13 +821,13 @@ const SinglePost = ({
                                   height: '20px',
                                   cursor: 'pointer',
                                 }}
-                                onClick={() => handleModelCommentLike(comm.id)}
+                                onClick={() => handleModalCommentLike(comm.id)}
                               />
                             ) : (
                               // <FavoriteIcon
                               //   fontSize='small'
                               //   style={{ color: 'red' }}
-                              //   onClick={() => handleModelCommentLike(comm.id)}
+                              //   onClick={() => handleModalCommentLike(comm.id)}
                               // />
                               <img
                                 src='/filled.png'
@@ -850,7 +837,7 @@ const SinglePost = ({
                                   height: '20px',
                                   cursor: 'pointer',
                                 }}
-                                onClick={() => handleModelCommentLike(comm.id)}
+                                onClick={() => handleModalCommentLike(comm.id)}
                               />
                             )}
                           </div>
@@ -867,17 +854,14 @@ const SinglePost = ({
                             }}
                           >
                             <RepliesData
-                              comm={comm}
-                              post={post}
-                              singlePost={sPost}
-                              currentUser={currentUser}
+                              comment={comm}
+                              postId={post?.id}
                               isReplyField={isReplyField}
                               setisReplyField={setisReplyField}
                               issubReplyField={issubReplyField}
                               setissubReplyField={setissubReplyField}
                               commentId={commentId}
                               setCommentId={setCommentId}
-                              currUser={currUser}
                               checkRefs={checkRefs}
                               setCheckRefs={setCheckRefs}
                             />
@@ -895,11 +879,16 @@ const SinglePost = ({
             </div>
 
             <form onSubmit={handleAddComment}>
-              <Box style={{ borderTop: '1px solid #444444' }}>
+              <Box
+                style={{
+                  borderTop: '1px solid #444444',
+                }}
+              >
                 <OutlinedInput
                   value={commentText}
                   onChange={e => setCommentText(e.target.value)}
                   name='commentText'
+                  style={{ backgroundColor: '#101010' }}
                   fullWidth
                   multiline
                   onKeyDown={e => {
@@ -918,51 +907,27 @@ const SinglePost = ({
                   }
                   endAdornment={
                     <>
-                      <Button
-                        onClick={showEmoji}
-                        style={{
-                          backgroundColor: '#111111',
-                          border: 'none',
-                          marginRight: '-20px',
-                        }}
-                      >
-                        <span role='img'>
-                          <InsertEmoticonIcon />
-                        </span>
-                      </Button>
-                      <Button
-                        type='submit'
-                        style={{ backgroundColor: '#111111', border: 'none' }}
-                      >
+                      <span ref={emojiPickerRef}>
+                        <EmojiPicker onSelect={addEmoji} />
+                      </span>
+
+                      <Button type='submit' style={{ border: 'none' }}>
                         <img src='/send.png' alt='send button' />
                       </Button>
                     </>
                   }
+                  inputProps={{
+                    style: {
+                      fontFamily: 'Poppins',
+                      marginLeft: '10px',
+                    },
+                  }}
                 />
-                {show && (
-                  <span>
-                    <Picker
-                      onSelect={addEmoji}
-                      set='facebook'
-                      emoji='point_up'
-                      theme='dark'
-                      skin='1'
-                      style={{
-                        position: 'absolute',
-                        right: isMobile ? '40px' : '90px',
-                        bottom: '100px',
-                        maxWidth: '300px',
-                        with: '100%',
-                        outline: 'none',
-                      }}
-                    />
-                  </span>
-                )}
               </Box>
             </form>
           </div>
         </div>
-      </LoadingOverlay>
+      </>
     </div>
   );
 };

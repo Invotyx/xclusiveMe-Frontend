@@ -5,14 +5,26 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   grey: {
     color: '#666',
+    fontSize: '15px',
+  },
+  greyo: {
+    color: '#666',
+    height: '30px',
+  },
+  auth: {
+    fontSize: '17px',
+    fontFamily: 'Poppins',
+    fontStyle: 'normal',
+    fontWeight: 500,
+    lineHeight: '36px',
   },
 }));
 
 export default function AuthNav(props) {
-  const { asPath } = useRouter();
+  const { pathname } = useRouter();
   const classes = useStyles();
   return (
     <Box mt={8} mb={4} ml={2} display='flex' alignItems='center'>
@@ -20,28 +32,38 @@ export default function AuthNav(props) {
         <NextLink passHref href='/register'>
           <Button
             variant='text'
-            size={'/register' !== asPath ? 'small' : 'large'}
-            className={'/register' !== asPath ? `${classes.grey}` : ``}
+            size={'/register' !== pathname ? 'small' : 'large'}
+            className={'/register' !== pathname ? `${classes.grey}` : ``}
           >
-            SIGN UP
+            <span
+              className={
+                '/register' !== pathname ? `${classes.grey}` : `${classes.auth}`
+              }
+            >
+              SIGN UP
+            </span>
           </Button>
         </NextLink>
       </Box>
       <Box mx={3}>
         <NextLink passHref href='/login'>
-          <Typography component='p' variant='h5' className={`${classes.grey}`}>
-            |
-          </Typography>
+          <img src='/dividers.svg' alt='div' className={classes.greyo} />
         </NextLink>
       </Box>
       <Box>
         <NextLink passHref href='/login'>
           <Button
             variant='text'
-            size={'/login' !== asPath ? 'small' : 'large'}
-            className={'/login' !== asPath ? `${classes.grey}` : ``}
+            size={'/login' !== pathname ? 'small' : 'large'}
+            className={'/login' !== pathname ? `${classes.grey}` : ``}
           >
-            LOGIN
+            <span
+              className={
+                '/login' !== pathname ? `${classes.grey}` : `${classes.auth}`
+              }
+            >
+              LOGIN
+            </span>
           </Button>
         </NextLink>
       </Box>

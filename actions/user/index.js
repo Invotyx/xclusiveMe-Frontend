@@ -15,6 +15,13 @@ export const user = {
       success: false,
       error: null,
     }),
+  requestSuggestions: data =>
+    createAction(USER.GET_SUGGESTIONS, {
+      ...data,
+      fetching: true,
+      success: false,
+      error: null,
+    }),
   requestOne: id =>
     createAction(USER.GET_ONE, {
       id,

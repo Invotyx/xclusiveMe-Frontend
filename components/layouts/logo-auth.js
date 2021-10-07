@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useState } from 'react';
 import Link from '@material-ui/core/Link';
 import NextLink from 'next/link';
 import AppBar from '@material-ui/core/AppBar';
@@ -8,7 +8,6 @@ import IconButton from '@material-ui/core/IconButton';
 import Box from '@material-ui/core/Box';
 import Badge from '@material-ui/core/Badge';
 import SettingsIcon from '@material-ui/icons/SettingsOutlined';
-import SmsIcon from '@material-ui/icons/SmsOutlined';
 import SearchIcon from '@material-ui/icons/Search';
 import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import axiosInterceptorResponse from '../../services/axiosInterceptorResponse';
@@ -21,26 +20,43 @@ import NewPostDialog from '../new-post';
 import CurrentUserProfileImageAvatar from '../profile/current-user-profile-image-avatar';
 import NotificationMenu from '../notification/menu';
 import { post } from '../../actions/post';
-import { notificationsCount } from '../../selectors/postSelector';
 import styles from './layout.module.css';
-import { fetchingSelector } from '../../selectors/postSelector';
-import ConversationsList from '../message/ConversationsList';
-import MessageMenu from '../message/MessageMenu';
 import { currentUserSelector } from '../../selectors/authSelector';
+import { notificationsData } from '../../selectors/postSelector';
+import { makeStyles } from '@material-ui/core';
+import ChatNavItem from './ChatNavItem';
 
-const chatMenu = 'link';
+const useStyles = makeStyles(theme => ({
+  root: {
+    marginBottom: '12px',
+    [theme.breakpoints.down('sm')]: {
+      marginBottom: '18px',
+    },
+    [theme.breakpoints.up('md')]: {
+      marginBottom: '48px',
+    },
+  },
+  navLink: {
+    fontStyle: 'normal',
+    fontFamily: 'Poppins',
+    fontSize: '14px',
+    fontWeight: 300,
+    lineHeight: '21px',
+    color: '#A6A6A6',
+  },
+}));
 
 export default function Comp({ sidebarMenu, set_sidebarMenu }) {
+  const classes = useStyles();
   const dispatch = useDispatch();
   const router = useRouter();
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [messageEl, setMessageEl] = React.useState(null);
-  const notificationCount = useSelector(notificationsCount);
-  const fetchData = useSelector(fetchingSelector);
   const me = useSelector(currentUserSelector);
+  const notifications = useSelector(notificationsData);
+  const [read, setRead] = useState(0);
 
   const settingsMenuOpen = event => {
-    dispatch(post.requestNotifications());
+    // dispatch(post.requestNotifications());
     setAnchorEl(event.currentTarget);
   };
 
@@ -48,13 +64,13 @@ export default function Comp({ sidebarMenu, set_sidebarMenu }) {
     setAnchorEl(null);
   };
 
-  const messagesClose = () => {
-    setMessageEl(null);
-  };
+  React.useEffect(() => {
+    dispatch(post.requestNotifications());
+  }, []);
 
-  // React.useEffect(() => {
-  //   dispatch(post.requestNotifications());
-  // }, []);
+  React.useEffect(() => {
+    notifications?.map(n => n.isRead === false && setRead(read + 1));
+  }, [notifications]);
 
   React.useEffect(() => {
     axiosInterceptorResponse(dispatch);
@@ -78,8 +94,13 @@ export default function Comp({ sidebarMenu, set_sidebarMenu }) {
   };
 
   return (
-    <Box clone mb={6}>
-      <AppBar position='relative' color='transparent' elevation={0}>
+    <>
+      <AppBar
+        position='relative'
+        color='transparent'
+        elevation={0}
+        className={classes.root}
+      >
         <Box
           display={{ xs: 'none', sm: 'none', md: 'flex' }}
           justifyContent='flex-end'
@@ -88,17 +109,25 @@ export default function Comp({ sidebarMenu, set_sidebarMenu }) {
             <Box display='flex'>
               <Box ml={3}>
                 <NextLink href='#' passHref>
-                  <Link variant='body2'>How it works</Link>
+                  <Link variant='body2' className={classes.navLink}>
+                    How it works
+                  </Link>
                 </NextLink>
               </Box>
               <Box ml={3}>
                 <NextLink href='#' passHref>
-                  <Link variant='body2'>Support</Link>
+                  <Link variant='body2' className={classes.navLink}>
+                    Support
+                  </Link>
                 </NextLink>
               </Box>
               <Box ml={3}>
                 <NextLink href='#' passHref>
-                  <Link variant='body2' onClick={logout}>
+                  <Link
+                    variant='body2'
+                    onClick={logout}
+                    className={classes.navLink}
+                  >
                     Logout
                   </Link>
                 </NextLink>
@@ -113,12 +142,14 @@ export default function Comp({ sidebarMenu, set_sidebarMenu }) {
             </Box>
             <Box flexGrow={1} display={{ xs: 'none', sm: 'none', md: 'flex' }}>
               <Box display='flex'>
-                <Box mr={1} display='flex'>
+                <Box mr={1} display='flex' className={'step-2'}>
                   <NewPostDialog />
                 </Box>
                 <NextLink passHref href={`/x/${me?.username}`}>
                   <IconButton component='a' color='inherit'>
-                    <CurrentUserProfileImageAvatar />
+                    <CurrentUserProfileImageAvatar
+                      styles={true}
+                    />
                   </IconButton>
                 </NextLink>
               </Box>
@@ -126,19 +157,23 @@ export default function Comp({ sidebarMenu, set_sidebarMenu }) {
             <Box display='flex'>
               <Box ml={3} display={{ xs: 'none', sm: 'none', md: 'flex' }}>
                 <NextLink href='/search' passHref>
-                  <IconButton color='inherit'>
+                  <IconButton color='inherit' className='step-3'>
                     <SearchIcon />
                   </IconButton>
                 </NextLink>
               </Box>
               <Box ml={3} display={{ xs: 'none', sm: 'none', md: 'flex' }}>
-                <IconButton color='inherit' onClick={settingsMenuOpen}>
-                  {notificationCount == 0 ? (
-                    <Badge color='secondary'>
+                <IconButton
+                  color='inherit'
+                  onClick={settingsMenuOpen}
+                  className='step-5'
+                >
+                  {read > 0 ? (
+                    <Badge color='secondary' variant='dot'>
                       <CheckBoxOutlineBlankIcon />
                     </Badge>
                   ) : (
-                    <Badge color='secondary' variant='dot'>
+                    <Badge color='secondary'>
                       <CheckBoxOutlineBlankIcon />
                     </Badge>
                   )}
@@ -151,38 +186,18 @@ export default function Comp({ sidebarMenu, set_sidebarMenu }) {
                     onClose={settingsMenuClose}
                   >
                     <div className={styles.notiBox}>
-                      <Notification onClose={settingsMenuClose} />
+                      <Notification setAnchorEl={setAnchorEl} />
                     </div>
                   </NotificationMenu>
                 </div>
               </Box>
 
               <Box ml={3} display={{ xs: 'none', sm: 'none', md: 'flex' }}>
-                {chatMenu === 'link' ? (
-                  <NextLink href='/chat' passHref>
-                    <IconButton color='inherit'>
-                      <SmsIcon />
-                    </IconButton>
-                  </NextLink>
-                ) : (
-                  <>
-                    <IconButton
-                      color='inherit'
-                      onClick={e => setMessageEl(e.currentTarget)}
-                    >
-                      <SmsIcon />
-                    </IconButton>
-                    <div>
-                      <MessageMenu anchorEl={messageEl} onClose={messagesClose}>
-                        <ConversationsList />
-                      </MessageMenu>
-                    </div>
-                  </>
-                )}
+                <ChatNavItem />
               </Box>
               <Box ml={3}>
                 <NextLink href='/settings/account' passHref>
-                  <IconButton color='inherit'>
+                  <IconButton color='inherit' className='step-4'>
                     <SettingsIcon />
                   </IconButton>
                 </NextLink>
@@ -205,6 +220,6 @@ export default function Comp({ sidebarMenu, set_sidebarMenu }) {
           </Toolbar>
         </Box>
       </AppBar>
-    </Box>
+    </>
   );
 }

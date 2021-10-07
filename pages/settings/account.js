@@ -23,6 +23,7 @@ import TileTextField from '../../components/TileTextField';
 import EditIcon from '@material-ui/icons/Edit';
 import AddIcon from '@material-ui/icons/Add';
 import FacebookIcon from '@material-ui/icons/Facebook';
+import InstagramIcon from '@material-ui/icons/Instagram';
 import LinkIcon from '@material-ui/icons/Link';
 import { auth } from '../../actions/auth';
 import {
@@ -35,6 +36,10 @@ import { fetchingSelector } from '../../selectors/authSelector';
 import { errorSelector } from '../../selectors/authSelector';
 import { isValidHttpUrl } from '../../services/helper';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import * as parser from 'ua-parser-js';
+import NormalCaseButton from '../../components/NormalCaseButton';
+import moment from 'moment';
+import AgeRestrictionListItem from '../../components/settings/account/AgeRestrictionListItem';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -44,22 +49,27 @@ const useStyles = makeStyles(theme => ({
 
 const linkedAccounts = [
   {
-    url: '#',
+    url: '@',
     title: 'Twitter',
     icon: <Image width={20} height={20} src='/twitter.svg' />,
   },
   {
-    url: '#',
+    url: '@',
     title: 'Google',
     icon: <Image width={20} height={20} src='/google.svg' />,
   },
   {
-    url: '#',
+    url: '@',
     title: 'Facebook',
     icon: <FacebookIcon />,
   },
   {
-    url: '#',
+    url: '@',
+    title: 'Instagram',
+    icon: <InstagramIcon />,
+  },
+  {
+    url: 'https://',
     title: 'Website',
     icon: <LinkIcon />,
   },
@@ -75,6 +85,7 @@ export default function Home(props) {
   const [email, set_email] = React.useState('');
   const [phone, set_phone] = React.useState('');
   const [password, set_password] = React.useState('');
+  const [confirm_Password, setConfirmPassword] = React.useState('');
   const [password_old, set_password_old] = React.useState('');
   const [verificationViaSms, set_verificationViaSms] = React.useState(false);
   const [authenticatorApp, set_authenticatorApp] = React.useState(true);
@@ -89,7 +100,7 @@ export default function Home(props) {
       set_email(currentUser.email);
       set_phone(currentUser.phoneNumber);
       set_verificationViaSms(currentUser.fa2);
-      setLinks(currentUser.profile.links || linkedAccounts);
+      setLinks(currentUser.profile?.links || linkedAccounts);
     }
   }, [currentUser]);
   useEffect(() => {
@@ -122,14 +133,29 @@ export default function Home(props) {
     dispatch(
       auth.updatePassword({
         saveData: {
+          oldPassword: password_old,
           password,
-          confirmPassword: password,
+          confirmPassword: confirm_Password,
         },
       })
     );
+    setConfirmPassword('');
+    set_password('');
+    set_password_old('');
   };
   const handleLogOutAllSessions = () => {
-    dispatch(auth.expireAllSessions());
+    dispatch(
+      auth.expireAllSessions({
+        callback: () =>
+          dispatch(
+            auth.logout({
+              callback: () => {
+                dispatch(auth.redirectToLoginPage());
+              },
+            })
+          ),
+      })
+    );
   };
   const saveLinks = (e, link) => {
     e.preventDefault();
@@ -147,6 +173,16 @@ export default function Home(props) {
         },
         callback: () => {
           set_editLinkedAccount(null);
+        },
+      })
+    );
+  };
+  const logout = event => {
+    event.preventDefault();
+    dispatch(
+      auth.logout({
+        callback: () => {
+          dispatch(auth.redirectToLoginPage());
         },
       })
     );
@@ -175,6 +211,9 @@ export default function Home(props) {
                     startAdornment: (
                       <InputAdornment position='start'>@</InputAdornment>
                     ),
+                    style: {
+                      fontFamily: 'Poppins',
+                    },
                   }}
                   error={validationErrors && validationErrors.username}
                   helperText={
@@ -199,6 +238,11 @@ export default function Home(props) {
                       ? Object.values(validationErrors.email).join(', ')
                       : ''
                   }
+                  inputProps={{
+                    style: {
+                      fontFamily: 'Poppins',
+                    },
+                  }}
                 />
 
                 <TileTextField
@@ -216,6 +260,11 @@ export default function Home(props) {
                       ? Object.values(validationErrors.phoneNumber).join(', ')
                       : ''
                   }
+                  inputProps={{
+                    style: {
+                      fontFamily: 'Poppins',
+                    },
+                  }}
                 />
                 <Button variant='outlined' type='submit' disabled={fetching}>
                   Update
@@ -257,6 +306,11 @@ export default function Home(props) {
                                             ).join(', ')
                                           : ''
                                       }
+                                      inputProps={{
+                                        style: {
+                                          fontFamily: 'Poppins',
+                                        },
+                                      }}
                                     />
                                   </Box>
                                   <Box>
@@ -265,7 +319,7 @@ export default function Home(props) {
                                       disabled={fetching}
                                       onClick={e => saveLinks(e, i)}
                                     >
-                                      save
+                                      <span>save</span>
                                     </Button>
                                   </Box>
                                 </Box>
@@ -296,14 +350,36 @@ export default function Home(props) {
             <form onSubmit={handleUpdatePassword}>
               <Box mb={4}>
                 <TileTextField
+                  value={password_old}
+                  onChange={e => set_password_old(e.target.value)}
+                  variant='outlined'
+                  margin='normal'
+                  fullWidth
+                  name='password_old'
+                  label='Old Password'
+                  type='password'
+                  error={validationErrors && validationErrors.password}
+                  helperText={
+                    validationErrors.oldPassword
+                      ? Object.values(validationErrors.oldPassword).join(', ')
+                      : ''
+                  }
+                  inputProps={{
+                    style: {
+                      fontFamily: 'Poppins',
+                    },
+                  }}
+                />
+
+                <TileTextField
                   placeholder='•••••••'
                   value={password}
                   onChange={e => set_password(e.target.value)}
                   variant='outlined'
-                  margin='normal'
                   fullWidth
+                  margin='normal'
                   name='password'
-                  label='Password'
+                  label='New Password'
                   type='password'
                   error={validationErrors && validationErrors.password}
                   helperText={
@@ -311,25 +387,35 @@ export default function Home(props) {
                       ? Object.values(validationErrors.password).join(', ')
                       : ''
                   }
+                  inputProps={{
+                    style: {
+                      fontFamily: 'Poppins',
+                    },
+                  }}
                 />
-                {/*
-                  <TileTextField
-                    value={password_old}
-                    onChange={(e) => set_password_old(e.target.value)}
-                    variant='outlined'
-                    margin='normal'
-                    fullWidth
-                    name='password_old'
-                    label='Old Password'
-                    type='password'
-                    error={validationErrors && validationErrors.oldPassword}
-                    helperText={
-                      validationErrors.oldPassword
-                        ? Object.values(validationErrors.oldPassword).join(', ')
-                        : ''
-                    }
-                  />
-                  */}
+                <TileTextField
+                  placeholder='•••••••'
+                  value={confirm_Password}
+                  onChange={e => setConfirmPassword(e.target.value)}
+                  variant='outlined'
+                  margin='normal'
+                  fullWidth
+                  name='confirmpassword'
+                  label='Confirm New Password'
+                  type='password'
+                  error={validationErrors && validationErrors.password}
+                  helperText={
+                    validationErrors.password
+                      ? Object.values(validationErrors.password).join(', ')
+                      : ''
+                  }
+                  inputProps={{
+                    style: {
+                      fontFamily: 'Poppins',
+                    },
+                  }}
+                />
+
                 <Button variant='outlined' type='submit' disabled={fetching}>
                   Update Password
                 </Button>
@@ -337,23 +423,29 @@ export default function Home(props) {
             </form>
             <form noValidate>
               <Box mb={4}>
+                Sessions
                 <UppercaseInputLabel>Login Sessions</UppercaseInputLabel>
                 <List>
-                  {loginSessions.length === 0 && <div>no sessions</div>}
-                  {loginSessions.map((i, j) => (
-                    <React.Fragment key={`loginSessions${j}`}>
-                      <ListItem selected={true}>
-                        <ListItemText
-                          primary={i.browser}
-                          secondary={`${i.publicIp}`}
-                        />
-                        <ListItemSecondaryAction>
-                          {i.time}
-                        </ListItemSecondaryAction>
-                      </ListItem>
-                      <Divider />
-                    </React.Fragment>
-                  ))}
+                  {loginSessions.length === 0 && <div>No sessions</div>}
+                  {loginSessions.map((i, j) => {
+                    const ua = parser(i.browser);
+                    return (
+                      <React.Fragment key={`loginSessions${j}`}>
+                        <ListItem selected={true} divider>
+                          <ListItemText
+                            primary={`${ua.browser.name} | ${ua.os.name} (${ua.os.version})`}
+                            secondary={`${i.publicIp} ${' at '}  ${moment(
+                              i.createdAt
+                            ).format('hh:mma DD/MM/YYYY')}`}
+                          />
+
+                          <ListItemSecondaryAction>
+                            {i.time}
+                          </ListItemSecondaryAction>
+                        </ListItem>
+                      </React.Fragment>
+                    );
+                  })}
                 </List>
                 <Button variant='outlined' onClick={handleLogOutAllSessions}>
                   Log out all sessions
@@ -362,9 +454,6 @@ export default function Home(props) {
             </form>
             <form noValidate>
               <Box mb={4}>
-                <UppercaseInputLabel>
-                  Two Step Authentication
-                </UppercaseInputLabel>
                 <List>
                   {false && (
                     <ListItem disableGutters>
@@ -384,7 +473,7 @@ export default function Home(props) {
                     </ListItem>
                   )}
                   <ListItem disableGutters>
-                    <ListItemText primary={`Verification via SMS`} />
+                    <ListItemText primary={`Two Step Authentication`} />
                     <ListItemSecondaryAction>
                       <Switch
                         edge='end'
@@ -400,9 +489,16 @@ export default function Home(props) {
                       />
                     </ListItemSecondaryAction>
                   </ListItem>
+                  <AgeRestrictionListItem />
                 </List>
               </Box>
             </form>
+
+            <Box textAlign='center' mb={8}>
+              <NormalCaseButton onClick={logout} style={{ color: 'red' }}>
+                <span>Logout</span>
+              </NormalCaseButton>
+            </Box>
           </Grid>
         </Grid>
       </Layout>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
@@ -9,12 +9,13 @@ import IconButton from '@material-ui/core/IconButton';
 import { makeStyles } from '@material-ui/core/styles';
 import { paymentMethod } from '../../actions/payment-method';
 import { paymentMethodDataSelector } from '../../selectors/paymentMethodSelector';
+import { fetchingSelector } from '../../selectors/postSelector';
 import { useDispatch, useSelector } from 'react-redux';
-import { useMediaQuery } from 'react-responsive';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import styles from './profile.module.css';
 import TextField from '@material-ui/core/TextField';
-import ImageAvatar from '../image-avatar';
 import ProfileImageAvatar from './profile-image-avatar';
+import { currencySymbol } from '../../services/currencySymbol';
 
 const useStyles = makeStyles(theme => ({
   modal: {
@@ -32,44 +33,59 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const TipModal = ({ profileImage, name, onConfirm }) => {
+const TipModal = ({
+  onConfirm,
+  profileImage,
+  name,
+  hideDefaultButton,
+  children,
+}) => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const [openTip, setopenTip] = useState(false);
+  const [openTipModal, setOpenTipModal] = useState(false);
   const [purchased, setPurchased] = useState(false);
   const paymentData = useSelector(paymentMethodDataSelector);
-  const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
+  const fetching = useSelector(fetchingSelector);
+  const isMobile = useMediaQuery('(max-width: 760px)');
   const [addPrice, setAddPrice] = useState('');
+  const priceFieldRef = useRef();
 
   const handlePurchase = () => {
-    onConfirm(+addPrice, () => {
+    setAddPrice(priceFieldRef.current.value);
+    onConfirm(+priceFieldRef.current.value, () => {
       setPurchased(true);
     });
   };
 
   const handleOpenTopModal = () => {
-    setopenTip(true);
+    setOpenTipModal(true);
   };
 
   const handleClose = () => {
-    setopenTip(false);
+    setOpenTipModal(false);
     setPurchased(false);
     setAddPrice('');
   };
 
   useEffect(() => {
-    dispatch(paymentMethod.request());
-  }, [paymentMethod]);
+    openTipModal && dispatch(paymentMethod.request());
+  }, [openTipModal]);
+
   return (
     <>
-      <IconButton onClick={handleOpenTopModal}>
-        <MonetizationOnOutlinedIcon />
-      </IconButton>
+      {!hideDefaultButton &&
+        (children ? (
+          <span onClick={handleOpenTopModal}>{children}</span>
+        ) : (
+          <IconButton onClick={handleOpenTopModal}>
+            <MonetizationOnOutlinedIcon />
+          </IconButton>
+        ))}
       <Modal
         aria-labelledby='transition-modal-title'
         aria-describedby='transition-modal-description'
         className={classes.modal}
-        open={openTip}
+        open={openTipModal}
         onClose={handleClose}
         closeAfterTransition
         BackdropComponent={Backdrop}
@@ -77,8 +93,8 @@ const TipModal = ({ profileImage, name, onConfirm }) => {
           timeout: 500,
         }}
       >
-        <Fade in={openTip}>
-          <div className={classes.paper}>
+        <div className={classes.paper}>
+          <Fade in={openTipModal}>
             {purchased === false ? (
               <div>
                 <div
@@ -153,9 +169,16 @@ const TipModal = ({ profileImage, name, onConfirm }) => {
                         <TextField
                           id='outlined-basic'
                           variant='outlined'
+                          autoFocus
                           placeholder='Enter amount in USD'
-                          value={addPrice}
-                          onChange={e => setAddPrice(e.target.value)}
+                          InputProps={{
+                            startAdornment: currencySymbol,
+                            style: {
+                              fontFamily: 'Poppins',
+                            },
+                          }}
+                          inputRef={priceFieldRef}
+                          defaultValue={addPrice}
                           name='addPrice'
                           onKeyDown={e => {
                             if (e.key === '.') {
@@ -169,7 +192,6 @@ const TipModal = ({ profileImage, name, onConfirm }) => {
                     <p
                       style={{
                         color: '#444444',
-
                         marginLeft: '65px',
                       }}
                     >
@@ -220,10 +242,16 @@ const TipModal = ({ profileImage, name, onConfirm }) => {
                     width: '92%',
                     margin: '20px',
                     marginTop: '10px',
+                    fontFamily: 'Poppins',
+                    fontWeight: 500,
+                    fontStyle: 'normal',
+                    fontSize: ' 16px',
+                    lineHeight: '30px',
                   }}
                   onClick={handlePurchase}
+                  disabled={fetching}
                 >
-                  SEND NOW
+                  {fetching ? 'loading...' : 'SEND NOW'}
                 </Button>
               </div>
             ) : (
@@ -253,7 +281,7 @@ const TipModal = ({ profileImage, name, onConfirm }) => {
                       <p
                         style={{
                           fontSize: '24px',
-                          fontWeight: '600',
+                          fontWeight: 500,
                           marginTop: isMobile ? '35px' : '',
                         }}
                       >
@@ -298,23 +326,8 @@ const TipModal = ({ profileImage, name, onConfirm }) => {
                         marginTop: '-1vh',
                       }}
                     >
+                      {currencySymbol}
                       {addPrice}.00
-                    </p>
-                  </div>
-                  <div
-                    style={{
-                      display: 'flex',
-
-                      justifyContent: 'center',
-                    }}
-                  >
-                    <p
-                      style={{
-                        marginTop: isMobile ? '-3vh' : '-4vh',
-                        color: '#444444',
-                      }}
-                    >
-                      sent to {name}
                     </p>
                   </div>
 
@@ -363,6 +376,11 @@ const TipModal = ({ profileImage, name, onConfirm }) => {
                           padding: '10px',
                           backgroundColor: 'white',
                           color: 'black',
+                          fontFamily: 'Poppins',
+                          fontWeight: 500,
+                          fontStyle: 'normal',
+                          fontSize: ' 16px',
+                          lineHeight: '30px',
                         }}
                       >
                         <CloseIcon className={styles.buttonIcons} /> Close
@@ -383,8 +401,8 @@ const TipModal = ({ profileImage, name, onConfirm }) => {
                 </div>
               </div>
             )}
-          </div>
-        </Fade>
+          </Fade>
+        </div>
       </Modal>
     </>
   );

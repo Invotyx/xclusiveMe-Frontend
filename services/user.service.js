@@ -80,7 +80,12 @@ export async function updateProfile(request) {
 
 export async function updatePassword(request) {
   const data = JSON.stringify(request);
-  return apiClient.patch(`${SERVER_ADDRESS}/users/password`, data);
+  return apiClient.patch(`${SERVER_ADDRESS}/users/update-password`, data);
+}
+
+export async function resetForgotPassword(request) {
+  const data = JSON.stringify(request);
+  return apiClient.patch(`${SERVER_ADDRESS}/users/reset-password`, data);
 }
 
 export async function updateSubscriptionFee(id, subData) {
@@ -98,9 +103,11 @@ export async function verifyForgotPasswordToken(token, email) {
 }
 
 export async function logout() {
+  const response = await apiClient.post(`${SERVER_ADDRESS}/auth/logout`);
   localStorage.removeItem('jwtToken');
   localStorage.removeItem('refreshToken');
-  return apiClient.post(`${SERVER_ADDRESS}/auth/logout`);
+
+  return response;
 }
 
 export async function changePassword(currentPassword, newPassword) {
@@ -117,6 +124,11 @@ export async function updateUser(fullName, email, phoneNumber) {
 export async function twoFactorAuthentication(fa2) {
   const data = JSON.stringify({ fa2 });
   return apiClient.patch(`${SERVER_ADDRESS}/users/`, data);
+}
+
+export async function updateAgeLimitRestriction(allow18Plus) {
+  const data = JSON.stringify({ allow18Plus });
+  return apiClient.patch(`${SERVER_ADDRESS}/users/allow18plusfollowers/`, data);
 }
 
 export async function uploadImage(fileObject) {

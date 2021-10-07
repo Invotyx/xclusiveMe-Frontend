@@ -13,7 +13,7 @@
 .makeScroll {
     overflow-x: hidden;
     overflow-y: scroll;
-    max-height: 40vh;
+    max-height: 60vh;
 }
 
 .makeScroll::-webkit-scrollbar {
@@ -29,16 +29,25 @@
 }
 
 .tag {
-    font-weight: 900;
+    font-weight: 400;
     font-style: normal;
-    font-size: 12px;
+    font-size: 14px;
+    color: #4f4f4f;
+}
+
+.tago {
+    font-weight: 400;
+    font-style: normal;
+    font-size: 14px;
 }
 
 .timeStyle {
-    font-weight: 900;
+    font-weight: 400;
     font-style: normal;
     font-size: 12px;
-    margin-left: 3px;
+    margin-left: 6px;
+    margin-top: 2px;
+    color: #4f4f4f;
 }
 
 .timeStyleTwo {
@@ -52,4 +61,24 @@
     font-weight: 500;
     font-size: 14px;
     font-style: normal;
+}
+
+.notificationMenu{
+    width: auto !important;
+    margin-left: -170px !important;
+}
+
+.notificationList{
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.notificationList::-webkit-scrollbar{
+    display: none;
+}
+
+@media screen and (max-height: 900px) {
+  .notificationMenu{
+      margin-top: 0px !important;
+  }
 }

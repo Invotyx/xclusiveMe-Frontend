@@ -1,21 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import CloseIcon from '@material-ui/icons/Close';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
-import { paymentMethod } from '../../actions/payment-method';
 import { paymentMethodDataSelector } from '../../selectors/paymentMethodSelector';
-import { useDispatch, useSelector } from 'react-redux';
-import { useMediaQuery } from 'react-responsive';
+import { useSelector } from 'react-redux';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import ShareIcon from '@material-ui/icons/Share';
 import styles from './profile.module.css';
-import { post as postData } from '../../actions/post';
 import { fetchingSelector } from '../../selectors/postSelector';
-import BounceLoader from 'react-spinners/BounceLoader';
-import LoadingOverlay from 'react-loading-overlay';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import ProfileImageAvatar from './profile-image-avatar';
+import { currencySymbol } from '../../services/currencySymbol';
 
 const useStyles = makeStyles(theme => ({
   modal: {
@@ -33,39 +31,27 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const PostPurchaseModel = ({ post, openModel, setOpenModel }) => {
+const usePostPurchaseModal = () => {
+  const [openModal, setOpenModal] = useState(false);
+  const handleOpenModal = () => {
+    setOpenModal(true);
+  };
   const classes = useStyles();
-  const dispatch = useDispatch();
   const [purchased, setPurchased] = useState(false);
   const paymentData = useSelector(paymentMethodDataSelector);
-  const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
+  const isMobile = useMediaQuery('(max-width: 760px)');
   const fetchData = useSelector(fetchingSelector);
 
-  const handlePurchase = () => {
-    // setPurchased(true);
-    dispatch(paymentMethod.request());
-    dispatch(
-      postData?.purchasePost({
-        id: post.id,
-        callback: () => {
-          setPurchased(true);
-          dispatch(postData.request());
-          dispatch(postData.requestSubscribed());
-        },
-      })
-    );
-  };
-
   const handleClose = () => {
-    setOpenModel(false);
+    setOpenModal(false);
   };
 
-  return (
+  const PostPurchaseModal = ({ handlePurchase, modalTitle, price, user }) => (
     <Modal
       aria-labelledby='transition-modal-title'
       aria-describedby='transition-modal-description'
       className={classes.modal}
-      open={openModel}
+      open={openModal}
       onClose={handleClose}
       closeAfterTransition
       BackdropComponent={Backdrop}
@@ -73,9 +59,9 @@ const PostPurchaseModel = ({ post, openModel, setOpenModel }) => {
         timeout: 500,
       }}
     >
-      <Fade in={openModel}>
-        <LoadingOverlay active={fetchData} spinner={<BounceLoader />}>
-          <div className={classes.paper}>
+      <div className={classes.paper}>
+        <Fade in={openModal}>
+          <>
             {purchased === false ? (
               <div>
                 <div
@@ -92,7 +78,7 @@ const PostPurchaseModel = ({ post, openModel, setOpenModel }) => {
                     }}
                   >
                     <ProfileImageAvatar
-                      user={post?.user}
+                      user={user}
                       style={{
                         borderRadius: '50%',
                         marginTop: '-20px',
@@ -101,12 +87,6 @@ const PostPurchaseModel = ({ post, openModel, setOpenModel }) => {
                         height: '60px',
                       }}
                     />
-                    {/* <img
-                      src={post?.user?.profileImage}
-                      alt='profile image'
-                      width='60px'
-                      height='65px'
-                    /> */}
                     <CloseIcon
                       onClick={handleClose}
                       style={{
@@ -127,7 +107,7 @@ const PostPurchaseModel = ({ post, openModel, setOpenModel }) => {
                     }}
                   >
                     <p style={{ fontWeight: '600', fontSize: '17px' }}>
-                      Buy this Post
+                      {modalTitle || 'Buy this Post'}
                     </p>
                   </div>
                 </div>
@@ -144,7 +124,8 @@ const PostPurchaseModel = ({ post, openModel, setOpenModel }) => {
                         fontWeight: '600',
                       }}
                     >
-                      ${post?.price}.00
+                      {currencySymbol}
+                      {price || 0}.00
                     </p>
                     <p
                       style={{
@@ -201,10 +182,15 @@ const PostPurchaseModel = ({ post, openModel, setOpenModel }) => {
                     width: '92%',
                     margin: '20px',
                     marginTop: '10px',
+                    fontFamily: 'Poppins',
+                    fontWeight: 500,
+                    fontStyle: 'normal',
+                    fontSize: ' 17px',
+                    lineHeight: '30px',
                   }}
                   onClick={handlePurchase}
                 >
-                  SEND NOW
+                  PAY NOW
                 </Button>
               </div>
             ) : (
@@ -234,7 +220,7 @@ const PostPurchaseModel = ({ post, openModel, setOpenModel }) => {
                       <p
                         style={{
                           fontSize: '24px',
-                          fontWeight: '600',
+                          fontWeight: 500,
                           marginTop: isMobile ? '35px' : '',
                         }}
                       >
@@ -256,7 +242,7 @@ const PostPurchaseModel = ({ post, openModel, setOpenModel }) => {
                 <div>
                   <div style={{ display: 'flex', justifyContent: 'center' }}>
                     <ProfileImageAvatar
-                      user={post?.user}
+                      user={user}
                       style={{
                         borderRadius: '50%',
                         marginTop: '20px',
@@ -279,7 +265,8 @@ const PostPurchaseModel = ({ post, openModel, setOpenModel }) => {
                         marginTop: '-1vh',
                       }}
                     >
-                      ${post?.price}.00
+                      {currencySymbol}
+                      {price || 0}.00
                     </p>
                   </div>
                   <div
@@ -295,7 +282,7 @@ const PostPurchaseModel = ({ post, openModel, setOpenModel }) => {
                         color: '#444444',
                       }}
                     >
-                      Paid to {post?.user?.fullName}
+                      Paid to {user?.fullName}
                     </p>
                   </div>
 
@@ -346,6 +333,11 @@ const PostPurchaseModel = ({ post, openModel, setOpenModel }) => {
                           padding: '10px',
                           backgroundColor: 'white',
                           color: 'black',
+                          fontFamily: 'Poppins',
+                          fontWeight: 500,
+                          fontStyle: 'normal',
+                          fontSize: ' 17px',
+                          lineHeight: '30px',
                         }}
                       >
                         <CloseIcon className={styles.buttonIcons} /> Close
@@ -366,11 +358,17 @@ const PostPurchaseModel = ({ post, openModel, setOpenModel }) => {
                 </div>
               </div>
             )}
-          </div>
-        </LoadingOverlay>
-      </Fade>
+          </>
+        </Fade>
+      </div>
     </Modal>
   );
+  return {
+    PostPurchaseModal,
+    openPurchaseModal: handleOpenModal,
+    closePurchaseModal: handleClose,
+    setPurchased,
+  };
 };
 
-export default PostPurchaseModel;
+export default usePostPurchaseModal;

@@ -13,6 +13,8 @@ import {
   CardContent,
   CardHeader,
 } from '@material-ui/core';
+import { post as postData } from '../../actions/post';
+import { useDispatch } from 'react-redux';
 
 const useStyles = makeStyles({
   root: {
@@ -33,27 +35,21 @@ const useStyles = makeStyles({
       outline: '2px auto rgba(19,124,189,.6)',
       outlineOffset: 2,
     },
-    'input:hover ~ &': {
-      backgroundColor: '#ebf1f5',
-    },
+
     'input:disabled ~ &': {
       boxShadow: 'none',
       background: 'rgba(206,217,224,.5)',
     },
   },
   checkedIcon: {
-    backgroundColor: '#137cbd',
-    backgroundImage:
-      'linear-gradient(180deg,hsla(0,0%,100%,.1),hsla(0,0%,100%,0))',
+    backgroundColor: 'black',
+    backgroundImage: 'black',
     '&:before': {
       display: 'block',
       width: 16,
       height: 16,
       backgroundImage: 'radial-gradient(#fff,#fff 28%,transparent 32%)',
       content: '""',
-    },
-    'input:hover ~ &': {
-      backgroundColor: '#106ba3',
     },
   },
 });
@@ -63,7 +59,7 @@ const reasons = [
     text: 'I dont like this post',
   },
   {
-    text: 'The content is offensive or voilates "OnlyFans" Terms of Service',
+    text: 'The content is offensive or voilates "XclusiveMe" Terms of Service',
   },
   {
     text: 'This content contains stolen materal (DMCA)',
@@ -91,18 +87,31 @@ function StyledRadio(props) {
   );
 }
 
-export default function PostReport() {
+export default function PostReport({ postid, handleClose }) {
   const classes = useStyles();
   const [value, setValue] = useState(['']);
-  const handleSend = () => {
-    console.log(value);
+  const dispatch = useDispatch();
+
+  const handleSendReport = () => {
+    dispatch(
+      postData.postReport({
+        reportData: {
+          itemId: postid,
+          reason: value,
+        },
+        callback: () => {
+          handleClose();
+        },
+      })
+    );
   };
   return (
     <Card className={classes.root}>
       <CardContent>
         <FormControl component='fieldset'>
-          {reasons.map(r => (
+          {reasons.map((r, i) => (
             <RadioGroup
+              key={`abcdef${i}`}
               name='customized-radios'
               value={value}
               onChange={e => setValue(e.target.value)}
@@ -118,8 +127,38 @@ export default function PostReport() {
       </CardContent>
 
       <CardActions style={{ display: 'flex', float: 'right' }}>
-        <Button color='primary'>Cancel</Button>
-        <Button color='primary'>Send</Button>
+        <Button
+          onClick={handleClose}
+          style={{ backgroundColor: 'white', color: 'black' }}
+        >
+          <span
+            style={{
+              fontFamily: 'Poppins',
+              fontWeight: 500,
+              fontStyle: 'normal',
+              fontSize: ' 15px',
+              lineHeight: '30px',
+            }}
+          >
+            Cancel
+          </span>
+        </Button>
+        <Button
+          onClick={handleSendReport}
+          style={{ backgroundColor: 'white', color: 'black' }}
+        >
+          <span
+            style={{
+              fontFamily: 'Poppins',
+              fontWeight: 500,
+              fontStyle: 'normal',
+              fontSize: ' 15px',
+              lineHeight: '30px',
+            }}
+          >
+            Send
+          </span>
+        </Button>
       </CardActions>
     </Card>
   );

@@ -1,21 +1,43 @@
 import apiClient from './axiosInterceptor';
 import { auth } from '../actions/auth';
 import Router from 'next/router';
+import getConfig from 'next/config';
+const { publicRuntimeConfig } = getConfig();
+const SERVER_ADDRESS = publicRuntimeConfig.backendUrl;
 
 const UNAUTHORIZED = 401;
-const interceptor = dispatch => {
+const axiosInterceptorResponse = dispatch => {
   apiClient.interceptors.response.use(
     response => response,
-    error => {
+    async error => {
       try {
         const { status } = error.response;
-        if (status === UNAUTHORIZED) {
-          dispatch(auth.redirectToLoginPage(Router.router.asPath));
-          // dispatch(
-          //   auth.refreshToken({
-          // // callback: () => apiClient.request(error.config),
-          //   })
-          // );
+        if (
+          status === UNAUTHORIZED &&
+          error.config.url.indexOf('/auth/refresh') === -1
+        ) {
+          if (!Boolean(localStorage.getItem('refreshToken'))) {
+            Router.router.push('/login');
+            return Promise.reject(error);
+          }
+          const refreshResponse = await apiClient
+            .get(`${SERVER_ADDRESS}/auth/refresh`)
+            .then(res => ({ ...res }))
+            .catch(err => ({ ...err }));
+          if (Boolean(refreshResponse.isAxiosError)) {
+            // logout
+            dispatch(auth.redirectToLoginPage(Router.router.asPath));
+            return Promise.reject(error);
+          } else {
+            localStorage.setItem('jwtToken', refreshResponse.data.accessToken);
+            localStorage.setItem(
+              'refreshToken',
+              refreshResponse.data.refreshToken
+            );
+            // retry request
+            const retryResponse = await apiClient.request(error.config);
+            return Promise.resolve(retryResponse);
+          }
         }
       } catch (e) {
         console.log(e);
@@ -24,4 +46,4 @@ const interceptor = dispatch => {
     }
   );
 };
-export default interceptor;
+export default axiosInterceptorResponse;

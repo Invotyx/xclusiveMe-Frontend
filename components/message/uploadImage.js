@@ -4,6 +4,7 @@ import { post } from '../../actions/post';
 import WallpaperOutlinedIcon from '@material-ui/icons/WallpaperOutlined';
 import IconButton from '@material-ui/core/IconButton';
 import Box from '@material-ui/core/Box';
+import UploadFile from '../UploadFile';
 
 export default function FormDialog({
   imageHandler,
@@ -14,21 +15,18 @@ export default function FormDialog({
 }) {
   const Children = props => React.cloneElement(children, props);
   const dispatch = useDispatch();
-  const inputFile = React.useRef(null);
 
-  const onChangeFile = event => {
-    event.stopPropagation();
-    event.preventDefault();
-    if (event.target.files) {
-      for (let i = 0; i < event.target.files.length; i++) {
-        const image = event.target.files[i];
+  const onChangeFile = files => {
+    if (files) {
+      for (let i = 0; i < files.length; i++) {
+        const image = files[i];
         var temp = URL.createObjectURL(image);
         onImageSelect && onImageSelect(temp);
       }
       set_disabled(true);
       dispatch(
         post.uploadImage({
-          fileObject: event.target.files,
+          fileObject: files,
           callback: source_url => {
             imageHandler(source_url);
             set_disabled(false);
@@ -42,32 +40,23 @@ export default function FormDialog({
 
   return (
     <>
-      <input
-        accept='image/*'
-        type='file'
-        ref={inputFile}
-        style={{ display: 'none' }}
-        onChange={onChangeFile}
-        multiple
-      />
-
-      {children ? (
-        <Children
-          onClick={() => {
-            inputFile.current.click();
-          }}
-        />
-      ) : (
-        <Box clone color='#666'>
-          <IconButton
-            onClick={() => {
-              inputFile.current.click();
-            }}
-          >
-            <WallpaperOutlinedIcon />
-          </IconButton>
-        </Box>
-      )}
+      <UploadFile
+        handleFileChange={onChangeFile}
+        inputProps={{
+          accept: 'image/*',
+          multiple: true,
+        }}
+      >
+        {children ? (
+          <Children />
+        ) : (
+          <Box clone color='#666'>
+            <IconButton>
+              <WallpaperOutlinedIcon />
+            </IconButton>
+          </Box>
+        )}
+      </UploadFile>
     </>
   );
 }

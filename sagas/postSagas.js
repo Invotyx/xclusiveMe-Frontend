@@ -4,6 +4,7 @@ import { post } from '../actions/post';
 import { snackbar } from '../actions/snackbar';
 import {
   getAll,
+  getPurchased,
   uploadImage,
   update,
   destory,
@@ -28,6 +29,8 @@ import {
   reportPost,
   getCommentsData,
   tipPost,
+  getOnePostImages,
+  getOnePostVideos,
 } from '../services/post.service';
 import { bottomalert } from '../actions/bottom-alert';
 
@@ -52,6 +55,16 @@ function* handleGetProfile() {
         numberOfPosts: data.totalCount,
       })
     );
+  } catch (e) {
+    console.log(e);
+    yield put(post.success({ error: true }));
+  }
+}
+
+function* handleGetPurchased() {
+  try {
+    const { data } = yield call(getPurchased);
+    yield put(post.success({ purchased: data }));
   } catch (e) {
     console.log(e);
     yield put(post.success({ error: true }));
@@ -115,6 +128,36 @@ function* handleGetOne(action) {
     const { id } = action.payload;
     const { data } = yield call(getOnePost, id);
     yield put(post.success({ singleData: data[0] }));
+    const { callback } = action.payload;
+    if (callback) {
+      yield call(callback);
+    }
+  } catch (e) {
+    console.log(e);
+    yield put(post.success({ error: true }));
+  }
+}
+
+function* handleGetOneImages(action) {
+  try {
+    const { id } = action.payload;
+    const { data } = yield call(getOnePostImages, id);
+    yield put(post.success({ singleDataImages: data.results }));
+    const { callback } = action.payload;
+    if (callback) {
+      yield call(callback);
+    }
+  } catch (e) {
+    console.log(e);
+    yield put(post.success({ error: true }));
+  }
+}
+
+function* handleGetOneVideos(action) {
+  try {
+    const { id } = action.payload;
+    const { data } = yield call(getOnePostVideos, id);
+    yield put(post.success({ singleDataVideos: data.results }));
     const { callback } = action.payload;
     if (callback) {
       yield call(callback);
@@ -252,13 +295,7 @@ function* handleComment(action) {
     const { id, commentText } = action.payload;
     yield call(addComment, id, commentText);
     yield put(post.success({}));
-    yield put(
-      snackbar.update({
-        open: true,
-        message: 'Added',
-        severity: 'success',
-      })
-    );
+
     const { callback } = action.payload;
     if (callback) {
       yield call(callback);
@@ -283,13 +320,7 @@ function* handleLike(action) {
     yield put(post.success({}));
     yield call(post.request);
     yield call(post.requestSubscribed);
-    yield put(
-      snackbar.update({
-        open: true,
-        message: 'Liked successfully!',
-        severity: 'success',
-      })
-    );
+
     const { callback } = action.payload;
     if (callback) {
       yield call(callback);
@@ -344,13 +375,7 @@ function* handleCommentLike(action) {
     yield put(post.success({}));
     yield call(post.request);
     yield call(post.requestSubscribed);
-    yield put(
-      snackbar.update({
-        open: true,
-        message: 'Liked successfully!',
-        severity: 'success',
-      })
-    );
+
     const { callback } = action.payload;
     if (callback) {
       yield call(callback);
@@ -374,13 +399,6 @@ function* handleDelCommentLike(action) {
     yield call(delCommentLike, id);
     yield put(post.success({}));
 
-    yield put(
-      snackbar.update({
-        open: true,
-        message: 'Like deleted successfully!',
-        severity: 'success',
-      })
-    );
     const { callback } = action.payload;
     if (callback) {
       yield call(callback);
@@ -404,13 +422,6 @@ function* handleDelLike(action) {
     yield call(deleteLikes, id);
     yield put(post.success({}));
 
-    yield put(
-      snackbar.update({
-        open: true,
-        message: 'Like deleted successfully!',
-        severity: 'success',
-      })
-    );
     const { callback } = action.payload;
     if (callback) {
       yield call(callback);
@@ -583,13 +594,6 @@ function* handleAddTip(action) {
     yield call(tipPost, saveData);
     yield put(post.success({}));
     yield call(post.request);
-    yield put(
-      snackbar.update({
-        open: true,
-        message: 'Tip Added',
-        severity: 'success',
-      })
-    );
     const { callback } = action.payload;
     if (callback) {
       yield call(callback);
@@ -611,12 +615,15 @@ function* watchPostSagas() {
   yield all([
     takeLatest(POST.GET, handleGet),
     takeLatest(POST.GET, handleGetProfile),
+    takeLatest(POST.GET_PURCHASED, handleGetPurchased),
     takeLatest(POST.PURCHASE_POST, handlePostPurchase),
     takeLatest(POST.GET_NOTIFICATIONS, getAllNotifications),
     takeLatest(POST.ADD_SETTING_NOTIFICATIONS, handleAddSettingNotifications),
     takeLatest(POST.GET_SETTING_NOTIFICATIONS, getSettingsNotifications),
     takeLatest(POST.VIEW_NOTIFICATION, handleViewNotify),
     takeLatest(POST.GET_ONE, handleGetOne),
+    takeLatest(POST.GET_ONE_IMAGES, handleGetOneImages),
+    takeLatest(POST.GET_ONE_VIDEOS, handleGetOneVideos),
     takeLatest(POST.GET_SUBSCRIBED, handleGetSubscribed),
     takeLatest(POST.GET_X, handleGetX),
     takeLatest(POST.SAVE, handlePost),

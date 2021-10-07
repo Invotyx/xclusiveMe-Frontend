@@ -37,6 +37,20 @@ function* handleGetAll(action) {
   }
 }
 
+function* handleGetSuggestions(action) {
+  try {
+    const { limit, pageNumber } = action.payload;
+    const { data } = yield call(
+      apiClient.get,
+      `${SERVER_ADDRESS}/users/suggestions?limit=${limit}&page=${pageNumber}`
+    );
+    yield put(user.success({ suggestions: data.results }));
+  } catch (e) {
+    console.log(e);
+    yield put(user.failure({ error: { ...e } }));
+  }
+}
+
 function* handleGetOne(action) {
   try {
     const { id } = action.payload;
@@ -54,14 +68,14 @@ function* handleGetOne(action) {
 
 function* handleGetFollowers(action) {
   try {
-    const { userId, limit, page } = action.payload;
+    const { userId, limit, page, append } = action.payload;
     const { data } = yield call(
       apiClient.get,
       `${SERVER_ADDRESS}/users/${userId}/followers?limit=${limit}&page=${page}`
     );
     yield put(
       user.success({
-        followersData: data.results,
+        followersData: append ? [...data.results] : data.results,
         followersCount: data.totalCount,
       })
     );
@@ -73,14 +87,17 @@ function* handleGetFollowers(action) {
 
 function* handleGetFollowings(action) {
   try {
-    const { userId, limit, page } = action.payload;
+    const { userId, limit, page, append, prevfollowingData } = action.payload;
     const { data } = yield call(
       apiClient.get,
       `${SERVER_ADDRESS}/users/${userId}/followings?limit=${limit}&page=${page}`
     );
     yield put(
       user.success({
-        followingData: data.results,
+        followingData:
+          append && prevfollowingData
+            ? [...prevfollowingData, ...data.results]
+            : data.results,
         followingCount: data.totalCount,
       })
     );
@@ -237,6 +254,7 @@ function* watchPresetSagas() {
   yield all([
     takeLatest(USER.GET, handleGet),
     takeLatest(USER.GET_ALL, handleGetAll),
+    takeLatest(USER.GET_SUGGESTIONS, handleGetSuggestions),
     takeLatest(USER.GET_ONE, handleGetOne),
     takeLatest(USER.GET_FOLLOWERS, handleGetFollowers),
     takeLatest(USER.GET_FOLLOWINGS, handleGetFollowings),

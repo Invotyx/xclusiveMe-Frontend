@@ -7,10 +7,11 @@ import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { useMediaQuery } from 'react-responsive';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import ShareIcon from '@material-ui/icons/Share';
 import TextField from '@material-ui/core/TextField';
 import { chat as chatData } from '../../actions/chat';
+import ProfileImageAvatar from '../profile/profile-image-avatar';
 
 const useStyles = makeStyles(theme => ({
   modal: {
@@ -28,11 +29,16 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const MessageModal = ({ messageModal, setMessageModal, profileData }) => {
+const MessageModal = ({
+  messageModal,
+  setMessageModal,
+  profileData,
+  receiverId,
+}) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const [purchased, setPurchased] = useState(false);
-  const isMobile = useMediaQuery({ query: '(max-width: 760px)' });
+  const isMobile = useMediaQuery('(max-width: 760px)');
   const [postText, set_postText] = useState('');
   const pageNum = 1;
   const limit = 10;
@@ -47,7 +53,7 @@ const MessageModal = ({ messageModal, setMessageModal, profileData }) => {
       chatData?.sendMessage({
         saveData: {
           content: postText,
-          sentTo: profileData?.id,
+          sentTo: receiverId,
           type: 'text',
           isPaid: false,
         },
@@ -85,8 +91,8 @@ const MessageModal = ({ messageModal, setMessageModal, profileData }) => {
         timeout: 500,
       }}
     >
-      <Fade in={messageModal}>
-        <div className={classes.paper}>
+      <div className={classes.paper}>
+        <Fade in={messageModal}>
           <div>
             <div
               style={{
@@ -101,17 +107,17 @@ const MessageModal = ({ messageModal, setMessageModal, profileData }) => {
                   width: '90%',
                 }}
               >
-                <img
-                  src={profileData?.profileImage}
-                  alt='profile image'
-                  width='60px'
-                  height='65px'
+                <ProfileImageAvatar
+                  user={profileData}
                   style={{
                     borderRadius: '50%',
                     marginTop: '-20px',
                     marginLeft: isMobile ? '40%' : '44%',
+                    width: '60px',
+                    height: '60px',
                   }}
                 />
+
                 <CloseIcon
                   onClick={handleClose}
                   style={{
@@ -164,8 +170,15 @@ const MessageModal = ({ messageModal, setMessageModal, profileData }) => {
                   value={postText}
                   onChange={e => set_postText(e.target.value)}
                   rows={3}
+                  autoFocus
                   placeholder='Write something...'
                   style={{ width: isMobile ? '80vw' : '30vw' }}
+                  inputProps={{
+                    style: {
+                      WebkitBoxShadow: '0 0 0 1000px #000 inset',
+                      fontFamily: 'Poppins',
+                    },
+                  }}
                 />
               </div>
             </div>
@@ -173,19 +186,24 @@ const MessageModal = ({ messageModal, setMessageModal, profileData }) => {
             <Button
               variant='contained'
               style={{
-                backgroundColor: '#67E697',
-                color: 'white',
+                backgroundColor: 'white',
+                color: 'black',
                 width: isMobile ? '80vw' : '30vw',
                 margin: '20px',
                 marginTop: '10px',
+                fontFamily: 'Poppins',
+                fontWeight: 500,
+                fontStyle: 'normal',
+                fontSize: ' 17px',
+                lineHeight: '30px',
               }}
               onClick={handleSendMessage}
             >
-              SEND NOW
+              <span>SEND NOW</span>
             </Button>
           </div>
-        </div>
-      </Fade>
+        </Fade>
+      </div>
     </Modal>
   );
 };

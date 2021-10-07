@@ -94,9 +94,7 @@ export default function Notification() {
             <Tab label='Messages' {...a11yProps(1)} />
           </Tabs>
           <TabPanel value={value} index={0}>
-            <List component='div'>
-              <Notifications />
-            </List>
+            <Notifications />
           </TabPanel>
           <TabPanel value={value} index={1}>
             <ConversationsList />

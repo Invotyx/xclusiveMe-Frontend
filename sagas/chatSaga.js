@@ -4,9 +4,13 @@ import { chat } from '../actions/chat';
 import { snackbar } from '../actions/snackbar';
 import {
   send,
+  search,
   getConversations,
   getSingleChat,
+  getUnreadMessagesCount,
+  getConversationMessagesHistory,
   sendSingleMsg,
+  purchaseMessage,
   uploadAudio,
   isSeen,
 } from '../services/chat.service';
@@ -33,10 +37,57 @@ function* handleSendMessage(action) {
     );
   }
 }
+
+function* handleSearch(action) {
+  try {
+    const { query } = action.payload;
+    const { data } = yield call(search, query);
+    yield put(chat.success({ searchResults: data.result }));
+
+    const { callback } = action.payload;
+    if (callback) {
+      yield call(callback);
+    }
+  } catch (e) {
+    console.log(e);
+    yield put(chat.failure({ error: { ...e } }));
+    yield put(
+      snackbar.update({
+        open: true,
+        message: e.response.data.message,
+        severity: 'error',
+      })
+    );
+  }
+}
+
 function* handleSendSingleMessage(action) {
   try {
     const { conversationId, saveData } = action.payload;
     yield call(sendSingleMsg, conversationId, saveData);
+    yield put(chat.success({}));
+
+    const { callback } = action.payload;
+    if (callback) {
+      yield call(callback);
+    }
+  } catch (e) {
+    console.log(e);
+    yield put(chat.failure({ error: { ...e } }));
+    yield put(
+      snackbar.update({
+        open: true,
+        message: e.response.data.message,
+        severity: 'error',
+      })
+    );
+  }
+}
+
+function* handlePurchaseMessage(action) {
+  try {
+    const { id, conversationId } = action.payload;
+    yield call(purchaseMessage, id, conversationId);
     yield put(chat.success({}));
 
     const { callback } = action.payload;
@@ -69,11 +120,40 @@ function* handlegetConversations(action) {
   }
 }
 
-function* handleGetOneCon(action) {
+function* handleGetOneMessages(action) {
   try {
     const { id, pageNum, limit } = action.payload;
     const { data } = yield call(getSingleChat, id, pageNum, limit);
     yield put(chat.success({ singleChat: data.results }));
+    const { callback } = action.payload;
+    if (callback) {
+      yield call(callback);
+    }
+  } catch (e) {
+    console.log(e);
+    yield put(chat.success({ error: true }));
+  }
+}
+
+function* handleGetOneMessagesHistory(action) {
+  try {
+    const { id, messageId } = action.payload;
+    const { data } = yield call(getConversationMessagesHistory, id, messageId);
+    yield put(chat.success({ singleChat: data.results }));
+    const { callback } = action.payload;
+    if (callback) {
+      yield call(callback);
+    }
+  } catch (e) {
+    console.log(e);
+    yield put(chat.success({ error: true }));
+  }
+}
+
+function* handleGetUnreadMessagesCount(action) {
+  try {
+    const { data } = yield call(getUnreadMessagesCount);
+    yield put(chat.success({ hasUnreadMessages: Boolean(data.totalCount) }));
     const { callback } = action.payload;
     if (callback) {
       yield call(callback);
@@ -130,9 +210,16 @@ function* handleUpdateIsSeen(action) {
 function* watchChatSagas() {
   yield all([
     takeLatest(CHAT.SEND, handleSendMessage),
+    takeLatest(CHAT.SEARCH_MESSAGES, handleSearch),
     takeLatest(CHAT.GET, handlegetConversations),
-    takeLatest(CHAT.GET_ONE, handleGetOneCon),
+    takeLatest(CHAT.GET_ONE, handleGetOneMessages),
+    takeLatest(CHAT.GET_ONE_HISTORY, handleGetOneMessagesHistory),
+    takeLatest(
+      CHAT.GET_ONE_UNREAD_MESSAGES_COUNT,
+      handleGetUnreadMessagesCount
+    ),
     takeLatest(CHAT.SEND_ONE, handleSendSingleMessage),
+    takeLatest(CHAT.PURCHASE_MESSAGE, handlePurchaseMessage),
     takeLatest(CHAT.SEND_VOICEMAIL, handleUploadAudio),
     takeLatest(CHAT.IS_SEEN, handleUpdateIsSeen),
   ]);

@@ -4,6 +4,9 @@ import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import PostMediaVideo from './post-media-video';
 import { Box } from '@material-ui/core';
+import { useDispatch, useSelector } from 'react-redux';
+import { post } from '../../actions/post';
+import { singleDataVideosSelector } from '../../selectors/postSelector';
 
 const useStyles = makeStyles(theme => ({
   media: {
@@ -12,7 +15,14 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function Videos({ videosData }) {
+export default function VideoGridList({ username }) {
+  const dispatch = useDispatch();
+  React.useEffect(() => {
+    if (username) {
+      dispatch(post.requestOneVideos(username));
+    }
+  }, [username]);
+  const videosData = useSelector(singleDataVideosSelector);
   const classes = useStyles();
 
   return (
@@ -27,7 +37,19 @@ export default function Videos({ videosData }) {
           tile && (
             <Grid item xs={12} md={4} key={i}>
               <Card>
-                <PostMediaVideo src={tile.url} />
+                <PostMediaVideo
+                  thumbnail={tile.thumbnail}
+                  src={tile.url}
+                  thumbnailProps={{
+                    style: {
+                      width: '100%',
+                      height: '280px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    },
+                  }}
+                />
               </Card>
             </Grid>
           )

@@ -2,13 +2,14 @@ import { IconButton, MenuItem } from '@material-ui/core';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import React, { useState } from 'react';
 import Menu from '@material-ui/core/Menu';
-import ReportModal from './profile/ReportModal';
+import useReportModal from './profile/ReportModal';
 import { useDispatch } from 'react-redux';
 import { snackbar } from '../actions/snackbar';
+import { post } from '../actions/post';
+import TipModal from './profile/TipModal';
 
-const ManuButton = props => {
+const ManuButton = ({ onConfirm, tip, ...props }) => {
   const [anchorEl, setAnchorEl] = useState(null);
-  const [openReportModal, setreportModal] = useState(false);
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
 
@@ -16,6 +17,7 @@ const ManuButton = props => {
     setAnchorEl(event.currentTarget);
   };
 
+  const { ReportModal, setreportModal } = useReportModal({ onConfirm });
   const handleOpenReportModal = () => {
     setAnchorEl(null);
     setreportModal(true);
@@ -56,24 +58,61 @@ const ManuButton = props => {
         <MoreVertIcon />
       </IconButton>
 
-      <Menu
-        id='simple-menu'
-        anchorEl={anchorEl}
-        keepMounted
-        open={Boolean(anchorEl)}
-        onClose={handleCloseMenu}
-      >
-        <MenuItem onClick={handleOpenReportModal}>Report</MenuItem>
-        {props.postid && (
-          <MenuItem onClick={handleCopy}>Copy link to post</MenuItem>
-        )}
-      </Menu>
+      {props.post?.media.length === 0 ? (
+        <></>
+      ) : (
+        <Menu
+          id='simple-menu'
+          anchorEl={anchorEl}
+          keepMounted
+          open={Boolean(anchorEl)}
+          onClose={handleCloseMenu}
+        >
+          {props.post && (
+            <MenuItem onClick={handleCopy}>
+              {' '}
+              <span>Copy link to post</span>{' '}
+            </MenuItem>
+          )}
+          {(!props.post ||
+            props.post?.user.username !== props.currentUser?.username) && (
+            <MenuItem onClick={handleOpenReportModal}>
+              {' '}
+              <span>Report</span>{' '}
+            </MenuItem>
+          )}
+          {Boolean(tip) && (
+            <TipModal
+              onConfirm={(amount, callback) =>
+                dispatch(
+                  post.addTip({
+                    saveData: {
+                      itemTipped: tip,
+                      itemTippedType: 'user',
+                      amount,
+                    },
 
-      <ReportModal
-        openReportModal={openReportModal}
-        setreportModal={setreportModal}
-        {...props}
-      />
+                    callback: () => {
+                      callback && callback();
+                    },
+                  })
+                )
+              }
+              {...props}
+            >
+              <MenuItem
+                onClick={() => {
+                  setAnchorEl(null);
+                }}
+              >
+                <span>Tip</span>
+              </MenuItem>
+            </TipModal>
+          )}
+        </Menu>
+      )}
+
+      <ReportModal {...props} />
     </>
   );
 };

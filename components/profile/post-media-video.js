@@ -1,12 +1,20 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Hls from 'hls.js';
+import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
+import FullSizeImage from './FullSizeImage';
 
-export default function PostMediaVideo({ src }) {
+export default function PostMediaVideo({
+  thumbnail,
+  src,
+  thumbnailProps,
+  ...props
+}) {
   const videoRef = useRef(null);
+  const [play, setPlay] = useState(false);
 
   useEffect(() => {
     let hls;
-    if (videoRef.current) {
+    if (play) {
       const video = videoRef.current;
 
       if (video.canPlayType('application/vnd.apple.mpegurl')) {
@@ -31,7 +39,16 @@ export default function PostMediaVideo({ src }) {
         hls.destroy();
       }
     };
-  }, [videoRef]);
+  }, [play]);
 
-  return <video controls ref={videoRef} style={{ width: '100%' }} />;
+  return play ? (
+    <video controls autoPlay ref={videoRef} style={{ width: '100%' }} />
+  ) : (
+    <FullSizeImage backgroundImage={thumbnail} {...thumbnailProps}>
+      <PlayCircleOutlineIcon
+        onClick={() => setPlay(true)}
+        style={{ cursor: 'pointer' }}
+      />
+    </FullSizeImage>
+  );
 }

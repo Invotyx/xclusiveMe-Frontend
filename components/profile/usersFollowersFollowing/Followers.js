@@ -135,6 +135,7 @@ export default function Followers({
         open={openFollowers}
         maxWidth='sm'
         fullWidth={true}
+        // onBackdropClick='false'
       >
         <DialogTitle id='customized-dialog-title' onClose={handleClose}>
           Followers
@@ -164,9 +165,10 @@ export default function Followers({
                           height={100}
                           style={{
                             backgroundSize: 'cover',
+                            backgroundPosition: 'center',
                             backgroundImage: f.coverImage
                               ? `url(${getImage(f.coverImage)})`
-                              : `url('/cover.jpg')`,
+                              : `url('/cover2.jpg')`,
                             boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',
                           }}
                           onClick={() => handleClose()}

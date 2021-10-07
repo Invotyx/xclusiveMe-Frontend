@@ -7,8 +7,8 @@ import { post } from '../../actions/post';
 
 export default function MessageModalMediaCamera({
   imageHandler,
-  onImageSelect,
-  onImageUploaded,
+  onInit,
+  onCapture,
   handleClose,
 }) {
   const dispatch = useDispatch();
@@ -19,17 +19,25 @@ export default function MessageModalMediaCamera({
     const imageSrc = webcamRef.current.getScreenshot();
     setImgSrc(imageSrc);
 
-    onImageSelect && onImageSelect(imageSrc);
     dispatch(
       post.uploadImage({
         fileObject: [dataURItoBlob(imageSrc)],
         callback: data => {
-          onImageUploaded && onImageUploaded();
+          onCapture && onCapture();
           imageHandler(data);
         },
       })
     );
   }, [webcamRef, setImgSrc]);
+
+  const reset = () => {
+    onInit && onInit();
+    setImgSrc(null);
+  };
+
+  React.useEffect(() => {
+    reset();
+  }, []);
 
   return (
     <>
@@ -40,7 +48,7 @@ export default function MessageModalMediaCamera({
             <Button
               variant='outlined'
               size='small'
-              onClick={() => setImgSrc(null)}
+              onClick={reset}
             >
               Retake
             </Button>

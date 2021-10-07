@@ -33,7 +33,7 @@ export default function FormDialog({ children, profileData }) {
         image={
           profileData && profileData.coverImage
             ? getImage(profileData.coverImage)
-            : '/cover.jpg'
+            : '/cover2.jpg'
         }
         title={profileData && profileData.fullName}
       />

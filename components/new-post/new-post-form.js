@@ -29,6 +29,10 @@ import MessageModalMediaCamera from '../message/MessageModalMediaCamera';
 import useAudioSend from '../message/useAudioSend';
 import CheckIcon from '@material-ui/icons/Check';
 import NewPostAudioMenu from './NewPostAudioMenu';
+import ClearIcon from '@material-ui/icons/Clear';
+import LockOpenOutlinedIcon from '@material-ui/icons/LockOpenOutlined';
+import LockIcon from '@material-ui/icons/Lock';
+import AudioSend from '../message/AudioSend';
 
 const useStyles = makeStyles(theme => ({
   alertIcon: {
@@ -42,6 +46,9 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const OutlinedInput = withStyles(() => ({
+  root: {
+    backgroundColor: '#111',
+  },
   notchedOutline: {
     borderWidth: '0 !important',
   },
@@ -70,14 +77,22 @@ const ImageListItemBar = withStyles(() => ({
 }))(MuiImageListItemBar);
 
 export default function NewPostForm({ afterSave }) {
-  const { AudioSend, isRecording, startRecordingHandler } = useAudioSend();
+  const {
+    progress,
+    startRecordingHandler,
+    isRecording,
+    formatTime,
+    Clear,
+    stopRecording,
+  } = useAudioSend({
+    onAudioUploaded: audioHandler,
+  });
   const dispatch = useDispatch();
   const [activeTab, setActiveTab] = React.useState('');
-  const [disabled, set_disabled] = React.useState(false);
-  const [_show_price_input, set_show_price_input] = React.useState(false);
-  const [price, set_price] = React.useState(false);
-  const [postText, set_postText] = React.useState('');
-  const [tileData, set_TileData] = React.useState([]);
+  const [disabled, setDisabled] = React.useState(false);
+  const [showPriceInput, setShowPriceInput] = React.useState(false);
+  const [price, setPrice] = React.useState(false);
+  const [postText, setPostText] = React.useState('');
   const [media, setMedia] = React.useState([]);
   const [progressVideo, setProgressVideo] = React.useState({ val: 0 });
   const [loadingItems, setLoadingItems] = React.useState([]);
@@ -96,18 +111,14 @@ export default function NewPostForm({ afterSave }) {
         },
         callback: () => {
           afterSave && afterSave();
-          set_TileData([]);
           setMedia([]);
-          set_postText('');
-          dispatch(post.request());
+          setPostText('');
         },
       })
     );
   };
 
   const imageHandler = images => {
-    console.log(images);
-    set_TileData(prev => [...prev, ...images.map(i => i.url)]);
     setMedia(prev => [
       ...prev,
       ...images.map(source_url => ({
@@ -118,31 +129,36 @@ export default function NewPostForm({ afterSave }) {
         signature: source_url.signature,
         thumbnail: source_url.thumbnail,
         type: `${source_url.resource_type}`,
+        isPreview: false,
       })),
     ]);
   };
 
   const onUploadVideoComplete = (muxId, mediaType) => {
-    set_disabled(false);
-    set_TileData([...tileData, '/no-media.jpg']);
-    setMedia([
-      ...media,
+    setDisabled(false);
+    setMedia(prev => [
+      ...prev,
       {
         muxId: muxId,
         type: mediaType,
+        isPreview: false,
       },
     ]);
   };
 
-  const audioHandler = data => {
-    set_disabled(false);
-    set_TileData([...tileData, '/no-media.jpg']);
-    setMedia([...media, ...data]);
-  };
+  function audioHandler(data) {
+    setDisabled(false);
+    setMedia(prev => [
+      ...prev,
+      ...data.map(d => {
+        d.isPreview = false;
+        return d;
+      }),
+    ]);
+  }
 
-  const removeImageHandler = tile => {
-    set_TileData(tileData.filter(t => t !== tile));
-    setMedia(media.filter(f => f.url !== tile));
+  const removeImageHandler = index => {
+    setMedia(prev => prev.filter((p, i) => i !== index));
   };
 
   const [popperOpen, setPopperOpen] = React.useState(false);
@@ -157,35 +173,69 @@ export default function NewPostForm({ afterSave }) {
     setAnchorEl(event.currentTarget);
   };
 
+  const togglePreview = index => {
+    const prev = media.slice();
+    prev[index].isPreview = !prev[index].isPreview;
+    setMedia(prev);
+  };
+
   return (
     <>
       <Box mb={3} style={{ display: activeTab === '' ? 'block' : 'none' }}>
         <OutlinedInput
           value={postText}
-          onChange={e => set_postText(e.target.value)}
+          onChange={e => setPostText(e.target.value)}
           name='postText'
           multiline
           fullWidth
           rows={5}
           placeholder='Compose a new post'
+          inputProps={{
+            style: {
+              fontFamily: 'Poppins',
+              fontSize: '18px',
+            },
+          }}
         />
         <Card>
           <CardContent>
             <ImageList rowHeight={100} cols={4}>
-              {tileData.map((tile, i) => (
+              {media.map((tile, i) => (
                 <ImageListItem key={`tile${i}`}>
-                  <img src={tile} alt={'no Image'} />
+                  <img
+                    src={tile.thumbnail || '/no-media.jpg'}
+                    alt={'no Image'}
+                  />
                   <ImageListItemBar
                     position='top'
                     actionPosition='left'
                     actionIcon={
-                      <Button
-                        size='small'
-                        variant='outlined'
-                        onClick={() => removeImageHandler(tile)}
-                      >
-                        Remove
-                      </Button>
+                      <>
+                        {Boolean(price) && (
+                          <span
+                            onClick={() => togglePreview(i)}
+                            style={{ cursor: 'pointer', color: '#ccc' }}
+                          >
+                            {!tile.isPreview ? (
+                              <LockIcon />
+                            ) : (
+                              <LockOpenOutlinedIcon />
+                            )}
+                          </span>
+                        )}
+                        <span
+                          onClick={() => removeImageHandler(i)}
+                          style={{
+                            cursor: 'pointer',
+                            color: '#ccc',
+                            position: Boolean(price) ? 'absolute' : '',
+                            top: Boolean(price) ? '10px' : '',
+                            right: Boolean(price) ? '10px' : '',
+                          }}
+                        >
+                          <ClearIcon fontSize='small' />
+                        </span>
+                      </>
                     }
                   />
                 </ImageListItem>
@@ -205,7 +255,7 @@ export default function NewPostForm({ afterSave }) {
                   />
                 </MuiImageListItem>
               ))}
-              {tileData && tileData.length > 0 && (
+              {/* {media && media.length > 0 && (
                 <MuiImageListItem>
                   <ImageListItemBar
                     actionIcon={
@@ -215,7 +265,7 @@ export default function NewPostForm({ afterSave }) {
                     }
                   />
                 </MuiImageListItem>
-              )}
+              )} */}
             </ImageList>
           </CardContent>
         </Card>
@@ -223,8 +273,11 @@ export default function NewPostForm({ afterSave }) {
       {isRecording && (
         <Box mb={3}>
           <AudioSend
+            handleClear={Clear}
+            progress={progress}
+            time={formatTime()}
+            handleSend={stopRecording}
             finishIcon={<CheckIcon />}
-            onAudioUploaded={audioHandler}
           />
         </Box>
       )}
@@ -233,7 +286,16 @@ export default function NewPostForm({ afterSave }) {
           <CardContent>
             <Box display='flex'>
               <Box flexGrow={1}>
-                <Typography variant='subtitle1'>Add to your post</Typography>
+                <Typography
+                  variant='subtitle1'
+                  style={{
+                    fontWeight: 600,
+                    lineHeight: '30px',
+                    fontSize: '16px',
+                  }}
+                >
+                  Add to your post
+                </Typography>
               </Box>
               <Box mx={1}>
                 <Box clone color='#666'>
@@ -249,7 +311,7 @@ export default function NewPostForm({ afterSave }) {
                 <Box clone color='#666'>
                   <UploadImage
                     imageHandler={imageHandler}
-                    set_disabled={set_disabled}
+                    set_disabled={setDisabled}
                     onImageSelect={imgSrc => {
                       setLoadingItems(prev => [...prev, { src: imgSrc }]);
                     }}
@@ -267,10 +329,10 @@ export default function NewPostForm({ afterSave }) {
                 <Box clone color='#666'>
                   <UploadVideo
                     onUploadVideoComplete={onUploadVideoComplete}
-                    onVideoError={() => set_disabled(false)}
+                    onVideoError={() => setDisabled(false)}
                     onVideoUploadProgress={val => setProgressVideo({ val })}
                     onVideoSelect={() => {
-                      set_disabled(true);
+                      setDisabled(true);
                       setProgressVideo({ val: 0 });
                       setLoadingItems([
                         ...loadingItems,
@@ -314,7 +376,7 @@ export default function NewPostForm({ afterSave }) {
                 />
               </Box>
               <Box mx={1}>
-                {_show_price_input ? (
+                {showPriceInput ? (
                   <div onMouseLeave={handlePopperClose}>
                     <TextField
                       name='price'
@@ -329,13 +391,20 @@ export default function NewPostForm({ afterSave }) {
                           </>
                         ),
                       }}
+                      onKeyDown={e => {
+                        e.key === '.' && e.preventDefault();
+                      }}
+                      onPaste={e => {
+                        e.preventDefault();
+                        setPrice(e.target.value.replace('.', ''));
+                      }}
                       style={{
                         width: '140px',
                         margin: 0,
                         marginTop: '-5px',
                       }}
                       value={price}
-                      onChange={e => set_price(e.target.value)}
+                      onChange={e => setPrice(e.target.value)}
                       onMouseUp={handlePopperMouseUp}
                     />
                     <Popper
@@ -365,7 +434,7 @@ export default function NewPostForm({ afterSave }) {
                   <Box clone color='#666'>
                     <IconButton
                       size='small'
-                      onClick={() => set_show_price_input(true)}
+                      onClick={() => setShowPriceInput(true)}
                     >
                       <LocalOfferOutlinedIcon />
                     </IconButton>
@@ -380,13 +449,28 @@ export default function NewPostForm({ afterSave }) {
         <GreenButton
           onClick={handleCreatePost}
           fullWidth
-          color='primary'
+          backgroundColor='white'
+          color='black'
           variant='contained'
           size='large'
-          startIcon={<SendIcon />}
+          startIcon={
+            <img
+              src='/seend.png'
+              alt='send'
+              style={{ width: '22px', height: '22px' }}
+            />
+          }
+          style={{
+            fontFamily: 'Poppins',
+            fontWeight: 500,
+            fontStyle: 'normal',
+            fontSize: ' 17px',
+            lineHeight: '30px',
+          }}
           disabled={
-            disabled ||
-            ((!postText || postText.trim() === '') && media.length === 0)
+            // disabled ||
+            // ((!postText || postText.trim() === '') && media.length === 0)
+            disabled || !postText || postText.trim() === ''
           }
         >
           Post now

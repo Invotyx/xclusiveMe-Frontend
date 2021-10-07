@@ -22,6 +22,10 @@ const uploadingCoverSelector = createSelector(authState, state =>
   state.get('uploadingCover')
 );
 
+const uploadingProfileImageSelector = createSelector(authState, state =>
+  state.get('uploadingProfileImage')
+);
+
 const fetchingSelector = createSelector(authState, state =>
   state.get('fetching')
 );
@@ -53,6 +57,7 @@ export {
   loggedInSelector,
   fetchingSelector,
   uploadingCoverSelector,
+  uploadingProfileImageSelector,
   currentUserFollowersSelector,
   currentUserFollowingsSelector,
   currentUserSelector,

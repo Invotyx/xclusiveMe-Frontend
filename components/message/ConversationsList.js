@@ -12,6 +12,7 @@ import {
   chatDataSelector,
   chatCountSelector,
   activeConversationIdSelector,
+  searchResultsSelector,
 } from '../../selectors/chatSelector';
 import { useDispatch, useSelector } from 'react-redux';
 import { currentUserSelector } from '../../selectors/authSelector';
@@ -19,6 +20,7 @@ import { withStyles } from '@material-ui/core';
 import { useRouter } from 'next/router';
 import Moment from 'react-moment';
 import { chat } from '../../actions/chat';
+import Highlighter from 'react-highlight-words';
 
 const ListItem = withStyles({
   root: {
@@ -76,9 +78,13 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function ConversationsList({ subheaderPrefix }) {
+export default function ConversationsList({
+  subheaderPrefix,
+  setScrollIntoViewPointer,
+}) {
   const dispatch = useDispatch();
   const activeConversationId = useSelector(activeConversationIdSelector);
+  const searchResults = useSelector(searchResultsSelector);
   const SubheaderPrefix = () => subheaderPrefix || <></>;
   const classes = useStyles();
   const chatData = useSelector(chatDataSelector);
@@ -87,12 +93,17 @@ export default function ConversationsList({ subheaderPrefix }) {
 
   const router = useRouter();
   const { query } = router;
-  const handleOpenChat = conId => {
-    dispatch(chat.updateActiveConversationId(conId));
-    router.push({ pathname: '/chat', query: { ...query, conId } });
+  const handleOpenChat = (conId, messageId) => {
+    dispatch(chat.updateActiveConversationId(+conId));
+    router.push({ pathname: '/chat', query: { ...query, conId, messageId } });
+    messageId && setScrollIntoViewPointer(+new Date());
   };
 
   const { search } = query;
+
+  React.useEffect(() => {
+    dispatch(chat.search({ query: search }));
+  }, [search]);
 
   return (
     <List className={classes.list} disablePadding>
@@ -110,21 +121,56 @@ export default function ConversationsList({ subheaderPrefix }) {
           <ListItemText secondary='No Data Found' />
         </ListItem>
       )}
-      {chatData
-        ?.filter(c => {
-          if (search) {
-            const participant = c.participants.find(p => p.id !== myData?.id);
-            if (participant) {
-              return participant.fullName
-                .toLowerCase()
-                .indexOf(search.toLowerCase()) > -1
-                ? true
-                : false;
-            }
-          }
-          return true;
-        })
-        .map((i, x) => (
+      {Boolean(search) ? (
+        Boolean(searchResults?.length) ? (
+          searchResults.map((i, x) => (
+            <ListItem
+              key={`chatData${x}`}
+              button
+              onClick={() => handleOpenChat(i.conversationId, i.id)}
+              disableGutters
+            >
+              <ListItemAvatar>
+                <ImageAvatar src={i.sender?.profileImage} />
+              </ListItemAvatar>
+              <ListItemText
+                primary={
+                  <Typography variant='body2' display='block' color='primary'>
+                    {i.sender?.fullName}
+                  </Typography>
+                }
+                secondary={
+                  <React.Fragment>
+                    <Typography
+                      component='span'
+                      variant='body2'
+                      style={{ color: '#757575' }}
+                    >
+                      <Highlighter
+                        textToHighlight={i.content}
+                        searchWords={search?.split(' ')}
+                      />
+                    </Typography>
+                  </React.Fragment>
+                }
+              />
+
+              <ListItemSecondaryAction>
+                <Typography component='span' variant='caption'>
+                  <Moment fromNow inteval={10000}>
+                    {i.updatedAt}
+                  </Moment>
+                </Typography>
+              </ListItemSecondaryAction>
+            </ListItem>
+          ))
+        ) : (
+          <ListItem>
+            <ListItemText secondary='No result found' />
+          </ListItem>
+        )
+      ) : (
+        chatData?.map((i, x) => (
           <ListItem
             key={`chatData${x}`}
             button
@@ -145,8 +191,23 @@ export default function ConversationsList({ subheaderPrefix }) {
                   variant='body2'
                   display='block'
                   color='primary'
-                  style={{ fontWeight: !i.lastMessage.isSeen ? 700 : 400 }}
+                  style={{
+                    fontWeight:
+                      !i.lastMessage.isSeen &&
+                      i.lastMessage.sender?.id !== myData?.id
+                        ? 700
+                        : 400,
+                    fontSize:
+                      !i.lastMessage.isSeen &&
+                      i.lastMessage.sender?.id !== myData?.id
+                        ? '1rem'
+                        : '0.875rem',
+                  }}
                 >
+                  {!i.lastMessage.isSeen &&
+                    i.lastMessage.sender?.id !== myData?.id && (
+                      <span style={{ marginRight: '10px' }}>•</span>
+                    )}
                   {i.participants.find(p => p?.id !== myData?.id)?.fullName}
                 </Typography>
               }
@@ -157,9 +218,6 @@ export default function ConversationsList({ subheaderPrefix }) {
                     variant='body2'
                     style={{ color: '#757575' }}
                   >
-                    {!i.lastMessage.isSeen && (
-                      <span style={{ marginRight: '10px' }}>•</span>
-                    )}
                     {i.lastMessage.content.slice(0, 15)}...
                   </Typography>
                 </React.Fragment>
@@ -174,7 +232,8 @@ export default function ConversationsList({ subheaderPrefix }) {
               </Typography>
             </ListItemSecondaryAction>
           </ListItem>
-        ))}
+        ))
+      )}
     </List>
   );
 }
