@@ -18,6 +18,7 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { ListItem } from '@material-ui/core';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 
+
 const useStyles = makeStyles(theme => ({
   small: {
     width: '40px',
@@ -74,10 +75,21 @@ export default function Notification({ setAnchorEl }) {
                   moment().toISOString().substring(0, 10)
             );
             return temp.length ? (
-              <li key={Math.random()} className={classes.listSection}>
+              <li
+                key={Math.random()}
+                className={styles.makeScroll}
+              >
                 <ul style={{ padding: 0 }}>
-
-                    <span style={{ color: 'white', marginLeft: "20px", fontSize: "14px", fontWeight: 500 }}>{elm}</span>
+                  <span
+                    style={{
+                      color: 'white',
+                      marginLeft: '20px',
+                      fontSize: '14px',
+                      fontWeight: 500,
+                    }}
+                  >
+                    {elm}
+                  </span>
 
                   {temp.map((i, x) => (
                     <ListItem
