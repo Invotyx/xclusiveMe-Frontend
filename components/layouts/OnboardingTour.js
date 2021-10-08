@@ -156,18 +156,6 @@ const steps = [
     hideCloseButton: true,
     hideBackButton: true,
   },
-  {
-    content: (
-      <>
-        <h2>Lets get you set up</h2>
-      </>
-    ),
-    placement: 'center',
-    target: 'body',
-    floaterProps,
-    hideCloseButton: true,
-    hideBackButton: true,
-  },
 ];
 
 export default function OnboardingTour() {
