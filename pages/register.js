@@ -25,7 +25,6 @@ const useStyles = makeStyles(theme => ({
 
 export default function SignInSide({ countriesList }) {
   const fetching = useSelector(fetchingSelector);
-  const countriesList = countries; // useSelector(countriesSelector);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(auth.getCountriesList());
