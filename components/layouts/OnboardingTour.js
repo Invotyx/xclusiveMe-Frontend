@@ -53,6 +53,7 @@ export const steps = [
     floaterProps,
     hideCloseButton: true,
     hideBackButton: true,
+    disableBeacon: true,
   },
   {
     target: '.step-2',
@@ -76,6 +77,7 @@ export const steps = [
     floaterProps,
     hideCloseButton: true,
     hideBackButton: true,
+    disableBeacon: true,
   },
   {
     target: '.step-3',
@@ -99,6 +101,7 @@ export const steps = [
     floaterProps,
     hideCloseButton: true,
     hideBackButton: true,
+    disableBeacon: true,
   },
   {
     target: '.step-4',
@@ -122,6 +125,7 @@ export const steps = [
     floaterProps,
     hideCloseButton: true,
     hideBackButton: true,
+    disableBeacon: true,
   },
   {
     target: '.step-5',
@@ -145,6 +149,7 @@ export const steps = [
     floaterProps,
     hideCloseButton: true,
     hideBackButton: true,
+    disableBeacon: true,
   },
   {
     target: '.step-6',
@@ -168,6 +173,7 @@ export const steps = [
     floaterProps,
     hideCloseButton: true,
     hideBackButton: true,
+    disableBeacon: true,
   },
 ];
 
