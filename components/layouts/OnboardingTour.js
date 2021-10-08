@@ -1,8 +1,5 @@
 import Joyride from 'react-joyride';
 import React from 'react';
-import { useRouter } from 'next/router';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-import SetupAccountDialog from './SetupAccountDialog';
 import CurvedArrow from 'react-curved-arrow';
 import Typography from '@material-ui/core/Typography';
 
@@ -177,35 +174,10 @@ export const steps = [
   },
 ];
 
-export default function OnboardingTour() {
-  const setupAccountDialogButton = React.useRef();
-  const router = useRouter();
-  const { pathname } = router;
-  const isMediumAndUp = useMediaQuery(theme => theme.breakpoints.up('md'));
-  const [startTour, setStartTour] = React.useState(false);
-  const [startTourSkipped, setStartTourSkipped] = React.useState(false);
-  React.useEffect(() => {
-    setStartTourSkipped(Boolean(localStorage.getItem('OnboardingTourSkipped')));
-    setTimeout(() => setStartTour(true), 5000);
-  }, []);
+export default function OnboardingTour({ startTour, getHelpers }) {
   return (
     <>
-      <SetupAccountDialog
-        buttonProps={{
-          ref: setupAccountDialogButton,
-          style: {
-            width: 0,
-            height: 0,
-            padding: 0,
-            border: 0,
-            textIndent: '-9999px',
-          },
-        }}
-      />
-      {pathname === '/explore' &&
-        isMediumAndUp &&
-        startTour &&
-        !startTourSkipped && (
+      {startTour && (
           <Joyride
             continuous
             showSkipButton
