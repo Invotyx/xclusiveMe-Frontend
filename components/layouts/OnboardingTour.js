@@ -184,9 +184,6 @@ export default function OnboardingTour({ startTour, getHelpers }) {
             disableScrolling
             styles={styles}
             steps={steps}
-            locale={{
-              last: 'Setup your account',
-            }}
             getHelpers={getHelpers}
           />
         )}
