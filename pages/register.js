@@ -23,7 +23,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function SignInSide() {
+export default function SignInSide({ countriesList }) {
   const fetching = useSelector(fetchingSelector);
   const countriesList = countries; // useSelector(countriesSelector);
   const dispatch = useDispatch();
@@ -380,4 +380,12 @@ export default function SignInSide() {
       )}
     </LayoutGuest>
   );
+}
+export async function getStaticProps() {
+  return {
+    props: {
+      countriesList: countries,
+    },
+    revalidate: 10,
+  };
 }
