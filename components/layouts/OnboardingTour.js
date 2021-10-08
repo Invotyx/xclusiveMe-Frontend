@@ -187,6 +187,7 @@ export default function OnboardingTour({ startTour, getHelpers }) {
             locale={{
               last: 'Setup your account',
             }}
+            getHelpers={getHelpers}
           />
         )}
     </>
