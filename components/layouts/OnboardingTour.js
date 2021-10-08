@@ -33,7 +33,7 @@ export const steps = [
       <>
         <div className='tour-arrow' style={{ position: 'relative' }}>
           <CurvedArrow
-            color='#999'
+            color='#fff'
             fromSelector='.step-1'
             toSelector='.step-1'
             fromOffsetX={-100}
@@ -58,7 +58,7 @@ export const steps = [
       <>
         <div className='tour-arrow' style={{ position: 'relative' }}>
           <CurvedArrow
-            color='#999'
+            color='#fff'
             fromSelector='.step-2'
             toSelector='.step-2'
             fromOffsetX={100}
@@ -82,7 +82,7 @@ export const steps = [
       <>
         <div className='tour-arrow' style={{ position: 'relative' }}>
           <CurvedArrow
-            color='#999'
+            color='#fff'
             fromSelector='.step-3'
             toSelector='.step-3'
             fromOffsetX={100}
@@ -106,7 +106,7 @@ export const steps = [
       <>
         <div className='tour-arrow' style={{ position: 'relative' }}>
           <CurvedArrow
-            color='#999'
+            color='#fff'
             fromSelector='.step-4'
             toSelector='.step-4'
             fromOffsetX={100}
@@ -130,7 +130,7 @@ export const steps = [
       <>
         <div className='tour-arrow' style={{ position: 'relative' }}>
           <CurvedArrow
-            color='#999'
+            color='#fff'
             fromSelector='.step-5'
             toSelector='.step-5'
             fromOffsetX={100}
@@ -154,7 +154,7 @@ export const steps = [
       <>
         <div className='tour-arrow' style={{ position: 'relative' }}>
           <CurvedArrow
-            color='#999'
+            color='#fff'
             fromSelector='.step-6'
             toSelector='.step-6'
             fromOffsetX={100}
