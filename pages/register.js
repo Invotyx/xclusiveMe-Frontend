@@ -13,9 +13,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { auth } from '../actions/auth';
 import { fetchingSelector, errorSelector } from '../selectors/authSelector';
 import LayoutGuest from '../components/layouts/layout-guest-auth';
-import { countriesSelector } from '../selectors/countriesSelector';
 import CountryTextField from '../components/CountryTextField';
-import countries from '../countries.json'
+import countries from '../countries.json';
 
 const useStyles = makeStyles(theme => ({
   grey: {
@@ -23,13 +22,9 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function SignInSide() {
+export default function SignInSide({ countriesList }) {
   const fetching = useSelector(fetchingSelector);
-  const countriesList = countries;  // useSelector(countriesSelector);
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(auth.getCountriesList());
-  }, [dispatch]);
   const error = useSelector(errorSelector);
   const [validationErrors, setValidationErrors] = useState({});
   useEffect(() => {
@@ -83,8 +78,6 @@ export default function SignInSide() {
       );
     }
   };
-  
-  console.log("countriesList", countriesList)
 
   return (
     <LayoutGuest>
@@ -104,7 +97,6 @@ export default function SignInSide() {
             onChange={e => setFullName(e.target.value)}
             variant='outlined'
             margin='normal'
-            required
             fullWidth
             id='fullName'
             label='Full Name'
@@ -128,7 +120,6 @@ export default function SignInSide() {
             onChange={e => setUsername(e.target.value)}
             variant='outlined'
             margin='normal'
-            required
             fullWidth
             id='username'
             label='Username'
@@ -152,7 +143,6 @@ export default function SignInSide() {
             onChange={e => setEmail(e.target.value)}
             variant='outlined'
             margin='normal'
-            required
             fullWidth
             id='email'
             label='Email Address'
@@ -176,7 +166,6 @@ export default function SignInSide() {
             onChange={e => setPassword(e.target.value)}
             variant='outlined'
             margin='normal'
-            required
             fullWidth
             name='password'
             label='Password'
@@ -201,7 +190,6 @@ export default function SignInSide() {
             onChange={e => setConfirmPassword(e.target.value)}
             variant='outlined'
             margin='normal'
-            required
             fullWidth
             name='confirmPassword'
             label='Repeat Password'
@@ -241,9 +229,9 @@ export default function SignInSide() {
               onChange={e => {
                 setCountry(e.target.value);
                 setCountryCallingCode(
-                  countriesList.find(c => c.cca2 === e.target.value)
-                    ?.idd.root + countriesList.find(c => c.cca2 === e.target.value)
-                    ?.idd.suffixes[0]
+                  countriesList.find(c => c.cca2 === e.target.value)?.idd.root +
+                    countriesList.find(c => c.cca2 === e.target.value)?.idd
+                      .suffixes[0]
                 );
               }}
               variant='outlined'
@@ -254,11 +242,12 @@ export default function SignInSide() {
               autoComplete='country'
             >
               {countriesList?.map(c => (
-                <MenuItem
-                  value={c.cca2}
-                  key={`countriesList${c.cca2}`}
-                >
-                  {c.name.common} ({`${c?.idd?.root}${c?.idd?.suffixes ? c?.idd?.suffixes[0] : ''}`})
+                <MenuItem value={c.cca2} key={`countriesList${c.cca2}`}>
+                  {c.name.common} (
+                  {`${c?.idd?.root}${
+                    c?.idd?.suffixes ? c?.idd?.suffixes[0] : ''
+                  }`}
+                  )
                 </MenuItem>
               ))}
             </CountryTextField>
@@ -273,7 +262,6 @@ export default function SignInSide() {
               onChange={e => setPhoneNumber(e.target.value)}
               variant='outlined'
               margin='normal'
-              required
               fullWidth
               id='phoneNumber'
               label='Phone Number'
@@ -320,7 +308,6 @@ export default function SignInSide() {
             onChange={e => setCode(e.target.value)}
             variant='outlined'
             margin='normal'
-            required
             fullWidth
             id='code'
             label='Enter Code'
@@ -381,4 +368,12 @@ export default function SignInSide() {
       )}
     </LayoutGuest>
   );
+}
+export async function getStaticProps() {
+  return {
+    props: {
+      countriesList: countries,
+    },
+    revalidate: 10,
+  };
 }

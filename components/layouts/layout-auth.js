@@ -1,7 +1,7 @@
 import LogoAuth from './logo-auth';
 import BottomNav from './bottom-nav';
 import Box from '@material-ui/core/Box';
-import OnboardingTour from './OnboardingTour';
+import OnboardingTourDialog from './OnboardingTourDialog';
 
 export default function Layout({ children, hideMainAppBar, ...props }) {
   return (
@@ -20,7 +20,7 @@ export default function Layout({ children, hideMainAppBar, ...props }) {
       <Box display={{ xs: 'flex', sm: 'flex', md: 'none' }}>
         <BottomNav />
       </Box>
-      <OnboardingTour />
+      <OnboardingTourDialog />
     </>
   );
 }
