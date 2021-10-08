@@ -1,7 +1,13 @@
 import ImageAvatar from '../image-avatar';
 
-export default function ProfileImageAvatar({ user, ...props }) {
+export default function ProfileImageAvatar({ user, variant,liveLink, ...props }) {
   return (
-    <ImageAvatar src={user?.profileImage} alt={user?.fullName} {...props} />
+    <ImageAvatar
+      src={user?.profileImage}
+      liveLink={liveLink && liveLink}
+      alt={user?.fullName}
+      variant={variant && variant}
+      {...props}
+    />
   );
 }
