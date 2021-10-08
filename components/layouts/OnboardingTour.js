@@ -30,18 +30,6 @@ const floaterProps = {
 
 const steps = [
   {
-    content: (
-      <>
-        <h2>Let's begin our journey!</h2>
-      </>
-    ),
-    placement: 'center',
-    target: 'body',
-    floaterProps,
-    hideCloseButton: true,
-    hideBackButton: true,
-  },
-  {
     target: '.step-1',
     content: (
       <>
