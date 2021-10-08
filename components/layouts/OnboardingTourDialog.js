@@ -58,7 +58,6 @@ function SimpleDialog(props) {
     onClose();
     if (helpers) {
       const { skip } = helpers;
-      console.log(skip);
       skip();
     }
   };
