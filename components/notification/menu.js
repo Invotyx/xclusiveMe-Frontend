@@ -4,14 +4,24 @@ import Menu from '@material-ui/core/Menu';
 import style from "./newPost.module.css"
 
 const useStyles = makeStyles(() => ({
-  root: {
-    width: 'auto',
-    marginLeft: '-170px',
-    marginTop: "25px"
-  },
   paper: {
-    width: "500px"
-  }
+    width: '500px',
+    marginLeft: '-180px',
+    '&::-webkit-scrollbar': {
+      width: '0.3em',
+    },
+    '&::-webkit-scrollbar-track': {
+      boxShadow: 'inset 0 0 5px rgba(0,0,0,0.00)',
+      webkitBoxShadow: 'inset 0 0 5px rgba(0,0,0,0.00)',
+    },
+    '&::-webkit-scrollbar-thumb': {
+      backgroundColor: 'white',
+      outline: '1px solid grey',
+    },
+    "@media (max-height: 900px)": {
+      marginTop:"0px"
+    }
+  },
 }));
 
 export default function NotificationMenu({
@@ -35,7 +45,6 @@ export default function NotificationMenu({
         horizontal: 'middle',
       }}
       classes={{paper: classes.paper}}
-      className={style.notificationMenu}
     >
       {children}
     </Menu>

@@ -62,23 +62,3 @@
     font-size: 14px;
     font-style: normal;
 }
-
-.notificationMenu{
-    width: auto !important;
-    margin-left: -80px !important;
-}
-
-.notificationList{
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
-}
-
-.notificationList::-webkit-scrollbar{
-    display: none;
-}
-
-@media screen and (max-height: 900px) {
-  .notificationMenu{
-      margin-top: 0px !important;
-  }
-}
