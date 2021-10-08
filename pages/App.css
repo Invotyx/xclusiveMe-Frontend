@@ -49,6 +49,7 @@
 
 .react-joyride__tooltip button[data-action='primary'] {
   color: #000 !important;
+  display: none;
 }
 
 .react-joyride__tooltip button[data-action='skip'] {
