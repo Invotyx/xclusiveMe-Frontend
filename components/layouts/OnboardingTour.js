@@ -178,14 +178,14 @@ export default function OnboardingTour({ startTour, getHelpers }) {
   return (
     <>
       {startTour && (
-          <Joyride
-            continuous
-            disableScrolling
-            styles={styles}
-            steps={steps}
-            getHelpers={getHelpers}
-          />
-        )}
+        <Joyride
+          continuous
+          disableScrolling
+          styles={styles}
+          steps={steps}
+          getHelpers={getHelpers}
+        />
+      )}
     </>
   );
 }
