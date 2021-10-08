@@ -28,7 +28,7 @@ const floaterProps = {
   },
 };
 
-const steps = [
+export const steps = [
   {
     target: '.step-1',
     content: (
