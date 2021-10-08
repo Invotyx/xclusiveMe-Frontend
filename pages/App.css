@@ -49,6 +49,13 @@
   color: #000 !important;
 }
 
+.react-joyride__tooltip button[data-action='skip'] {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 40vh;
+}
+
 .tour-arrow > canvas {
   position: relative !important;
   top: 0 !important;
