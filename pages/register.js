@@ -97,7 +97,6 @@ export default function SignInSide({ countriesList }) {
             onChange={e => setFullName(e.target.value)}
             variant='outlined'
             margin='normal'
-            required
             fullWidth
             id='fullName'
             label='Full Name'
@@ -121,7 +120,6 @@ export default function SignInSide({ countriesList }) {
             onChange={e => setUsername(e.target.value)}
             variant='outlined'
             margin='normal'
-            required
             fullWidth
             id='username'
             label='Username'
@@ -145,7 +143,6 @@ export default function SignInSide({ countriesList }) {
             onChange={e => setEmail(e.target.value)}
             variant='outlined'
             margin='normal'
-            required
             fullWidth
             id='email'
             label='Email Address'
@@ -169,7 +166,6 @@ export default function SignInSide({ countriesList }) {
             onChange={e => setPassword(e.target.value)}
             variant='outlined'
             margin='normal'
-            required
             fullWidth
             name='password'
             label='Password'
@@ -194,7 +190,6 @@ export default function SignInSide({ countriesList }) {
             onChange={e => setConfirmPassword(e.target.value)}
             variant='outlined'
             margin='normal'
-            required
             fullWidth
             name='confirmPassword'
             label='Repeat Password'
@@ -267,7 +262,6 @@ export default function SignInSide({ countriesList }) {
               onChange={e => setPhoneNumber(e.target.value)}
               variant='outlined'
               margin='normal'
-              required
               fullWidth
               id='phoneNumber'
               label='Phone Number'
@@ -314,7 +308,6 @@ export default function SignInSide({ countriesList }) {
             onChange={e => setCode(e.target.value)}
             variant='outlined'
             margin='normal'
-            required
             fullWidth
             id='code'
             label='Enter Code'

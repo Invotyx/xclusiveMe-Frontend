@@ -9,6 +9,9 @@ const useStyles = makeStyles(() => ({
     marginLeft: '-170px',
     marginTop: "25px"
   },
+  paper: {
+    width: "500px"
+  }
 }));
 
 export default function NotificationMenu({
@@ -31,6 +34,7 @@ export default function NotificationMenu({
         vertical: 'bottom',
         horizontal: 'middle',
       }}
+      classes={{paper: classes.paper}}
       className={style.notificationMenu}
     >
       {children}

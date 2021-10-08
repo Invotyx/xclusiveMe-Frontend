@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
-import ListSubheader from '@material-ui/core/ListSubheader';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Typography from '@material-ui/core/Typography';
@@ -17,7 +16,6 @@ import ProfileImageAvatar from '../profile/profile-image-avatar';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { ListItem } from '@material-ui/core';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
-
 
 const useStyles = makeStyles(theme => ({
   small: {
