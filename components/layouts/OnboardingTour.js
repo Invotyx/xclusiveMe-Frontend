@@ -180,7 +180,6 @@ export default function OnboardingTour({ startTour, getHelpers }) {
       {startTour && (
           <Joyride
             continuous
-            showSkipButton
             disableScrolling
             styles={styles}
             steps={steps}
