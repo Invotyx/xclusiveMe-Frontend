@@ -226,6 +226,7 @@ export default function OnboardingTour() {
             callback={handleJoyrideCallback}
             continuous
             showSkipButton
+            disableScrolling
             styles={styles}
             steps={steps}
             locale={{
