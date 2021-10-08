@@ -43,6 +43,10 @@
   outline: 0;
 }
 
+.react-joyride__overlay {
+  display: none;
+}
+
 .react-joyride__tooltip button[data-action='primary'] {
   color: #000 !important;
 }
