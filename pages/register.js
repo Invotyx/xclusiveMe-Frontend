@@ -25,9 +25,6 @@ const useStyles = makeStyles(theme => ({
 export default function SignInSide({ countriesList }) {
   const fetching = useSelector(fetchingSelector);
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(auth.getCountriesList());
-  }, [dispatch]);
   const error = useSelector(errorSelector);
   const [validationErrors, setValidationErrors] = useState({});
   useEffect(() => {
