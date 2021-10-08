@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import SetupAccountDialog from './SetupAccountDialog';
 import CurvedArrow from 'react-curved-arrow';
+import Typography from '@material-ui/core/Typography';
 
 const styles = {
   options: {
@@ -43,7 +44,9 @@ export const steps = [
             middleY={40}
           />
         </div>
-        <h2>Your newsfeed appears here</h2>
+        <Typography style={{ fontWeight: 400 }}>
+          Your newsfeed appears here
+        </Typography>
       </>
     ),
     placement: 'right-start',
@@ -65,7 +68,9 @@ export const steps = [
             middleY={40}
           />
         </div>
-        <h2>Ready for you first masterpiece</h2>
+        <Typography style={{ fontWeight: 400 }}>
+          Ready for you first masterpiece
+        </Typography>
       </>
     ),
     floaterProps,
@@ -86,7 +91,9 @@ export const steps = [
             middleY={40}
           />
         </div>
-        <h2>Search your friends and Family</h2>
+        <Typography style={{ fontWeight: 400 }}>
+          Search your friends and Family
+        </Typography>
       </>
     ),
     floaterProps,
@@ -107,7 +114,9 @@ export const steps = [
             middleY={40}
           />
         </div>
-        <h2>All your settings here</h2>
+        <Typography style={{ fontWeight: 400 }}>
+          All your settings here
+        </Typography>
       </>
     ),
     floaterProps,
@@ -128,7 +137,9 @@ export const steps = [
             middleY={40}
           />
         </div>
-        <h2>Check out your notifications here</h2>
+        <Typography style={{ fontWeight: 400 }}>
+          Check out your notifications here
+        </Typography>
       </>
     ),
     floaterProps,
@@ -149,7 +160,9 @@ export const steps = [
             middleY={40}
           />
         </div>
-        <h2>Chat with your Followers!</h2>
+        <Typography style={{ fontWeight: 400 }}>
+          Chat with your Followers!
+        </Typography>
       </>
     ),
     floaterProps,
