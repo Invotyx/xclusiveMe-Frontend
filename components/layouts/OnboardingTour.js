@@ -188,22 +188,6 @@ export default function OnboardingTour() {
     setStartTourSkipped(Boolean(localStorage.getItem('OnboardingTourSkipped')));
     setTimeout(() => setStartTour(true), 5000);
   }, []);
-  const handleJoyrideCallback = data => {
-    const { action, index, status, type } = data;
-    if (action === 'skip') {
-      localStorage.setItem('OnboardingTourSkipped', 1);
-    }
-    if (
-      action === 'next' &&
-      index === 7 &&
-      status === 'finished' &&
-      type === 'tour:end'
-    ) {
-      localStorage.setItem('OnboardingTourSkipped', 1);
-      //
-      setupAccountDialogButton.current.click();
-    }
-  };
   return (
     <>
       <SetupAccountDialog
@@ -223,7 +207,6 @@ export default function OnboardingTour() {
         startTour &&
         !startTourSkipped && (
           <Joyride
-            callback={handleJoyrideCallback}
             continuous
             showSkipButton
             disableScrolling
