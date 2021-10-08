@@ -84,8 +84,6 @@ export default function SignInSide() {
     }
   };
 
-  console.log('countriesList', countriesList);
-
   return (
     <LayoutGuest>
       <Head>
