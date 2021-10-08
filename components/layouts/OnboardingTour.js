@@ -30,7 +30,7 @@ export const steps = [
   {
     target: '.step-1',
     content: (
-      <>
+      <div style={{ position: 'relative', left: '-150px' }}>
         <div className='tour-arrow' style={{ position: 'relative' }}>
           <CurvedArrow
             color='#fff'
@@ -44,7 +44,7 @@ export const steps = [
         <Typography style={{ fontWeight: 400 }}>
           Your newsfeed appears here
         </Typography>
-      </>
+      </div>
     ),
     placement: 'right-start',
     floaterProps,
@@ -55,7 +55,7 @@ export const steps = [
   {
     target: '.step-2',
     content: (
-      <>
+      <div style={{ position: 'relative', top: '-50px' }}>
         <div className='tour-arrow' style={{ position: 'relative' }}>
           <CurvedArrow
             color='#fff'
@@ -69,7 +69,7 @@ export const steps = [
         <Typography style={{ fontWeight: 400 }}>
           Ready for you first masterpiece
         </Typography>
-      </>
+      </div>
     ),
     floaterProps,
     hideCloseButton: true,
@@ -79,8 +79,11 @@ export const steps = [
   {
     target: '.step-3',
     content: (
-      <>
-        <div className='tour-arrow' style={{ position: 'relative' }}>
+      <div style={{ position: 'relative', top: '-50px' }}>
+        <div
+          className='tour-arrow'
+          style={{ position: 'relative', right: '60px' }}
+        >
           <CurvedArrow
             color='#fff'
             fromSelector='.step-3'
@@ -93,7 +96,7 @@ export const steps = [
         <Typography style={{ fontWeight: 400 }}>
           Search your friends and Family
         </Typography>
-      </>
+      </div>
     ),
     floaterProps,
     hideCloseButton: true,
@@ -103,8 +106,11 @@ export const steps = [
   {
     target: '.step-4',
     content: (
-      <>
-        <div className='tour-arrow' style={{ position: 'relative' }}>
+      <div style={{ position: 'relative', top: '-50px' }}>
+        <div
+          className='tour-arrow'
+          style={{ position: 'relative', left: '90px' }}
+        >
           <CurvedArrow
             color='#fff'
             fromSelector='.step-4'
@@ -117,7 +123,7 @@ export const steps = [
         <Typography style={{ fontWeight: 400 }}>
           All your settings here
         </Typography>
-      </>
+      </div>
     ),
     floaterProps,
     hideCloseButton: true,
@@ -127,8 +133,11 @@ export const steps = [
   {
     target: '.step-5',
     content: (
-      <>
-        <div className='tour-arrow' style={{ position: 'relative' }}>
+      <div style={{ position: 'relative', top: '-50px' }}>
+        <div
+          className='tour-arrow'
+          style={{ position: 'relative', right: '50px' }}
+        >
           <CurvedArrow
             color='#fff'
             fromSelector='.step-5'
@@ -141,7 +150,7 @@ export const steps = [
         <Typography style={{ fontWeight: 400 }}>
           Check out your notifications here
         </Typography>
-      </>
+      </div>
     ),
     floaterProps,
     hideCloseButton: true,
@@ -151,7 +160,7 @@ export const steps = [
   {
     target: '.step-6',
     content: (
-      <>
+      <div style={{ position: 'relative', top: '-50px' }}>
         <div className='tour-arrow' style={{ position: 'relative' }}>
           <CurvedArrow
             color='#fff'
@@ -165,7 +174,7 @@ export const steps = [
         <Typography style={{ fontWeight: 400 }}>
           Chat with your Followers!
         </Typography>
-      </>
+      </div>
     ),
     floaterProps,
     hideCloseButton: true,
