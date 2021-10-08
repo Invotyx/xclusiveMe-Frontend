@@ -13,7 +13,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { auth } from '../actions/auth';
 import { fetchingSelector, errorSelector } from '../selectors/authSelector';
 import LayoutGuest from '../components/layouts/layout-guest-auth';
-import { countriesSelector } from '../selectors/countriesSelector';
 import CountryTextField from '../components/CountryTextField';
 import countries from '../countries.json';
 
