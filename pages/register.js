@@ -15,7 +15,7 @@ import { fetchingSelector, errorSelector } from '../selectors/authSelector';
 import LayoutGuest from '../components/layouts/layout-guest-auth';
 import { countriesSelector } from '../selectors/countriesSelector';
 import CountryTextField from '../components/CountryTextField';
-import countries from '../countries.json'
+import countries from '../countries.json';
 
 const useStyles = makeStyles(theme => ({
   grey: {
@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function SignInSide() {
   const fetching = useSelector(fetchingSelector);
-  const countriesList = countries;  // useSelector(countriesSelector);
+  const countriesList = countries; // useSelector(countriesSelector);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(auth.getCountriesList());
@@ -83,8 +83,8 @@ export default function SignInSide() {
       );
     }
   };
-  
-  console.log("countriesList", countriesList)
+
+  console.log('countriesList', countriesList);
 
   return (
     <LayoutGuest>
@@ -241,9 +241,9 @@ export default function SignInSide() {
               onChange={e => {
                 setCountry(e.target.value);
                 setCountryCallingCode(
-                  countriesList.find(c => c.cca2 === e.target.value)
-                    ?.idd.root + countriesList.find(c => c.cca2 === e.target.value)
-                    ?.idd.suffixes[0]
+                  countriesList.find(c => c.cca2 === e.target.value)?.idd.root +
+                    countriesList.find(c => c.cca2 === e.target.value)?.idd
+                      .suffixes[0]
                 );
               }}
               variant='outlined'
@@ -254,11 +254,12 @@ export default function SignInSide() {
               autoComplete='country'
             >
               {countriesList?.map(c => (
-                <MenuItem
-                  value={c.cca2}
-                  key={`countriesList${c.cca2}`}
-                >
-                  {c.name.common} ({`${c?.idd?.root}${c?.idd?.suffixes ? c?.idd?.suffixes[0] : ''}`})
+                <MenuItem value={c.cca2} key={`countriesList${c.cca2}`}>
+                  {c.name.common} (
+                  {`${c?.idd?.root}${
+                    c?.idd?.suffixes ? c?.idd?.suffixes[0] : ''
+                  }`}
+                  )
                 </MenuItem>
               ))}
             </CountryTextField>
