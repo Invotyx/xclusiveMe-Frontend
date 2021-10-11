@@ -174,7 +174,9 @@ export default function Comp({ sidebarMenu, set_sidebarMenu }) {
                     <img src='/notifications.png' alt='' />
                   ) : (
                     <Badge color='secondary'>
-                      <CheckBoxOutlineBlankIcon />
+                      <CheckBoxOutlineBlankIcon
+                        style={{ width: '30px', height: '30px' }}
+                      />
                     </Badge>
                   )}
                 </IconButton>
