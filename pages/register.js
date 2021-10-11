@@ -212,7 +212,7 @@ export default function SignInSide({ countriesList }) {
                   <Icon>
                     <img
                       src={
-                        countriesList.find(c => c.cca2 === country)?.flags.svg
+                        countriesList?.find(c => c.cca2 === country)?.flags.svg
                       }
                       style={{ width: '100%' }}
                     />
@@ -229,8 +229,9 @@ export default function SignInSide({ countriesList }) {
               onChange={e => {
                 setCountry(e.target.value);
                 setCountryCallingCode(
-                  countriesList.find(c => c.cca2 === e.target.value)?.idd.root +
-                    countriesList.find(c => c.cca2 === e.target.value)?.idd
+                  countriesList?.find(c => c.cca2 === e.target.value)?.idd
+                    .root +
+                    countriesList?.find(c => c.cca2 === e.target.value)?.idd
                       .suffixes[0]
                 );
               }}
@@ -347,6 +348,13 @@ export default function SignInSide({ countriesList }) {
               fullWidth
               variant='contained'
               color='primary'
+              style={{
+                fontFamily: 'Poppins',
+                fontWeight: 500,
+                fontStyle: 'normal',
+                fontSize: ' 17px',
+                lineHeight: '30px',
+              }}
             >
               Verify
             </TileButton>
