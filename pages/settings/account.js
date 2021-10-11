@@ -232,6 +232,7 @@ export default function Home(props) {
                   name='email'
                   label='Email'
                   type='email'
+                  disabled={email === '' ? false : true}
                   error={validationErrors && validationErrors.email}
                   helperText={
                     validationErrors.email
