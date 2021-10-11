@@ -83,7 +83,7 @@ export default function Home(props) {
       </Head>
       <Box display='flex' mb={2}>
         <Box flexGrow={1}>
-          <Typography variant='h6'>Billing methods</Typography>
+          <Typography variant='h6'>Billing Methods</Typography>
         </Box>
         <BillingAddDialog />
       </Box>
