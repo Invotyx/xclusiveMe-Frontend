@@ -147,9 +147,7 @@ export default function Comp({ sidebarMenu, set_sidebarMenu }) {
                 </Box>
                 <NextLink passHref href={`/x/${me?.username}`}>
                   <IconButton component='a' color='inherit'>
-                    <CurrentUserProfileImageAvatar
-                      styles={true}
-                    />
+                    <CurrentUserProfileImageAvatar styles={true} />
                   </IconButton>
                 </NextLink>
               </Box>
@@ -158,7 +156,8 @@ export default function Comp({ sidebarMenu, set_sidebarMenu }) {
               <Box ml={3} display={{ xs: 'none', sm: 'none', md: 'flex' }}>
                 <NextLink href='/search' passHref>
                   <IconButton color='inherit' className='step-3'>
-                    <SearchIcon />
+                    {/* <SearchIcon /> */}
+                    <img src='/searchme.png' alt='' />
                   </IconButton>
                 </NextLink>
               </Box>
@@ -169,9 +168,10 @@ export default function Comp({ sidebarMenu, set_sidebarMenu }) {
                   className='step-5'
                 >
                   {read > 0 ? (
-                    <Badge color='secondary' variant='dot'>
-                      <CheckBoxOutlineBlankIcon />
-                    </Badge>
+                    // <Badge color='secondary' variant='dot'>
+                    //   <CheckBoxOutlineBlankIcon />
+                    // </Badge>
+                    <img src='/notifications.png' alt='' />
                   ) : (
                     <Badge color='secondary'>
                       <CheckBoxOutlineBlankIcon />
@@ -198,7 +198,7 @@ export default function Comp({ sidebarMenu, set_sidebarMenu }) {
               <Box ml={3}>
                 <NextLink href='/settings/account' passHref>
                   <IconButton color='inherit' className='step-4'>
-                    <SettingsIcon />
+                    <SettingsIcon style={{ width: '30px', height: '30px' }} />
                   </IconButton>
                 </NextLink>
               </Box>
