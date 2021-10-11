@@ -447,24 +447,22 @@ export default function Profile({
                             )}
                             <>
                               <ManuButton
-                                tip={user?.id}
+                                // tip={user?.id}
                                 title='Report this User'
                                 profileImage={profileData?.profileImage}
-                                onConfirm={{
-                                  onConfirm: (reason, callback) => {
-                                    const itemId = profileData?.id;
-                                    dispatch(
-                                      userAction.report({
-                                        reportData: {
-                                          itemId,
-                                          reason,
-                                        },
-                                        callback: () => {
-                                          callback && callback();
-                                        },
-                                      })
-                                    );
-                                  },
+                                onConfirm={(reason, callback) => {
+                                  const itemId = profileData?.id;
+                                  dispatch(
+                                    userAction.report({
+                                      reportData: {
+                                        itemId,
+                                        reason,
+                                      },
+                                      callback: () => {
+                                        callback && callback();
+                                      },
+                                    })
+                                  );
                                 }}
                               />
                             </>

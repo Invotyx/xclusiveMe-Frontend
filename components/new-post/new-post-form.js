@@ -193,7 +193,7 @@ export default function NewPostForm({ afterSave }) {
           inputProps={{
             style: {
               fontFamily: 'Poppins',
-              fontSize: '18px',
+              fontSize: '16px',
             },
           }}
         />
@@ -289,7 +289,7 @@ export default function NewPostForm({ afterSave }) {
                 <Typography
                   variant='subtitle1'
                   style={{
-                    fontWeight: 600,
+                    fontWeight: 400,
                     lineHeight: '30px',
                     fontSize: '16px',
                   }}

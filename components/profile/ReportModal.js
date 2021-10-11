@@ -51,7 +51,7 @@ const useReportModal = ({ onConfirm }) => {
     setreportModal(false);
   };
 
-  const ReportModal = ({ title, profileImage, post }) => (
+  const ReportModal = ({ title, profileImage, post, props }) => (
     <Modal
       aria-labelledby='transition-modal-title'
       aria-describedby='transition-modal-description'

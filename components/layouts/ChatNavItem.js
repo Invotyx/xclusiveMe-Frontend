@@ -26,7 +26,7 @@ export default function ChatNavItem() {
         <NextLink href='/chat' passHref>
           <IconButton color='inherit' className='step-6'>
             <Badge color='secondary' variant={hasUnreadMessages ? 'dot' : ''}>
-              <SmsIcon />
+              <SmsIcon style={{ width: '30px', height: '30px' }} />
             </Badge>
           </IconButton>
         </NextLink>
@@ -38,7 +38,7 @@ export default function ChatNavItem() {
             onClick={e => setMessageEl(e.currentTarget)}
           >
             <Badge color='secondary' variant={'dot'}>
-              <SmsIcon />
+              <SmsIcon style={{ width: '30px', height: '30px' }} />
             </Badge>
           </IconButton>
           <div>
