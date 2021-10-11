@@ -9,7 +9,7 @@ import LockedPost from './LockedPost';
 const useStyles = makeStyles(theme => ({
   media: {
     height: 0,
-    paddingTop: '56.25%', // 16:9
+    paddingTop: '50.25%', // 16:9
   },
   modal: {
     display: 'flex',
@@ -20,7 +20,6 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: 'black',
     border: 'none',
     boxShadow: theme.shadows[5],
-
     width: '40vw',
     height: 'auto',
   },
