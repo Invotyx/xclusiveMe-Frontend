@@ -59,16 +59,16 @@ export default function SubscriptionForm({
       {!fieldOnly && (
         <>
           <Box my={2}>
-            <UppercaseInputLabel>
-              <span>Set Up A Subscription Fee</span>{' '}
-            </UppercaseInputLabel>
+            <Typography variant='h7' style={{ color: '#868686' }}>
+              Set up a Subscription Fee
+            </Typography>
           </Box>
           <Box mb={2}>
             <Divider />
           </Box>
           {fetching && <CircularProgress />}
           <Box my={2}>
-            <Typography variant='subtitle2'>Add a subscription fee</Typography>
+            <Typography variant='h6'>Add a subscription fee</Typography>
           </Box>
           <Box my={2}>
             <Typography variant='body2'>
