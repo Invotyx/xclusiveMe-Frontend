@@ -19,7 +19,6 @@ const notifications = () => {
 
   tempArr = ourdata;
 
-
   useEffect(() => {
     dispatch(post.requestSettingsNotifications());
   }, []);
@@ -130,7 +129,7 @@ const notifications = () => {
         <title>Notification — Settings</title>
       </Head>
       <Box>
-        <Typography variant='h6' style={{ color: '#868686' }}>
+        <Typography variant='h7' style={{ color: '#868686' }}>
           Other Settings
         </Typography>
       </Box>
