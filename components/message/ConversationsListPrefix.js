@@ -13,10 +13,7 @@ export default function ConversationsListPrefix({ onMediaUploaded }) {
       }}
     >
       <SearchConversations />
-      <MessageModalMedia
-        type='text'
-        onMediaUploaded={onMediaUploaded}
-      >
+      <MessageModalMedia type='text' onMediaUploaded={onMediaUploaded}>
         <IconButton
           size='small'
           style={{
