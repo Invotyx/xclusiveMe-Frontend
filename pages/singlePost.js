@@ -694,7 +694,7 @@ const SinglePost = ({ post, altHeader, currentUser }) => {
                         >
                           <RepliesData
                             comment={comm}
-                            postId={post?.id}
+                            postId={singlePost?.id}
                             isReplyField={isReplyField}
                             setisReplyField={setisReplyField}
                             issubReplyField={issubReplyField}
@@ -855,7 +855,7 @@ const SinglePost = ({ post, altHeader, currentUser }) => {
                           >
                             <RepliesData
                               comment={comm}
-                              postId={post?.id}
+                              postId={singlePost?.id}
                               isReplyField={isReplyField}
                               setisReplyField={setisReplyField}
                               issubReplyField={issubReplyField}
