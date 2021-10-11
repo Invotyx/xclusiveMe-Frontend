@@ -85,7 +85,7 @@ export default function Home() {
                     inputProps={{
                       style: {
                         fontFamily: 'Poppins',
-                        fontWeight: 'bold',
+
                         marginLeft: '5px',
                       },
                     }}
