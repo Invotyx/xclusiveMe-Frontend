@@ -449,7 +449,7 @@ export default function Profile({
                               <ManuButton
                                 // tip={user?.id}
                                 title='Report this User'
-                                profileImage={profileData?.profileImage}
+                                profileImage={profileData}
                                 onConfirm={(reason, callback) => {
                                   const itemId = profileData?.id;
                                   dispatch(

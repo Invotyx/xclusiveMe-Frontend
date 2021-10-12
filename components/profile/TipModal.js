@@ -111,7 +111,7 @@ const TipModal = ({
                     }}
                   >
                     <ProfileImageAvatar
-                      user={profileImage}
+                      user={profileImage?.user}
                       style={{
                         borderRadius: '50%',
                         marginTop: '-20px',
@@ -180,6 +180,7 @@ const TipModal = ({
                           inputRef={priceFieldRef}
                           defaultValue={addPrice}
                           name='addPrice'
+                          style={{ marginBottom: '20px' }}
                           onKeyDown={e => {
                             if (e.key === '.') {
                               e.preventDefault();
@@ -188,15 +189,6 @@ const TipModal = ({
                         />
                       </form>
                     </div>
-
-                    <p
-                      style={{
-                        color: '#444444',
-                        marginLeft: '65px',
-                      }}
-                    >
-                      Total Amount
-                    </p>
                   </div>
                 </div>
 
@@ -303,7 +295,7 @@ const TipModal = ({
                 <div>
                   <div style={{ display: 'flex', justifyContent: 'center' }}>
                     <ProfileImageAvatar
-                      user={profileImage}
+                      user={profileImage?.user}
                       style={{
                         borderRadius: '50%',
                         marginTop: '20px',

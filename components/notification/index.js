@@ -35,7 +35,9 @@ const useStyles = makeStyles(theme => ({
     },
   },
   listSection: {
-    backgroundColor: 'inherit',
+    backgroundColor: '#111111',
+    marginTop: '3px',
+    fontFamily: 'Poppins',
   },
   ul: {
     backgroundColor: 'inherit',
