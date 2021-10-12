@@ -349,7 +349,7 @@ export default function Post({
                   ) : (
                     <>
                       <TipModal
-                        profileImage={post?.user?.profileImage}
+                        profileImage={post}
                         name={post?.user?.fullName}
                         onConfirm={(amount, callback) =>
                           dispatch(
