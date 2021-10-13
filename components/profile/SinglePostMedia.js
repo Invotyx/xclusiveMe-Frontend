@@ -7,6 +7,7 @@ import PostMediaVideo from './post-media-video';
 import Carousel from 'react-material-ui-carousel';
 import { Paper, Button } from '@material-ui/core';
 import LockedPost from './LockedPost';
+import PostMediaAudio from './SinglePostAudio';
 
 const useStyles = makeStyles(theme => ({
   media: {
@@ -50,6 +51,8 @@ function MediaElement({ m }) {
         }}
       />
     </div>
+  ) : m.type === 'upload' ? (
+    <PostMediaAudio src={m.url} />
   ) : (
     <CardMedia className={classes.media} image={m.url} title='post media' />
   );
