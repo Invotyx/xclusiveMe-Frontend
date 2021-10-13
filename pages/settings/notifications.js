@@ -129,8 +129,8 @@ const notifications = () => {
         <title>Notification — Settings</title>
       </Head>
       <Box>
-        <Typography variant='h7' style={{ color: '#868686' }}>
-          Other Settings
+        <Typography style={{ color: '#868686', fontSize: '18px' }}>
+          OTHER SETTINGS
         </Typography>
       </Box>
       <Box mt={2} mb={2}>
