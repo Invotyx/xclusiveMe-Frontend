@@ -59,8 +59,8 @@ export default function SubscriptionForm({
       {!fieldOnly && (
         <>
           <Box my={2}>
-            <Typography variant='h7' style={{ color: '#868686' }}>
-              Set up a Subscription Fee
+            <Typography style={{ color: '#868686', fontSize: '17px' }}>
+              SET UP A SUBSCRIPTION FEE
             </Typography>
           </Box>
           <Box mb={2}>
