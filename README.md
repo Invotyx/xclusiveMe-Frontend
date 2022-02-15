@@ -6,8 +6,6 @@ XclusiveMe is a social media platform that empowers content creators by giving t
 
 ![BA9D83F0-0E42-4853-AB29-27D901281AFF](https://user-images.githubusercontent.com/73292081/154040285-63c416b8-a8c9-40b1-87cb-9f7e4989c740.jpeg)
 ---
-![95AC79CE-D3F2-4769-95E3-0AE484E6DC92](https://user-images.githubusercontent.com/73292081/154040311-cc7ebf8e-47ad-433a-945c-4a66bcafe36c.jpeg)
----
 ![5BC5F40C-97EC-4DB7-ADD7-88E2711E25A3](https://user-images.githubusercontent.com/73292081/154040317-1ed4bddc-927d-4da0-86d1-989763d5a4a4.jpeg)
 ---
 ![E22E020C-1F5B-4B4C-B02B-F22340199783](https://user-images.githubusercontent.com/73292081/154040324-528b50e9-872c-4a60-9e48-eed7c7e846f1.jpeg)
