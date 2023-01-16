@@ -38,7 +38,7 @@ jobs:
         shell: bash
         run: echo "BASE_URL=$(echo https://api.dev.xclusiveme.ga/api)" >> $GITHUB_ENV
       - name: Build and push
-        uses: docker/build-push-action@v2.9.0
+        uses: docker/build-push-action@v3.3.0
         with:
           context: .
           file: ./Dockerfile
